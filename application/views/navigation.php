@@ -105,7 +105,7 @@
             </li>
             
            <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#editors" aria-expanded="false" aria-controls="editors">
+              <a class="nav-link" data-toggle="collapse" href="" aria-expanded="false" aria-controls="editors">
                 <i class="typcn typcn-point-of-interest-outline menu-icon"></i>
                 <span class="menu-title">Comparison And Deviation Report</span>
                 <i class="menu-arrow"></i>

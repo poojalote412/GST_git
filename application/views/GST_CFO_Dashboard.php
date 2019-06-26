@@ -54,7 +54,7 @@ $this->load->view('navigation');
         </div>
     
 </div>
-
+<?php $this->load->view('footer'); ?>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 <script>
     $("#import").click(function (event) {
