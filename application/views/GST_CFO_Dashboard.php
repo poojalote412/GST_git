@@ -54,6 +54,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Turnover Vs Tax Liability</h4>
+                            <h4 class="card-title">Avgrund Popup</h4>
+                            <p class="card-description">Avgrund simple popup</p>
+                            <a href="#" id="show" class="btn btn-outline-danger">Click here!</a>
 
                             <form class="forms-sample" id="import_form" method="post" name="import_form" enctype="multipart/form-data">
 
@@ -88,7 +91,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
                                 <br>
 
-                                
+
                             </form>
                             <div id="container"></div>
                             <!--<div class="content-wrapper">-->
@@ -168,8 +171,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                 <button class="btn btn-outline-primary">View</button>
                                                             </td>
                                                         </tr>
-                                                       
-                                                        
+
+
                                                     </tbody>
                                                 </table>
                                             </div>
