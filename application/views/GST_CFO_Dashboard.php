@@ -1,61 +1,20 @@
 <?php
 $this->load->view('header');
-//$this->load->view('web_rmt/cua_navigation');
-//$this->load->view('web_rmt/dashboard_tab');
-defined('BASEPATH') OR exit('No direct script access allowed');
+$this->load->view('navigation');
+
+
 ?>
 
-
-
-<body>
-    <div class="container-scroller">
-        <!-- partial:../../partials/_navbar.html -->
-
-
-
-
-        <!-- partial -->
-        <div class="container-fluid page-body-wrapper">
-
-            <!-- partial:../../partials/_settings-panel.html -->
-            <div class="theme-setting-wrapper">
-                <div id="settings-trigger"><i class="typcn typcn-cog-outline"></i></div>
-                <div id="theme-settings" class="settings-panel">
-                    <i class="settings-close typcn typcn-delete-outline"></i>
-                    <p class="settings-heading">SIDEBAR SKINS</p>
-                    <div class="sidebar-bg-options" id="sidebar-light-theme">
-                        <div class="img-ss rounded-circle bg-light border mr-3"></div>
-                        Light
-                    </div>
-                    <div class="sidebar-bg-options selected" id="sidebar-dark-theme">
-                        <div class="img-ss rounded-circle bg-dark border mr-3"></div>
-                        Dark
-                    </div>
-                    <p class="settings-heading mt-2">HEADER SKINS</p>
-                    <div class="color-tiles mx-0 px-4">
-                        <div class="tiles success"></div>
-                        <div class="tiles warning"></div>
-                        <div class="tiles danger"></div>
-                        <div class="tiles primary"></div>
-                        <div class="tiles info"></div>
-                        <div class="tiles dark"></div>
-                        <div class="tiles default border"></div>
-                    </div>
-                </div>
-            </div>
-            <!-- partial -->
-            <!-- partial:../../partials/_sidebar.html -->
-            < <?php $this->load->view('navigation'); ?>
-            <!-- partial -->
-
-            <div class="content-wrapper">
-
-                <div class="col-12 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Turnover Vs Tax Liability</h4>
-
-                            <form class="forms-sample" id="import_form" method="post" name="import_form" enctype="multipart/form-data">
+<div class="main-panel">
+        <div class="content-wrapper">
+        
+            
+            <div class="col-12 grid-margin stretch-card">
+                
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Turnover Vs Tax Liability</h4>
+                        <form class="forms-sample" id="import_form" method="post" name="import_form" enctype="multipart/form-data">
 
 
                                 <div class="form-group">
@@ -81,138 +40,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <button type="button" name="import" id="import" class="btn btn-primary mr-2">Submit</button>
                                 <!--<button class="btn btn-light">Cancel</button>-->
                                 <button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun();"class="btn btn-info" >Get Graph</button>
-                            </form><br>
-                            <form method="post" id="table_form" name="table_form" enctype="multipart/form-data">
-                                <div class="table-responsive" id="customer_data">
-
-                                </div>
-                                <br>
-
-                                
                             </form>
-                            <div id="container"></div>
-                            <!--<div class="content-wrapper">-->
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Data table</h4>
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="table-responsive">
-                                                <table id="order-listing" class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Order #</th>
-                                                            <th>Purchased On</th>
-                                                            <th>Customer</th>
-                                                            <th>Ship to</th>
-                                                            <th>Base Price</th>
-                                                            <th>Purchased Price</th>
-                                                            <th>Status</th>
-                                                            <th>Actions</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>2012/08/03</td>
-                                                            <td>Edinburgh</td>
-                                                            <td>New York</td>
-                                                            <td>$1500</td>
-                                                            <td>$3200</td>
-                                                            <td>
-                                                                <label class="badge badge-info">On hold</label>
-                                                            </td>
-                                                            <td>
-                                                                <button class="btn btn-outline-primary">View</button>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>2</td>
-                                                            <td>2015/04/01</td>
-                                                            <td>Doe</td>
-                                                            <td>Brazil</td>
-                                                            <td>$4500</td>
-                                                            <td>$7500</td>
-                                                            <td>
-                                                                <label class="badge badge-danger">Pending</label>
-                                                            </td>
-                                                            <td>
-                                                                <button class="btn btn-outline-primary">View</button>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>3</td>
-                                                            <td>2010/11/21</td>
-                                                            <td>Sam</td>
-                                                            <td>Tokyo</td>
-                                                            <td>$2100</td>
-                                                            <td>$6300</td>
-                                                            <td>
-                                                                <label class="badge badge-success">Closed</label>
-                                                            </td>
-                                                            <td>
-                                                                <button class="btn btn-outline-primary">View</button>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>4</td>
-                                                            <td>2016/01/12</td>
-                                                            <td>Sam</td>
-                                                            <td>Tokyo</td>
-                                                            <td>$2100</td>
-                                                            <td>$6300</td>
-                                                            <td>
-                                                                <label class="badge badge-success">Closed</label>
-                                                            </td>
-                                                            <td>
-                                                                <button class="btn btn-outline-primary">View</button>
-                                                            </td>
-                                                        </tr>
-                                                       
-                                                        
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- content-wrapper ends -->
-                            <!-- partial:../../partials/_footer.html -->
-                            <footer class="footer">
-                                <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                                    <span class="text-center text-sm-left d-block d-sm-inline-block">Copyright © 2018 <a href="https://www.urbanui.com/" target="_blank">Urbanui</a>. All rights reserved.</span>
-                                    <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="typcn typcn-heart text-danger"></i></span>
-                                </div>
-                            </footer>
-                            <!-- partial -->
-
-                        </div>
-
+                        <div id="container"></div>
                     </div>
+                    
+                    
                 </div>
-
-
-
-                <?php $this->load->view('footer'); ?> 
-                <!-- main-panel ends -->
+                
             </div>
-            <!-- page-body-wrapper ends -->
+            
+            
+            
         </div>
-        <!-- container-scroller -->
-        <!-- base:js -->
+    
+</div>
 
-        <!-- End custom js for this page-->
-</body>
-
-
-
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 <script>
     $("#import").click(function (event) {
         var formid = document.getElementById("import_form");
         event.preventDefault();
         $.ajax({
-            url: "<?php echo base_url(); ?>Turnover_vs_liabality/import_excel",
+            url: "<?php echo base_url(); ?>GST_CFO_Dashboard/import_excel",
             type: "POST",
             data: new FormData(formid),
             contentType: false,
@@ -234,7 +83,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     {
         $.ajax({
             type: "POST",
-            url: "<?= base_url("Turnover_vs_liabality/get_graph_Turnover_vs_liabality") ?>",
+            url: "<?= base_url("GST_CFO_Dashboard/get_graph_Turnover_vs_liabality") ?>",
             dataType: "json",
             success: function (result) {
                 if (result.message === "success") {

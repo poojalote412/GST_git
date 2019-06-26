@@ -1,22 +1,13 @@
-<?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 
 
-<!-- Mirrored from www.urbanui.com/celestial/template/demo/vertical-default-light/pages/samples/blank-page.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 24 Jun 2019 05:50:59 GMT -->
+
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>CelestialUI Admin</title>
+  <title>GST Admin</title>
   <!-- base:css -->
   
    <link rel="stylesheet"  href="<?php echo base_url()."vendors/"; ?>select2-bootstrap-theme/select2-bootstrap.min.css">
@@ -32,19 +23,17 @@
   <!-- endinject -->
   <link rel="shortcut icon" href="<?php echo base_url()."images/";?>favicon.png" />
 </head>
-<body>
-  <div class="container-scroller">
-    <!-- partial:../../partials/_navbar.html -->
-    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+
+<nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-          <a class="navbar-brand brand-logo" href="../../index.html"><img src="http://www.urbanui.com/celestial/template/images/logo.svg" alt="logo"/></a>
-          <a class="navbar-brand brand-logo-mini" href="../../index.html"><img src="http://www.urbanui.com/celestial/template/images/logo-mini.svg" alt="logo"/></a>
+          <a class="navbar-brand brand-logo" href="index.html"><img src="http://www.urbanui.com/celestial/template/images/logo.svg" alt="logo"/></a>
+          <a class="navbar-brand brand-logo-mini" href="index.html"><img src="http://www.urbanui.com/celestial/template/images/logo-mini.svg" alt="logo"/></a>
           <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex" type="button" data-toggle="minimize">
             <span class="typcn typcn-th-menu"></span>
           </button>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-          <ul class="navbar-nav mr-lg-2">
+<!--          <ul class="navbar-nav mr-lg-2">
             <li class="nav-item  d-none d-lg-flex">
               <a class="nav-link" href="#">
                 Calendar
@@ -60,14 +49,14 @@
                 Employee
               </a>
             </li>
-          </ul>
+          </ul>-->
           <ul class="navbar-nav navbar-nav-right">
-            <li class="nav-item d-none d-lg-flex  mr-2">
+<!--            <li class="nav-item d-none d-lg-flex  mr-2">
               <a class="nav-link" href="#">
                 Help
               </a>
-            </li>
-            <li class="nav-item dropdown d-flex">
+            </li>-->
+<!--            <li class="nav-item dropdown d-flex">
               <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
                 <i class="typcn typcn-message-typing"></i>
                 <span class="count bg-success">2</span>
@@ -76,7 +65,7 @@
                 <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
                 <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
-                    <img src="<?php echo base_url()."vendors/"; ?>images/faces/face4.jpg" alt="image" class="profile-pic">
+                    <img src="images/faces/face4.jpg" alt="image" class="profile-pic">
                   </div>
                   <div class="preview-item-content flex-grow">
                     <h6 class="preview-subject ellipsis font-weight-normal">David Grey
@@ -88,7 +77,7 @@
                 </a>
                 <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
-                    <img src="<?php echo base_url()."vendors/"; ?>images/faces/face2.jpg" alt="image" class="profile-pic">
+                    <img src="<?php echo base_url()."images/";?>faces/face2.jpg" alt="image" class="profile-pic">
                   </div>
                   <div class="preview-item-content flex-grow">
                     <h6 class="preview-subject ellipsis font-weight-normal">Tim Cook
@@ -100,7 +89,7 @@
                 </a>
                 <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
-                    <img src="<?php echo base_url()."vendors/"; ?>images/faces/face3.jpg" alt="image" class="profile-pic">
+                    <img src="<?php echo base_url()."images/";?>faces/face3.jpg" alt="image" class="profile-pic">
                   </div>
                   <div class="preview-item-content flex-grow">
                     <h6 class="preview-subject ellipsis font-weight-normal"> Johnson
@@ -111,8 +100,8 @@
                   </div>
                 </a>
               </div>
-            </li>
-            <li class="nav-item dropdown  d-flex">
+            </li>-->
+<!--            <li class="nav-item dropdown  d-flex">
               <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
                 <i class="typcn typcn-bell mr-0"></i>
                 <span class="count bg-danger">2</span>
@@ -159,11 +148,11 @@
                   </div>
                 </a>
               </div>
-            </li>
+            </li>-->
             <li class="nav-item nav-profile dropdown">
               <a class="nav-link dropdown-toggle  pl-0 pr-0" href="#" data-toggle="dropdown" id="profileDropdown">
                 <i class="typcn typcn-user-outline mr-0"></i>
-                <span class="nav-profile-name">Evan Morales</span>
+                <span class="nav-profile-name">User</span>
               </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                 <a class="dropdown-item">
@@ -182,11 +171,11 @@
           </button>
         </div>
       </nav>
-    <!-- partial -->
-    
-    
-    
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/series-label.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+
+
+</body>
+
+
+
+</html>
