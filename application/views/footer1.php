@@ -26,6 +26,10 @@
 <script src="<?php echo base_url(); ?>vendors/datatables.net/jquery.dataTables.js"></script>
 <script src="<?php echo base_url(); ?>vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
 <script src="<?php echo base_url(); ?>js/data-table.js"></script>
+<script src="<?php echo base_url(); ?>vendors/sweetalert/sweetalert.min.js"></script>
+<script src="<?php echo base_url(); ?>vendors/jquery.avgrund/jquery.avgrund.min.js"></script>
+<script src="<?php echo base_url(); ?>js/alerts.js"></script>
+<script src="<?php echo base_url(); ?>js/avgrund.js"></script>
 
 <!--Script for graph-->
 
