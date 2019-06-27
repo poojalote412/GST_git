@@ -38,15 +38,10 @@ $this->load->view('customer/navigation');
                 </div>
             </div> 
             
-            
-            
-            
-            
-            
         </div>
 </div>
 
-
+<?php $this->load->view('customer/footer');?>
 <script>
     
     $("#imports").click(function () {
