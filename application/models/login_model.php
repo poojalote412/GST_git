@@ -5,9 +5,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class login_model extends CI_Model {
 
     public function login_validation($user_id, $pass) {
-        $q = $this->db->get_where("user_header_all", array('user_id' => $user_id, 'password' => $pass));
-
-        if ($q->num_rows() === 1) {
+        $q= $this->db->query("SELECT * from user_header_all where user_id='$user_id' AND password='$pass'");
+        if ($q->num_rows() == 1) {
             $result = $q->row();
             $user_type = $result->user_type;
             $user_id = $result->user_id;
