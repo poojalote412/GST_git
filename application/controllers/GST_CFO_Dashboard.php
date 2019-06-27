@@ -1,4 +1,4 @@
- <?php
+<?php
 
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
@@ -7,7 +7,6 @@ class GST_CFO_Dashboard extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        
     }
 
     function index() {
@@ -15,9 +14,7 @@ class GST_CFO_Dashboard extends CI_Controller {
         $this->load->view('GST_CFO_Dashboard');
     }
 
-
-    
- public function import_excel() {
+    public function import_excel() {
 
         if (isset($_FILES["file_ex"]["name"]) && isset($_FILES["file_ex1"]["name"])) {
             $path = $_FILES["file_ex"]["tmp_name"];
@@ -292,15 +289,48 @@ class GST_CFO_Dashboard extends CI_Controller {
             }
 
             //second excel file work end
+
+
             $uniq_id = $this->turnover_id(); //unique id generation
             $month_data_arr = $month_data; //array of month data
-            $inter_state = $data_arr1; //array of inter state supply
-            $intra_state = $data_arr2; //array of intra state supply
-            $no_gst_paid_supply = $data_arr3; // array of no_gst_paid_supply
-            $debit_value = $data_arr4; //array of debit_value
-            $credit_value = $data_arr5; //array of credit_value
+//            $inter_state = $data_arr1; //array of inter state supply
+//            $intra_state = $data_arr2; //array of intra state supply
+//            $no_gst_paid_supply = $data_arr3; // array of no_gst_paid_supply
+//            $debit_value = $data_arr4; //array of debit_value
+//            $credit_value = $data_arr5; //array of credit_value
             $count = count($month_data_arr);
+
             for ($t = 0; $t < $count; $t++) {
+                if ($data_arr1 == "" or $data_arr1 === NULL) {
+                    $inter_state = array();
+                    $inter_state[$t] = 0;
+                } else {
+                    $inter_state = $data_arr1;
+                }
+                if ($data_arr2 == "" or $data_arr2 === NULL) {
+                    $intra_state = array();
+                    $intra_state[$t] = 0;
+                } else {
+                    $intra_state = $data_arr2;
+                }
+                if ($data_arr3 == "" or $data_arr3 === NULL) {
+                    $no_gst_paid_supply = array();
+                    $no_gst_paid_supply[$t] = 0;
+                } else {
+                    $no_gst_paid_supply = $data_arr3;
+                }
+                if ($data_arr4 == "" or $data_arr4 === NULL) {
+                    $debit_value = array();
+                    $debit_value[$t] = 0;
+                } else {
+                    $debit_value = $data_arr4;
+                }
+                if ($data_arr5 == "" or $data_arr5 === NULL) {
+                    $credit_value = array();
+                    $credit_value[$t] = 0;
+                } else {
+                    $credit_value = $data_arr5;
+                }
                 $quer = $this->db->query("insert into turnover_vs_tax_liability (`uniq_id`,`month`,`inter_state_supply`,`intra_state_supply`,`no_gst_paid_supply`,`debit_value`,`credit_value`,`liability_on_outward`,`liability_on_reverse_change`)"
                         . " values ('$uniq_id','$month_data[$t]','$inter_state[$t]','$intra_state[$t]','$no_gst_paid_supply[$t]','$debit_value[$t]','$credit_value[$t]','$outward[$t]','$reverse_charge[$t]') ");
             }
@@ -370,11 +400,27 @@ class GST_CFO_Dashboard extends CI_Controller {
                 $lmn[] = $ratio_val[$o2];
                 $aa = settype($lmn[$o2], "integer");
             }
+            $quer2 = $this->db->query("SELECT month from turnover_vs_tax_liability");
+            $months = array();
+            if ($quer2->num_rows() > 0) {
+                $res2 = $quer2->result();
+                foreach ($res2 as $row) {
+                    $months[] = $row->month;
+                }
+//                var_dump($months);
+//                $lmn1 = array();
+//                for ($o3 = 0; $o3 < sizeof($months); $o3++) {
+//                    $lmn1[] = $ratio_val[$o3];
+////                    $aa = settype($lmn[$o3], "integer");
+//                }
+            }
+
 
             $respose['message'] = "success";
             $respose['data_turn_over'] = $abc;
             $respose['data_liability'] = $pqr;
             $respose['ratio'] = $lmn;
+            $respose['month_data'] = $months;
         } else {
             $respose['message'] = "";
             $respose['data_turn_over'] = "";

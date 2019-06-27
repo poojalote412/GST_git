@@ -8,12 +8,12 @@ $this->load->view('navigation');
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Turnover Vs Tax Liability</h4>
-                    <div class="col-md-6">
-                    </div>
-                    <div class="col-md-6">
-                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal-4" data-whatever="@mdo">Upload New</button>
-                        <button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun();"class="btn btn-primary  btn-sm" >Get Graph</button>
-                    </div>
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal-4" data-whatever="@mdo">Upload New</button>
+                    <button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun();"class="btn btn-primary  btn-sm" >Get Graph</button>
+                </div>
                 <br><br>
                 <div class="row">
                     <div class="col-md-12">
@@ -69,14 +69,14 @@ $this->load->view('navigation');
                         <label>File upload</label>
                         <input type="file" name="file_ex" class="file-upload-default">
                         <div class="input-group col-xs-6">
-                            <input type="text" class="form-control file-upload-info" name="file_ex" id="file_ex" required accept=".xls, .xlsx" disabled placeholder="Upload File1">
+                            <input type="file" class="form-control file-upload" name="file_ex" id="file_ex" required accept=".xls, .xlsx"  placeholder="Upload File1">
 
                             <span class="input-group-append">
                                 <button class="file-upload-browse btn btn-light"  type="button" >Upload</button>
                             </span>
                         </div><br>
                         <div class="input-group col-xs-6">
-                            <input type="text" class="form-control file-upload-info" name="file_ex1" id="file_ex1" required accept=".xls, .xlsx" disabled placeholder="Upload File2">
+                            <input type="file" class="form-control file-upload" name="file_ex1" id="file_ex1" required accept=".xls, .xlsx"  placeholder="Upload File2">
 
                             <span class="input-group-append">
                                 <button class="file-upload-browse btn btn-light"  type="button" >Upload</button>
@@ -130,6 +130,7 @@ $this->load->view('navigation');
                     var data_a = result.data_turn_over;
                     var data_liability = result.data_liability;
                     var data_ratio = result.ratio;
+                    var data_month = result.month_data;
                     Highcharts.chart('container', {
                         chart: {
                             type: 'column'
@@ -138,23 +139,10 @@ $this->load->view('navigation');
                             text: 'Turnover vs Tax Liability'
                         },
                         subtitle: {
-                            text: 'Customer Name: ANAND RATHI GLOBAL FINANCE LIMITED '
+                            text: 'Customer Name:  MANGALAM AUTOMOBILES'
                         },
                         xAxis: {
-                            categories: [
-                                'March',
-                                'February',
-                                'January',
-                                'December',
-                                'November',
-                                'October',
-                                'September',
-                                'August',
-                                'July',
-                                'June',
-                                'May',
-                                'April'
-                            ]
+                            categories: data_month
                         },
                         yAxis: [{
                                 max: 50000000,
@@ -178,7 +166,7 @@ $this->load->view('navigation');
                         series: [{
                                 name: 'TurnOver',
                                 data: data_a,
-                                color: '#042C77',
+                                color: '#146FA7',
                                 tooltip: {
                                     valuePrefix: '₹',
                                     valueSuffix: ' M'
@@ -193,8 +181,8 @@ $this->load->view('navigation');
                                 },
                             }, {
                                 type: 'spline',
-                                color: '#047736',
-                                name: 'Profit',
+                                color: '#5BCB45',
+                                name: 'Ratio',
                                 data: data_ratio,
                                 yAxis: 1,
                                 tooltip: {
