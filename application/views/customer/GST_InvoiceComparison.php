@@ -11,5 +11,5 @@ $this->load->view('customer/navigation');
            GST INVOICE COMPARISON
             
         </div>
-    <?php$this->load->view('customer/footer');?>
+    <?php $this->load->view('customer/footer');?>
 </div>
