@@ -94,10 +94,10 @@ $this->load->view('customer/navigation');
             </div>
         </div>
     </div>
-    <?php $this->load->view('customer/footer'); ?>
+    
 </div>
 
-
+<?php $this->load->view('customer/footer'); ?>
 <script>
     $("#import").click(function (event) {
         var formid = document.getElementById("import_form");

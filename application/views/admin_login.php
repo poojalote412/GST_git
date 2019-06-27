@@ -27,7 +27,7 @@ $this->load->view('/customer/header1');
                                 <span style="color:green"><?= (empty($reason)) ? "" : $reason ?></span>
                             </div>
                             <div class="mt-3">
-                                <input value="SIGN IN" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit">
+                                <input value="SIGN IN" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"  type="submit">
                             </div>
                             <div class="my-2 d-flex justify-content-between align-items-center">
                                 <div class="form-check">

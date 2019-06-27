@@ -13,7 +13,7 @@
    <link rel="stylesheet"  href="<?php echo base_url()."vendors/"; ?>select2-bootstrap-theme/select2-bootstrap.min.css">
   <link rel="stylesheet" href="<?php echo base_url()."vendors/"; ?>typicons.font/font/typicons.css">
   <link rel="stylesheet" href="<?php echo base_url()."vendors/";?>css/vendor.bundle.base.css">
-  <link rel="stylesheet" href="../../../../vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+  <link rel="stylesheet" href="<?php echo base_url()."vendors/";?>datatables.net-bs4/dataTables.bootstrap4.css">
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->

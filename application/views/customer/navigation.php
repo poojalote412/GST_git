@@ -127,14 +127,13 @@
 
             
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo base_url();?>GST_Logout">
+              <a class="nav-link" href="<?php echo base_url();?>GST_AdminLogin/admin_logout">
                 <i class="typcn typcn-device-desktop menu-icon"></i>
                 <!--<span class="menu-title">Dashboard <span class="badge badge-primary ml-3">New</span></span>-->
                  <span class="menu-title">Logout</span>
               </a>
             </li>
-           
-         
+ 
            
           </ul>
         </nav>

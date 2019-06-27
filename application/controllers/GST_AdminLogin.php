@@ -49,12 +49,21 @@ class GST_AdminLogin extends CI_Controller {
                 if ($user_type == '1') {  //superadmin
                     $this->session->set_userdata('login_session', $session_data);
                     redirect(base_url() . 'admin_dashboard');
-                } else {
+                } else  {
                     $this->session->set_userdata('login_session', $session_data);
-                    redirect(base_url() . 'cust_dashboard');
+                    redirect(base_url() . 'Cust_dashboard');
                 }
             }
         }
+    }
+    
+    
+     public function admin_logout() {
+        // Destroy session data
+        $this->session->sess_destroy();
+//        $data['reason'] = 'Successfully Logout';
+//        $data['reason'] = '';
+        $this->load->view('admin_login');
     }
 
 }

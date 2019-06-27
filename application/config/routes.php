@@ -56,7 +56,7 @@ $route['translate_uri_dashes'] = FALSE;
 
 
 
-$route['GST_Dashboard'] = 'GST_Dashboard/index';
+$route['Cust_dashboard'] = 'GST_Dashboard/index';
 $route['GST_CFODashboard'] = 'GST_CFO_Dashboard/index';
 $route['GST_Management'] = 'GST_MgmtReport/index';
 $route['GST_Account'] = 'GST_AccReport/index';
@@ -66,3 +66,6 @@ $route['GST_3BVs1'] = 'GST_3BVs1/index';
 $route['GST_3BVs2A'] = 'GST_3BVs2A/index';
 $route['GST_Logout'] = 'GST_Dashboard/index';
 
+//Routes for admin
+
+$route['admin_dashboard'] = 'GST_AdminDashboard/index';

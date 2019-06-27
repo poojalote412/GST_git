@@ -7,12 +7,14 @@ class GST_Dashboard extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
+         $this->load->model('GST_CustDashboard_model'); /* load model default which you create */
+            $this->load->library('session');
         
     }
 
     function index() {
 //        $data['result'] = $result;
-        $this->load->view('customer/index');
+        $this->load->view('customer/Cust_dashboard');
     }
 
 
