@@ -254,13 +254,14 @@ class GST_CFO_Dashboard extends CI_Controller {
             $worksheet1 = $object1->getActiveSheet();
             $highestRow1 = $worksheet1->getHighestRow();
             $highestColumn1 = $worksheet1->getHighestColumn();
-            if ($object1->getActiveSheet()->getCell('B' . 3)->getValue() !== "F.Y. : 2017-2018") {
+            if ($object1->getActiveSheet()->getCell('B' . 3)->getValue() === "F.Y. : 2017-2018") {
                 $outward = array();
                 for ($l = 10; $l <= 18; $l++) {
                     $val = $object1->getActiveSheet()->getCell('F' . $l)->getValue();
                     $val1 = $object1->getActiveSheet()->getCell('G' . $l)->getValue();
                     $val2 = $object1->getActiveSheet()->getCell('H' . $l)->getValue();
-                    $outward[] = $val + $val1 + $val2;
+                    $val3 = $object1->getActiveSheet()->getCell('I' . $l)->getValue();
+                    $outward[] = $val + $val1 + $val2 + $val3;
                 }
 
                 $reverse_charge = array();
@@ -268,7 +269,8 @@ class GST_CFO_Dashboard extends CI_Controller {
                     $val_a = $object1->getActiveSheet()->getCell('F' . $p)->getValue();
                     $val1_a = $object1->getActiveSheet()->getCell('G' . $p)->getValue();
                     $val2_a = $object1->getActiveSheet()->getCell('H' . $p)->getValue();
-                    $reverse_charge[] = $val_a + $val1_a + $val2_a;
+                    $val3_a = $object1->getActiveSheet()->getCell('I' . $p)->getValue();
+                    $reverse_charge[] = $val_a + $val1_a + $val2_a + $val3_a;
                 }
             } else {
                 $outward = array();
@@ -276,7 +278,8 @@ class GST_CFO_Dashboard extends CI_Controller {
                     $val = $object1->getActiveSheet()->getCell('F' . $l)->getValue();
                     $val1 = $object1->getActiveSheet()->getCell('G' . $l)->getValue();
                     $val2 = $object1->getActiveSheet()->getCell('H' . $l)->getValue();
-                    $outward[] = $val + $val1 + $val2;
+                    $val3 = $object1->getActiveSheet()->getCell('I' . $l)->getValue();
+                    $outward[] = $val + $val1 + $val2 + $val3;
                 }
 
                 $reverse_charge = array();
@@ -284,7 +287,8 @@ class GST_CFO_Dashboard extends CI_Controller {
                     $val_a = $object1->getActiveSheet()->getCell('F' . $p)->getValue();
                     $val1_a = $object1->getActiveSheet()->getCell('G' . $p)->getValue();
                     $val2_a = $object1->getActiveSheet()->getCell('H' . $p)->getValue();
-                    $reverse_charge[] = $val_a + $val1_a + $val2_a;
+                    $val3_a = $object1->getActiveSheet()->getCell('I' . $p)->getValue();
+                    $reverse_charge[] = $val_a + $val1_a + $val2_a + $val3_a;
                 }
             }
 
@@ -362,7 +366,7 @@ class GST_CFO_Dashboard extends CI_Controller {
             $data = $result->row();
             $turn_id = $data->uniq_id;
             //generate user_id
-            $turn_id = str_pad( ++$turn_id, 5, '0', STR_PAD_LEFT);
+            $turn_id = str_pad(++$turn_id, 5, '0', STR_PAD_LEFT);
             return $turn_id;
         } else {
             $turn_id = 'turn_1001';
@@ -379,7 +383,7 @@ class GST_CFO_Dashboard extends CI_Controller {
             $ratio_val = array();
             foreach ($res as $row) {
                 $turnover = ($row->inter_state_supply + $row->intra_state_supply + $row->no_gst_paid_supply + $row->debit_value) - (1 * $row->credit_value);
-                $tax_liabality = $row->liability_on_outward + $row->liability_on_reverse_change;
+                $tax_liabality = $row->liability_on_outward + (1 * $row->liability_on_reverse_change);
                 $ratio = ($tax_liabality / $turnover) * 100;
                 $ratio_val[] = round($ratio);
                 $turnover1[] = $turnover;
@@ -388,17 +392,17 @@ class GST_CFO_Dashboard extends CI_Controller {
             $abc = array();
             for ($o = 0; $o < sizeof($turnover1); $o++) {
                 $abc[] = $turnover1[$o];
-                $aa = settype($abc[$o], "integer");
+                $aa = settype($abc[$o], "float");
             }
             $pqr = array();
             for ($o1 = 0; $o1 < sizeof($tax_liabality1); $o1++) {
                 $pqr[] = $tax_liabality1[$o1];
-                $aa = settype($pqr[$o1], "integer");
+                $aa = settype($pqr[$o1], "float");
             }
             $lmn = array();
             for ($o2 = 0; $o2 < sizeof($ratio_val); $o2++) {
                 $lmn[] = $ratio_val[$o2];
-                $aa = settype($lmn[$o2], "integer");
+                $aa = settype($lmn[$o2], "float");
             }
             $quer2 = $this->db->query("SELECT month from turnover_vs_tax_liability");
             $months = array();
@@ -407,12 +411,6 @@ class GST_CFO_Dashboard extends CI_Controller {
                 foreach ($res2 as $row) {
                     $months[] = $row->month;
                 }
-//                var_dump($months);
-//                $lmn1 = array();
-//                for ($o3 = 0; $o3 < sizeof($months); $o3++) {
-//                    $lmn1[] = $ratio_val[$o3];
-////                    $aa = settype($lmn[$o3], "integer");
-//                }
             }
 
 

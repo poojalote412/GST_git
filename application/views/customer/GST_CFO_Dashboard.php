@@ -5,6 +5,8 @@ $this->load->view('customer/navigation');
 
 <div class="main-panel">
     <div class="content-wrapper">
+        
+     
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Turnover Vs Tax Liability</h4>
@@ -154,7 +156,7 @@ $this->load->view('customer/navigation');
                                 max: 100,
                                 opposite: true,
                                 title: {
-                                    text: 'Ration(in %) of tax liability to turnover'
+                                    text: 'Ratio(in %) of tax liability to turnover'
                                 }
                             }],
                         legend: {
