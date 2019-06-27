@@ -1,61 +1,100 @@
 <?php
 $this->load->view('header');
 $this->load->view('navigation');
-
-
 ?>
 
 <div class="main-panel">
-        <div class="content-wrapper">
-        
-            
-            <div class="col-12 grid-margin stretch-card">
-                
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Turnover Vs Tax Liability</h4>
-                        <form class="forms-sample" id="import_form" method="post" name="import_form" enctype="multipart/form-data">
-
-
-                                <div class="form-group">
-                                    <label>File upload</label>
-                                    <input type="file" name="file_ex" class="file-upload-default">
-                                    <div class="input-group col-xs-6">
-                                        <input type="text" class="form-control file-upload-info" name="file_ex" id="file_ex" required accept=".xls, .xlsx" disabled placeholder="Upload File1">
-
-                                        <span class="input-group-append">
-                                            <button class="file-upload-browse btn btn-primary"  type="button" >Upload</button>
-                                        </span>
-                                    </div><br>
-                                    <div class="input-group col-xs-6">
-                                        <input type="text" class="form-control file-upload-info" name="file_ex1" id="file_ex1" required accept=".xls, .xlsx" disabled placeholder="Upload File2">
-
-                                        <span class="input-group-append">
-                                            <button class="file-upload-browse btn btn-primary"  type="button" >Upload</button>
-                                        </span>
-                                    </div>
-                                </div>
-
-
-                                <button type="button" name="import" id="import" class="btn btn-primary mr-2">Submit</button>
-                                <!--<button class="btn btn-light">Cancel</button>-->
-                                <button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun();"class="btn btn-info" >Get Graph</button>
-                            </form>
-                        <div id="container"></div>
+    <div class="content-wrapper">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Turnover Vs Tax Liability</h4>
+                    <div class="col-md-6">
                     </div>
-                    
-                    
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal-4" data-whatever="@mdo">Upload New</button>
+                        <button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun();"class="btn btn-primary  btn-sm" >Get Graph</button>
+                    </div>
+                <br><br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table id="order-listing" class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Order #</th>
+                                        <th>Purchased On</th>
+                                        <th>Customer</th>
+                                        <th>Ship to</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>2017/12/28</td>
+                                        <td>Sam</td>
+                                        <td>Tokyo</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>2000/10/30</td>
+                                        <td>Sam</td>
+                                        <td>Tokyo</td>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-                
+                <div id="container"></div>
             </div>
-            
-            
-            
         </div>
-    
+    </div>
+</div>
+<div class="modal fade" id="exampleModal-4" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLabel">New message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="forms-sample" id="import_form" method="post" name="import_form" enctype="multipart/form-data">
+
+
+                    <div class="form-group">
+                        <label>File upload</label>
+                        <input type="file" name="file_ex" class="file-upload-default">
+                        <div class="input-group col-xs-6">
+                            <input type="text" class="form-control file-upload-info" name="file_ex" id="file_ex" required accept=".xls, .xlsx" disabled placeholder="Upload File1">
+
+                            <span class="input-group-append">
+                                <button class="file-upload-browse btn btn-light"  type="button" >Upload</button>
+                            </span>
+                        </div><br>
+                        <div class="input-group col-xs-6">
+                            <input type="text" class="form-control file-upload-info" name="file_ex1" id="file_ex1" required accept=".xls, .xlsx" disabled placeholder="Upload File2">
+
+                            <span class="input-group-append">
+                                <button class="file-upload-browse btn btn-light"  type="button" >Upload</button>
+                            </span>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" name="import" id="import" class="btn btn-success mr-2">Submit</button>
+                <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
 <?php $this->load->view('footer'); ?>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+
 <script>
     $("#import").click(function (event) {
         var formid = document.getElementById("import_form");
