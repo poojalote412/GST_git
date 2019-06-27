@@ -234,8 +234,7 @@ WHERE gstr2a !=''");
                 $abc3[] = "";
             }
 
-            $query_cumu_difference = $this->db->query("SELECT cumu_difference FROM gstr_compare 
-WHERE gstr2a !=''");
+            $query_cumu_difference = $this->db->query("SELECT cumu_difference FROM gstr_compare WHERE gstr2a !=''");
             if ($query_cumu_difference->num_rows() > 0) {
                 $result_cumu_difference = $query_cumu_difference->result();
                 foreach ($result_cumu_difference as $row_cumu_difference) {
@@ -251,8 +250,7 @@ WHERE gstr2a !=''");
             }
 
 
-            $query_gstr2a = $this->db->query("SELECT gstr2a FROM gstr_compare 
-WHERE gstr2a !=''");
+            $query_gstr2a = $this->db->query("SELECT gstr2a FROM gstr_compare WHERE gstr2a !=''");
             if ($query_gstr2a->num_rows() > 0) {
                 $result_gstr2a = $query_gstr2a->result();
                 foreach ($result_gstr2a as $row_gstr2a) {
@@ -268,9 +266,18 @@ WHERE gstr2a !=''");
                 $abc5[] = "";
             }
 
-
+            $quer_range = $this->db->query("SELECT MAX(gstr_tb) as gstrtb_max FROM gstr_compare where gstr2a !=''");
+            $gstr3b_max = $quer_range->row();
+            $gstrtbmax = $gstr3b_max->gstrtb_max;
+            $quer_range1 = $this->db->query("SELECT MAX(gstr2a) as gstr2a_max FROM gstr_compare where gstr2a !=''");
+            $gstr1_max = $quer_range1->row();
+            $gstr1max = $gstr1_max->gstr2a_max;
+            $max_value = (max($gstrtbmax, $gstr1max));
+            
+            
             $respose['message'] = "success";
             $respose['data_gstr3b'] = $abc;
+            $respose['max'] = $max_value;
 //            $respose['data_gstr2a'] = $abc2;
 //            $respose['data_gstr_one_ammend'] = $abc2;
             $respose['difference'] = $abc3;

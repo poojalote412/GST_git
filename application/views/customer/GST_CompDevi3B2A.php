@@ -50,15 +50,7 @@ $this->load->view('customer/navigation');
         <script>
 
             $("#imports").click(function () {
-                var $this = $(this);
-                $this.button('loading');
-                setTimeout(function () {
-                    $this.button('reset');
-                }, 2000);
-
                 var formid = document.getElementById("import_form");
-
-                //  var stud_email = $("#stud_email").val();
 
                 $.ajax({
                     type: "post",
@@ -117,6 +109,7 @@ $this->load->view('customer/navigation');
                             var data_difference = result.difference;
                             var cumu_difference = result.cumu_difference;
                             var data_gstr2a = result.gstr2a_difference;
+                            var max = result.max;
                             Highcharts.chart('container1', {
                                 chart: {
                                     type: 'Combination chart',
@@ -147,8 +140,8 @@ $this->load->view('customer/navigation');
                                 },
                                 yAxis: {
                                     //                                            min: 0,
-                                    max: 10000000,
-                                    tickInterval: 1000000,
+                                    max: max,
+//                                    tickInterval: 1000000,
                                     title: {
                                         text: 'Rupees (millions)'
                                     }

@@ -28,12 +28,10 @@ class GST_3BVs1 extends CI_Controller {
 //        }
 //        $data['result'] = $result;
 //        $data['result'] = $result;
-        $result['data']=$this->GST_3BVs1Model->display_GST3Bvs1();
-        $this->load->view('customer/GST_ComparisonDevi3Bvs1',$result);
+        $result['data'] = $this->GST_3BVs1Model->display_GST3Bvs1();
+        $this->load->view('customer/GST_ComparisonDevi3Bvs1', $result);
     }
 
-    
-    
     public function import() {
         if (isset($_FILES["file_ex"]["name"])) {
             $path = $_FILES["file_ex"]["tmp_name"];
@@ -184,7 +182,6 @@ class GST_3BVs1 extends CI_Controller {
                     }
                 }
             }
-//                echo $abc;
             if ($abc > 0) {
                 $respose['message'] = "success";
                 $respose['status'] = true;
@@ -285,9 +282,18 @@ class GST_3BVs1 extends CI_Controller {
                 $abc4[] = "";
             }
 
+            $quer_range = $this->db->query("SELECT MAX(gstr_tb) as gstrtb_max FROM gstr_compare where gstr2a=''");
+            $gstr3b_max = $quer_range->row();
+            $gstrtbmax = $gstr3b_max->gstrtb_max;
+            $quer_range1 = $this->db->query("SELECT MAX(gstr_one) as gstr1_max FROM gstr_compare where gstr2a=''");
+            $gstr1_max = $quer_range1->row();
+            $gstr1max = $gstr1_max->gstr1_max;
+            $max_value=(max($gstrtbmax,$gstr1max));
+
             $respose['message'] = "success";
             $respose['data_gstr3b'] = $abc;
             $respose['data_gstr1'] = $sum_of_gstr1_gstr1_ammend;
+            $respose['max'] = $max_value;
 //            $respose['data_gstr_one_ammend'] = $abc2;
             $respose['difference'] = $abc3;
             $respose['cumu_difference'] = $abc4;

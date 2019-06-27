@@ -26,7 +26,7 @@ $this->load->view('customer/navigation');
                         </div>
 
 
-                        <button type="submit" name="imports" id="imports" class="btn btn-primary mr-2">Submit</button>
+                        <button type="button" name="imports" id="imports" class="btn btn-primary mr-2">Submit</button>
                         <button class="btn btn-light">Cancel</button>
                     </form><br>
                     <button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun();"class="btn btn-primary mr-2" >Get Graph</button>
@@ -106,9 +106,9 @@ $this->load->view('customer/navigation');
 
 
     </div>
-    
+
 </div>
-<?php $this->load->view('customer/footer');?>
+<?php $this->load->view('customer/footer'); ?>
 
 
 
@@ -120,15 +120,13 @@ $this->load->view('customer/navigation');
     $("#imports").click(function () {
 
 //        alert("helloooo");
-        var $this = $(this);
-        $this.button('loading');
-        setTimeout(function () {
-            $this.button('reset');
-        }, 2000);
+//        var $this = $(this);
+//        $this.button('loading');
+//        setTimeout(function () {
+//            $this.button('reset');
+//        }, 2000);
 
         var formid = document.getElementById("import_form");
-
-        //  var stud_email = $("#stud_email").val();
 
         $.ajax({
             type: "post",
@@ -192,9 +190,9 @@ $this->load->view('customer/navigation');
 
                     var data_a = result.data_gstr3b;
                     var data_gstr1_res = result.data_gstr1;
-//                                    var data_gstr_one_ammend_res = result.data_gstr_one_ammend;
                     var data_difference = result.difference;
                     var cumu_difference = result.cumu_difference;
+                    var max = result.max;
                     Highcharts.chart('container1', {
                         chart: {
                             type: 'Combination chart'
@@ -223,9 +221,9 @@ $this->load->view('customer/navigation');
                             crosshair: true
                         },
                         yAxis: {
-//                                            min: 0,
-                            max: 10000000,
-                            tickInterval: 1000000,
+                            min: 0,
+                            max: max,
+//                            tickInterval: 1000,
                             title: {
                                 text: 'Rupees (millions)'
                             }
