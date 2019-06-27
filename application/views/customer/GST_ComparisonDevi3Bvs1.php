@@ -106,9 +106,9 @@ $this->load->view('customer/navigation');
 
 
     </div>
-    <?php$this->load->view('customer/footer');?>
+    
 </div>
-
+<?php $this->load->view('customer/footer');?>
 
 
 
