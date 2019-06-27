@@ -12,7 +12,7 @@ class GST_MgmtReport extends CI_Controller {
 
     function index() {
 //        $data['result'] = $result;
-        $this->load->view('GST_Management');
+        $this->load->view('customer/GST_Management');
     }
 
 

@@ -1,6 +1,6 @@
 <?php
-$this->load->view('header');
-$this->load->view('navigation');
+$this->load->view('customer/header');
+$this->load->view('customer/navigation');
 ?>
 
 <div class="main-panel">
@@ -93,7 +93,7 @@ $this->load->view('navigation');
         </div>
     </div>
 </div>
-<?php $this->load->view('footer'); ?>
+<?php $this->load->view('customer/footer'); ?>
 
 <script>
     $("#import").click(function (event) {

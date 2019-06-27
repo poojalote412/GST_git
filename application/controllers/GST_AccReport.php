@@ -11,7 +11,7 @@ class GST_AccReport extends CI_Controller {
 
     function index() {
 //        $data['result'] = $result;
-        $this->load->view('GST_Account');
+        $this->load->view('customer/GST_Account');
     }
 
     public function import() {

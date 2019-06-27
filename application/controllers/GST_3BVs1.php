@@ -29,7 +29,7 @@ class GST_3BVs1 extends CI_Controller {
 //        $data['result'] = $result;
 //        $data['result'] = $result;
         $result['data']=$this->GST_3BVs1Model->display_GST3Bvs1();
-        $this->load->view('GST_ComparisonDevi3Bvs1',$result);
+        $this->load->view('customer/GST_ComparisonDevi3Bvs1',$result);
     }
 
     

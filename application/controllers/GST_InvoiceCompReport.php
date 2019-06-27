@@ -12,7 +12,7 @@ class GST_InvoiceCompReport extends CI_Controller {
 
     function index() {
 //        $data['result'] = $result;
-        $this->load->view('GST_InvoiceComparison');
+        $this->load->view('customer/GST_InvoiceComparison');
     }
 
 

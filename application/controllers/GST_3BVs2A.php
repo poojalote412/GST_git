@@ -13,7 +13,7 @@ class GST_3BVs2A extends CI_Controller {
 
     function index() {
 //        $data['result'] = $result;
-        $this->load->view('GST_CompDevi3B2A');
+        $this->load->view('customer/GST_CompDevi3B2A');
     }
 
     public function import() {

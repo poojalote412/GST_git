@@ -11,7 +11,7 @@ class GST_CFO_Dashboard extends CI_Controller {
 
     function index() {
 //        $data['result'] = $result;
-        $this->load->view('GST_CFO_Dashboard');
+        $this->load->view('customer/GST_CFO_Dashboard');
     }
 
     public function import_excel() {

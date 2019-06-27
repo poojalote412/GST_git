@@ -1,6 +1,6 @@
 <?php
-$this->load->view('header');
-$this->load->view('navigation');
+$this->load->view('customer/header');
+$this->load->view('customer/navigation');
 
 
 ?>

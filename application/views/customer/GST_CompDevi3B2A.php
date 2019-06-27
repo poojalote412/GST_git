@@ -1,7 +1,7 @@
 <?php
-$this->load->view('header');
-$this->load->view('navigation');
 
+$this->load->view('customer/header');
+$this->load->view('customer/navigation');
 
 ?>
 
@@ -43,7 +43,7 @@ $this->load->view('navigation');
             
             
    </div>
-    <?php$this->load->view('footer');?>
+    <?php$this->load->view('customer/footer');?>
     
 </div>
 

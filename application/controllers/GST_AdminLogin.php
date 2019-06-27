@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class GST_Dashboard extends CI_Controller {
+class GST_AdminLogin extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
@@ -12,7 +12,7 @@ class GST_Dashboard extends CI_Controller {
 
     function index() {
 //        $data['result'] = $result;
-        $this->load->view('customer/index');
+        $this->load->view('admin_login');
     }
 
 

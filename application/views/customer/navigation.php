@@ -137,7 +137,7 @@
          
            
           </ul>
-         <?php $this->load->view('footer');?>
+         <?php $this->load->view('customer/footer');?>
         </nav>
   
   
