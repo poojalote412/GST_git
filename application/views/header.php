@@ -34,7 +34,7 @@
   <link rel="shortcut icon" href="<?php echo base_url()."images/";?>favicon.png" />
 </head>
 <body>
-  <div class="container-scroller">
+  <!--<div class="container-scroller">-->
     <!-- partial:../../partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
@@ -186,8 +186,4 @@
     <!-- partial -->
     
     
-    
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/series-label.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
+  

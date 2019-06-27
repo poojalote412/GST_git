@@ -1,5 +1,5 @@
-<div class="container-fluid page-body-wrapper">
-      <!-- partial:../../partials/_settings-panel.html -->
+<div class="container-fluid page-body-wrapper">  
+<!-- partial:../../partials/_settings-panel.html -->
       <div class="theme-setting-wrapper">
           <div id="settings-trigger"><i class="typcn typcn-cog-outline"></i></div>
           <div id="theme-settings" class="settings-panel">
@@ -24,6 +24,7 @@
               <div class="tiles default border"></div>
             </div>
           </div>
+          
         </div>
 
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
@@ -107,8 +108,8 @@
               </a>
             </li>
            
-           <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#editors" aria-expanded="false" aria-controls="editors">
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#editors" aria-expanded="true" aria-controls="editors">
                 <i class="typcn typcn-point-of-interest-outline menu-icon"></i>
                 <span class="menu-title">Comparison And Deviation Report</span>
                 <i class="menu-arrow"></i>
@@ -120,13 +121,10 @@
                 </ul>
               </div>
             </li>
-<!--           <li class="nav-item">
-              <a class="nav-link" href="<?php echo base_url();?>GST-Comparison-Deviation">
-                <i class="typcn typcn-device-desktop menu-icon"></i>
-                <span class="menu-title">Dashboard <span class="badge badge-primary ml-3">New</span></span>
-                 <span class="menu-title">Comparison And Deviation Report</span>
-              </a>
-            </li>-->
+            
+            
+            
+
             
             <li class="nav-item">
               <a class="nav-link" href="<?php echo base_url();?>GST_Logout">
@@ -136,18 +134,12 @@
               </a>
             </li>
            
-            
-            
-            
-           
-          
-           
-            
-          
-           
-            
-            
+         
            
           </ul>
-         
+         <?php $this->load->view('footer');?>
         </nav>
+  
+  
+ 
+   
