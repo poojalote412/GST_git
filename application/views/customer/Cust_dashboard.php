@@ -2,39 +2,32 @@
 $this->load->view('customer/header');
 $this->load->view('customer/navigation');
 
-//
-//if ($session = $this->session->userdata('user_id') == '') {
-////take them back to signin 
-////    redirect(base_url());
-//     $this->load->view('GST_AdminLogin');
-////    redirect(base_url());
-////     $this->load->view('admin_login');
-//}
-//else{
-////     redirect(base_url() . 'customer/Cust_dashboard');
-//    $this->load->view('customer/Cust_dashboard');
-//}
-////$user_id = $this->session->userdata('login_session');
-//
-//
-//
-////$user_id = $this->session->userdata('login_session');
-////if ($user_id == '') {
-////    redirect(base_url() . 'admin_login'); //take them back to signin 
-////}
+
+if ($session = $this->session->userdata('login_session') == '') {
+//take them back to signin 
+//    echo 'fghjf';
+    redirect(base_url() . 'GST_AdminLogin');
+}
+$session_data = $this->session->userdata('login_session');
+if (is_array($session_data)) {
+    $data['session_data'] = $session_data;
+    $username = ($session_data['user_id']);
+} else {
+    $username = $this->session->userdata('login_session');
+}
 ?>
 
-  
-<div class="main-panel">
-        <div class="content-wrapper">
-           
-            
-            hghg
-            
-            
-            
-            </div>
-       
 
-        </div>
- <?php $this->load->view('customer/footer');?>
+<div class="main-panel">
+    <div class="content-wrapper">
+
+
+        hghg
+
+
+
+    </div>
+
+
+</div>
+<?php $this->load->view('customer/footer'); ?>

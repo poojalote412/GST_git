@@ -65,6 +65,8 @@ $route['GST_Invoice_Comparison'] = 'GST_InvoiceCompReport/index';
 $route['GST_3BVs1'] = 'GST_3BVs1/index';
 $route['GST_3BVs2A'] = 'GST_3BVs2A/index';
 $route['GST_Logout'] = 'GST_Dashboard/index';
+//$route['Cust_login']='GST_Dashboard/employee_dashboard';
+
 
 //Routes for admin
 

@@ -32,31 +32,6 @@ class GST_AdminDashboard extends CI_Controller {
 //            }
 //        }
 
-    
-    public function employee_dashboard() {
-        $session_data = $this->session->userdata('login_session');
-        if (is_array($session_data)) {
-            $data['session_data'] = $session_data;
-            $user_id = ($session_data['user_id']);
-        } else {
-            $user_id = $this->session->userdata('login_session');
-        }
-        if ($user_id === "") {
-            $user_id = $this->session->userdata('login_session');
-        }
-        $result2 = $this->db->query("SELECT * FROM `user_header_all` WHERE `user_id`='$user_id'");
-        if ($result2->num_rows() > 0) {
-            $record = $result2->row();
-            $user_id = $record->user_id;
-           
-//            if ($result3->num_rows() > 0) {
-//                $record3 = $result3->row();
-//                $value_permit = $record->leave_approve_permission;
-//                $data['val'] = $value_permit;
-//            } else {
-                $data['val'] = '';
-            }
-        }
 }
 
 ?>
