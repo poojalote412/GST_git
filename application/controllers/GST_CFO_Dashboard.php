@@ -22,7 +22,6 @@ class GST_CFO_Dashboard extends CI_Controller {
     }
 
     public function import_excel() {
-
         if (isset($_FILES["file_ex"]["name"]) && isset($_FILES["file_ex1"]["name"])) {
             $path = $_FILES["file_ex"]["tmp_name"];
             $this->load->library('excel');
@@ -31,6 +30,7 @@ class GST_CFO_Dashboard extends CI_Controller {
             $highestRow = $worksheet->getHighestRow();
             $highestColumn = $worksheet->getHighestColumn();
             $x = "G";
+            //loop to get month data
             while ($object->getActiveSheet()->getCell($x . 6)->getValue() !== "Grand Tatal") {
                 $months[] = $object->getActiveSheet()->getCell($x . 6)->getValue();
                 $x++;
@@ -40,22 +40,14 @@ class GST_CFO_Dashboard extends CI_Controller {
             for ($a12 = 0; $a12 < $cnt; $a12++) {
                 $month = $months[$a12];
                 $month_data[] = $months[$a12];
-
-//                $this->db->insert('turnover_vs_tax_liability', $month_data);
                 $a12 = ($a12 * 1 + 3);
             }
-//            $this->db->insert('turnover_vs_tax_liability', $month_data);
-//            var_dump($month_data);
-
-
             for ($i = 1; $i <= $highestRow; $i++) {
                 $row_prev = $i - 1;
-
                 if ($object->getActiveSheet()->getCell('B' . $i)->getValue() == "Total" && $object->getActiveSheet()->getCell('B' . $row_prev)->getValue() == "Sub Total (B2CS)") {
-
                     $highestColumn_row = $worksheet->getHighestColumn($i);
+                    //get first table data in excel
                     if ($object->getActiveSheet()->getCell($highestColumn_row . $i)->getValue() == "" && $object->getActiveSheet()->getCell($highestColumn_row . $i)->getValue() != '0') {
-
                         $a = strlen($highestColumn_row);
                         $index = strlen($highestColumn_row) - 1;
                         $ord = ord($highestColumn_row[$index]);
@@ -71,7 +63,6 @@ class GST_CFO_Dashboard extends CI_Controller {
                             $highestColumn_row = $this->getAlpha($highestColumn_row, $ord, $a, $index);
                         }
                         $r = 1;
-
                         $z2 = $object->getActiveSheet()->getCell($highestColumn_row . $i)->getValue();
                         while ($z2 == "") {
                             if ($z2 != "" or $z2 == '0') {
@@ -110,7 +101,6 @@ class GST_CFO_Dashboard extends CI_Controller {
                         $char = 'G';
                         while ($char !== $highest_value_without_GT) {
                             $values[] = $object->getActiveSheet()->getCell($char . $i)->getValue();
-
                             $char++;
                         }
                         $cnt = count($values);
@@ -158,7 +148,7 @@ class GST_CFO_Dashboard extends CI_Controller {
                         $data_non_gst = $values_NG[$a12];
                         $data_arr3[] = $values_NG[$a12];
                     }
-                } elseif ($object->getActiveSheet()->getCell('A' . $i)->getValue() == "(5) Dr Note Details") {
+                } elseif ($object->getActiveSheet()->getCell('A' . $i)->getValue() == "(5) Dr Note Details") {  // debit note data
                     for ($j = $i; $j <= $highestRow; $j++) {
                         if ($object->getActiveSheet()->getCell('B' . $j)->getValue() == "Total") {
                             $highestColumn_dr = $worksheet->getHighestColumn($j);
@@ -174,7 +164,6 @@ class GST_CFO_Dashboard extends CI_Controller {
                                     $o1 = ord($a1);
                                     $o2 = chr($o1 - 1);
                                     $highestColumn_row_pp = $o2 . "Z";
-//                               
                                 } else {
                                     $highestColumn_row_pp = $this->getAlpha($highestColumn_dr, $ord1, $a11, $index1);
                                 }
@@ -182,11 +171,9 @@ class GST_CFO_Dashboard extends CI_Controller {
                             }
 
                             $highest_value_without_DR = $highestColumn_dr; //hightest cloumn till where we have to find our data
-
                             $char = 'G';
                             while ($char !== $highest_value_without_DR) {
                                 $values_DR[] = $object->getActiveSheet()->getCell($char . $j)->getValue();
-
                                 $char++;
                             }
                             $cnt = count($values_DR);
@@ -198,7 +185,7 @@ class GST_CFO_Dashboard extends CI_Controller {
                             }
                         }
                     }
-                } elseif ($object->getActiveSheet()->getCell('A' . $i)->getValue() == "(4) Cr Note Details") {
+                } elseif ($object->getActiveSheet()->getCell('A' . $i)->getValue() == "(4) Cr Note Details") {  //credit note data
                     $m = 1;
                     for ($j = $i; $j <= $highestRow; $j++) {
                         if ($object->getActiveSheet()->getCell('B' . $j)->getValue() == "Total") {
@@ -216,15 +203,12 @@ class GST_CFO_Dashboard extends CI_Controller {
                                     $o1 = ord($a1);
                                     $o2 = chr($o1 - 1);
                                     $highestColumn_row_pp = $o2 . "Z";
-//                               
                                 } else {
                                     $highestColumn_row_pp = $this->getAlpha($highestColumn_cr, $ord1, $a11, $index1);
                                 }
                                 $highestColumn_cr = $highestColumn_row_pp;
                             }
-
                             $highest_value_without_CR = $highestColumn_cr; //hightest cloumn till where we have to find our data
-
                             $char = 'G';
                             while ($char !== $highest_value_without_CR) {
                                 $values_CR[] = $object->getActiveSheet()->getCell($char . $j)->getValue();
@@ -243,7 +227,8 @@ class GST_CFO_Dashboard extends CI_Controller {
                         }
                     }
                 } else {
-                    
+                    $response['message'] = "file_missmatch";
+                    echo json_encode($response);
                 }
             }
 
@@ -262,7 +247,6 @@ class GST_CFO_Dashboard extends CI_Controller {
                     $val3 = $object1->getActiveSheet()->getCell('I' . $l)->getValue();
                     $outward[] = $val + $val1 + $val2 + $val3;
                 }
-
                 $reverse_charge = array();
                 for ($p = 27; $p <= 35; $p++) {
                     $val_a = $object1->getActiveSheet()->getCell('F' . $p)->getValue();
@@ -290,8 +274,8 @@ class GST_CFO_Dashboard extends CI_Controller {
                     $reverse_charge[] = $val_a + $val1_a + $val2_a + $val3_a;
                 }
             }
-
             //second excel file work end
+
             $uniq_id = $this->turnover_id(); //unique id generation
             $month_data_arr = $month_data; //array of month data
 //            $inter_state = $data_arr1; //array of inter state supply
@@ -374,7 +358,7 @@ class GST_CFO_Dashboard extends CI_Controller {
         if ($result->num_rows() > 0) {
             $data = $result->row();
             $turn_id = $data->uniq_id;
-            //generate user_id
+            //generate turn_id
             $turn_id = str_pad( ++$turn_id, 5, '0', STR_PAD_LEFT);
             return $turn_id;
         } else {
@@ -383,8 +367,8 @@ class GST_CFO_Dashboard extends CI_Controller {
         }
     }
 
+    //function to get graph for turn over vs tax liability
     public function get_graph_Turnover_vs_liabality() {
-
         $turn_id = $this->input->post("turn_id");
         $quer1 = $this->db->query("SELECT * from turnover_vs_tax_liability where uniq_id='$turn_id'");
         if ($quer1->num_rows() > 0) {
@@ -393,6 +377,7 @@ class GST_CFO_Dashboard extends CI_Controller {
             $tax_liabality1 = array();
             $ratio_val = array();
             foreach ($res as $row) {
+                //formula to get turnover , ratio , liability
                 $turnover = ($row->inter_state_supply + $row->intra_state_supply + $row->no_gst_paid_supply + $row->debit_value) - (1 * $row->credit_value);
                 $tax_liabality = $row->liability_on_outward + (1 * $row->liability_on_reverse_change);
                 $ratio = ($tax_liabality / $turnover) * 100;
@@ -400,16 +385,19 @@ class GST_CFO_Dashboard extends CI_Controller {
                 $turnover1[] = $turnover;
                 $tax_liabality1[] = $tax_liabality;
             }
+            // loop to get turnover value
             $abc = array();
             for ($o = 0; $o < sizeof($turnover1); $o++) {
                 $abc[] = $turnover1[$o];
                 $aa = settype($abc[$o], "float");
             }
+            // loop to get tax_liabality value
             $pqr = array();
             for ($o1 = 0; $o1 < sizeof($tax_liabality1); $o1++) {
                 $pqr[] = $tax_liabality1[$o1];
                 $aa = settype($pqr[$o1], "float");
             }
+            // loop to get ratio value
             $lmn = array();
             for ($o2 = 0; $o2 < sizeof($ratio_val); $o2++) {
                 $lmn[] = $ratio_val[$o2];
@@ -426,7 +414,7 @@ class GST_CFO_Dashboard extends CI_Controller {
                     }
                 }
             }
-            // to get months
+            //function to get months
             $quer2 = $this->db->query("SELECT month from turnover_vs_tax_liability where uniq_id='$turn_id'");
             $months = array();
             if ($quer2->num_rows() > 0) {
@@ -435,12 +423,13 @@ class GST_CFO_Dashboard extends CI_Controller {
                     $months[] = $row->month;
                 }
             }
+
             $respose['message'] = "success";
-            $respose['data_turn_over'] = $abc;
-            $respose['data_liability'] = $pqr;
-            $respose['ratio'] = $lmn;
-            $respose['month_data'] = $months;
-            $respose['max_range'] = $max_range;
+            $respose['data_turn_over'] = $abc;  //turnover data
+            $respose['data_liability'] = $pqr; //tax liability data
+            $respose['ratio'] = $lmn; //ratio
+            $respose['month_data'] = $months; //months 
+            $respose['max_range'] = $max_range; //maximum range for graph
         } else {
             $respose['message'] = "";
             $respose['data_turn_over'] = "";

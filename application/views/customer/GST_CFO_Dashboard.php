@@ -17,7 +17,6 @@ if (is_array($session_data)) {
     $username = $this->session->userdata('login_session');
 }
 ?>
-
 <div class="main-panel">
     <div class="content-wrapper">
 
@@ -138,7 +137,9 @@ if (is_array($session_data)) {
                     // return;
                     location.reload();
                 } else if (result.status === false) {
-                    alert('something went wrong')
+                    alert('something went wrong');
+                } else if (result.message === 'file_missmatch') {
+                    alert('You have selected wrong File');
                 } else {
                     $('#' + result.id + '_error').html(result.error);
                     $('#message').html(result.error);
