@@ -55,8 +55,8 @@ if (is_array($session_data)) {
                                             <tr>
                                                 <td><?php echo $i; ?></td>
                                                 <td><?php echo $row->uniq_id; ?></td>
-                                                <td>ABC</td>
-                                                <td><button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->uniq_id;?>');"class="btn btn-outline-primary" >View</button></td>
+                                                <td>MANGALAM AUTOMOBILES</td>
+                                                <td><button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->uniq_id; ?>');"class="btn btn-outline-primary" >View</button></td>
                                             </tr> 
                                             <?php
                                             $i++;
@@ -124,31 +124,38 @@ if (is_array($session_data)) {
         var formid = document.getElementById("import_form");
         event.preventDefault();
         $.ajax({
-            url: "<?php echo base_url(); ?>GST_CFO_Dashboard/import_excel",
+            url: "<?= base_url("GST_CFO_Dashboard/import_excel") ?>",
             type: "POST",
             data: new FormData(formid),
+            dataType: "json",
             contentType: false,
             cache: false,
             processData: false,
             async: false,
-            success: function (data) {
-
-                $('#file_ex').val('');
-//                    load_data();
-//                    alert(data);
-
-                $('#customer_data').html(data);
+            success: function (result) {
+                if (result.status === true) {
+                    alert('Data Submitted Successfully');
+                    // return;
+                    location.reload();
+                } else if (result.status === false) {
+                    alert('something went wrong')
+                } else {
+                    $('#' + result.id + '_error').html(result.error);
+                    $('#message').html(result.error);
+                }
             }
         });
     });
 
+
+//function to get graph view
     function get_graph_fun(turn_id)
     {
         $.ajax({
             type: "POST",
             url: "<?= base_url("GST_CFO_Dashboard/get_graph_Turnover_vs_liabality") ?>",
             dataType: "json",
-            data:{turn_id:turn_id},
+            data: {turn_id: turn_id},
             success: function (result) {
                 if (result.message === "success") {
 

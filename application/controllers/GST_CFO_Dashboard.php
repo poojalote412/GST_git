@@ -30,9 +30,6 @@ class GST_CFO_Dashboard extends CI_Controller {
             $worksheet = $object->getActiveSheet();
             $highestRow = $worksheet->getHighestRow();
             $highestColumn = $worksheet->getHighestColumn();
-
-
-
             $x = "G";
             while ($object->getActiveSheet()->getCell($x . 6)->getValue() !== "Grand Tatal") {
                 $months[] = $object->getActiveSheet()->getCell($x . 6)->getValue();
@@ -91,14 +88,11 @@ class GST_CFO_Dashboard extends CI_Controller {
                                     $o1 = ord($a1);
                                     $o2 = chr($o1 - 1);
                                     $highestColumn_row = $o2 . "Z";
-//                               
                                 } else {
                                     $highestColumn_row = $this->getAlpha($highestColumn_row, $ord, $a, $index);
                                 }
                             }
-
                             $z2 = $object->getActiveSheet()->getCell($highestColumn_row . $i)->getValue();
-
                             if ($r > 1) {
                                 break;
                             }
@@ -112,7 +106,6 @@ class GST_CFO_Dashboard extends CI_Controller {
                             $highestColumn_row_pp = $this->getAlpha($highest_value, $ord1, $a11, $index1);
                             $highest_value = $highestColumn_row_pp;
                         }
-
                         $highest_value_without_GT = $highest_value; //hightest cloumn till where we have to find our data
                         $char = 'G';
                         while ($char !== $highest_value_without_GT) {
@@ -140,7 +133,6 @@ class GST_CFO_Dashboard extends CI_Controller {
                         $char = 'G';
                         while ($char !== $highest_value_without_GT) {
                             $values1[] = $object->getActiveSheet()->getCell($char . $i)->getValue();
-
                             $char++;
                         }
 //                        var_dump($values1);
@@ -300,8 +292,6 @@ class GST_CFO_Dashboard extends CI_Controller {
             }
 
             //second excel file work end
-
-
             $uniq_id = $this->turnover_id(); //unique id generation
             $month_data_arr = $month_data; //array of month data
 //            $inter_state = $data_arr1; //array of inter state supply
@@ -310,7 +300,7 @@ class GST_CFO_Dashboard extends CI_Controller {
 //            $debit_value = $data_arr4; //array of debit_value
 //            $credit_value = $data_arr5; //array of credit_value
             $count = count($month_data_arr);
-
+            $vall = 1;
             for ($t = 0; $t < $count; $t++) {
                 if ($data_arr1 == "" or $data_arr1 === NULL) {
                     $inter_state = array();
@@ -344,14 +334,25 @@ class GST_CFO_Dashboard extends CI_Controller {
                 }
                 $quer = $this->db->query("insert into turnover_vs_tax_liability (`uniq_id`,`month`,`inter_state_supply`,`intra_state_supply`,`no_gst_paid_supply`,`debit_value`,`credit_value`,`liability_on_outward`,`liability_on_reverse_change`)"
                         . " values ('$uniq_id','$month_data[$t]','$inter_state[$t]','$intra_state[$t]','$no_gst_paid_supply[$t]','$debit_value[$t]','$credit_value[$t]','$outward[$t]','$reverse_charge[$t]') ");
+
+                if ($this->db->affected_rows() > 0) {
+                    $vall++;
+                }
             }
+            if ($vall > 1) {
+                $response['message'] = "success";
+                $response['status'] = true;
+                $response['code'] = 200;
+            } else {
+                $response['message'] = "";
+                $response['status'] = FALSE;
+                $response['code'] = 204;
+            }echo json_encode($response);
         }
     }
 
-    //abhi
+    //to decrement column of excel
     public function getAlpha($highestColumn_row, $ord, $a, $index) {
-
-
         if ($ord >= 65) {
             // The final character is still greater than A, decrement
             $highestColumn_row = substr($highestColumn_row, 0, $index) . chr($ord - 1);
@@ -367,6 +368,7 @@ class GST_CFO_Dashboard extends CI_Controller {
         return $highestColumn_row;
     }
 
+    // function to generate tunover id
     public function turnover_id() {
         $result = $this->db->query('SELECT uniq_id FROM `turnover_vs_tax_liability` ORDER BY uniq_id DESC LIMIT 0,1');
         if ($result->num_rows() > 0) {
