@@ -4,32 +4,14 @@ $this->load->view('customer/navigation');
 ?>
 
 
-
 <div class="main-panel"> 
     <div class="content-wrapper">
         <div class="col-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">GSTR-3B VS GSTR-1</h4>
-                    <form class="forms-sample" id="import_form" method="post" name="import_form" enctype="multipart/form-data">
-
-
-                        <div class="form-group">
-                            <label>File upload</label>
-                            <input type="file" name="file_ex" class="file-upload-default">
-                            <div class="input-group col-xs-12">
-                                <input type="text" class="form-control file-upload-info" name="file_ex" id="file_ex" required accept=".xls, .xlsx" disabled placeholder="Upload File">
-                                <span class="input-group-append">
-                                    <button class="file-upload-browse btn btn-primary"  type="button" >Upload</button>
-                                </span>
-                            </div>
-                        </div>
-
-
-                        <button type="button" name="imports" id="imports" class="btn btn-primary mr-2">Submit</button>
-                        <button class="btn btn-light">Cancel</button>
-                    </form><br>
-                    <button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun();"class="btn btn-primary mr-2" >Get Graph</button>
+                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal-4" data-whatever="@mdo">Upload New</button>
+                    <button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun();"class="btn btn-primary mr-2 btn-sm" >Get Graph</button>
                     <div id="container1"></div>
                     <div id="container2"></div>
                 </div>   
@@ -37,74 +19,45 @@ $this->load->view('customer/navigation');
         </div>   
 
         <div class="col-lg-12 grid-margin stretch-card ">
-            <div id="excel-data"  style="display: none;">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Excel Data</h4>
-                        <p class="card-description">
-                            Report <code>.GSTR-3B VS GSTR-1</code>
-                        </p>
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
 
-                                        <th>
-                                            Month
-                                        </th>
-                                        <th>
-                                            GSTR-3B
-                                        </th>
-                                        <th>
-                                            GSTR-1
-                                        </th>
-                                        <th>
-                                            GSTR-1 Ammend
-                                        </th>
-                                        <th>
-                                            Difference
-                                        </th>
-                                        <th>
-                                            Cummulative Difference
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    <?php
-//
-                                    if ($data !== '') {
-                                        foreach ($data as $row) {
-                                            ?>
-                                            <tr>
-
-                                                <td><?php echo $row->month; ?></td>
-                                                <td><?php echo $row->gstr_tb; ?></td>
-                                                <td><?php echo $row->gstr_one; ?></td>
-                                                <td><?php echo $row->gstr_one_ammend; ?></td>
-                                                <td><?php echo $row->difference; ?></td>
-                                                <td><?php echo $row->cumu_difference; ?></td>
-                                                <?php
-                                            }
-                                        }
-                                        ?>
-                                    </tr>
-
-
-
-
-                                </tbody>
-                            </table>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
 
 
 
+    </div>
+
+</div>
+
+
+<div class="modal fade" id="exampleModal-4" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLabel">New File</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="forms-sample" id="import_form" method="post" name="import_form" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>File upload</label>
+                        <input type="file" name="file_ex" class="file-upload-default">
+                        <div class="input-group col-xs-12">
+                            <input type="text" class="form-control file-upload-info" name="file_ex" id="file_ex" required accept=".xls, .xlsx" disabled placeholder="Upload File">
+                            <span class="input-group-append">
+                                <button class="file-upload-browse btn btn-primary"  type="button" >Upload</button>
+                            </span>
+                        </div>
+                    </div>
+                </form><br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" name="imports" id="imports" class="btn btn-info mr-2">Submit</button>
+                <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
 
 </div>
@@ -116,16 +69,8 @@ $this->load->view('customer/navigation');
 
 <script>
 
-
+// function to upload new 
     $("#imports").click(function () {
-
-//        alert("helloooo");
-//        var $this = $(this);
-//        $this.button('loading');
-//        setTimeout(function () {
-//            $this.button('reset');
-//        }, 2000);
-
         var formid = document.getElementById("import_form");
 
         $.ajax({
@@ -164,20 +109,13 @@ $this->load->view('customer/navigation');
             }
         });
 
-
-//    $("#historylist").show();
-//        $("#excel-data").show();
-//        display: none;
-
     });
-//      $("#excel-data").show();
     function  remove_error(id) {
         $('#' + id + '_error').html("");
     }
 
 
-//    
-
+    // function to display graph
     function get_graph_fun()
     {
         $.ajax({

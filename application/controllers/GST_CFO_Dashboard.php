@@ -7,11 +7,18 @@ class GST_CFO_Dashboard extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
+        $this->load->model('CFO_model');
     }
 
     function index() {
-//        $data['result'] = $result;
-        $this->load->view('customer/GST_CFO_Dashboard');
+
+        $query_get_cfo_data = $this->CFO_model->get_data_cfo();
+        if ($query_get_cfo_data !== FALSE) {
+            $data['cfo_data'] = $query_get_cfo_data;
+        } else {
+            $data['cfo_data'] = "";
+        }
+        $this->load->view('customer/GST_CFO_Dashboard', $data);
     }
 
     public function import_excel() {
@@ -375,7 +382,9 @@ class GST_CFO_Dashboard extends CI_Controller {
     }
 
     public function get_graph_Turnover_vs_liabality() {
-        $quer1 = $this->db->query("SELECT * from turnover_vs_tax_liability");
+
+        $turn_id = $this->input->post("turn_id");
+        $quer1 = $this->db->query("SELECT * from turnover_vs_tax_liability where uniq_id='$turn_id'");
         if ($quer1->num_rows() > 0) {
             $res = $quer1->result();
             $turnover1 = array();
@@ -404,7 +413,21 @@ class GST_CFO_Dashboard extends CI_Controller {
                 $lmn[] = $ratio_val[$o2];
                 $aa = settype($lmn[$o2], "float");
             }
-            $quer2 = $this->db->query("SELECT month from turnover_vs_tax_liability");
+            
+            // to get max value for range
+            $arr = array($abc, $pqr, $lmn);
+            $max_range = 0;
+            foreach ($arr as $val) {
+                foreach ($val as $key => $val1) {
+                    if ($val1 > $max_range) {
+                        $max_range = $val1;
+                    }
+                }
+            }
+           
+
+            // to get months
+            $quer2 = $this->db->query("SELECT month from turnover_vs_tax_liability where uniq_id='$turn_id'");
             $months = array();
             if ($quer2->num_rows() > 0) {
                 $res2 = $quer2->result();
@@ -413,12 +436,15 @@ class GST_CFO_Dashboard extends CI_Controller {
                 }
             }
 
+         
+           
 
             $respose['message'] = "success";
             $respose['data_turn_over'] = $abc;
             $respose['data_liability'] = $pqr;
             $respose['ratio'] = $lmn;
             $respose['month_data'] = $months;
+            $respose['max_range'] = $max_range;
         } else {
             $respose['message'] = "";
             $respose['data_turn_over'] = "";
