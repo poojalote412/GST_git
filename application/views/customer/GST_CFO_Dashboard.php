@@ -5,8 +5,8 @@ $this->load->view('customer/navigation');
 
 <div class="main-panel">
     <div class="content-wrapper">
-        
-     
+
+
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Turnover Vs Tax Liability</h4>
@@ -14,7 +14,7 @@ $this->load->view('customer/navigation');
                 </div>
                 <div class="col-md-6">
                     <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal-4" data-whatever="@mdo">Upload New</button>
-                    <button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun();"class="btn btn-primary  btn-sm" >Get Graph</button>
+
                 </div>
                 <br><br>
                 <div class="row">
@@ -23,27 +23,33 @@ $this->load->view('customer/navigation');
                             <table id="order-listing" class="table">
                                 <thead>
                                     <tr>
-                                        <th>Order #</th>
-                                        <th>Purchased On</th>
+                                        <th>No.</th>
+                                        <th>Unique id</th>
                                         <th>Customer</th>
-                                        <th>Ship to</th>
+                                        <th>View Graph</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>2017/12/28</td>
-                                        <td>Sam</td>
-                                        <td>Tokyo</td>
-                                    </tr>
-                                    <tr>
-                                        <td>6</td>
-                                        <td>2000/10/30</td>
-                                        <td>Sam</td>
-                                        <td>Tokyo</td>
-                                    </tr>
 
-
+                                    <?php
+//                                    var_dump($cfo_data);
+                                    if ($cfo_data !== "") {
+                                        $i = 1;
+                                        foreach ($cfo_data as $row) {
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $i; ?></td>
+                                                <td><?php echo $row->uniq_id; ?></td>
+                                                <td>ABC</td>
+                                                <td><button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->uniq_id;?>');"class="btn btn-outline-primary" >View</button></td>
+                                            </tr> 
+                                            <?php
+                                            $i++;
+                                        }
+                                    } else {
+                                        
+                                    }
+                                    ?>
                                 </tbody>
                             </table>
                         </div>
@@ -94,7 +100,7 @@ $this->load->view('customer/navigation');
             </div>
         </div>
     </div>
-    
+
 </div>
 
 <?php $this->load->view('customer/footer'); ?>
@@ -121,12 +127,13 @@ $this->load->view('customer/navigation');
         });
     });
 
-    function get_graph_fun()
+    function get_graph_fun(turn_id)
     {
         $.ajax({
             type: "POST",
             url: "<?= base_url("GST_CFO_Dashboard/get_graph_Turnover_vs_liabality") ?>",
             dataType: "json",
+            data:{turn_id:turn_id},
             success: function (result) {
                 if (result.message === "success") {
 
@@ -134,6 +141,7 @@ $this->load->view('customer/navigation');
                     var data_liability = result.data_liability;
                     var data_ratio = result.ratio;
                     var data_month = result.month_data;
+                    var max_range = result.max_range;
                     Highcharts.chart('container', {
                         chart: {
                             type: 'column'
@@ -148,7 +156,7 @@ $this->load->view('customer/navigation');
                             categories: data_month
                         },
                         yAxis: [{
-                                max: 50000000,
+                                max: max_range,
                                 title: {
                                     text: 'TurnOver'
                                 }
