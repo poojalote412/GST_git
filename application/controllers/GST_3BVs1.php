@@ -28,10 +28,11 @@ class GST_3BVs1 extends CI_Controller {
 //        }
 //        $data['result'] = $result;
 //        $data['result'] = $result;
-        $result['data'] = $this->GST_3BVs1Model->display_GST3Bvs1();
-        $this->load->view('customer/GST_ComparisonDevi3Bvs1', $result);
+
+        $this->load->view('customer/GST_ComparisonDevi3Bvs1');
     }
 
+    // function to get data from excel file
     public function import() {
         if (isset($_FILES["file_ex"]["name"])) {
             $path = $_FILES["file_ex"]["tmp_name"];
@@ -205,6 +206,7 @@ class GST_3BVs1 extends CI_Controller {
         }
     }
 
+    // function to get graph
     public function get_graph() {
 
         $query = $this->db->query("SELECT gstr_tb from gstr_compare where gstr2a=''");
@@ -288,7 +290,7 @@ class GST_3BVs1 extends CI_Controller {
             $quer_range1 = $this->db->query("SELECT MAX(gstr_one) as gstr1_max FROM gstr_compare where gstr2a=''");
             $gstr1_max = $quer_range1->row();
             $gstr1max = $gstr1_max->gstr1_max;
-            $max_value=(max($gstrtbmax,$gstr1max));
+            $max_value = (max($gstrtbmax, $gstr1max));
 
             $respose['message'] = "success";
             $respose['data_gstr3b'] = $abc;
@@ -306,6 +308,21 @@ class GST_3BVs1 extends CI_Controller {
             $respose['cumu_difference'] = "";
         }
         echo json_encode($respose);
+    }
+
+    // generate unique id for compare
+    public function compare_unique_id() {
+        $result = $this->db->query('SELECT uniq_id FROM `gstr_compare` ORDER BY compare_id DESC LIMIT 0,1');
+        if ($result->num_rows() > 0) {
+            $data = $result->row();
+            $turn_id = $data->uniq_id;
+            //generate user_id
+            $turn_id = str_pad(++$turn_id, 5, '0', STR_PAD_LEFT);
+            return $turn_id;
+        } else {
+            $turn_id = 'turn_1001';
+            return $turn_id;
+        }
     }
 
 }

@@ -373,7 +373,7 @@ class GST_CFO_Dashboard extends CI_Controller {
             $data = $result->row();
             $turn_id = $data->uniq_id;
             //generate user_id
-            $turn_id = str_pad(++$turn_id, 5, '0', STR_PAD_LEFT);
+            $turn_id = str_pad( ++$turn_id, 5, '0', STR_PAD_LEFT);
             return $turn_id;
         } else {
             $turn_id = 'turn_1001';
@@ -413,7 +413,7 @@ class GST_CFO_Dashboard extends CI_Controller {
                 $lmn[] = $ratio_val[$o2];
                 $aa = settype($lmn[$o2], "float");
             }
-            
+
             // to get max value for range
             $arr = array($abc, $pqr, $lmn);
             $max_range = 0;
@@ -424,8 +424,6 @@ class GST_CFO_Dashboard extends CI_Controller {
                     }
                 }
             }
-           
-
             // to get months
             $quer2 = $this->db->query("SELECT month from turnover_vs_tax_liability where uniq_id='$turn_id'");
             $months = array();
@@ -435,10 +433,6 @@ class GST_CFO_Dashboard extends CI_Controller {
                     $months[] = $row->month;
                 }
             }
-
-         
-           
-
             $respose['message'] = "success";
             $respose['data_turn_over'] = $abc;
             $respose['data_liability'] = $pqr;
