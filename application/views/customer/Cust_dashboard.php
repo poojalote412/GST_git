@@ -2,10 +2,10 @@
 $this->load->view('customer/header');
 $this->load->view('customer/navigation');
 
+//Check user login or not using session
 
 if ($session = $this->session->userdata('login_session') == '') {
 //take them back to signin 
-//    echo 'fghjf';
     redirect(base_url() . 'GST_AdminLogin');
 }
 $session_data = $this->session->userdata('login_session');
