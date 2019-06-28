@@ -28,7 +28,6 @@ if (is_array($session_data)) {
                 </div>
                 <div class="col-md-6">
                     <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal-4" data-whatever="@mdo">Upload New</button>
-
                 </div>
                 <br><br>
                 <div class="row">
@@ -85,8 +84,6 @@ if (is_array($session_data)) {
             </div>
             <div class="modal-body">
                 <form class="forms-sample" id="import_form" method="post" name="import_form" enctype="multipart/form-data">
-
-
                     <div class="form-group">
                         <label>File upload</label>
                         <input type="file" name="file_ex" class="file-upload-default">
@@ -105,7 +102,6 @@ if (is_array($session_data)) {
                             </span>
                         </div>
                     </div>
-
                 </form>
             </div>
             <div class="modal-footer">
