@@ -89,7 +89,7 @@ class Internal_acc_report extends CI_Controller {
                             }
 //                            $cnt1=count($arr);
 //                            var_dump($cnt1);
-                            var_dump($arr);
+//                            var_dump($arr);
                         }
                     }
                 } else {

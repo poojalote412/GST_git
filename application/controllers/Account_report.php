@@ -68,6 +68,8 @@ class Account_report extends CI_Controller {
             
                $quer = $this->db->query("insert into 3b_offset_summary (`filling_date`,`due_date`,`late_fees`)"
                         . " values ('$outward[$t]','$outward1[$t]','$reverse_charge[$t]') ");
+               
+               
             
 //           
         } 

@@ -227,6 +227,8 @@ if (is_array($session_data)) {
 //                    alert(data);
 
 //                $('#customer_data').html(data);
+
+
             }
         });
     });
