@@ -114,21 +114,98 @@ class Management_report extends CI_Controller {
         $query = $this->db->query("SELECT * from turnover_vs_tax_liability where uniq_id='$turn_id'");
         if ($query->num_rows() > 0) {
             $result = $query->result();
+            $taxable_supply_arr = array();
+            $sub_total_non_gst_arr = array();
+            $sub_total_exempt_arr = array();
+            $ratio_taxable_supply = array();
+            $ratio_subtotal_nongst = array();
+            $ratio_subtotal_exempt = array();
             foreach ($result as $row) {
                 $inter_state_supply = $row->inter_state_supply;
                 $intra_state_supply = $row->intra_state_supply;
                 $debit_value = $row->debit_value;
                 $credit_value = $row->credit_value;
-                
-                $taxable_supply =($inter_state_supply+$intra_state_supply+$debit_value)-($credit_value);
+
+                $taxable_supply = ($inter_state_supply + $intra_state_supply + $debit_value) - ($credit_value);
+                $taxable_supply_arr[] = $taxable_supply; //taxable supply array
+
                 $sub_total_non_gst = $row->sub_total_non_gst;
+                $sub_total_non_gst_arr[] = $sub_total_non_gst; // sub total non gst array
+
                 $sub_total_exempt = $row->sub_total_exempt;
-                
-                $ratio_taxable_supply=($taxable_supply*100)/($taxable_supply+$sub_total_non_gst+$sub_total_exempt);
-                 $ratio_subtotal_nongst=($sub_total_non_gst*100)/($taxable_supply+$sub_total_non_gst+$sub_total_exempt);
-                echo $ratio_subtotal_exempt=($sub_total_exempt*100)/($taxable_supply+$sub_total_non_gst+$sub_total_exempt) ."<br>";
+                $sub_total_exempt_arr[] = $sub_total_exempt; // sub total exempt array
+
+                $grand_total = $taxable_supply + $sub_total_non_gst + $sub_total_exempt;
+                $ratio_taxable_supply[] = round(($taxable_supply * 100) / ($grand_total));
+                $ratio_subtotal_nongst[] = round(($sub_total_non_gst * 100) / ($grand_total));
+                $ratio_subtotal_exempt[] = round(($sub_total_exempt * 100) / ($grand_total));
             }
-        }
+
+            // loop to get graph data as per graph script requirement
+            $abc1 = array();
+            $abc2 = array();
+            $abc3 = array();
+            $abc4 = array();
+            $abc5 = array();
+            $abc6 = array();
+            for ($o = 0; $o < sizeof($taxable_supply_arr); $o++) {
+                $abc1[] = $taxable_supply_arr[$o];
+                $aa1 = settype($abc1[$o], "float");
+
+                $abc2[] = $sub_total_non_gst_arr[$o];
+                $aa2 = settype($abc2[$o], "float");
+
+                $abc3[] = $sub_total_exempt_arr[$o];
+                $aa3 = settype($abc3[$o], "float");
+
+                $abc4[] = $ratio_taxable_supply[$o];
+                $aa4 = settype($abc4[$o], "float");
+
+                $abc5[] = $ratio_subtotal_nongst[$o];
+                $aa5 = settype($abc5[$o], "float");
+
+                $abc6[] = $ratio_subtotal_exempt[$o];
+                $aa6 = settype($abc6[$o], "float");
+            }
+
+            // to get max value for range
+            $arr = array($abc1, $abc2, $abc3);
+            $max_range = 0;
+            foreach ($arr as $val) {
+                foreach ($val as $key => $val1) {
+                    if ($val1 > $max_range) {
+                        $max_range = $val1;
+                    }
+                }
+            }
+
+            //function to get months
+            $quer2 = $this->db->query("SELECT month from turnover_vs_tax_liability where uniq_id='$turn_id'");
+            $months = array();
+            if ($quer2->num_rows() > 0) {
+                $res2 = $quer2->result();
+                foreach ($res2 as $row) {
+                    $months[] = $row->month;
+                }
+            }
+            $respnose['message'] = "success";
+            $respnose['taxable_supply_arr'] = $abc1;  //taxable_supply data
+            $respnose['sub_total_non_gst_arr'] = $abc2; //sub_total_non_gstdata
+            $respnose['sub_total_exempt_arr'] = $abc3; //sub_total_exempt data
+            $respnose['ratio_taxable_supply'] = $abc4; //ratio_taxable_supply
+            $respnose['ratio_subtotal_nongst'] = $abc5; //ratio_subtotal_nongst
+            $respnose['ratio_subtotal_exempt'] = $abc6; //ratio_subtotal_exempt
+            $respnose['month_data'] = $months; //months 
+            $respnose['max_range'] = $max_range; //maximum range for graph
+        } else {
+            $respnose['message'] = "";
+            $respnose['taxable_supply_arr'] = "";  //taxable_supply data
+            $respnose['sub_total_non_gst_arr'] = ""; //sub_total_non_gstdata
+            $respnose['sub_total_exempt_arr'] = ""; //sub_total_exempt data
+            $respnose['ratio_taxable_supply'] = ""; //ratio_taxable_supply
+            $respnose['ratio_subtotal_nongst'] = ""; //ratio_subtotal_nongst
+            $respnose['ratio_subtotal_exempt'] = ""; //ratio_subtotal_exempt
+        } echo json_encode($respnose);
     }
 
 }

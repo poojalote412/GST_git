@@ -1,3 +1,5 @@
+//sale
+
 <?php
 $this->load->view('customer/header');
 $this->load->view('customer/navigation');
@@ -17,6 +19,7 @@ if (is_array($session_data)) {
     $username = $this->session->userdata('login_session');
 }
 ?>
+
 <div class="main-panel">
     <div class="content-wrapper">
 
@@ -27,7 +30,16 @@ if (is_array($session_data)) {
                 <div class="col-md-6">
                 </div>
                 <div class="col-md-6">
-                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal-4" data-whatever="@mdo">Upload New</button>
+
+
+
+
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb bg-light">
+                            <b>Note: </b> &nbsp; This Graph is automatically generate when you upload files for CFO. 
+                        </ol>
+                    </nav>
+                    <!--<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal-4" data-whatever="@mdo">Upload New</button>-->
                 </div>
                 <br><br>
                 <div class="row">
@@ -73,49 +85,11 @@ if (is_array($session_data)) {
         </div>
     </div>
 </div>
-<div class="modal fade" id="exampleModal-4" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="ModalLabel">New message</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form class="forms-sample" id="import_form" method="post" name="import_form" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label>File upload</label>
-                        <input type="file" name="file_ex" class="file-upload-default">
-                        <div class="input-group col-xs-6">
-                            <input type="file" class="form-control file-upload" name="file_ex" id="file_ex" required accept=".xls, .xlsx"  placeholder="Upload File1">
 
-                            <span class="input-group-append">
-                                <button class="file-upload-browse btn btn-light"  type="button" >Upload</button>
-                            </span>
-                        </div><br>
-                        <div class="input-group col-xs-6">
-                            <input type="file" class="form-control file-upload" name="file_ex1" id="file_ex1" required accept=".xls, .xlsx"  placeholder="Upload File2">
-
-                            <span class="input-group-append">
-                                <button class="file-upload-browse btn btn-light"  type="button" >Upload</button>
-                            </span>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" name="import" id="import" class="btn btn-success mr-2">Submit</button>
-                <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-
-</div>
 
 <?php $this->load->view('customer/footer'); ?>
 <script>
-   
+
 //function to get graph view
     function get_graph_fun(turn_id)
     {
@@ -127,9 +101,12 @@ if (is_array($session_data)) {
             success: function (result) {
                 if (result.message === "success") {
 
-                    var data_a = result.data_turn_over;
-                    var data_liability = result.data_liability;
-                    var data_ratio = result.ratio;
+                    var taxable_supply = result.taxable_supply_arr;
+                    var sub_total_non_gst = result.sub_total_non_gst_arr;
+                    var sub_total_exempt = result.sub_total_exempt_arr;
+                    var ratio_taxable_supply = result.ratio_taxable_supply;
+                    var ratio_subtotal_nongst = result.ratio_subtotal_nongst;
+                    var ratio_subtotal_exempt = result.ratio_subtotal_exempt;
                     var data_month = result.month_data;
                     var max_range = result.max_range;
                     Highcharts.chart('container', {
@@ -148,14 +125,14 @@ if (is_array($session_data)) {
                         yAxis: [{
                                 max: max_range,
                                 title: {
-                                    text: 'TurnOver'
+                                    text: 'Supply Values'
                                 }
                             }, {
                                 min: 0,
                                 max: 100,
                                 opposite: true,
                                 title: {
-                                    text: 'Ratio(in %) of tax liability to turnover'
+                                    text: 'Ratio(in %)'
                                 }
                             }],
                         legend: {
@@ -165,26 +142,69 @@ if (is_array($session_data)) {
                             shared: true
                         },
                         series: [{
-                                name: 'TurnOver',
-                                data: data_a,
+                                name: 'Taxable Supply',
+                                data: taxable_supply,
                                 color: '#146FA7',
                                 tooltip: {
                                     valuePrefix: '₹',
                                     valueSuffix: ' M'
                                 },
                             }, {
-                                name: 'Tax Liability',
-                                data: data_liability,
+                                name: 'Exempt Supply',
+                                data: sub_total_exempt,
                                 color: '#B8160E',
                                 tooltip: {
                                     valuePrefix: '₹',
                                     valueSuffix: ' M'
                                 },
                             }, {
-                                type: 'spline',
+                                name: 'Non-GST Supply',
+                                data: sub_total_non_gst,
                                 color: '#5BCB45',
-                                name: 'Ratio',
-                                data: data_ratio,
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                },
+                            },
+                            {
+                                type: 'spline',
+                                color: '#AE72E4',
+                                name: 'Ratio of Taxable supply by Total supply',
+                                data: ratio_taxable_supply,
+                                yAxis: 1,
+                                tooltip: {
+                                    valueSuffix: ' %'
+                                },
+                                plotOptions: {
+                                    spline: {
+                                        dataLabels: {
+                                            enabled: true
+                                        },
+                                        enableMouseTracking: false
+                                    }
+                                },
+                            }, {
+                                type: 'spline',
+                                color: '#0ACAF0',
+                                name: 'Ratio of Exempt Supply by Total supply',
+                                data: ratio_subtotal_exempt,
+                                yAxis: 1,
+                                tooltip: {
+                                    valueSuffix: ' %'
+                                },
+                                plotOptions: {
+                                    spline: {
+                                        dataLabels: {
+                                            enabled: true
+                                        },
+                                        enableMouseTracking: false
+                                    }
+                                },
+                            }, {
+                                type: 'spline',
+                                color: '#FAC127',
+                                name: 'Ratio of Non-GST supply by Total supply',
+                                data: ratio_subtotal_nongst,
                                 yAxis: 1,
                                 tooltip: {
                                     valueSuffix: ' %'
