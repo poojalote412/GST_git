@@ -64,7 +64,7 @@
 
 
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo base_url(); ?>GST_CFODashboard">
+                <a class="nav-link" href="<?php echo base_url(); ?>Cfo_dashboard">
                     <i class="typcn typcn-device-desktop menu-icon"></i>
                     <!--<span class="menu-title">Dashboard <span class="badge badge-primary ml-3">New</span></span>-->
                     <span class="menu-title">CFO Dashboard</span>
@@ -79,8 +79,8 @@
                 </a>
                 <div class="collapse" id="editors">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>GST_3BVs1">GSTR3B VS GSTR-1</a></li>
-                        <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>GST_3BVs2A">GSTR3B vs GSTR-2A</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>Threeb_Vs_one">GSTR3B VS GSTR-1</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>Threeb_vs_twoa">GSTR3B vs GSTR-2A</a></li>
                     </ul>
                 </div>
             </li>
@@ -92,15 +92,15 @@
                 </a>
                 <div class="collapse" id="editors_mng">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>GST_state_wise">Sales State Wise</a></li>
-                        <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>sale_taxable_nontaxable">Sales Taxable, non-taxable <br> and Exempt</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>Sale_state_wise">Sales State Wise</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>Sale_taxable_nontaxable">Sales Taxable, non-taxable <br> and Exempt</a></li>
                     </ul>
                 </div>
             </li>
 
 
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo base_url(); ?>GST_Account">
+                <a class="nav-link" href="<?php echo base_url(); ?>Account">
                     <i class="typcn typcn-device-desktop menu-icon"></i>
                     <!--<span class="menu-title">Dashboard <span class="badge badge-primary ml-3">New</span></span>-->
                     <span class="menu-title">Account Report</span>
@@ -109,7 +109,7 @@
 
 
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo base_url(); ?>GST_Internal_Control">
+                <a class="nav-link" href="<?php echo base_url(); ?>Internal_control">
                     <i class="typcn typcn-device-desktop menu-icon"></i>
                     <!--<span class="menu-title">Dashboard <span class="badge badge-primary ml-3">New</span></span>-->
                     <span class="menu-title">Internal Control Report</span>
@@ -119,7 +119,7 @@
 
 
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo base_url(); ?>GST_Invoice_Comparison">
+                <a class="nav-link" href="<?php echo base_url(); ?>Invoice_comparison">
                     <i class="typcn typcn-device-desktop menu-icon"></i>
                     <!--<span class="menu-title">Dashboard <span class="badge badge-primary ml-3">New</span></span>-->
                     <span class="menu-title">Invoice wise Comparison or Mismatch Report</span>
@@ -133,7 +133,7 @@
 
 
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo base_url(); ?>GST_AdminLogin/admin_logout">
+                <a class="nav-link" href="<?php echo base_url(); ?>Gst_admin_login/admin_logout">
                     <i class="typcn typcn-device-desktop menu-icon"></i>
                     <!--<span class="menu-title">Dashboard <span class="badge badge-primary ml-3">New</span></span>-->
                     <span class="menu-title">Logout</span>

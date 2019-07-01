@@ -19,14 +19,14 @@ if (is_array($session_data)) {
 ?>
 
 
-<div class="main-panel"> 
+<div class="main-panel">
     <div class="content-wrapper">
         <div class="col-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">GSTR-3B VS GSTR-1</h4>
-                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal-4" data-whatever="@mdo">Upload New</button><br><br>
-                    <!--<button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun();"class="btn btn-primary mr-2 btn-sm" >Get Graph</button> <br><br>-->
+                    <h4 class="card-title">GSTR-3B VS GSTR-2A</h4>
+                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal-4" data-whatever="@mdo">Upload New</button> <br><br>
+                    <!--<button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun();"class="btn btn-primary mr-2 btn-sm" >Get Graph</button>-->
 
                     <div class="row">
                         <div class="col-md-12">
@@ -43,9 +43,9 @@ if (is_array($session_data)) {
                                     <tbody>
                                         <?php
 //                                    var_dump($gstr1_vs_3b_data);
-                                        if ($gstr1_vs_3b_data !== "") {
+                                        if ($gstr1_vs_2a_data !== "") {
                                             $i = 1;
-                                            foreach ($gstr1_vs_3b_data as $row) {
+                                            foreach ($gstr1_vs_2a_data as $row) {
                                                 ?>
                                                 <tr>
                                                     <td><?php echo $i; ?></td>
@@ -67,18 +67,17 @@ if (is_array($session_data)) {
                         </div>
                     </div>
                     <div id="container1"></div>
-                </div>   
+                </div>
             </div>   
-        </div>   
+        </div>  
 
-        <div class="col-lg-12 grid-margin stretch-card ">
 
-        </div>
 
 
 
 
     </div>
+
 
 </div>
 
@@ -115,27 +114,21 @@ if (is_array($session_data)) {
 
 </div>
 <?php $this->load->view('customer/footer'); ?>
-
-
-
-
-
 <script>
 
-// function to upload new 
     $("#imports").click(function () {
         var formid = document.getElementById("import_form");
 
         $.ajax({
             type: "post",
-            url: "<?= base_url("GST_3BVs1/import") ?>",
+            url: "<?= base_url("Threeb_vs_twoa/import") ?>",
             dataType: "json",
             data: new FormData(formid), //form data
             processData: false,
             contentType: false,
             cache: false,
             async: false,
-//            data: $("#Add_UniversityStudent").serialize(),
+            //            data: $("#Add_UniversityStudent").serialize(),
             success: function (result) {
                 // alert(result.error);
                 if (result.status === true) {
@@ -147,13 +140,10 @@ if (is_array($session_data)) {
                 } else {
                     $('#' + result.id + '_error').html(result.error);
                     $('#message').html(result.error);
-                    alert(data);
-//                      $('.excel-data').html(data);
                 }
-
             },
             error: function (result) {
-                console.log(result);
+                //                console.log(result);
                 if (result.status === 500) {
                     alert('Internal error: ' + result.responseText);
                 } else {
@@ -161,35 +151,39 @@ if (is_array($session_data)) {
                 }
             }
         });
-
     });
     function  remove_error(id) {
         $('#' + id + '_error').html("");
     }
 
 
-    // function to display graph
+
+
     function get_graph_fun(cmpr_id)
     {
+        //                        alert("ghgh");
         $.ajax({
             type: "POST",
-            url: "<?= base_url("GST_3BVs1/get_graph") ?>",
+            url: "<?= base_url("Threeb_vs_twoa/get_graph") ?>",
             dataType: "json",
             data:{cmpr_id:cmpr_id},
             success: function (result) {
                 if (result.message === "success") {
 
                     var data_a = result.data_gstr3b;
-                    var data_gstr1_res = result.data_gstr1;
+                    //                                    var data_gstr2a = result.data_gstr2a;
+                    //                                    var data_gstr_one_ammend_res = result.data_gstr_one_ammend;
                     var data_difference = result.difference;
                     var cumu_difference = result.cumu_difference;
+                    var data_gstr2a = result.gstr2a_difference;
                     var max = result.max;
                     Highcharts.chart('container1', {
                         chart: {
-                            type: 'Combination chart'
+                            type: 'Combination chart',
+                            type: 'area'
                         },
                         title: {
-                            text: 'Comparison Between GSTR-3B & GSTR-1'
+                            text: 'Comparison Between GSTR-3B & GSTR-2A'
                         },
                         subtitle: {
                             text: 'Customer Name: ANAND RATHI GLOBAL FINANCE LIMITED '
@@ -212,9 +206,9 @@ if (is_array($session_data)) {
                             crosshair: true
                         },
                         yAxis: {
-                            min: 0,
+                            //                                            min: 0,
                             max: max,
-//                            tickInterval: 1000,
+//                                    tickInterval: 1000000,
                             title: {
                                 text: 'Rupees (millions)'
                             }
@@ -229,8 +223,23 @@ if (is_array($session_data)) {
                         },
                         plotOptions: {
                             column: {
-                                pointPadding: 0.2,
+                                pointPadding: 0.1,
                                 borderWidth: 0
+                            },
+                            spline: {
+                                pointPadding: 0.1,
+                                borderWidth: 0
+                            },
+
+                            area: {
+                                stacking: 'normal',
+                                lineColor: '#FFFF00',
+                                lineWidth: 1,
+                                color: '#FFFF00',
+                                marker: {
+                                    lineWidth: 1,
+                                    lineColor: '#FFFF00'
+                                }
                             }
                         },
                         series: [{
@@ -240,31 +249,36 @@ if (is_array($session_data)) {
 
                             }, {
                                 type: 'column',
-                                name: 'GSTR-1',
-                                data: data_gstr1_res,
-                                lineColor: '#A9A9A9',
-                                color: '#A9A9A9'
+                                name: 'GSTR-2A',
+                                data: data_gstr2a,
+                                lineColor: '#FF8C00',
+                                color: '#FF8C00'
 
                             }, {
                                 type: 'spline',
                                 name: 'Difference',
-                                data: data_difference,
-                                lineColor: '#2271B3',
-                                color: '#2271B3'
+                                data: data_difference
 
                             }, {
-                                type: 'column',
+                                type: 'area',
                                 name: 'Cumulative Difference',
-                                data: cumu_difference,
-                                lineColor: '#87cefa',
-                                color: '#87cefa'
+                                data: cumu_difference
 
-                            }]
+                            }, ]
                     });
+
+
+
+
                 }
             }
         });
 
     }
 
+
 </script>
+
+
+
+

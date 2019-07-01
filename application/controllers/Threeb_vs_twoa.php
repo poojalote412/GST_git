@@ -3,23 +3,23 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class GST_3BVs2A extends CI_Controller {
+class Threeb_vs_twoa extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model('GST_3BVs2AModel');
+        $this->load->model('Threeb_vs_twoa_model');
         $this->load->library('excel');
     }
 
     function index() {
 
-        $query_res = $this->GST_3BVs2AModel->get_gstr1vs2A_data();
+        $query_res = $this->Threeb_vs_twoa_model->get_gstr1vs2A_data();
         if ($query_res !== FALSE) {
             $data['gstr1_vs_2a_data'] = $query_res;
         } else {
             $data['gstr1_vs_2a_data'] = "";
         }
-        $this->load->view('customer/GST_CompDevi3B2A', $data);
+        $this->load->view('customer/Threeb_vs_twoa', $data);
     }
 
     public function import() {
@@ -149,7 +149,7 @@ class GST_3BVs2A extends CI_Controller {
 
 
                     $data1 = array_merge($array_id, $array1, $array2, $array3, $array4);
-                    $res = $this->GST_3BVs2AModel->insert_GST3Bvs2A($data1);
+                    $res = $this->Threeb_vs_twoa_model->insert_GST3Bvs2A($data1);
 
                     if ($res === TRUE) {
                         $abc++;

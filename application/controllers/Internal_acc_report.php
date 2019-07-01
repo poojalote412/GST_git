@@ -3,22 +3,22 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class GST_InternalAccReport extends CI_Controller {
+class Internal_acc_report extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model('GST_InternalModel');
+        $this->load->model('Internal_acc_report_model');
     }
 
     function index() {
 //        $data['result'] = $result;
-        $query_get_data = $this->GST_InternalModel->get_data_taxliability();
+        $query_get_data = $this->Internal_acc_report_model->get_data_taxliability();
         if ($query_get_data !== FALSE) {
             $data['tax_data'] = $query_get_data;
         } else {
             $data['tax_data'] = "";
         }
-        $this->load->view('customer/GST_InternalControl', $data);
+        $this->load->view('customer/Internal_acc_report', $data);
     }
 
     public function import_excel() {

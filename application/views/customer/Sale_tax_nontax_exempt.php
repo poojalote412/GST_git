@@ -121,7 +121,7 @@ if (is_array($session_data)) {
     {
         $.ajax({
             type: "POST",
-            url: "<?= base_url("GST_MgmtReport/get_graph_taxable_nontx_exempt") ?>",
+            url: "<?= base_url("Management_report/get_graph_taxable_nontx_exempt") ?>",
             dataType: "json",
             data: {turn_id: turn_id},
             success: function (result) {

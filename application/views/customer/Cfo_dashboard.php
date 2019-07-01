@@ -119,13 +119,13 @@ if (is_array($session_data)) {
         var formid = document.getElementById("import_form");
         event.preventDefault();
         $.ajax({
-<<<<<<< HEAD
-            url: "<?php echo base_url(); ?>GST_CFO_Dashboard/import_excel",
+
+            url: "<?php echo base_url(); ?>Cfo_dashboard/import_excel",
         type: "POST",
-=======
-            url: "<?= base_url("GST_CFO_Dashboard/import_excel") ?>",
+
+            url: "<?= base_url("Cfo_dashboard/import_excel") ?>",
             type: "POST",
->>>>>>> 8a9a198b2ab7459f88867207e8dbea8ecf8de22f
+
             data: new FormData(formid),
             dataType: "json",
             contentType: false,
@@ -155,7 +155,7 @@ if (is_array($session_data)) {
     {
         $.ajax({
             type: "POST",
-            url: "<?= base_url("GST_CFO_Dashboard/get_graph_Turnover_vs_liabality") ?>",
+            url: "<?= base_url("Cfo_dashboard/get_graph_Turnover_vs_liabality") ?>",
             dataType: "json",
             data: {turn_id: turn_id},
             success: function (result) {

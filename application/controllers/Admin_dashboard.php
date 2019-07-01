@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class GST_AdminDashboard extends CI_Controller {
+class Admin_dashboard  extends CI_Controller {
 
     public function __construct() {
         parent::__construct();

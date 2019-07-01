@@ -1,6 +1,6 @@
 <?php
 
-class CFO_model extends CI_Model {
+class Cfo_model extends CI_Model {
     
     public function get_data_cfo()
     {

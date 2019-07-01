@@ -103,7 +103,7 @@ if (is_array($session_data)) {
         var formid = document.getElementById("import_form");
         event.preventDefault();
         $.ajax({
-            url: "<?= base_url("GST_MgmtReport/import_excel") ?>",
+            url: "<?= base_url("Management_report/import_excel") ?>",
             type: "POST",
             data: new FormData(formid),
             dataType: "json",

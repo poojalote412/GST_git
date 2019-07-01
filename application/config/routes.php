@@ -56,19 +56,19 @@ $route['translate_uri_dashes'] = FALSE;
 
 
 
-$route['Cust_dashboard'] = 'GST_Dashboard/index';
-$route['GST_CFODashboard'] = 'GST_CFO_Dashboard/index';
-$route['GST_state_wise'] = 'GST_MgmtReport/state_wise_report';
-$route['sale_taxable_nontaxable'] = 'GST_MgmtReport/sale_taxable_nontaxable'; //sale_taxable_nontaxable and exempt route
-$route['GST_Account'] = 'GST_AccReport/index';
-$route['GST_Internal_Control'] = 'GST_InternalAccReport/index';
-$route['GST_Invoice_Comparison'] = 'GST_InvoiceCompReport/index';
-$route['GST_3BVs1'] = 'GST_3BVs1/index';
-$route['GST_3BVs2A'] = 'GST_3BVs2A/index';
-$route['GST_Logout'] = 'GST_Dashboard/index';
+$route['Cust_dashboard'] = 'Gst_dashboard/index';
+$route['Cfo_dashboard'] = 'Cfo_dashboard/index';
+$route['Sale_state_wise'] = 'Management_report/state_wise_report';
+$route['Sale_taxable_nontaxable'] = 'Management_report/sale_taxable_nontaxable'; //sale_taxable_nontaxable and exempt route
+$route['Account'] = 'Account_report/index';
+$route['Internal_control'] = 'Internal_acc_report/index';
+$route['Invoice_comparison'] = 'Invoice_comp_report/index';
+$route['Threeb_Vs_one'] = 'Threeb_vs_one/index';
+$route['Threeb_vs_twoa'] = 'Threeb_vs_twoa/index';
+$route['GST_Logout'] = 'Gst_dashboard/index';
 //$route['Cust_login']='GST_Dashboard/employee_dashboard';
 
 
 //Routes for admin
 
-$route['admin_dashboard'] = 'GST_AdminDashboard/index';
+$route['admin_dashboard'] = 'Admin_dashboard/index';

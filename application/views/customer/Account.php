@@ -71,7 +71,7 @@ if (is_array($session_data)) {
 
                 $.ajax({
                     type: "post",
-                    url: "<?= base_url("GST_AccReport/import") ?>",
+                    url: "<?= base_url("Account_report/import") ?>",
                     dataType: "json",
                     data: new FormData(formid), //form data
                     processData: false,

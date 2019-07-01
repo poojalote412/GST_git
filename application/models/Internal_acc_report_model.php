@@ -1,5 +1,5 @@
 <?php
-class GST_InternalModel extends CI_Model
+class Internal_acc_report_model extends CI_Model
 {
 	
      public function get_data_taxliability()

@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class GST_AccReport extends CI_Controller {
+class Account_report extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
@@ -11,7 +11,7 @@ class GST_AccReport extends CI_Controller {
 
     function index() {
 //        $data['result'] = $result;
-        $this->load->view('customer/GST_Account');
+        $this->load->view('customer/Account');
     }
 
     public function import() {

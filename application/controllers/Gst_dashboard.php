@@ -3,11 +3,11 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class GST_Dashboard extends CI_Controller {
+class Gst_dashboard extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model('GST_CustDashboard_model'); /* load model default which you create */
+//        $this->load->model('GST_CustDashboard_model'); /* load model default which you create */
         $this->load->library('session');
     }
 

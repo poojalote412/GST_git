@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class GST_MgmtReport extends CI_Controller {
+class Management_report extends CI_Controller {
 
     public function __construct() {
         parent::__construct();

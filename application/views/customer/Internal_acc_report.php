@@ -213,7 +213,7 @@ if (is_array($session_data)) {
         var formid = document.getElementById("import_form");
         event.preventDefault();
         $.ajax({
-            url: "<?php echo base_url(); ?>GST_InternalAccReport/import_excel",
+            url: "<?php echo base_url(); ?>Internal_acc_report/import_excel",
             type: "POST",
             data: new FormData(formid),
             contentType: false,
@@ -238,7 +238,7 @@ if (is_array($session_data)) {
 //        alert("testing");
         $.ajax({
             type: "POST",
-            url: "<?= base_url("GST_InternalAccReport/get_graph") ?>",
+            url: "<?= base_url("Internal_acc_report/get_graph") ?>",
             dataType: "json",
             data:{tax_id:tax_id},
             success: function (result) {
