@@ -125,7 +125,7 @@ if (is_array($session_data)) {
         event.preventDefault();
         $.ajax({
             url: "<?php echo base_url(); ?>GST_CFO_Dashboard/import_excel",
-            type: "POST",
+        type: "POST",
             data: new FormData(formid),
             contentType: false,
             cache: false,

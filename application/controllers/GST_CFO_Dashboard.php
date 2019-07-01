@@ -23,7 +23,8 @@ class GST_CFO_Dashboard extends CI_Controller {
 
     public function import_excel() {
 
-        if (isset($_FILES["file_ex"]["name"]) && isset($_FILES["file_ex1"]["name"])) {
+         if (isset($_FILES["file_ex"]["name"]) && isset($_FILES["file_ex1"]["name"])) {
+             
             $path = $_FILES["file_ex"]["tmp_name"];
             $this->load->library('excel');
             $object = PHPExcel_IOFactory::load($path);
@@ -239,6 +240,7 @@ class GST_CFO_Dashboard extends CI_Controller {
                                 $char++;
                             }
                             $cnt = count($values_CR);
+                            var_dump($cnt);
                             $data_arr5 = array();
                             for ($a_cr = 0; $a_cr < $cnt; $a_cr++) {
                                 $Cr_values = $values_CR[$a_cr];

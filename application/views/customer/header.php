@@ -17,7 +17,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>CelestialUI Admin</title>
+  <title>GST Admin</title>
   <!-- base:css -->
   
    <link rel="stylesheet"  href="<?= base_url()."vendors/";?>select2-bootstrap-theme/select2-bootstrap.min.css">

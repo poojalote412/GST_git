@@ -202,21 +202,6 @@ WHERE gstr2a !=''");
             }
 
 
-//             $query_difference = $this->db->query("SELECT gstr2a from gstr_compare");
-//            if ($query_difference->num_rows() > 0) {
-//                $result_difference = $query_difference->result();
-//                foreach ($result_difference as $row_difference) {
-//                    $difference[] = $row_difference->difference;
-//                }
-//                $abc2 = array();
-//                for ($o1 = 0; $o1 < sizeof($difference); $o1++) {
-//                    $abc2[] = $difference[$o1];
-//                    $aa1 = settype($abc2[$o1], "integer");
-//                }
-//            } else {
-//                $abc2[] = "";
-//            }
-
 
             $query_difference = $this->db->query("SELECT difference FROM gstr_compare 
 WHERE gstr2a !=''");
