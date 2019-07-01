@@ -25,10 +25,48 @@ if (is_array($session_data)) {
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">GSTR-3B VS GSTR-1</h4>
-                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal-4" data-whatever="@mdo">Upload New</button>
-                    <button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun();"class="btn btn-primary mr-2 btn-sm" >Get Graph</button>
+                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal-4" data-whatever="@mdo">Upload New</button><br><br>
+                    <!--<button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun();"class="btn btn-primary mr-2 btn-sm" >Get Graph</button> <br><br>-->
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table id="order-listing" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Unique id</th>
+                                            <th>Customer</th>
+                                            <th>View Graph</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+//                                    var_dump($gstr1_vs_3b_data);
+                                        if ($gstr1_vs_3b_data !== "") {
+                                            $i = 1;
+                                            foreach ($gstr1_vs_3b_data as $row) {
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo $i; ?></td>
+                                                    <td><?php echo $row->compare_id; ?></td>
+                                                    <td>ABC</td>
+                                                    <td><button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->compare_id; ?>');"class="btn btn-outline-primary" >View</button></td>
+                                                </tr> 
+                                                <?php
+                                                $i++;
+                                            }
+                                        } else {
+                                            
+                                        }
+                                        ?>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                     <div id="container1"></div>
-                    <div id="container2"></div>
                 </div>   
             </div>   
         </div>   
@@ -131,13 +169,13 @@ if (is_array($session_data)) {
 
 
     // function to display graph
-    function get_graph_fun()
+    function get_graph_fun(cmpr_id)
     {
         $.ajax({
             type: "POST",
             url: "<?= base_url("GST_3BVs1/get_graph") ?>",
             dataType: "json",
-
+            data:{cmpr_id:cmpr_id},
             success: function (result) {
                 if (result.message === "success") {
 

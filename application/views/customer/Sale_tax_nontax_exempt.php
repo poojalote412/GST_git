@@ -23,7 +23,7 @@ if (is_array($session_data)) {
 
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Turnover Vs Tax Liability</h4>
+                <h4 class="card-title">Sale Taxable Non-Taxable and Exempt</h4>
                 <div class="col-md-6">
                 </div>
                 <div class="col-md-6">
@@ -46,9 +46,9 @@ if (is_array($session_data)) {
 
                                     <?php
 //                                    var_dump($cfo_data);
-                                    if ($cfo_data !== "") {
+                                    if ($tax_exempt_data !== "") {
                                         $i = 1;
-                                        foreach ($cfo_data as $row) {
+                                        foreach ($tax_exempt_data as $row) {
                                             ?>
                                             <tr>
                                                 <td><?php echo $i; ?></td>
@@ -115,47 +115,13 @@ if (is_array($session_data)) {
 
 <?php $this->load->view('customer/footer'); ?>
 <script>
-    $("#import").click(function (event) {
-        var formid = document.getElementById("import_form");
-        event.preventDefault();
-        $.ajax({
-<<<<<<< HEAD
-            url: "<?php echo base_url(); ?>GST_CFO_Dashboard/import_excel",
-        type: "POST",
-=======
-            url: "<?= base_url("GST_CFO_Dashboard/import_excel") ?>",
-            type: "POST",
->>>>>>> 8a9a198b2ab7459f88867207e8dbea8ecf8de22f
-            data: new FormData(formid),
-            dataType: "json",
-            contentType: false,
-            cache: false,
-            processData: false,
-            async: false,
-            success: function (result) {
-                if (result.status === true) {
-                    alert('Data Submitted Successfully');
-                    // return;
-                    location.reload();
-                } else if (result.status === false) {
-                    alert('something went wrong');
-                } else if (result.message === 'file_missmatch') {
-                    alert('You have selected wrong File');
-                } else {
-                    $('#' + result.id + '_error').html(result.error);
-                    $('#message').html(result.error);
-                }
-            }
-        });
-    });
-
-
+   
 //function to get graph view
     function get_graph_fun(turn_id)
     {
         $.ajax({
             type: "POST",
-            url: "<?= base_url("GST_CFO_Dashboard/get_graph_Turnover_vs_liabality") ?>",
+            url: "<?= base_url("GST_MgmtReport/get_graph_taxable_nontx_exempt") ?>",
             dataType: "json",
             data: {turn_id: turn_id},
             success: function (result) {

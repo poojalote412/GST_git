@@ -15,7 +15,7 @@ $this->load->view('/customer/header1');
                         </div>
                         <!--              <h4>Hello! let's get started</h4>
                                       <h6 class="font-weight-light">Sign in to continue.</h6>-->
-                        <form class="pt-3"  method="post" name="f_login" action="<?= base_url() ?>GST_AdminLogin/admin_login1" id="f_login">
+                        <form class="pt-3"  method="post" name="f_login" action="<?= base_url() ?>Gst_admin_login/admin_login" id="f_login">
                             <div class="form-group">
                                 <input type="text" name="user_id" class="form-control form-control-lg" id="user_id" placeholder="Username">
                             </div>

@@ -12,8 +12,14 @@ class GST_3BVs2A extends CI_Controller {
     }
 
     function index() {
-//        $data['result'] = $result;
-        $this->load->view('customer/GST_CompDevi3B2A');
+
+        $query_res = $this->GST_3BVs2AModel->get_gstr1vs2A_data();
+        if ($query_res !== FALSE) {
+            $data['gstr1_vs_2a_data'] = $query_res;
+        } else {
+            $data['gstr1_vs_2a_data'] = "";
+        }
+        $this->load->view('customer/GST_CompDevi3B2A', $data);
     }
 
     public function import() {
@@ -21,25 +27,17 @@ class GST_3BVs2A extends CI_Controller {
             $path = $_FILES["file_ex"]["tmp_name"];
             $object = PHPExcel_IOFactory::load($path);
             $x = "A";
-//            $data = '
-//		
-//		<table class="table table-striped table-bordered" border="1">
-//			<tr>
-//                                
-//				<th>MONTH</th>
-//				<th>GSTR-3B</th>
-//				<th>GSTR-2A</th>
-//				<th>Difference</th>
-//				<th>Cumulative Difference</th>
-//				
-//			</tr>
-//		';
             $data = '';
             $worksheet = $object->getActiveSheet();
             $highestRow = $worksheet->getHighestRow();
             $highestColumn = $worksheet->getHighestColumn();
             $i = 1;
             $abc = 0;
+            $compare_id = $this->compare_unique_id();
+            $array_id = array(
+                'compare_id' => $compare_id,
+            );
+
             for ($row = 26; $row <= $highestRow; $row++) {
                 $row_next = $row + 1;
                 $row_prev = $row - 1;
@@ -150,7 +148,7 @@ class GST_3BVs2A extends CI_Controller {
                     $i++;
 
 
-                    $data1 = array_merge($array1, $array2, $array3, $array4);
+                    $data1 = array_merge($array_id, $array1, $array2, $array3, $array4);
                     $res = $this->GST_3BVs2AModel->insert_GST3Bvs2A($data1);
 
                     if ($res === TRUE) {
@@ -187,9 +185,9 @@ class GST_3BVs2A extends CI_Controller {
     }
 
     public function get_graph() {
+        $cmpr_id = $this->input->post("cmpr_id");
 
-        $query = $this->db->query("SELECT gstr_tb FROM gstr_compare 
-WHERE gstr2a !=''");
+        $query = $this->db->query("SELECT gstr_tb FROM gstr_compare WHERE gstr2a !='' AND compare_id='$cmpr_id'");
         if ($query->num_rows() > 0) {
             $result_gstr3b = $query->result();
             foreach ($result_gstr3b as $row) {
@@ -203,8 +201,7 @@ WHERE gstr2a !=''");
 
 
 
-            $query_difference = $this->db->query("SELECT difference FROM gstr_compare 
-WHERE gstr2a !=''");
+            $query_difference = $this->db->query("SELECT difference FROM gstr_compare WHERE gstr2a !='' AND compare_id='$cmpr_id'");
             if ($query_difference->num_rows() > 0) {
                 $result_difference = $query_difference->result();
                 foreach ($result_difference as $row_difference) {
@@ -219,7 +216,7 @@ WHERE gstr2a !=''");
                 $abc3[] = "";
             }
 
-            $query_cumu_difference = $this->db->query("SELECT cumu_difference FROM gstr_compare WHERE gstr2a !=''");
+            $query_cumu_difference = $this->db->query("SELECT cumu_difference FROM gstr_compare WHERE gstr2a !='' AND compare_id='$cmpr_id'");
             if ($query_cumu_difference->num_rows() > 0) {
                 $result_cumu_difference = $query_cumu_difference->result();
                 foreach ($result_cumu_difference as $row_cumu_difference) {
@@ -235,7 +232,7 @@ WHERE gstr2a !=''");
             }
 
 
-            $query_gstr2a = $this->db->query("SELECT gstr2a FROM gstr_compare WHERE gstr2a !=''");
+            $query_gstr2a = $this->db->query("SELECT gstr2a FROM gstr_compare WHERE gstr2a !='' AND compare_id='$cmpr_id'");
             if ($query_gstr2a->num_rows() > 0) {
                 $result_gstr2a = $query_gstr2a->result();
                 foreach ($result_gstr2a as $row_gstr2a) {
@@ -251,15 +248,15 @@ WHERE gstr2a !=''");
                 $abc5[] = "";
             }
 
-            $quer_range = $this->db->query("SELECT MAX(gstr_tb) as gstrtb_max FROM gstr_compare where gstr2a !=''");
+            $quer_range = $this->db->query("SELECT MAX(gstr_tb) as gstrtb_max FROM gstr_compare where gstr2a !='' AND compare_id='$cmpr_id'");
             $gstr3b_max = $quer_range->row();
             $gstrtbmax = $gstr3b_max->gstrtb_max;
-            $quer_range1 = $this->db->query("SELECT MAX(gstr2a) as gstr2a_max FROM gstr_compare where gstr2a !=''");
+            $quer_range1 = $this->db->query("SELECT MAX(gstr2a) as gstr2a_max FROM gstr_compare where gstr2a !='' AND compare_id='$cmpr_id'");
             $gstr1_max = $quer_range1->row();
             $gstr1max = $gstr1_max->gstr2a_max;
             $max_value = (max($gstrtbmax, $gstr1max));
-            
-            
+
+
             $respose['message'] = "success";
             $respose['data_gstr3b'] = $abc;
             $respose['max'] = $max_value;
@@ -278,6 +275,20 @@ WHERE gstr2a !=''");
             $respose['gstr2a_difference'] = "";
         }
         echo json_encode($respose);
+    }
+
+    public function compare_unique_id() {
+        $result = $this->db->query('SELECT compare_id FROM `gstr_compare` ORDER BY compare_id DESC LIMIT 0,1');
+        if ($result->num_rows() > 0) {
+            $data = $result->row();
+            $comp_id = $data->compare_id;
+            //generate user_id
+            $comp_id = str_pad( ++$comp_id, 5, '0', STR_PAD_LEFT);
+            return $comp_id;
+        } else {
+            $comp_id = 'cmpr_1001';
+            return $comp_id;
+        }
     }
 
 }
