@@ -15,7 +15,7 @@ class GST_AdminLogin extends CI_Controller {
         $this->load->helper('form');
     }
 
-    public function admin_login1() {
+    public function admin_login() {
         $user_id = $this->input->post('user_id');
         $password = $this->input->post('password');
         $pass = ($password);

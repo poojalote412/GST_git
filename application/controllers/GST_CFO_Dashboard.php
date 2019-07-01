@@ -278,44 +278,40 @@ class GST_CFO_Dashboard extends CI_Controller {
 
             $uniq_id = $this->turnover_id(); //unique id generation
             $month_data_arr = $month_data; //array of month data
-//            $inter_state = $data_arr1; //array of inter state supply
-//            $intra_state = $data_arr2; //array of intra state supply
-//            $no_gst_paid_supply = $data_arr3; // array of no_gst_paid_supply
-//            $debit_value = $data_arr4; //array of debit_value
-//            $credit_value = $data_arr5; //array of credit_value
             $count = count($month_data_arr);
             $vall = 1;
             for ($t = 0; $t < $count; $t++) {
                 if ($data_arr1 == "" or $data_arr1 === NULL) {
                     $inter_state = array();
-                    $inter_state[$t] = 0;
+                    $inter_state[$t] = 0; //array of inter state supply
                 } else {
-                    $inter_state = $data_arr1;
+                    $inter_state = $data_arr1; //array of inter state supply
                 }
                 if ($data_arr2 == "" or $data_arr2 === NULL) {
                     $intra_state = array();
-                    $intra_state[$t] = 0;
+                    $intra_state[$t] = 0; //array of intra state supply
                 } else {
-                    $intra_state = $data_arr2;
+                    $intra_state = $data_arr2; //array of intra state supply
                 }
                 if ($data_arr3 == "" or $data_arr3 === NULL) {
                     $no_gst_paid_supply = array();
-                    $no_gst_paid_supply[$t] = 0;
+                    $no_gst_paid_supply[$t] = 0; // array of no_gst_paid_supply
                 } else {
-                    $no_gst_paid_supply = $data_arr3;
+                    $no_gst_paid_supply = $data_arr3; // array of no_gst_paid_supply
                 }
                 if ($data_arr4 == "" or $data_arr4 === NULL) {
                     $debit_value = array();
-                    $debit_value[$t] = 0;
+                    $debit_value[$t] = 0;  //array of debit_value
                 } else {
-                    $debit_value = $data_arr4;
+                    $debit_value = $data_arr4; //array of debit_value
                 }
                 if ($data_arr5 == "" or $data_arr5 === NULL) {
                     $credit_value = array();
-                    $credit_value[$t] = 0;
+                    $credit_value[$t] = 0;  //array of credit_value
                 } else {
-                    $credit_value = $data_arr5;
+                    $credit_value = $data_arr5; //array of credit_value
                 }
+                //query to insert data into database
                 $quer = $this->db->query("insert into turnover_vs_tax_liability (`uniq_id`,`month`,`inter_state_supply`,`intra_state_supply`,`no_gst_paid_supply`,`debit_value`,`credit_value`,`liability_on_outward`,`liability_on_reverse_change`)"
                         . " values ('$uniq_id','$month_data[$t]','$inter_state[$t]','$intra_state[$t]','$no_gst_paid_supply[$t]','$debit_value[$t]','$credit_value[$t]','$outward[$t]','$reverse_charge[$t]') ");
 
@@ -359,7 +355,7 @@ class GST_CFO_Dashboard extends CI_Controller {
             $data = $result->row();
             $turn_id = $data->uniq_id;
             //generate turn_id
-            $turn_id = str_pad( ++$turn_id, 5, '0', STR_PAD_LEFT);
+            $turn_id = str_pad(++$turn_id, 5, '0', STR_PAD_LEFT);
             return $turn_id;
         } else {
             $turn_id = 'turn_1001';
