@@ -7,12 +7,12 @@ class Cfo_dashboard extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model('CFO_model');
+        $this->load->model('Cfo_model');
     }
 
     function index() {
 
-        $query_get_cfo_data = $this->CFO_model->get_data_cfo();
+        $query_get_cfo_data = $this->Cfo_model->get_data_cfo();
         if ($query_get_cfo_data !== FALSE) {
             $data['cfo_data'] = $query_get_cfo_data;
         } else {

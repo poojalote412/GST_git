@@ -79,7 +79,7 @@ if (is_array($session_data)) {
                                             <tr>
                                                 <td><?php echo $i; ?></td>
                                                 <td><?php echo $row->tax_libility_id; ?></td>
-                                                <td>ABC</td>
+                                                <td>ANAND RATHI GLOBAL FINANCE LIMITED 2017-18</td>
                                                 <td><button type="button" name="get_graph" id="get_graph"  onclick="get_graph_fun('<?php echo $row->tax_libility_id;?>');"class="btn btn-outline-primary" >View</button></td>
                                             </tr> 
                                             <?php
@@ -139,7 +139,7 @@ if (is_array($session_data)) {
                                             <tr>
                                                 <td><?php echo $i; ?></td>
                                                 <td><?php echo $row->tax_libility_id; ?></td>
-                                                <td>ABC</td>
+                                                <td>ANAND RATHI GLOBAL FINANCE LIMITED 2017-18</td>
                                                 <td><button type="button" name="get_graph" id="get_graph"  onclick="get_graph_fun('<?php echo $row->tax_libility_id;?>');"class="btn btn-outline-primary" >View</button></td>
                                             </tr> 
                                             <?php
@@ -259,7 +259,7 @@ if (is_array($session_data)) {
                             text: 'Tax Liability F.Y. 2017-2018'
                         },
                         subtitle: {
-                            text: 'Customer Name: ANAND RATHI GLOBAL FINANCE LIMITED '
+                            text: 'Customer Name: ANAND RATHI GLOBAL FINANCE LIMITED 2017-18 '
                         },
                         xAxis: {
                             categories: [

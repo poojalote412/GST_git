@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'gst',
+	'hostname' => '209.99.16.245',
+	'username' => 'premi682_ayush',
+	'password' => 'MIS@12345678',
+	'database' => 'premi682_gst',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

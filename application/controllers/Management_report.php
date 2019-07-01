@@ -7,7 +7,7 @@ class Management_report extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model('CFO_model');
+        $this->load->model('Cfo_model');
     }
 
     function index() {
@@ -100,7 +100,7 @@ class Management_report extends CI_Controller {
     // function taxable non taxable and exempt page load
     public function sale_taxable_nontaxable() {
 
-        $query_get_cfo_data = $this->CFO_model->get_data_cfo();
+        $query_get_cfo_data = $this->Cfo_model->get_data_cfo();
         if ($query_get_cfo_data !== FALSE) {
             $data['tax_exempt_data'] = $query_get_cfo_data;
         } else {
