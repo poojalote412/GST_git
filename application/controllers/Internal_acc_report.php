@@ -199,6 +199,28 @@ class Internal_acc_report extends CI_Controller {
                     $interest_late_fees[] = $val + $val1 + $val2 + $val3 + $val4 + $val5;
 //                    print_r($interest_late_fees);
                 }
+                
+                $due_date = array();
+                for ($t = 10; $t <= 18; $t++) {
+                    $val = $object1->getActiveSheet()->getCell('R' . $t)->getValue();
+                    $due_date[] = $val;
+//                    print_r($due_date);
+                }
+                
+                $filling_date = array();
+                for ($u = 10; $u <= 18; $u++) {
+                    $val = $object1->getActiveSheet()->getCell('S' . $u)->getValue();
+                    $filling_date[] = $val;
+//                    print_r($interest_late_fees);
+                }
+                
+                $late_fees = array();
+                for ($v = 27; $v <= 35; $v++) {
+                    $val = $object1->getActiveSheet()->getCell('R' . $v)->getValue();
+                     $val1 = $object1->getActiveSheet()->getCell('S' . $v)->getValue();
+                    $filling_date[] = $val+$val1;
+//                    print_r($interest_late_fees);
+                }
 
 //                 $count=count($month);
 //                 for($m=0;$m<=$count;$m++)
@@ -306,6 +328,28 @@ class Internal_acc_report extends CI_Controller {
                     $interest_late_fees[] = $val + $val1 + $val2 + $val3 + $val4 + $val5;
 //                    print_r($interest_late_fees);
                 }
+                
+                 $due_date = array();
+                for ($t = 7; $t <= 18; $t++) {
+                    $val = $object1->getActiveSheet()->getCell('R' . $t)->getValue();
+                    $due_date[] = $val;
+                    print_r($due_date);
+                }
+                
+                $filling_date = array();
+                for ($u = 7; $u <= 18; $t++) {
+                    $val = $object1->getActiveSheet()->getCell('S' . $u)->getValue();
+                    $filling_date[] = $val;
+//                    print_r($interest_late_fees);
+                }
+                
+                $late_fees = array();
+                for ($v = 24; $v <= 35; $v++) {
+                    $val = $object1->getActiveSheet()->getCell('R' . $v)->getValue();
+                     $val1 = $object1->getActiveSheet()->getCell('S' . $v)->getValue();
+                    $filling_date[] = $val+$val1;
+//                    print_r($interest_late_fees);
+                }
             }
             $tax_libility_id = $this->tax_liability_id();
             $count = count($month);
@@ -364,6 +408,24 @@ class Internal_acc_report extends CI_Controller {
                 } else {
                     $arr = $arr;
                 }
+                if ($due_date == "" or $due_date === NULL) {
+                    $due_date = array();
+                    $due_date[$m] = 0;
+                } else {
+                    $due_date = $due_date;
+                }
+                if ($filling_date == "" or $filling_date === NULL) {
+                    $filling_date = array();
+                    $filling_date[$m] = 0;
+                } else {
+                    $filling_date = $filling_date;
+                }
+                if ($late_fees == "" or $late_fees === NULL) {
+                    $late_fees = array();
+                    $late_fees[$m] = 0;
+                } else {
+                    $late_fees = $late_fees;
+                }
 
                 //Get debit value for NET ITC.
 
@@ -379,10 +441,10 @@ class Internal_acc_report extends CI_Controller {
 //                      $interest_late_fees[$m];
 
 
-                $quer = $this->db->query("insert into tax_liability (`tax_libility_id`,`month`,`outward_liability`,`rcb_liablity`,`ineligible_itc`,`net_itc`,`paid_in_credit`,`paid_in_cash`,`interest_late_fee`,`debit`,`debit_net_itc`)"
-                        . " values ('$tax_libility_id','$month[$m]','$liability_on_outward[$m]','$rcm_liability[$m]','$itc_ineligible[$m]','$net_rtc[$m]','$paid_in_credit[$m]','$paid_in_cash[$m]','$interest_late_fees[$m]','$arr[$m]]','$array_debit')");
+                $quer = $this->db->query("insert into tax_liability (`tax_libility_id`,`month`,`outward_liability`,`rcb_liablity`,`ineligible_itc`,`net_itc`,`paid_in_credit`,`paid_in_cash`,`interest_late_fee`,`debit`,`debit_net_itc`,`late_fees`,`due_date`,`filling_date`)"
+                        . " values ('$tax_libility_id','$month[$m]','$liability_on_outward[$m]','$rcm_liability[$m]','$itc_ineligible[$m]','$net_rtc[$m]','$paid_in_credit[$m]','$paid_in_cash[$m]','$interest_late_fees[$m]','$arr[$m]','$array_debit','$late_fees[$m]','$due_date[$m]','$filling_date[$m]')");
 
-//                var_dump($quer);
+                var_dump($quer);
             }
         }
     }

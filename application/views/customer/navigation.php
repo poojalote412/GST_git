@@ -122,7 +122,7 @@
                 <a class="nav-link" href="<?php echo base_url(); ?>Invoice_comparison">
                     <i class="typcn typcn-device-desktop menu-icon"></i>
                     <!--<span class="menu-title">Dashboard <span class="badge badge-primary ml-3">New</span></span>-->
-                    <span class="menu-title">Invoice wise Comparison or Mismatch Report</span>
+                    <span class="menu-title">Invoice wise Comparison <br> or Mismatch Report</span>
                 </a>
             </li>
 
