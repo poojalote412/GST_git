@@ -148,6 +148,32 @@ class GST_CFO_Dashboard extends CI_Controller {
                         $data_non_gst = $values_NG[$a12];
                         $data_arr3[] = $values_NG[$a12];
                     }
+                } elseif ($object->getActiveSheet()->getCell('B' . $i)->getValue() == "Sub Total (NON-GST)") { // Sub Total (NON-GST) DATA
+                    $highestColumn_row_sbng = $worksheet->getHighestColumn($i);
+                    $char = 'G';
+                    while ($char !== $highestColumn_row_sbng) {
+                        $values_SBNG[] = $object->getActiveSheet()->getCell($char . $i)->getValue();
+                        $char++;
+                    }
+                    $cnt_sbng = count($values_SBNG);
+                    $data_arr31 = array();
+                    for ($ar1 = 0; $ar1 < $cnt_sbng; $ar1++) {
+                        $data_non_gst = $values_SBNG[$ar1];
+                        $data_arr31[] = $values_SBNG[$ar1];
+                    }
+                } elseif ($object->getActiveSheet()->getCell('B' . $i)->getValue() == "Sub Total (EXEMPTED)") { // Sub Total (EXEMPTED) DATA
+                    $highestColumn_row_sbex = $worksheet->getHighestColumn($i);
+                    $char = 'G';
+                    while ($char !== $highestColumn_row_sbex) {
+                        $values_SBEX[] = $object->getActiveSheet()->getCell($char . $i)->getValue();
+                        $char++;
+                    }
+                    $cnt_sbng = count($values_SBEX);
+                    $data_arr32 = array();
+                    for ($ar2 = 0; $ar2 < $cnt_sbng; $ar2++) {
+                        $data_non_gst = $values_SBEX[$ar2];
+                        $data_arr32[] = $values_SBEX[$ar2];
+                    }
                 } elseif ($object->getActiveSheet()->getCell('A' . $i)->getValue() == "(5) Dr Note Details") {  // debit note data
                     for ($j = $i; $j <= $highestRow; $j++) {
                         if ($object->getActiveSheet()->getCell('B' . $j)->getValue() == "Total") {
@@ -227,8 +253,8 @@ class GST_CFO_Dashboard extends CI_Controller {
                         }
                     }
                 } else {
-                    $response['message'] = "file_missmatch";
-                    echo json_encode($response);
+//                    $response['message'] = "file_missmatch";
+//                    echo json_encode($response);
                 }
             }
 
@@ -311,9 +337,21 @@ class GST_CFO_Dashboard extends CI_Controller {
                 } else {
                     $credit_value = $data_arr5; //array of credit_value
                 }
+                if ($data_arr31 == "" or $data_arr31 === NULL) {
+                    $sub_total_non_gst = array();
+                    $sub_total_non_gst[$t] = 0;  //array of subtotal nongst
+                } else {
+                    $sub_total_non_gst = $data_arr31; //array of subtotal nongst
+                }
+                if ($data_arr32 == "" or $data_arr32 === NULL) {
+                    $sub_total_exempted = array();
+                    $sub_total_exempted[$t] = 0;  //array of Sub Total (EXEMPTED)
+                } else {
+                    $sub_total_exempted = $data_arr32; //array of Sub Total (EXEMPTED)
+                }
                 //query to insert data into database
-                $quer = $this->db->query("insert into turnover_vs_tax_liability (`uniq_id`,`month`,`inter_state_supply`,`intra_state_supply`,`no_gst_paid_supply`,`debit_value`,`credit_value`,`liability_on_outward`,`liability_on_reverse_change`)"
-                        . " values ('$uniq_id','$month_data[$t]','$inter_state[$t]','$intra_state[$t]','$no_gst_paid_supply[$t]','$debit_value[$t]','$credit_value[$t]','$outward[$t]','$reverse_charge[$t]') ");
+                $quer = $this->db->query("insert into turnover_vs_tax_liability (`uniq_id`,`month`,`inter_state_supply`,`intra_state_supply`,`no_gst_paid_supply`,`debit_value`,`credit_value`,`liability_on_outward`,`liability_on_reverse_change`,`sub_total_non_gst`,`sub_total_exempt`)"
+                        . " values ('$uniq_id','$month_data[$t]','$inter_state[$t]','$intra_state[$t]','$no_gst_paid_supply[$t]','$debit_value[$t]','$credit_value[$t]','$outward[$t]','$reverse_charge[$t]','$sub_total_non_gst[$t]','$sub_total_exempted[$t]') ");
 
                 if ($this->db->affected_rows() > 0) {
                     $vall++;
@@ -355,7 +393,7 @@ class GST_CFO_Dashboard extends CI_Controller {
             $data = $result->row();
             $turn_id = $data->uniq_id;
             //generate turn_id
-            $turn_id = str_pad(++$turn_id, 5, '0', STR_PAD_LEFT);
+            $turn_id = str_pad( ++$turn_id, 5, '0', STR_PAD_LEFT);
             return $turn_id;
         } else {
             $turn_id = 'turn_1001';

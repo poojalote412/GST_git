@@ -301,10 +301,15 @@ class Turnover_vs_liabality extends CI_Controller {
             $debit_value = $data_arr4; //array of debit_value
             $credit_value = $data_arr5; //array of credit_value
             $count = count($month_data_arr);
+//            $mm = 1;
             for ($t = 0; $t < $count; $t++) {
                 $quer = $this->db->query("insert into turnover_vs_tax_liability (`uniq_id`,`month`,`inter_state_supply`,`intra_state_supply`,`no_gst_paid_supply`,`debit_value`,`credit_value`,`liability_on_outward`,`liability_on_reverse_change`)"
                         . " values ('$uniq_id','$month_data[$t]','$inter_state[$t]','$intra_state[$t]','$no_gst_paid_supply[$t]','$debit_value[$t]','$credit_value[$t]','$outward[$t]','$reverse_charge[$t]') ");
+                if ($quer->affected_rows() > 0) {
+//                    $mm++;
+                }
             }
+            
         }
     }
 
@@ -333,7 +338,7 @@ class Turnover_vs_liabality extends CI_Controller {
             $data = $result->row();
             $turn_id = $data->uniq_id;
             //generate user_id
-            $turn_id = str_pad( ++$turn_id, 5, '0', STR_PAD_LEFT);
+            $turn_id = str_pad(++$turn_id, 5, '0', STR_PAD_LEFT);
             return $turn_id;
         } else {
             $turn_id = 'turn_1001';

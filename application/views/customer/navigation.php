@@ -74,8 +74,8 @@
             <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" href="#editors" aria-expanded="true" aria-controls="editors">
                     <i class="typcn typcn-point-of-interest-outline menu-icon"></i>
-                    <span class="menu-title">Comparison And Deviation Report</span>
-                    <i class="menu-arrow"></i>
+                    <span class="menu-title">Comparison And Deviation <br>Report</span>
+                    <!--<i class="menu-arrow"></i>-->
                 </a>
                 <div class="collapse" id="editors">
                     <ul class="nav flex-column sub-menu">
@@ -93,6 +93,7 @@
                 <div class="collapse" id="editors_mng">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>GST_state_wise">Sales State Wise</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>sale_taxable_nontaxable">Sales Taxable, non-taxable <br> and Exempt</a></li>
                     </ul>
                 </div>
             </li>
