@@ -50,7 +50,7 @@ if (is_array($session_data)) {
                                                 <tr>
                                                     <td><?php echo $i; ?></td>
                                                     <td><?php echo $row->compare_id; ?></td>
-                                                    <td>ABC</td>
+                                                    <td>ANAND RATHI GLOBAL FINANCE LIMITED 2017-18</td>
                                                     <td><button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->compare_id; ?>');"class="btn btn-outline-primary" >View</button></td>
                                                 </tr> 
                                                 <?php
@@ -186,7 +186,7 @@ if (is_array($session_data)) {
                             text: 'Comparison Between GSTR-3B & GSTR-2A'
                         },
                         subtitle: {
-                            text: 'Customer Name: ANAND RATHI GLOBAL FINANCE LIMITED '
+                            text: 'Customer Name: ANAND RATHI GLOBAL FINANCE LIMITED 2017-18'
                         },
                         xAxis: {
                             categories: [

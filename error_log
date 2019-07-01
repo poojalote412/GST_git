@@ -1,0 +1,2 @@
+[01-Jul-2019 10:49:10 Etc/GMT] PHP Fatal error:  Call to a member function get_data_cfo() on a non-object in /home/premi682/public_html/GST/application/controllers/Cfo_dashboard.php on line 15
+[01-Jul-2019 10:51:18 Etc/GMT] PHP Fatal error:  Call to a member function get_data_cfo() on a non-object in /home/premi682/public_html/GST/application/controllers/Management_report.php on line 103
