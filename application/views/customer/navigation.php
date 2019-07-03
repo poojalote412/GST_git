@@ -110,14 +110,22 @@
             </li>
 
 
-            <li class="nav-item">
-                <a class="nav-link" href="<?php echo base_url(); ?>Internal_control">
+             <li class="nav-item">
+                <a class="nav-link"  data-toggle="collapse" href="#editors_int" aria-expanded="true" aria-controls="editors" >
                     <i class="typcn typcn-device-desktop menu-icon"></i>
                     <!--<span class="menu-title">Dashboard <span class="badge badge-primary ml-3">New</span></span>-->
                     <span class="menu-title">Internal Control Report</span>
                 </a>
+                <div class="collapse" id="editors_int">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>TurnoverVsTaxability">Turnover Vs Tax Liability </a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>Tax_turnover">Tax Turnover </a></li>
+                       
+                    </ul>
+                </div>
             </li>
-
+            
+            
 
 
             <li class="nav-item">

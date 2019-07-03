@@ -8,6 +8,7 @@ class Internal_acc_report extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('Internal_acc_report_model');
+         $this->load->model('Cfo_model');
     }
 
     function index() {
@@ -557,7 +558,104 @@ class Internal_acc_report extends CI_Controller {
         }
         echo json_encode($respose);
     }
+    
+    //Graph for tax turnover
+    
+   public function tax_turnover() {
+//        $data['result'] = $result;
+       $query_get_cfo_data = $this->Cfo_model->get_data_cfo();
+        if ($query_get_cfo_data !== FALSE) {
+            $data['month_wise_data'] = $query_get_cfo_data;
+        } else {
+            $data['month_wise_data'] = "";
+        }
+        $this->load->view('customer/Tax_turnover',$data);
+    }
 
+    
+    
+    public function get_graph_tax_turnover() { //get graph function for tax turnover
+        $turn_id = $this->input->post("turn_id");
+        $query = $this->db->query("SELECT * from turnover_vs_tax_liability where uniq_id='$turn_id'");
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+            $taxable_value = array();
+            $tax_value=array();
+            $tax_ratio=array();
+
+            foreach ($result as $row) {
+                $inter_state_supply = $row->inter_state_supply;
+                $intra_state_supply = $row->intra_state_supply;
+                $no_gst_paid_supply = $row->no_gst_paid_supply;
+                $debit_value = $row->debit_value;
+                $credit_value = $row->credit_value;
+                $tax_inter_state=$row->tax_inter_state;
+                $tax_intra_state=$row->tax_intra_state;
+                $tax_debit=$row->tax_debit;
+                $tax_credit=$row->tax_credit;
+
+                $taxable_val = ($inter_state_supply + $intra_state_supply + $no_gst_paid_supply + $debit_value) - ($credit_value);
+                $taxable_value[] = $taxable_val; //taxable supply array
+                
+                 $tax_val = ($tax_inter_state + $tax_intra_state + $tax_debit) - ($tax_credit);
+                $tax_value[] = $tax_val; //taxable supply array
+                
+                
+//                $tax_ratio=($taxable_value)%($tax_value);
+//                $tax_ratio[] = $tax_ratio;
+                
+//                var_dump($tax_ratio);
+                
+            }
+
+            // loop to get graph data as per graph script requirement
+            $abc1 = array();
+            $abc2 = array();
+            $abc3 = array();
+            for ($o = 0; $o < sizeof($taxable_value); $o++) {
+                $abc1[] = $taxable_value[$o];
+                $aa1 = settype($abc1[$o], "float");
+                
+                $abc2[] = $tax_value[$o];
+                $aa2 = settype($abc1[$o], "float");
+                
+//                $abc3[] = $tax_ratio[$o];
+//                $aa3 = settype($abc3[$o], "float");
+            }
+
+//             to get max value for range
+//            $max_range = max(array($taxable_supply));
+            $arr = array($abc1, $abc2,$abc3);
+            $max_range = 0;
+            foreach ($arr as $val) {
+                foreach ($val as $key => $val1) {
+                    if ($val1 > $max_range) {
+                        $max_range = $val1;
+                    }
+                }
+            }
+
+            //function to get months
+            $quer2 = $this->db->query("SELECT month from turnover_vs_tax_liability where uniq_id='$turn_id'");
+            $months = array();
+            if ($quer2->num_rows() > 0) {
+                $res2 = $quer2->result();
+                foreach ($res2 as $row) {
+                    $months[] = $row->month;
+                }
+            }
+            $respnose['message'] = "success";
+            $respnose['taxable_value'] = $abc1;  //taxable_supply data
+            $respnose['tax_value'] = $abc2; //tax value
+             $respnose['tax_ratio'] = $abc3; 
+            $respnose['month_data'] = $months; //months 
+            $respnose['max_range'] = $max_range; //maximum range for graph
+        } else {
+            $respnose['message'] = "";
+            $respnose['taxable_supply_arr'] = "";  //taxable_supply data
+        } echo json_encode($respnose);
+    }
+    
 }
 
 ?>
