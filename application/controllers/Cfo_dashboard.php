@@ -110,6 +110,36 @@ class Cfo_dashboard extends CI_Controller {
                                 $char++;
                             }
                             $cnt = count($values);
+//                            var_dump($cnt);
+                            
+                            
+                            //For getting the value for tax inter state 
+                            $data_arr_inter = array();
+
+                            for ($a_dr = 0; $a_dr < $cnt; $a_dr++) {
+                                $Dr_values = $values[$a_dr];
+                                $data_arr_inter[] = $values[$a_dr];
+                            }
+//                          
+                              $aa = array();
+                            for ($a_dr = 1; $a_dr < sizeof($values); $a_dr++) {
+
+                                if ($a_dr % 2 != 0) {
+
+                                    $aa[] = $values[$a_dr];
+                                }
+//                                 var_dump($aa);
+                            }
+                            
+                            $tax_inter_state = array();
+                            for ($k = 0; $k < sizeof($aa); $k=$k+2) {
+                                $tax_inter_state[] = $aa[$k] + $aa[$k + 1];
+                            }
+                            
+                          
+                            
+//                            
+                             $cnt = count($values);
                             $data_arr1 = array();
                             for ($aa = 0; $aa <= $cnt; $aa++) {
                                 $data1 = $values[$aa];
@@ -131,6 +161,31 @@ class Cfo_dashboard extends CI_Controller {
                                 $values1[] = $object->getActiveSheet()->getCell($char . $i)->getValue();
                                 $char++;
                             }
+                            
+                              //For getting the tax intra state value
+                                  $data_arr_intra = array();
+
+                            for ($a_dr = 0; $a_dr < $cnt; $a_dr++) {
+                                $Dr_values = $values1[$a_dr];
+                                $data_arr_intra[] = $values1[$a_dr];
+                            }
+//                          
+                              $aa1 = array();
+                            for ($a_dr = 1; $a_dr < sizeof($values1); $a_dr++) {
+
+                                if ($a_dr % 4 != 0) {
+
+                                    $aa1[] = $values1[$a_dr];
+                                }
+//                                 var_dump($aa);
+                            }
+                            
+                            $tax_intra_state = array();
+                            for ($k = 0; $k < sizeof($aa1); $k=$k+3) {
+                                $tax_intra_state[] = $aa1[$k] + $aa1[$k + 1]+$aa1[$k + 2];
+                            }
+                            
+                           
 //                        var_dump($values1);
                             $cnt = count($values1);
                             $data_arr2 = array();
@@ -209,6 +264,30 @@ class Cfo_dashboard extends CI_Controller {
                                     $char++;
                                 }
                                 $cnt = count($values_DR);
+                                
+                                //get the value for tax debit value
+                                
+                                $data_debit_value = array();
+
+                            for ($a_dr = 0; $a_dr < $cnt; $a_dr++) {
+                                $Dr_values = $values_DR[$a_dr];
+                                $data_debit_value[] = $values_DR[$a_dr];
+                            }
+
+                            $aa2 = array();
+                            for ($a_dr = 1; $a_dr < sizeof($values_DR); $a_dr++) {
+
+                                if ($a_dr % 5 != 0) {
+
+                                    $aa2[] = $values_DR[$a_dr];
+                                }
+//                                var_dump($aa2);
+                            }
+
+                            $tax_debit_value = array();
+                            for ($k = 0; $k < sizeof($aa2); $k = $k + 4) {
+                                $tax_debit_value[] = $aa2[$k] + $aa2[$k + 1] + $aa2[$k + 2] + $aa2[$k + 3];
+                            }
                                 $data_arr4 = array();
                                 for ($a_dr = 0; $a_dr < $cnt; $a_dr++) {
                                     $Dr_values = $values_DR[$a_dr];
@@ -247,7 +326,30 @@ class Cfo_dashboard extends CI_Controller {
                                     $char++;
                                 }
                                 $cnt = count($values_CR);
-                                var_dump($cnt);
+                                
+                                 $data_credit_value = array();
+
+                            for ($a_dr = 0; $a_dr < $cnt; $a_dr++) {
+                                $Dr_values = $values_CR[$a_dr];
+                                $data_credit_value[] = $values_CR[$a_dr];
+                            }
+
+                            $aa3 = array();
+                            for ($a_dr = 1; $a_dr < sizeof($values_CR); $a_dr++) {
+
+                                if ($a_dr % 5 != 0) {
+
+                                    $aa3[] = $values_CR[$a_dr];
+                                }
+//                                var_dump($aa2);
+                            }
+
+                            $tax_credit_value = array();
+                            for ($k = 0; $k < sizeof($aa3); $k = $k + 4) {
+                                $tax_credit_value[] = $aa3[$k] + $aa3[$k + 1] + $aa3[$k + 2] + $aa3[$k + 3];
+                            }
+                                
+//                                var_dump($cnt);
                                 $data_arr5 = array();
                                 for ($a_cr = 0; $a_cr < $cnt; $a_cr++) {
                                     $Cr_values = $values_CR[$a_cr];
@@ -356,9 +458,35 @@ class Cfo_dashboard extends CI_Controller {
                     } else {
                         $sub_total_exempted = $data_arr32; //array of Sub Total (EXEMPTED)
                     }
+                    
+                     if ($tax_inter_state == "" or $tax_inter_state === NULL) {
+                        $tax_inter_state = array();
+                        $tax_inter_state[$t] = 0;  //array of Sub Total (EXEMPTED)
+                    } else {
+                        $tax_inter_state = $tax_inter_state; //array of Sub Total (EXEMPTED)
+                    }
+                    if ($tax_intra_state == "" or $tax_intra_state === NULL) {
+                        $tax_intra_state = array();
+                        $tax_intra_state[$t] = 0;  //array of Sub Total (EXEMPTED)
+                    } else {
+                        $tax_intra_state = $tax_intra_state; //array of Sub Total (EXEMPTED)
+                    }
+                    
+                    if ($tax_debit_value == "" or $tax_debit_value === NULL) {
+                        $tax_debit_value = array();
+                        $tax_debit_value[$t] = 0;  //array of Sub Total (EXEMPTED)
+                    } else {
+                        $tax_debit_value = $tax_debit_value; //array of Sub Total (EXEMPTED)
+                    }
+                    if ($tax_credit_value == "" or $tax_credit_value === NULL) {
+                        $tax_credit_value = array();
+                        $tax_credit_value[$t] = 0;  //array of Sub Total (EXEMPTED)
+                    } else {
+                        $tax_credit_value = $tax_credit_value; //array of Sub Total (EXEMPTED)
+                    }
                     //query to insert data into database
-                    $quer = $this->db->query("insert into turnover_vs_tax_liability (`uniq_id`,`month`,`inter_state_supply`,`intra_state_supply`,`no_gst_paid_supply`,`debit_value`,`credit_value`,`liability_on_outward`,`liability_on_reverse_change`,`sub_total_non_gst`,`sub_total_exempt`)"
-                            . " values ('$uniq_id','$month_data[$t]','$inter_state[$t]','$intra_state[$t]','$no_gst_paid_supply[$t]','$debit_value[$t]','$credit_value[$t]','$outward[$t]','$reverse_charge[$t]','$sub_total_non_gst[$t]','$sub_total_exempted[$t]') ");
+                    $quer = $this->db->query("insert into turnover_vs_tax_liability (`uniq_id`,`month`,`inter_state_supply`,`intra_state_supply`,`no_gst_paid_supply`,`debit_value`,`credit_value`,`liability_on_outward`,`liability_on_reverse_change`,`sub_total_non_gst`,`sub_total_exempt`,`tax_inter_state`,`tax_intra_state`,`tax_debit`,`tax_credit`)"
+                            . " values ('$uniq_id','$month_data[$t]','$inter_state[$t]','$intra_state[$t]','$no_gst_paid_supply[$t]','$debit_value[$t]','$credit_value[$t]','$outward[$t]','$reverse_charge[$t]','$sub_total_non_gst[$t]','$sub_total_exempted[$t]','$tax_inter_state[$t]','$tax_intra_state[$t]','$tax_debit_value[$t]','$tax_credit_value[$t]') ");
 
                     if ($this->db->affected_rows() > 0) {
                         $vall++;
