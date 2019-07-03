@@ -14,11 +14,11 @@ class Threeb_vs_one extends CI_Controller {
     function index() {
         $query_res = $this->Threeb_vs_one_model->get_gstr1vs3b_data();
         if ($query_res !== FALSE) {
-            $data['gstr1_vs_3b_data']=$query_res;
+            $data['gstr1_vs_3b_data'] = $query_res;
         } else {
-            $data['gstr1_vs_3b_data']="";
+            $data['gstr1_vs_3b_data'] = "";
         }
-        $this->load->view('customer/Threeb_vs_one',$data);
+        $this->load->view('customer/Threeb_vs_one', $data);
     }
 
     // function to get data from excel file
@@ -202,80 +202,54 @@ class Threeb_vs_one extends CI_Controller {
 
     // function to get graph
     public function get_graph() {
-        $cmpr_id= $this->input->post("cmpr_id");
-        $query = $this->db->query("SELECT gstr_tb from gstr_compare where gstr2a='' AND compare_id='$cmpr_id'");
+        $cmpr_id = $this->input->post("cmpr_id");
+        $query = $this->db->query("SELECT gstr_tb,gstr_one,gstr_one_ammend,difference,cumu_difference from gstr_compare where gstr2a='' AND compare_id='$cmpr_id'");
         if ($query->num_rows() > 0) {
-            $result_gstr3b = $query->result();
-            foreach ($result_gstr3b as $row) {
-                $gstr_tb[] = $row->gstr_tb;
-            }
-            $abc = array();
-            for ($o = 0; $o < sizeof($gstr_tb); $o++) {
-                $abc[] = $gstr_tb[$o];
-                $aa = settype($abc[$o], "integer");
-            }
-            $query_gstr1 = $this->db->query("SELECT gstr_one from gstr_compare where gstr2a=''  AND compare_id='$cmpr_id'");
-            if ($query_gstr1->num_rows() > 0) {
-                $result_gstr1 = $query_gstr1->result();
-                foreach ($result_gstr1 as $row_gstr1) {
-                    $gstr_one[] = $row_gstr1->gstr_one;
-                }
-                $abc1 = array();
-                for ($o1 = 0; $o1 < sizeof($gstr_one); $o1++) {
-                    $abc1[] = $gstr_one[$o1];
-                    $aa1 = settype($abc1[$o1], "integer");
-                }
-                $query_gstr_one_ammend = $this->db->query("SELECT gstr_one_ammend from gstr_compare where gstr2a=''  AND compare_id='$cmpr_id'");
-                if ($query_gstr_one_ammend->num_rows() > 0) {
-                    $result_gstr_one_ammend = $query_gstr_one_ammend->result();
-                    foreach ($result_gstr_one_ammend as $row_gstr_one_ammend) {
-                        $gstr_one_ammend[] = $row_gstr_one_ammend->gstr_one_ammend;
-                    }
-                    $abc2 = array();
-                    for ($o1 = 0; $o1 < sizeof($gstr_one_ammend); $o1++) {
-                        $abc2[] = $gstr_one_ammend[$o1];
-                        $aa1 = settype($abc2[$o1], "integer");
-                    }
-                } else {
-                    $abc2[] = "";
-                }
 
-                $sum_of_gstr1_gstr1_ammend = array_map(function () {
-                    return array_sum(func_get_args());
-                }, $abc1, $abc2);
-            } else {
-                $abc1[] = "";
-            }
+            $result = $query->result();
+            $gstr_tb1 = array();
+            $gstr_one2 = array();
+            $gstr_one_ammend3 = array();
+            $difference4 = array();
+            $cumu_difference5 = array();
+
+            foreach ($result as $row) {
+                $gstr_tb = $row->gstr_tb;
+                $gstr_one = $row->gstr_one;
+                $gstr_one_ammend = $row->gstr_one_ammend;
+                $difference = $row->difference;
+                $cumu_difference = $row->cumu_difference;
 
 
-            $query_difference = $this->db->query("SELECT difference from gstr_compare where gstr2a=''  AND compare_id='$cmpr_id'");
-            if ($query_difference->num_rows() > 0) {
-                $result_difference = $query_difference->result();
-                foreach ($result_difference as $row_difference) {
-                    $difference[] = $row_difference->difference;
-                }
-                $abc3 = array();
-                for ($o1 = 0; $o1 < sizeof($difference); $o1++) {
-                    $abc3[] = $difference[$o1];
-                    $aa1 = settype($abc3[$o1], "integer");
-                }
-            } else {
-                $abc3[] = "";
+                $gstr_tb1[] = $gstr_tb;
+                $gstr_one2[] = $gstr_one;
+                $gstr_one_ammend3[] = $gstr_one_ammend;
+                $difference4[] = $difference;
+                $cumu_difference5[] = $cumu_difference;
+                
             }
+            
+            $abc1 = array();
+            $abc2 = array();
+            $abc3 = array();
+            $abc4 = array();
+            $abc5 = array();
+           
+            for ($o = 0; $o < sizeof($gstr_tb1); $o++) {
+                $abc1[] = $gstr_tb1[$o];
+                $aa1 = settype($abc1[$o], "float");
 
-            $query_cumu_difference = $this->db->query("SELECT cumu_difference from gstr_compare where gstr2a=''  AND compare_id='$cmpr_id'");
-            if ($query_cumu_difference->num_rows() > 0) {
-                $result_cumu_difference = $query_cumu_difference->result();
-                foreach ($result_cumu_difference as $row_cumu_difference) {
-                    $cumu_difference[] = $row_cumu_difference->cumu_difference;
-                }
-                $abc4 = array();
-                for ($o1 = 0; $o1 < sizeof($cumu_difference); $o1++) {
-                    $abc4[] = $cumu_difference[$o1];
-                    $aa1 = settype($abc4[$o1], "integer");
-                }
-            } else {
-                $abc4[] = "";
+                $abc2[] = $gstr_one2[$o];
+                $aa2 = settype($abc2[$o], "float");
+
+                $abc3[] = $gstr_one_ammend3[$o];
+                $aa3 = settype($abc3[$o], "float");
+
+                $abc4[] = $difference4[$o];
+                $aa4 = settype($abc4[$o], "float");
+
+               $abc5[] = $cumu_difference5[$o];
+                $aa5 = settype($abc5[$o], "float");
             }
 
             $quer_range = $this->db->query("SELECT MAX(gstr_tb) as gstrtb_max FROM gstr_compare where gstr2a=''  AND compare_id='$cmpr_id'");
@@ -287,12 +261,12 @@ class Threeb_vs_one extends CI_Controller {
             $max_value = (max($gstrtbmax, $gstr1max));
 
             $respose['message'] = "success";
-            $respose['data_gstr3b'] = $abc;
-            $respose['data_gstr1'] = $sum_of_gstr1_gstr1_ammend;
+            $respose['data_gstr3b'] = $abc1;
+            $respose['data_gstr1'] = $abc2;
             $respose['max'] = $max_value;
-//            $respose['data_gstr_one_ammend'] = $abc2;
-            $respose['difference'] = $abc3;
-            $respose['cumu_difference'] = $abc4;
+            $respose['data_gstr_one_ammend'] = $abc3;
+            $respose['difference'] = $abc4;
+            $respose['cumu_difference'] = $abc5;
         } else {
             $respose['message'] = "fail";
             $respose['data_gstr3b'] = "";
@@ -311,7 +285,7 @@ class Threeb_vs_one extends CI_Controller {
             $data = $result->row();
             $comp_id = $data->compare_id;
             //generate user_id
-            $comp_id = str_pad( ++$comp_id, 5, '0', STR_PAD_LEFT);
+            $comp_id = str_pad(++$comp_id, 5, '0', STR_PAD_LEFT);
             return $comp_id;
         } else {
             $comp_id = 'cmpr_1001';

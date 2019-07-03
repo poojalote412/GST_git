@@ -161,21 +161,21 @@ if (is_array($session_data)) {
 
     function get_graph_fun(cmpr_id)
     {
-        //                        alert("ghgh");
+        alert("ghgh");
         $.ajax({
             type: "POST",
             url: "<?= base_url("Threeb_vs_twoa/get_graph") ?>",
             dataType: "json",
-            data:{cmpr_id:cmpr_id},
+            data: {cmpr_id: cmpr_id},
             success: function (result) {
                 if (result.message === "success") {
 
-                    var data_a = result.data_gstr3b;
+                    var data_a = result.gstr_tb;
                     //                                    var data_gstr2a = result.data_gstr2a;
                     //                                    var data_gstr_one_ammend_res = result.data_gstr_one_ammend;
                     var data_difference = result.difference;
                     var cumu_difference = result.cumu_difference;
-                    var data_gstr2a = result.gstr2a_difference;
+                    var data_gstr2a = result.gstr2a;
                     var max = result.max;
                     Highcharts.chart('container1', {
                         chart: {

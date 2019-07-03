@@ -199,26 +199,26 @@ class Internal_acc_report extends CI_Controller {
                     $interest_late_fees[] = $val + $val1 + $val2 + $val3 + $val4 + $val5;
 //                    print_r($interest_late_fees);
                 }
-                
+
                 $due_date = array();
                 for ($t = 10; $t <= 18; $t++) {
                     $val = $object1->getActiveSheet()->getCell('R' . $t)->getValue();
                     $due_date[] = $val;
 //                    print_r($due_date);
                 }
-                
+
                 $filling_date = array();
                 for ($u = 10; $u <= 18; $u++) {
                     $val = $object1->getActiveSheet()->getCell('S' . $u)->getValue();
                     $filling_date[] = $val;
 //                    print_r($interest_late_fees);
                 }
-                
+
                 $late_fees = array();
                 for ($v = 27; $v <= 35; $v++) {
                     $val = $object1->getActiveSheet()->getCell('R' . $v)->getValue();
-                     $val1 = $object1->getActiveSheet()->getCell('S' . $v)->getValue();
-                    $filling_date[] = $val+$val1;
+                    $val1 = $object1->getActiveSheet()->getCell('S' . $v)->getValue();
+                    $filling_date[] = $val + $val1;
 //                    print_r($interest_late_fees);
                 }
 
@@ -328,26 +328,26 @@ class Internal_acc_report extends CI_Controller {
                     $interest_late_fees[] = $val + $val1 + $val2 + $val3 + $val4 + $val5;
 //                    print_r($interest_late_fees);
                 }
-                
-                 $due_date = array();
+
+                $due_date = array();
                 for ($t = 7; $t <= 18; $t++) {
                     $val = $object1->getActiveSheet()->getCell('R' . $t)->getValue();
                     $due_date[] = $val;
                     print_r($due_date);
                 }
-                
+
                 $filling_date = array();
                 for ($u = 7; $u <= 18; $t++) {
                     $val = $object1->getActiveSheet()->getCell('S' . $u)->getValue();
                     $filling_date[] = $val;
 //                    print_r($interest_late_fees);
                 }
-                
+
                 $late_fees = array();
                 for ($v = 24; $v <= 35; $v++) {
                     $val = $object1->getActiveSheet()->getCell('R' . $v)->getValue();
-                     $val1 = $object1->getActiveSheet()->getCell('S' . $v)->getValue();
-                    $filling_date[] = $val+$val1;
+                    $val1 = $object1->getActiveSheet()->getCell('S' . $v)->getValue();
+                    $filling_date[] = $val + $val1;
 //                    print_r($interest_late_fees);
                 }
             }
@@ -457,7 +457,7 @@ class Internal_acc_report extends CI_Controller {
             $data = $result->row();
             $turn_id = $data->tax_libility_id;
             //generate user_id
-            $turn_id = str_pad( ++$turn_id, 5, '0', STR_PAD_LEFT);
+            $turn_id = str_pad(++$turn_id, 5, '0', STR_PAD_LEFT);
             return $turn_id;
         } else {
             $turn_id = 'tax_1001';
@@ -509,40 +509,34 @@ class Internal_acc_report extends CI_Controller {
             }
 
             $abc = array();
+            $abc2 = array();
+            $abc3 = array();
+            $abc4 = array();
+            $abc5 = array();
+            $abc6 = array();
+            $abc7 = array();
+
             for ($o = 0; $o < sizeof($liabilityoutward); $o++) {
                 $abc[] = $liabilityoutward[$o];
-                $aa = settype($abc[$o], "integer");
+                $aa1 = settype($abc[$o], "float");
+
+                $abc2[] = $rcm_liability[$o];
+                $aa2 = settype($abc2[$o], "float");
+
+                $abc3[] = $itc_ineligible[$o];
+                $aa3 = settype($abc3[$o], "float");
+
+                $abc4[] = $paid_credit[$o];
+                $aa4 = settype($abc4[$o], "float");
+
+                $abc5[] = $paid_cash[$o];
+                $aa5 = settype($abc5[$o], "float");
+
+                $abc6[] = $late_fee[$o];
+                $aa6 = settype($abc6[$o], "float");
+
             }
-            $abc2 = array();
-            for ($o1 = 0; $o1 < sizeof($rcm_liability); $o1++) {
-                $abc2[] = $rcm_liability[$o1];
-                $aa1 = settype($abc2[$o1], "integer");
-            }
-            $abc3 = array();
-            for ($o2 = 0; $o2 < sizeof($itc_ineligible); $o2++) {
-                $abc3[] = $itc_ineligible[$o2];
-                $aa1 = settype($abc3[$o2], "integer");
-            }
-            $abc4 = array();
-            for ($o3 = 0; $o3 < sizeof($new_net_rtc); $o3++) {
-                $abc4[] = $new_net_rtc[$o3];
-                $aa1 = settype($abc4[$o3], "integer");
-            }
-            $abc5 = array();
-            for ($o3 = 0; $o3 < sizeof($paid_credit); $o3++) {
-                $abc5[] = $paid_credit[$o3];
-                $aa1 = settype($abc5[$o3], "integer");
-            }
-            $abc6 = array();
-            for ($o3 = 0; $o3 < sizeof($paid_cash); $o3++) {
-                $abc6[] = $paid_cash[$o3];
-                $aa1 = settype($abc6[$o3], "integer");
-            }
-            $abc7 = array();
-            for ($o3 = 0; $o3 < sizeof($late_fee); $o3++) {
-                $abc7[] = $late_fee[$o3];
-                $aa1 = settype($abc7[$o3], "integer");
-            }
+
             $respose['message'] = "success";
             $respose['data_outward'] = $abc;
             $respose['data_rcb'] = $abc2;

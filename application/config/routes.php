@@ -60,6 +60,7 @@ $route['Cust_dashboard'] = 'Gst_dashboard/index';
 $route['Cfo_dashboard'] = 'Cfo_dashboard/index';
 $route['Sale_state_wise'] = 'Management_report/state_wise_report';
 $route['Sale_taxable_nontaxable'] = 'Management_report/sale_taxable_nontaxable'; //sale_taxable_nontaxable and exempt route
+$route['Sale_month_wise'] = 'Management_report/sale_month_wise';
 $route['Account'] = 'Account_report/index';
 $route['Internal_control'] = 'Internal_acc_report/index';
 $route['Invoice_comparison'] = 'Invoice_comp_report/index';

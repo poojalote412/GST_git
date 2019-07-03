@@ -19,6 +19,8 @@ class Management_report extends CI_Controller {
 //        $data['result'] = $result;
         $this->load->view('customer/Sale_state_wise');
     }
+    
+   
 
     public function import_excel() { //function to get data from excel files
         if (isset($_FILES["file_ex"]["name"]) && isset($_FILES["file_ex1"]["name"])) {
@@ -208,6 +210,71 @@ class Management_report extends CI_Controller {
         } echo json_encode($respnose);
     }
 
+    
+    //Graph generated month wise
+    
+     function sale_month_wise() {
+//        $data['result'] = $result;
+         $query_get_cfo_data = $this->Cfo_model->get_data_cfo();
+        if ($query_get_cfo_data !== FALSE) {
+            $data['month_wise_data'] = $query_get_cfo_data;
+        } else {
+            $data['month_wise_data'] = "";
+        }
+        $this->load->view('customer/Sales_month_wise',$data);
+    }
+    
+     public function get_graph_sales_month_wise() { //get graph function of Sales month wise
+        $turn_id = $this->input->post("turn_id");
+        $query = $this->db->query("SELECT * from turnover_vs_tax_liability where uniq_id='$turn_id'");
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+            $taxable_supply_arr = array();
+
+            foreach ($result as $row) {
+                $inter_state_supply = $row->inter_state_supply;
+                $intra_state_supply = $row->intra_state_supply;
+                $no_gst_paid_supply = $row->no_gst_paid_supply;
+                $debit_value = $row->debit_value;
+                $credit_value = $row->credit_value;
+
+                $taxable_supply = ($inter_state_supply + $intra_state_supply +$no_gst_paid_supply+ $debit_value) - ($credit_value);
+                $taxable_supply_arr[] = $taxable_supply; //taxable supply array
+            }
+
+            // loop to get graph data as per graph script requirement
+            $abc1 = array();
+            $abc2 = array();
+            $abc3 = array();
+            for ($o = 0; $o < sizeof($taxable_supply_arr); $o++) {
+                $abc1[] = $taxable_supply_arr[$o];
+                $aa1 = settype($abc1[$o], "float");
+
+            }
+
+//             to get max value for range
+            $max_range=max(array($taxable_supply));
+
+            //function to get months
+            $quer2 = $this->db->query("SELECT month from turnover_vs_tax_liability where uniq_id='$turn_id'");
+            $months = array();
+            if ($quer2->num_rows() > 0) {
+                $res2 = $quer2->result();
+                foreach ($res2 as $row) {
+                    $months[] = $row->month;
+                }
+            }
+            $respnose['message'] = "success";
+            $respnose['taxable_supply_arr'] = $abc1;  //taxable_supply data
+            $respnose['month_data'] = $months; //months 
+            $respnose['max_range'] = $max_range; //maximum range for graph
+        } else {
+            $respnose['message'] = "";
+            $respnose['taxable_supply_arr'] = "";  //taxable_supply data
+        } echo json_encode($respnose);
+    }
+    
+    
 }
 
 ?>
