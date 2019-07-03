@@ -92,6 +92,7 @@
                 </a>
                 <div class="collapse" id="editors_mng">
                     <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>Sale_b2b_b2c">Sales B2B & B2Cs </a></li>
                         <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>Sale_state_wise">Sales State Wise</a></li>
                         <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>Sale_taxable_nontaxable">Sales Taxable, non-taxable <br> and Exempt</a></li>
                           <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>Sale_month_wise">Sales Month Wise</a></li>

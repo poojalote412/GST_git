@@ -19,8 +19,6 @@ class Management_report extends CI_Controller {
 //        $data['result'] = $result;
         $this->load->view('customer/Sale_state_wise');
     }
-    
-   
 
     public function import_excel() { //function to get data from excel files
         if (isset($_FILES["file_ex"]["name"]) && isset($_FILES["file_ex1"]["name"])) {
@@ -210,21 +208,20 @@ class Management_report extends CI_Controller {
         } echo json_encode($respnose);
     }
 
-    
     //Graph generated month wise
-    
-     function sale_month_wise() {
+
+    function sale_month_wise() {
 //        $data['result'] = $result;
-         $query_get_cfo_data = $this->Cfo_model->get_data_cfo();
+        $query_get_cfo_data = $this->Cfo_model->get_data_cfo();
         if ($query_get_cfo_data !== FALSE) {
             $data['month_wise_data'] = $query_get_cfo_data;
         } else {
             $data['month_wise_data'] = "";
         }
-        $this->load->view('customer/Sales_month_wise',$data);
+        $this->load->view('customer/Sales_month_wise', $data);
     }
-    
-     public function get_graph_sales_month_wise() { //get graph function of Sales month wise
+
+    public function get_graph_sales_month_wise() { //get graph function of Sales month wise
         $turn_id = $this->input->post("turn_id");
         $query = $this->db->query("SELECT * from turnover_vs_tax_liability where uniq_id='$turn_id'");
         if ($query->num_rows() > 0) {
@@ -238,7 +235,7 @@ class Management_report extends CI_Controller {
                 $debit_value = $row->debit_value;
                 $credit_value = $row->credit_value;
 
-                $taxable_supply = ($inter_state_supply + $intra_state_supply +$no_gst_paid_supply+ $debit_value) - ($credit_value);
+                $taxable_supply = ($inter_state_supply + $intra_state_supply + $no_gst_paid_supply + $debit_value) - ($credit_value);
                 $taxable_supply_arr[] = $taxable_supply; //taxable supply array
             }
 
@@ -249,11 +246,10 @@ class Management_report extends CI_Controller {
             for ($o = 0; $o < sizeof($taxable_supply_arr); $o++) {
                 $abc1[] = $taxable_supply_arr[$o];
                 $aa1 = settype($abc1[$o], "float");
-
             }
 
 //             to get max value for range
-            $max_range=max(array($taxable_supply));
+            $max_range = max(array($taxable_supply));
 
             //function to get months
             $quer2 = $this->db->query("SELECT month from turnover_vs_tax_liability where uniq_id='$turn_id'");
@@ -273,8 +269,255 @@ class Management_report extends CI_Controller {
             $respnose['taxable_supply_arr'] = "";  //taxable_supply data
         } echo json_encode($respnose);
     }
-    
-    
+
+    // sale b2b view page function
+    public function Sale_b2b_b2c() {
+        $this->load->view('customer/B2b_b2c');
+    }
+
+    //function to import data from excel and insert into database.
+    public function import_excel_b2b() {
+
+        if (isset($_FILES["file_ex_b2b"]["name"])) {
+            $path = $_FILES["file_ex_b2b"]["tmp_name"];
+            $this->load->library('excel');
+            $object = PHPExcel_IOFactory::load($path);
+            $worksheet = $object->getActiveSheet();
+            $highestRow = $worksheet->getHighestRow();
+            $highestColumn = $worksheet->getHighestColumn();
+            $x = "G";
+            //loop to get month data
+            while ($object->getActiveSheet()->getCell($x . 6)->getValue() !== "Grand Tatal") {
+                $months[] = $object->getActiveSheet()->getCell($x . 6)->getValue();
+                $x++;
+            }
+            $cnt = count($months);
+            $month_data = array();
+            for ($a12 = 0; $a12 < $cnt; $a12++) {
+                $month = $months[$a12];
+                $month_data[] = $months[$a12];
+                $a12 = ($a12 * 1 + 3);
+            }
+            for ($i = 1; $i <= $highestRow; $i++) {
+
+
+
+                $row_prev = $i - 1;
+                $s = 0;
+                $sk = 0;
+                if ($object->getActiveSheet()->getCell('B' . $i)->getValue() == "Sub Total (B2B)") {
+                    $highestColumn_row = $worksheet->getHighestColumn($i);
+                    //get first table data in excel
+                    if ($object->getActiveSheet()->getCell($highestColumn_row . $i)->getValue() == "" && $object->getActiveSheet()->getCell($highestColumn_row . $i)->getValue() != '0') {
+                        $a = strlen($highestColumn_row);
+                        $index = strlen($highestColumn_row) - 1;
+                        $ord = ord($highestColumn_row[$index]);
+                        $a1 = substr($highestColumn_row, 0, 1);
+                        $a2 = substr($highestColumn_row, 1);
+                        if ($a1 != $a2 and $a2 == "A") {
+//                            $index = strlen($a1) - 1;                            
+                            $ord = ord($highestColumn_row[1]);
+                            $index = 1;
+                            $a = $this->getAlpha($a1, $ord, $a, $index);
+                            $highestColumn_row = $a . "Z";
+                        } else {
+                            $highestColumn_row = $this->getAlpha($highestColumn_row, $ord, $a, $index);
+                        }
+                        $r = 1;
+                        $z2 = $object->getActiveSheet()->getCell($highestColumn_row . $i)->getValue();
+                        while ($z2 == "") {
+                            if ($z2 != "" or $z2 == '0') {
+                                $r++;
+                            } else {
+                                $a = strlen($highestColumn_row);
+                                $index = strlen($highestColumn_row) - 1;
+                                $ord = ord($highestColumn_row[$index]);
+                                $a1 = substr($highestColumn_row, 0, 1);
+                                $a2 = substr($highestColumn_row, 1);
+                                if ($a1 != $a2 and $a2 == "A") {
+                                    $ord = ord($highestColumn_row[1]);
+                                    $index = 1;
+                                    $o1 = ord($a1);
+                                    $o2 = chr($o1 - 1);
+                                    $highestColumn_row = $o2 . "Z";
+                                } else {
+                                    $highestColumn_row = $this->getAlpha($highestColumn_row, $ord, $a, $index);
+                                }
+                            }
+                            $z2 = $object->getActiveSheet()->getCell($highestColumn_row . $i)->getValue();
+                            if ($r > 1) {
+                                break;
+                            }
+                            $highest_value_str = substr($highestColumn_row, -2);
+                        }
+                        $highest_value = $highest_value_str; // got last value here for if
+                        for ($k = 0; $k < 4; $k++) {
+                            $a11 = strlen($highest_value);
+                            $index1 = strlen($highest_value) - 1;
+                            $ord1 = ord($highest_value[$index1]);
+                            $highestColumn_row_pp = $this->getAlpha($highest_value, $ord1, $a11, $index1);
+                            $highest_value = $highestColumn_row_pp;
+                        }
+                        $highest_value_without_GT = $highest_value; //hightest cloumn till where we have to find our data
+                        $char = 'G';
+                        $values = array();
+                        while ($char !== $highest_value_without_GT) {
+                            $values[] = $object->getActiveSheet()->getCell($char . $i)->getValue();
+                            $char++;
+                        }
+                        $cnt = count($values);
+                        $interstate_b2b = array();
+                        for ($aa11 = 0; $aa11 <= $cnt; $aa11++) {
+                            $data1 = $values[$aa11];
+                            $interstate_b2b[] = $values[$aa11];
+                            $aa11 = ($aa11 * 1 + 3);
+                        }
+                    } else {
+                        $s++;
+                        $highest_value = $worksheet->getHighestColumn($i); // got last value here for else
+                        for ($k = 0; $k < 4; $k++) {
+                            $a11 = strlen($highest_value);
+                            $index1 = strlen($highest_value) - 1;
+                            $ord1 = ord($highest_value[$index1]);
+                            $highestColumn_row_pp = $this->getAlpha($highest_value, $ord1, $a11, $index1);
+                            $highest_value = $highestColumn_row_pp;
+                        }
+                        $highest_value_without_GT = $highest_value; //hightest cloumn till where we have to find our data
+                        $char = 'G';
+                        $values1 = array();
+                        while ($char !== $highest_value_without_GT) {
+                            $values1[] = $object->getActiveSheet()->getCell($char . $i)->getValue();
+                            $char++;
+                        }
+                        $cnt = count($values1);
+                        $intrastate_b2b = array();
+                        for ($a12 = 0; $a12 < $cnt; $a12++) {
+                            $data2 = $values1[$a12];
+                            $intrastate_b2b[] = $values1[$a12];
+                            $a12 = ($a12 * 1 + 3);
+                        }
+                    }
+                }
+
+                //To get value of Sub Total (B2CS)
+                elseif ($object->getActiveSheet()->getCell('B' . $i)->getValue() == "Sub Total (B2CS)") { //interstate
+                    $highestColumn_row = $worksheet->getHighestColumn($i);
+                    //get first table data in excel
+                    if ($object->getActiveSheet()->getCell($highestColumn_row . $i)->getValue() == "" && $object->getActiveSheet()->getCell($highestColumn_row . $i)->getValue() != '0') {
+
+                        $a = strlen($highestColumn_row);
+                        $index = strlen($highestColumn_row) - 1;
+                        $ord = ord($highestColumn_row[$index]);
+                        $a1 = substr($highestColumn_row, 0, 1);
+                        $a2 = substr($highestColumn_row, 1);
+                        if ($a1 != $a2 and $a2 == "A") {
+//                            $index = strlen($a1) - 1;                            
+                            $ord = ord($highestColumn_row[1]);
+                            $index = 1;
+                            $a = $this->getAlpha($a1, $ord, $a, $index);
+                            $highestColumn_row = $a . "Z";
+                        } else {
+                            $highestColumn_row = $this->getAlpha($highestColumn_row, $ord, $a, $index);
+                        }
+                        $r = 1;
+                        $z2 = $object->getActiveSheet()->getCell($highestColumn_row . $i)->getValue();
+                        while ($z2 == "") {
+                            if ($z2 != "" or $z2 == '0') {
+                                $r++;
+                            } else {
+                                $a = strlen($highestColumn_row);
+                                $index = strlen($highestColumn_row) - 1;
+                                $ord = ord($highestColumn_row[$index]);
+                                $a1 = substr($highestColumn_row, 0, 1);
+                                $a2 = substr($highestColumn_row, 1);
+                                if ($a1 != $a2 and $a2 == "A") {
+                                    $ord = ord($highestColumn_row[1]);
+                                    $index = 1;
+                                    $o1 = ord($a1);
+                                    $o2 = chr($o1 - 1);
+                                    $highestColumn_row = $o2 . "Z";
+                                } else {
+                                    $highestColumn_row = $this->getAlpha($highestColumn_row, $ord, $a, $index);
+                                }
+                            }
+                            $z2 = $object->getActiveSheet()->getCell($highestColumn_row . $i)->getValue();
+                            if ($r > 1) {
+                                break;
+                            }
+                            $highest_value_str = substr($highestColumn_row, -2);
+                        }
+                        $highest_value = $highest_value_str; // got last value here for if
+                        for ($k = 0; $k < 4; $k++) {
+                            $a11 = strlen($highest_value);
+                            $index1 = strlen($highest_value) - 1;
+                            $ord1 = ord($highest_value[$index1]);
+                            $highestColumn_row_pp = $this->getAlpha($highest_value, $ord1, $a11, $index1);
+                            $highest_value = $highestColumn_row_pp;
+                        }
+                        $highest_value_without_GT1 = $highest_value; //hightest cloumn till where we have to find our data
+                        $char = 'G';
+                        $values = array();
+                        while ($char !== $highest_value_without_GT1) {
+                            $values[] = $object->getActiveSheet()->getCell($char . $i)->getValue();
+                            $char++;
+                        }
+                        $cnt = count($values);
+                        $interstate_b2c = array();
+                        for ($aa12 = 0; $aa12 <= $cnt; $aa12++) {
+                            $data1 = $values[$aa12];
+                            $interstate_b2c[] = $values[$aa12];
+                            $aa12 = ($aa12 * 1 + 3);
+                        }
+                    } else { //intrastate
+                        $sk++;
+                        $highest_value = $worksheet->getHighestColumn($i); // got last value here for else
+                        for ($k = 0; $k < 4; $k++) {
+                            $a11 = strlen($highest_value);
+                            $index1 = strlen($highest_value) - 1;
+                            $ord1 = ord($highest_value[$index1]);
+                            $highestColumn_row_pp = $this->getAlpha($highest_value, $ord1, $a11, $index1);
+                            $highest_value = $highestColumn_row_pp;
+                        }
+                        $highest_value_without_GT = $highest_value; //hightest cloumn till where we have to find our data
+                        $char = 'G';
+                        while ($char !== $highest_value_without_GT) {
+                            $values1[] = $object->getActiveSheet()->getCell($char . $i)->getValue();
+                            $char++;
+                        }
+                        $cnt = count($values1);
+                        $intrastate_b2c = array();
+                        for ($a12 = 0; $a12 < $cnt; $a12++) {
+                            $data2 = $values1[$a12];
+                            $intrastate_b2c[] = $values1[$a12];
+                            $a12 = ($a12 * 1 + 3);
+                        }
+//                        var_dump($intrastate_b2c);
+//                        if ($sk > 0) {
+//                            exit;
+//                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //to decrement column of excel
+    public function getAlpha($highestColumn_row, $ord, $a, $index) {
+        if ($ord >= 65) {
+            // The final character is still greater than A, decrement
+            $highestColumn_row = substr($highestColumn_row, 0, $index) . chr($ord - 1);
+        } else {
+            if ($a == 2) {
+                $highestColumn_row = 'Z';
+            } else if ($a == 3) {
+                $highestColumn_row = 'ZZ';
+            } else if ($a == 1) {
+                $highestColumn_row = 'A';
+            }
+        }
+        return $highestColumn_row;
+    }
+
 }
 
 ?>
