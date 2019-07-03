@@ -41,22 +41,35 @@ if (is_array($session_data)) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                       
+                                        <?php
+//                                    var_dump($gstr1_vs_3b_data);
+                                        if ($b2b_data !== "") {
+                                            $i = 1;
+                                            foreach ($b2b_data as $row) {
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo $i; ?></td>
+                                                    <td><?php echo $row->unique_id; ?></td>
+                                                    <td>ANAND RATHI GLOBAL FINANCE LIMITED 2017-18</td>
+                                                    <td><button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->unique_id; ?>');"class="btn btn-outline-primary" >View</button></td>
+                                                </tr> 
+                                                <?php
+                                                $i++;
+                                            }
+                                        } else {
+                                            
+                                        }
+                                        ?>
 
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                    <div id="container1"></div>
+                    <div id="container"></div>
                 </div>
             </div>   
         </div>  
-
-
-
-
-
 
     </div>
 
@@ -141,117 +154,110 @@ if (is_array($session_data)) {
 
 
 
-    function get_graph_fun(cmpr_id)
+    function get_graph_fun(unq_id)
     {
-        alert("ghgh");
         $.ajax({
             type: "POST",
-            url: "<?= base_url("Threeb_vs_twoa/get_graph") ?>",
+            url: "<?= base_url("Management_report/get_graph_b2b") ?>",
             dataType: "json",
-            data: {cmpr_id: cmpr_id},
+            data: {unq_id: unq_id},
             success: function (result) {
                 if (result.message === "success") {
 
-                    var data_a = result.gstr_tb;
-                    //                                    var data_gstr2a = result.data_gstr2a;
-                    //                                    var data_gstr_one_ammend_res = result.data_gstr_one_ammend;
-                    var data_difference = result.difference;
-                    var cumu_difference = result.cumu_difference;
-                    var data_gstr2a = result.gstr2a;
-                    var max = result.max;
-                    Highcharts.chart('container1', {
+                    var array_b2b = result.array_b2b;
+                    var array_b2c = result.array_b2c;
+                    var array_b2b_ratio = result.array_b2b_ratio;
+                    var array_b2c_ratio = result.array_b2c_ratio;
+                    var max = result.max_range;
+//                    var max_ratio = result.max_ratio;
+                    var data_month = result.month;
+                    Highcharts.chart('container', {
                         chart: {
-                            type: 'Combination chart',
-                            type: 'area'
+                            type: 'column'
                         },
                         title: {
-                            text: 'Comparison Between GSTR-3B & GSTR-2A'
+                            text: ' Sales B2B and B2C'
                         },
                         subtitle: {
                             text: 'Customer Name: ANAND RATHI GLOBAL FINANCE LIMITED 2017-18'
                         },
                         xAxis: {
-                            categories: [
-                                'March',
-                                'February',
-                                'January',
-                                'December',
-                                'November',
-                                'October',
-                                'September',
-                                'August',
-                                'July',
-                                'June',
-                                'May',
-                                'April'
-                            ],
-                            crosshair: true
+                            categories: data_month
                         },
-                        yAxis: {
-                            //                                            min: 0,
-                            max: max,
-//                                    tickInterval: 1000000,
-                            title: {
-                                text: 'Rupees (millions)'
-                            }
+                        yAxis: [{
+                              
+                                max: max,
+                                title: {
+                                    text: 'Sales'
+                                }
+                            }, {
+//                                min: 0,
+                                max: 100,
+                                opposite: true,
+                                title: {
+                                    text: 'Ratio(in %) '
+                                }
+                            }],
+                        legend: {
+                            shadow: false
                         },
                         tooltip: {
-                            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                                    '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-                            footerFormat: '</table>',
-                            shared: true,
-                            useHTML: true
-                        },
-                        plotOptions: {
-                            column: {
-                                pointPadding: 0.1,
-                                borderWidth: 0
-                            },
-                            spline: {
-                                pointPadding: 0.1,
-                                borderWidth: 0
-                            },
-
-                            area: {
-                                stacking: 'normal',
-                                lineColor: '#FFFF00',
-                                lineWidth: 1,
-                                color: '#FFFF00',
-                                marker: {
-                                    lineWidth: 1,
-                                    lineColor: '#FFFF00'
-                                }
-                            }
+                            shared: true
                         },
                         series: [{
                                 type: 'column',
-                                name: 'GSTR-3B',
-                                data: data_a
-
+                                name: 'Sale B2B',
+                                data: array_b2b,
+                                color: '#146FA7',
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                }
                             }, {
                                 type: 'column',
-                                name: 'GSTR-2A',
-                                data: data_gstr2a,
-                                lineColor: '#FF8C00',
-                                color: '#FF8C00'
-
+                                name: 'Sale B2C',
+                                data: array_b2c,
+                                color: '#B8160E',
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                }
                             }, {
                                 type: 'spline',
-                                name: 'Difference',
-                                data: data_difference
-
+                                color: '#5BCB45',
+                                name: 'Ratio of sales B2B to total sales',
+                                data: array_b2b_ratio,
+                                yAxis: 1,
+                                tooltip: {
+                                    valueSuffix: ' %'
+                                },
+                                plotOptions: {
+                                    spline: {
+                                        dataLabels: {
+                                            enabled: true
+                                        },
+                                        enableMouseTracking: false
+                                    }
+                                }
                             }, {
-                                type: 'area',
-                                name: 'Cumulative Difference',
-                                data: cumu_difference
-
-                            }, ]
+                                type: 'spline',
+                                color: '#B596E7',
+                                name: 'Ratio of B2C to total sales',
+                                data: array_b2c_ratio,
+                                yAxis: 1,
+                                tooltip: {
+                                    valueSuffix: ' %'
+                                },
+                                plotOptions: {
+                                    spline: {
+                                        dataLabels: {
+                                            enabled: true
+                                        },
+                                        enableMouseTracking: false
+                                    }
+                                }
+                            }]
                     });
-
-
-
-
                 }
             }
         });

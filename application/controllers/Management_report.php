@@ -8,6 +8,7 @@ class Management_report extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('Cfo_model');
+        $this->load->model('Management_report_model');
     }
 
     function index() {
@@ -272,7 +273,14 @@ class Management_report extends CI_Controller {
 
     // sale b2b view page function
     public function Sale_b2b_b2c() {
-        $this->load->view('customer/B2b_b2c');
+
+        $query_get_b2b_data = $this->Management_report_model->get_data_b2b();
+        if ($query_get_b2b_data !== FALSE) {
+            $data['b2b_data'] = $query_get_b2b_data;
+        } else {
+            $data['b2b_data'] = "";
+        }
+        $this->load->view('customer/B2b_b2c', $data);
     }
 
     //function to import data from excel and insert into database.
@@ -299,11 +307,23 @@ class Management_report extends CI_Controller {
                 $a12 = ($a12 * 1 + 3);
             }
             for ($i = 1; $i <= $highestRow; $i++) {
+                $a_new2 = $object->getActiveSheet()->getCell('A' . $i)->getValue();
+                if ($a_new2 == "(2) Total value of supplies on which GST paid (intra-State Supplies [Other than Deemed Export])") {
+                    $anew = 1;
+                } else if ($a_new2 == "(3) Value of Other Supplies on which no GST paid") {
+                    $anew = 2;
+                }
 
+                //for get value between credit note and debit note
+                $aa2 = $object->getActiveSheet()->getCell('A' . $i)->getValue();
+                if ($aa2 == "(4) Cr Note Details") {
+                    $value11 = 1;
+                } else if ($aa2 == "(5) Dr Note Details") {
+                    $value11 = 2;
+                }
 
 
                 $row_prev = $i - 1;
-                $s = 0;
                 $sk = 0;
                 if ($object->getActiveSheet()->getCell('B' . $i)->getValue() == "Sub Total (B2B)") {
                     $highestColumn_row = $worksheet->getHighestColumn($i);
@@ -373,32 +393,100 @@ class Management_report extends CI_Controller {
                             $aa11 = ($aa11 * 1 + 3);
                         }
                     } else {
-                        $s++;
-                        $highest_value = $worksheet->getHighestColumn($i); // got last value here for else
-                        for ($k = 0; $k < 4; $k++) {
-                            $a11 = strlen($highest_value);
-                            $index1 = strlen($highest_value) - 1;
-                            $ord1 = ord($highest_value[$index1]);
-                            $highestColumn_row_pp = $this->getAlpha($highest_value, $ord1, $a11, $index1);
-                            $highest_value = $highestColumn_row_pp;
-                        }
-                        $highest_value_without_GT = $highest_value; //hightest cloumn till where we have to find our data
-                        $char = 'G';
-                        $values1 = array();
-                        while ($char !== $highest_value_without_GT) {
-                            $values1[] = $object->getActiveSheet()->getCell($char . $i)->getValue();
-                            $char++;
-                        }
-                        $cnt = count($values1);
-                        $intrastate_b2b = array();
-                        for ($a12 = 0; $a12 < $cnt; $a12++) {
-                            $data2 = $values1[$a12];
-                            $intrastate_b2b[] = $values1[$a12];
-                            $a12 = ($a12 * 1 + 3);
+                        if ($anew == 1) {
+                            $highest_value = $worksheet->getHighestColumn($i); // got last value here for else
+                            for ($k = 0; $k < 4; $k++) {
+                                $a11 = strlen($highest_value);
+                                $index1 = strlen($highest_value) - 1;
+                                $ord1 = ord($highest_value[$index1]);
+                                $highestColumn_row_pp = $this->getAlpha($highest_value, $ord1, $a11, $index1);
+                                $highest_value = $highestColumn_row_pp;
+                            }
+                            $highest_value_without_GT = $highest_value; //hightest cloumn till where we have to find our data
+                            $char = 'G';
+                            $values1 = array();
+                            while ($char !== $highest_value_without_GT) {
+                                $values1[] = $object->getActiveSheet()->getCell($char . $i)->getValue();
+                                $char++;
+                            }
+                            $cnt = count($values1);
+                            $intrastate_b2b = array();
+                            for ($a12 = 0; $a12 < $cnt; $a12++) {
+                                $data2 = $values1[$a12];
+                                $intrastate_b2b[] = $values1[$a12];
+                                $a12 = ($a12 * 1 + 3);
+                            }
+                        } elseif ($value11 == 1) {
+                            $highestColumn_dr = $worksheet->getHighestColumn($i);
+                            for ($k = 0; $k < 5; $k++) {
+                                $a11 = strlen($highestColumn_dr);
+                                $index1 = strlen($highestColumn_dr) - 1;
+                                $ord1 = ord($highestColumn_dr[$index1]);
+                                $a1 = substr($highestColumn_dr, 0, 1);
+                                $a2 = substr($highestColumn_dr, 1);
+                                if ($a1 != $a2 and $a2 == "A") {
+                                    $ord = ord($highestColumn_dr[1]);
+                                    $index = 1;
+                                    $o1 = ord($a1);
+                                    $o2 = chr($o1 - 1);
+                                    $highestColumn_row_pp = $o2 . "Z";
+                                } else {
+                                    $highestColumn_row_pp = $this->getAlpha($highestColumn_dr, $ord1, $a11, $index1);
+                                }
+                                $highestColumn_dr = $highestColumn_row_pp;
+                            }
+
+                            $highest_value_without_DR = $highestColumn_dr; //hightest cloumn till where we have to find our data
+                            $char = 'G';
+                            $values_CR = array();
+                            while ($char !== $highest_value_without_DR) {
+                                $values_CR[] = $object->getActiveSheet()->getCell($char . $i)->getValue();
+                                $char++;
+                            }
+                            $cnt = count($values_CR);
+                            $credit_b2b = array();
+                            for ($a_dr1 = 0; $a_dr1 < $cnt; $a_dr1++) {
+                                $Dr_values = $values_CR[$a_dr1];
+                                $credit_b2b[] = $values_CR[$a_dr1];
+                                $a_dr1 = ($a_dr1 * 1 + 4);
+                            }
+                        } else {
+                            $highestColumn_dr = $worksheet->getHighestColumn($i);
+                            for ($k = 0; $k < 5; $k++) {
+                                $a11 = strlen($highestColumn_dr);
+                                $index1 = strlen($highestColumn_dr) - 1;
+                                $ord1 = ord($highestColumn_dr[$index1]);
+                                $a1 = substr($highestColumn_dr, 0, 1);
+                                $a2 = substr($highestColumn_dr, 1);
+                                if ($a1 != $a2 and $a2 == "A") {
+                                    $ord = ord($highestColumn_dr[1]);
+                                    $index = 1;
+                                    $o1 = ord($a1);
+                                    $o2 = chr($o1 - 1);
+                                    $highestColumn_row_pp = $o2 . "Z";
+                                } else {
+                                    $highestColumn_row_pp = $this->getAlpha($highestColumn_dr, $ord1, $a11, $index1);
+                                }
+                                $highestColumn_dr = $highestColumn_row_pp;
+                            }
+
+                            $highest_value_without_DR = $highestColumn_dr; //hightest cloumn till where we have to find our data
+                            $char = 'G';
+                            $values_DR = array();
+                            while ($char !== $highest_value_without_DR) {
+                                $values_DR[] = $object->getActiveSheet()->getCell($char . $i)->getValue();
+                                $char++;
+                            }
+                            $cnt = count($values_DR);
+                            $debit_b2b = array();
+                            for ($a_cr1 = 0; $a_cr1 < $cnt; $a_cr1++) {
+                                $Dr_values = $values_DR[$a_cr1];
+                                $debit_b2b[] = $values_DR[$a_cr1];
+                                $a_cr1 = ($a_cr1 * 1 + 4);
+                            }
                         }
                     }
                 }
-
                 //To get value of Sub Total (B2CS)
                 elseif ($object->getActiveSheet()->getCell('B' . $i)->getValue() == "Sub Total (B2CS)") { //interstate
                     $highestColumn_row = $worksheet->getHighestColumn($i);
@@ -456,16 +544,16 @@ class Management_report extends CI_Controller {
                         }
                         $highest_value_without_GT1 = $highest_value; //hightest cloumn till where we have to find our data
                         $char = 'G';
-                        $values = array();
+                        $values2 = array();
                         while ($char !== $highest_value_without_GT1) {
-                            $values[] = $object->getActiveSheet()->getCell($char . $i)->getValue();
+                            $values2[] = $object->getActiveSheet()->getCell($char . $i)->getValue();
                             $char++;
                         }
-                        $cnt = count($values);
+                        $cnt = count($values2);
                         $interstate_b2c = array();
                         for ($aa12 = 0; $aa12 <= $cnt; $aa12++) {
-                            $data1 = $values[$aa12];
-                            $interstate_b2c[] = $values[$aa12];
+                            $data1 = $values2[$aa12];
+                            $interstate_b2c[] = $values2[$aa12];
                             $aa12 = ($aa12 * 1 + 3);
                         }
                     } else { //intrastate
@@ -480,24 +568,182 @@ class Management_report extends CI_Controller {
                         }
                         $highest_value_without_GT = $highest_value; //hightest cloumn till where we have to find our data
                         $char = 'G';
+                        $values3 = array();
                         while ($char !== $highest_value_without_GT) {
-                            $values1[] = $object->getActiveSheet()->getCell($char . $i)->getValue();
+                            $values3[] = $object->getActiveSheet()->getCell($char . $i)->getValue();
                             $char++;
                         }
-                        $cnt = count($values1);
+                        $cnt = count($values3);
                         $intrastate_b2c = array();
                         for ($a12 = 0; $a12 < $cnt; $a12++) {
-                            $data2 = $values1[$a12];
-                            $intrastate_b2c[] = $values1[$a12];
+                            $data2 = $values3[$a12];
+                            $intrastate_b2c[] = $values3[$a12];
                             $a12 = ($a12 * 1 + 3);
                         }
-//                        var_dump($intrastate_b2c);
-//                        if ($sk > 0) {
-//                            exit;
-//                        }
                     }
+                } elseif ($object->getActiveSheet()->getCell('B' . $i)->getValue() == "(4) Cr Note Details") {
+                    for ($j = $i; $j <= $highestRow; $j++) {
+                        if ($object->getActiveSheet()->getCell('B' . $j)->getValue() == "Sub Total (B2CS)") {
+                            $highestColumn_dr = $worksheet->getHighestColumn($j);
+                            for ($k = 0; $k < 5; $k++) {
+                                $a11 = strlen($highestColumn_dr);
+                                $index1 = strlen($highestColumn_dr) - 1;
+                                $ord1 = ord($highestColumn_dr[$index1]);
+                                $a1 = substr($highestColumn_dr, 0, 1);
+                                $a2 = substr($highestColumn_dr, 1);
+                                if ($a1 != $a2 and $a2 == "A") {
+                                    $ord = ord($highestColumn_dr[1]);
+                                    $index = 1;
+                                    $o1 = ord($a1);
+                                    $o2 = chr($o1 - 1);
+                                    $highestColumn_row_pp = $o2 . "Z";
+                                } else {
+                                    $highestColumn_row_pp = $this->getAlpha($highestColumn_dr, $ord1, $a11, $index1);
+                                }
+                                $highestColumn_dr = $highestColumn_row_pp;
+                            }
+
+                            $highest_value_without_DR = $highestColumn_dr; //hightest cloumn till where we have to find our data
+                            $char = 'G';
+                            $cr_values = array();
+                            while ($char !== $highest_value_without_DR) {
+                                $cr_values[] = $object->getActiveSheet()->getCell($char . $j)->getValue();
+                                $char++;
+                            }
+                            $cnt = count($values_DR);
+                            $credit_b2c = array();
+                            for ($a_dr11 = 0; $a_dr11 < $cnt; $a_dr11++) {
+                                $cr_values1 = $cr_values[$a_dr11];
+                                $credit_b2c[] = $cr_values[$a_dr11];
+                                $a_dr11 = ($a_dr11 * 1 + 4);
+                            }
+                        }
+                    }
+                } elseif ($object->getActiveSheet()->getCell('B' . $i)->getValue() == "(5) Dr Note Details") {
+                    for ($j = $i; $j <= $highestRow; $j++) {
+                        if ($object->getActiveSheet()->getCell('B' . $j)->getValue() == "Sub Total (B2CS)") {
+                            $highestColumn_dr = $worksheet->getHighestColumn($j);
+                            for ($k = 0; $k < 5; $k++) {
+                                $a11 = strlen($highestColumn_dr);
+                                $index1 = strlen($highestColumn_dr) - 1;
+                                $ord1 = ord($highestColumn_dr[$index1]);
+                                $a1 = substr($highestColumn_dr, 0, 1);
+                                $a2 = substr($highestColumn_dr, 1);
+                                if ($a1 != $a2 and $a2 == "A") {
+                                    $ord = ord($highestColumn_dr[1]);
+                                    $index = 1;
+                                    $o1 = ord($a1);
+                                    $o2 = chr($o1 - 1);
+                                    $highestColumn_row_pp = $o2 . "Z";
+                                } else {
+                                    $highestColumn_row_pp = $this->getAlpha($highestColumn_dr, $ord1, $a11, $index1);
+                                }
+                                $highestColumn_dr = $highestColumn_row_pp;
+                            }
+
+                            $highest_value_without_DR = $highestColumn_dr; //hightest cloumn till where we have to find our data
+                            $char = 'G';
+                            while ($char !== $highest_value_without_DR) {
+                                $values_DR[] = $object->getActiveSheet()->getCell($char . $j)->getValue();
+                                $char++;
+                            }
+                            $cnt = count($values_DR);
+                            $debit_b2c = array();
+                            for ($a_dr11 = 0; $a_dr11 < $cnt; $a_dr11++) {
+                                $Dr_values = $values_DR[$a_dr11];
+                                $debit_b2c[] = $values_DR[$a_dr11];
+                                $a_dr11 = ($a_dr11 * 1 + 4);
+                            }
+                        }
+                    }
+                } else {
+                    $credit_b2c[] = 0;
+                    $debit_b2c[] = 0;
+                    $debit_b2b[] = 0;
+                    $credit_b2b[] = 0;
+                    $interstate_b2b[] = 0;
+                    $intrastate_b2b[] = 0;
+                    $interstate_b2c[] = 0;
+                    $intrastate_b2c[] = 0;
                 }
             }
+
+            //store b2c values of debit and credi into new variable
+            $debit_b2c1 = $debit_b2c;
+            $credit_b2c1 = $credit_b2c;
+
+
+            //code to insert data into database
+            $uniq_id = $this->generate_uniq_id(); //unique id generation
+            $month_data_arr = $month_data; //array of month data
+            $count = count($month_data_arr);
+            $vall = 1;
+            for ($t = 0; $t < $count; $t++) {
+                if ($interstate_b2b == "" or $interstate_b2b === NULL) {
+                    $inter_state_b2b = array();
+                    $inter_state_b2b[$t] = 0; //array of inter state supply B2B
+                } else {
+                    $inter_state_b2b = $interstate_b2b; //array of inter state supply B2B
+                }
+                if ($intrastate_b2b == "" or $intrastate_b2b === NULL) {
+                    $intra_state_b2b = array();
+                    $intra_state_b2b[$t] = 0; //array of intra state supply B2B
+                } else {
+                    $intra_state_b2b = $intrastate_b2b; //array of intra state supply B2B
+                }
+                if ($interstate_b2c == "" or $interstate_b2c === NULL) {
+                    $inter_b2c = array();
+                    $inter_b2c[$t] = 0; // array of inter state supply B2C
+                } else {
+                    $inter_b2c = $interstate_b2c; // array of inter state supply B2C
+                }
+                if ($intrastate_b2c == "" or $intrastate_b2c === NULL) {
+                    $intra_b2c = array();
+                    $intra_b2c[$t] = 0;   //array of intra state supply B2C
+                } else {
+                    $intra_b2c = $intrastate_b2c; //array of intra state supply B2C
+                }
+                if ($debit_b2b == "" or $debit_b2b === NULL) {
+                    $debit_b2b_new = array();
+                    $debit_b2b_new[$t] = 0;  //array of debit_value B2B
+                } else {
+                    $debit_b2b_new = $debit_b2b; //array of debit_value B2B
+                }
+                if ($debit_b2c1 == "" or $debit_b2c1 === NULL) {
+                    $debit_b2c_new = array();
+                    $debit_b2c_new[$t] = 0;   //array of debit_value B2C
+                } else {
+                    $debit_b2c_new = $debit_b2c1; //array of debit_value B2C
+                }
+                if ($credit_b2b == "" or $credit_b2b === NULL) {
+                    $credit_b2b_new = array();
+                    $credit_b2b_new[$t] = 0;  //array of credit_value B2B
+                } else {
+                    $credit_b2b_new = $credit_b2b; //array of credit_value B2B
+                }
+                if ($credit_b2c1 == "" or $credit_b2c1 === NULL) {
+                    $credit_b2c_new = array();
+                    $credit_b2c_new[$t] = 0;  //array of credit_value B2C
+                } else {
+                    $credit_b2c_new = $credit_b2c1; //array of credit_value B2C
+                }
+                //query to insert data into database
+                $quer = $this->db->query("insert into b2b_b2c (`unique_id`,`month`,`interstate_b2b`,`intrastate_b2b`,`interstate_b2c`,`intrastate_b2c`,`credit_b2b`,`credit_b2c`,`debit_b2b`,`debit_b2c`)"
+                        . " values ('$uniq_id','$month_data[$t]','$inter_state_b2b[$t]','$intra_state_b2b[$t]','$inter_b2c[$t]','$intra_b2c[$t]','$credit_b2b_new[$t]','$credit_b2c_new[$t]','$debit_b2b_new[$t]','$debit_b2c_new[$t]')");
+
+                if ($this->db->affected_rows() > 0) {
+                    $vall++;
+                }
+            }
+            if ($vall > 1) {
+                $response['message'] = "success";
+                $response['status'] = true;
+                $response['code'] = 200;
+            } else {
+                $response['message'] = "";
+                $response['status'] = FALSE;
+                $response['code'] = 204;
+            }echo json_encode($response);
         }
     }
 
@@ -516,6 +762,105 @@ class Management_report extends CI_Controller {
             }
         }
         return $highestColumn_row;
+    }
+
+    public function generate_uniq_id() {
+        $result = $this->db->query('SELECT unique_id FROM `b2b_b2c` ORDER BY unique_id DESC LIMIT 0,1');
+        if ($result->num_rows() > 0) {
+            $data = $result->row();
+            $uniq_id = $data->unique_id;
+            //generate turn_id
+            $uniq_id = str_pad( ++$uniq_id, 5, '0', STR_PAD_LEFT);
+            return $uniq_id;
+        } else {
+            $uniq_id = 'btb_1001';
+            return $uniq_id;
+        }
+    }
+
+    //function to get graph function for B2B and B2C.
+    public function get_graph_b2b() {
+        $unique_id = $this->input->post("unq_id");
+        $query_get_graph = $this->Management_report_model->get_graph_query($unique_id);
+        if (count($query_get_graph) > 0) {
+            $month = array();
+            $array_b2b = array();
+            $array_b2c = array();
+            $array_b2b_ratio = array();
+            $array_b2c_ratio = array();
+            foreach ($query_get_graph as $row) {
+                $month[] = $row->month;
+                $interstate_b2b = $row->interstate_b2b;
+                $interstate_b2c = $row->interstate_b2c;
+                $intrastate_b2b = $row->intrastate_b2b;
+                $intrastate_b2c = $row->intrastate_b2c;
+                $credit_b2b = $row->credit_b2b;
+                $credit_b2c = $row->credit_b2c;
+                $debit_b2b = $row->debit_b2b;
+                $debit_b2c = $row->debit_b2c;
+
+                $b2b_data = ($interstate_b2b + $intrastate_b2b + $debit_b2b) - $credit_b2b;
+                $b2c_data = ($interstate_b2c + $intrastate_b2c + $debit_b2c) - $credit_b2c;
+                $array_b2b[] = $b2b_data;
+                $array_b2c[] = $b2c_data;
+                $array_b2b_ratio[] = round(($b2b_data * 100) / ($b2b_data + $b2c_data));
+                $array_b2c_ratio[] = round(($b2c_data * 100) / ($b2b_data + $b2c_data));
+            }
+            $count = count($month);
+            $array_b2b1 = array();
+            $array_b2c1 = array();
+            $array_b2b_ratio1 = array();
+            $array_b2c_ratio1 = array();
+
+            for ($i = 0; $i < $count; $i++) {
+                $array_b2b1[] = $array_b2b[$i];
+                $aa1 = settype($array_b2b1[$i], "float");
+
+                $array_b2c1[] = $array_b2c[$i];
+                $aa2 = settype($array_b2c1[$i], "float");
+
+                $array_b2b_ratio1[] = $array_b2b_ratio[$i];
+                $aa2 = settype($array_b2b_ratio1[$i], "float");
+
+                $array_b2c_ratio1[] = $array_b2c_ratio[$i];
+                $aa2 = settype($array_b2c_ratio1[$i], "float");
+            }
+            // to get max value for range
+            $arr = array($array_b2c1, $array_b2b1);
+            $max_range = 0;
+            foreach ($arr as $val) {
+                foreach ($val as $key => $val1) {
+                    if ($val1 > $max_range) {
+                        $max_range = $val1;
+                    }
+                }
+            }
+
+            // to get max value for ratio
+            $arr1 = array($array_b2b_ratio1, $array_b2b_ratio1);
+            $max_ratio = 0;
+            foreach ($arr1 as $val1) {
+                foreach ($val1 as $key => $val11) {
+                    if ($val11 > $max_ratio) {
+                        $max_ratio = $val11;
+                    }
+                }
+            }
+            $response['message'] = "success";
+            $response['array_b2b'] = $array_b2b1;  // B2B data
+            $response['array_b2c'] = $array_b2c1;  // B2Cs data
+            $response['array_b2b_ratio'] = $array_b2b_ratio1;  // B2Cs data
+            $response['array_b2c_ratio'] = $array_b2c_ratio1;  // B2Cs data
+            $response['month'] = $month;  // month data
+            $response['max_range'] = $max_range;  // Max Range
+            $response['max_ratio'] = $max_ratio;  // Max Ratio
+        } else {
+            $response['message'] = "";
+            $response['array_b2b'] = "";  // B2B data
+            $response['array_b2c'] = "";  // B2Cs data
+            $response['month'] = "";  // month data
+            $response['max_range'] = 0;
+        }echo json_encode($response);
     }
 
 }
