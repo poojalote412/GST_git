@@ -177,7 +177,6 @@ class Cfo_dashboard extends CI_Controller {
 
                                     $aa1[] = $values1[$a_dr];
                                 }
-//                                 var_dump($aa);
                             }
                             
                             $tax_intra_state = array();
@@ -556,22 +555,18 @@ class Cfo_dashboard extends CI_Controller {
                 $tax_liabality1[] = $tax_liabality;
             }
             // loop to get turnover value
-            $abc = array();
+              $abc = array();
+            $pqr = array();
+            $lmn = array();
             for ($o = 0; $o < sizeof($turnover1); $o++) {
                 $abc[] = $turnover1[$o];
-                $aa = settype($abc[$o], "float");
-            }
-            // loop to get tax_liabality value
-            $pqr = array();
-            for ($o1 = 0; $o1 < sizeof($tax_liabality1); $o1++) {
-                $pqr[] = $tax_liabality1[$o1];
-                $aa = settype($pqr[$o1], "float");
-            }
-            // loop to get ratio value
-            $lmn = array();
-            for ($o2 = 0; $o2 < sizeof($ratio_val); $o2++) {
-                $lmn[] = $ratio_val[$o2];
-                $aa = settype($lmn[$o2], "float");
+                $aa1 = settype($abc[$o], "float");
+                
+                $pqr[] = $tax_liabality1[$o];
+                $aa2 = settype($pqr[$o], "float");
+                
+                $lmn[] = $ratio_val[$o];
+                $aa3 = settype($lmn[$o], "float");
             }
 
             // to get max value for range

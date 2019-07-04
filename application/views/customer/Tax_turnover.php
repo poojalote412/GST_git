@@ -58,9 +58,9 @@ if (is_array($session_data)) {
 
                                     <?php
 //                                    var_dump($cfo_data);
-                                    if ($month_wise_data !== "") {
+                                    if ($tax_turnover_data !== "") {
                                         $i = 1;
-                                        foreach ($month_wise_data as $row) {
+                                        foreach ($tax_turnover_data as $row) {
                                             ?>
                                             <tr>
                                                 <td><?php echo $i; ?></td>
@@ -109,7 +109,7 @@ if (is_array($session_data)) {
                     var max_range = result.max_range;
                     Highcharts.chart('container', {
                         chart: {
-                            type: 'column'
+                            type: 'Combination chart'
                         },
                         title: {
                             text: 'Tax Turnover'
@@ -120,6 +120,10 @@ if (is_array($session_data)) {
                                 pointPadding: 0.1,
                                 borderWidth: 0,
 
+                            },
+                            spline: {
+                                pointPadding: 0.1,
+                                borderWidth: 0
                             },
 
                             area: {
@@ -159,7 +163,17 @@ if (is_array($session_data)) {
                             shared: true
                         },
                         series: [{
-//                                type:'column',
+                                type:'column',
+                                name: 'Tax Value',
+                                data: tax_value,
+                                stack: taxable_value,
+                                color: '#AA381E',
+                               tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                },
+                            },{
+                                type:'column',
                                 name: 'Taxable Value',
                                 data: taxable_value,
                                 color: '#00008b',
@@ -169,18 +183,23 @@ if (is_array($session_data)) {
                                     valueSuffix: ' M'
                                 },
                             },{
-//                                type:'column',
-                                name: 'Tax Value',
-                                data: tax_value,
-                                stack: taxable_value,
-                                color: '#AA381E',
-                               
-                            },{
-//                                type:'column',
+                                type: 'spline',
                                 name: 'Tax ratio',
                                 data: tax_ratio,
-                                stack: taxable_value,
-                                color: '##808080',
+//                                stack: taxable_value,
+                                color: '#808080',
+                                yAxis: 1,
+                                tooltip: {
+                                    valueSuffix: ' %'
+                                },
+                                plotOptions: {
+                                    spline: {
+                                        dataLabels: {
+                                            enabled: true
+                                        },
+                                        enableMouseTracking: false
+                                    }
+                                },
                                
                             },]
                     });

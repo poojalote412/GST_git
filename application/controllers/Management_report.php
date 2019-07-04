@@ -728,7 +728,7 @@ class Management_report extends CI_Controller {
                     $credit_b2c_new = $credit_b2c1; //array of credit_value B2C
                 }
                 //query to insert data into database
-                $quer = $this->db->query("insert into b2b_b2c (`unique_id`,`month`,`interstate_b2b`,`intrastate_b2b`,`interstate_b2c`,`intrastate_b2c`,`credit_b2b`,`credit_b2c`,`debit_b2b`,`debit_b2c`)"
+                $quer = $this->db->query("insert into b2b_b2c (`unique_id`,`month`,`interstate_b2b`,`interstate_b2c`,`intrastate_b2b`,`intrastate_b2c`,`credit_b2b`,`credit_b2c`,`debit_b2b`,`debit_b2c`)"
                         . " values ('$uniq_id','$month_data[$t]','$inter_state_b2b[$t]','$intra_state_b2b[$t]','$inter_b2c[$t]','$intra_b2c[$t]','$credit_b2b_new[$t]','$credit_b2c_new[$t]','$debit_b2b_new[$t]','$debit_b2c_new[$t]')");
 
                 if ($this->db->affected_rows() > 0) {

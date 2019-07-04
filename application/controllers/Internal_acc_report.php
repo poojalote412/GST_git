@@ -565,16 +565,17 @@ class Internal_acc_report extends CI_Controller {
 //        $data['result'] = $result;
        $query_get_cfo_data = $this->Cfo_model->get_data_cfo();
         if ($query_get_cfo_data !== FALSE) {
-            $data['month_wise_data'] = $query_get_cfo_data;
+            $data['tax_turnover_data'] = $query_get_cfo_data;
         } else {
-            $data['month_wise_data'] = "";
+            $data['tax_turnover_data'] = "";
         }
         $this->load->view('customer/Tax_turnover',$data);
     }
 
     
+    //get graph function for tax turnover
     
-    public function get_graph_tax_turnover() { //get graph function for tax turnover
+    public function get_graph_tax_turnover() { 
         $turn_id = $this->input->post("turn_id");
         $query = $this->db->query("SELECT * from turnover_vs_tax_liability where uniq_id='$turn_id'");
         if ($query->num_rows() > 0) {
@@ -595,16 +596,14 @@ class Internal_acc_report extends CI_Controller {
                 $tax_credit=$row->tax_credit;
 
                 $taxable_val = ($inter_state_supply + $intra_state_supply + $no_gst_paid_supply + $debit_value) - ($credit_value);
-                $taxable_value[] = $taxable_val; //taxable supply array
+                $taxable_value[] = $taxable_val; //taxable value array
                 
                  $tax_val = ($tax_inter_state + $tax_intra_state + $tax_debit) - ($tax_credit);
-                $tax_value[] = $tax_val; //taxable supply array
+                $tax_value[] = $tax_val; //tax array
                 
                 
-//                $tax_ratio=($taxable_value)%($tax_value);
-//                $tax_ratio[] = $tax_ratio;
-                
-//                var_dump($tax_ratio);
+                $ratio = ($tax_val / $taxable_val) * 100;
+                $tax_ratio[] = round($ratio);
                 
             }
 
@@ -619,8 +618,8 @@ class Internal_acc_report extends CI_Controller {
                 $abc2[] = $tax_value[$o];
                 $aa2 = settype($abc1[$o], "float");
                 
-//                $abc3[] = $tax_ratio[$o];
-//                $aa3 = settype($abc3[$o], "float");
+                $abc3[] = $tax_ratio[$o];
+                $aa3 = settype($abc3[$o], "float");
             }
 
 //             to get max value for range

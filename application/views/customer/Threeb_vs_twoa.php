@@ -161,7 +161,7 @@ if (is_array($session_data)) {
 
     function get_graph_fun(cmpr_id)
     {
-        alert("ghgh");
+//        alert("ghgh");
         $.ajax({
             type: "POST",
             url: "<?= base_url("Threeb_vs_twoa/get_graph") ?>",
