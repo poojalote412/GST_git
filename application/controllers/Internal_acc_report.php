@@ -8,7 +8,7 @@ class Internal_acc_report extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('Internal_acc_report_model');
-         $this->load->model('Cfo_model');
+        $this->load->model('Cfo_model');
     }
 
     function index() {
@@ -23,9 +23,7 @@ class Internal_acc_report extends CI_Controller {
     }
 
     public function import_excel() {
-
-        if (isset($_FILES["file_ex1"]["name"]) && isset($_FILES["file_ex"]["name"])) {
-
+        if (isset($_FILES["file_ex1"]["name"]) && isset($_FILES["file_ex2"]["name"])) {
             //second Excel sheet Data
             $path = $_FILES["file_ex1"]["tmp_name"];
             $this->load->library('excel');
@@ -99,15 +97,13 @@ class Internal_acc_report extends CI_Controller {
             }
 
             //Second Excel Sheet Data
-
-            $path1 = $_FILES["file_ex"]["tmp_name"];
+            $path1 = $_FILES["file_ex2"]["tmp_name"];
             $object1 = PHPExcel_IOFactory::load($path1);
             $worksheet1 = $object1->getActiveSheet();
             $highestRow1 = $worksheet1->getHighestRow();
             $highestColumn1 = $worksheet1->getHighestColumn();
 
-            if ($object1->getActiveSheet()->getCell('B' . 3)->getValue() === "F.Y. : 2017-2018") {
-
+            if ($object1->getActiveSheet()->getCell('B' . 3)->getValue() == "F.Y. : 2017-2018") {
                 $month = array();
                 $liability_on_outward = array();
                 for ($l = 10; $l <= 18; $l++) {
@@ -223,25 +219,11 @@ class Internal_acc_report extends CI_Controller {
 //                    print_r($interest_late_fees);
                 }
 
-//                 $count=count($month);
-//                 for($m=0;$m<=$count;$m++)
-//                 {
-//                      $month[$m];
-//                      $liability_on_outward[$m];
-//                      $rcm_liability[$m];
-//                      $itc_ineligible[$m];
-//                      $net_rtc[$m];
-//                      $paid_in_credit[$m];
-//                      $paid_in_cash[$m];
-//                      $interest_late_fees[$m];
-//                      
-//                 }
             } else {
 
                 $liability_on_outward = array();
                 for ($l = 7; $l <= 18; $l++) {
 //                    $month[];
-
                     $val = $object1->getActiveSheet()->getCell('F' . $l)->getValue();
                     $val1 = $object1->getActiveSheet()->getCell('G' . $l)->getValue();
                     $val2 = $object1->getActiveSheet()->getCell('H' . $l)->getValue();
@@ -334,7 +316,7 @@ class Internal_acc_report extends CI_Controller {
                 for ($t = 7; $t <= 18; $t++) {
                     $val = $object1->getActiveSheet()->getCell('R' . $t)->getValue();
                     $due_date[] = $val;
-                    print_r($due_date);
+//                    print_r($due_date);
                 }
 
                 $filling_date = array();
@@ -458,7 +440,7 @@ class Internal_acc_report extends CI_Controller {
             $data = $result->row();
             $turn_id = $data->tax_libility_id;
             //generate user_id
-            $turn_id = str_pad(++$turn_id, 5, '0', STR_PAD_LEFT);
+            $turn_id = str_pad( ++$turn_id, 5, '0', STR_PAD_LEFT);
             return $turn_id;
         } else {
             $turn_id = 'tax_1001';
@@ -535,7 +517,6 @@ class Internal_acc_report extends CI_Controller {
 
                 $abc6[] = $late_fee[$o];
                 $aa6 = settype($abc6[$o], "float");
-
             }
 
             $respose['message'] = "success";
@@ -558,31 +539,30 @@ class Internal_acc_report extends CI_Controller {
         }
         echo json_encode($respose);
     }
-    
+
     //Graph for tax turnover
-    
-   public function tax_turnover() {
+
+    public function tax_turnover() {
 //        $data['result'] = $result;
-       $query_get_cfo_data = $this->Cfo_model->get_data_cfo();
+        $query_get_cfo_data = $this->Cfo_model->get_data_cfo();
         if ($query_get_cfo_data !== FALSE) {
             $data['tax_turnover_data'] = $query_get_cfo_data;
         } else {
             $data['tax_turnover_data'] = "";
         }
-        $this->load->view('customer/Tax_turnover',$data);
+        $this->load->view('customer/Tax_turnover', $data);
     }
 
-    
     //get graph function for tax turnover
-    
-    public function get_graph_tax_turnover() { 
+
+    public function get_graph_tax_turnover() {
         $turn_id = $this->input->post("turn_id");
         $query = $this->db->query("SELECT * from turnover_vs_tax_liability where uniq_id='$turn_id'");
         if ($query->num_rows() > 0) {
             $result = $query->result();
             $taxable_value = array();
-            $tax_value=array();
-            $tax_ratio=array();
+            $tax_value = array();
+            $tax_ratio = array();
 
             foreach ($result as $row) {
                 $inter_state_supply = $row->inter_state_supply;
@@ -590,21 +570,20 @@ class Internal_acc_report extends CI_Controller {
                 $no_gst_paid_supply = $row->no_gst_paid_supply;
                 $debit_value = $row->debit_value;
                 $credit_value = $row->credit_value;
-                $tax_inter_state=$row->tax_inter_state;
-                $tax_intra_state=$row->tax_intra_state;
-                $tax_debit=$row->tax_debit;
-                $tax_credit=$row->tax_credit;
+                $tax_inter_state = $row->tax_inter_state;
+                $tax_intra_state = $row->tax_intra_state;
+                $tax_debit = $row->tax_debit;
+                $tax_credit = $row->tax_credit;
 
                 $taxable_val = ($inter_state_supply + $intra_state_supply + $no_gst_paid_supply + $debit_value) - ($credit_value);
                 $taxable_value[] = $taxable_val; //taxable value array
-                
-                 $tax_val = ($tax_inter_state + $tax_intra_state + $tax_debit) - ($tax_credit);
+
+                $tax_val = ($tax_inter_state + $tax_intra_state + $tax_debit) - ($tax_credit);
                 $tax_value[] = $tax_val; //tax array
-                
-                
+
+
                 $ratio = ($tax_val / $taxable_val) * 100;
                 $tax_ratio[] = round($ratio);
-                
             }
 
             // loop to get graph data as per graph script requirement
@@ -614,17 +593,17 @@ class Internal_acc_report extends CI_Controller {
             for ($o = 0; $o < sizeof($taxable_value); $o++) {
                 $abc1[] = $taxable_value[$o];
                 $aa1 = settype($abc1[$o], "float");
-                
+
                 $abc2[] = $tax_value[$o];
                 $aa2 = settype($abc1[$o], "float");
-                
+
                 $abc3[] = $tax_ratio[$o];
                 $aa3 = settype($abc3[$o], "float");
             }
 
 //             to get max value for range
 //            $max_range = max(array($taxable_supply));
-            $arr = array($abc1, $abc2,$abc3);
+            $arr = array($abc1, $abc2, $abc3);
             $max_range = 0;
             foreach ($arr as $val) {
                 foreach ($val as $key => $val1) {
@@ -646,7 +625,7 @@ class Internal_acc_report extends CI_Controller {
             $respnose['message'] = "success";
             $respnose['taxable_value'] = $abc1;  //taxable_supply data
             $respnose['tax_value'] = $abc2; //tax value
-             $respnose['tax_ratio'] = $abc3; 
+            $respnose['tax_ratio'] = $abc3;
             $respnose['month_data'] = $months; //months 
             $respnose['max_range'] = $max_range; //maximum range for graph
         } else {
@@ -654,7 +633,7 @@ class Internal_acc_report extends CI_Controller {
             $respnose['taxable_supply_arr'] = "";  //taxable_supply data
         } echo json_encode($respnose);
     }
-    
+
 }
 
 ?>

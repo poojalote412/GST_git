@@ -178,14 +178,14 @@ if (is_array($session_data)) {
                         <label>File upload</label>
                         <input type="file" name="file_ex" class="file-upload-default">
                         <div class="input-group col-xs-6">
-                            <input type="file" class="form-control file-upload" name="file_ex" id="file_ex" required accept=".xls, .xlsx"  placeholder="Upload File1">
+                            <input type="file" class="form-control file-upload" name="file_ex1" id="file_ex1" required accept=".xls, .xlsx"  placeholder="Upload File1">
 
                             <span class="input-group-append">
                                 <button class="file-upload-browse btn btn-light"  type="button" >Upload</button>
                             </span>
                         </div><br>
                         <div class="input-group col-xs-6">
-                            <input type="file" class="form-control file-upload" name="file_ex1" id="file_ex1" required accept=".xls, .xlsx"  placeholder="Upload File2">
+                            <input type="file" class="form-control file-upload" name="file_ex2" id="file_ex2" required accept=".xls, .xlsx"  placeholder="Upload File2">
 
                             <span class="input-group-append">
                                 <button class="file-upload-browse btn btn-light"  type="button" >Upload</button>
