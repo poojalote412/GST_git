@@ -163,8 +163,8 @@ class Test extends CI_Controller {
             $month_data_arr = $month_data; //array of month data
             $count = count($month_data_arr);
 
-            $cusomer_id = 'cust_1001';
-            $year_id = 'year_1001';
+            $cusomer_id = 'cust_1002';
+            $year_id = 'insert_1002';
             for ($t = 0; $t < $count; $t++) {
                 if ($get_debit_b2c == "" or $get_debit_b2c == NULL) {
                     $get_debit_b2c1 = array();
@@ -263,7 +263,7 @@ class Test extends CI_Controller {
                     $debit_b2b1 = $debit_b2b; //array of inter state supply
                 }
 
-                $quer = $this->db->query("insert into yearly_summary_all (`customer_id`,`year_id`,`month`,`inter_state_supply`,`intra_state_supply`,`no_gst_paid_supply`,`debit_value`,"
+                $quer = $this->db->query("insert into monthly_summary_all (`customer_id`,`insert_id`,`month`,`inter_state_supply`,`intra_state_supply`,`no_gst_paid_supply`,`debit_value`,"
                         . "`credit_value`,`sub_total_non_gst`,`sub_total_exempt`,`tax_inter_state`,`tax_intra_state`,`tax_debit`,`tax_credit`,`interstate_b2b`,`intrastate_b2b`,`interstate_b2c`,"
                         . "`intrastate_b2c`,`credit_b2b`,`credit_b2c`,`debit_b2b`,`debit_b2c`)"
                         . " values ('$cusomer_id','$year_id','$month_data_arr[$t]','$total_taxable_data_interstate1[$t]','$total_taxable_data_intrastate1[$t]','$get_total_non_gst1[$t]',"

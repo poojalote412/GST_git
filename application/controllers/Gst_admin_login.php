@@ -39,12 +39,13 @@ class Gst_admin_login extends CI_Controller {
                         'user_type' => $user_type,
                     );
                 } else {
-                    $user_id = $result['customer_id'];
+                    $customer_id = $result['customer_id'];
                     $activity_status = $result['activity_status'];
                     $session_data = array(
                         'customer_id' => $customer_id,
                         'user_type' => $user_type,
                     );
+                    
                 }
                 if ($user_type == '1') {  //superadmin
                     $this->session->set_userdata('login_session', $session_data);

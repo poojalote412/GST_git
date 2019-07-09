@@ -8,11 +8,13 @@ class Cfo_dashboard extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('Cfo_model');
+        $this->load->model('login_model');
     }
 
     function index() {
-
-        $query_get_cfo_data = $this->Cfo_model->get_data_cfo();
+        $session_data = $this->session->userdata('login_session');
+        $customer_id = ($session_data['customer_id']);
+        $query_get_cfo_data = $this->Cfo_model->get_data_cfo($customer_id);
         if ($query_get_cfo_data !== FALSE) {
             $data['cfo_data'] = $query_get_cfo_data;
         } else {
@@ -503,7 +505,6 @@ class Cfo_dashboard extends CI_Controller {
 //            }
 //        }
 //    }
-
     //to decrement column of excel
     public function getAlpha($highestColumn_row, $ord, $a, $index) {
         if ($ord >= 65) {
@@ -538,33 +539,39 @@ class Cfo_dashboard extends CI_Controller {
 
     //function to get graph for turn over vs tax liability
     public function get_graph_Turnover_vs_liabality() {
-        $turn_id = $this->input->post("turn_id");
-        $quer1 = $this->db->query("SELECT * from turnover_vs_tax_liability where uniq_id='$turn_id'");
+        $customer_id = $this->input->post("customer_id");
+      
+        $quer1 = $this->db->query("SELECT `monthly_summary_all`.`month`,`monthly_summary_all`.`inter_state_supply`,`monthly_summary_all`.`intra_state_supply`,"
+                . "`monthly_summary_all`.`no_gst_paid_supply`, `monthly_summary_all`.`debit_value`,`monthly_summary_all`.`credit_value`,`3b_offset_summary_all`.`outward_liability`,"
+                . "`3b_offset_summary_all`.`rcb_liablity` FROM `monthly_summary_all` INNER JOIN `3b_offset_summary_all` "
+                . "ON `monthly_summary_all`.`month`=`3b_offset_summary_all`.`month` where `monthly_summary_all`.`customer_id`='$customer_id' "
+                . "AND `3b_offset_summary_all`.`customer_id`='$customer_id'");
         if ($quer1->num_rows() > 0) {
             $res = $quer1->result();
             $turnover1 = array();
             $tax_liabality1 = array();
             $ratio_val = array();
-            foreach ($res as $row) {
+            foreach ($res as $row) {    
                 //formula to get turnover , ratio , liability
                 $turnover = ($row->inter_state_supply + $row->intra_state_supply + $row->no_gst_paid_supply + $row->debit_value) - (1 * $row->credit_value);
-                $tax_liabality = $row->liability_on_outward + (1 * $row->liability_on_reverse_change);
+                $tax_liabality = $row->outward_liability + (1 * $row->rcb_liablity);
                 $ratio = ($tax_liabality / $turnover) * 100;
                 $ratio_val[] = round($ratio);
                 $turnover1[] = $turnover;
                 $tax_liabality1[] = $tax_liabality;
             }
+//            var_dump($turnover1);
             // loop to get turnover value
-              $abc = array();
+            $abc = array();
             $pqr = array();
             $lmn = array();
             for ($o = 0; $o < sizeof($turnover1); $o++) {
                 $abc[] = $turnover1[$o];
                 $aa1 = settype($abc[$o], "float");
-                
+
                 $pqr[] = $tax_liabality1[$o];
                 $aa2 = settype($pqr[$o], "float");
-                
+
                 $lmn[] = $ratio_val[$o];
                 $aa3 = settype($lmn[$o], "float");
             }
@@ -580,7 +587,7 @@ class Cfo_dashboard extends CI_Controller {
                 }
             }
             //function to get months
-            $quer2 = $this->db->query("SELECT month from turnover_vs_tax_liability where uniq_id='$turn_id'");
+            $quer2 = $this->db->query("SELECT month from monthly_summary_all where customer_id='$customer_id'");
             $months = array();
             if ($quer2->num_rows() > 0) {
                 $res2 = $quer2->result();
@@ -588,11 +595,20 @@ class Cfo_dashboard extends CI_Controller {
                     $months[] = $row->month;
                 }
             }
+            //function to get customer name
+            $quer2 = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id'");
+            
+            if ($quer2->num_rows() > 0) {
+                $res2 = $quer2->row();
+                $customer_name=$res2->customer_name;
+            }
+            
 
             $respose['message'] = "success";
             $respose['data_turn_over'] = $abc;  //turnover data
             $respose['data_liability'] = $pqr; //tax liability data
             $respose['ratio'] = $lmn; //ratio
+            $respose['customer_name'] = $customer_name; //ratio
             $respose['month_data'] = $months; //months 
             $respose['max_range'] = $max_range; //maximum range for graph
         } else {
