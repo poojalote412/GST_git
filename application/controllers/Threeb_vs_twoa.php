@@ -37,148 +37,149 @@ class Threeb_vs_twoa extends CI_Controller {
             $array_id = array(
                 'compare_id' => $compare_id,
             );
-
-            for ($row = 26; $row <= $highestRow; $row++) {
-                $row_next = $row + 1;
-                $row_prev = $row - 1;
-
-                if ($object->getActiveSheet()->getCell($x . $row)->getValue() == "4 Eligible ITC" && $object->getActiveSheet()->getCell($x . $row_next)->getValue() == "GSTR-3B") {
-                    $ascii = ord($x);
-                    $ascii += 2;
-                    $col_IGST = chr($ascii);
-
-                    $IGST_gstr3b = $object->getActiveSheet()->getCell($col_IGST . $row_next)->getValue();
-
-                    $ascii_cgst = ord($x);
-                    $ascii_cgst += 3;
-                    $col_CGST = chr($ascii_cgst);
-                    $CGST_gstr3b = $object->getActiveSheet()->getCell($col_CGST . $row_next)->getValue();
-
-                    $ascii_sgst = ord($x);
-                    $ascii_sgst += 3;
-                    $col_SGST = chr($ascii_sgst);
-                    $SGST_gstr3b = $object->getActiveSheet()->getCell($col_SGST . $row_next)->getValue();
-                    $gstr_3b = $IGST_gstr3b + $CGST_gstr3b + $SGST_gstr3b;
-                    $row_month = $row - 8;
-                    $month_name = $object->getActiveSheet()->getCell($x . $row_month)->getValue();
-                    $data .= '<tr>';
-
-                    $data .= '<td>' . $month_name . '<input type="hidden" name="month' . $i . '" id="month' . $i . '" value="' . $month_name . '"></td>';
-                    $data .= '<td>' . $gstr_3b . '<input type="hidden" name="gstr3b' . $i . '" id="gstr3b' . $i . '" value="' . $gstr_3b . '"></td>';
-
-                    $array1 = array(
-                        'month' => $month_name,
-                        'gstr_tb' => $gstr_3b,
-                    );
-                } else {
-                    $data .= "";
-                }
-                if ($object->getActiveSheet()->getCell($x . $row)->getValue() == "GSTR-2A") {
-                    $ascii = ord($x);
-                    $ascii += 2;
-                    $col_IGST = chr($ascii);
-                    $IGST_gstr2a = $object->getActiveSheet()->getCell($col_IGST . $row)->getValue();
-
-                    $ascii_cgst = ord($x);
-                    $ascii_cgst += 3;
-                    $col_CGST = chr($ascii_cgst);
-                    $CGST_gstr2a = $object->getActiveSheet()->getCell($col_CGST . $row)->getValue();
-
-                    $ascii_sgst = ord($x);
-                    $ascii_sgst += 3;
-                    $col_SGST = chr($ascii_sgst);
-                    $SGST_gstr2a = $object->getActiveSheet()->getCell($col_SGST . $row)->getValue();
-                    $gstr_2a = $IGST_gstr2a + $CGST_gstr2a + $SGST_gstr2a;
-                    $data .= '<td>' . $gstr_2a . '<input type="hidden" name="gstr2a' . $i . '" id="gstr2a' . $i . '" value="' . $gstr_2a . '"></td>';
-
-                    $array2 = array(
-                        'gstr2a' => $gstr_2a,
-                    );
-                } else {
-                    $data .= "";
-                }
-
-                if ($object->getActiveSheet()->getCell($x . $row)->getValue() == "Difference") {
-                    $ascii = ord($x);
-                    $ascii += 2;
-                    $col_IGST = chr($ascii);
-                    $IGST_Difference = $object->getActiveSheet()->getCell($col_IGST . $row)->getValue();
-
-                    $ascii_cgst = ord($x);
-                    $ascii_cgst += 3;
-                    $col_CGST = chr($ascii_cgst);
-                    $CGST_Difference = $object->getActiveSheet()->getCell($col_CGST . $row)->getValue();
-
-                    $ascii_sgst = ord($x);
-                    $ascii_sgst += 3;
-                    $col_SGST = chr($ascii_sgst);
-                    $SGST_Difference = $object->getActiveSheet()->getCell($col_SGST . $row)->getValue();
-                    $gstr_Difference = $IGST_Difference + $CGST_Difference + $SGST_Difference;
-//                    $data .= '<td>' . $gstr_Difference . '<input type="hidden" name="gstr_difference' . $i . '" id="gstr_difference' . $i . '" value="' . $gstr_Difference . '"></td>';
-                    $array3 = array(
-                        'difference' => $gstr_Difference,
-                    );
-                } else {
-                    $data .= "";
-                }
-                if ($object->getActiveSheet()->getCell($x . $row)->getValue() == "Cumulative Difference" && $object->getActiveSheet()->getCell($x . $row_prev)->getValue() == "Difference") {
-                    $ascii = ord($x);
-                    $ascii += 2;
-                    $col_IGST = chr($ascii);
-                    $IGST_cumm_diff = $object->getActiveSheet()->getCell($col_IGST . $row)->getValue();
-
-                    $ascii_cgst = ord($x);
-                    $ascii_cgst += 3;
-                    $col_CGST = chr($ascii_cgst);
-                    $CGST_cumm_diff = $object->getActiveSheet()->getCell($col_CGST . $row)->getValue();
-
-                    $ascii_sgst = ord($x);
-                    $ascii_sgst += 3;
-                    $col_SGST = chr($ascii_sgst);
-                    $SGST_cumm_diff = $object->getActiveSheet()->getCell($col_SGST . $row)->getValue();
-                    $cumm_diff = $IGST_cumm_diff + $CGST_cumm_diff + $SGST_cumm_diff;
-                    $data .= '<td>' . $cumm_diff . '<input type="hidden" name="cumm_diff' . $i . '" id="cumm_diff' . $i . '" value="' . $cumm_diff . '"></td>';
-
-                    $data .= '</tr>';
-                    $i++;
-                    $array4 = array(
-                        'cumu_difference' => $cumm_diff,
-                    );
-                    $count = $i;
-                    $i++;
-
-
-                    $data1 = array_merge($array_id, $array1, $array2, $array3, $array4);
-                    $res = $this->Threeb_vs_twoa_model->insert_GST3Bvs2A($data1);
-
-                    if ($res === TRUE) {
-                        $abc++;
-                    }
-                }
-
-
-//            
-            }
-//            echo $abc;
-            if ($abc > 0) {
-                $respose['message'] = "success";
-                $respose['status'] = true;
-                $response['code'] = 200;
+            if ($object->getActiveSheet()->getCell('A4')->getValue() == "Grand Total" && $object->getActiveSheet()->getCell('A5')->getValue() == "3.1 Details of Outward Supplies") {
+                
+            } elseif ($object->getActiveSheet()->getCell('A4')->getValue() != "Grand Total" && $object->getActiveSheet()->getCell('A5')->getValue() != "3.1 Details of Outward Supplies") {
+                $response['id'] = 'file_ex';
+                $response['error'] = 'File is wrong';
+                echo json_encode($response);
+                exit();
             } else {
+                for ($row = 26; $row <= $highestRow; $row++) {
+                    $row_next = $row + 1;
+                    $row_prev = $row - 1;
+
+
+
+                    if ($object->getActiveSheet()->getCell($x . $row)->getValue() == "4 Eligible ITC" && $object->getActiveSheet()->getCell($x . $row_next)->getValue() == "GSTR-3B") {
+                        $ascii = ord($x);
+                        $ascii += 2;
+                        $col_IGST = chr($ascii);
+
+                        $IGST_gstr3b = $object->getActiveSheet()->getCell($col_IGST . $row_next)->getValue();
+
+                        $ascii_cgst = ord($x);
+                        $ascii_cgst += 3;
+                        $col_CGST = chr($ascii_cgst);
+                        $CGST_gstr3b = $object->getActiveSheet()->getCell($col_CGST . $row_next)->getValue();
+
+                        $ascii_sgst = ord($x);
+                        $ascii_sgst += 3;
+                        $col_SGST = chr($ascii_sgst);
+                        $SGST_gstr3b = $object->getActiveSheet()->getCell($col_SGST . $row_next)->getValue();
+                        $gstr_3b = $IGST_gstr3b + $CGST_gstr3b + $SGST_gstr3b;
+                        $row_month = $row - 8;
+                        $month_name = $object->getActiveSheet()->getCell($x . $row_month)->getValue();
+                        $data .= '<tr>';
+
+                        $data .= '<td>' . $month_name . '<input type="hidden" name="month' . $i . '" id="month' . $i . '" value="' . $month_name . '"></td>';
+                        $data .= '<td>' . $gstr_3b . '<input type="hidden" name="gstr3b' . $i . '" id="gstr3b' . $i . '" value="' . $gstr_3b . '"></td>';
+
+                        $array1 = array(
+                            'month' => $month_name,
+                            'gstr_tb' => $gstr_3b,
+                        );
+                    } else {
+                        $data .= "";
+                    }
+                    if ($object->getActiveSheet()->getCell($x . $row)->getValue() == "GSTR-2A") {
+                        $ascii = ord($x);
+                        $ascii += 2;
+                        $col_IGST = chr($ascii);
+                        $IGST_gstr2a = $object->getActiveSheet()->getCell($col_IGST . $row)->getValue();
+
+                        $ascii_cgst = ord($x);
+                        $ascii_cgst += 3;
+                        $col_CGST = chr($ascii_cgst);
+                        $CGST_gstr2a = $object->getActiveSheet()->getCell($col_CGST . $row)->getValue();
+
+                        $ascii_sgst = ord($x);
+                        $ascii_sgst += 3;
+                        $col_SGST = chr($ascii_sgst);
+                        $SGST_gstr2a = $object->getActiveSheet()->getCell($col_SGST . $row)->getValue();
+                        $gstr_2a = $IGST_gstr2a + $CGST_gstr2a + $SGST_gstr2a;
+                        $data .= '<td>' . $gstr_2a . '<input type="hidden" name="gstr2a' . $i . '" id="gstr2a' . $i . '" value="' . $gstr_2a . '"></td>';
+
+                        $array2 = array(
+                            'gstr2a' => $gstr_2a,
+                        );
+                    } else {
+                        $data .= "";
+                    }
+
+                    if ($object->getActiveSheet()->getCell($x . $row)->getValue() == "Difference") {
+                        $ascii = ord($x);
+                        $ascii += 2;
+                        $col_IGST = chr($ascii);
+                        $IGST_Difference = $object->getActiveSheet()->getCell($col_IGST . $row)->getValue();
+
+                        $ascii_cgst = ord($x);
+                        $ascii_cgst += 3;
+                        $col_CGST = chr($ascii_cgst);
+                        $CGST_Difference = $object->getActiveSheet()->getCell($col_CGST . $row)->getValue();
+
+                        $ascii_sgst = ord($x);
+                        $ascii_sgst += 3;
+                        $col_SGST = chr($ascii_sgst);
+                        $SGST_Difference = $object->getActiveSheet()->getCell($col_SGST . $row)->getValue();
+                        $gstr_Difference = $IGST_Difference + $CGST_Difference + $SGST_Difference;
+//                    $data .= '<td>' . $gstr_Difference . '<input type="hidden" name="gstr_difference' . $i . '" id="gstr_difference' . $i . '" value="' . $gstr_Difference . '"></td>';
+                        $array3 = array(
+                            'difference' => $gstr_Difference,
+                        );
+                    } else {
+                        $data .= "";
+                    }
+                    if ($object->getActiveSheet()->getCell($x . $row)->getValue() == "Cumulative Difference" && $object->getActiveSheet()->getCell($x . $row_prev)->getValue() == "Difference") {
+                        $ascii = ord($x);
+                        $ascii += 2;
+                        $col_IGST = chr($ascii);
+                        $IGST_cumm_diff = $object->getActiveSheet()->getCell($col_IGST . $row)->getValue();
+
+                        $ascii_cgst = ord($x);
+                        $ascii_cgst += 3;
+                        $col_CGST = chr($ascii_cgst);
+                        $CGST_cumm_diff = $object->getActiveSheet()->getCell($col_CGST . $row)->getValue();
+
+                        $ascii_sgst = ord($x);
+                        $ascii_sgst += 3;
+                        $col_SGST = chr($ascii_sgst);
+                        $SGST_cumm_diff = $object->getActiveSheet()->getCell($col_SGST . $row)->getValue();
+                        $cumm_diff = $IGST_cumm_diff + $CGST_cumm_diff + $SGST_cumm_diff;
+                        $data .= '<td>' . $cumm_diff . '<input type="hidden" name="cumm_diff' . $i . '" id="cumm_diff' . $i . '" value="' . $cumm_diff . '"></td>';
+
+                        $data .= '</tr>';
+                        $i++;
+                        $array4 = array(
+                            'cumu_difference' => $cumm_diff,
+                        );
+                     
+
+
+                        $data1 = array_merge($array_id, $array1, $array2, $array3, $array4);
+                        $res = $this->Threeb_vs_twoa_model->insert_GST3Bvs2A($data1);
+
+                        if ($res === TRUE) {
+                            $abc++;
+                        }
+                    }
+
+
+           }
+            
+//            echo $abc;
+                if ($abc > 0) {
+                    $response['message'] = "success";
+                    $response['status'] = true;
+                    $response['code'] = 200;
+                } else {
 //                    $data .= "";
-                $respose['message'] = "";
-                $respose['status'] = false;
-                $response['code'] = 204;
-            }echo json_encode($respose);
-
-
-            if ($x !== $highestColumn) {
-                $x++;
-            }
-
-            $data .= '</table>';
-            $data .= '<input type="hidden" name="count" id="count" value="' . $count . '">';
-//            echo $data;
+                    $response['message'] = "no data";
+                    $response['status'] = false;
+                    $response['code'] = 204;
+            }echo json_encode($response);}
+                
+          
         } else {
             echo 'Data Not Imported';
         }
@@ -195,15 +196,15 @@ class Threeb_vs_twoa extends CI_Controller {
             $difference2 = array();
             $cumu_difference3 = array();
             $gstr2a4 = array();
-            
+
             foreach ($result as $row) {
                 $gstr_tb = $row->gstr_tb;
                 $difference = $row->difference;
                 $cumu_difference = $row->cumu_difference;
                 $gstr2a = $row->gstr2a;
 
-                
-                $gstr_tb1[] = $gstr_tb; 
+
+                $gstr_tb1[] = $gstr_tb;
                 $difference2[] = $difference;
                 $cumu_difference3[] = $cumu_difference;
                 $gstr2a4[] = $gstr2a;
@@ -213,7 +214,7 @@ class Threeb_vs_twoa extends CI_Controller {
             $abc3 = array();
             $abc4 = array();
             $abc5 = array();
-           
+
             for ($o = 0; $o < sizeof($gstr_tb1); $o++) {
                 $abc[] = $gstr_tb1[$o];
                 $aa1 = settype($abc[$o], "float");
@@ -226,8 +227,6 @@ class Threeb_vs_twoa extends CI_Controller {
 
                 $abc5[] = $gstr2a4[$o];
                 $aa4 = settype($abc5[$o], "float");
-
-               
             }
 
 

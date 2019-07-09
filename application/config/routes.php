@@ -71,7 +71,8 @@ $route['Sale_b2b_b2c'] = 'Management_report/Sale_b2b_b2c';
 $route['GST_Logout'] = 'Gst_dashboard/index';
 //$route['Cust_login']='GST_Dashboard/employee_dashboard';
 
-
+$route['Customer'] = 'Customer/index';
+$route['test'] = 'Test/index';
 //Routes for admin
 
 $route['admin_dashboard'] = 'Admin_dashboard/index';

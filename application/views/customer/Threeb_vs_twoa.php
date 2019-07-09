@@ -2,8 +2,8 @@
 $this->load->view('customer/header');
 $this->load->view('customer/navigation');
 
-//Check user login or not using session
 
+//Check user login or not using session
 if ($session = $this->session->userdata('login_session') == '') {
 //take them back to signin 
 //    echo 'fghjf';
@@ -97,10 +97,11 @@ if (is_array($session_data)) {
                         <label>File upload</label>
                         <input type="file" name="file_ex" class="file-upload-default">
                         <div class="input-group col-xs-12">
-                            <input type="text" class="form-control file-upload-info" name="file_ex" id="file_ex" required accept=".xls, .xlsx" disabled placeholder="Upload File">
+                            <input type="text" class="form-control file-upload-info" name="file_ex" id="file_ex" required accept=".xls, .xlsx"  placeholder="Upload File">
                             <span class="input-group-append">
                                 <button class="file-upload-browse btn btn-primary"  type="button" >Upload</button>
                             </span>
+                            <span class="required" id="file_ex_error" style="color:#e02222;padding-left:4 px"></span>
                         </div>
                     </div>
                 </form><br>
@@ -130,16 +131,18 @@ if (is_array($session_data)) {
             async: false,
             //            data: $("#Add_UniversityStudent").serialize(),
             success: function (result) {
-                // alert(result.error);
+//                alert("hgh");
+//                 alert(result.error);
                 if (result.status === true) {
                     alert('Data Submitted Successfully');
                     // return;
                     location.reload();
                 } else if (result.status === false) {
-                    alert('something went wrong')
+                    alert('something went wrong');
                 } else {
+//                    alert(result.id);
                     $('#' + result.id + '_error').html(result.error);
-                    $('#message').html(result.error);
+//                    $('#message').html(result.error);
                 }
             },
             error: function (result) {
@@ -275,6 +278,7 @@ if (is_array($session_data)) {
         });
 
     }
+
 
 
 </script>
