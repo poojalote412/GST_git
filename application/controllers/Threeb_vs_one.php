@@ -12,7 +12,9 @@ class Threeb_vs_one extends CI_Controller {
     }
 
     function index() {
-        $query_res = $this->Threeb_vs_one_model->get_gstr1vs3b_data();
+        $session_data = $this->session->userdata('login_session');
+        $customer_id = ($session_data['customer_id']);
+        $query_res = $this->Threeb_vs_one_model->get_gstr1vs3b_data($customer_id);
         if ($query_res !== FALSE) {
             $data['gstr1_vs_3b_data'] = $query_res;
         } else {
@@ -202,8 +204,8 @@ class Threeb_vs_one extends CI_Controller {
 
     // function to get graph
     public function get_graph() {
-        $cmpr_id = $this->input->post("cmpr_id");
-        $query = $this->db->query("SELECT gstr_tb,gstr_one,gstr_one_ammend,difference,cumu_difference from gstr_compare where gstr2a='' AND compare_id='$cmpr_id'");
+        $customer_id = $this->input->post("customer_id");
+        $query = $this->db->query("SELECT month,gstr1_3B,gstr1,gstr1_ammend,gstr1_difference,gstr1_cummulative from comparison_summary_all where customer_id='$customer_id' order by id desc ");
         if ($query->num_rows() > 0) {
 
             $result = $query->result();
@@ -214,11 +216,11 @@ class Threeb_vs_one extends CI_Controller {
             $cumu_difference5 = array();
 
             foreach ($result as $row) {
-                $gstr_tb = $row->gstr_tb;
-                $gstr_one = $row->gstr_one;
-                $gstr_one_ammend = $row->gstr_one_ammend;
-                $difference = $row->difference;
-                $cumu_difference = $row->cumu_difference;
+                $gstr_tb = $row->gstr1_3B;
+                $gstr_one = $row->gstr1;
+                $gstr_one_ammend = $row->gstr1_ammend;
+                $difference = $row->gstr1_difference;
+                $cumu_difference = $row->gstr1_cummulative;
 
 
                 $gstr_tb1[] = $gstr_tb;
@@ -226,15 +228,15 @@ class Threeb_vs_one extends CI_Controller {
                 $gstr_one_ammend3[] = $gstr_one_ammend;
                 $difference4[] = $difference;
                 $cumu_difference5[] = $cumu_difference;
-                
+                $months[] = $row->month;
             }
-            
+
             $abc1 = array();
             $abc2 = array();
             $abc3 = array();
             $abc4 = array();
             $abc5 = array();
-           
+
             for ($o = 0; $o < sizeof($gstr_tb1); $o++) {
                 $abc1[] = $gstr_tb1[$o];
                 $aa1 = settype($abc1[$o], "float");
@@ -248,14 +250,21 @@ class Threeb_vs_one extends CI_Controller {
                 $abc4[] = $difference4[$o];
                 $aa4 = settype($abc4[$o], "float");
 
-               $abc5[] = $cumu_difference5[$o];
+                $abc5[] = $cumu_difference5[$o];
                 $aa5 = settype($abc5[$o], "float");
             }
+            //function to get customer name
+            $quer2 = $this->db->query("SELECT customer_name from customer_header_all WHERE customer_id='$customer_id'");
 
-            $quer_range = $this->db->query("SELECT MAX(gstr_tb) as gstrtb_max FROM gstr_compare where gstr2a=''  AND compare_id='$cmpr_id'");
+            if ($quer2->num_rows() > 0) {
+                $res2 = $quer2->row();
+                $customer_name = $res2->customer_name;
+            }
+
+            $quer_range = $this->db->query("SELECT MAX(gstr1_3B) as gstrtb_max FROM comparison_summary_all WHERE customer_id='$customer_id' order by id desc");
             $gstr3b_max = $quer_range->row();
             $gstrtbmax = $gstr3b_max->gstrtb_max;
-            $quer_range1 = $this->db->query("SELECT MAX(gstr_one) as gstr1_max FROM gstr_compare where gstr2a=''  AND compare_id='$cmpr_id'");
+            $quer_range1 = $this->db->query("SELECT MAX(gstr1) as gstr1_max FROM comparison_summary_all WHERE customer_id='$customer_id' order by id desc");
             $gstr1_max = $quer_range1->row();
             $gstr1max = $gstr1_max->gstr1_max;
             $max_value = (max($gstrtbmax, $gstr1max));
@@ -265,6 +274,8 @@ class Threeb_vs_one extends CI_Controller {
             $respose['data_gstr1'] = $abc2;
             $respose['max'] = $max_value;
             $respose['data_gstr_one_ammend'] = $abc3;
+            $respose['customer_name'] = $customer_name;
+            $respose['month_data'] = $months; //months 
             $respose['difference'] = $abc4;
             $respose['cumu_difference'] = $abc5;
         } else {
@@ -285,7 +296,7 @@ class Threeb_vs_one extends CI_Controller {
             $data = $result->row();
             $comp_id = $data->compare_id;
             //generate user_id
-            $comp_id = str_pad(++$comp_id, 5, '0', STR_PAD_LEFT);
+            $comp_id = str_pad( ++$comp_id, 5, '0', STR_PAD_LEFT);
             return $comp_id;
         } else {
             $comp_id = 'cmpr_1001';

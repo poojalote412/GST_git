@@ -35,7 +35,7 @@ if (is_array($session_data)) {
                                     <thead>
                                         <tr>
                                             <th>No.</th>
-                                            <th>Unique id</th>
+                                            <!--<th>Unique id</th>-->
                                             <th>Customer</th>
                                             <th>View Graph</th>
                                         </tr>
@@ -49,9 +49,9 @@ if (is_array($session_data)) {
                                                 ?>
                                                 <tr>
                                                     <td><?php echo $i; ?></td>
-                                                    <td><?php echo $row->compare_id; ?></td>
-                                                    <td>ANAND RATHI GLOBAL FINANCE LIMITED 2017-18</td>
-                                                    <td><button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->compare_id; ?>');"class="btn btn-outline-primary" >View</button></td>
+                                                    <td><?php echo $row->customer_name; ?></td>
+<!--                                                    <td>ANAND RATHI GLOBAL FINANCE LIMITED 2017-18</td>-->
+                                                    <td><button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->customer_id; ?>');"class="btn btn-outline-primary" >View</button></td>
                                                 </tr> 
                                                 <?php
                                                 $i++;
@@ -169,13 +169,13 @@ if (is_array($session_data)) {
 
 
     // function to display graph
-    function get_graph_fun(cmpr_id)
+    function get_graph_fun(customer_id)
     {
         $.ajax({
             type: "POST",
             url: "<?= base_url("Threeb_vs_one/get_graph") ?>",
             dataType: "json",
-            data:{cmpr_id:cmpr_id},
+            data:{customer_id:customer_id},
             success: function (result) {
                 if (result.message === "success") {
 
@@ -184,6 +184,8 @@ if (is_array($session_data)) {
                     var data_difference = result.difference;
                     var cumu_difference = result.cumu_difference;
                     var max = result.max;
+                    var month = result.month_data;
+                     var customer_name = "Customer Name:"+result.customer_name;
                     Highcharts.chart('container1', {
                         chart: {
                             type: 'Combination chart'
@@ -192,23 +194,10 @@ if (is_array($session_data)) {
                             text: 'Comparison Between GSTR-3B & GSTR-1'
                         },
                         subtitle: {
-                            text: 'Customer Name: ANAND RATHI GLOBAL FINANCE LIMITED 2017-18 '
+                            text: customer_name
                         },
                         xAxis: {
-                            categories: [
-                                'March',
-                                'February',
-                                'January',
-                                'December',
-                                'November',
-                                'October',
-                                'September',
-                                'August',
-                                'July',
-                                'June',
-                                'May',
-                                'April'
-                            ],
+                            categories: month,
                             crosshair: true
                         },
                         yAxis: {

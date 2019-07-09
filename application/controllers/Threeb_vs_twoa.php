@@ -12,8 +12,9 @@ class Threeb_vs_twoa extends CI_Controller {
     }
 
     function index() {
-
-        $query_res = $this->Threeb_vs_twoa_model->get_gstr1vs2A_data();
+        $session_data = $this->session->userdata('login_session');
+        $customer_id = ($session_data['customer_id']);
+        $query_res = $this->Threeb_vs_twoa_model->get_gstr1vs2A_data($customer_id);
         if ($query_res !== FALSE) {
             $data['gstr1_vs_2a_data'] = $query_res;
         } else {
@@ -186,9 +187,9 @@ class Threeb_vs_twoa extends CI_Controller {
     }
 
     public function get_graph() {
-        $cmpr_id = $this->input->post("cmpr_id");
+        $customer_id = $this->input->post("customer_id");
 
-        $query = $this->db->query("SELECT gstr_tb,difference,cumu_difference,gstr2a FROM gstr_compare WHERE gstr2a !='' AND compare_id='$cmpr_id'");
+        $query = $this->db->query("SELECT month,gstr2A_3B,gstr2A_difference,gstr2A_cummulative,gstr2A FROM comparison_summary_all WHERE customer_id='$customer_id' order by id desc");
         if ($query->num_rows() > 0) {
 
             $result = $query->result();
@@ -196,18 +197,21 @@ class Threeb_vs_twoa extends CI_Controller {
             $difference2 = array();
             $cumu_difference3 = array();
             $gstr2a4 = array();
+            $months = array();
 
             foreach ($result as $row) {
-                $gstr_tb = $row->gstr_tb;
-                $difference = $row->difference;
-                $cumu_difference = $row->cumu_difference;
-                $gstr2a = $row->gstr2a;
+                $gstr_tb = $row->gstr2A_3B;
+                $difference = $row->gstr2A_difference;
+                $cumu_difference = $row->gstr2A_cummulative;
+                $gstr2a = $row->gstr2A;
+                
 
 
                 $gstr_tb1[] = $gstr_tb;
                 $difference2[] = $difference;
                 $cumu_difference3[] = $cumu_difference;
                 $gstr2a4[] = $gstr2a;
+                $months[] = $row->month;
             }
 
             $abc = array();
@@ -230,10 +234,10 @@ class Threeb_vs_twoa extends CI_Controller {
             }
 
 
-            $quer_range = $this->db->query("SELECT MAX(gstr_tb) as gstrtb_max FROM gstr_compare where gstr2a !='' AND compare_id='$cmpr_id'");
+            $quer_range = $this->db->query("SELECT MAX(gstr2A_3B) as gstrtb_max FROM comparison_summary_all WHERE customer_id='$customer_id' order by id desc");
             $gstr3b_max = $quer_range->row();
             $gstrtbmax = $gstr3b_max->gstrtb_max;
-            $quer_range1 = $this->db->query("SELECT MAX(gstr2a) as gstr2a_max FROM gstr_compare where gstr2a !='' AND compare_id='$cmpr_id'");
+            $quer_range1 = $this->db->query("SELECT MAX(gstr2A) as gstr2a_max FROM comparison_summary_all WHERE customer_id='$customer_id' order by id desc");
             $gstr1_max = $quer_range1->row();
             $gstr1max = $gstr1_max->gstr2a_max;
             $max_value = (max($gstrtbmax, $gstr1max));
@@ -245,6 +249,7 @@ class Threeb_vs_twoa extends CI_Controller {
             $respose['difference'] = $abc3;
             $respose['cumu_difference'] = $abc4;
             $respose['gstr2a'] = $abc5;
+            $respose['month_data'] = $months;
         } else {
             $respose['message'] = "fail";
             $respose['gstr_tb'] = "";

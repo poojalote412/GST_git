@@ -12,13 +12,13 @@ class Threeb_vs_one_model extends CI_Model {
         }
     }
 
-    public function get_gstr1vs3b_data() {
-        $query = $this->db->query("select distinct compare_id from gstr_compare where gstr2a = ''");
-        if ($query->num_rows() > 0) {
-            $result=$query->result();
+    public function get_gstr1vs3b_data($customer_id) {
+        $qr = $this->db->query("SELECT * from customer_header_all where customer_id='$customer_id'");
+        if ($qr->num_rows() > 0) {
+            $result = $qr->result();
             return $result;
         } else {
-            return false;
+            return FALSE;
         }
     }
 
