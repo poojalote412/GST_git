@@ -12,7 +12,7 @@ if ($session = $this->session->userdata('login_session') == '') {
 $session_data = $this->session->userdata('login_session');
 if (is_array($session_data)) {
     $data['session_data'] = $session_data;
-    $username = ($session_data['user_id']);
+    $username = ($session_data['customer_id']);
 } else {
     $username = $this->session->userdata('login_session');
 }

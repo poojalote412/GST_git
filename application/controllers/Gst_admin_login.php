@@ -32,33 +32,32 @@ class Gst_admin_login extends CI_Controller {
             if ($result !== FALSE) {
                 $user_type = $result['user_type'];
                 if ($user_type == '1') {
-                    $user_id = $result['user_id'];
+                    $customer_id = $result['customer_id'];
                     $activity_status = $result['activity_status'];
                     $session_data = array(
-                        'user_id' => $user_id,
+                        'customer_id' => $customer_id,
                         'user_type' => $user_type,
                     );
                 } else {
-                    $user_id = $result['user_id'];
+                    $user_id = $result['customer_id'];
                     $activity_status = $result['activity_status'];
                     $session_data = array(
-                        'user_id' => $user_id,
+                        'customer_id' => $customer_id,
                         'user_type' => $user_type,
                     );
                 }
                 if ($user_type == '1') {  //superadmin
                     $this->session->set_userdata('login_session', $session_data);
                     redirect(base_url() . 'admin_dashboard');
-                } else  {
+                } else {
                     $this->session->set_userdata('login_session', $session_data);
                     redirect(base_url() . 'Cust_dashboard');
                 }
             }
         }
     }
-    
-    
-     public function admin_logout() {
+
+    public function admin_logout() {
         // Destroy session data
         $this->session->sess_destroy();
 //        $data['reason'] = 'Successfully Logout';
