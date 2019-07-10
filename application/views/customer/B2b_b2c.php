@@ -35,7 +35,7 @@ if (is_array($session_data)) {
                                     <thead>
                                         <tr>
                                             <th>No.</th>
-                                            <th>Unique id</th>
+                                            <!--<th>Unique id</th>-->
                                             <th>Customer</th>
                                             <th>View Graph</th>
                                         </tr>
@@ -49,9 +49,9 @@ if (is_array($session_data)) {
                                                 ?>
                                                 <tr>
                                                     <td><?php echo $i; ?></td>
-                                                    <td><?php echo $row->unique_id; ?></td>
-                                                    <td>ANAND RATHI GLOBAL FINANCE LIMITED 2017-18</td>
-                                                    <td><button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->unique_id; ?>');"class="btn btn-outline-primary" >View</button></td>
+                                                    <td><?php echo $row->customer_name; ?></td>
+                                                    <!--<td>ANAND RATHI GLOBAL FINANCE LIMITED 2017-18</td>-->
+                                                    <td><button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->customer_id; ?>');"class="btn btn-outline-primary" >View</button></td>
                                                 </tr> 
                                                 <?php
                                                 $i++;
@@ -154,13 +154,13 @@ if (is_array($session_data)) {
 
 
 
-    function get_graph_fun(unq_id)
+    function get_graph_fun(customer_id)
     {
         $.ajax({
             type: "POST",
             url: "<?= base_url("Management_report/get_graph_b2b") ?>",
             dataType: "json",
-            data: {unq_id: unq_id},
+            data: {customer_id: customer_id},
             success: function (result) {
                 if (result.message === "success") {
 
@@ -169,6 +169,7 @@ if (is_array($session_data)) {
                     var array_b2b_ratio = result.array_b2b_ratio;
                     var array_b2c_ratio = result.array_b2c_ratio;
                     var max = result.max_range;
+                    var customer_name = "Customer Name:"+result.customer_name;
 //                    var max_ratio = result.max_ratio;
                     var data_month = result.month;
                     Highcharts.chart('container', {
@@ -179,7 +180,7 @@ if (is_array($session_data)) {
                             text: ' Sales B2B and B2C'
                         },
                         subtitle: {
-                            text: 'Customer Name: ANAND RATHI GLOBAL FINANCE LIMITED 2017-18'
+                            text: customer_name
                         },
                         xAxis: {
                             categories: data_month

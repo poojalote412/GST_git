@@ -608,7 +608,7 @@ class Cfo_dashboard extends CI_Controller {
             $respose['data_turn_over'] = $abc;  //turnover data
             $respose['data_liability'] = $pqr; //tax liability data
             $respose['ratio'] = $lmn; //ratio
-            $respose['customer_name'] = $customer_name; //ratio
+            $respose['customer_name'] = $customer_name; //customer
             $respose['month_data'] = $months; //months 
             $respose['max_range'] = $max_range; //maximum range for graph
         } else {

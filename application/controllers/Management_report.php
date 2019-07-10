@@ -100,8 +100,9 @@ class Management_report extends CI_Controller {
 
     // function taxable non taxable and exempt page load
     public function sale_taxable_nontaxable() {
-
-        $query_get_cfo_data = $this->Cfo_model->get_data_cfo();
+        $session_data = $this->session->userdata('login_session');
+        $customer_id = ($session_data['customer_id']);
+        $query_get_cfo_data = $this->Cfo_model->get_data_cfo($customer_id);
         if ($query_get_cfo_data !== FALSE) {
             $data['tax_exempt_data'] = $query_get_cfo_data;
         } else {
@@ -111,8 +112,8 @@ class Management_report extends CI_Controller {
     }
 
     public function get_graph_taxable_nontx_exempt() { //get graph function of taxable nontaxable and exempt
-        $turn_id = $this->input->post("turn_id");
-        $query = $this->db->query("SELECT * from turnover_vs_tax_liability where uniq_id='$turn_id'");
+        $customer_id = $this->input->post("customer_id");
+        $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id'");
         if ($query->num_rows() > 0) {
             $result = $query->result();
             $taxable_supply_arr = array();
@@ -181,7 +182,7 @@ class Management_report extends CI_Controller {
             }
 
             //function to get months
-            $quer2 = $this->db->query("SELECT month from turnover_vs_tax_liability where uniq_id='$turn_id'");
+            $quer2 = $this->db->query("SELECT month from  monthly_summary_all where customer_id='$customer_id'");
             $months = array();
             if ($quer2->num_rows() > 0) {
                 $res2 = $quer2->result();
@@ -189,6 +190,15 @@ class Management_report extends CI_Controller {
                     $months[] = $row->month;
                 }
             }
+
+            //function to get customer name
+            $quer2 = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id'");
+
+            if ($quer2->num_rows() > 0) {
+                $res2 = $quer2->row();
+                $customer_name = $res2->customer_name;
+            }
+
             $respnose['message'] = "success";
             $respnose['taxable_supply_arr'] = $abc1;  //taxable_supply data
             $respnose['sub_total_non_gst_arr'] = $abc2; //sub_total_non_gstdata
@@ -197,6 +207,7 @@ class Management_report extends CI_Controller {
             $respnose['ratio_subtotal_nongst'] = $abc5; //ratio_subtotal_nongst
             $respnose['ratio_subtotal_exempt'] = $abc6; //ratio_subtotal_exempt
             $respnose['month_data'] = $months; //months 
+            $respnose['customer_name'] = $customer_name; //customer
             $respnose['max_range'] = $max_range; //maximum range for graph
         } else {
             $respnose['message'] = "";
@@ -213,7 +224,9 @@ class Management_report extends CI_Controller {
 
     function sale_month_wise() {
 //        $data['result'] = $result;
-        $query_get_cfo_data = $this->Cfo_model->get_data_cfo();
+        $session_data = $this->session->userdata('login_session');
+        $customer_id = ($session_data['customer_id']);
+        $query_get_cfo_data = $this->Cfo_model->get_data_cfo($customer_id);
         if ($query_get_cfo_data !== FALSE) {
             $data['month_wise_data'] = $query_get_cfo_data;
         } else {
@@ -223,8 +236,8 @@ class Management_report extends CI_Controller {
     }
 
     public function get_graph_sales_month_wise() { //get graph function of Sales month wise
-        $turn_id = $this->input->post("turn_id");
-        $query = $this->db->query("SELECT * from turnover_vs_tax_liability where uniq_id='$turn_id'");
+        $customer_id = $this->input->post("customer_id");
+        $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id'");
         if ($query->num_rows() > 0) {
             $result = $query->result();
             $taxable_supply_arr = array();
@@ -242,18 +255,17 @@ class Management_report extends CI_Controller {
 
             // loop to get graph data as per graph script requirement
             $abc1 = array();
-            $abc2 = array();
-            $abc3 = array();
+            
             for ($o = 0; $o < sizeof($taxable_supply_arr); $o++) {
                 $abc1[] = $taxable_supply_arr[$o];
                 $aa1 = settype($abc1[$o], "float");
             }
 
 //             to get max value for range
-            $max_range = max(array($taxable_supply));
+            $max_range = max($abc1);
 
             //function to get months
-            $quer2 = $this->db->query("SELECT month from turnover_vs_tax_liability where uniq_id='$turn_id'");
+            $quer2 = $this->db->query("SELECT month from monthly_summary_all where customer_id='$customer_id'");
             $months = array();
             if ($quer2->num_rows() > 0) {
                 $res2 = $quer2->result();
@@ -261,10 +273,18 @@ class Management_report extends CI_Controller {
                     $months[] = $row->month;
                 }
             }
+            //function to get customer name
+            $quer21 = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id'");
+            
+            if ($quer21->num_rows() > 0) {
+                $res21 = $quer21->row();
+                $customer_name=$res21->customer_name;
+            }
             $respnose['message'] = "success";
             $respnose['taxable_supply_arr'] = $abc1;  //taxable_supply data
             $respnose['month_data'] = $months; //months 
             $respnose['max_range'] = $max_range; //maximum range for graph
+            $respnose['customer_name'] = $customer_name; //customer
         } else {
             $respnose['message'] = "";
             $respnose['taxable_supply_arr'] = "";  //taxable_supply data
@@ -273,8 +293,9 @@ class Management_report extends CI_Controller {
 
     // sale b2b view page function
     public function Sale_b2b_b2c() {
-
-        $query_get_b2b_data = $this->Management_report_model->get_data_b2b();
+        $session_data = $this->session->userdata('login_session');
+        $customer_id = ($session_data['customer_id']);
+        $query_get_b2b_data = $this->Management_report_model->get_data_b2b($customer_id);
         if ($query_get_b2b_data !== FALSE) {
             $data['b2b_data'] = $query_get_b2b_data;
         } else {
@@ -770,7 +791,7 @@ class Management_report extends CI_Controller {
             $data = $result->row();
             $uniq_id = $data->unique_id;
             //generate turn_id
-            $uniq_id = str_pad( ++$uniq_id, 5, '0', STR_PAD_LEFT);
+            $uniq_id = str_pad(++$uniq_id, 5, '0', STR_PAD_LEFT);
             return $uniq_id;
         } else {
             $uniq_id = 'btb_1001';
@@ -780,8 +801,8 @@ class Management_report extends CI_Controller {
 
     //function to get graph function for B2B and B2C.
     public function get_graph_b2b() {
-        $unique_id = $this->input->post("unq_id");
-        $query_get_graph = $this->Management_report_model->get_graph_query($unique_id);
+        $customer_id = $this->input->post("customer_id");
+        $query_get_graph = $this->Management_report_model->get_graph_query($customer_id);
         if (count($query_get_graph) > 0) {
             $month = array();
             $array_b2b = array();
@@ -846,6 +867,13 @@ class Management_report extends CI_Controller {
                     }
                 }
             }
+            //function to get customer name
+            $quer2 = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id'");
+
+            if ($quer2->num_rows() > 0) {
+                $res2 = $quer2->row();
+                $customer_name = $res2->customer_name;
+            }
             $response['message'] = "success";
             $response['array_b2b'] = $array_b2b1;  // B2B data
             $response['array_b2c'] = $array_b2c1;  // B2Cs data
@@ -854,6 +882,7 @@ class Management_report extends CI_Controller {
             $response['month'] = $month;  // month data
             $response['max_range'] = $max_range;  // Max Range
             $response['max_ratio'] = $max_ratio;  // Max Ratio
+            $response['customer_name'] = $customer_name;  // Customer
         } else {
             $response['message'] = "";
             $response['array_b2b'] = "";  // B2B data

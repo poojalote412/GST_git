@@ -49,7 +49,7 @@ if (is_array($session_data)) {
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>Unique id</th>
+                                        <!--<th>Unique id</th>-->
                                         <th>Customer</th>
                                         <th>View Graph</th>
                                     </tr>
@@ -64,9 +64,9 @@ if (is_array($session_data)) {
                                             ?>
                                             <tr>
                                                 <td><?php echo $i; ?></td>
-                                                <td><?php echo $row->uniq_id; ?></td>
-                                                <td>ANAND RATHI GLOBAL FINANCE LIMITED 2017-18</td>
-                                                <td><button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->uniq_id; ?>');"class="btn btn-outline-primary" >View</button></td>
+                                                <td><?php echo $row->customer_name; ?></td>
+                                                <!--<td>ANAND RATHI GLOBAL FINANCE LIMITED 2017-18</td>-->
+                                                <td><button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->customer_id; ?>');"class="btn btn-outline-primary" >View</button></td>
                                             </tr> 
                                             <?php
                                             $i++;
@@ -91,13 +91,13 @@ if (is_array($session_data)) {
 <script>
 
 //function to get graph view
-    function get_graph_fun(turn_id)
+    function get_graph_fun(customer_id)
     {
         $.ajax({
             type: "POST",
             url: "<?= base_url("Management_report/get_graph_taxable_nontx_exempt") ?>",
             dataType: "json",
-            data: {turn_id: turn_id},
+            data: {customer_id: customer_id},
             success: function (result) {
                 if (result.message === "success") {
 
@@ -109,6 +109,7 @@ if (is_array($session_data)) {
                     var ratio_subtotal_exempt = result.ratio_subtotal_exempt;
                     var data_month = result.month_data;
                     var max_range = result.max_range;
+                    var customer_name = "Customer Name:"+result.customer_name;
                     Highcharts.chart('container', {
                         chart: {
                             type: 'column'
@@ -117,7 +118,7 @@ if (is_array($session_data)) {
                             text: 'Turnover vs Tax Liability'
                         },
                         subtitle: {
-                            text: 'Customer Name: ANAND RATHI GLOBAL FINANCE LIMITED 2017-18'
+                            text: customer_name
                         },
                         xAxis: {
                             categories: data_month
