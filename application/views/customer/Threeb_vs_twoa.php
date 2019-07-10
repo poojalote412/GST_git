@@ -25,7 +25,7 @@ if (is_array($session_data)) {
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">GSTR-3B VS GSTR-2A</h4>
-                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal-4" data-whatever="@mdo">Upload New</button> <br><br>
+                    <!--<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal-4" data-whatever="@mdo">Upload New</button> <br><br>-->
                     <!--<button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun();"class="btn btn-primary mr-2 btn-sm" >Get Graph</button>-->
 
                     <div class="row">

@@ -34,11 +34,7 @@ if (is_array($session_data)) {
 
 
 
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb bg-light">
-                            <b>Note: </b> &nbsp; This Graph is automatically generate when you upload files for CFO. 
-                        </ol>
-                    </nav>
+                    
                     <!--<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal-4" data-whatever="@mdo">Upload New</button>-->
                 </div>
                 <br><br>

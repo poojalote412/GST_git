@@ -13,7 +13,9 @@ class Internal_acc_report extends CI_Controller {
 
     function index() {
 //        $data['result'] = $result;
-        $query_get_data = $this->Internal_acc_report_model->get_data_taxliability();
+        $session_data = $this->session->userdata('login_session');
+        $customer_id = ($session_data['customer_id']);
+        $query_get_data = $this->Internal_acc_report_model->get_data_taxliability($customer_id);
         if ($query_get_data !== FALSE) {
             $data['tax_data'] = $query_get_data;
         } else {
@@ -218,7 +220,6 @@ class Internal_acc_report extends CI_Controller {
                     $filling_date[] = $val + $val1;
 //                    print_r($interest_late_fees);
                 }
-
             } else {
 
                 $liability_on_outward = array();
@@ -427,7 +428,7 @@ class Internal_acc_report extends CI_Controller {
                 $quer = $this->db->query("insert into tax_liability (`tax_libility_id`,`month`,`outward_liability`,`rcb_liablity`,`ineligible_itc`,`net_itc`,`paid_in_credit`,`paid_in_cash`,`interest_late_fee`,`debit`,`debit_net_itc`,`late_fees`,`due_date`,`filling_date`)"
                         . " values ('$tax_libility_id','$month[$m]','$liability_on_outward[$m]','$rcm_liability[$m]','$itc_ineligible[$m]','$net_rtc[$m]','$paid_in_credit[$m]','$paid_in_cash[$m]','$interest_late_fees[$m]','$arr[$m]','$array_debit','$late_fees[$m]','$due_date[$m]','$filling_date[$m]')");
 
-                var_dump($quer);
+//                var_dump($quer);
             }
         }
     }
@@ -469,12 +470,16 @@ class Internal_acc_report extends CI_Controller {
     //For display graph
 
     public function get_graph() {
-        $tax_id = $this->input->post("tax_id");
-        $query = $this->db->query("SELECT * FROM tax_liability where tax_libility_id='$tax_id'");
-//         $query = $this->db->query("SELECT tax_liability_id,month,outward_liability,rcb_liability,ineligible_itc,paid_in_credit,paid_in_cash,interest_late_fee,debit_net_itc FROM tax_liability");
-        if ($query->num_rows() > 0) {
+        $customer_id = $this->input->post("customer_id");
+        $query = $this->db->query("SELECT * FROM 3b_offset_summary_all where customer_id='$customer_id'");
+        $query1 = $this->db->query("SELECT tax_debit FROM monthly_summary_all where customer_id='$customer_id'");
+
+        if ($query->num_rows() > 0 && $query1->num_rows() > 0) {
             $result_outward = $query->result();
-//            $arry_net_rtc_new=array();
+            $ress = $query1->result();
+            foreach ($ress as $row1) {
+                $debit_tax[] = $row1->tax_debit;
+            }
             foreach ($result_outward as $row) {
                 $liabilityoutward[] = $row->outward_liability;
                 $rcm_liability[] = $row->rcb_liablity;
@@ -483,12 +488,11 @@ class Internal_acc_report extends CI_Controller {
                 $paid_cash[] = $row->paid_in_cash;
                 $late_fee[] = $row->interest_late_fee;
                 $net_rtc[] = $row->net_itc;
-                $debit_value[] = $row->debit;
             }
-            $count = count($debit_value);
+            $count = count($debit_tax);
             $new_net_rtc = array();
             for ($m = 0; $m < $count; $m++) {
-                $new_net_rtc[] = $net_rtc[$m] - $debit_value[$m] . '<br>';
+                $new_net_rtc[] = $net_rtc[$m] - $debit_tax[$m] . '<br>';
             }
 
             $abc = array();
@@ -519,6 +523,23 @@ class Internal_acc_report extends CI_Controller {
                 $aa6 = settype($abc6[$o], "float");
             }
 
+            //function to get customer name
+            $quer21 = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id'");
+
+            if ($quer21->num_rows() > 0) {
+                $res21 = $quer21->row();
+                $customer_name = $res21->customer_name;
+            }
+            //function to get months
+            $quer2 = $this->db->query("SELECT month from 3b_offset_summary_all where customer_id='$customer_id'");
+            $months = array();
+            if ($quer2->num_rows() > 0) {
+                $res2 = $quer2->result();
+                foreach ($res2 as $row) {
+                    $months[] = $row->month;
+                }
+            }
+
             $respose['message'] = "success";
             $respose['data_outward'] = $abc;
             $respose['data_rcb'] = $abc2;
@@ -527,6 +548,8 @@ class Internal_acc_report extends CI_Controller {
             $respose['data_paid_credit'] = $abc5;
             $respose['data_paid_cash'] = $abc6;
             $respose['data_late_fee'] = $abc7;
+            $respose['customer_name'] = $customer_name; //customer
+            $respose['month_data'] = $months; //months 
         } else {
             $respose['message'] = "fail";
             $respose['data_outward'] = "";
@@ -544,7 +567,9 @@ class Internal_acc_report extends CI_Controller {
 
     public function tax_turnover() {
 //        $data['result'] = $result;
-        $query_get_cfo_data = $this->Cfo_model->get_data_cfo();
+        $session_data = $this->session->userdata('login_session');
+        $customer_id = ($session_data['customer_id']);
+        $query_get_cfo_data = $this->Cfo_model->get_data_cfo($customer_id);
         if ($query_get_cfo_data !== FALSE) {
             $data['tax_turnover_data'] = $query_get_cfo_data;
         } else {
@@ -556,8 +581,8 @@ class Internal_acc_report extends CI_Controller {
     //get graph function for tax turnover
 
     public function get_graph_tax_turnover() {
-        $turn_id = $this->input->post("turn_id");
-        $query = $this->db->query("SELECT * from turnover_vs_tax_liability where uniq_id='$turn_id'");
+        $customer_id = $this->input->post("customer_id");
+        $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id'");
         if ($query->num_rows() > 0) {
             $result = $query->result();
             $taxable_value = array();
@@ -614,7 +639,7 @@ class Internal_acc_report extends CI_Controller {
             }
 
             //function to get months
-            $quer2 = $this->db->query("SELECT month from turnover_vs_tax_liability where uniq_id='$turn_id'");
+            $quer2 = $this->db->query("SELECT month from monthly_summary_all where customer_id='$customer_id'");
             $months = array();
             if ($quer2->num_rows() > 0) {
                 $res2 = $quer2->result();
@@ -622,12 +647,22 @@ class Internal_acc_report extends CI_Controller {
                     $months[] = $row->month;
                 }
             }
+
+            //function to get customer name
+            $quer21 = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id'");
+
+            if ($quer21->num_rows() > 0) {
+                $res21 = $quer21->row();
+                $customer_name = $res21->customer_name;
+            }
+
             $respnose['message'] = "success";
             $respnose['taxable_value'] = $abc1;  //taxable_supply data
             $respnose['tax_value'] = $abc2; //tax value
             $respnose['tax_ratio'] = $abc3;
             $respnose['month_data'] = $months; //months 
             $respnose['max_range'] = $max_range; //maximum range for graph
+            $respnose['customer_name'] = $customer_name; //customer
         } else {
             $respnose['message'] = "";
             $respnose['taxable_supply_arr'] = "";  //taxable_supply data

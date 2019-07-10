@@ -529,7 +529,7 @@ class Cfo_dashboard extends CI_Controller {
             $data = $result->row();
             $turn_id = $data->uniq_id;
             //generate turn_id
-            $turn_id = str_pad(++$turn_id, 5, '0', STR_PAD_LEFT);
+            $turn_id = str_pad( ++$turn_id, 5, '0', STR_PAD_LEFT);
             return $turn_id;
         } else {
             $turn_id = 'turn_1001';
@@ -540,7 +540,7 @@ class Cfo_dashboard extends CI_Controller {
     //function to get graph for turn over vs tax liability
     public function get_graph_Turnover_vs_liabality() {
         $customer_id = $this->input->post("customer_id");
-      
+
         $quer1 = $this->db->query("SELECT `monthly_summary_all`.`month`,`monthly_summary_all`.`inter_state_supply`,`monthly_summary_all`.`intra_state_supply`,"
                 . "`monthly_summary_all`.`no_gst_paid_supply`, `monthly_summary_all`.`debit_value`,`monthly_summary_all`.`credit_value`,`3b_offset_summary_all`.`outward_liability`,"
                 . "`3b_offset_summary_all`.`rcb_liablity` FROM `monthly_summary_all` INNER JOIN `3b_offset_summary_all` "
@@ -551,7 +551,7 @@ class Cfo_dashboard extends CI_Controller {
             $turnover1 = array();
             $tax_liabality1 = array();
             $ratio_val = array();
-            foreach ($res as $row) {    
+            foreach ($res as $row) {
                 //formula to get turnover , ratio , liability
                 $turnover = ($row->inter_state_supply + $row->intra_state_supply + $row->no_gst_paid_supply + $row->debit_value) - (1 * $row->credit_value);
                 $tax_liabality = $row->outward_liability + (1 * $row->rcb_liablity);
@@ -596,13 +596,13 @@ class Cfo_dashboard extends CI_Controller {
                 }
             }
             //function to get customer name
-            $quer2 = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id'");
-            
-            if ($quer2->num_rows() > 0) {
-                $res2 = $quer2->row();
-                $customer_name=$res2->customer_name;
+            $quer21 = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id'");
+
+            if ($quer21->num_rows() > 0) {
+                $res21 = $quer21->row();
+                $customer_name = $res21->customer_name;
             }
-            
+
 
             $respose['message'] = "success";
             $respose['data_turn_over'] = $abc;  //turnover data

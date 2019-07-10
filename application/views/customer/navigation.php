@@ -118,7 +118,7 @@
                 </a>
                 <div class="collapse" id="editors_int">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>TurnoverVsTaxability">Turnover Vs Tax Liability </a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>TurnoverVsTaxability">Tax Liability </a></li>
                         <li class="nav-item"><a class="nav-link" href="<?php echo base_url(); ?>Tax_turnover">Tax Turnover </a></li>
                        
                     </ul>

@@ -26,7 +26,7 @@ if (is_array($session_data)) {
                 <div class="col-md-6">
                 </div>
                 <div class="col-md-6">
-                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal-4" data-whatever="@mdo">Upload New</button>
+                    <!--<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal-4" data-whatever="@mdo">Upload New</button>-->
                 </div>
                 <br><br>
                 <div class="row">
