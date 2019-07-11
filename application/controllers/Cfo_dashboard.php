@@ -9,6 +9,7 @@ class Cfo_dashboard extends CI_Controller {
         parent::__construct();
         $this->load->model('Cfo_model');
         $this->load->model('login_model');
+        $this->load->helper('url');
     }
 
     function index() {

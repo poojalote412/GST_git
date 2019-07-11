@@ -1,10 +1,35 @@
-<html>
-    <head>
+
+<?php
+$this->load->view('customer/header');
+$this->load->view('customer/navigation');
+
+//Check user login or not using session
+
+if ($session = $this->session->userdata('login_session') == '') {
+//take them back to signin 
+//    echo 'fghjf';
+    redirect(base_url() . 'GST_AdminLogin');
+}
+$session_data = $this->session->userdata('login_session');
+if (is_array($session_data)) {
+    $data['session_data'] = $session_data;
+//    var_dump($session_data);
+    $username = ($session_data['customer_id']);
+} else {
+    $username = $this->session->userdata('login_session');
+}
+?>
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="card">
+            <div class="card-body">
+<!--<html>
+    <head>-->
         <title>How to Import Excel Data into Mysql in Codeigniter</title>
         <link rel="stylesheet" href="<?php echo base_url(); ?>asset/bootstrap.min.css" />
         <script src="<?php echo base_url(); ?>asset/jquery.min.js"></script>
 
-    </head>
+<!--    </head>-->
 
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -31,11 +56,25 @@
 
                 <button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun();"class="btn btn-info" >Get Graph</button>
             </form>
-            <div id="container"></div>
+            <div id="container">
+                
+                
+            </div>
+             <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Basic Table</h4>
+                  <p class="card-description">A basic example of js-grid</p>
+                  <div id="js-grid" class=""></div>
+                </div>
+              </div>
             <?php // var_dump($result); ?>
         </div>
+         </div>
+             </div>
+         </div>
+    
     </body>
-
+<?php $this->load->view('customer/footer'); ?>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 </html>
 

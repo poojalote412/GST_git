@@ -18,69 +18,78 @@ if (is_array($session_data)) {
 }
 ?>
 
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            GSTR-3B VS GSTR-1
+            <!--<small>it all starts here</small>-->
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <!--            <li><a href="#">Examples</a></li>-->
+            <li class="active">GSTR-3B VS GSTR-1</li>
+        </ol>
+    </section>
 
-<div class="main-panel"> 
-    <div class="content-wrapper">
-        <div class="col-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">GSTR-3B VS GSTR-1</h4>
-                    <!--<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal-4" data-whatever="@mdo">Upload New</button><br><br>-->
-                    <!--<button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun();"class="btn btn-primary mr-2 btn-sm" >Get Graph</button> <br><br>-->
+    <!-- Main content -->
+    <section class="content">
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="table-responsive">
-                                <table id="order-listing" class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>No.</th>
-                                            <!--<th>Unique id</th>-->
-                                            <th>Customer</th>
-                                            <th>View Graph</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
+        <!-- Default box -->
+        <div class="box">
+            <div class="box-header with-border">
+                <!--                <h3 class="box-title">Customer</h3>-->
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                            title="Collapse">
+                        <i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                        <i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <div class="box-body">
+
+
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Customer</th>
+                            <th>View Graph</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <?php
 //                                    var_dump($gstr1_vs_3b_data);
-                                        if ($gstr1_vs_3b_data !== "") {
-                                            $i = 1;
-                                            foreach ($gstr1_vs_3b_data as $row) {
-                                                ?>
-                                                <tr>
-                                                    <td><?php echo $i; ?></td>
-                                                    <td><?php echo $row->customer_name; ?></td>
-<!--                                                    <td>ANAND RATHI GLOBAL FINANCE LIMITED 2017-18</td>-->
-                                                    <td><button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->customer_id; ?>');"class="btn btn-outline-primary" >View</button></td>
-                                                </tr> 
-                                                <?php
-                                                $i++;
-                                            }
-                                        } else {
-                                            
-                                        }
-                                        ?>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="container1"></div>
-                </div>   
-            </div>   
-        </div>   
-
-        <div class="col-lg-12 grid-margin stretch-card ">
+                        if ($gstr1_vs_3b_data !== "") {
+                            $i = 1;
+                            foreach ($gstr1_vs_3b_data as $row) {
+                                ?>
+                                <tr>
+                                    <td><?php echo $i; ?></td>
+                                    <td><?php echo $row->customer_name; ?></td>
+                                    <td><button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->customer_id; ?>');"class="btn btn-outline-primary" >View</button></td>
+                                </tr> 
+                                <?php
+                                $i++;
+                            }
+                        } else {
+                            
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+            <div id="container1"></div>
 
         </div>
 
-
-
-
-    </div>
+    </section>
 
 </div>
+
 
 
 <div class="modal fade" id="exampleModal-4" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
@@ -115,11 +124,11 @@ if (is_array($session_data)) {
 
 </div>
 <?php $this->load->view('customer/footer'); ?>
-
-
-
-
-
+<script>
+    $(function () {
+        $("#example1").DataTable();
+    });
+</script>
 <script>
 
 // function to upload new 
@@ -175,7 +184,7 @@ if (is_array($session_data)) {
             type: "POST",
             url: "<?= base_url("Threeb_vs_one/get_graph") ?>",
             dataType: "json",
-            data:{customer_id:customer_id},
+            data: {customer_id: customer_id},
             success: function (result) {
                 if (result.message === "success") {
 
@@ -185,7 +194,7 @@ if (is_array($session_data)) {
                     var cumu_difference = result.cumu_difference;
                     var max = result.max;
                     var month = result.month_data;
-                     var customer_name = "Customer Name:"+result.customer_name;
+                    var customer_name = "Customer Name:" + result.customer_name;
                     Highcharts.chart('container1', {
                         chart: {
                             type: 'Combination chart'

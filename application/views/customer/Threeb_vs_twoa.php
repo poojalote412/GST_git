@@ -17,70 +17,77 @@ if (is_array($session_data)) {
     $username = $this->session->userdata('login_session');
 }
 ?>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            GSTR-3B VS GSTR-2A
+            <!--<small>it all starts here</small>-->
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <!--            <li><a href="#">Examples</a></li>-->
+            <li class="active">GSTR-3B VS GSTR-2A</li>
+        </ol>
+    </section>
 
+    <!-- Main content -->
+    <section class="content">
 
-<div class="main-panel">
-    <div class="content-wrapper">
-        <div class="col-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">GSTR-3B VS GSTR-2A</h4>
-                    <!--<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal-4" data-whatever="@mdo">Upload New</button> <br><br>-->
-                    <!--<button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun();"class="btn btn-primary mr-2 btn-sm" >Get Graph</button>-->
+        <!-- Default box -->
+        <div class="box">
+            <div class="box-header with-border">
+                <!--                <h3 class="box-title">Customer</h3>-->
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="table-responsive">
-                                <table id="order-listing" class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>No.</th>
-                                            <!--<th>Unique id</th>-->
-                                            <th>Customer</th>
-                                            <th>View Graph</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-//                                    var_dump($gstr1_vs_3b_data);
-                                        if ($gstr1_vs_2a_data !== "") {
-                                            $i = 1;
-                                            foreach ($gstr1_vs_2a_data as $row) {
-                                                ?>
-                                                <tr>
-                                                    <td><?php echo $i; ?></td>
-                                                    <td><?php echo $row->customer_name; ?></td>
-                                                    <!--<td>ANAND RATHI GLOBAL FINANCE LIMITED 2017-18</td>-->
-                                                    <td><button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->customer_id; ?>');"class="btn btn-outline-primary" >View</button></td>
-                                                </tr> 
-                                                <?php
-                                                $i++;
-                                            }
-                                        } else {
-                                            
-                                        }
-                                        ?>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="container1"></div>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                            title="Collapse">
+                        <i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                        <i class="fa fa-times"></i></button>
                 </div>
-            </div>   
-        </div>  
+            </div>
+            <div class="box-body">
 
 
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Customer</th>
+                            <th>View Graph</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
+                        <?php
+//                                    var_dump($gstr1_vs_3b_data);
+                        if ($gstr1_vs_2a_data !== "") {
+                            $i = 1;
+                            foreach ($gstr1_vs_2a_data as $row) {
+                                ?>
+                                <tr>
+                                    <td><?php echo $i; ?></td>
+                                    <td><?php echo $row->customer_name; ?></td>
+                                    <td><button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->customer_id; ?>');"class="btn btn-outline-primary" >View</button></td>
+                                </tr> 
+                                <?php
+                                $i++;
+                            }
+                        } else {
+                            
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+            <div id="container1"></div>
 
+        </div>
 
-
-    </div>
-
+    </section>
 
 </div>
-
 
 <div class="modal fade" id="exampleModal-4" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -115,6 +122,11 @@ if (is_array($session_data)) {
 
 </div>
 <?php $this->load->view('customer/footer'); ?>
+<script>
+    $(function () {
+        $("#example1").DataTable();
+    });
+</script>
 <script>
 
     $("#imports").click(function () {

@@ -7,6 +7,7 @@ class Gst_admin_login extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
+        $this->load->model('login_model');
     }
 
     function index() {
@@ -19,7 +20,6 @@ class Gst_admin_login extends CI_Controller {
         $user_id = $this->input->post('user_id');
         $password = $this->input->post('password');
         $pass = ($password);
-        $this->load->model('login_model');
         $result = $this->login_model->login_validation($user_id, $pass);
         if (empty($user_id) || empty($pass)) {
             $data['error'] = "Please enter login or password.";
@@ -45,7 +45,6 @@ class Gst_admin_login extends CI_Controller {
                         'customer_id' => $customer_id,
                         'user_type' => $user_type,
                     );
-                    
                 }
                 if ($user_type == '1') {  //superadmin
                     $this->session->set_userdata('login_session', $session_data);

@@ -49,12 +49,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'Gst_admin_login';
+$route['default_controller'] = 'welcome';
+$route['abc'] = 'welcome/aa1';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
-
-
-
 
 $route['Cust_dashboard'] = 'Gst_dashboard/index';
 $route['Cfo_dashboard'] = 'Cfo_dashboard/index';
@@ -69,6 +67,7 @@ $route['Threeb_Vs_one'] = 'Threeb_vs_one/index';
 $route['Threeb_vs_twoa'] = 'Threeb_vs_twoa/index';
 $route['Sale_b2b_b2c'] = 'Management_report/Sale_b2b_b2c';
 $route['GST_Logout'] = 'Gst_dashboard/index';
+$route['not_in_2a'] = 'Invoice_comp_report/not_in_2a_index';
 //$route['Cust_login']='GST_Dashboard/employee_dashboard';
 
 $route['Customer'] = 'Customer/index';
