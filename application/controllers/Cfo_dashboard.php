@@ -24,7 +24,6 @@ class Cfo_dashboard extends CI_Controller {
         $this->load->view('customer/Cfo_dashboard', $data);
     }
 
-
     //to decrement column of excel
     public function getAlpha($highestColumn_row, $ord, $a, $index) {
         if ($ord >= 65) {
@@ -49,7 +48,7 @@ class Cfo_dashboard extends CI_Controller {
             $data = $result->row();
             $turn_id = $data->uniq_id;
             //generate turn_id
-            $turn_id = str_pad( ++$turn_id, 5, '0', STR_PAD_LEFT);
+            $turn_id = str_pad(++$turn_id, 5, '0', STR_PAD_LEFT);
             return $turn_id;
         } else {
             $turn_id = 'turn_1001';
@@ -66,11 +65,26 @@ class Cfo_dashboard extends CI_Controller {
                 . "`3b_offset_summary_all`.`rcb_liablity` FROM `monthly_summary_all` INNER JOIN `3b_offset_summary_all` "
                 . "ON `monthly_summary_all`.`month`=`3b_offset_summary_all`.`month` where `monthly_summary_all`.`customer_id`='$customer_id' "
                 . "AND `3b_offset_summary_all`.`customer_id`='$customer_id'");
+        $data = "";
         if ($quer1->num_rows() > 0) {
             $res = $quer1->result();
             $turnover1 = array();
             $tax_liabality1 = array();
             $ratio_val = array();
+            $data .= '<div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="example2" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>TurnOver</th>
+                                        <th>Tax Liability</th>
+                                        <th>Ratio</th>
+                                    </tr>
+                                </thead>
+                                <tbody>';
+            $k=1;
             foreach ($res as $row) {
                 //formula to get turnover , ratio , liability
                 $turnover = ($row->inter_state_supply + $row->intra_state_supply + $row->no_gst_paid_supply + $row->debit_value) - (1 * $row->credit_value);
@@ -79,7 +93,15 @@ class Cfo_dashboard extends CI_Controller {
                 $ratio_val[] = round($ratio);
                 $turnover1[] = $turnover;
                 $tax_liabality1[] = $tax_liabality;
+                $data .= '<tr>' .
+                        '<td>' . $k . '</td>' .
+                        '<td>' . $turnover . '</td>' .
+                        '<td>' . $tax_liabality . '</td>' .
+                        '<td>' . round($ratio)."%" . '</td>' .
+                        '</tr>';
+                $k++;
             }
+            $data .= '</tbody></table></div></div></div>';
 //            var_dump($turnover1);
             // loop to get turnover value
             $abc = array();
@@ -123,7 +145,7 @@ class Cfo_dashboard extends CI_Controller {
                 $customer_name = $res21->customer_name;
             }
 
-
+            $respose['data'] = $data;
             $respose['message'] = "success";
             $respose['data_turn_over'] = $abc;  //turnover data
             $respose['data_liability'] = $pqr; //tax liability data
