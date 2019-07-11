@@ -22,13 +22,13 @@ if (is_array($session_data)) {
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Not in 2A Records
+            Not in Records
             <!--<small>it all starts here</small>-->
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
             <!--            <li><a href="#">Examples</a></li>-->
-            <li class="active">Not in 2A Records</li>
+            <li class="active">Not in Records</li>
         </ol>
     </section>
 
@@ -63,15 +63,15 @@ if (is_array($session_data)) {
 
                         <?php
 //                                    var_dump($cfo_data);
-                        if ($not_in_2a_data !== "") {
+                        if ($not_in_rec_data !== "") {
                             $i = 1;
-                            foreach ($not_in_2a_data as $row) {
+                            foreach ($not_in_rec_data as $row) {
                                 ?>
                                 <tr>
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $row->customer_name; ?></td>
                                     <td>
-                                        <a type="button" class="btn btn-default" name="get_records" id="get_records" onclick="get_records_not_in_2a('<?php echo $row->customer_id; ?>');"><i class="fa fa-eye"></i> view</a>
+                                        <a type="button" class="btn btn-default" name="get_records" id="get_records" onclick="get_records_not_in_rec('<?php echo $row->customer_id; ?>');"><i class="fa fa-eye"></i> view</a>
                                         <!--<button type="button" name="get_records" id="get_records" onclick="get_records_not_in_2a('<?php echo $row->customer_id; ?>');"class="btn btn-app" >View</button>-->
                                     </td>
                                 </tr> 
@@ -123,7 +123,7 @@ if (is_array($session_data)) {
     </div>
 </div>
 
-<div class="modal fade" id="not_in_2a_data_modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+<div class="modal fade" id="not_in_rec_data_modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -189,11 +189,11 @@ if (is_array($session_data)) {
         });
     });
 
-    function get_records_not_in_2a(customer_id)
+    function get_records_not_in_rec(customer_id)
     {
         $.ajax({
             type: "post",
-            url: "<?= base_url("Invoice_comp_report/get_table_company") ?>",
+            url: "<?= base_url("Invoice_comp_report/get_table_company_not_in_rec") ?>",
             dataType: "json",
             data: {customer_id: customer_id},
             success: function (result) {
@@ -209,12 +209,12 @@ if (is_array($session_data)) {
 
         });
     }
-    $('#not_in_2a_data_modal').on('show.bs.modal', function (e) {
+    $('#not_in_rec_data_modal').on('show.bs.modal', function (e) {
         var companyname = $(e.relatedTarget).data('company_name');
         var company_name = document.getElementById('company_name').value = companyname;
         $.ajax({
             type: "post",
-            url: "<?= base_url("Invoice_comp_report/get_not_in2a_records") ?>",
+            url: "<?= base_url("Invoice_comp_report/get_not_inrec_records") ?>",
             dataType: "json",
             data: {company_name: company_name},
             success: function (result) {

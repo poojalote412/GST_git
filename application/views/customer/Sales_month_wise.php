@@ -23,13 +23,13 @@ if (is_array($session_data)) {
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            GSTR-3B VS GSTR-1
-            <!--<small>it all starts here</small>-->
+            Sales Month Wise 
+             <!--<small>it all starts here</small>-->
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
             <!--            <li><a href="#">Examples</a></li>-->
-            <li class="active">GSTR-3B VS GSTR-1</li>
+            <li class="active">Sales Month Wise</li>
         </ol>
     </section>
 
@@ -116,6 +116,7 @@ if (is_array($session_data)) {
                     var taxable_supply = result.taxable_supply_arr;
                     var data_month = result.month_data;
                     var max_range = result.max_range;
+                    var sales_percent_values = result.sales_percent_values;
                     var customer_name = "Customer Name:" + result.customer_name;
                     Highcharts.chart('container', {
                         chart: {
@@ -135,7 +136,14 @@ if (is_array($session_data)) {
                                 title: {
                                     text: 'Supply Values'
                                 }
-                            }, ],
+                            }, {
+                                min: 0,
+                                max: 100,
+                                opposite: true,
+                                title: {
+                                    text: 'Sales(in %)'
+                                }
+                            }],
                         legend: {
                             shadow: false
                         },
@@ -150,6 +158,23 @@ if (is_array($session_data)) {
                                 tooltip: {
                                     valuePrefix: '₹',
                                     valueSuffix: ' M'
+                                },
+                            }, {
+                                type: 'spline',
+                                color: '#AE72E4',
+                                name: 'Ratio of Sales',
+                                data: sales_percent_values,
+                                yAxis: 1,
+                                tooltip: {
+                                    valueSuffix: ' %'
+                                },
+                                plotOptions: {
+                                    spline: {
+                                        dataLabels: {
+                                            enabled: true
+                                        },
+                                        enableMouseTracking: false
+                                    }
                                 },
                             }, ]
                     });

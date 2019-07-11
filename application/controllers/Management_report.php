@@ -252,11 +252,15 @@ class Management_report extends CI_Controller {
                 $taxable_supply = ($inter_state_supply + $intra_state_supply + $no_gst_paid_supply + $debit_value) - ($credit_value);
                 $taxable_supply_arr[] = $taxable_supply; //taxable supply array
             }
+             $sum_tax=array_sum($taxable_supply_arr);
 
             // loop to get graph data as per graph script requirement
             $abc1 = array();
+            $sales_percent_values = array();
             
             for ($o = 0; $o < sizeof($taxable_supply_arr); $o++) {
+                $sale_percent= (($taxable_supply_arr[$o])/($sum_tax*100));
+                $sales_percent_values[]= round(($sale_percent*10000),2);
                 $abc1[] = $taxable_supply_arr[$o];
                 $aa1 = settype($abc1[$o], "float");
             }
@@ -285,6 +289,7 @@ class Management_report extends CI_Controller {
             $respnose['month_data'] = $months; //months 
             $respnose['max_range'] = $max_range; //maximum range for graph
             $respnose['customer_name'] = $customer_name; //customer
+            $respnose['sales_percent_values'] = $sales_percent_values; //sales in percent
         } else {
             $respnose['message'] = "";
             $respnose['taxable_supply_arr'] = "";  //taxable_supply data

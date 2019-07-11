@@ -68,6 +68,7 @@ $route['Threeb_vs_twoa'] = 'Threeb_vs_twoa/index';
 $route['Sale_b2b_b2c'] = 'Management_report/Sale_b2b_b2c';
 $route['GST_Logout'] = 'Gst_dashboard/index';
 $route['not_in_2a'] = 'Invoice_comp_report/not_in_2a_index';
+$route['not_in_record'] = 'Invoice_comp_report/not_in_record_index';
 //$route['Cust_login']='GST_Dashboard/employee_dashboard';
 
 $route['Customer'] = 'Customer/index';
