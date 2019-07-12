@@ -12,97 +12,77 @@ if ($session = $this->session->userdata('login_session') == '') {
 $session_data = $this->session->userdata('login_session');
 if (is_array($session_data)) {
     $data['session_data'] = $session_data;
+//    var_dump($session_data);
     $username = ($session_data['customer_id']);
 } else {
     $username = $this->session->userdata('login_session');
 }
 ?>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Accounts Reports
+            <!--<small>it all starts here</small>-->
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">Examples</a></li>
+            <li class="active">Accounts Reports</li>
+        </ol>
+    </section>
 
+    <!-- Main content -->
+    <section class="content">
 
-<div class="main-panel">
-        <div class="content-wrapper">
-            <div class="col-12 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Account Report</h4>
-                        <form class="forms-sample" id="import_form" method="post" name="import_form" enctype="multipart/form-data">
+        <!-- Default box -->
+        <div class="box">
+            <div class="box-header with-border">
+                <!--                <h3 class="box-title">Customer</h3>-->
 
-
-                                <div class="form-group">
-                                    <label>File upload</label>
-                                    <input type="file" name="file_ex" class="file-upload-default">
-                                    <div class="input-group col-xs-12">
-                                        <input type="text" class="form-control file-upload-info" name="file_ex" id="file_ex" required accept=".xls, .xlsx" disabled placeholder="Upload File">
-                                        <span class="input-group-append">
-                                            <button class="file-upload-browse btn btn-primary"  type="button" >Upload</button>
-                                        </span>
-                                    </div>
-                                </div>
-
-
-                                <button type="button" name="imports" id="imports" class="btn btn-primary mr-2">Submit</button>
-                                <button class="btn btn-light">Cancel</button>
-                        </form><br>
-                        
-                        <button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun();"class="btn btn-primary mr-2" >Get Graph</button>
-                            <div id="container1"></div>
-                            <div id="container2"></div>
-                    </div>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                            title="Collapse">
+                        <i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                        <i class="fa fa-times"></i></button>
                 </div>
-            </div> 
-            
+            </div>
+            <div class="box-body">
+
+
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Customer</th>
+                            <th>View Observations</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+                    </tbody>
+                </table>
+            </div>
+
         </div>
+
+    </section>
+
 </div>
 
-<?php $this->load->view('customer/footer');?>
+
+
+
+
+<?php $this->load->view('customer/footer'); ?>
 <script>
-    
-    $("#imports").click(function () {
-        alert("ujhguj");
-                var $this = $(this);
-                $this.button('loading');
-                setTimeout(function () {
-                    $this.button('reset');
-                }, 2000);
+    $(function () {
+        $("#example1").DataTable();
+    });
+</script>
+<script>
 
-                var formid = document.getElementById("import_form");
+</script>
 
-                //  var stud_email = $("#stud_email").val();
-
-                $.ajax({
-                    type: "post",
-                    url: "<?= base_url("Account_report/import") ?>",
-                    dataType: "json",
-                    data: new FormData(formid), //form data
-                    processData: false,
-                    contentType: false,
-                    cache: false,
-                    async: false,
-                    //            data: $("#Add_UniversityStudent").serialize(),
-                    success: function (result) {
-                        // alert(result.error);
-                        if (result.status === true) {
-                            alert('Data Submitted Successfully');
-                            // return;
-                            location.reload();
-                        } else if (result.status === false) {
-                            alert('something went wrong')
-                        } else {
-                            $('#' + result.id + '_error').html(result.error);
-                            $('#message').html(result.error);
-                        }
-                    },
-                    error: function (result) {
-                        //                console.log(result);
-                        if (result.status === 500) {
-                            alert('Internal error: ' + result.responseText);
-                        } else {
-                            alert('Unexpected error.');
-                        }
-                    }
-                });
-            });
-            function  remove_error(id) {
-                $('#' + id + '_error').html("");
-            }
-    </script>
