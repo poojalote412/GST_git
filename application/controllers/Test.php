@@ -500,6 +500,8 @@ class Test extends CI_Controller {
                 $filling_date = array();
                 for ($u = 7; $u <= 18; $t++) {
                     $val = $object1->getActiveSheet()->getCell('S' . $u)->getValue();
+                    $old_date_timestamp = strtotime($val);
+                    $invoice_date = date('Y-m-d', $old_date_timestamp);
                     $filling_date[] = $val;
 //                    print_r($interest_late_fees);
                 }
