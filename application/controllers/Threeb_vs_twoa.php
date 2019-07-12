@@ -154,7 +154,7 @@ class Threeb_vs_twoa extends CI_Controller {
                         $array4 = array(
                             'cumu_difference' => $cumm_diff,
                         );
-                     
+
 
 
                         $data1 = array_merge($array_id, $array1, $array2, $array3, $array4);
@@ -164,10 +164,8 @@ class Threeb_vs_twoa extends CI_Controller {
                             $abc++;
                         }
                     }
+                }
 
-
-           }
-            
 //            echo $abc;
                 if ($abc > 0) {
                     $response['message'] = "success";
@@ -178,9 +176,8 @@ class Threeb_vs_twoa extends CI_Controller {
                     $response['message'] = "no data";
                     $response['status'] = false;
                     $response['code'] = 204;
-            }echo json_encode($response);}
-                
-          
+                }echo json_encode($response);
+            }
         } else {
             echo 'Data Not Imported';
         }
@@ -190,6 +187,7 @@ class Threeb_vs_twoa extends CI_Controller {
         $customer_id = $this->input->post("customer_id");
 
         $query = $this->db->query("SELECT month,gstr2A_3B,gstr2A_difference,gstr2A_cummulative,gstr2A FROM comparison_summary_all WHERE customer_id='$customer_id' order by id desc");
+        $data = ""; //view observations
         if ($query->num_rows() > 0) {
 
             $result = $query->result();
@@ -198,22 +196,57 @@ class Threeb_vs_twoa extends CI_Controller {
             $cumu_difference3 = array();
             $gstr2a4 = array();
             $months = array();
-
+            $data .= '<div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="example2" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Month</th>
+                                        <th>GSTR-3B</th>
+                                        <th>GSTR-2A</th>
+                                        <th>Difference</th>
+                                        <th>Cummulative Difference</th>
+                                    </tr>
+                                </thead>
+                                <tbody>';
+            $k = 1;
             foreach ($result as $row) {
                 $gstr_tb = $row->gstr2A_3B;
                 $difference = $row->gstr2A_difference;
                 $cumu_difference = $row->gstr2A_cummulative;
                 $gstr2a = $row->gstr2A;
-                
+                $month = $row->month;
 
-
+                //arrays
                 $gstr_tb1[] = $gstr_tb;
                 $difference2[] = $difference;
                 $cumu_difference3[] = $cumu_difference;
                 $gstr2a4[] = $gstr2a;
                 $months[] = $row->month;
-            }
 
+                $data .= '<tr>' .
+                        '<td>' . $k . '</td>' .
+                        '<td>' . $month . '</td>' .
+                        '<td>' . $gstr_tb . '</td>' .
+                        '<td>' . $gstr2a . '</td>' .
+                        '<td>' . $difference . '</td>' .
+                        '<td>' . $cumu_difference . '</td>' .
+                        '</tr>';
+                $k++;
+            }
+            $data .= '<tr>' .
+                    '<td>' . '<b>Total</b>' . '</td>' .
+                    '<td>' . '' . '</td>' .
+                    '<td>' . '<b>' . array_sum($gstr_tb1) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . array_sum($gstr2a4) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . array_sum($difference2) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . array_sum($cumu_difference3) . '</b>' . '</td>' .
+                    '</tr>';
+            $data .= '</tbody></table></div></div></div>';
+            
+            $data .= "<hr><h4><b>Observation of GSTR-3B vs GSTR-2A:</b></h4>";
             $abc = array();
             $abc3 = array();
             $abc4 = array();
@@ -242,7 +275,7 @@ class Threeb_vs_twoa extends CI_Controller {
             $gstr1max = $gstr1_max->gstr2a_max;
             $max_value = (max($gstrtbmax, $gstr1max));
 
-
+            $respose['data'] = $data;
             $respose['message'] = "success";
             $respose['gstr_tb'] = $abc;
             $respose['max'] = $max_value;
@@ -251,6 +284,7 @@ class Threeb_vs_twoa extends CI_Controller {
             $respose['gstr2a'] = $abc5;
             $respose['month_data'] = $months;
         } else {
+            $respose['data'] = "";
             $respose['message'] = "fail";
             $respose['gstr_tb'] = "";
             $respose['difference'] = "";

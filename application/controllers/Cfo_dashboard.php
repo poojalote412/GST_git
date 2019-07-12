@@ -48,7 +48,7 @@ class Cfo_dashboard extends CI_Controller {
             $data = $result->row();
             $turn_id = $data->uniq_id;
             //generate turn_id
-            $turn_id = str_pad(++$turn_id, 5, '0', STR_PAD_LEFT);
+            $turn_id = str_pad( ++$turn_id, 5, '0', STR_PAD_LEFT);
             return $turn_id;
         } else {
             $turn_id = 'turn_1001';
@@ -65,7 +65,7 @@ class Cfo_dashboard extends CI_Controller {
                 . "`3b_offset_summary_all`.`rcb_liablity` FROM `monthly_summary_all` INNER JOIN `3b_offset_summary_all` "
                 . "ON `monthly_summary_all`.`month`=`3b_offset_summary_all`.`month` where `monthly_summary_all`.`customer_id`='$customer_id' "
                 . "AND `3b_offset_summary_all`.`customer_id`='$customer_id'");
-        $data = "";
+        $data = ""; //view observations
         if ($quer1->num_rows() > 0) {
             $res = $quer1->result();
             $turnover1 = array();
@@ -78,13 +78,14 @@ class Cfo_dashboard extends CI_Controller {
                                 <thead>
                                     <tr>
                                         <th>No.</th>
+                                        <th>Month</th>
                                         <th>TurnOver</th>
                                         <th>Tax Liability</th>
                                         <th>Ratio</th>
                                     </tr>
                                 </thead>
                                 <tbody>';
-            $k=1;
+            $k = 1;
             foreach ($res as $row) {
                 //formula to get turnover , ratio , liability
                 $turnover = ($row->inter_state_supply + $row->intra_state_supply + $row->no_gst_paid_supply + $row->debit_value) - (1 * $row->credit_value);
@@ -93,15 +94,29 @@ class Cfo_dashboard extends CI_Controller {
                 $ratio_val[] = round($ratio);
                 $turnover1[] = $turnover;
                 $tax_liabality1[] = $tax_liabality;
+                $month = $row->month;
                 $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
+                        '<td>' . $month . '</td>' .
                         '<td>' . $turnover . '</td>' .
                         '<td>' . $tax_liabality . '</td>' .
-                        '<td>' . round($ratio)."%" . '</td>' .
+                        '<td>' . round($ratio) . "%" . '</td>' .
                         '</tr>';
                 $k++;
             }
+            $data .= '<tr>' .
+                    '<td>' . '<b>Total</b>' . '</td>' .
+                    '<td>' . '' . '</td>' .
+                    '<td>' . '<b>' . array_sum($turnover1) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . array_sum($tax_liabality1) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . array_sum($ratio_val) . "%" . '</b>' . '</td>' .
+                    '</tr>';
             $data .= '</tbody></table></div></div></div>';
+//         echo   max($ratio_val);
+//         echo   min($ratio_val);
+            $data .="<hr><h4><b>Observation of CFO:</b></h4>"
+                    . "<span>Percentage of GST payable to turnover is not stable for F.Y. 2017-18 it varies from <b>".min($ratio_val)."% </b>to<b> ".max($ratio_val)."%</b>.</span>";
+
 //            var_dump($turnover1);
             // loop to get turnover value
             $abc = array();

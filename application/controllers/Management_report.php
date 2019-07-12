@@ -114,6 +114,7 @@ class Management_report extends CI_Controller {
     public function get_graph_taxable_nontx_exempt() { //get graph function of taxable nontaxable and exempt
         $customer_id = $this->input->post("customer_id");
         $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id'");
+        $data = ""; //view observations
         if ($query->num_rows() > 0) {
             $result = $query->result();
             $taxable_supply_arr = array();
@@ -122,11 +123,30 @@ class Management_report extends CI_Controller {
             $ratio_taxable_supply = array();
             $ratio_subtotal_nongst = array();
             $ratio_subtotal_exempt = array();
+            $data .= '<div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="example2" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Month</th>
+                                        <th>Taxable Supply</th>
+                                        <th>Exempt Supply</th>
+                                        <th>Non-GST Supply</th>
+                                        <th>Ratio of Taxable supply by Total supply</th>
+                                        <th>Ratio of Exempt Supply by Total supply</th>
+                                        <th>Ratio of Non-GST supply by Total supply</th>
+                                    </tr>
+                                </thead>
+                                <tbody>';
+            $k = 1;
             foreach ($result as $row) {
                 $inter_state_supply = $row->inter_state_supply;
                 $intra_state_supply = $row->intra_state_supply;
                 $debit_value = $row->debit_value;
                 $credit_value = $row->credit_value;
+                $month = $row->month;
 
                 $taxable_supply = ($inter_state_supply + $intra_state_supply + $debit_value) - ($credit_value);
                 $taxable_supply_arr[] = $taxable_supply; //taxable supply array
@@ -141,8 +161,30 @@ class Management_report extends CI_Controller {
                 $ratio_taxable_supply[] = round(($taxable_supply * 100) / ($grand_total));
                 $ratio_subtotal_nongst[] = round(($sub_total_non_gst * 100) / ($grand_total));
                 $ratio_subtotal_exempt[] = round(($sub_total_exempt * 100) / ($grand_total));
+                $data .= '<tr>' .
+                        '<td>' . $k . '</td>' .
+                        '<td>' . $month . '</td>' .
+                        '<td>' . $taxable_supply . '</td>' .
+                        '<td>' . $sub_total_exempt . '</td>' .
+                        '<td>' . $sub_total_non_gst . '</td>' .
+                        '<td>' . (round(($taxable_supply * 100) / ($grand_total))) . "%" . '</td>' .
+                        '<td>' . (round(($sub_total_non_gst * 100) / ($grand_total))) . "%" . '</td>' .
+                        '<td>' . (round(($sub_total_exempt * 100) / ($grand_total))) . "%" . '</td>' .
+                        '</tr>';
+                $k++;
             }
-
+            $data .= '<tr>' .
+                    '<td>' . '<b>Total</b>' . '</td>' .
+                    '<td>' . '' . '</td>' .
+                    '<td>' . '<b>' . array_sum($taxable_supply_arr) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . array_sum($sub_total_exempt_arr) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . array_sum($sub_total_non_gst_arr) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . "" . '</b>' . '</td>' .
+                    '<td>' . '<b>' . "" . '</b>' . '</td>' .
+                    '<td>' . '<b>' . "" . '</b>' . '</td>' .
+                    '</tr>';
+            $data .= '</tbody></table></div></div></div>';
+            $data .= "<hr><h4><b>Observation of Sales Taxable, non-taxable and Exempt:</b></h4>";
             // loop to get graph data as per graph script requirement
             $abc1 = array();
             $abc2 = array();
@@ -192,13 +234,13 @@ class Management_report extends CI_Controller {
             }
 
             //function to get customer name
-            $quer2 = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id'");
+            $quer21 = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id'");
 
-            if ($quer2->num_rows() > 0) {
-                $res2 = $quer2->row();
+            if ($quer21->num_rows() > 0) {
+                $res2 = $quer21->row();
                 $customer_name = $res2->customer_name;
             }
-
+            $respnose['data'] = $data;
             $respnose['message'] = "success";
             $respnose['taxable_supply_arr'] = $abc1;  //taxable_supply data
             $respnose['sub_total_non_gst_arr'] = $abc2; //sub_total_non_gstdata
@@ -210,6 +252,7 @@ class Management_report extends CI_Controller {
             $respnose['customer_name'] = $customer_name; //customer
             $respnose['max_range'] = $max_range; //maximum range for graph
         } else {
+            $respnose['data'] = "";
             $respnose['message'] = "";
             $respnose['taxable_supply_arr'] = "";  //taxable_supply data
             $respnose['sub_total_non_gst_arr'] = ""; //sub_total_non_gstdata
@@ -238,32 +281,85 @@ class Management_report extends CI_Controller {
     public function get_graph_sales_month_wise() { //get graph function of Sales month wise
         $customer_id = $this->input->post("customer_id");
         $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id'");
+        $data = ""; //view observations
         if ($query->num_rows() > 0) {
             $result = $query->result();
             $taxable_supply_arr = array();
+            $data .= '<div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="example2" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Month</th>
+                                        <th>Sales</th>
+                                        <th>Ratio</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>';
+            $k = 1;
+            $sales_percent_values = array();
+            $taxable_supply_arr1 = array();
+            foreach ($result as $row1) {
+                $inter_state_supply = $row1->inter_state_supply;
+                $intra_state_supply = $row1->intra_state_supply;
+                $no_gst_paid_supply = $row1->no_gst_paid_supply;
+                $debit_value = $row1->debit_value;
+                $credit_value = $row1->credit_value;
+                $month = $row1->month;
 
+                $taxable_supply1 = ($inter_state_supply + $intra_state_supply + $no_gst_paid_supply + $debit_value) - ($credit_value);
+                $taxable_supply_arr1[] = $taxable_supply1; //taxable supply array
+            }
+            $sum_tax = array_sum($taxable_supply_arr1);
             foreach ($result as $row) {
                 $inter_state_supply = $row->inter_state_supply;
                 $intra_state_supply = $row->intra_state_supply;
                 $no_gst_paid_supply = $row->no_gst_paid_supply;
                 $debit_value = $row->debit_value;
                 $credit_value = $row->credit_value;
+                $month = $row->month;
 
                 $taxable_supply = ($inter_state_supply + $intra_state_supply + $no_gst_paid_supply + $debit_value) - ($credit_value);
                 $taxable_supply_arr[] = $taxable_supply; //taxable supply array
+                $sale_percent = (($taxable_supply) / ($sum_tax * 100));
+                $sales_percent_values1 = round(($sale_percent * 10000), 2);
+                $sales_percent_values[] = round(($sale_percent * 10000));
+
+                $data .= '<tr>' .
+                        '<td>' . $k . '</td>' .
+                        '<td>' . $month . '</td>' .
+                        '<td>' . $taxable_supply . '</td>' .
+                        '<td>' . $sales_percent_values1 . '%</td>' .
+                        '</tr>';
+
+                $k++;
             }
-             $sum_tax=array_sum($taxable_supply_arr);
+            $data .= '<tr>' .
+                    '<td>' . '<b>Total</b>' . '</td>' .
+                    '<td>' . '' . '</td>' .
+                    '<td>' . '<b>' . array_sum($taxable_supply_arr) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . array_sum($sales_percent_values) . '%</b> ' . '</td>' .
+                    '</tr>';
+            $data .= '</tbody></table></div></div></div>';
+            $max= max($sales_percent_values);
+            $min= min($sales_percent_values);
+//            echo $variation=($max-$min)/($min*100);
+            $data .= "<hr><h4><b>Observation of  Sales month wise:</b></h4>";
 
             // loop to get graph data as per graph script requirement
             $abc1 = array();
-            $sales_percent_values = array();
-            
             for ($o = 0; $o < sizeof($taxable_supply_arr); $o++) {
-                $sale_percent= (($taxable_supply_arr[$o])/($sum_tax*100));
-                $sales_percent_values[]= round(($sale_percent*10000),2);
+
                 $abc1[] = $taxable_supply_arr[$o];
                 $aa1 = settype($abc1[$o], "float");
             }
+
+
+
+
 
 //             to get max value for range
             $max_range = max($abc1);
@@ -279,11 +375,12 @@ class Management_report extends CI_Controller {
             }
             //function to get customer name
             $quer21 = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id'");
-            
+
             if ($quer21->num_rows() > 0) {
                 $res21 = $quer21->row();
-                $customer_name=$res21->customer_name;
+                $customer_name = $res21->customer_name;
             }
+            $respnose['data'] = $data;
             $respnose['message'] = "success";
             $respnose['taxable_supply_arr'] = $abc1;  //taxable_supply data
             $respnose['month_data'] = $months; //months 
@@ -796,7 +893,7 @@ class Management_report extends CI_Controller {
             $data = $result->row();
             $uniq_id = $data->unique_id;
             //generate turn_id
-            $uniq_id = str_pad(++$uniq_id, 5, '0', STR_PAD_LEFT);
+            $uniq_id = str_pad( ++$uniq_id, 5, '0', STR_PAD_LEFT);
             return $uniq_id;
         } else {
             $uniq_id = 'btb_1001';
@@ -808,14 +905,32 @@ class Management_report extends CI_Controller {
     public function get_graph_b2b() {
         $customer_id = $this->input->post("customer_id");
         $query_get_graph = $this->Management_report_model->get_graph_query($customer_id);
+        $data = ""; //view observations
         if (count($query_get_graph) > 0) {
             $month = array();
             $array_b2b = array();
             $array_b2c = array();
             $array_b2b_ratio = array();
             $array_b2c_ratio = array();
+            $data .= '<div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="example2" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Month</th>
+                                        <th>Sales B2B</th>
+                                        <th>Sales B2C</th>
+                                        <th>Ratio of sales B2B to total sales</th>
+                                        <th>Ratio of B2C to total sales</th>
+                                    </tr>
+                                </thead>
+                                <tbody>';
+            $k = 1;
             foreach ($query_get_graph as $row) {
                 $month[] = $row->month;
+                $months = $row->month;
                 $interstate_b2b = $row->interstate_b2b;
                 $interstate_b2c = $row->interstate_b2c;
                 $intrastate_b2b = $row->intrastate_b2b;
@@ -830,8 +945,29 @@ class Management_report extends CI_Controller {
                 $array_b2b[] = $b2b_data;
                 $array_b2c[] = $b2c_data;
                 $array_b2b_ratio[] = round(($b2b_data * 100) / ($b2b_data + $b2c_data));
+                $array_b2b_ratio1 = round(($b2b_data * 100) / ($b2b_data + $b2c_data));
                 $array_b2c_ratio[] = round(($b2c_data * 100) / ($b2b_data + $b2c_data));
+                $array_b2c_ratio1 = round(($b2c_data * 100) / ($b2b_data + $b2c_data));
+                $data .= '<tr>' .
+                        '<td>' . $k . '</td>' .
+                        '<td>' . $months . '</td>' .
+                        '<td>' . $b2b_data . '</td>' .
+                        '<td>' . $b2c_data . '</td>' .
+                        '<td>' . $array_b2b_ratio1 . '</td>' .
+                        '<td>' . $array_b2c_ratio1 . '</td>' .
+                        '</tr>';
+                $k++;
             }
+            $data .= '<tr>' .
+                    '<td>' . '<b>Total</b>' . '</td>' .
+                    '<td>' . '' . '</td>' .
+                    '<td>' . '<b>' . array_sum($array_b2b) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . array_sum($array_b2c) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . array_sum($array_b2b_ratio) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . array_sum($array_b2c_ratio) . '</b>' . '</td>' .
+                    '</tr>';
+            $data .= '</tbody></table></div></div></div>';
+            $data .= "<hr><h4><b>Observation of Sales B2B and B2C:</b></h4>";
             $count = count($month);
             $array_b2b1 = array();
             $array_b2c1 = array();
@@ -879,6 +1015,7 @@ class Management_report extends CI_Controller {
                 $res2 = $quer2->row();
                 $customer_name = $res2->customer_name;
             }
+            $response['data'] = $data;
             $response['message'] = "success";
             $response['array_b2b'] = $array_b2b1;  // B2B data
             $response['array_b2c'] = $array_b2c1;  // B2Cs data
@@ -889,6 +1026,7 @@ class Management_report extends CI_Controller {
             $response['max_ratio'] = $max_ratio;  // Max Ratio
             $response['customer_name'] = $customer_name;  // Customer
         } else {
+            $response['data'] = "";
             $response['message'] = "";
             $response['array_b2b'] = "";  // B2B data
             $response['array_b2c'] = "";  // B2Cs data

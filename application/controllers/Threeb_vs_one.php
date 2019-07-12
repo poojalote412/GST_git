@@ -206,6 +206,7 @@ class Threeb_vs_one extends CI_Controller {
     public function get_graph() {
         $customer_id = $this->input->post("customer_id");
         $query = $this->db->query("SELECT month,gstr1_3B,gstr1,gstr1_ammend,gstr1_difference,gstr1_cummulative from comparison_summary_all where customer_id='$customer_id' order by id desc ");
+        $data = ""; //view observations
         if ($query->num_rows() > 0) {
 
             $result = $query->result();
@@ -214,14 +215,29 @@ class Threeb_vs_one extends CI_Controller {
             $gstr_one_ammend3 = array();
             $difference4 = array();
             $cumu_difference5 = array();
-
+            $data .= '<div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="example2" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Month</th>
+                                        <th>GSTR-3B</th>
+                                        <th>GSTR-1</th>
+                                        <th>Difference</th>
+                                        <th>Cummulative Difference</th>
+                                    </tr>
+                                </thead>
+                                <tbody>';
+            $k = 1;
             foreach ($result as $row) {
                 $gstr_tb = $row->gstr1_3B;
                 $gstr_one = $row->gstr1;
                 $gstr_one_ammend = $row->gstr1_ammend;
                 $difference = $row->gstr1_difference;
                 $cumu_difference = $row->gstr1_cummulative;
-
+                $month = $row->month;
 
                 $gstr_tb1[] = $gstr_tb;
                 $gstr_one2[] = $gstr_one;
@@ -229,8 +245,27 @@ class Threeb_vs_one extends CI_Controller {
                 $difference4[] = $difference;
                 $cumu_difference5[] = $cumu_difference;
                 $months[] = $row->month;
-            }
 
+                $data .= '<tr>' .
+                        '<td>' . $k . '</td>' .
+                        '<td>' . $month . '</td>' .
+                        '<td>' . $gstr_tb . '</td>' .
+                        '<td>' . $gstr_one . '</td>' .
+                        '<td>' . $difference . '</td>' .
+                        '<td>' . $cumu_difference . '</td>' .
+                        '</tr>';
+                $k++;
+            }
+            $data .= '<tr>' .
+                    '<td>' . '<b>Total</b>' . '</td>' .
+                    '<td>' . '' . '</td>' .
+                    '<td>' . '<b>' . array_sum($gstr_tb1) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . array_sum($gstr_one2) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . array_sum($difference4) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . array_sum($cumu_difference5) . '</b>' . '</td>' .
+                    '</tr>';
+            $data .= '</tbody></table></div></div></div>';
+            $data .= "<hr><h4><b>Observation of GSTR-3B vs GSTR-1:</b></h4>";
             $abc1 = array();
             $abc2 = array();
             $abc3 = array();
@@ -269,6 +304,7 @@ class Threeb_vs_one extends CI_Controller {
             $gstr1max = $gstr1_max->gstr1_max;
             $max_value = (max($gstrtbmax, $gstr1max));
 
+            $respose['data'] = $data;
             $respose['message'] = "success";
             $respose['data_gstr3b'] = $abc1;
             $respose['data_gstr1'] = $abc2;
@@ -279,6 +315,7 @@ class Threeb_vs_one extends CI_Controller {
             $respose['difference'] = $abc4;
             $respose['cumu_difference'] = $abc5;
         } else {
+            $respose['data'] = "";
             $respose['message'] = "fail";
             $respose['data_gstr3b'] = "";
             $respose['data_gstr1'] = "";
@@ -296,7 +333,7 @@ class Threeb_vs_one extends CI_Controller {
             $data = $result->row();
             $comp_id = $data->compare_id;
             //generate user_id
-            $comp_id = str_pad( ++$comp_id, 5, '0', STR_PAD_LEFT);
+            $comp_id = str_pad(++$comp_id, 5, '0', STR_PAD_LEFT);
             return $comp_id;
         } else {
             $comp_id = 'cmpr_1001';

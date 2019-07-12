@@ -441,7 +441,7 @@ class Internal_acc_report extends CI_Controller {
             $data = $result->row();
             $turn_id = $data->tax_libility_id;
             //generate user_id
-            $turn_id = str_pad( ++$turn_id, 5, '0', STR_PAD_LEFT);
+            $turn_id = str_pad(++$turn_id, 5, '0', STR_PAD_LEFT);
             return $turn_id;
         } else {
             $turn_id = 'tax_1001';
@@ -588,7 +588,22 @@ class Internal_acc_report extends CI_Controller {
             $taxable_value = array();
             $tax_value = array();
             $tax_ratio = array();
-
+            $data = ""; //view observations
+            $data .= '<div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="example2" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Month</th>
+                                        <th>Tax Values</th>
+                                        <th>Taxable Values</th>
+                                        <th>Tax Ratio</th>
+                                    </tr>
+                                </thead>
+                                <tbody>';
+            $k = 1;
             foreach ($result as $row) {
                 $inter_state_supply = $row->inter_state_supply;
                 $intra_state_supply = $row->intra_state_supply;
@@ -599,6 +614,7 @@ class Internal_acc_report extends CI_Controller {
                 $tax_intra_state = $row->tax_intra_state;
                 $tax_debit = $row->tax_debit;
                 $tax_credit = $row->tax_credit;
+                $month = $row->month;
 
                 $taxable_val = ($inter_state_supply + $intra_state_supply + $no_gst_paid_supply + $debit_value) - ($credit_value);
                 $taxable_value[] = $taxable_val; //taxable value array
@@ -609,8 +625,31 @@ class Internal_acc_report extends CI_Controller {
 
                 $ratio = ($tax_val / $taxable_val) * 100;
                 $tax_ratio[] = round($ratio);
-            }
+                $tax_ratio1[] = ($ratio);
 
+                $data .= '<tr>' .
+                        '<td>' . $k . '</td>' .
+                        '<td>' . $month . '</td>' .
+                        '<td>' . $tax_val . '</td>' .
+                        '<td>' . $taxable_val . '</td>' .
+                        '<td>' . round($ratio) . "%" . '</td>' .
+                        '</tr>';
+                $k++;
+            }
+            $data .= '<tr>' .
+                    '<td>' . '<b>Total</b>' . '</td>' .
+                    '<td>' . '' . '</td>' .
+                    '<td>' . '<b>' . array_sum($tax_value) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . array_sum($taxable_value) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . array_sum($tax_ratio) . "%" . '</b>' . '</td>' .
+                    '</tr>';
+            $data .= '</tbody></table></div></div></div>';
+            $max_ratio = max($tax_ratio);
+            
+            $average = array_sum($tax_ratio1) / count($tax_ratio);
+            $data .= "<hr><h4><b>Observation of Tax Turnover:</b></h4>"
+                    . "<span>The average tax value to turnover is <b>" . round($average, 2) . "%</b>. </span><br>"
+                    . "<span>The tax value as <b>".$max_ratio."%</b> of taxable value which is higher than the rest.</span>";
             // loop to get graph data as per graph script requirement
             $abc1 = array();
             $abc2 = array();
@@ -655,7 +694,7 @@ class Internal_acc_report extends CI_Controller {
                 $res21 = $quer21->row();
                 $customer_name = $res21->customer_name;
             }
-
+            $respnose['data'] = $data;
             $respnose['message'] = "success";
             $respnose['taxable_value'] = $abc1;  //taxable_supply data
             $respnose['tax_value'] = $abc2; //tax value
@@ -664,6 +703,7 @@ class Internal_acc_report extends CI_Controller {
             $respnose['max_range'] = $max_range; //maximum range for graph
             $respnose['customer_name'] = $customer_name; //customer
         } else {
+            $respnose['data'] = "";
             $respnose['message'] = "";
             $respnose['taxable_supply_arr'] = "";  //taxable_supply data
         } echo json_encode($respnose);

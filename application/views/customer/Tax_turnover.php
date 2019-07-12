@@ -58,28 +58,30 @@ if (is_array($session_data)) {
                             <th>No.</th>
                             <th>Customer</th>
                             <th>View Graph</th>
+                            <th>View Observations</th>
                         </tr>
                     </thead>
                     <tbody>
 
                         <?php
 //                                    var_dump($cfo_data);
-                                    if ($tax_turnover_data !== "") {
-                                        $i = 1;
-                                        foreach ($tax_turnover_data as $row) {
-                                            ?>
-                                            <tr>
-                                                <td><?php echo $i; ?></td>
-                                                <td><?php echo $row->customer_name; ?></td>
-                                                <td><button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->customer_id; ?>');"class="btn btn-outline-primary" >View</button></td>
-                                            </tr> 
-                                            <?php
-                                            $i++;
-                                        }
-                                    } else {
-                                        
-                                    }
-                                    ?>
+                        if ($tax_turnover_data !== "") {
+                            $i = 1;
+                            foreach ($tax_turnover_data as $row) {
+                                ?>
+                                <tr>
+                                    <td><?php echo $i; ?></td>
+                                    <td><?php echo $row->customer_name; ?></td>
+                                    <td><button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->customer_id; ?>');"class="btn btn-outline-primary" >View</button></td>
+                                    <td><button type="button" name="get_records" id="get_records" data-customer_id="<?php echo $row->customer_id; ?>" data-toggle="modal" data-target="#view_value_modal"class="btn bg-maroon-gradient" ><i class="fa fa-fw fa-eye"></i></button></td>
+                                </tr> 
+                                <?php
+                                $i++;
+                            }
+                        } else {
+                            
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>
@@ -90,6 +92,32 @@ if (is_array($session_data)) {
     </section>
 
 </div>
+<!--modal for view observations-->
+<div class="modal fade" id="view_value_modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="ModalLabel">Observations</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="forms-sample" id="import_form" method="post" name="import_form" enctype="multipart/form-data">
+                    <input type="hidden" id="customer_id" name="customer_id">
+                    <div class="form-group">
+                        <div id="tax_turnover_data"></div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+</div>
 
 
 
@@ -97,10 +125,34 @@ if (is_array($session_data)) {
 <script>
     $(function () {
         $("#example1").DataTable();
+        $("#example2").DataTable();
     });
 </script>
 <script>
+//view observations modal
+    $('#view_value_modal').on('show.bs.modal', function (e) {
+        var customerid = $(e.relatedTarget).data('customer_id');
+        var customer_id = document.getElementById('customer_id').value = customerid;
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Internal_acc_report/get_graph_tax_turnover") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id},
+            success: function (result) {
+//                 alert();
+                if (result.message === "success") {
 
+                    var data = result.data;
+                    $('#tax_turnover_data').html("");
+                    $('#tax_turnover_data').html(data);
+                    $('#example2').DataTable();
+                } else {
+
+                }
+            },
+
+        });
+    });
 //function to get graph view
     function get_graph_fun(customer_id)
     {
@@ -118,7 +170,7 @@ if (is_array($session_data)) {
                     var tax_ratio = result.tax_ratio;
                     var data_month = result.month_data;
                     var max_range = result.max_range;
-                    var customer_name = "Customer Name:"+result.customer_name;
+                    var customer_name = "Customer Name:" + result.customer_name;
                     Highcharts.chart('container', {
                         chart: {
                             type: 'Combination chart'
@@ -126,7 +178,7 @@ if (is_array($session_data)) {
                         title: {
                             text: 'Tax Turnover'
                         },
-                         plotOptions: {
+                        plotOptions: {
                             column: {
                                 stacking: 'normal',
                                 pointPadding: 0.1,
@@ -175,31 +227,31 @@ if (is_array($session_data)) {
                             shared: true
                         },
                         series: [{
-                                type:'column',
+                                type: 'column',
                                 name: 'Tax Value',
                                 data: tax_value,
                                 stack: taxable_value,
                                 color: '#AA381E',
-                               tooltip: {
+                                tooltip: {
                                     valuePrefix: '₹',
                                     valueSuffix: ' M'
                                 },
-                            },{
-                                type:'column',
+                            }, {
+                                type: 'column',
                                 name: 'Taxable Value',
                                 data: taxable_value,
-                                color: '#2E24C4',
+                                color: '#4D6FB0',
                                 stack: taxable_value,
                                 tooltip: {
                                     valuePrefix: '₹',
                                     valueSuffix: ' M'
                                 },
-                            },{
+                            }, {
                                 type: 'spline',
                                 name: 'Tax ratio',
                                 data: tax_ratio,
 //                                stack: taxable_value,
-                                color: '#808080',
+                                color: '#078436',
                                 yAxis: 1,
                                 tooltip: {
                                     valueSuffix: ' %'
@@ -212,8 +264,8 @@ if (is_array($session_data)) {
                                         enableMouseTracking: false
                                     }
                                 },
-                               
-                            },]
+
+                            }, ]
                     });
                 }
             }
