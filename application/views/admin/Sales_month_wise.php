@@ -1,7 +1,7 @@
 
 <?php
 $this->load->view('customer/header');
-$this->load->view('customer/navigation');
+$this->load->view('admin/navigation');
 
 //Check user login or not using session
 
