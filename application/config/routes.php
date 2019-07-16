@@ -80,6 +80,7 @@ $route['test'] = 'Test/index';
 $route['Admin_dashboard'] = 'Admin_dashboard/index';
 $route['Cfo_dashboard_admin'] = 'Cfo_dashboard/index_admin';
 $route['Customer'] = 'Customer_admin/index';
+$route['add_customer']='Customer_admin/add_customer';
 $route['Threeb_Vs_one_admin'] = 'Threeb_vs_one/index_admin';
 $route['Threeb_vs_twoa_admin'] = 'Threeb_vs_twoa/index_admin';
 $route['Sale_state_wise_admin'] = 'Management_report/state_wise_report_admin';

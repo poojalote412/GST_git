@@ -9,46 +9,28 @@ class Customer_admin extends CI_Controller {
         parent::__construct();
 //        $this->load->model('Customer_model');
         $this->load->database();
-          $this->db2 = $this->load->database('db2',TRUE);
+         $this->load->model('Customer_model');
     }
 //
     function index() {
 //        $data['result'] = $result;
-        $this->load->view('admin/Customer_details');
+//         $result = $this->Customer_model->display_customers($customer_id);
+        
+        $query = $this->db->query("SELECT * FROM `customer_header_all` where user_type='2'");
+        if ($query->num_rows() > 0) {
+            $record = $query->result();
+            $data['result'] = $record;
+        } else {
+            $data['result'] = "";
+        }
+        $this->load->view('admin/Customer_details',$data);
     }
 
-
-        public function insert_data() {
-        
-            
-           $CustomerName=$this->input->post('cname');
-		$Address=$this->input->post('caddress');
-		$City=$this->input->post('ccity');
-            $array = array(
-                'CustomerName' => $CustomerName,
-                'Address' => $Address,
-                'City' => $City
-                
-            );
-            
- 
-//            $this->load->database('db2', TRUE);
-             $res = $this->db->insert('tbl_customer', $array);
-             $res = $this->db2->insert('tbl_customer', $array);
-       
-            $this->db->query($res);
-//             $this->db2->query($res1);
-//            echo "Records Saved Successfully";
-            
-        
-       if ($res === TRUE) {
-            $respose['message'] = "success";
-      } else {
-            $respose['message'] = "fail";
-       }echo json_encode($respose);
-    
-        
+     function add_customer() {
+//       
+        $this->load->view('admin/add_customer');
     }
+
 
 }
 
