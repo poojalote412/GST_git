@@ -473,14 +473,16 @@ class Internal_acc_report extends CI_Controller {
         $customer_id = $this->input->post("customer_id");
         $query = $this->db->query("SELECT * FROM 3b_offset_summary_all where customer_id='$customer_id'");
         $query1 = $this->db->query("SELECT tax_debit FROM monthly_summary_all where customer_id='$customer_id'");
-
+        $data = ""; //view observations
         if ($query->num_rows() > 0 && $query1->num_rows() > 0) {
             $result_outward = $query->result();
             $ress = $query1->result();
+
             foreach ($ress as $row1) {
                 $debit_tax[] = $row1->tax_debit;
             }
             foreach ($result_outward as $row) {
+                $month[] = $row->month;
                 $liabilityoutward[] = $row->outward_liability;
                 $rcm_liability[] = $row->rcb_liablity;
                 $itc_ineligible[] = $row->ineligible_itc;
@@ -495,6 +497,54 @@ class Internal_acc_report extends CI_Controller {
                 $new_net_rtc[] = $net_rtc[$m] - $debit_tax[$m] . '<br>';
             }
 
+            $data .= '<div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="example2" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Month</th>
+                                        <th>Outward Liability</th>
+                                        <th>RCM Liability</th>
+                                        <th>Ineligible ITC</th>
+                                        <th>Net ITC</th>
+                                        <th>Paid in Credit</th>
+                                        <th>Paid in Cash</th>
+                                        <th>Interest Late Fee</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>';
+            $k = 1;
+            for ($i = 0; $i < $count; $i++) {
+                $data .= '<tr>' .
+                        '<td>' . $k . '</td>' .
+                        '<td>' . $month[$i] . '</td>' .
+                        '<td>' . $liabilityoutward[$i] . '</td>' .
+                        '<td>' . $rcm_liability[$i] . '</td>' .
+                        '<td>' . $itc_ineligible[$i] . '</td>' .
+                        '<td>' . $net_rtc[$i] . '</td>' .
+                        '<td>' . $paid_credit[$i] . '</td>' .
+                        '<td>' . $paid_cash[$i] . '</td>' .
+                        '<td>' . $late_fee[$i] . '</td>' .
+                        '</tr>';
+
+                $k++;
+            }
+            $data .= '<tr>' .
+                    '<td>' . '<b>Total</b>' . '</td>' .
+                    '<td>' . '' . '</td>' .
+                    '<td>' . '<b>' . array_sum($liabilityoutward) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . array_sum($rcm_liability) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . array_sum($itc_ineligible) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . array_sum($net_rtc) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . array_sum($paid_credit) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . array_sum($paid_cash) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . array_sum($late_fee) . '</b> ' . '</td>' .
+                    '</tr>';
+            $data .= '</tbody></table></div></div></div>';
+//            $data .= "<hr><h4><b>Observation of Tax Liability:</b></h4>";
             $abc = array();
             $abc2 = array();
             $abc3 = array();
@@ -542,6 +592,7 @@ class Internal_acc_report extends CI_Controller {
 
             $respose['message'] = "success";
             $respose['data_outward'] = $abc;
+            $respose['data'] = $data;
             $respose['data_rcb'] = $abc2;
             $respose['data_inelligible'] = $abc3;
             $respose['new_net_rtc'] = $abc4;
@@ -645,11 +696,11 @@ class Internal_acc_report extends CI_Controller {
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
             $max_ratio = max($tax_ratio);
-            
+
             $average = array_sum($tax_ratio1) / count($tax_ratio);
             $data .= "<hr><h4><b>Observation of Tax Turnover:</b></h4>"
                     . "<span>The average tax value to turnover is <b>" . round($average, 2) . "%</b>. </span><br>"
-                    . "<span>The tax value as <b>".$max_ratio."%</b> of taxable value which is higher than the rest.</span>";
+                    . "<span>The tax value as <b>" . $max_ratio . "%</b> of taxable value which is higher than the rest.</span>";
             // loop to get graph data as per graph script requirement
             $abc1 = array();
             $abc2 = array();

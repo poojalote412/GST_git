@@ -22,7 +22,7 @@ class Management_report extends CI_Controller {
     }
 
     public function import_excel() { //function to get data from excel files
-        if (isset($_FILES["file_ex"]["name"]) && isset($_FILES["file_ex1"]["name"])) {
+        if (isset($_FILES["file_ex"]["name"])) {
             $path = $_FILES["file_ex"]["tmp_name"];
             $this->load->library('excel');
             $object = PHPExcel_IOFactory::load($path);
@@ -50,6 +50,7 @@ class Management_report extends CI_Controller {
             $states = array_unique($all_state); //unique array of state
             $count = count($states);
             $a1 = 0;
+            $arr_taxable_value = array();
             for ($m = 0; $m < $count; $m++) {
                 if ($m < 10) {
                     $state_new = $states[$m];
@@ -58,7 +59,7 @@ class Management_report extends CI_Controller {
                 }
 
                 $taxable_value = 0;
-                $arr_taxable_value = array();
+
 //                echo $highestRow;
                 for ($l = 8; $l <= $highestRow; $l++) { //loop to get data statewise
                     $a2 = $object->getActiveSheet()->getCell('A' . $l)->getValue();
@@ -80,21 +81,27 @@ class Management_report extends CI_Controller {
 
                 $arr_taxable_value[] = $taxable_value;
             }
-
-            $path1 = $_FILES["file_ex1"]["tmp_name"];
-            $this->load->library('excel');
-            $object1 = PHPExcel_IOFactory::load($path);
-            $worksheet1 = $object1->getActiveSheet();
-            $highestRow1 = $worksheet1->getHighestRow();
-            $highestColumn1 = $worksheet1->getHighestColumn();
-
-            $a = 'How are you?';
-
-            if (strpos($a, 'is') !== false) {
-                echo 'true';
-            } else {
-                echo 'jkdf';
+//            get array for maharashtra.
+            $taxable_value_mh = 0;
+            $arr_taxable_value_mh = array();
+            for ($l = 8; $l <= $highestRow; $l++) { //loop to get data statewise
+                $a2 = $object->getActiveSheet()->getCell('A' . $l)->getValue();
+                if ($a2 == "(4) Cr Note Details") {
+                    $a1 = 1;
+                } else if ($a2 == "(5) Dr Note Details") {
+                    $a1 = 2;
+                }
+                if ($object->getActiveSheet()->getCell('D' . $l)->getValue() == "MAHARASHTRA") {
+                    if ($a1 == 0 or $a1 == 2) {
+                        $tax_val = $object->getActiveSheet()->getCell('E' . $l)->getValue();
+                        $taxable_value_mh += $tax_val;
+                    } else if ($a1 == 1) {
+                        $tax_val = $object->getActiveSheet()->getCell('E' . $l)->getValue();
+                        $taxable_value_mh -= $tax_val;
+                    }
+                }
             }
+            $arr_taxable_value_mh[] = $taxable_value_mh;
         }
     }
 
@@ -185,13 +192,14 @@ class Management_report extends CI_Controller {
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
             $data .= "<hr><h4><b>Observation of Sales Taxable, non-taxable and Exempt:</b></h4>";
-            // loop to get graph data as per graph script requirement
+            $data .= "<span>There is variation in the ratio of sales , give us an oppurtunity to optimise purchase planning , sales incentives planning & efficiency in working capital marketing.</span>";
             $abc1 = array();
             $abc2 = array();
             $abc3 = array();
             $abc4 = array();
             $abc5 = array();
             $abc6 = array();
+            // loop to get graph data as per graph script requirement
             for ($o = 0; $o < sizeof($taxable_supply_arr); $o++) {
                 $abc1[] = $taxable_supply_arr[$o];
                 $aa1 = settype($abc1[$o], "float");
@@ -344,8 +352,8 @@ class Management_report extends CI_Controller {
                     '<td>' . '<b>' . array_sum($sales_percent_values) . '%</b> ' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
-            $max= max($sales_percent_values);
-            $min= min($sales_percent_values);
+            $max = max($sales_percent_values);
+            $min = min($sales_percent_values);
 //            echo $variation=($max-$min)/($min*100);
             $data .= "<hr><h4><b>Observation of  Sales month wise:</b></h4>";
 
@@ -893,7 +901,7 @@ class Management_report extends CI_Controller {
             $data = $result->row();
             $uniq_id = $data->unique_id;
             //generate turn_id
-            $uniq_id = str_pad( ++$uniq_id, 5, '0', STR_PAD_LEFT);
+            $uniq_id = str_pad(++$uniq_id, 5, '0', STR_PAD_LEFT);
             return $uniq_id;
         } else {
             $uniq_id = 'btb_1001';
@@ -928,6 +936,7 @@ class Management_report extends CI_Controller {
                                 </thead>
                                 <tbody>';
             $k = 1;
+            $turnover = array();
             foreach ($query_get_graph as $row) {
                 $month[] = $row->month;
                 $months = $row->month;
@@ -939,6 +948,7 @@ class Management_report extends CI_Controller {
                 $credit_b2c = $row->credit_b2c;
                 $debit_b2b = $row->debit_b2b;
                 $debit_b2c = $row->debit_b2c;
+                $turnover[] = ($row->inter_state_supply + $row->intra_state_supply + $row->no_gst_paid_supply + $row->debit_value) - (1 * $row->credit_value);
 
                 $b2b_data = ($interstate_b2b + $intrastate_b2b + $debit_b2b) - $credit_b2b;
                 $b2c_data = ($interstate_b2c + $intrastate_b2c + $debit_b2c) - $credit_b2c;
@@ -964,10 +974,18 @@ class Management_report extends CI_Controller {
                     '<td>' . '<b>' . array_sum($array_b2b) . '</b> ' . '</td>' .
                     '<td>' . '<b>' . array_sum($array_b2c) . '</b>' . '</td>' .
                     '<td>' . '<b>' . array_sum($array_b2b_ratio) . '</b>' . '</td>' .
-                    '<td>' . '<b>' . array_sum($array_b2c_ratio) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . $ttl_b2c_ratio = array_sum($array_b2c_ratio) . '</b>' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
-            $data .= "<hr><h4><b>Observation of Sales B2B and B2C:</b></h4>";
+            $total_turnover = array_sum($turnover);
+            if ($total_turnover < 15000000 && $ttl_b2c_ratio >= 90) {
+                $data .= "<hr><h4><b>Observation of Sales B2B and B2C:</b></h4>";
+                $data .= " <span>Your the turnover is less then <b>150 Lacs </b>& B2C sales is grater than <b>90%</b> , Our advise to go form composition scheme.</span>";
+            } else {
+//                $data .= "<hr><h4><b>Observation of Sales B2B and B2C:</b></h4>";
+//                $data .= " <span>Your the turnover is less then <b>150 Lacs </b>& B2C sales is grater than <b>90%</b> , Our advise to go form composition scheme.</span>";
+            }
+
             $count = count($month);
             $array_b2b1 = array();
             $array_b2c1 = array();

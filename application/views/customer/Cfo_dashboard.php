@@ -198,7 +198,6 @@ if (is_array($session_data)) {
 
             url: "<?= base_url("Cfo_dashboard/import_excel") ?>",
             type: "POST",
-
             data: new FormData(formid),
             dataType: "json",
             contentType: false,

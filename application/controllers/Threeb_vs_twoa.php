@@ -183,7 +183,7 @@ class Threeb_vs_twoa extends CI_Controller {
         }
     }
 
-    public function get_graph() {
+    public function get_graph() { //function to get graph
         $customer_id = $this->input->post("customer_id");
 
         $query = $this->db->query("SELECT month,gstr2A_3B,gstr2A_difference,gstr2A_cummulative,gstr2A FROM comparison_summary_all WHERE customer_id='$customer_id' order by id desc");
@@ -212,7 +212,7 @@ class Threeb_vs_twoa extends CI_Controller {
                                 </thead>
                                 <tbody>';
             $k = 1;
-            foreach ($result as $row) {
+            foreach ($result as $row) { //to get values
                 $gstr_tb = $row->gstr2A_3B;
                 $difference = $row->gstr2A_difference;
                 $cumu_difference = $row->gstr2A_cummulative;
@@ -236,23 +236,33 @@ class Threeb_vs_twoa extends CI_Controller {
                         '</tr>';
                 $k++;
             }
+            //to get total values
             $data .= '<tr>' .
                     '<td>' . '<b>Total</b>' . '</td>' .
                     '<td>' . '' . '</td>' .
-                    '<td>' . '<b>' . array_sum($gstr_tb1) . '</b> ' . '</td>' .
-                    '<td>' . '<b>' . array_sum($gstr2a4) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . $thb = array_sum($gstr_tb1) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . $twa = array_sum($gstr2a4) . '</b>' . '</td>' .
                     '<td>' . '<b>' . array_sum($difference2) . '</b>' . '</td>' .
                     '<td>' . '<b>' . array_sum($cumu_difference3) . '</b>' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
-            
+
             $data .= "<hr><h4><b>Observation of GSTR-3B vs GSTR-2A:</b></h4>";
+            if ($thb > $twa) {
+                $data .= '<span><b>1.</b> Either the company has taken excess credit or vendor has not recorded our purchases in his GSTR 1.<br>'
+                        . '<b>2.</b>This may lead to interest liability & penalties notices or permanent loss of credit if vendor is not informed and corrective action is not taken by such vendor.</span>';
+            } elseif ($twa > $thb) {
+                $data .= '<span><b>1.</b> Company need to check the eligibility and ineligibility of credit reflecting in GSTR 2A  & prepare a reconsilation statement accordingly.'
+                        . '</br><b>2.</b>However if there is a difference then there may the case where input tax credit has not be taken by the company on its genuine eligible input credit.</span>';
+            } else {
+                $data .= '<span>No difference.</span>';
+            }
             $abc = array();
             $abc3 = array();
             $abc4 = array();
             $abc5 = array();
 
-            for ($o = 0; $o < sizeof($gstr_tb1); $o++) {
+            for ($o = 0; $o < sizeof($gstr_tb1); $o++) { //loop to convert string data into integer
                 $abc[] = $gstr_tb1[$o];
                 $aa1 = settype($abc[$o], "float");
 
@@ -275,14 +285,14 @@ class Threeb_vs_twoa extends CI_Controller {
             $gstr1max = $gstr1_max->gstr2a_max;
             $max_value = (max($gstrtbmax, $gstr1max));
 
-            $respose['data'] = $data;
+            $respose['data'] = $data; //data of observation
             $respose['message'] = "success";
-            $respose['gstr_tb'] = $abc;
-            $respose['max'] = $max_value;
-            $respose['difference'] = $abc3;
-            $respose['cumu_difference'] = $abc4;
-            $respose['gstr2a'] = $abc5;
-            $respose['month_data'] = $months;
+            $respose['gstr_tb'] = $abc; //data of gstr 3b
+            $respose['max'] = $max_value; //max values
+            $respose['difference'] = $abc3; //difference of 3b and 2a
+            $respose['cumu_difference'] = $abc4; //cummulative difference of 3b and 2a
+            $respose['gstr2a'] = $abc5; //data of gstr2a
+            $respose['month_data'] = $months; //months
         } else {
             $respose['data'] = "";
             $respose['message'] = "fail";

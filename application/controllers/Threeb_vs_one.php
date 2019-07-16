@@ -259,13 +259,23 @@ class Threeb_vs_one extends CI_Controller {
             $data .= '<tr>' .
                     '<td>' . '<b>Total</b>' . '</td>' .
                     '<td>' . '' . '</td>' .
-                    '<td>' . '<b>' . array_sum($gstr_tb1) . '</b> ' . '</td>' .
-                    '<td>' . '<b>' . array_sum($gstr_one2) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . $ttl1 = array_sum($gstr_tb1) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . $ttl2 = array_sum($gstr_one2) . '</b>' . '</td>' .
                     '<td>' . '<b>' . array_sum($difference4) . '</b>' . '</td>' .
                     '<td>' . '<b>' . array_sum($cumu_difference5) . '</b>' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
-            $data .= "<hr><h4><b>Observation of GSTR-3B vs GSTR-1:</b></h4>";
+
+            if ($ttl1 > $ttl2) {
+                $data .= "<hr><h4><b>Observation of GSTR-3B vs GSTR-1:</b></h4>";
+                $data .= '<span><b>1.</b>Value of GSTR-3B is greater than GSTR-1 ,It may impact your vendor relationshion and they shall not get the input tax credit though you have correctly paid the tax on such sales.<br>';
+            } elseif ($ttl2 > $ttl1) {
+                $data .= "<hr><h4><b>Observation of GSTR-3B vs GSTR-1:</b></h4>";
+                $data .= '<span><b>1.</b> Value of GSTR-1 is greater than GSTR-3B ,Then it mean that output tax liability has not  been paid to govt. in full in comparision to the output tax liability reflected in sales return, this may lead to interest penalties,GST notices & also effect your gst rating leading to adverse GST scrutinies selection.<br>';
+            } else {
+                $data .= "<hr><h4><b>Observation of GSTR-3B vs GSTR-1:</b></h4>";
+                $data .= 'No difference.';
+            }
             $abc1 = array();
             $abc2 = array();
             $abc3 = array();
@@ -333,7 +343,7 @@ class Threeb_vs_one extends CI_Controller {
             $data = $result->row();
             $comp_id = $data->compare_id;
             //generate user_id
-            $comp_id = str_pad(++$comp_id, 5, '0', STR_PAD_LEFT);
+            $comp_id = str_pad( ++$comp_id, 5, '0', STR_PAD_LEFT);
             return $comp_id;
         } else {
             $comp_id = 'cmpr_1001';
