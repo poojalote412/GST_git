@@ -12,7 +12,7 @@ class Cfo_dashboard extends CI_Controller {
         $this->load->helper('url');
     }
 
-    function index() {
+    function index() { //function load data on page
         $session_data = $this->session->userdata('login_session');
         $customer_id = ($session_data['customer_id']);
         $query_get_cfo_data = $this->Cfo_model->get_data_cfo($customer_id);

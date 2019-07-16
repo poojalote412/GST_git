@@ -51,9 +51,9 @@ class Management_report extends CI_Controller {
             $count = count($states);
             $a1 = 0;
             $arr_taxable_value = array();
-            for ($m = 0; $m < $count; $m++) {
-                if ($m < 10) {
-                    $state_new = $states[$m];
+            for ($m1 = 0; $m1 < $count; $m1++) {
+                if ($m1 < $count) {
+                    $state_new = $states[$m1];
                 } else {
                     $state_new = $states[0];
                 }
@@ -80,6 +80,15 @@ class Management_report extends CI_Controller {
                 }
 
                 $arr_taxable_value[] = $taxable_value;
+            }
+            var_dump($arr_taxable_value);
+            var_dump($states);
+            exit;
+            //insert data of other states
+
+            for ($m = 0; $m < $count_of_arr; $m++) {
+
+                $quer = $this->db->query("insert into state_wise_summary_all (`customer_id`,`insert_id`,`state_name`,`taxable_value`)values ('cust_1001','insert_1001','$states[$m]','$arr_taxable_value1[$m]')");
             }
 //            get array for maharashtra.
             $taxable_value_mh = 0;

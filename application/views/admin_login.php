@@ -37,7 +37,7 @@
 
                 <form class="pt-3"  method="post" name="f_login" action="<?= base_url() ?>Gst_admin_login/admin_login" id="f_login">
                     <div class="form-group has-feedback">
-                        <input type="email" id="user_id" name="user_id" class="form-control" placeholder="Email">
+                        <input type="text" id="user_id" name="user_id" class="form-control" placeholder="Email">
                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                     </div>
                     <div class="form-group has-feedback">

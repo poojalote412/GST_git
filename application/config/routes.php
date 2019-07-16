@@ -54,6 +54,7 @@ $route['abc'] = 'welcome/aa1';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+//customer
 $route['Cust_dashboard'] = 'Gst_dashboard/index';
 $route['Cfo_dashboard'] = 'Cfo_dashboard/index';
 $route['Sale_state_wise'] = 'Management_report/state_wise_report';
@@ -73,6 +74,7 @@ $route['not_in_record'] = 'Invoice_comp_report/not_in_record_index';
 
 $route['Customer'] = 'Customer/index';
 $route['test'] = 'Test/index';
+
 //Routes for admin
 
 $route['admin_dashboard'] = 'Admin_dashboard/index';
