@@ -22,13 +22,13 @@ if (is_array($session_data)) {
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Not in 2A Records
+            Partially Match Records
             <!--<small>it all starts here</small>-->
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <!--            <li><a href="#">Examples</a></li>-->
-            <li class="active">Not in 2A Records</li>
+            <li><a href="#">Examples</a></li>
+            <li class="active">Partially Match Records</li>
         </ol>
     </section>
 
@@ -38,7 +38,7 @@ if (is_array($session_data)) {
         <!-- Default box -->
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title"><button type="button" data-target="#exampleModal-4" data-toggle="modal" class="btn btn-block btn-primary">Upload new</button></h3>
+                <h3 class="box-title">  </h3>
 
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -46,7 +46,7 @@ if (is_array($session_data)) {
                         <i class="fa fa-minus"></i></button>
                     <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
                         <i class="fa fa-times"></i></button>
-                </div>
+                </div><br>
             </div>
             <div class="box-body">
 
@@ -55,23 +55,24 @@ if (is_array($session_data)) {
                     <thead>
                         <tr>
                             <th>No.</th>
+                            <!--<th>Unique id</th>-->
                             <th>Customer</th>
-                            <th>View Records</th>
+                            <th>View Graph</th>
+                            <th>View Observations</th>
                         </tr>
                     </thead>
                     <tbody>
-
                         <?php
 //                                    var_dump($cfo_data);
-                        if ($not_in_2a_data !== "") {
+                        if ($partial_data !== "") {
                             $i = 1;
-                            foreach ($not_in_2a_data as $row) {
+                            foreach ($partial_data as $row) {
                                 ?>
                                 <tr>
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $row->customer_name; ?></td>
                                     <td>
-                                        <a type="button" class="btn btn-default" name="get_records" id="get_records" onclick="get_records_not_in_2a('<?php echo $row->customer_id; ?>');"><i class="fa fa-eye"></i> view</a>
+                                        <a type="button" class="btn btn-default" name="get_records" id="get_records" onclick="get_records_partial_match('<?php echo $row->customer_id; ?>');"><i class="fa fa-eye"></i> view</a>
                                         <!--<button type="button" name="get_records" id="get_records" onclick="get_records_not_in_2a('<?php echo $row->customer_id; ?>');"class="btn btn-app" >View</button>-->
                                     </td>
                                 </tr> 
@@ -82,6 +83,7 @@ if (is_array($session_data)) {
                             
                         }
                         ?>
+
                     </tbody>
                 </table>
             </div>
@@ -96,34 +98,32 @@ if (is_array($session_data)) {
 
 </div>
 
-<div class="modal fade" id="exampleModal-4" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="view_value_modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="ModalLabel">New message</h5>
+                <h3 class="modal-title" id="ModalLabel">Observations</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form class="forms-sample" id="import_form" method="post" name="import_form" enctype="multipart/form-data">
+                    <input type="hidden" id="customer_id" name="customer_id">
                     <div class="form-group">
-                        <label>File upload</label>
-                        <div class="input-group col-xs-6">
-                            <input type="file" class="form-control file-upload" name="file_ex" id="file_ex" required accept=".xls, .xlsx"  placeholder="Upload File1">
-                        </div><br>
+                        <div id="cfo_data"></div>
+
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" name="import" id="import" class="btn btn-success">Submit</button>
                 <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
-</div>
 
-<div class="modal fade" id="not_in_2a_data_modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+</div>
+<div class="modal fade" id="partial_records_data_modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -135,7 +135,7 @@ if (is_array($session_data)) {
             <div class="modal-body">
                 <form class="forms-sample" id="compant_form" method="post" name="company_form" enctype="multipart/form-data">
                     <input type="hidden" id="company_name" name="company_name">
-                     <input type="hidden" id="customer_id" name="customer_id">
+                    <input type="hidden" id="customer_id" name="customer_id">
                     <input type="hidden" id="insert_id" name="insert_id">
                     <div id="not_in2a_data"></div>
                 </form>
@@ -148,25 +148,42 @@ if (is_array($session_data)) {
     </div>
 </div>
 
+
 <?php $this->load->view('customer/footer'); ?>
 <script>
     $(function () {
         $("#example1").DataTable();
-    });
-    $(function () {
         $("#example2").DataTable();
-    });
-    $(function () {
-        $("#example3").DataTable();
     });
 </script>
 <script>
 
+    function get_records_partial_match(customer_id)
+    {
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Invoice_comp_report/get_table_company_partially_match") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id},
+            success: function (result) {
+                if (result.status === true) {
+                    var data = result.data;
+                    $('#company_data').html("");
+                    $('#company_data').html(data);
+                    $('#example2').DataTable();
+                } else {
+
+                }
+            },
+
+        });
+    }
     $("#import").click(function (event) {
         var formid = document.getElementById("import_form");
         event.preventDefault();
         $.ajax({
-            url: "<?= base_url("Invoice_comp_report/import_notin2a_excel") ?>",
+
+            url: "<?= base_url("Cfo_dashboard/import_excel") ?>",
             type: "POST",
             data: new FormData(formid),
             dataType: "json",
@@ -191,36 +208,108 @@ if (is_array($session_data)) {
         });
     });
 
-    function get_records_not_in_2a(customer_id)
+
+//function to get graph view
+    function get_graph_fun(customer_id)
     {
         $.ajax({
-            type: "post",
-            url: "<?= base_url("Invoice_comp_report/get_table_company") ?>",
+            type: "POST",
+            url: "<?= base_url("Cfo_dashboard/get_graph_Turnover_vs_liabality") ?>",
             dataType: "json",
             data: {customer_id: customer_id},
             success: function (result) {
-                if (result.status === true) {
-                    var data = result.data;
-                    $('#company_data').html("");
-                    $('#company_data').html(data);
-                    $('#example2').DataTable();
-                } else {
+                if (result.message === "success") {
 
+                    var data_a = result.data_turn_over;
+                    var data_liability = result.data_liability;
+                    var data_ratio = result.ratio;
+                    var data_month = result.month_data;
+                    var max_range = result.max_range;
+                    var customer_name = "Customer Name:" + result.customer_name;
+                    Highcharts.chart('container', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Turnover vs Tax Liability'
+                        },
+                        subtitle: {
+                            text: customer_name,
+                        },
+                        xAxis: {
+                            categories: data_month
+                        },
+                        yAxis: [{
+                                max: max_range,
+                                title: {
+                                    text: 'TurnOver'
+                                }
+                            }, {
+                                min: 0,
+                                max: 100,
+                                opposite: true,
+                                title: {
+                                    text: 'Ratio(in %) of tax liability to turnover'
+                                }
+                            }],
+                        legend: {
+                            shadow: false
+                        },
+                        tooltip: {
+                            shared: true
+                        },
+                        series: [{
+                                name: 'TurnOver',
+                                data: data_a,
+                                color: '#146FA7',
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                },
+                            }, {
+                                name: 'Tax Liability',
+                                data: data_liability,
+                                color: '#B8160E',
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                },
+                            }, {
+                                type: 'spline',
+                                color: '#5BCB45',
+                                name: 'Ratio',
+                                data: data_ratio,
+                                yAxis: 1,
+                                tooltip: {
+                                    valueSuffix: ' %'
+                                },
+                                plotOptions: {
+                                    spline: {
+                                        dataLabels: {
+                                            enabled: true
+                                        },
+                                        enableMouseTracking: false
+                                    }
+                                },
+                            }]
+                    });
                 }
-            },
+            }
+        }
+        );
 
-        });
     }
-    $('#not_in_2a_data_modal').on('show.bs.modal', function (e) {
+    //get modal for comapany detail
+    $('#partial_records_data_modal').on('show.bs.modal', function (e) {
         var companyname = $(e.relatedTarget).data('company_name');
         var company_name = document.getElementById('company_name').value = companyname;
-         var customerid = $(e.relatedTarget).data('customer_id');
+        var customerid = $(e.relatedTarget).data('customer_id');
         var customer_id = document.getElementById('customer_id').value = customerid;
         var insertid = $(e.relatedTarget).data('insert_id');
         var insert_id = document.getElementById('insert_id').value = insertid;
         $.ajax({
             type: "post",
-            url: "<?= base_url("Invoice_comp_report/get_not_in2a_records") ?>",
+            url: "<?= base_url("Invoice_comp_report/get_partial_records") ?>",
             dataType: "json",
             data: {company_name: company_name, customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
@@ -236,6 +325,5 @@ if (is_array($session_data)) {
 
         });
     });
-
 </script>
 

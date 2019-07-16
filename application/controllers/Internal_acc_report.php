@@ -23,7 +23,7 @@ class Internal_acc_report extends CI_Controller {
         }
         $this->load->view('customer/Internal_acc_report', $data);
     }
-    
+
     function index_admin() { //load the view page data
 //        $data['result'] = $result;
         $session_data = $this->session->userdata('login_session');
@@ -641,8 +641,7 @@ class Internal_acc_report extends CI_Controller {
         }
         $this->load->view('customer/Tax_turnover', $data);
     }
-    
-    
+
     public function tax_turnover_admin() { //load data of view page
 //        $data['result'] = $result;
         $session_data = $this->session->userdata('login_session');
@@ -786,6 +785,8 @@ class Internal_acc_report extends CI_Controller {
             $respnose['taxable_supply_arr'] = "";  //taxable_supply data
         } echo json_encode($respnose);
     }
+
+    
 
 }
 

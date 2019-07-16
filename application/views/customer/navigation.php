@@ -88,6 +88,7 @@
                 <ul class="treeview-menu">
                     <li><a href="<?php echo base_url(); ?>not_in_2a"><i class="fa fa-circle-o"></i>Not In 2A</a></li>
                     <li><a href="<?php echo base_url(); ?>not_in_record"><i class="fa fa-circle-o"></i>Not In Records</a></li>
+                    <li><a href="<?php echo base_url(); ?>partial_match"><i class="fa fa-circle-o"></i>Partially Match</a></li>
                 </ul>
             </li>
             
