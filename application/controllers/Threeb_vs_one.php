@@ -11,7 +11,7 @@ class Threeb_vs_one extends CI_Controller {
         $this->load->library('excel');
     }
 
-    function index() {
+    function index() { //load the view page data
         $session_data = $this->session->userdata('login_session');
         $customer_id = ($session_data['customer_id']);
         $query_res = $this->Threeb_vs_one_model->get_gstr1vs3b_data($customer_id);
@@ -21,6 +21,18 @@ class Threeb_vs_one extends CI_Controller {
             $data['gstr1_vs_3b_data'] = "";
         }
         $this->load->view('customer/Threeb_vs_one', $data);
+    }
+    
+     function index_admin() { //load the view page data
+        $session_data = $this->session->userdata('login_session');
+        $customer_id = ($session_data['customer_id']);
+        $query_res = $this->Threeb_vs_one_model->get_gstr1vs3b_data($customer_id);
+        if ($query_res !== FALSE) {
+            $data['gstr1_vs_3b_data'] = $query_res;
+        } else {
+            $data['gstr1_vs_3b_data'] = "";
+        }
+        $this->load->view('admin/Threeb_vs_one', $data);
     }
 
     // function to get data from excel file

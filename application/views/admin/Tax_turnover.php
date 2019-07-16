@@ -1,7 +1,8 @@
+//sale
 
 <?php
 $this->load->view('customer/header');
-$this->load->view('customer/navigation');
+$this->load->view('admin/navigation');
 
 //Check user login or not using session
 
@@ -22,13 +23,13 @@ if (is_array($session_data)) {
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Sales Month Wise 
-             <!--<small>it all starts here</small>-->
+            Tax Turnover
+            <!--<small>it all starts here</small>-->
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
             <!--            <li><a href="#">Examples</a></li>-->
-            <li class="active">Sales Month Wise</li>
+            <li class="active">Tax Turnover</li>
         </ol>
     </section>
 
@@ -64,9 +65,9 @@ if (is_array($session_data)) {
 
                         <?php
 //                                    var_dump($cfo_data);
-                        if ($month_wise_data !== "") {
+                        if ($tax_turnover_data !== "") {
                             $i = 1;
-                            foreach ($month_wise_data as $row) {
+                            foreach ($tax_turnover_data as $row) {
                                 ?>
                                 <tr>
                                     <td><?php echo $i; ?></td>
@@ -91,7 +92,7 @@ if (is_array($session_data)) {
     </section>
 
 </div>
-
+<!--modal for view observations-->
 <div class="modal fade" id="view_value_modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -105,7 +106,7 @@ if (is_array($session_data)) {
                 <form class="forms-sample" id="import_form" method="post" name="import_form" enctype="multipart/form-data">
                     <input type="hidden" id="customer_id" name="customer_id">
                     <div class="form-group">
-                        <div id="sales_monthly_data"></div>
+                        <div id="tax_turnover_data"></div>
 
                     </div>
                 </form>
@@ -118,6 +119,8 @@ if (is_array($session_data)) {
 
 </div>
 
+
+
 <?php $this->load->view('customer/footer'); ?>
 <script>
     $(function () {
@@ -126,13 +129,13 @@ if (is_array($session_data)) {
     });
 </script>
 <script>
-//view observation modal
+//view observations modal
     $('#view_value_modal').on('show.bs.modal', function (e) {
         var customerid = $(e.relatedTarget).data('customer_id');
         var customer_id = document.getElementById('customer_id').value = customerid;
         $.ajax({
             type: "post",
-            url: "<?= base_url("Management_report/get_graph_sales_month_wise") ?>",
+            url: "<?= base_url("Internal_acc_report/get_graph_tax_turnover") ?>",
             dataType: "json",
             data: {customer_id: customer_id},
             success: function (result) {
@@ -140,8 +143,8 @@ if (is_array($session_data)) {
                 if (result.message === "success") {
 
                     var data = result.data;
-                    $('#sales_monthly_data').html("");
-                    $('#sales_monthly_data').html(data);
+                    $('#tax_turnover_data').html("");
+                    $('#tax_turnover_data').html(data);
                     $('#example2').DataTable();
                 } else {
 
@@ -156,23 +159,47 @@ if (is_array($session_data)) {
 //        alert("TEsting");
         $.ajax({
             type: "POST",
-            url: "<?= base_url("Management_report/get_graph_sales_month_wise") ?>",
+            url: "<?= base_url("Internal_acc_report/get_graph_tax_turnover") ?>",
             dataType: "json",
             data: {customer_id: customer_id},
             success: function (result) {
                 if (result.message === "success") {
 
-                    var taxable_supply = result.taxable_supply_arr;
+                    var taxable_value = result.taxable_value;
+                    var tax_value = result.tax_value;
+                    var tax_ratio = result.tax_ratio;
                     var data_month = result.month_data;
                     var max_range = result.max_range;
-                    var sales_percent_values = result.sales_percent_values;
                     var customer_name = "Customer Name:" + result.customer_name;
                     Highcharts.chart('container', {
                         chart: {
-                            type: 'column'
+                            type: 'Combination chart'
                         },
                         title: {
-                            text: 'Sale Month Wise'
+                            text: 'Tax Turnover'
+                        },
+                        plotOptions: {
+                            column: {
+                                stacking: 'normal',
+                                pointPadding: 0.1,
+                                borderWidth: 0,
+
+                            },
+                            spline: {
+                                pointPadding: 0.1,
+                                borderWidth: 0
+                            },
+
+                            area: {
+                                stacking: 'normal',
+                                lineColor: '#FFFF00',
+                                lineWidth: 3,
+                                color: '#FFFF00',
+                                marker: {
+                                    lineWidth: 1,
+                                    lineColor: '#FFFF00'
+                                }
+                            }
                         },
                         subtitle: {
                             text: customer_name
@@ -183,14 +210,14 @@ if (is_array($session_data)) {
                         yAxis: [{
                                 max: max_range,
                                 title: {
-                                    text: 'Supply Values'
+                                    text: 'Tax Values'
                                 }
                             }, {
                                 min: 0,
                                 max: 100,
                                 opposite: true,
                                 title: {
-                                    text: 'Sales(in %)'
+                                    text: 'Ratio(in %)'
                                 }
                             }],
                         legend: {
@@ -201,18 +228,30 @@ if (is_array($session_data)) {
                         },
                         series: [{
                                 type: 'column',
-                                name: 'Sales Month Wise',
-                                data: taxable_supply,
-                                color: '#87CEEB',
+                                name: 'Tax Value',
+                                data: tax_value,
+                                stack: taxable_value,
+                                color: '#AA381E',
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                },
+                            }, {
+                                type: 'column',
+                                name: 'Taxable Value',
+                                data: taxable_value,
+                                color: '#4D6FB0',
+                                stack: taxable_value,
                                 tooltip: {
                                     valuePrefix: '₹',
                                     valueSuffix: ' M'
                                 },
                             }, {
                                 type: 'spline',
-                                color: '#AE72E4',
-                                name: 'Ratio of Sales',
-                                data: sales_percent_values,
+                                name: 'Tax ratio',
+                                data: tax_ratio,
+//                                stack: taxable_value,
+                                color: '#078436',
                                 yAxis: 1,
                                 tooltip: {
                                     valueSuffix: ' %'
@@ -225,6 +264,7 @@ if (is_array($session_data)) {
                                         enableMouseTracking: false
                                     }
                                 },
+
                             }, ]
                     });
                 }

@@ -12,7 +12,7 @@ class Account_report extends CI_Controller {
          $this->load->library('excel');
     }
 
-    function index() {
+    function index_customer() { //to load the view page data
 //        $data['result'] = $result;
         $session_data = $this->session->userdata('login_session');
         $customer_id = ($session_data['customer_id']);
@@ -23,6 +23,19 @@ class Account_report extends CI_Controller {
             $data['account_data'] = "";
         }
         $this->load->view('customer/Account',$data);
+    }
+    
+    function index_admin() {//to load the view page data
+//        $data['result'] = $result;
+        $session_data = $this->session->userdata('login_session');
+        $customer_id = ($session_data['customer_id']);
+        $query_res = $this->Account_model->get_data_account($customer_id);
+        if ($query_res !== FALSE) {
+            $data['account_data'] = $query_res;
+        } else {
+            $data['account_data'] = "";
+        }
+        $this->load->view('admin/Account',$data);
     }
 
       public function get_graph() {

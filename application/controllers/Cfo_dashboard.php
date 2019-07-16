@@ -12,7 +12,7 @@ class Cfo_dashboard extends CI_Controller {
         $this->load->helper('url');
     }
 
-    function index() { //function load data on page
+    function index_customer() { //function load data on page
         $session_data = $this->session->userdata('login_session');
         $customer_id = ($session_data['customer_id']);
         $query_get_cfo_data = $this->Cfo_model->get_data_cfo($customer_id);
@@ -22,6 +22,18 @@ class Cfo_dashboard extends CI_Controller {
             $data['cfo_data'] = "";
         }
         $this->load->view('customer/Cfo_dashboard', $data);
+    }
+    
+    function index_admin() { //function load data on page
+        $session_data = $this->session->userdata('login_session');
+        $customer_id = ($session_data['customer_id']);
+        $query_get_cfo_data = $this->Cfo_model->get_data_cfo($customer_id);
+        if ($query_get_cfo_data !== FALSE) {
+            $data['cfo_data'] = $query_get_cfo_data;
+        } else {
+            $data['cfo_data'] = "";
+        }
+        $this->load->view('admin/Cfo_dashboard', $data);
     }
 
     //to decrement column of excel

@@ -1,7 +1,8 @@
+//sale
 
 <?php
 $this->load->view('customer/header');
-$this->load->view('customer/navigation');
+$this->load->view('admin/navigation');
 
 //Check user login or not using session
 
@@ -22,13 +23,13 @@ if (is_array($session_data)) {
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Sales Month Wise 
-             <!--<small>it all starts here</small>-->
+            Sale Taxable,Non-Taxable & Exempt Supply
+            <!--<small>it all starts here</small>-->
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
             <!--            <li><a href="#">Examples</a></li>-->
-            <li class="active">Sales Month Wise</li>
+            <li class="active">Sale Taxable,Non-Taxable & Exempt</li>
         </ol>
     </section>
 
@@ -38,7 +39,7 @@ if (is_array($session_data)) {
         <!-- Default box -->
         <div class="box">
             <div class="box-header with-border">
-                <!--                <h3 class="box-title">Customer</h3>-->
+                <h3 class="box-title"></h3>
 
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -57,16 +58,16 @@ if (is_array($session_data)) {
                             <th>No.</th>
                             <th>Customer</th>
                             <th>View Graph</th>
-                            <th>View Observations</th>
+                            <th>View Observation</th>
                         </tr>
                     </thead>
                     <tbody>
 
                         <?php
 //                                    var_dump($cfo_data);
-                        if ($month_wise_data !== "") {
+                        if ($tax_exempt_data !== "") {
                             $i = 1;
-                            foreach ($month_wise_data as $row) {
+                            foreach ($tax_exempt_data as $row) {
                                 ?>
                                 <tr>
                                     <td><?php echo $i; ?></td>
@@ -105,7 +106,7 @@ if (is_array($session_data)) {
                 <form class="forms-sample" id="import_form" method="post" name="import_form" enctype="multipart/form-data">
                     <input type="hidden" id="customer_id" name="customer_id">
                     <div class="form-group">
-                        <div id="sales_monthly_data"></div>
+                        <div id="tax_ntax_Exempt_data"></div>
 
                     </div>
                 </form>
@@ -132,7 +133,7 @@ if (is_array($session_data)) {
         var customer_id = document.getElementById('customer_id').value = customerid;
         $.ajax({
             type: "post",
-            url: "<?= base_url("Management_report/get_graph_sales_month_wise") ?>",
+            url: "<?= base_url("Management_report/get_graph_taxable_nontx_exempt") ?>",
             dataType: "json",
             data: {customer_id: customer_id},
             success: function (result) {
@@ -140,8 +141,8 @@ if (is_array($session_data)) {
                 if (result.message === "success") {
 
                     var data = result.data;
-                    $('#sales_monthly_data').html("");
-                    $('#sales_monthly_data').html(data);
+                    $('#tax_ntax_Exempt_data').html("");
+                    $('#tax_ntax_Exempt_data').html(data);
                     $('#example2').DataTable();
                 } else {
 
@@ -153,26 +154,29 @@ if (is_array($session_data)) {
 //function to get graph view
     function get_graph_fun(customer_id)
     {
-//        alert("TEsting");
         $.ajax({
             type: "POST",
-            url: "<?= base_url("Management_report/get_graph_sales_month_wise") ?>",
+            url: "<?= base_url("Management_report/get_graph_taxable_nontx_exempt") ?>",
             dataType: "json",
             data: {customer_id: customer_id},
             success: function (result) {
                 if (result.message === "success") {
 
                     var taxable_supply = result.taxable_supply_arr;
+                    var sub_total_non_gst = result.sub_total_non_gst_arr;
+                    var sub_total_exempt = result.sub_total_exempt_arr;
+                    var ratio_taxable_supply = result.ratio_taxable_supply;
+                    var ratio_subtotal_nongst = result.ratio_subtotal_nongst;
+                    var ratio_subtotal_exempt = result.ratio_subtotal_exempt;
                     var data_month = result.month_data;
                     var max_range = result.max_range;
-                    var sales_percent_values = result.sales_percent_values;
                     var customer_name = "Customer Name:" + result.customer_name;
                     Highcharts.chart('container', {
                         chart: {
                             type: 'column'
                         },
                         title: {
-                            text: 'Sale Month Wise'
+                            text: 'Turnover vs Tax Liability'
                         },
                         subtitle: {
                             text: customer_name
@@ -190,7 +194,7 @@ if (is_array($session_data)) {
                                 max: 100,
                                 opposite: true,
                                 title: {
-                                    text: 'Sales(in %)'
+                                    text: 'Ratio(in %)'
                                 }
                             }],
                         legend: {
@@ -200,19 +204,35 @@ if (is_array($session_data)) {
                             shared: true
                         },
                         series: [{
-                                type: 'column',
-                                name: 'Sales Month Wise',
+                                name: 'Taxable Supply',
                                 data: taxable_supply,
-                                color: '#87CEEB',
+                                color: '#146FA7',
                                 tooltip: {
                                     valuePrefix: '₹',
                                     valueSuffix: ' M'
                                 },
                             }, {
+                                name: 'Exempt Supply',
+                                data: sub_total_exempt,
+                                color: '#B8160E',
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                },
+                            }, {
+                                name: 'Non-GST Supply',
+                                data: sub_total_non_gst,
+                                color: '#5BCB45',
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                },
+                            },
+                            {
                                 type: 'spline',
                                 color: '#AE72E4',
-                                name: 'Ratio of Sales',
-                                data: sales_percent_values,
+                                name: 'Ratio of Taxable supply by Total supply',
+                                data: ratio_taxable_supply,
                                 yAxis: 1,
                                 tooltip: {
                                     valueSuffix: ' %'
@@ -225,7 +245,41 @@ if (is_array($session_data)) {
                                         enableMouseTracking: false
                                     }
                                 },
-                            }, ]
+                            }, {
+                                type: 'spline',
+                                color: '#0ACAF0',
+                                name: 'Ratio of Exempt Supply by Total supply',
+                                data: ratio_subtotal_exempt,
+                                yAxis: 1,
+                                tooltip: {
+                                    valueSuffix: ' %'
+                                },
+                                plotOptions: {
+                                    spline: {
+                                        dataLabels: {
+                                            enabled: true
+                                        },
+                                        enableMouseTracking: false
+                                    }
+                                },
+                            }, {
+                                type: 'spline',
+                                color: '#FAC127',
+                                name: 'Ratio of Non-GST supply by Total supply',
+                                data: ratio_subtotal_nongst,
+                                yAxis: 1,
+                                tooltip: {
+                                    valueSuffix: ' %'
+                                },
+                                plotOptions: {
+                                    spline: {
+                                        dataLabels: {
+                                            enabled: true
+                                        },
+                                        enableMouseTracking: false
+                                    }
+                                },
+                            }]
                     });
                 }
             }

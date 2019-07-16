@@ -22,6 +22,18 @@ class Threeb_vs_twoa extends CI_Controller {
         }
         $this->load->view('customer/Threeb_vs_twoa', $data);
     }
+    
+    function index_admin() {
+        $session_data = $this->session->userdata('login_session');
+        $customer_id = ($session_data['customer_id']);
+        $query_res = $this->Threeb_vs_twoa_model->get_gstr1vs2A_data($customer_id);
+        if ($query_res !== FALSE) {
+            $data['gstr1_vs_2a_data'] = $query_res;
+        } else {
+            $data['gstr1_vs_2a_data'] = "";
+        }
+        $this->load->view('admin/Threeb_vs_twoa', $data);
+    }
 
     public function import() {
         if (isset($_FILES["file_ex"]["name"])) {

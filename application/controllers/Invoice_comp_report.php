@@ -26,6 +26,17 @@ class Invoice_comp_report extends CI_Controller {
         }
         $this->load->view('customer/Not_in_2a', $data);
     }
+    function not_in_2a_index_admin() { //function to load page of not in 2a
+        $session_data = $this->session->userdata('login_session');
+        $customer_id = ($session_data['customer_id']);
+        $query_get_cfo_data = $this->Invoice_comp_report_model->get_data($customer_id);
+        if ($query_get_cfo_data !== FALSE) {
+            $data['not_in_2a_data'] = $query_get_cfo_data;
+        } else {
+            $data['not_in_2a_data'] = "";
+        }
+        $this->load->view('admin/Not_in_2a', $data);
+    }
 
     function not_in_record_index() { //function to load page of not in records
         $session_data = $this->session->userdata('login_session');
@@ -37,6 +48,18 @@ class Invoice_comp_report extends CI_Controller {
             $data['not_in_rec_data'] = "";
         }
         $this->load->view('customer/Not_in_records', $data);
+    }
+    
+    function not_in_record_index_admin() { //function to load page of not in records
+        $session_data = $this->session->userdata('login_session');
+        $customer_id = ($session_data['customer_id']);
+        $query_get_cfo_data = $this->Invoice_comp_report_model->get_data($customer_id);
+        if ($query_get_cfo_data !== FALSE) {
+            $data['not_in_rec_data'] = $query_get_cfo_data;
+        } else {
+            $data['not_in_rec_data'] = "";
+        }
+        $this->load->view('admin/Not_in_records', $data);
     }
 
     public function import_notin2a_excel() { //function to import and insert data of reconciliation file 

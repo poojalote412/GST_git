@@ -20,6 +20,11 @@ class Management_report extends CI_Controller {
 //        $data['result'] = $result;
         $this->load->view('customer/Sale_state_wise');
     }
+    
+    function state_wise_report_admin() {
+//        $data['result'] = $result;
+        $this->load->view('admin/Sale_state_wise');
+    }
 
     public function import_excel() { //function to get data from excel files
         if (isset($_FILES["file_ex"]["name"])) {

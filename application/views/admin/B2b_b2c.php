@@ -1,7 +1,6 @@
-
 <?php
 $this->load->view('customer/header');
-$this->load->view('customer/navigation');
+$this->load->view('admin/navigation');
 
 //Check user login or not using session
 
@@ -22,13 +21,13 @@ if (is_array($session_data)) {
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Sales Month Wise 
-             <!--<small>it all starts here</small>-->
+            Sales B2B and B2Cs
+            <!--<small>it all starts here</small>-->
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
             <!--            <li><a href="#">Examples</a></li>-->
-            <li class="active">Sales Month Wise</li>
+            <li class="active">Sales B2B and B2Cs</li>
         </ol>
     </section>
 
@@ -57,22 +56,22 @@ if (is_array($session_data)) {
                             <th>No.</th>
                             <th>Customer</th>
                             <th>View Graph</th>
-                            <th>View Observations</th>
+                            <th>View Observation</th>
                         </tr>
                     </thead>
                     <tbody>
 
                         <?php
-//                                    var_dump($cfo_data);
-                        if ($month_wise_data !== "") {
+//                                    var_dump($gstr1_vs_3b_data);
+                        if ($b2b_data !== "") {
                             $i = 1;
-                            foreach ($month_wise_data as $row) {
+                            foreach ($b2b_data as $row) {
                                 ?>
                                 <tr>
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $row->customer_name; ?></td>
                                     <td><button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->customer_id; ?>');"class="btn btn-outline-primary" >View</button></td>
-                                    <td><button type="button" name="get_records" id="get_records" data-customer_id="<?php echo $row->customer_id; ?>" data-toggle="modal" data-target="#view_value_modal"class="btn bg-maroon-gradient" ><i class="fa fa-fw fa-eye"></i></button></td>
+                                     <td><button type="button" name="get_records" id="get_records" data-customer_id="<?php echo $row->customer_id; ?>" data-toggle="modal" data-target="#view_value_modal"class="btn bg-maroon-gradient" ><i class="fa fa-fw fa-eye"></i></button></td>
                                 </tr> 
                                 <?php
                                 $i++;
@@ -92,6 +91,40 @@ if (is_array($session_data)) {
 
 </div>
 
+
+
+
+<div class="modal fade" id="exampleModal-4" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLabel">New File</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="forms-sample" id="import_form" method="post" name="import_form" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>File upload</label>
+                        <input type="file" name="file_ex_b2b" id="file_ex_b2b" class="file-upload-default">
+                        <div class="input-group col-xs-12">
+                            <input type="text" class="form-control file-upload-info" name="file_ex" id="file_ex" required accept=".xls, .xlsx" disabled placeholder="Upload File">
+                            <span class="input-group-append">
+                                <button class="file-upload-browse btn btn-primary"  type="button" >Upload</button>
+                            </span>
+                        </div>
+                    </div>
+                </form><br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" name="imports" id="imports" class="btn btn-info mr-2">Submit</button>
+                <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+</div>
 <div class="modal fade" id="view_value_modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -105,7 +138,7 @@ if (is_array($session_data)) {
                 <form class="forms-sample" id="import_form" method="post" name="import_form" enctype="multipart/form-data">
                     <input type="hidden" id="customer_id" name="customer_id">
                     <div class="form-group">
-                        <div id="sales_monthly_data"></div>
+                        <div id="compare_3b1_data"></div>
 
                     </div>
                 </form>
@@ -117,7 +150,6 @@ if (is_array($session_data)) {
     </div>
 
 </div>
-
 <?php $this->load->view('customer/footer'); ?>
 <script>
     $(function () {
@@ -132,7 +164,7 @@ if (is_array($session_data)) {
         var customer_id = document.getElementById('customer_id').value = customerid;
         $.ajax({
             type: "post",
-            url: "<?= base_url("Management_report/get_graph_sales_month_wise") ?>",
+            url: "<?= base_url("Management_report/get_graph_b2b") ?>",
             dataType: "json",
             data: {customer_id: customer_id},
             success: function (result) {
@@ -140,8 +172,8 @@ if (is_array($session_data)) {
                 if (result.message === "success") {
 
                     var data = result.data;
-                    $('#sales_monthly_data').html("");
-                    $('#sales_monthly_data').html(data);
+                    $('#compare_3b1_data').html("");
+                    $('#compare_3b1_data').html(data);
                     $('#example2').DataTable();
                 } else {
 
@@ -150,29 +182,73 @@ if (is_array($session_data)) {
 
         });
     });
-//function to get graph view
+    $("#imports").click(function () {
+        var formid = document.getElementById("import_form");
+
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Management_report/import_excel_b2b") ?>",
+            dataType: "json",
+            data: new FormData(formid), //form data
+            processData: false,
+            contentType: false,
+            cache: false,
+            async: false,
+            //            data: $("#Add_UniversityStudent").serialize(),
+            success: function (result) {
+                // alert(result.error);
+                if (result.status === true) {
+                    alert('Data Submitted Successfully');
+                    // return;
+                    location.reload();
+                } else if (result.status === false) {
+                    alert('something went wrong')
+                } else {
+                    $('#' + result.id + '_error').html(result.error);
+                    $('#message').html(result.error);
+                }
+            },
+            error: function (result) {
+                //                console.log(result);
+                if (result.status === 500) {
+                    alert('Internal error: ' + result.responseText);
+                } else {
+                    alert('Unexpected error.');
+                }
+            }
+        });
+    });
+    function  remove_error(id) {
+        $('#' + id + '_error').html("");
+    }
+
+
+
+
     function get_graph_fun(customer_id)
     {
-//        alert("TEsting");
         $.ajax({
             type: "POST",
-            url: "<?= base_url("Management_report/get_graph_sales_month_wise") ?>",
+            url: "<?= base_url("Management_report/get_graph_b2b") ?>",
             dataType: "json",
             data: {customer_id: customer_id},
             success: function (result) {
                 if (result.message === "success") {
 
-                    var taxable_supply = result.taxable_supply_arr;
-                    var data_month = result.month_data;
-                    var max_range = result.max_range;
-                    var sales_percent_values = result.sales_percent_values;
+                    var array_b2b = result.array_b2b;
+                    var array_b2c = result.array_b2c;
+                    var array_b2b_ratio = result.array_b2b_ratio;
+                    var array_b2c_ratio = result.array_b2c_ratio;
+                    var max = result.max_range;
                     var customer_name = "Customer Name:" + result.customer_name;
+//                    var max_ratio = result.max_ratio;
+                    var data_month = result.month;
                     Highcharts.chart('container', {
                         chart: {
                             type: 'column'
                         },
                         title: {
-                            text: 'Sale Month Wise'
+                            text: ' Sales B2B and B2C'
                         },
                         subtitle: {
                             text: customer_name
@@ -181,16 +257,17 @@ if (is_array($session_data)) {
                             categories: data_month
                         },
                         yAxis: [{
-                                max: max_range,
+
+                                max: max,
                                 title: {
-                                    text: 'Supply Values'
+                                    text: 'Sales'
                                 }
                             }, {
-                                min: 0,
+//                                min: 0,
                                 max: 100,
                                 opposite: true,
                                 title: {
-                                    text: 'Sales(in %)'
+                                    text: 'Ratio(in %) '
                                 }
                             }],
                         legend: {
@@ -201,18 +278,27 @@ if (is_array($session_data)) {
                         },
                         series: [{
                                 type: 'column',
-                                name: 'Sales Month Wise',
-                                data: taxable_supply,
-                                color: '#87CEEB',
+                                name: 'Sale B2B',
+                                data: array_b2b,
+                                color: '#146FA7',
                                 tooltip: {
                                     valuePrefix: '₹',
                                     valueSuffix: ' M'
-                                },
+                                }
+                            }, {
+                                type: 'column',
+                                name: 'Sale B2C',
+                                data: array_b2c,
+                                color: '#B8160E',
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                }
                             }, {
                                 type: 'spline',
-                                color: '#AE72E4',
-                                name: 'Ratio of Sales',
-                                data: sales_percent_values,
+                                color: '#5BCB45',
+                                name: 'Ratio of sales B2B to total sales',
+                                data: array_b2b_ratio,
                                 yAxis: 1,
                                 tooltip: {
                                     valueSuffix: ' %'
@@ -224,14 +310,35 @@ if (is_array($session_data)) {
                                         },
                                         enableMouseTracking: false
                                     }
+                                }
+                            }, {
+                                type: 'spline',
+                                color: '#B596E7',
+                                name: 'Ratio of B2C to total sales',
+                                data: array_b2c_ratio,
+                                yAxis: 1,
+                                tooltip: {
+                                    valueSuffix: ' %'
                                 },
-                            }, ]
+                                plotOptions: {
+                                    spline: {
+                                        dataLabels: {
+                                            enabled: true
+                                        },
+                                        enableMouseTracking: false
+                                    }
+                                }
+                            }]
                     });
                 }
             }
-        }
-        );
+        });
 
     }
+
+
 </script>
+
+
+
 

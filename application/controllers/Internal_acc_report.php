@@ -11,7 +11,7 @@ class Internal_acc_report extends CI_Controller {
         $this->load->model('Cfo_model');
     }
 
-    function index() {
+    function index() { //load the view page data
 //        $data['result'] = $result;
         $session_data = $this->session->userdata('login_session');
         $customer_id = ($session_data['customer_id']);
@@ -22,6 +22,19 @@ class Internal_acc_report extends CI_Controller {
             $data['tax_data'] = "";
         }
         $this->load->view('customer/Internal_acc_report', $data);
+    }
+    
+    function index_admin() { //load the view page data
+//        $data['result'] = $result;
+        $session_data = $this->session->userdata('login_session');
+        $customer_id = ($session_data['customer_id']);
+        $query_get_data = $this->Internal_acc_report_model->get_data_taxliability($customer_id);
+        if ($query_get_data !== FALSE) {
+            $data['tax_data'] = $query_get_data;
+        } else {
+            $data['tax_data'] = "";
+        }
+        $this->load->view('admin/Internal_acc_report', $data);
     }
 
     public function import_excel() {
@@ -616,7 +629,7 @@ class Internal_acc_report extends CI_Controller {
 
     //Graph for tax turnover
 
-    public function tax_turnover() {
+    public function tax_turnover() { //load data of view page
 //        $data['result'] = $result;
         $session_data = $this->session->userdata('login_session');
         $customer_id = ($session_data['customer_id']);
@@ -627,6 +640,20 @@ class Internal_acc_report extends CI_Controller {
             $data['tax_turnover_data'] = "";
         }
         $this->load->view('customer/Tax_turnover', $data);
+    }
+    
+    
+    public function tax_turnover_admin() { //load data of view page
+//        $data['result'] = $result;
+        $session_data = $this->session->userdata('login_session');
+        $customer_id = ($session_data['customer_id']);
+        $query_get_cfo_data = $this->Cfo_model->get_data_cfo($customer_id);
+        if ($query_get_cfo_data !== FALSE) {
+            $data['tax_turnover_data'] = $query_get_cfo_data;
+        } else {
+            $data['tax_turnover_data'] = "";
+        }
+        $this->load->view('admin/Tax_turnover', $data);
     }
 
     //get graph function for tax turnover

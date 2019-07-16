@@ -77,4 +77,19 @@ $route['test'] = 'Test/index';
 
 //Routes for admin
 
-$route['admin_dashboard'] = 'Admin_dashboard/index';
+$route['Admin_dashboard'] = 'Admin_dashboard/index';
+$route['Cfo_dashboard_admin'] = 'Cfo_dashboard/index_admin';
+$route['Customer'] = 'Customer_admin/index';
+$route['Threeb_Vs_one_admin'] = 'Threeb_vs_one/index_admin';
+$route['Threeb_vs_twoa_admin'] = 'Threeb_vs_twoa/index_admin';
+$route['Sale_state_wise_admin'] = 'Management_report/state_wise_report_admin';
+$route['Sale_taxable_nontaxable_admin'] = 'Management_report/sale_taxable_nontaxable_admin'; //sale_taxable_nontaxable and exempt route
+$route['Sale_month_wise_admin'] = 'Management_report/sale_month_wise_admin';
+$route['Sale_b2b_b2c_admin'] = 'Management_report/Sale_b2b_b2c_admin';
+$route['Account_admin'] = 'Account_report/index_admin';
+$route['TurnoverVsTaxability_admin'] = 'Internal_acc_report/index_admin';
+$route['Tax_turnover_admin'] = 'Internal_acc_report/tax_turnover_admin';
+$route['not_in_2a_admin'] = 'Invoice_comp_report/not_in_2a_index_admin';
+$route['not_in_record_admin'] = 'Invoice_comp_report/not_in_record_index_admin';
+$route['GST_Logout_admin'] = 'Gst_dashboard/index_admin';
+
