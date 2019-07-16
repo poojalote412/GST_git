@@ -38,8 +38,8 @@ if (is_array($session_data)) {
         <!-- Default box -->
         <div class="box">
             <div class="box-header with-border">
-                                <h3 class="box-title"><button type="button" data-target="#exampleModal-4" data-toggle="modal" class="btn btn-block btn-primary">Upload new</button></h3>
-                
+                <h3 class="box-title"><button type="button" data-target="#exampleModal-4" data-toggle="modal" class="btn btn-block btn-primary">Upload new</button></h3>
+
 
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -63,7 +63,26 @@ if (is_array($session_data)) {
                         </tr>
                     </thead>
                     <tbody>
-
+                        <?php
+//                                    var_dump($cfo_data);
+                        if ($loc_data !== "") {
+                            $i = 1;
+                            foreach ($loc_data as $row) {
+                                ?>
+                                <tr>
+                                    <td><?php echo $i; ?></td>
+                                    <td><?php echo $row->customer_name; ?></td>
+                                    <!--<td>ANAND RATHI GLOBAL FINANCE LIMITED 2017-18</td>-->
+                                    <td><button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->customer_id; ?>');"class="btn btn-outline-primary" >View</button></td>
+                                    <td><button type="button" name="get_records" id="get_records" data-customer_id="<?php echo $row->customer_id; ?>" data-toggle="modal" data-target="#view_value_modal"class="btn bg-maroon-gradient" ><i class="fa fa-fw fa-eye"></i></button></td>
+                                </tr> 
+                                <?php
+                                $i++;
+                            }
+                        } else {
+                            
+                        }
+                        ?>
 
                     </tbody>
                 </table>
@@ -112,7 +131,7 @@ if (is_array($session_data)) {
                 </button>
             </div>
             <div class="modal-body">
-                
+
                 <form class="forms-sample" id="import_form" method="post" name="import_form" enctype="multipart/form-data">
                     <div class="form-group">
                         <label>File upload</label>
@@ -163,7 +182,7 @@ if (is_array($session_data)) {
 //
 //        });
 //    });
-    
+
     $("#import1").click(function (event) {
         var formid = document.getElementById("import_form");
         event.preventDefault();

@@ -17,8 +17,14 @@ class Management_report extends CI_Controller {
     }
 
     function state_wise_report() {
-//        $data['result'] = $result;
-        $this->load->view('customer/Sale_state_wise');
+        $session_data = $this->session->userdata('login_session');
+        $customer_id = ($session_data['customer_id']);
+        $query_get_cfo_data = $this->Cfo_model->get_data_cfo($customer_id);
+        if ($query_get_cfo_data !== FALSE) {
+            $data['loc_data'] = $query_get_cfo_data;
+        } else {
+            $data['loc_data'] = "";
+        }
     }
 
     public function import_excel() { //function to get data from excel files
@@ -47,12 +53,13 @@ class Management_report extends CI_Controller {
             for ($k = 8; $k < $total_row_num; $k++) { //loop get state data
                 $all_state[] = $object->getActiveSheet()->getCell('D' . $k)->getValue();
             }
-            $states = array_unique($all_state); //unique array of state
+            $states1 = array_unique($all_state); //unique array of state
+            $states = array_values($states1); //change array indexes
             $count = count($states);
             $a1 = 0;
             $arr_taxable_value = array();
             for ($m1 = 0; $m1 < $count; $m1++) {
-                if ($m1 < $count) {
+                if ($m1 < ($count)) {
                     $state_new = $states[$m1];
                 } else {
                     $state_new = $states[0];
@@ -81,18 +88,15 @@ class Management_report extends CI_Controller {
 
                 $arr_taxable_value[] = $taxable_value;
             }
-            var_dump($arr_taxable_value);
-            var_dump($states);
-            exit;
             //insert data of other states
 
-            for ($m = 0; $m < $count_of_arr; $m++) {
+            for ($m = 0; $m < $count; $m++) {
 
-                $quer = $this->db->query("insert into state_wise_summary_all (`customer_id`,`insert_id`,`state_name`,`taxable_value`)values ('cust_1001','insert_1001','$states[$m]','$arr_taxable_value1[$m]')");
+                $quer = $this->db->query("insert into state_wise_summary_all (`customer_id`,`insert_id`,`state_name`,`taxable_value`)values ('cust_1001','insert_1001','$states[$m]','$arr_taxable_value[$m]')");
             }
 //            get array for maharashtra.
             $taxable_value_mh = 0;
-            $arr_taxable_value_mh = array();
+//            $arr_taxable_value_mh = array();
             for ($l = 8; $l <= $highestRow; $l++) { //loop to get data statewise
                 $a2 = $object->getActiveSheet()->getCell('A' . $l)->getValue();
                 if ($a2 == "(4) Cr Note Details") {
@@ -110,8 +114,11 @@ class Management_report extends CI_Controller {
                     }
                 }
             }
-            $arr_taxable_value_mh[] = $taxable_value_mh;
+            $taxable_value_mh = $taxable_value_mh;
         }
+        //insert data of maharashtra
+
+        $quer = $this->db->query("insert into state_wise_summary_all (`customer_id`,`insert_id`,`state_name`,`taxable_value`)values ('cust_1001','insert_1001','MAHARASHTRA','$taxable_value_mh')");
     }
 
     // function taxable non taxable and exempt page load
@@ -910,7 +917,7 @@ class Management_report extends CI_Controller {
             $data = $result->row();
             $uniq_id = $data->unique_id;
             //generate turn_id
-            $uniq_id = str_pad(++$uniq_id, 5, '0', STR_PAD_LEFT);
+            $uniq_id = str_pad( ++$uniq_id, 5, '0', STR_PAD_LEFT);
             return $uniq_id;
         } else {
             $uniq_id = 'btb_1001';
