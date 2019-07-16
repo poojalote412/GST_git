@@ -135,6 +135,8 @@ if (is_array($session_data)) {
             <div class="modal-body">
                 <form class="forms-sample" id="compant_form" method="post" name="company_form" enctype="multipart/form-data">
                     <input type="hidden" id="company_name" name="company_name">
+                    <input type="hidden" id="customer_id" name="customer_id">
+                    <input type="hidden" id="insert_id" name="insert_id">
                     <div id="not_in2a_data"></div>
                 </form>
             </div>
@@ -154,7 +156,7 @@ if (is_array($session_data)) {
     $(function () {
         $("#example2").DataTable();
     });
-     $(function () {
+    $(function () {
         $("#example3").DataTable();
     });
 </script>
@@ -212,11 +214,15 @@ if (is_array($session_data)) {
     $('#not_in_rec_data_modal').on('show.bs.modal', function (e) {
         var companyname = $(e.relatedTarget).data('company_name');
         var company_name = document.getElementById('company_name').value = companyname;
+        var customerid = $(e.relatedTarget).data('customer_id');
+        var customer_id = document.getElementById('customer_id').value = customerid;
+        var insertid = $(e.relatedTarget).data('insert_id');
+        var insert_id = document.getElementById('insert_id').value = insertid;
         $.ajax({
             type: "post",
             url: "<?= base_url("Invoice_comp_report/get_not_inrec_records") ?>",
             dataType: "json",
-            data: {company_name: company_name},
+            data: {company_name: company_name, customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
                 if (result.status === true) {
                     var data = result.data;
