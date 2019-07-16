@@ -95,7 +95,7 @@ if (is_array($session_data)) {
 
 </div>
 
-<!--<div class="modal fade" id="view_value_modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+<div class="modal fade" id="view_value_modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -108,7 +108,7 @@ if (is_array($session_data)) {
                 <form class="forms-sample" id="import_form" method="post" name="import_form" enctype="multipart/form-data">
                     <input type="hidden" id="customer_id" name="customer_id">
                     <div class="form-group">
-                        <div id="cfo_data"></div>
+                        <div id="location_data"></div>
 
                     </div>
                 </form>
@@ -119,7 +119,7 @@ if (is_array($session_data)) {
         </div>
     </div>
 
-</div>-->
+</div>
 
 <div class="modal fade" id="exampleModal-4" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -159,29 +159,29 @@ if (is_array($session_data)) {
     });
 </script>
 <script>
-//    $('#view_value_modal').on('show.bs.modal', function (e) {
-//        var customerid = $(e.relatedTarget).data('customer_id');
-//        var customer_id = document.getElementById('customer_id').value = customerid;
-//        $.ajax({
-//            type: "post",
-//            url: "<?= base_url("Cfo_dashboard/get_graph_Turnover_vs_liabality") ?>",
-//            dataType: "json",
-//            data: {customer_id: customer_id},
-//            success: function (result) {
-////                 alert();
-//                if (result.message === "success") {
-//
-//                    var data = result.data;
-//                    $('#cfo_data').html("");
-//                    $('#cfo_data').html(data);
-//                    $('#example2').DataTable();
-//                } else {
-//
-//                }
-//            },
-//
-//        });
-//    });
+    $('#view_value_modal').on('show.bs.modal', function (e) {
+        var customerid = $(e.relatedTarget).data('customer_id');
+        var customer_id = document.getElementById('customer_id').value = customerid;
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Management_report/get_graph_state_wise") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id},
+            success: function (result) {
+//                 alert();
+                if (result.message === "success") {
+
+                    var data = result.data;
+                    $('#location_data').html("");
+                    $('#location_data').html(data);
+                    $('#example2').DataTable();
+                } else {
+
+                }
+            },
+
+        });
+    });
 
     $("#import1").click(function (event) {
         var formid = document.getElementById("import_form");
@@ -214,95 +214,60 @@ if (is_array($session_data)) {
     });
 
 
-//function to get graph view
-//    function get_graph_fun(customer_id)
-//    {
-//        $.ajax({
-//            type: "POST",
-//            url: "<?= base_url("Cfo_dashboard/get_graph_Turnover_vs_liabality") ?>",
-//            dataType: "json",
-//            data: {customer_id: customer_id},
-//            success: function (result) {
-//                if (result.message === "success") {
-//
-//                    var data_a = result.data_turn_over;
-//                    var data_liability = result.data_liability;
-//                    var data_ratio = result.ratio;
-//                    var data_month = result.month_data;
-//                    var max_range = result.max_range;
-//                    var customer_name = "Customer Name:" + result.customer_name;
-//                    Highcharts.chart('container', {
-//                        chart: {
-//                            type: 'column'
-//                        },
-//                        title: {
-//                            text: 'Turnover vs Tax Liability'
-//                        },
-//                        subtitle: {
-//                            text: customer_name,
-//                        },
-//                        xAxis: {
-//                            categories: data_month
-//                        },
-//                        yAxis: [{
-//                                max: max_range,
-//                                title: {
-//                                    text: 'TurnOver'
-//                                }
-//                            }, {
-//                                min: 0,
-//                                max: 100,
-//                                opposite: true,
-//                                title: {
-//                                    text: 'Ratio(in %) of tax liability to turnover'
-//                                }
-//                            }],
-//                        legend: {
-//                            shadow: false
-//                        },
-//                        tooltip: {
-//                            shared: true
-//                        },
-//                        series: [{
-//                                name: 'TurnOver',
-//                                data: data_a,
-//                                color: '#146FA7',
-//                                tooltip: {
-//                                    valuePrefix: '₹',
-//                                    valueSuffix: ' M'
-//                                },
-//                            }, {
-//                                name: 'Tax Liability',
-//                                data: data_liability,
-//                                color: '#B8160E',
-//                                tooltip: {
-//                                    valuePrefix: '₹',
-//                                    valueSuffix: ' M'
-//                                },
-//                            }, {
-//                                type: 'spline',
-//                                color: '#5BCB45',
-//                                name: 'Ratio',
-//                                data: data_ratio,
-//                                yAxis: 1,
-//                                tooltip: {
-//                                    valueSuffix: ' %'
-//                                },
-//                                plotOptions: {
-//                                    spline: {
-//                                        dataLabels: {
-//                                            enabled: true
-//                                        },
-//                                        enableMouseTracking: false
-//                                    }
-//                                },
-//                            }]
-//                    });
-//                }
-//            }
-//        }
-//        );
-//
-//    }
+    //function to get graph view
+    function get_graph_fun(customer_id)
+    {
+        $.ajax({
+            type: "POST",
+            url: "<?= base_url("Management_report/get_graph_state_wise") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id},
+            success: function (result) {
+                if (result.message === "success") {
+
+                    var data_a = result.taxable_value;
+                    var max_range = result.data_liability;
+                    var data_state = result.state;
+                    var customer_name = "Customer Name:" + result.customer_name;
+                    Highcharts.chart('container', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Sales Satewise'
+                        },
+                        subtitle: {
+                            text: customer_name,
+                        },
+                        xAxis: {
+                            categories: data_state
+                        },
+                        yAxis: [{
+                                max: max_range,
+                                title: {
+                                    text: 'Taxable Values'
+                                }
+                            }, ],
+                        legend: {
+                            shadow: false
+                        },
+                        tooltip: {
+                            shared: true
+                        },
+                        series: [{
+                                name: 'States',
+                                data: data_a,
+                                color: '#146FA7',
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                },
+                            }]
+                    });
+                }
+            }
+        }
+        );
+
+    }
 </script>
 
