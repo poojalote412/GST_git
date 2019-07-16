@@ -17,8 +17,15 @@ class Management_report extends CI_Controller {
     }
 
     function state_wise_report() {
-//        $data['result'] = $result;
-        $this->load->view('customer/Sale_state_wise');
+        $session_data = $this->session->userdata('login_session');
+        $customer_id = ($session_data['customer_id']);
+        $query_get_cfo_data = $this->Cfo_model->get_data_cfo($customer_id);
+        if ($query_get_cfo_data !== FALSE) {
+            $data['loc_data'] = $query_get_cfo_data;
+        } else {
+            $data['loc_data'] = "";
+        }
+        $this->load->view('customer/Sale_state_wise', $data);
     }
     
     function state_wise_report_admin() {
@@ -52,12 +59,13 @@ class Management_report extends CI_Controller {
             for ($k = 8; $k < $total_row_num; $k++) { //loop get state data
                 $all_state[] = $object->getActiveSheet()->getCell('D' . $k)->getValue();
             }
-            $states = array_unique($all_state); //unique array of state
+            $states1 = array_unique($all_state); //unique array of state
+            $states = array_values($states1); //change array indexes
             $count = count($states);
             $a1 = 0;
             $arr_taxable_value = array();
             for ($m1 = 0; $m1 < $count; $m1++) {
-                if ($m1 < $count) {
+                if ($m1 < ($count)) {
                     $state_new = $states[$m1];
                 } else {
                     $state_new = $states[0];
@@ -86,18 +94,15 @@ class Management_report extends CI_Controller {
 
                 $arr_taxable_value[] = $taxable_value;
             }
-            var_dump($arr_taxable_value);
-            var_dump($states);
-            exit;
             //insert data of other states
 
-            for ($m = 0; $m < $count_of_arr; $m++) {
+            for ($m = 0; $m < $count; $m++) {
 
-                $quer = $this->db->query("insert into state_wise_summary_all (`customer_id`,`insert_id`,`state_name`,`taxable_value`)values ('cust_1001','insert_1001','$states[$m]','$arr_taxable_value1[$m]')");
+                $quer = $this->db->query("insert into state_wise_summary_all (`customer_id`,`insert_id`,`state_name`,`taxable_value`)values ('cust_1001','insert_1001','$states[$m]','$arr_taxable_value[$m]')");
             }
 //            get array for maharashtra.
             $taxable_value_mh = 0;
-            $arr_taxable_value_mh = array();
+//            $arr_taxable_value_mh = array();
             for ($l = 8; $l <= $highestRow; $l++) { //loop to get data statewise
                 $a2 = $object->getActiveSheet()->getCell('A' . $l)->getValue();
                 if ($a2 == "(4) Cr Note Details") {
@@ -115,8 +120,100 @@ class Management_report extends CI_Controller {
                     }
                 }
             }
-            $arr_taxable_value_mh[] = $taxable_value_mh;
+            $taxable_value_mh = $taxable_value_mh;
         }
+        //insert data of maharashtra
+
+        $quer = $this->db->query("insert into state_wise_summary_all (`customer_id`,`insert_id`,`state_name`,`taxable_value`)values ('cust_1001','insert_1001','MAHARASHTRA','$taxable_value_mh')");
+    }
+
+    //functio to get graph state wise
+    public function get_graph_state_wise() {
+        $customer_id = $this->input->post("customer_id");
+        $query = $this->db->query("SELECT * from state_wise_summary_all where customer_id='$customer_id'");
+        $data = ""; //view observations
+        $state_arr = array();
+        $taxble_val_arr = array();
+
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+
+            $data .= '<div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="example2" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>State</th>
+                                        <th>Taxable Values</th>
+                                    </tr>
+                                </thead>
+                                <tbody>';
+            $k = 1;
+            foreach ($result as $row) {
+                $state = $row->state_name;
+                $state_arr[] = $row->state_name;
+                $taxble_val_arr[] = $row->taxable_value;
+                $taxble_val = $row->taxable_value;
+                $data .= '<tr>' .
+                        '<td>' . $k . '</td>' .
+                        '<td>' . $state . '</td>' .
+                        '<td>' . $taxble_val . '</td>' .
+                        '</tr>';
+                $k++;
+            }
+
+            $data .= '<tr>' .
+                    '<td>' . '<b>Total</b>' . '</td>' .
+                    '<td>' . '' . '</td>' .
+                    '<td>' . '<b>' . array_sum($taxble_val_arr) . '</b> ' . '</td>' .
+                    '</tr>';
+            $data .= '</tbody></table></div></div></div>';
+            //            get highest 3 records
+            $qrr = $this->db->query("SELECT * FROM state_wise_summary_all where customer_id='$customer_id' ORDER BY `taxable_value` DESC LIMIT 3 ");
+            $resss = $qrr->result();
+            $data .= "<div><h4><b>Top Three State: </b></h4>";
+            $g = 1;
+            $arr = array();
+            foreach ($resss as $roww) {
+                $data .= $g . ". <b><span style='color:#4D52B0'>" . $roww->state_name . "</span></b> - ₹ " . $roww->taxable_value . "<br></div>";
+                $g++;
+                $arr[] = $roww->taxable_value;
+            }
+            $total = array_sum($taxble_val_arr);
+            $top3 = array_sum($arr);
+            $top_3_state = round(($top3 / $total) * 100, 2);
+            $data .= "<h4><b>".$top_3_state ." </b> % of total sales comes from top 3 states.</h4>";
+            $state = array();
+            $taxable_value = array();
+            for ($o = 0; $o < sizeof($taxble_val_arr); $o++) {
+
+                $taxable_value[] = $taxble_val_arr[$o];
+                $aa2 = settype($taxable_value[$o], "float");
+            }
+            $max = max($taxable_value);
+            //function to get customer name
+            $quer21 = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id'");
+
+            if ($quer21->num_rows() > 0) {
+                $res2 = $quer21->row();
+                $customer_name = $res2->customer_name;
+            }
+
+
+            $respnose['customer_name'] = $customer_name; //customer
+            $respnose['max'] = $max; //$max
+            $respnose['message'] = "success";
+            $respnose['taxable_value'] = $taxable_value;  //taxable value data
+            $respnose['state'] = $state_arr;  //state data
+            $respnose['data'] = $data; //table view data
+        } else {
+            $respnose['message'] = "";
+            $respnose['taxable_value'] = "";  //taxable value data
+            $respnose['state'] = "";  //state data
+            $respnose['data'] = "";
+        }echo json_encode($respnose);
     }
 
     // function taxable non taxable and exempt page load
@@ -915,7 +1012,7 @@ class Management_report extends CI_Controller {
             $data = $result->row();
             $uniq_id = $data->unique_id;
             //generate turn_id
-            $uniq_id = str_pad(++$uniq_id, 5, '0', STR_PAD_LEFT);
+            $uniq_id = str_pad( ++$uniq_id, 5, '0', STR_PAD_LEFT);
             return $uniq_id;
         } else {
             $uniq_id = 'btb_1001';
