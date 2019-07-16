@@ -8,13 +8,90 @@ class Account_report extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->helper('url');
+         $this->load->model('Account_model');
+         $this->load->library('excel');
     }
 
     function index() {
 //        $data['result'] = $result;
-        $this->load->view('customer/Account');
+        $session_data = $this->session->userdata('login_session');
+        $customer_id = ($session_data['customer_id']);
+        $query_res = $this->Account_model->get_data_account($customer_id);
+        if ($query_res !== FALSE) {
+            $data['account_data'] = $query_res;
+        } else {
+            $data['account_data'] = "";
+        }
+        $this->load->view('customer/Account',$data);
     }
 
+      public function get_graph() {
+        $customer_id = $this->input->post("customer_id");
+
+        $query = $this->db->query("SELECT month,late_fees,due_date,filling_date FROM 3b_offset_summary_all WHERE customer_id='$customer_id' order by id desc");
+        $data = ""; //view observations
+        if ($query->num_rows() > 0) {
+
+            $result = $query->result();
+//            $late_fees = array();
+//            $due_date = array();
+//            $filling_date = array();
+            
+            $months = array();
+            $data .= '<div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="example2" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Month</th>
+                                        <th>Late Fees</th>
+                                        <th>Due Date</th>
+                                        <th>Filling Date</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>';
+            $k = 1;
+            foreach ($result as $row) {
+                 $months = $row->month;
+                $late_fees = $row->late_fees;
+                $due_date = $row->due_date;
+                $filling_date = $row->filling_date;
+                
+
+//                //arrays
+//                $late_fees[] = $late_fees;
+//                $due_date[] = $due_date;
+//                $filling_date[] = $filling_date;
+//                $months[] = $row->month;
+
+                $data .= '<tr>' .
+                        '<td>' . $k . '</td>' .
+                        '<td>' . $months . '</td>' .
+                        '<td>' . $late_fees . '</td>' .
+                        '<td>' . $due_date . '</td>' .
+                        '<td>' . $filling_date . '</td>' .
+                      
+                        '</tr>';
+                $k++;
+                '</tbody></table></div></div></div>';
+                
+        }
+        
+        
+        $respose['data'] = $data;
+         $respose['message'] = "success";
+        
+        }else{
+             $respose['data'] = "";
+            $respose['message'] = "fail";
+        }
+        echo json_encode($respose);
+      }
+      
+      
     public function import() {
         if (isset($_FILES["file_ex"]["name"])) {
             $path = $_FILES["file_ex"]["tmp_name"];
