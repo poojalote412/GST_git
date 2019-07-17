@@ -72,6 +72,7 @@ $route['not_in_2a'] = 'Invoice_comp_report/not_in_2a_index';
 $route['not_in_record'] = 'Invoice_comp_report/not_in_record_index';
 $route['partial_match'] = 'Invoice_comp_report/partial_match_index';
 $route['eligible_ineligible_itc'] = 'Internal_acc_report/eligible_ineligible_itc_index';
+$route['gst_payable_vs_cash'] = 'Internal_acc_report/gst_payable_vs_cash_index';
 //$route['Cust_login']='GST_Dashboard/employee_dashboard';
 
 $route['Customer'] = 'Customer/index';

@@ -454,7 +454,7 @@ class Internal_acc_report extends CI_Controller {
             $data = $result->row();
             $turn_id = $data->tax_libility_id;
             //generate user_id
-            $turn_id = str_pad(++$turn_id, 5, '0', STR_PAD_LEFT);
+            $turn_id = str_pad( ++$turn_id, 5, '0', STR_PAD_LEFT);
             return $turn_id;
         } else {
             $turn_id = 'tax_1001';
@@ -856,7 +856,7 @@ class Internal_acc_report extends CI_Controller {
                     '<td>' . '' . '</td>' .
                     '<td>' . '<b>' . array_sum($ineligible_itc_arr) . '</b> ' . '</td>' .
                     '<td>' . '<b>' . array_sum($net_itc_arr) . '</b>' . '</td>' .
-                    '<td>' . '<b>' . "". '</b>' . '</td>' .
+                    '<td>' . '<b>' . "" . '</b>' . '</td>' .
                     '<td>' . '<b>' . "" . '</b>' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
@@ -908,6 +908,142 @@ class Internal_acc_report extends CI_Controller {
             $respnose['net_itc'] = $abc2; //tax value
             $respnose['ineligible_ratio'] = $abc3;
             $respnose['eligible_ratio'] = $abc4;
+            $respnose['month_data'] = $months; //months 
+            $respnose['max_range'] = $max_range; //maximum range for graph
+            $respnose['customer_name'] = $customer_name; //customer
+        } else {
+            $respnose['data'] = "";
+            $respnose['message'] = "";
+            $respnose['taxable_supply_arr'] = "";  //taxable_supply data
+        } echo json_encode($respnose);
+    }
+
+    public function gst_payable_vs_cash_index() { //function load page gst payable vs cash
+        $session_data = $this->session->userdata('login_session');
+        $customer_id = ($session_data['customer_id']);
+        $query_get_data = $this->Internal_acc_report_model->get_data_taxliability($customer_id);
+        if ($query_get_data !== FALSE) {
+            $data['gst_payable_data'] = $query_get_data;
+        } else {
+            $data['gst_payable_data'] = "";
+        }
+        $this->load->view('customer/gst_payable_vs_cash', $data);
+    }
+
+    public function get_graph_gst_payable_vs_cash() {
+        $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
+        $query = $this->db->query("SELECT * from 3b_offset_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+            $net_itc_arr = array();
+            $liability_arr = array();
+            $paid_in_cash_arr = array();
+            $percent_arr = array();
+            $months = array();
+            $data = ""; //view observations
+            $data .= '<div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="example2" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Month</th>
+                                        <th>Total Ineligible ITC</th>
+                                        <th>Total Eligible ITC</th>
+                                        <th>Ratio Of Ineligible ITC to total ITC</th>
+                                        <th>Ratio of Eligible ITC to Total ITC</th>
+                                    </tr>
+                                </thead>
+                                <tbody>';
+
+            $k = 1;
+            foreach ($result as $row) {
+                $outward_liability = $row->outward_liability;
+                $rcb_liablity = $row->rcb_liablity;
+                $net_itc = $row->net_itc;
+                $paid_in_cash = $row->paid_in_cash;
+                $months[] = $row->month;
+                $month = $row->month;
+                $liability = ($outward_liability + $rcb_liablity);
+                $percent = ($paid_in_cash / $liability);
+
+                $liability_arr[] = $liability;
+                $net_itc_arr[] = $net_itc;
+                $paid_in_cash_arr[] = $paid_in_cash;
+                $percent_arr[] = round($percent * 100);
+
+                $data .= '<tr>' .
+                        '<td>' . $k . '</td>' .
+                        '<td>' . $month . '</td>' .
+                        '<td>' . $liability . '</td>' .
+                        '<td>' . $net_itc . '</td>' .
+                        '<td>' . $paid_in_cash . '</td>' .
+                        '<td>' . round($percent * 100) . "%" . '</td>' .
+                        '</tr>';
+                $k++;
+            }
+            $data .= '<tr>' .
+                    '<td>' . '<b>Total</b>' . '</td>' .
+                    '<td>' . '' . '</td>' .
+                    '<td>' . '<b>' . array_sum($liability_arr) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . array_sum($net_itc_arr) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . array_sum($paid_in_cash_arr) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . "" . '</b>' . '</td>' .
+                    '</tr>';
+            $data .= '</tbody></table></div></div></div>';
+
+            $max_percent = max($percent_arr);
+            $min_percent = min($percent_arr);
+            $avg = array_sum($percent_arr) / count($percent_arr);
+            $data .= "<hr><h4><b>Observation of GST Payable vs Cash:</b></h4>"
+                    . "<span>GST paid in cash varies from <b>" . $min_percent . "%</b> to  <b>" . $max_percent . "%.</b> "
+                    . "Average percentage of liability paid by cash is <b>" . round($avg) . "%</b>.</span><br>"
+                    . "<span>So, analysis of huge payment by cash to be done & accordingly input tax credit planning should be done.</span>";
+            //graph work
+            $abc1 = array();
+            $abc2 = array();
+            $abc3 = array();
+            $abc4 = array();
+            for ($o = 0; $o < sizeof($liability_arr); $o++) {
+                $abc1[] = $liability_arr[$o];
+                $aa1 = settype($abc1[$o], "float");
+
+                $abc2[] = $net_itc_arr[$o];
+                $aa2 = settype($abc2[$o], "float");
+
+                $abc3[] = $paid_in_cash_arr[$o];
+                $aa3 = settype($abc3[$o], "float");
+
+                $abc4[] = $percent_arr[$o];
+                $aa4 = settype($abc4[$o], "float");
+            }
+
+
+//            $max_range = max(array($taxable_supply));
+            $arr = array($abc1, $abc2, $abc3);
+            $max_range = 0;
+            foreach ($arr as $val) {
+                foreach ($val as $key => $val1) {
+                    if ($val1 > $max_range) {
+                        $max_range = $val1;
+                    }
+                }
+            }
+
+            //function to get customer name
+            $quer21 = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id'");
+            if ($quer21->num_rows() > 0) {
+                $res21 = $quer21->row();
+                $customer_name = $res21->customer_name;
+            }
+            $respnose['data'] = $data;
+            $respnose['message'] = "success";
+            $respnose['liability'] = $abc1;  //taxable_supply data
+            $respnose['net_itc'] = $abc2; //tax value
+            $respnose['paid_in_cash'] = $abc3;
+            $respnose['percent'] = $abc4;
             $respnose['month_data'] = $months; //months 
             $respnose['max_range'] = $max_range; //maximum range for graph
             $respnose['customer_name'] = $customer_name; //customer
