@@ -536,23 +536,34 @@ class Invoice_comp_report extends CI_Controller {
                                 </thead>
                                 <tbody>';
 
-            $invoice_value = array();
+            $period_apr = array();
+            $invoice_no_apr = array();
+            $place_of_supply_apr = array();
+            $period_2a = array();
+            $invoice_no_2a = array();
+            $place_of_supply_2a = array();
             $taxable_value = array();
             $tax = array();
             $i = 1;
             foreach ($query as $row) {
 
-                $invoice_value[] = $row->invoice_value;
+                $period_apr[] = $row->period_apr;
+                $invoice_no_apr[] = $row->invoice_no_apr;
+                $place_of_supply_apr[] = $row->place_of_supply_apr;
+                $period_2a[] = $row->period_2a;
+                $invoice_no_2a[] = $row->invoice_no_2a;
+                $place_of_supply_2a[] = $row->place_of_supply_2a;
                 $taxable_value[] = $row->taxable_value;
                 $tax[] = $row->tax;
 
                 $data .= '<tr>' .
                         '<td>' . $i . '</td>' .
-                        '<td>' . $row->period . '</td>' .
-                        '<td>' . $row->invoice_no . '</td>' .
-                        '<td>' . $row->place_of_supply . '</td>' .
-                        '<td>' . $row->invoice_date . '</td>' .
-                        '<td>' . $row->invoice_value . '</td>' .
+                        '<td>' . $row->period_apr . '</td>' .
+                        '<td>' . $row->invoice_no_apr . '</td>' .
+                        '<td>' . $row->place_of_supply_apr . '</td>' .
+                        '<td>' . $row->period_2a . '</td>' .
+                        '<td>' . $row->invoice_no_2a . '</td>' .
+                        '<td>' . $row->place_of_supply_2a . '</td>' .
                         '<td>' . $row->taxable_value . '</td>' .
                         '<td>' . $row->tax . '</td>' .
                         '</tr>';
@@ -564,7 +575,8 @@ class Invoice_comp_report extends CI_Controller {
                     '<td>' . "" . '</td>' .
                     '<td>' . "" . '</td>' .
                     '<td>' . "" . '</td>' .
-                    '<td>' . "<b>" . array_sum($invoice_value) . "</b>" . '</td>' .
+                    '<td>' . "" . '</td>' .
+                    '<td>' . "" . '</td>' .
                     '<td>' . "<b>" . array_sum($taxable_value) . "</b>" . '</td>' .
                     '<td>' . "<b>" . array_sum($tax) . "</b>" . '</td>' .
                     '</tr>';

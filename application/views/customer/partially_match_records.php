@@ -57,7 +57,6 @@ if (is_array($session_data)) {
                             <th>No.</th>
                             <!--<th>Unique id</th>-->
                             <th>Customer</th>
-                            <th>View Graph</th>
                             <th>View Observations</th>
                         </tr>
                     </thead>
@@ -127,7 +126,7 @@ if (is_array($session_data)) {
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="ModalLabel">Not In 2A Records</h3>
+                <h3 class="modal-title" id="ModalLabel">Partially match Records</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -178,127 +177,9 @@ if (is_array($session_data)) {
 
         });
     }
-    $("#import").click(function (event) {
-        var formid = document.getElementById("import_form");
-        event.preventDefault();
-        $.ajax({
-
-            url: "<?= base_url("Cfo_dashboard/import_excel") ?>",
-            type: "POST",
-            data: new FormData(formid),
-            dataType: "json",
-            contentType: false,
-            cache: false,
-            processData: false,
-            async: false,
-            success: function (result) {
-                if (result.status === true) {
-                    alert('Data Submitted Successfully');
-                    // return;
-                    location.reload();
-                } else if (result.status === false) {
-                    alert('something went wrong');
-                } else if (result.message === 'file_missmatch') {
-                    alert('You have selected wrong File');
-                } else {
-                    $('#' + result.id + '_error').html(result.error);
-                    $('#message').html(result.error);
-                }
-            }
-        });
-    });
 
 
-//function to get graph view
-    function get_graph_fun(customer_id)
-    {
-        $.ajax({
-            type: "POST",
-            url: "<?= base_url("Cfo_dashboard/get_graph_Turnover_vs_liabality") ?>",
-            dataType: "json",
-            data: {customer_id: customer_id},
-            success: function (result) {
-                if (result.message === "success") {
 
-                    var data_a = result.data_turn_over;
-                    var data_liability = result.data_liability;
-                    var data_ratio = result.ratio;
-                    var data_month = result.month_data;
-                    var max_range = result.max_range;
-                    var customer_name = "Customer Name:" + result.customer_name;
-                    Highcharts.chart('container', {
-                        chart: {
-                            type: 'column'
-                        },
-                        title: {
-                            text: 'Turnover vs Tax Liability'
-                        },
-                        subtitle: {
-                            text: customer_name,
-                        },
-                        xAxis: {
-                            categories: data_month
-                        },
-                        yAxis: [{
-                                max: max_range,
-                                title: {
-                                    text: 'TurnOver'
-                                }
-                            }, {
-                                min: 0,
-                                max: 100,
-                                opposite: true,
-                                title: {
-                                    text: 'Ratio(in %) of tax liability to turnover'
-                                }
-                            }],
-                        legend: {
-                            shadow: false
-                        },
-                        tooltip: {
-                            shared: true
-                        },
-                        series: [{
-                                name: 'TurnOver',
-                                data: data_a,
-                                color: '#146FA7',
-                                tooltip: {
-                                    valuePrefix: '₹',
-                                    valueSuffix: ' M'
-                                },
-                            }, {
-                                name: 'Tax Liability',
-                                data: data_liability,
-                                color: '#B8160E',
-                                tooltip: {
-                                    valuePrefix: '₹',
-                                    valueSuffix: ' M'
-                                },
-                            }, {
-                                type: 'spline',
-                                color: '#5BCB45',
-                                name: 'Ratio',
-                                data: data_ratio,
-                                yAxis: 1,
-                                tooltip: {
-                                    valueSuffix: ' %'
-                                },
-                                plotOptions: {
-                                    spline: {
-                                        dataLabels: {
-                                            enabled: true
-                                        },
-                                        enableMouseTracking: false
-                                    }
-                                },
-                            }]
-                    });
-                }
-            }
-        }
-        );
-
-    }
     //get modal for comapany detail
     $('#partial_records_data_modal').on('show.bs.modal', function (e) {
         var companyname = $(e.relatedTarget).data('company_name');
