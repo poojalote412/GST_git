@@ -70,8 +70,8 @@ if (is_array($session_data)) {
                                 <tr>
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $row->customer_name; ?></td>
-                                    <td><button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->customer_id; ?>');"class="btn btn-outline-primary" >View</button></td>
-                                     <td><button type="button" name="get_records" id="get_records" data-customer_id="<?php echo $row->customer_id; ?>" data-toggle="modal" data-target="#view_value_modal"class="btn bg-maroon-gradient" ><i class="fa fa-fw fa-eye"></i></button></td>
+                                    <td><button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->customer_id; ?>', '<?php echo $row->insert_id; ?>');"class="btn btn-outline-primary" >View</button></td>
+                                    <td><button type="button" name="get_records" id="get_records" data-insert_id="<?php echo $row->insert_id; ?>"data-customer_id="<?php echo $row->customer_id; ?>" data-toggle="modal" data-target="#view_value_modal"class="btn bg-maroon-gradient" ><i class="fa fa-fw fa-eye"></i></button></td>
                                 </tr> 
                                 <?php
                                 $i++;
@@ -137,8 +137,9 @@ if (is_array($session_data)) {
             <div class="modal-body">
                 <form class="forms-sample" id="import_form" method="post" name="import_form" enctype="multipart/form-data">
                     <input type="hidden" id="customer_id" name="customer_id">
+                    <input type="hidden" id="insert_id" name="insert_id">
                     <div class="form-group">
-                        <div id="compare_3b1_data"></div>
+                        <div id="compare_3b1_data1"></div>
 
                     </div>
                 </form>
@@ -162,18 +163,18 @@ if (is_array($session_data)) {
     $('#view_value_modal').on('show.bs.modal', function (e) {
         var customerid = $(e.relatedTarget).data('customer_id');
         var customer_id = document.getElementById('customer_id').value = customerid;
+        var insertid = $(e.relatedTarget).data('insert_id');
+        var insert_id = document.getElementById('insert_id').value = insertid;
+        $('#compare_3b1_data1').html("");
         $.ajax({
             type: "post",
             url: "<?= base_url("Management_report/get_graph_b2b") ?>",
             dataType: "json",
-            data: {customer_id: customer_id},
+            data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
-//                 alert();
                 if (result.message === "success") {
-
                     var data = result.data;
-                    $('#compare_3b1_data').html("");
-                    $('#compare_3b1_data').html(data);
+                    $('#compare_3b1_data1').html(data);
                     $('#example2').DataTable();
                 } else {
 
@@ -225,13 +226,13 @@ if (is_array($session_data)) {
 
 
 
-    function get_graph_fun(customer_id)
+    function get_graph_fun(customer_id, insert_id)
     {
         $.ajax({
             type: "POST",
             url: "<?= base_url("Management_report/get_graph_b2b") ?>",
             dataType: "json",
-            data: {customer_id: customer_id},
+            data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
                 if (result.message === "success") {
 

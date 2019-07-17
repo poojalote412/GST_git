@@ -237,7 +237,8 @@ class Invoice_comp_report extends CI_Controller {
 
     public function get_table_company() { //get companies who having not in 2a
         $customer_id = $this->input->post("customer_id");
-        $query = $this->Invoice_comp_report_model->get_company($customer_id);
+        $insert_id = $this->input->post("insert_id");
+        $query = $this->Invoice_comp_report_model->get_company($customer_id, $insert_id);
         $data = "";
         if ($query != FALSE) {
             $data .= '<div class="row">
@@ -272,7 +273,8 @@ class Invoice_comp_report extends CI_Controller {
 
     public function get_table_company_not_in_rec() { //get companies who having not in records
         $customer_id = $this->input->post("customer_id");
-        $query = $this->Invoice_comp_report_model->get_company_not_in_rec($customer_id);
+        $insert_id = $this->input->post("insert_id");
+        $query = $this->Invoice_comp_report_model->get_company_not_in_rec($customer_id,$insert_id);
         $data = "";
         if ($query != FALSE) {
             $data .= '<div class="row">
@@ -472,7 +474,8 @@ class Invoice_comp_report extends CI_Controller {
 //get company data for partial match data
     public function get_table_company_partially_match() { //get companies who having not in 2a
         $customer_id = $this->input->post("customer_id");
-        $query = $this->Invoice_comp_report_model->get_company_partial($customer_id);
+        $insert_id = $this->input->post("insert_id");
+        $query = $this->Invoice_comp_report_model->get_company_partial($customer_id,$insert_id);
         $data = "";
         if ($query != FALSE) {
             $data .= '<div class="row">

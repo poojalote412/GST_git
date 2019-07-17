@@ -1,3 +1,4 @@
+//sale
 
 <?php
 $this->load->view('customer/header');
@@ -22,13 +23,13 @@ if (is_array($session_data)) {
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Sales Month Wise 
-             <!--<small>it all starts here</small>-->
+            Eligible and Ineligible Credit
+            <!--<small>it all starts here</small>-->
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="#">Management Reports</a></li>
-            <li class="active">Sales Month Wise</li>
+            <li><a href="#">Internal Account Report</a></li>
+            <li class="active">Eligible and Ineligible Credit</li>
         </ol>
     </section>
 
@@ -64,9 +65,9 @@ if (is_array($session_data)) {
 
                         <?php
 //                                    var_dump($cfo_data);
-                        if ($month_wise_data !== "") {
+                        if ($eligible_ineligible_data !== "") {
                             $i = 1;
-                            foreach ($month_wise_data as $row) {
+                            foreach ($eligible_ineligible_data as $row) {
                                 ?>
                                 <tr>
                                     <td><?php echo $i; ?></td>
@@ -91,7 +92,7 @@ if (is_array($session_data)) {
     </section>
 
 </div>
-
+<!--modal for view observations-->
 <div class="modal fade" id="view_value_modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -106,7 +107,7 @@ if (is_array($session_data)) {
                     <input type="hidden" id="customer_id" name="customer_id">
                     <input type="hidden" id="insert_id" name="insert_id">
                     <div class="form-group">
-                        <div id="sales_monthly_data"></div>
+                        <div id="tax_turnover_data"></div>
 
                     </div>
                 </form>
@@ -119,6 +120,8 @@ if (is_array($session_data)) {
 
 </div>
 
+
+
 <?php $this->load->view('customer/footer'); ?>
 <script>
     $(function () {
@@ -127,7 +130,7 @@ if (is_array($session_data)) {
     });
 </script>
 <script>
-//view observation modal
+//view observations modal
     $('#view_value_modal').on('show.bs.modal', function (e) {
         var customerid = $(e.relatedTarget).data('customer_id');
         var customer_id = document.getElementById('customer_id').value = customerid;
@@ -135,17 +138,17 @@ if (is_array($session_data)) {
         var insert_id = document.getElementById('insert_id').value = insertid;
         $.ajax({
             type: "post",
-            url: "<?= base_url("Management_report/get_graph_sales_month_wise") ?>",
+            url: "<?= base_url("Internal_acc_report/get_graph_eligible_ineligible") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
 //                 alert();
-                $('#sales_monthly_data').html("");
+                $('#tax_turnover_data').html("");
                 if (result.message === "success") {
 
                     var data = result.data;
 
-                    $('#sales_monthly_data').html(data);
+                    $('#tax_turnover_data').html(data);
                     $('#example2').DataTable();
                 } else {
 
@@ -160,23 +163,25 @@ if (is_array($session_data)) {
 //        alert("TEsting");
         $.ajax({
             type: "POST",
-            url: "<?= base_url("Management_report/get_graph_sales_month_wise") ?>",
+            url: "<?= base_url("Internal_acc_report/get_graph_eligible_ineligible") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
                 if (result.message === "success") {
 
-                    var taxable_supply = result.taxable_supply_arr;
+                    var ineligible_itc = result.ineligible_itc;
+                    var net_itc = result.net_itc;
+                    var ineligible_ratio = result.ineligible_ratio;
+                    var eligible_ratio = result.eligible_ratio;
                     var data_month = result.month_data;
                     var max_range = result.max_range;
-                    var sales_percent_values = result.sales_percent_values;
                     var customer_name = "Customer Name:" + result.customer_name;
                     Highcharts.chart('container', {
                         chart: {
                             type: 'column'
                         },
                         title: {
-                            text: 'Sale Month Wise'
+                            text: ' Sales B2B and B2C'
                         },
                         subtitle: {
                             text: customer_name
@@ -185,16 +190,17 @@ if (is_array($session_data)) {
                             categories: data_month
                         },
                         yAxis: [{
+
                                 max: max_range,
                                 title: {
-                                    text: 'Supply Values'
+                                    text: 'Sales'
                                 }
                             }, {
-                                min: 0,
+//                                min: 0,
                                 max: 100,
                                 opposite: true,
                                 title: {
-                                    text: 'Sales(in %)'
+                                    text: 'Ratio(in %) '
                                 }
                             }],
                         legend: {
@@ -205,18 +211,27 @@ if (is_array($session_data)) {
                         },
                         series: [{
                                 type: 'column',
-                                name: 'Sales Month Wise',
-                                data: taxable_supply,
-                                color: '#87CEEB',
+                                name: ' Ineligible ITC',
+                                data: ineligible_itc,
+                                color: '#146FA7',
                                 tooltip: {
                                     valuePrefix: '₹',
                                     valueSuffix: ' M'
-                                },
+                                }
+                            }, {
+                                type: 'column',
+                                name: 'Eligible ITC',
+                                data: net_itc,
+                                color: '#B8160E',
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                }
                             }, {
                                 type: 'spline',
-                                color: '#AE72E4',
-                                name: 'Ratio of Sales',
-                                data: sales_percent_values,
+                                color: '#5BCB45',
+                                name: 'Ratio Of Ineligible ITC to total ITC',
+                                data: ineligible_ratio,
                                 yAxis: 1,
                                 tooltip: {
                                     valueSuffix: ' %'
@@ -228,9 +243,28 @@ if (is_array($session_data)) {
                                         },
                                         enableMouseTracking: false
                                     }
+                                }
+                            }, {
+                                type: 'spline',
+                                color: '#B596E7',
+                                name: 'Ratio of Eligible ITC to Total ITC',
+                                data: eligible_ratio,
+                                yAxis: 1,
+                                tooltip: {
+                                    valueSuffix: ' %'
                                 },
-                            }, ]
+                                plotOptions: {
+                                    spline: {
+                                        dataLabels: {
+                                            enabled: true
+                                        },
+                                        enableMouseTracking: false
+                                    }
+                                }
+                            }]
                     });
+                } else {
+                    alert('no graph available.please insert files.');
                 }
             }
         }

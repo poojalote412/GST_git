@@ -22,7 +22,7 @@ class Threeb_vs_twoa extends CI_Controller {
         }
         $this->load->view('customer/Threeb_vs_twoa', $data);
     }
-    
+
     function index_admin() {
         $session_data = $this->session->userdata('login_session');
         $customer_id = ($session_data['customer_id']);
@@ -197,8 +197,9 @@ class Threeb_vs_twoa extends CI_Controller {
 
     public function get_graph() { //function to get graph
         $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
 
-        $query = $this->db->query("SELECT month,gstr2A_3B,gstr2A_difference,gstr2A_cummulative,gstr2A FROM comparison_summary_all WHERE customer_id='$customer_id' order by id desc");
+        $query = $this->db->query("SELECT month,gstr2A_3B,gstr2A_difference,gstr2A_cummulative,gstr2A FROM comparison_summary_all WHERE customer_id='$customer_id' AND insert_id='$insert_id' order by id desc");
         $data = ""; //view observations
         if ($query->num_rows() > 0) {
 
@@ -289,10 +290,10 @@ class Threeb_vs_twoa extends CI_Controller {
             }
 
 
-            $quer_range = $this->db->query("SELECT MAX(gstr2A_3B) as gstrtb_max FROM comparison_summary_all WHERE customer_id='$customer_id' order by id desc");
+            $quer_range = $this->db->query("SELECT MAX(gstr2A_3B) as gstrtb_max FROM comparison_summary_all WHERE customer_id='$customer_id' and insert_id='$insert_id' order by id desc");
             $gstr3b_max = $quer_range->row();
             $gstrtbmax = $gstr3b_max->gstrtb_max;
-            $quer_range1 = $this->db->query("SELECT MAX(gstr2A) as gstr2a_max FROM comparison_summary_all WHERE customer_id='$customer_id' order by id desc");
+            $quer_range1 = $this->db->query("SELECT MAX(gstr2A) as gstr2a_max FROM comparison_summary_all WHERE customer_id='$customer_id' and insert_id='$insert_id' order by id desc");
             $gstr1_max = $quer_range1->row();
             $gstr1max = $gstr1_max->gstr2a_max;
             $max_value = (max($gstrtbmax, $gstr1max));
@@ -322,7 +323,7 @@ class Threeb_vs_twoa extends CI_Controller {
             $data = $result->row();
             $comp_id = $data->compare_id;
             //generate user_id
-            $comp_id = str_pad(++$comp_id, 5, '0', STR_PAD_LEFT);
+            $comp_id = str_pad( ++$comp_id, 5, '0', STR_PAD_LEFT);
             return $comp_id;
         } else {
             $comp_id = 'cmpr_1001';

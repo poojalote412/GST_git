@@ -76,6 +76,7 @@
                 <ul class="treeview-menu">
                     <li><a href="<?php echo base_url(); ?>TurnoverVsTaxability"><i class="fa fa-circle-o"></i>Tax Liability</a></li>
                     <li><a href="<?php echo base_url(); ?>Tax_turnover"><i class="fa fa-circle-o"></i>Tax Turnover</a></li>
+                    <li><a href="<?php echo base_url(); ?>eligible_ineligible_itc"><i class="fa fa-circle-o"></i>Eligible and Ineligible Credit</a></li>
                 </ul>
             </li>
             <li class="treeview">

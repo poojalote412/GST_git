@@ -484,8 +484,9 @@ class Internal_acc_report extends CI_Controller {
 
     public function get_graph() {
         $customer_id = $this->input->post("customer_id");
-        $query = $this->db->query("SELECT * FROM 3b_offset_summary_all where customer_id='$customer_id'");
-        $query1 = $this->db->query("SELECT tax_debit FROM monthly_summary_all where customer_id='$customer_id'");
+        $insert_id = $this->input->post("insert_id");
+        $query = $this->db->query("SELECT * FROM 3b_offset_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
+        $query1 = $this->db->query("SELECT tax_debit FROM monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         $data = ""; //view observations
         if ($query->num_rows() > 0 && $query1->num_rows() > 0) {
             $result_outward = $query->result();
@@ -594,7 +595,7 @@ class Internal_acc_report extends CI_Controller {
                 $customer_name = $res21->customer_name;
             }
             //function to get months
-            $quer2 = $this->db->query("SELECT month from 3b_offset_summary_all where customer_id='$customer_id'");
+            $quer2 = $this->db->query("SELECT month from 3b_offset_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
             $months = array();
             if ($quer2->num_rows() > 0) {
                 $res2 = $quer2->result();
@@ -659,7 +660,8 @@ class Internal_acc_report extends CI_Controller {
 
     public function get_graph_tax_turnover() {
         $customer_id = $this->input->post("customer_id");
-        $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id'");
+        $insert_id = $this->input->post("insert_id");
+        $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         if ($query->num_rows() > 0) {
             $result = $query->result();
             $taxable_value = array();
@@ -755,7 +757,7 @@ class Internal_acc_report extends CI_Controller {
             }
 
             //function to get months
-            $quer2 = $this->db->query("SELECT month from monthly_summary_all where customer_id='$customer_id'");
+            $quer2 = $this->db->query("SELECT month from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
             $months = array();
             if ($quer2->num_rows() > 0) {
                 $res2 = $quer2->result();
@@ -786,7 +788,135 @@ class Internal_acc_report extends CI_Controller {
         } echo json_encode($respnose);
     }
 
-    
+    public function eligible_ineligible_itc_index() {
+        $session_data = $this->session->userdata('login_session');
+        $customer_id = ($session_data['customer_id']);
+        $query_get_data = $this->Internal_acc_report_model->get_data_taxliability($customer_id);
+        if ($query_get_data !== FALSE) {
+            $data['eligible_ineligible_data'] = $query_get_data;
+        } else {
+            $data['eligible_ineligible_data'] = "";
+        }
+        $this->load->view('customer/eligible_ineligible_credit', $data);
+    }
+
+    public function get_graph_eligible_ineligible() { //function to get graph and observation for eligible and ineligible itc credit
+        $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
+        $query = $this->db->query("SELECT * from 3b_offset_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+            $net_itc_arr = array();
+            $ineligible_itc_arr = array();
+            $eligible_ratio_arr = array();
+            $ineligible_ratio_arr = array();
+            $months = array();
+            $data = ""; //view observations
+            $data .= '<div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="example2" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Month</th>
+                                        <th>Total Ineligible ITC</th>
+                                        <th>Total Eligible ITC</th>
+                                        <th>Ratio Of Ineligible ITC to total ITC</th>
+                                        <th>Ratio of Eligible ITC to Total ITC</th>
+                                    </tr>
+                                </thead>
+                                <tbody>';
+
+            $k = 1;
+            foreach ($result as $row) {
+                $ineligible_itc = $row->ineligible_itc;
+                $net_itc = $row->net_itc;
+                $months[] = $row->month;
+                $month = $row->month;
+                $ineligible_itc_arr[] = $ineligible_itc;
+                $net_itc_arr[] = $net_itc;
+
+                $ratio_ineligible = ($ineligible_itc * 100 / ($ineligible_itc + $net_itc));
+                $ineligible_ratio_arr[] = ($ineligible_itc * 100 / ($ineligible_itc + $net_itc));
+                $ratio_eligible = ($net_itc * 100 / ($ineligible_itc + $net_itc));
+                $eligible_ratio_arr[] = ($net_itc * 100 / ($ineligible_itc + $net_itc));
+                $data .= '<tr>' .
+                        '<td>' . $k . '</td>' .
+                        '<td>' . $month . '</td>' .
+                        '<td>' . $ineligible_itc . '</td>' .
+                        '<td>' . $net_itc . '</td>' .
+                        '<td>' . round($ratio_ineligible) . "%" . '</td>' .
+                        '<td>' . round($ratio_eligible) . "%" . '</td>' .
+                        '</tr>';
+                $k++;
+            }
+            $data .= '<tr>' .
+                    '<td>' . '<b>Total</b>' . '</td>' .
+                    '<td>' . '' . '</td>' .
+                    '<td>' . '<b>' . array_sum($ineligible_itc_arr) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . array_sum($net_itc_arr) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . "". '</b>' . '</td>' .
+                    '<td>' . '<b>' . "" . '</b>' . '</td>' .
+                    '</tr>';
+            $data .= '</tbody></table></div></div></div>';
+//            $max_ratio = max($tax_ratio);
+//            $average = array_sum($tax_ratio1) / count($tax_ratio);
+//            $data .= "<hr><h4><b>Observation of Tax Turnover:</b></h4>"
+//                    . "<span>The average tax value to turnover is <b>" . round($average, 2) . "%</b>. </span><br>"
+//                    . "<span>The tax value as <b>" . $max_ratio . "%</b> of taxable value which is higher than the rest.</span>";
+            // loop to get graph data as per graph script requirement
+            $abc1 = array();
+            $abc2 = array();
+            $abc3 = array();
+            $abc4 = array();
+            for ($o = 0; $o < sizeof($ineligible_itc_arr); $o++) {
+                $abc1[] = $ineligible_itc_arr[$o];
+                $aa1 = settype($abc1[$o], "float");
+
+                $abc2[] = $net_itc_arr[$o];
+                $aa2 = settype($abc2[$o], "float");
+
+                $abc3[] = $ineligible_ratio_arr[$o];
+                $aa3 = settype($abc3[$o], "float");
+
+                $abc4[] = $eligible_ratio_arr[$o];
+                $aa4 = settype($abc4[$o], "float");
+            }
+
+//             to get max value for range
+//            $max_range = max(array($taxable_supply));
+            $arr = array($abc1, $abc2);
+            $max_range = 0;
+            foreach ($arr as $val) {
+                foreach ($val as $key => $val1) {
+                    if ($val1 > $max_range) {
+                        $max_range = $val1;
+                    }
+                }
+            }
+
+            //function to get customer name
+            $quer21 = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id'");
+            if ($quer21->num_rows() > 0) {
+                $res21 = $quer21->row();
+                $customer_name = $res21->customer_name;
+            }
+            $respnose['data'] = $data;
+            $respnose['message'] = "success";
+            $respnose['ineligible_itc'] = $abc1;  //taxable_supply data
+            $respnose['net_itc'] = $abc2; //tax value
+            $respnose['ineligible_ratio'] = $abc3;
+            $respnose['eligible_ratio'] = $abc4;
+            $respnose['month_data'] = $months; //months 
+            $respnose['max_range'] = $max_range; //maximum range for graph
+            $respnose['customer_name'] = $customer_name; //customer
+        } else {
+            $respnose['data'] = "";
+            $respnose['message'] = "";
+            $respnose['taxable_supply_arr'] = "";  //taxable_supply data
+        } echo json_encode($respnose);
+    }
 
 }
 

@@ -17,13 +17,14 @@ class Cfo_dashboard extends CI_Controller {
         $customer_id = ($session_data['customer_id']);
         $query_get_cfo_data = $this->Cfo_model->get_data_cfo($customer_id);
         if ($query_get_cfo_data !== FALSE) {
+
             $data['cfo_data'] = $query_get_cfo_data;
         } else {
             $data['cfo_data'] = "";
         }
         $this->load->view('customer/Cfo_dashboard', $data);
     }
-    
+
     function index_admin() { //function load data on page
         $session_data = $this->session->userdata('login_session');
         $customer_id = ($session_data['customer_id']);
@@ -71,12 +72,12 @@ class Cfo_dashboard extends CI_Controller {
     //function to get graph for turn over vs tax liability
     public function get_graph_Turnover_vs_liabality() {
         $customer_id = $this->input->post("customer_id");
-
+        $insert_id = $this->input->post("insert_id");
         $quer1 = $this->db->query("SELECT `monthly_summary_all`.`month`,`monthly_summary_all`.`inter_state_supply`,`monthly_summary_all`.`intra_state_supply`,"
                 . "`monthly_summary_all`.`no_gst_paid_supply`, `monthly_summary_all`.`debit_value`,`monthly_summary_all`.`credit_value`,`3b_offset_summary_all`.`outward_liability`,"
                 . "`3b_offset_summary_all`.`rcb_liablity` FROM `monthly_summary_all` INNER JOIN `3b_offset_summary_all` "
                 . "ON `monthly_summary_all`.`month`=`3b_offset_summary_all`.`month` where `monthly_summary_all`.`customer_id`='$customer_id' "
-                . "AND `3b_offset_summary_all`.`customer_id`='$customer_id'");
+                . "AND `3b_offset_summary_all`.`customer_id`='$customer_id' AND `monthly_summary_all`.`insert_id`='$insert_id'AND `3b_offset_summary_all`.`insert_id`='$insert_id'");
         $data = ""; //view observations
         if ($quer1->num_rows() > 0) {
             $res = $quer1->result();
@@ -126,8 +127,8 @@ class Cfo_dashboard extends CI_Controller {
             $data .= '</tbody></table></div></div></div>';
 //         echo   max($ratio_val);
 //         echo   min($ratio_val);
-            $data .="<hr><h4><b>Observation of CFO:</b></h4>"
-                    . "<span>Percentage of GST payable to turnover is not stable for F.Y. 2017-18 it varies from <b>".min($ratio_val)."% </b>to<b> ".max($ratio_val)."%</b>.</span>";
+            $data .= "<hr><h4><b>Observation of CFO:</b></h4>"
+                    . "<span>Percentage of GST payable to turnover is not stable for F.Y. 2017-18 it varies from <b>" . min($ratio_val) . "% </b>to<b> " . max($ratio_val) . "%</b>.</span>";
 
 //            var_dump($turnover1);
             // loop to get turnover value
@@ -156,7 +157,7 @@ class Cfo_dashboard extends CI_Controller {
                 }
             }
             //function to get months
-            $quer2 = $this->db->query("SELECT month from monthly_summary_all where customer_id='$customer_id'");
+            $quer2 = $this->db->query("SELECT month from monthly_summary_all where customer_id='$customer_id' and insert_id='$insert_id'");
             $months = array();
             if ($quer2->num_rows() > 0) {
                 $res2 = $quer2->result();

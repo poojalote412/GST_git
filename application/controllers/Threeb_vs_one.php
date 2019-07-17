@@ -22,8 +22,8 @@ class Threeb_vs_one extends CI_Controller {
         }
         $this->load->view('customer/Threeb_vs_one', $data);
     }
-    
-     function index_admin() { //load the view page data
+
+    function index_admin() { //load the view page data
         $session_data = $this->session->userdata('login_session');
         $customer_id = ($session_data['customer_id']);
         $query_res = $this->Threeb_vs_one_model->get_gstr1vs3b_data($customer_id);
@@ -217,7 +217,9 @@ class Threeb_vs_one extends CI_Controller {
     // function to get graph
     public function get_graph() {
         $customer_id = $this->input->post("customer_id");
-        $query = $this->db->query("SELECT month,gstr1_3B,gstr1,gstr1_ammend,gstr1_difference,gstr1_cummulative from comparison_summary_all where customer_id='$customer_id' order by id desc ");
+        $insert_id = $this->input->post("insert_id");
+        $query = $this->db->query("SELECT month,gstr1_3B,gstr1,gstr1_ammend,gstr1_difference,gstr1_cummulative from comparison_summary_all where customer_id='$customer_id' "
+                . "and insert_id='$insert_id' order by id desc ");
         $data = ""; //view observations
         if ($query->num_rows() > 0) {
 
@@ -318,10 +320,10 @@ class Threeb_vs_one extends CI_Controller {
                 $customer_name = $res2->customer_name;
             }
 
-            $quer_range = $this->db->query("SELECT MAX(gstr1_3B) as gstrtb_max FROM comparison_summary_all WHERE customer_id='$customer_id' order by id desc");
+            $quer_range = $this->db->query("SELECT MAX(gstr1_3B) as gstrtb_max FROM comparison_summary_all WHERE customer_id='$customer_id' and insert_id='$insert_id' order by id desc");
             $gstr3b_max = $quer_range->row();
             $gstrtbmax = $gstr3b_max->gstrtb_max;
-            $quer_range1 = $this->db->query("SELECT MAX(gstr1) as gstr1_max FROM comparison_summary_all WHERE customer_id='$customer_id' order by id desc");
+            $quer_range1 = $this->db->query("SELECT MAX(gstr1) as gstr1_max FROM comparison_summary_all WHERE customer_id='$customer_id' and insert_id='$insert_id'  order by id desc");
             $gstr1_max = $quer_range1->row();
             $gstr1max = $gstr1_max->gstr1_max;
             $max_value = (max($gstrtbmax, $gstr1max));
@@ -355,7 +357,7 @@ class Threeb_vs_one extends CI_Controller {
             $data = $result->row();
             $comp_id = $data->compare_id;
             //generate user_id
-            $comp_id = str_pad( ++$comp_id, 5, '0', STR_PAD_LEFT);
+            $comp_id = str_pad(++$comp_id, 5, '0', STR_PAD_LEFT);
             return $comp_id;
         } else {
             $comp_id = 'cmpr_1001';

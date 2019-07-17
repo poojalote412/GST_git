@@ -71,7 +71,7 @@ if (is_array($session_data)) {
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $row->customer_name; ?></td>
                                     <td>
-                                        <a type="button" class="btn btn-default" name="get_records" id="get_records" onclick="get_records_partial_match('<?php echo $row->customer_id; ?>');"><i class="fa fa-eye"></i> view</a>
+                                        <a type="button" class="btn btn-default" name="get_records" id="get_records" onclick="get_records_partial_match('<?php echo $row->customer_id; ?>', '<?php echo $row->insert_id; ?>');"><i class="fa fa-eye"></i> view</a>
                                         <!--<button type="button" name="get_records" id="get_records" onclick="get_records_not_in_2a('<?php echo $row->customer_id; ?>');"class="btn btn-app" >View</button>-->
                                     </td>
                                 </tr> 
@@ -157,21 +157,23 @@ if (is_array($session_data)) {
 </script>
 <script>
 
-    function get_records_partial_match(customer_id)
+    function get_records_partial_match(customer_id, insert_id)
     {
+        $('#company_data').html("");
         $.ajax({
             type: "post",
             url: "<?= base_url("Invoice_comp_report/get_table_company_partially_match") ?>",
             dataType: "json",
-            data: {customer_id: customer_id},
+            data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
                 if (result.status === true) {
                     var data = result.data;
-                    $('#company_data').html("");
+
                     $('#company_data').html(data);
                     $('#example2').DataTable();
                 } else {
-
+                    $('#company_data').html("");
+                    alert('no data available,please insert files.');
                 }
             },
 

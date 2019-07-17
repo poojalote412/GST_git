@@ -27,7 +27,7 @@ class Management_report extends CI_Controller {
         }
         $this->load->view('customer/Sale_state_wise', $data);
     }
-    
+
     function state_wise_report_admin() {
 //        $data['result'] = $result;
         $this->load->view('admin/Sale_state_wise');
@@ -130,7 +130,8 @@ class Management_report extends CI_Controller {
     //functio to get graph state wise
     public function get_graph_state_wise() {
         $customer_id = $this->input->post("customer_id");
-        $query = $this->db->query("SELECT * from state_wise_summary_all where customer_id='$customer_id'");
+        $insert_id = $this->input->post("insert_id");
+        $query = $this->db->query("SELECT * from state_wise_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         $data = ""; //view observations
         $state_arr = array();
         $taxble_val_arr = array();
@@ -184,7 +185,7 @@ class Management_report extends CI_Controller {
             $total = array_sum($taxble_val_arr);
             $top3 = array_sum($arr);
             $top_3_state = round(($top3 / $total) * 100, 2);
-            $data .= "<h4><b>".$top_3_state ." </b> % of total sales comes from top 3 states.</h4>";
+            $data .= "<h4><b>" . $top_3_state . " </b> % of total sales comes from top 3 states.</h4>";
             $state = array();
             $taxable_value = array();
             for ($o = 0; $o < sizeof($taxble_val_arr); $o++) {
@@ -194,7 +195,7 @@ class Management_report extends CI_Controller {
             }
             $max = max($taxable_value);
             //function to get customer name
-            $quer21 = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id'");
+            $quer21 = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id' ");
 
             if ($quer21->num_rows() > 0) {
                 $res2 = $quer21->row();
@@ -231,7 +232,8 @@ class Management_report extends CI_Controller {
 
     public function get_graph_taxable_nontx_exempt() { //get graph function of taxable nontaxable and exempt
         $customer_id = $this->input->post("customer_id");
-        $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id'");
+        $insert_id = $this->input->post("insert_id");
+        $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' and insert_id='$insert_id'");
         $data = ""; //view observations
         if ($query->num_rows() > 0) {
             $result = $query->result();
@@ -343,7 +345,7 @@ class Management_report extends CI_Controller {
             }
 
             //function to get months
-            $quer2 = $this->db->query("SELECT month from  monthly_summary_all where customer_id='$customer_id'");
+            $quer2 = $this->db->query("SELECT month from  monthly_summary_all where customer_id='$customer_id'and insert_id='$insert_id'");
             $months = array();
             if ($quer2->num_rows() > 0) {
                 $res2 = $quer2->result();
@@ -399,7 +401,8 @@ class Management_report extends CI_Controller {
 
     public function get_graph_sales_month_wise() { //get graph function of Sales month wise
         $customer_id = $this->input->post("customer_id");
-        $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id'");
+        $insert_id = $this->input->post("insert_id");
+        $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         $data = ""; //view observations
         if ($query->num_rows() > 0) {
             $result = $query->result();
@@ -476,15 +479,11 @@ class Management_report extends CI_Controller {
                 $aa1 = settype($abc1[$o], "float");
             }
 
-
-
-
-
 //             to get max value for range
             $max_range = max($abc1);
 
             //function to get months
-            $quer2 = $this->db->query("SELECT month from monthly_summary_all where customer_id='$customer_id'");
+            $quer2 = $this->db->query("SELECT month from monthly_summary_all where customer_id='$customer_id'  AND insert_id='$insert_id'");
             $months = array();
             if ($quer2->num_rows() > 0) {
                 $res2 = $quer2->result();
@@ -1023,7 +1022,8 @@ class Management_report extends CI_Controller {
     //function to get graph function for B2B and B2C.
     public function get_graph_b2b() {
         $customer_id = $this->input->post("customer_id");
-        $query_get_graph = $this->Management_report_model->get_graph_query($customer_id);
+        $insert_id = $this->input->post("insert_id");
+        $query_get_graph = $this->Management_report_model->get_graph_query($customer_id, $insert_id);
         $data = ""; //view observations
         if (count($query_get_graph) > 0) {
             $month = array();
@@ -1138,7 +1138,7 @@ class Management_report extends CI_Controller {
                 }
             }
             //function to get customer name
-            $quer2 = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id'");
+            $quer2 = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id' ");
 
             if ($quer2->num_rows() > 0) {
                 $res2 = $quer2->row();

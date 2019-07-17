@@ -8,8 +8,8 @@ class Account_report extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->helper('url');
-         $this->load->model('Account_model');
-         $this->load->library('excel');
+        $this->load->model('Account_model');
+        $this->load->library('excel');
     }
 
     function index_customer() { //to load the view page data
@@ -22,9 +22,9 @@ class Account_report extends CI_Controller {
         } else {
             $data['account_data'] = "";
         }
-        $this->load->view('customer/Account',$data);
+        $this->load->view('customer/Account', $data);
     }
-    
+
     function index_admin() {//to load the view page data
 //        $data['result'] = $result;
         $session_data = $this->session->userdata('login_session');
@@ -35,13 +35,14 @@ class Account_report extends CI_Controller {
         } else {
             $data['account_data'] = "";
         }
-        $this->load->view('admin/Account',$data);
+        $this->load->view('admin/Account', $data);
     }
 
-      public function get_graph() {
+    public function get_graph() {
         $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
 
-        $query = $this->db->query("SELECT month,late_fees,due_date,filling_date FROM 3b_offset_summary_all WHERE customer_id='$customer_id' order by id desc");
+        $query = $this->db->query("SELECT month,late_fees,due_date,filling_date FROM 3b_offset_summary_all WHERE customer_id='$customer_id' AND insert_id='$insert_id' order by id desc");
         $data = ""; //view observations
         if ($query->num_rows() > 0) {
 
@@ -49,7 +50,7 @@ class Account_report extends CI_Controller {
 //            $late_fees = array();
 //            $due_date = array();
 //            $filling_date = array();
-            
+
             $months = array();
             $data .= '<div class="row">
                     <div class="col-md-12">
@@ -68,11 +69,11 @@ class Account_report extends CI_Controller {
                                 <tbody>';
             $k = 1;
             foreach ($result as $row) {
-                 $months = $row->month;
+                $months = $row->month;
                 $late_fees = $row->late_fees;
                 $due_date = $row->due_date;
                 $filling_date = $row->filling_date;
-                
+
 
 //                //arrays
 //                $late_fees[] = $late_fees;
@@ -86,25 +87,21 @@ class Account_report extends CI_Controller {
                         '<td>' . $late_fees . '</td>' .
                         '<td>' . $due_date . '</td>' .
                         '<td>' . $filling_date . '</td>' .
-                      
                         '</tr>';
                 $k++;
                 '</tbody></table></div></div></div>';
-                
-        }
-        
-        
-        $respose['data'] = $data;
-         $respose['message'] = "success";
-        
-        }else{
-             $respose['data'] = "";
+            }
+
+
+            $respose['data'] = $data;
+            $respose['message'] = "success";
+        } else {
+            $respose['data'] = "";
             $respose['message'] = "fail";
         }
         echo json_encode($respose);
-      }
-      
-      
+    }
+
     public function import() {
         if (isset($_FILES["file_ex"]["name"])) {
             $path = $_FILES["file_ex"]["tmp_name"];
@@ -138,32 +135,31 @@ class Account_report extends CI_Controller {
                 } else {
                     $data .= "";
                 }
-                
-                
+
+
                 if ($object->getActiveSheet()->getCell('B' . 5)->getValue() == "Filling Date" && $object->getActiveSheet()->getCell('R' . 5)->getValue() == "Month") {
-                     $reverse_charge = array();
-                for ($p = 24; $p <= 35; $p++) {
-                    $val_a = $object->getActiveSheet()->getCell('R' . $p)->getValue();
-                    $val1 = $object->getActiveSheet()->getCell('S' . $l)->getValue();
-                    $reverse_charge[] = $val_a+$val1;
-                }
-                    
+                    $reverse_charge = array();
+                    for ($p = 24; $p <= 35; $p++) {
+                        $val_a = $object->getActiveSheet()->getCell('R' . $p)->getValue();
+                        $val1 = $object->getActiveSheet()->getCell('S' . $l)->getValue();
+                        $reverse_charge[] = $val_a + $val1;
+                    }
                 } else {
                     $data .= "";
                 }
 
-              
+
 
 //            
             }
-            
-               $quer = $this->db->query("insert into 3b_offset_summary (`filling_date`,`due_date`,`late_fees`)"
-                        . " values ('$outward[$t]','$outward1[$t]','$reverse_charge[$t]') ");
-               
-               
-            
+
+            $quer = $this->db->query("insert into 3b_offset_summary (`filling_date`,`due_date`,`late_fees`)"
+                    . " values ('$outward[$t]','$outward1[$t]','$reverse_charge[$t]') ");
+
+
+
 //           
-        } 
+        }
     }
 
 }
