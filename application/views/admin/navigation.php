@@ -85,6 +85,8 @@
                 <ul class="treeview-menu">
                     <li><a href="<?php echo base_url(); ?>TurnoverVsTaxability_admin"><i class="fa fa-circle-o"></i>Tax Liability</a></li>
                     <li><a href="<?php echo base_url(); ?>Tax_turnover_admin"><i class="fa fa-circle-o"></i>Tax Turnover</a></li>
+                    <li><a href="<?php echo base_url(); ?>eligible_ineligible_itc_admin"><i class="fa fa-circle-o"></i>Eligible and Ineligible Credit</a></li>
+                    <li><a href="<?php echo base_url(); ?>gst_payable_vs_cash_admin"><i class="fa fa-circle-o"></i>GST Payable v/s cash</a></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -97,6 +99,7 @@
                 <ul class="treeview-menu">
                     <li><a href="<?php echo base_url(); ?>not_in_2a_admin"><i class="fa fa-circle-o"></i>Not In 2A</a></li>
                     <li><a href="<?php echo base_url(); ?>not_in_record_admin"><i class="fa fa-circle-o"></i>Not In Records</a></li>
+                    <li><a href="<?php echo base_url(); ?>partial_match_admin"><i class="fa fa-circle-o"></i>Partially Match</a></li>
                 </ul>
             </li>
             

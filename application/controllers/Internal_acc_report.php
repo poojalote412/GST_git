@@ -26,9 +26,7 @@ class Internal_acc_report extends CI_Controller {
 
     function index_admin() { //load the view page data
 //        $data['result'] = $result;
-        $session_data = $this->session->userdata('login_session');
-        $customer_id = ($session_data['customer_id']);
-        $query_get_data = $this->Internal_acc_report_model->get_data_taxliability($customer_id);
+        $query_get_data = $this->Internal_acc_report_model->get_data_taxliability_admin();
         if ($query_get_data !== FALSE) {
             $data['tax_data'] = $query_get_data;
         } else {
@@ -454,7 +452,7 @@ class Internal_acc_report extends CI_Controller {
             $data = $result->row();
             $turn_id = $data->tax_libility_id;
             //generate user_id
-            $turn_id = str_pad(++$turn_id, 5, '0', STR_PAD_LEFT);
+            $turn_id = str_pad( ++$turn_id, 5, '0', STR_PAD_LEFT);
             return $turn_id;
         } else {
             $turn_id = 'tax_1001';
@@ -645,9 +643,7 @@ class Internal_acc_report extends CI_Controller {
 
     public function tax_turnover_admin() { //load data of view page
 //        $data['result'] = $result;
-        $session_data = $this->session->userdata('login_session');
-        $customer_id = ($session_data['customer_id']);
-        $query_get_cfo_data = $this->Cfo_model->get_data_cfo($customer_id);
+        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
         if ($query_get_cfo_data !== FALSE) {
             $data['tax_turnover_data'] = $query_get_cfo_data;
         } else {
@@ -800,6 +796,16 @@ class Internal_acc_report extends CI_Controller {
         $this->load->view('customer/eligible_ineligible_credit', $data);
     }
 
+    public function eligible_ineligible_itc_index_admin() {
+        $query_get_data = $this->Internal_acc_report_model->get_data_taxliability_admin();
+        if ($query_get_data !== FALSE) {
+            $data['eligible_ineligible_data'] = $query_get_data;
+        } else {
+            $data['eligible_ineligible_data'] = "";
+        }
+        $this->load->view('admin/eligible_ineligible_credit', $data);
+    }
+
     public function get_graph_eligible_ineligible() { //function to get graph and observation for eligible and ineligible itc credit
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
@@ -928,6 +934,15 @@ class Internal_acc_report extends CI_Controller {
             $data['gst_payable_data'] = "";
         }
         $this->load->view('customer/gst_payable_vs_cash', $data);
+    }
+    public function gst_payable_vs_cash_index_admin() { //function load page gst payable vs cash
+        $query_get_data = $this->Internal_acc_report_model->get_data_taxliability_admin();
+        if ($query_get_data !== FALSE) {
+            $data['gst_payable_data'] = $query_get_data;
+        } else {
+            $data['gst_payable_data'] = "";
+        }
+        $this->load->view('admin/gst_payable_vs_cash', $data);
     }
 
     public function get_graph_gst_payable_vs_cash() {

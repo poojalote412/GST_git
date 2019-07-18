@@ -29,9 +29,7 @@ class Invoice_comp_report extends CI_Controller {
     }
 
     function not_in_2a_index_admin() { //function to load page of not in 2a
-        $session_data = $this->session->userdata('login_session');
-        $customer_id = ($session_data['customer_id']);
-        $query_get_cfo_data = $this->Invoice_comp_report_model->get_data($customer_id);
+        $query_get_cfo_data = $this->Invoice_comp_report_model->get_data_admin();
         if ($query_get_cfo_data !== FALSE) {
             $data['not_in_2a_data'] = $query_get_cfo_data;
         } else {
@@ -53,9 +51,7 @@ class Invoice_comp_report extends CI_Controller {
     }
 
     function not_in_record_index_admin() { //function to load page of not in records
-        $session_data = $this->session->userdata('login_session');
-        $customer_id = ($session_data['customer_id']);
-        $query_get_cfo_data = $this->Invoice_comp_report_model->get_data($customer_id);
+        $query_get_cfo_data = $this->Invoice_comp_report_model->get_data_admin();
         if ($query_get_cfo_data !== FALSE) {
             $data['not_in_rec_data'] = $query_get_cfo_data;
         } else {
@@ -469,6 +465,16 @@ class Invoice_comp_report extends CI_Controller {
             $data['partial_data'] = "";
         }
         $this->load->view('customer/partially_match_records', $data);
+    }
+    //function to load partial match data
+    public function partial_match_index_admin() {
+        $query_get_data = $this->Cfo_model->get_data_cfo_admin();
+        if ($query_get_data !== FALSE) {
+            $data['partial_data'] = $query_get_data;
+        } else {
+            $data['partial_data'] = "";
+        }
+        $this->load->view('admin/partially_match_records', $data);
     }
 
 //get company data for partial match data

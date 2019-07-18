@@ -22,13 +22,13 @@ if (is_array($session_data)) {
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Sales State Wise
+            GST Payable vs Cash
             <!--<small>it all starts here</small>-->
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="#">Management Reports</a></li>
-            <li class="active">Sales State Wise</li>
+            <li><a href="#">Internal Control Report</a></li>
+            <li class="active">GST Payable vs Cash</li>
         </ol>
     </section>
 
@@ -38,8 +38,7 @@ if (is_array($session_data)) {
         <!-- Default box -->
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title"><button type="button" data-target="#exampleModal-4" data-toggle="modal" class="btn btn-block btn-primary">Upload new</button></h3>
-
+                <!--                <h3 class="box-title">Customer</h3>-->
 
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -63,18 +62,18 @@ if (is_array($session_data)) {
                         </tr>
                     </thead>
                     <tbody>
+
                         <?php
 //                                    var_dump($cfo_data);
-                        if ($loc_data !== "") {
+                        if ($gst_payable_data !== "") {
                             $i = 1;
-                            foreach ($loc_data as $row) {
+                            foreach ($gst_payable_data as $row) {
                                 ?>
                                 <tr>
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $row->customer_name; ?></td>
-                                    <!--<td>ANAND RATHI GLOBAL FINANCE LIMITED 2017-18</td>-->
                                     <td><button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->customer_id; ?>', '<?php echo $row->insert_id; ?>');"class="btn btn-outline-primary" >View</button></td>
-                                    <td><button type="button" name="get_records" id="get_records"data-insert_id="<?php echo $row->insert_id; ?>"  data-customer_id="<?php echo $row->customer_id; ?>" data-toggle="modal" data-target="#view_value_modal"class="btn bg-maroon-gradient" ><i class="fa fa-fw fa-eye"></i></button></td>
+                                    <td><button type="button" name="get_records" id="get_records" data-customer_id="<?php echo $row->customer_id; ?>" data-insert_id="<?php echo $row->insert_id; ?>" data-toggle="modal" data-target="#view_value_modal"class="btn bg-maroon-gradient" ><i class="fa fa-fw fa-eye"></i></button></td>
                                 </tr> 
                                 <?php
                                 $i++;
@@ -83,7 +82,6 @@ if (is_array($session_data)) {
                             
                         }
                         ?>
-
                     </tbody>
                 </table>
             </div>
@@ -109,7 +107,7 @@ if (is_array($session_data)) {
                     <input type="hidden" id="customer_id" name="customer_id">
                     <input type="hidden" id="insert_id" name="insert_id">
                     <div class="form-group">
-                        <div id="location_data"></div>
+                        <div id="cfo_data"></div>
 
                     </div>
                 </form>
@@ -132,19 +130,29 @@ if (is_array($session_data)) {
                 </button>
             </div>
             <div class="modal-body">
-
                 <form class="forms-sample" id="import_form" method="post" name="import_form" enctype="multipart/form-data">
                     <div class="form-group">
                         <label>File upload</label>
+                        <input type="file" name="file_ex" class="file-upload-default">
                         <div class="input-group col-xs-6">
-                            <input type="file" class="form-control file-upload" name="file_ex" id="file_ex" required accept=".xls, .xlsx"  >
+                            <input type="file" class="form-control file-upload" name="file_ex" id="file_ex" required accept=".xls, .xlsx"  placeholder="Upload File1">
 
+                            <span class="input-group-append">
+                                <button class="file-upload-browse btn btn-light"  type="button" >Upload</button>
+                            </span>
                         </div><br>
+                        <div class="input-group col-xs-6">
+                            <input type="file" class="form-control file-upload" name="file_ex1" id="file_ex1" required accept=".xls, .xlsx"  placeholder="Upload File2">
+
+                            <span class="input-group-append">
+                                <button class="file-upload-browse btn btn-light"  type="button" >Upload</button>
+                            </span>
+                        </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" name="import1" id="import1" class="btn btn-success mr-2">Submit</button>
+                <button type="button" name="import" id="import" class="btn btn-success mr-2">Submit</button>
                 <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -165,19 +173,19 @@ if (is_array($session_data)) {
         var customer_id = document.getElementById('customer_id').value = customerid;
         var insertid = $(e.relatedTarget).data('insert_id');
         var insert_id = document.getElementById('insert_id').value = insertid;
-        $('#location_data').html("");
         $.ajax({
             type: "post",
-            url: "<?= base_url("Management_report/get_graph_state_wise") ?>",
+            url: "<?= base_url("Internal_acc_report/get_graph_gst_payable_vs_cash") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
 //                 alert();
+                $('#cfo_data').html("");
                 if (result.message === "success") {
 
                     var data = result.data;
-                    $('#location_data').html("");
-                    $('#location_data').html(data);
+                    $('#cfo_data').html("");
+                    $('#cfo_data').html(data);
                     $('#example2').DataTable();
                 } else {
 
@@ -186,20 +194,19 @@ if (is_array($session_data)) {
 
         });
     });
-
-    $("#import1").click(function (event) {
+    $("#import").click(function (event) {
         var formid = document.getElementById("import_form");
         event.preventDefault();
         $.ajax({
 
-            url: "<?= base_url("Management_report/import_excel") ?>",
+            url: "<?= base_url("Cfo_dashboard/import_excel") ?>",
             type: "POST",
             data: new FormData(formid),
             dataType: "json",
             contentType: false,
             cache: false,
             processData: false,
-            async: true,
+            async: false,
             success: function (result) {
                 if (result.status === true) {
                     alert('Data Submitted Successfully');
@@ -218,40 +225,50 @@ if (is_array($session_data)) {
     });
 
 
-    //function to get graph view
+//function to get graph view
     function get_graph_fun(customer_id, insert_id)
     {
         $.ajax({
             type: "POST",
-            url: "<?= base_url("Management_report/get_graph_state_wise") ?>",
+            url: "<?= base_url("Internal_acc_report/get_graph_gst_payable_vs_cash") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
                 if (result.message === "success") {
 
-                    var data_a = result.taxable_value;
-                    var max_range = result.data_liability;
-                    var data_state = result.state;
+                    var liability = result.liability;
+                    var net_itc = result.net_itc;
+                    var paid_in_cash = result.paid_in_cash;
+                    var percent = result.percent;
+                    var data_month = result.month_data;
+                    var max_range = result.max_range;
                     var customer_name = "Customer Name:" + result.customer_name;
                     Highcharts.chart('container', {
                         chart: {
                             type: 'column'
                         },
                         title: {
-                            text: 'Sales Satewise'
+                            text: 'Turnover vs Tax Liability'
                         },
                         subtitle: {
                             text: customer_name,
                         },
                         xAxis: {
-                            categories: data_state
+                            categories: data_month
                         },
                         yAxis: [{
                                 max: max_range,
                                 title: {
-                                    text: 'Taxable Values'
+                                    text: 'TurnOver'
                                 }
-                            }, ],
+                            }, {
+                                min: 0,
+                                max: 100,
+                                opposite: true,
+                                title: {
+                                    text: 'Percentage(%) paid in cash'
+                                }
+                            }],
                         legend: {
                             shadow: false
                         },
@@ -259,11 +276,45 @@ if (is_array($session_data)) {
                             shared: true
                         },
                         series: [{
-                                name: 'States',
-                                data: data_a,
+                                name: 'Tax Liability',
+                                data: liability,
                                 color: '#146FA7',
                                 tooltip: {
                                     valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                },
+                            }, {
+                                name: 'ITC',
+                                data: net_itc,
+                                color: '#B8160E',
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                },
+                            }, {
+                                name: 'Paid in Cash',
+                                data: paid_in_cash,
+                                color: '#36BE69',
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                },
+                            }, {
+                                type: 'spline',
+                                color: '#F9AB58',
+                                name: 'Percentage paid in cash',
+                                data: percent,
+                                yAxis: 1,
+                                tooltip: {
+                                    valueSuffix: ' %'
+                                },
+                                plotOptions: {
+                                    spline: {
+                                        dataLabels: {
+                                            enabled: true
+                                        },
+                                        enableMouseTracking: false
+                                    }
                                 },
                             }]
                     });

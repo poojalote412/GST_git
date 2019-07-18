@@ -27,9 +27,8 @@ class Account_report extends CI_Controller {
 
     function index_admin() {//to load the view page data
 //        $data['result'] = $result;
-        $session_data = $this->session->userdata('login_session');
-        $customer_id = ($session_data['customer_id']);
-        $query_res = $this->Account_model->get_data_account($customer_id);
+       
+        $query_res = $this->Account_model->get_data_account_admin();
         if ($query_res !== FALSE) {
             $data['account_data'] = $query_res;
         } else {

@@ -1,3 +1,5 @@
+
+
 <?php
 $this->load->view('customer/header');
 $this->load->view('admin/navigation');
@@ -12,7 +14,6 @@ if ($session = $this->session->userdata('login_session') == '') {
 $session_data = $this->session->userdata('login_session');
 if (is_array($session_data)) {
     $data['session_data'] = $session_data;
-//    var_dump($session_data);
     $username = ($session_data['customer_id']);
 } else {
     $username = $this->session->userdata('login_session');
@@ -22,13 +23,13 @@ if (is_array($session_data)) {
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Sales State Wise
+            Eligible and Ineligible Credit
             <!--<small>it all starts here</small>-->
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="#">Management Reports</a></li>
-            <li class="active">Sales State Wise</li>
+            <li><a href="#">Internal Account Report</a></li>
+            <li class="active">Eligible and Ineligible Credit</li>
         </ol>
     </section>
 
@@ -38,8 +39,7 @@ if (is_array($session_data)) {
         <!-- Default box -->
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title"><button type="button" data-target="#exampleModal-4" data-toggle="modal" class="btn btn-block btn-primary">Upload new</button></h3>
-
+                <!--                <h3 class="box-title">Customer</h3>-->
 
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -56,25 +56,24 @@ if (is_array($session_data)) {
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <!--<th>Unique id</th>-->
                             <th>Customer</th>
                             <th>View Graph</th>
                             <th>View Observations</th>
                         </tr>
                     </thead>
                     <tbody>
+
                         <?php
 //                                    var_dump($cfo_data);
-                        if ($loc_data !== "") {
+                        if ($eligible_ineligible_data !== "") {
                             $i = 1;
-                            foreach ($loc_data as $row) {
+                            foreach ($eligible_ineligible_data as $row) {
                                 ?>
                                 <tr>
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $row->customer_name; ?></td>
-                                    <!--<td>ANAND RATHI GLOBAL FINANCE LIMITED 2017-18</td>-->
                                     <td><button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->customer_id; ?>', '<?php echo $row->insert_id; ?>');"class="btn btn-outline-primary" >View</button></td>
-                                    <td><button type="button" name="get_records" id="get_records"data-insert_id="<?php echo $row->insert_id; ?>"  data-customer_id="<?php echo $row->customer_id; ?>" data-toggle="modal" data-target="#view_value_modal"class="btn bg-maroon-gradient" ><i class="fa fa-fw fa-eye"></i></button></td>
+                                    <td><button type="button" name="get_records" id="get_records" data-insert_id="<?php echo $row->insert_id; ?>" data-customer_id="<?php echo $row->customer_id; ?>" data-toggle="modal" data-target="#view_value_modal"class="btn bg-maroon-gradient" ><i class="fa fa-fw fa-eye"></i></button></td>
                                 </tr> 
                                 <?php
                                 $i++;
@@ -83,7 +82,6 @@ if (is_array($session_data)) {
                             
                         }
                         ?>
-
                     </tbody>
                 </table>
             </div>
@@ -94,7 +92,7 @@ if (is_array($session_data)) {
     </section>
 
 </div>
-
+<!--modal for view observations-->
 <div class="modal fade" id="view_value_modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -109,7 +107,7 @@ if (is_array($session_data)) {
                     <input type="hidden" id="customer_id" name="customer_id">
                     <input type="hidden" id="insert_id" name="insert_id">
                     <div class="form-group">
-                        <div id="location_data"></div>
+                        <div id="tax_turnover_data"></div>
 
                     </div>
                 </form>
@@ -122,35 +120,7 @@ if (is_array($session_data)) {
 
 </div>
 
-<div class="modal fade" id="exampleModal-4" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="ModalLabel">New message</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
 
-                <form class="forms-sample" id="import_form" method="post" name="import_form" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label>File upload</label>
-                        <div class="input-group col-xs-6">
-                            <input type="file" class="form-control file-upload" name="file_ex" id="file_ex" required accept=".xls, .xlsx"  >
-
-                        </div><br>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" name="import1" id="import1" class="btn btn-success mr-2">Submit</button>
-                <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-
-</div>
 
 <?php $this->load->view('customer/footer'); ?>
 <script>
@@ -160,24 +130,25 @@ if (is_array($session_data)) {
     });
 </script>
 <script>
+//view observations modal
     $('#view_value_modal').on('show.bs.modal', function (e) {
         var customerid = $(e.relatedTarget).data('customer_id');
         var customer_id = document.getElementById('customer_id').value = customerid;
         var insertid = $(e.relatedTarget).data('insert_id');
         var insert_id = document.getElementById('insert_id').value = insertid;
-        $('#location_data').html("");
         $.ajax({
             type: "post",
-            url: "<?= base_url("Management_report/get_graph_state_wise") ?>",
+            url: "<?= base_url("Internal_acc_report/get_graph_eligible_ineligible") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
 //                 alert();
+                $('#tax_turnover_data').html("");
                 if (result.message === "success") {
 
                     var data = result.data;
-                    $('#location_data').html("");
-                    $('#location_data').html(data);
+
+                    $('#tax_turnover_data').html(data);
                     $('#example2').DataTable();
                 } else {
 
@@ -186,72 +157,52 @@ if (is_array($session_data)) {
 
         });
     });
-
-    $("#import1").click(function (event) {
-        var formid = document.getElementById("import_form");
-        event.preventDefault();
-        $.ajax({
-
-            url: "<?= base_url("Management_report/import_excel") ?>",
-            type: "POST",
-            data: new FormData(formid),
-            dataType: "json",
-            contentType: false,
-            cache: false,
-            processData: false,
-            async: true,
-            success: function (result) {
-                if (result.status === true) {
-                    alert('Data Submitted Successfully');
-                    // return;
-                    location.reload();
-                } else if (result.status === false) {
-                    alert('something went wrong');
-                } else if (result.message === 'file_missmatch') {
-                    alert('You have selected wrong File');
-                } else {
-                    $('#' + result.id + '_error').html(result.error);
-                    $('#message').html(result.error);
-                }
-            }
-        });
-    });
-
-
-    //function to get graph view
+//function to get graph view
     function get_graph_fun(customer_id, insert_id)
     {
+//        alert("TEsting");
         $.ajax({
             type: "POST",
-            url: "<?= base_url("Management_report/get_graph_state_wise") ?>",
+            url: "<?= base_url("Internal_acc_report/get_graph_eligible_ineligible") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
                 if (result.message === "success") {
 
-                    var data_a = result.taxable_value;
-                    var max_range = result.data_liability;
-                    var data_state = result.state;
+                    var ineligible_itc = result.ineligible_itc;
+                    var net_itc = result.net_itc;
+                    var ineligible_ratio = result.ineligible_ratio;
+                    var eligible_ratio = result.eligible_ratio;
+                    var data_month = result.month_data;
+                    var max_range = result.max_range;
                     var customer_name = "Customer Name:" + result.customer_name;
                     Highcharts.chart('container', {
                         chart: {
                             type: 'column'
                         },
                         title: {
-                            text: 'Sales Satewise'
+                            text: ' Sales B2B and B2C'
                         },
                         subtitle: {
-                            text: customer_name,
+                            text: customer_name
                         },
                         xAxis: {
-                            categories: data_state
+                            categories: data_month
                         },
                         yAxis: [{
+
                                 max: max_range,
                                 title: {
-                                    text: 'Taxable Values'
+                                    text: 'Sales'
                                 }
-                            }, ],
+                            }, {
+//                                min: 0,
+                                max: 100,
+                                opposite: true,
+                                title: {
+                                    text: 'Ratio(in %) '
+                                }
+                            }],
                         legend: {
                             shadow: false
                         },
@@ -259,14 +210,61 @@ if (is_array($session_data)) {
                             shared: true
                         },
                         series: [{
-                                name: 'States',
-                                data: data_a,
+                                type: 'column',
+                                name: ' Ineligible ITC',
+                                data: ineligible_itc,
                                 color: '#146FA7',
                                 tooltip: {
                                     valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                }
+                            }, {
+                                type: 'column',
+                                name: 'Eligible ITC',
+                                data: net_itc,
+                                color: '#B8160E',
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                }
+                            }, {
+                                type: 'spline',
+                                color: '#5BCB45',
+                                name: 'Ratio Of Ineligible ITC to total ITC',
+                                data: ineligible_ratio,
+                                yAxis: 1,
+                                tooltip: {
+                                    valueSuffix: ' %'
                                 },
+                                plotOptions: {
+                                    spline: {
+                                        dataLabels: {
+                                            enabled: true
+                                        },
+                                        enableMouseTracking: false
+                                    }
+                                }
+                            }, {
+                                type: 'spline',
+                                color: '#B596E7',
+                                name: 'Ratio of Eligible ITC to Total ITC',
+                                data: eligible_ratio,
+                                yAxis: 1,
+                                tooltip: {
+                                    valueSuffix: ' %'
+                                },
+                                plotOptions: {
+                                    spline: {
+                                        dataLabels: {
+                                            enabled: true
+                                        },
+                                        enableMouseTracking: false
+                                    }
+                                }
                             }]
                     });
+                } else {
+                    alert('no graph available.please insert files.');
                 }
             }
         }

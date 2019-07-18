@@ -28,9 +28,24 @@ class Management_report extends CI_Controller {
         $this->load->view('customer/Sale_state_wise', $data);
     }
 
+    function Sale_b2b_b2c_admin() {
+        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
+        if ($query_get_cfo_data !== FALSE) {
+            $data['b2b_data'] = $query_get_cfo_data;
+        } else {
+            $data['b2b_data'] = "";
+        }
+        $this->load->view('customer/B2b_b2c', $data);
+    }
+
     function state_wise_report_admin() {
-//        $data['result'] = $result;
-        $this->load->view('admin/Sale_state_wise');
+        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
+        if ($query_get_cfo_data !== FALSE) {
+            $data['loc_data'] = $query_get_cfo_data;
+        } else {
+            $data['loc_data'] = "";
+        }
+        $this->load->view('admin/Sale_state_wise', $data);
     }
 
     public function import_excel() { //function to get data from excel files
@@ -230,6 +245,17 @@ class Management_report extends CI_Controller {
         $this->load->view('customer/Sale_tax_nontax_exempt', $data);
     }
 
+    // function taxable non taxable and exempt page load
+    public function Sale_taxable_nontaxable_admin() {
+        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
+        if ($query_get_cfo_data !== FALSE) {
+            $data['tax_exempt_data'] = $query_get_cfo_data;
+        } else {
+            $data['tax_exempt_data'] = "";
+        }
+        $this->load->view('admin/Sale_tax_nontax_exempt', $data);
+    }
+
     public function get_graph_taxable_nontx_exempt() { //get graph function of taxable nontaxable and exempt
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
@@ -386,7 +412,7 @@ class Management_report extends CI_Controller {
 
     //Graph generated month wise
 
-    function sale_month_wise() {
+    function sale_month_wise() { //function to load data
 //        $data['result'] = $result;
         $session_data = $this->session->userdata('login_session');
         $customer_id = ($session_data['customer_id']);
@@ -397,6 +423,15 @@ class Management_report extends CI_Controller {
             $data['month_wise_data'] = "";
         }
         $this->load->view('customer/Sales_month_wise', $data);
+    }
+    function sale_month_wise_admin() { //function to load data
+        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
+        if ($query_get_cfo_data !== FALSE) {
+            $data['month_wise_data'] = $query_get_cfo_data;
+        } else {
+            $data['month_wise_data'] = "";
+        }
+        $this->load->view('admin/Sales_month_wise', $data);
     }
 
     public function get_graph_sales_month_wise() { //get graph function of Sales month wise
@@ -1011,7 +1046,7 @@ class Management_report extends CI_Controller {
             $data = $result->row();
             $uniq_id = $data->unique_id;
             //generate turn_id
-            $uniq_id = str_pad( ++$uniq_id, 5, '0', STR_PAD_LEFT);
+            $uniq_id = str_pad(++$uniq_id, 5, '0', STR_PAD_LEFT);
             return $uniq_id;
         } else {
             $uniq_id = 'btb_1001';
