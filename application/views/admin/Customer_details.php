@@ -68,6 +68,8 @@ if (is_array($session_data)) {
                             <th>Contact No</th>
                             <th>Created On</th>
                             <th>Action</th>
+<!--                            <th>View</th>
+                            <th>View PDF</th>-->
                         </tr>
                     </thead>
                     <tbody>
@@ -89,6 +91,9 @@ if (is_array($session_data)) {
                                     -->
                                     <td><a class="btn btn-circle red btn-icon-only btn-default" onclick="delete_designation('CA')"><i class="fa fa-remove"></i></a>
                                         <a class="btn btn-circle blue btn-icon-only btn-default" data-toggle="modal" data-target="#edit_designation" data-desig_id="CA"><i class="fa fa-pencil"></i></a></td>
+        <!--                                    <td><a class="btn btn-circle blue btn-icon-only btn-default"type="button" href="<?= base_url() . 'htmltopdf/details/' . $row->customer_id . '/' . $row->insert_id ?>">View</a></td>
+                                    <td><a class="btn btn-circle blue btn-icon-only btn-default"type="button" target="_blank" href="<?= base_url() . 'htmltopdf/pdfdetails/' . $row->customer_id . '/' . $row->insert_id ?>">View in PDF</a></td>
+                                    <td><a class="btn btn-circle blue btn-icon-only btn-default"type="button" target="_blank" onclick="view_pdf('<?php // echo $row->customer_id;  ?>', '<?php // echo $row->insert_id;  ?>')">View in PDF</a></td>-->
                                 </tr> 
                                 <?php
                                 $i++;
@@ -111,7 +116,99 @@ if (is_array($session_data)) {
 
 <?php $this->load->view('customer/footer'); ?>
 
-<script>
 
+<script>
+    $(function () {
+        $("#example1").DataTable();
+    });
+
+    function view_pdf(customer_id, insert_id)
+    {
+        $.ajax({
+            type: "POST",
+            url: "<?= base_url("Cfo_dashboard/pdfdetails") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                if (result.message === "success") {
+
+                    var data_a = result.data_turn_over;
+                    var data_liability = result.data_liability;
+                    var data_ratio = result.ratio;
+                    var data_month = result.month_data;
+                    var max_range = result.max_range;
+                    var customer_name = "Customer Name:" + result.customer_name;
+                    Highcharts.chart('container', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Turnover vs Tax Liability'
+                        },
+                        subtitle: {
+                            text: customer_name,
+                        },
+                        xAxis: {
+                            categories: data_month
+                        },
+                        yAxis: [{
+                                max: max_range,
+                                title: {
+                                    text: 'TurnOver'
+                                }
+                            }, {
+                                min: 0,
+                                max: 100,
+                                opposite: true,
+                                title: {
+                                    text: 'Ratio(in %) of tax liability to turnover'
+                                }
+                            }],
+                        legend: {
+                            shadow: false
+                        },
+                        tooltip: {
+                            shared: true
+                        },
+                        series: [{
+                                name: 'TurnOver',
+                                data: data_a,
+                                color: '#146FA7',
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                },
+                            }, {
+                                name: 'Tax Liability',
+                                data: data_liability,
+                                color: '#B8160E',
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                },
+                            }, {
+                                type: 'spline',
+                                color: '#5BCB45',
+                                name: 'Ratio',
+                                data: data_ratio,
+                                yAxis: 1,
+                                tooltip: {
+                                    valueSuffix: ' %'
+                                },
+                                plotOptions: {
+                                    spline: {
+                                        dataLabels: {
+                                            enabled: true
+                                        },
+                                        enableMouseTracking: false
+                                    }
+                                },
+                            }]
+                    });
+                }
+            }
+        }
+        );
+    }
 </script>
 

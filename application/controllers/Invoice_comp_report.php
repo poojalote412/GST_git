@@ -16,6 +16,16 @@ class Invoice_comp_report extends CI_Controller {
         $this->load->view('customer/Invoice_comp_report ');
     }
 
+    public function invoice_not_included_index_admin() { //function to load view page
+        $query_get_cfo_data = $this->Invoice_comp_report_model->get_data_admin();
+        if ($query_get_cfo_data !== FALSE) {
+            $data['invoice_notinclu_data'] = $query_get_cfo_data;
+        } else {
+            $data['invoice_notinclu_data'] = "";
+        }
+        $this->load->view('admin/Invoce_not_included', $data);
+    }
+
     function not_in_2a_index() { //function to load page of not in 2a
         $session_data = $this->session->userdata('login_session');
         $customer_id = ($session_data['customer_id']);
@@ -270,7 +280,7 @@ class Invoice_comp_report extends CI_Controller {
     public function get_table_company_not_in_rec() { //get companies who having not in records
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
-        $query = $this->Invoice_comp_report_model->get_company_not_in_rec($customer_id,$insert_id);
+        $query = $this->Invoice_comp_report_model->get_company_not_in_rec($customer_id, $insert_id);
         $data = "";
         if ($query != FALSE) {
             $data .= '<div class="row">
@@ -466,6 +476,7 @@ class Invoice_comp_report extends CI_Controller {
         }
         $this->load->view('customer/partially_match_records', $data);
     }
+
     //function to load partial match data
     public function partial_match_index_admin() {
         $query_get_data = $this->Cfo_model->get_data_cfo_admin();
@@ -481,7 +492,7 @@ class Invoice_comp_report extends CI_Controller {
     public function get_table_company_partially_match() { //get companies who having not in 2a
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
-        $query = $this->Invoice_comp_report_model->get_company_partial($customer_id,$insert_id);
+        $query = $this->Invoice_comp_report_model->get_company_partial($customer_id, $insert_id);
         $data = "";
         if ($query != FALSE) {
             $data .= '<div class="row">
@@ -600,6 +611,163 @@ class Invoice_comp_report extends CI_Controller {
             $response['status'] = FALSE;
             $response['code'] = 204;
         }echo json_encode($response);
+    }
+
+    public function import_not_included_excel() {
+        if (isset($_FILES["file_ex"]["name"])) {
+            $path = $_FILES["file_ex"]["tmp_name"];
+            $this->load->library('excel');
+            $object = PHPExcel_IOFactory::load($path);
+            $worksheet = $object->getActiveSheet();
+            $highestRow = $worksheet->getHighestRow();
+            $highestColumn = $worksheet->getHighestColumn();
+            $original_month = array();
+            $showing_month = array();
+            $category = array();
+            $gstin_arr = array();
+            $invoice_date = array();
+            $invoice_no = array();
+            $name = array();
+            $invoice_value = array();
+            $taxable_value = array();
+            $igst = array();
+            $cgst = array();
+            $cess = array();
+            for ($i = 0; $i <= $highestRow; $i++) {
+                if ($object->getActiveSheet()->getCell("B" . $i)->getValue() == "Original Month") { //get records of origial month
+                    for ($j = $i + 1; $j <= $highestRow; $j++) {
+                        $og_mon = $object->getActiveSheet()->getCell("B" . $j)->getValue();
+                        $original_month[] = $og_mon;
+                    }
+                } else {
+                    
+                }
+                if ($object->getActiveSheet()->getCell("C" . $i)->getValue() == "Showing in month") { //get records of Showing month
+                    for ($j = $i + 1; $j <= $highestRow; $j++) {
+                        $show_mon = $object->getActiveSheet()->getCell("C" . $j)->getValue();
+                        $showing_month[] = $show_mon;
+                    }
+                } else {
+                    
+                }
+                if ($object->getActiveSheet()->getCell("D" . $i)->getValue() == "Category") { //get records of Showing month
+                    for ($j = $i + 1; $j <= $highestRow; $j++) {
+                        $cat = $object->getActiveSheet()->getCell("D" . $j)->getValue();
+                        $category[] = $cat;
+                    }
+                } else {
+                    
+                }
+                if ($object->getActiveSheet()->getCell("E" . $i)->getValue() == "GSTIN") { //get records of GSTIN
+                    for ($j = $i + 1; $j <= $highestRow; $j++) {
+                        $gstin = $object->getActiveSheet()->getCell("E" . $j)->getValue();
+                        $gstin_arr[] = $gstin;
+                    }
+                } else {
+                    
+                }
+                if ($object->getActiveSheet()->getCell("F" . $i)->getValue() == "Invoice Date") { //get records of Invoice Date
+                    for ($j = $i + 1; $j <= $highestRow; $j++) {
+                        $invoiceDate = $object->getActiveSheet()->getCell("F" . $j)->getValue();
+                        $invoice_date[] = $invoiceDate;
+                    }
+                } else {
+                    
+                }
+                if ($object->getActiveSheet()->getCell("G" . $i)->getValue() == "Invoice No") { //get records of Invoice No
+                    for ($j = $i + 1; $j <= $highestRow; $j++) {
+                        $invoiceno = $object->getActiveSheet()->getCell("G" . $j)->getValue();
+                        $invoice_no[] = $invoiceno;
+                    }
+                } else {
+                    
+                }
+                if ($object->getActiveSheet()->getCell("H" . $i)->getValue() == "Name") { //get records of Names
+                    for ($j = $i + 1; $j <= $highestRow; $j++) {
+                        $names = $object->getActiveSheet()->getCell("H" . $j)->getValue();
+                        $name[] = $names;
+                    }
+                } else {
+                    
+                }
+                if ($object->getActiveSheet()->getCell("I" . $i)->getValue() == "Invoice Value") { //get records of Invoice Value 
+                    for ($j = $i + 1; $j <= $highestRow; $j++) {
+                        $invoice_val = $object->getActiveSheet()->getCell("I" . $j)->getValue();
+                        $invoice_value[] = $invoice_val;
+                    }
+                } else {
+                    
+                }
+                if ($object->getActiveSheet()->getCell("J" . $i)->getValue() == "Taxable Value") { //get records of Showing month
+                    for ($j = $i + 1; $j <= $highestRow; $j++) {
+                        $tax_val = $object->getActiveSheet()->getCell("J" . $j)->getValue();
+                        $taxable_value[] = $tax_val;
+                    }
+                } else {
+                    
+                }
+                if ($object->getActiveSheet()->getCell("K" . $i)->getValue() == "IGST") { //get records of IGST
+                    for ($j = $i + 1; $j <= $highestRow; $j++) {
+                        $igst_val = $object->getActiveSheet()->getCell("K" . $j)->getValue();
+                        $igst[] = $igst_val;
+                    }
+                } else {
+                    
+                }
+                if ($object->getActiveSheet()->getCell("L" . $i)->getValue() == "CGST") { //get records of CGST
+                    for ($j = $i + 1; $j <= $highestRow; $j++) {
+                        $cgst_val = $object->getActiveSheet()->getCell("C" . $j)->getValue();
+                        $cgst[] = $cgst_val;
+                    }
+                } else {
+                    
+                }
+                if ($object->getActiveSheet()->getCell("M" . $i)->getValue() == "SGST") { //get records of SGST
+                    for ($j = $i + 1; $j <= $highestRow; $j++) {
+                        $sgst_val = $object->getActiveSheet()->getCell("M" . $j)->getValue();
+                        $sgst[] = $sgst_val;
+                    }
+                } else {
+                    
+                }
+                if ($object->getActiveSheet()->getCell("N" . $i)->getValue() == "CESS") { //get records of SGST
+                    for ($j = $i + 1; $j <= $highestRow; $j++) {
+                        $cess_val = $object->getActiveSheet()->getCell("N" . $j)->getValue();
+                        $cess[] = $cess_val;
+                    }
+                } else {
+                    
+                }
+            }
+            
+
+            $count = count($original_month);
+            for ($k = 0; $k < $count; $k++) {
+                ($original_month[$k] != "") ? $original_month[$k] : 0;
+                ($showing_month[$k] != "") ? $showing_month[$k] : 0;
+                ($category[$k] != "") ? $category[$k] : 0;
+                ($gstin_arr[$k] != "") ? $gstin_arr[$k] : 0;
+                ($invoice_date[$k] != "") ? $invoice_date[$k] : 0;
+                ($invoice_no[$k] != "") ? $invoice_no[$k] : 0;
+                ($name[$k] != "" || $name[$k] === NULL) ? $name[$k] : "Not Given";
+                ($invoice_value[$k] != "") ? $invoice_value[$k] : 0;
+                ($taxable_value[$k] != "") ? $taxable_value[$k] : 0;
+                ($igst[$k] != "") ? $igst[$k] : 0;
+                ($cgst[$k] != "") ? $cgst[$k] : 0;
+                ($cess[$k] != "") ? $cess[$k] : 0;
+
+                $query = $this->db->query("insert into invoice_not_included_gstr1 (`customer_id`,`insert_id`,`original_month`,`showing_month`,"
+                        . "`category`,`gstin_no`,`invoice_date`,`invoice_no`,`name`,`invoice_value`,`taxable_value`,`igst`,`cgst`,`sgst`,`cess`)"
+                        . "values ('cust_1001','insert_1001','$original_month[$k]', '$showing_month[$k]', '$category[$k]', '$gstin_arr[$k]',
+                    '$invoice_date[$k]', '$invoice_no[$k]', '$name[$k]', '$invoice_value[$k]', '$taxable_value[$k]', '$igst[$k]', '$cgst[$k]', '$cess[$k]')");
+//                        . "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+//                $this->db->query($query, array('cust_1001','insert_1001',$original_month[$k], $showing_month[$k], $category[$k], $gstin_arr[$k],
+//                    $invoice_date[$k], $invoice_no[$k], $name[$k], $invoice_value[$k], $taxable_value[$k], $igst[$k], $cgst[$k], $cess[$k]));
+                if ($this->db->affected_rows() > 0) {
+                    echo'yes';
+                }
+            }
+        }
     }
 
 }
