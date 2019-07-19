@@ -71,7 +71,7 @@ if (is_array($session_data)) {
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $row->customer_name; ?></td>
                                     <td>
-                                        <a type="button" class="btn btn-default" name="get_records" id="get_records" onclick="get_records_not_in_2a('<?php echo $row->customer_id; ?>', '<?php echo $row->insert_id; ?>');"><i class="fa fa-eye"></i> view</a>
+                                        <a type="button" class="btn btn-default" name="get_records" id="get_records" onclick="get_records('<?php echo $row->customer_id; ?>', '<?php echo $row->insert_id; ?>');"><i class="fa fa-eye"></i> view</a>
                                         <!--<button type="button" name="get_records" id="get_records" onclick="get_records_not_in_2a('<?php echo $row->customer_id; ?>');"class="btn btn-app" >View</button>-->
                                     </td>
                                 </tr> 
@@ -123,30 +123,7 @@ if (is_array($session_data)) {
     </div>
 </div>
 
-<div class="modal fade" id="not_in_2a_data_modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="ModalLabel">Not In 2A Records</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form class="forms-sample" id="compant_form" method="post" name="company_form" enctype="multipart/form-data">
-                    <input type="hidden" id="company_name" name="company_name">
-                    <input type="hidden" id="customer_id" name="customer_id">
-                    <input type="hidden" id="insert_id" name="insert_id">
-                    <div id="not_in2a_data"></div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <!--                <button type="button" name="import" id="import" class="btn btn-success">Submit</button>-->
-                <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <?php $this->load->view('customer/footer'); ?>
 <script>
@@ -191,12 +168,12 @@ if (is_array($session_data)) {
         });
     });
 
-    function get_records_not_in_2a(customer_id, insert_id)
+    function get_records(customer_id, insert_id)
     {
         $('#company_data').html("");
         $.ajax({
             type: "post",
-            url: "<?= base_url("Invoice_comp_report/get_table_company") ?>",
+            url: "<?= base_url("Invoice_comp_report/get_table_data") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
@@ -213,31 +190,7 @@ if (is_array($session_data)) {
 
         });
     }
-    $('#not_in_2a_data_modal').on('show.bs.modal', function (e) {
-        var companyname = $(e.relatedTarget).data('company_name');
-        var company_name = document.getElementById('company_name').value = companyname;
-        var customerid = $(e.relatedTarget).data('customer_id');
-        var customer_id = document.getElementById('customer_id').value = customerid;
-        var insertid = $(e.relatedTarget).data('insert_id');
-        var insert_id = document.getElementById('insert_id').value = insertid;
-        $.ajax({
-            type: "post",
-            url: "<?= base_url("Invoice_comp_report/get_not_in2a_records") ?>",
-            dataType: "json",
-            data: {company_name: company_name, customer_id: customer_id, insert_id: insert_id},
-            success: function (result) {
-                if (result.status === true) {
-                    var data = result.data;
-                    $('#not_in2a_data').html("");
-                    $('#not_in2a_data').html(data);
-                    $('#example3').DataTable();
-                } else {
 
-                }
-            },
-
-        });
-    });
 
 </script>
 

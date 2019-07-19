@@ -120,6 +120,7 @@ class Invoice_comp_report extends CI_Controller {
                         'company_name' => $company_name,
                         'tax' => $tax,
                     );
+                    
                     $qr = $this->db->insert('gstr_2a_reconciliation_all', $data);
                     if ($this->db->affected_rows() > 0) {
                         $value_insert++;
@@ -632,6 +633,7 @@ class Invoice_comp_report extends CI_Controller {
             $taxable_value = array();
             $igst = array();
             $cgst = array();
+            $sgst = array();
             $cess = array();
             for ($i = 0; $i <= $highestRow; $i++) {
                 if ($object->getActiveSheet()->getCell("B" . $i)->getValue() == "Original Month") { //get records of origial month
@@ -690,7 +692,7 @@ class Invoice_comp_report extends CI_Controller {
                 } else {
                     
                 }
-                if ($object->getActiveSheet()->getCell("I" . $i)->getValue() == "Invoice Value") { //get records of Invoice Value 
+                if ($object->getActiveSheet()->getCell("I" . $i)->getValue() == "Invoice Value ") { //get records of Invoice Value 
                     for ($j = $i + 1; $j <= $highestRow; $j++) {
                         $invoice_val = $object->getActiveSheet()->getCell("I" . $j)->getValue();
                         $invoice_value[] = $invoice_val;
@@ -716,7 +718,7 @@ class Invoice_comp_report extends CI_Controller {
                 }
                 if ($object->getActiveSheet()->getCell("L" . $i)->getValue() == "CGST") { //get records of CGST
                     for ($j = $i + 1; $j <= $highestRow; $j++) {
-                        $cgst_val = $object->getActiveSheet()->getCell("C" . $j)->getValue();
+                        $cgst_val = $object->getActiveSheet()->getCell("L" . $j)->getValue();
                         $cgst[] = $cgst_val;
                     }
                 } else {
@@ -739,35 +741,123 @@ class Invoice_comp_report extends CI_Controller {
                     
                 }
             }
-            
 
             $count = count($original_month);
             for ($k = 0; $k < $count; $k++) {
-                ($original_month[$k] != "") ? $original_month[$k] : 0;
-                ($showing_month[$k] != "") ? $showing_month[$k] : 0;
-                ($category[$k] != "") ? $category[$k] : 0;
-                ($gstin_arr[$k] != "") ? $gstin_arr[$k] : 0;
-                ($invoice_date[$k] != "") ? $invoice_date[$k] : 0;
-                ($invoice_no[$k] != "") ? $invoice_no[$k] : 0;
-                ($name[$k] != "" || $name[$k] === NULL) ? $name[$k] : "Not Given";
-                ($invoice_value[$k] != "") ? $invoice_value[$k] : 0;
-                ($taxable_value[$k] != "") ? $taxable_value[$k] : 0;
-                ($igst[$k] != "") ? $igst[$k] : 0;
-                ($cgst[$k] != "") ? $cgst[$k] : 0;
-                ($cess[$k] != "") ? $cess[$k] : 0;
 
-                $query = $this->db->query("insert into invoice_not_included_gstr1 (`customer_id`,`insert_id`,`original_month`,`showing_month`,"
+                if ($original_month[$k] == "") {
+                    $original_month[$k] = "0";
+                }
+                if ($showing_month[$k] == "") {
+                    $showing_month[$k] = "0";
+                }
+                if ($category[$k] == "") {
+                    $category[$k] = "0";
+                }
+                if ($gstin_arr[$k] == "") {
+                    $gstin_arr[$k] = "0";
+                }
+                if ($invoice_date[$k] == "") {
+                    $invoice_date[$k] = "0";
+                }
+                if ($invoice_no[$k] == "") {
+                    $invoice_no[$k] = "0";
+                }
+                if ($name[$k] == "") {
+                    $name[$k] = "Not Given";
+                }
+                if ($invoice_value[$k] == "") {
+                    $invoice_value[$k] = "0";
+                }
+                if ($taxable_value[$k] == "") {
+                    $taxable_value[$k] = "0";
+                }
+                if ($igst[$k] == "") {
+                    $igst[$k] = "0";
+                }
+                if ($cgst[$k] == "") {
+                    $cgst[$k] = "0";
+                }
+                if ($sgst[$k] == "") {
+                    $sgst[$k] = "0";
+                }
+                if ($cess[$k] == "") {
+                    $cess[$k] = "0";
+                }
+
+                $query = ("insert into invoice_not_included_gstr1 (`customer_id`,`insert_id`,`original_month`,`showing_month`,"
                         . "`category`,`gstin_no`,`invoice_date`,`invoice_no`,`name`,`invoice_value`,`taxable_value`,`igst`,`cgst`,`sgst`,`cess`)"
-                        . "values ('cust_1001','insert_1001','$original_month[$k]', '$showing_month[$k]', '$category[$k]', '$gstin_arr[$k]',
-                    '$invoice_date[$k]', '$invoice_no[$k]', '$name[$k]', '$invoice_value[$k]', '$taxable_value[$k]', '$igst[$k]', '$cgst[$k]', '$cess[$k]')");
-//                        . "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-//                $this->db->query($query, array('cust_1001','insert_1001',$original_month[$k], $showing_month[$k], $category[$k], $gstin_arr[$k],
-//                    $invoice_date[$k], $invoice_no[$k], $name[$k], $invoice_value[$k], $taxable_value[$k], $igst[$k], $cgst[$k], $cess[$k]));
+                        . "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $this->db->query($query, array('cust_1001', 'insert_1001', $original_month[$k], $showing_month[$k], $category[$k], $gstin_arr[$k],
+                    $invoice_date[$k], $invoice_no[$k], $name[$k], $invoice_value[$k], $taxable_value[$k], $igst[$k], $cgst[$k], $sgst[$k], $cess[$k]));
                 if ($this->db->affected_rows() > 0) {
                     echo'yes';
+                } else {
+                    echo'no';
                 }
             }
         }
+    }
+
+    public function get_table_data() {
+        $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
+        $query = $this->Invoice_comp_report_model->get_details_invoice_not_included($customer_id, $insert_id);
+        $data = "";
+        if ($query != FALSE) {
+            $data .= '<div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="example2" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Original Month</th>
+                                        <th>Showing in month</th>
+                                        <th>Category</th>
+                                        <th>GSTIN</th>
+                                        <th>Invoice Date</th>
+                                        <th>Invoice No</th>
+                                        <th>Name</th>
+                                        <th>Invoice Value</th>
+                                        <th>Taxable Value</th>
+                                        <th>IGST</th>
+                                        <th>CGST</th>
+                                        <th>SGST</th>
+                                        <th>CESS</th>
+                                        <th>Total Tax</th>
+                                    </tr>
+                                </thead>
+                                <tbody>';
+            foreach ($query as $row) {
+
+                $data .= '<tr>' .
+                        '<td>' . $row->original_month . '</td>
+                        <td>' . $row->showing_month . '</td>
+                        <td>' . $row->category . '</td>
+                        <td>' . $row->gstin_no . '</td>
+                        <td>' . $row->invoice_date . '</td>
+                        <td>' . $row->invoice_no . '</td>
+                        <td>' . $row->name . '</td>
+                        <td>' . $row->invoice_value . '</td>
+                        <td>' . $row->taxable_value . '</td>
+                        <td>' . $row->igst . '</td>
+                        <td>' . $row->cgst . '</td>
+                        <td>' . $row->sgst . '</td>
+                        <td>' . $row->cess . '</td>
+                        <td><b>' . ($row->igst + $row->cgst + $row->sgst + $row->cess) . '</b></td>
+                        
+                        </tr>';
+            }
+            $data .= '</tbody></table></div></div></div>';
+            $response['data'] = $data;
+            $response['message'] = "success";
+            $response['status'] = true;
+            $response['code'] = 200;
+        } else {
+            $response['message'] = "";
+            $response['status'] = FALSE;
+            $response['code'] = 204;
+        }echo json_encode($response);
     }
 
 }
