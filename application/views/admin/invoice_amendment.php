@@ -125,16 +125,17 @@ if (is_array($session_data)) {
 
 
 <?php $this->load->view('customer/footer'); ?>
+
 <script>
-    $(function () {
-        $("#example1").DataTable();
-    });
-    $(function () {
-        $("#example2").DataTable();
-    });
-    $(function () {
-        $("#example3").DataTable();
-    });
+                                    $(function () {
+                                        $("#example1").DataTable();
+                                    });
+                                    $(function () {
+                                        $("#example2").DataTable();
+                                    });
+                                    $(function () {
+                                        $("#example3").DataTable();
+                                    });
 </script>
 <script>
 

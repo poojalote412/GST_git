@@ -248,7 +248,7 @@ if (is_array($session_data)) {
                             type: 'column'
                         },
                         title: {
-                            text: 'Turnover vs Tax Liability'
+                            text: 'GST Payable vs Cash'
                         },
                         subtitle: {
                             text: customer_name,

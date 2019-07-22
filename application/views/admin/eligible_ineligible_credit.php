@@ -181,7 +181,7 @@ if (is_array($session_data)) {
                             type: 'column'
                         },
                         title: {
-                            text: ' Sales B2B and B2C'
+                            text: 'Eligible and Ineligible Credit'
                         },
                         subtitle: {
                             text: customer_name

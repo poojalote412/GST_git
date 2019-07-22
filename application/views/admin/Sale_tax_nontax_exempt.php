@@ -180,7 +180,7 @@ if (is_array($session_data)) {
                             type: 'column'
                         },
                         title: {
-                            text: 'Turnover vs Tax Liability'
+                            text: 'Sale Taxable,Non-Taxable & Exempt'
                         },
                         subtitle: {
                             text: customer_name
