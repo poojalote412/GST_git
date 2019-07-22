@@ -69,12 +69,9 @@ if (is_array($session_data)) {
                             <th>Contact No</th>
                             <th>Created On</th>
                             <th>Action</th>
-<<<<<<< HEAD
+
                             <th>Upload</th>
-=======
-<!--                            <th>View</th>
-                            <th>View PDF</th>-->
->>>>>>> 966bd20a1a036d7f96a5535b0e5def033a863c02
+
                         </tr>
                     </thead>
                     <tbody>
@@ -94,8 +91,7 @@ if (is_array($session_data)) {
                                     <td><?php echo $row->created_on; ?></td>
         <!--                       <td><button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->customer_id; ?>');"class="btn btn-outline-primary" >Edit</button>
                                     <button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->customer_id; ?>');"class="btn btn-outline-primary" >Delete</button></td>
-                                    -->
-<<<<<<< HEAD
+
                                     <script>
                                      document.getElementById("customer_id").value='<?php echo $customer_id;?>';
                                     </script>
@@ -108,7 +104,7 @@ if (is_array($session_data)) {
         <!--                                    <td><a class="btn btn-circle blue btn-icon-only btn-default"type="button" href="<?= base_url() . 'htmltopdf/details/' . $row->customer_id . '/' . $row->insert_id ?>">View</a></td>
                                     <td><a class="btn btn-circle blue btn-icon-only btn-default"type="button" target="_blank" href="<?= base_url() . 'htmltopdf/pdfdetails/' . $row->customer_id . '/' . $row->insert_id ?>">View in PDF</a></td>
                                     <td><a class="btn btn-circle blue btn-icon-only btn-default"type="button" target="_blank" onclick="view_pdf('<?php // echo $row->customer_id;  ?>', '<?php // echo $row->insert_id;  ?>')">View in PDF</a></td>-->
->>>>>>> 966bd20a1a036d7f96a5535b0e5def033a863c02
+
                                 </tr> 
                                 <?php
                                 $i++;
