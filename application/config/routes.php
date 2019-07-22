@@ -99,7 +99,9 @@ $route['gst_payable_vs_cash_admin'] = 'Internal_acc_report/gst_payable_vs_cash_i
 $route['not_in_2a_admin'] = 'Invoice_comp_report/not_in_2a_index_admin';
 $route['not_in_record_admin'] = 'Invoice_comp_report/not_in_record_index_admin';
 $route['partial_match_admin'] = 'Invoice_comp_report/partial_match_index_admin';
+$route['invoice_amendment'] = 'Invoice_comp_report/invoice_amendment_index';
 $route['invoice_not_included_admin'] = 'Invoice_comp_report/invoice_not_included_index_admin';
 $route['GST_Logout_admin'] = 'Gst_dashboard/index_admin';
+
 
 $route['generatepdf'] = "welcome/convertpdf";

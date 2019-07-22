@@ -93,5 +93,14 @@ class Invoice_comp_report_model extends CI_Model {
             return FALSE;
         }
     }
+    public function get_details_invoice_ammneded($customer_id, $insert_id) {
+        $query = $this->db->query("select * from invoices_amended_summary_all where customer_id='$customer_id' and insert_id='$insert_id'");
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+            return $result;
+        } else {
+            return FALSE;
+        }
+    }
 
 }

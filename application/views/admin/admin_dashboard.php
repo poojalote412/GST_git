@@ -13,7 +13,8 @@ $this->load->view('admin/navigation');
             DASHBOARD
             <!--<small>it all starts here</small>-->
         </h1>
-        <input type="button" id="create_pdf" value="Generate PDF">
+        
+        <input type="button"  class="highcharts-menu-item" id="" value="Generate PDF">
         <!--<button id="cmd">generate PDF</button>-->
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -23,7 +24,7 @@ $this->load->view('admin/navigation');
     </section>
 
     <!-- Main content -->
-    <!--    <form class="form" id="ff">-->
+        <form class="form" id="ff">
 
     <section class="content">
 
@@ -42,7 +43,7 @@ $this->load->view('admin/navigation');
             </div>
             <div class="box-body">
                 
-
+               
                     <div id="container"></div>
 
                 <!--</iframe>-->
@@ -63,7 +64,7 @@ $this->load->view('admin/navigation');
         lfgkldfklk
     </iframe>-->
 
-    <!--</form>-->
+    </form>
     <!-- /.content -->
 </div>
 
@@ -82,7 +83,7 @@ $this->load->view('admin/navigation');
             data: {customer_id: 'cust_1001', insert_id: 'insert_1001'},
             success: function (result) {
                 if (result.message === "success") {
-
+                    
                     var data_a = result.data_turn_over;
                     var data_liability = result.data_liability;
                     var data_ratio = result.ratio;
@@ -155,7 +156,7 @@ $this->load->view('admin/navigation');
                                     }
                                 },
                             }],
-                    });
+                    });                    
                 }
             }
         });
@@ -163,7 +164,7 @@ $this->load->view('admin/navigation');
 </script>
 
 
-<!--
+
 <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>  
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script> 
    
@@ -270,4 +271,4 @@ $this->load->view('admin/navigation');
         };  
     })(jQuery);  
   
-</script>  -->
+</script> 
