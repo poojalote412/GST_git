@@ -38,8 +38,9 @@ if (is_array($session_data)) {
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title"></h3>
-
+                <!--<input type="text" name="customer_id" name="customer_id" value="<?php echo $row->customer_id;?>">-->
                 <div class="box-tools pull-right">
+                    <!--<input type="text" name="customer_id" id="customer_id"value="">-->
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
                             title="Collapse">
                         <i class="fa fa-minus"></i></button>
@@ -68,6 +69,7 @@ if (is_array($session_data)) {
                             <th>Contact No</th>
                             <th>Created On</th>
                             <th>Action</th>
+                            <th>Upload</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -77,6 +79,7 @@ if (is_array($session_data)) {
                         if ($result !== "") {
                             $i = 1;
                             foreach ($result as $row) {
+                                $customer_id= $row->customer_id;
                                 ?>
                                 <tr>
                                     <td><?php echo $i; ?></td>
@@ -84,11 +87,15 @@ if (is_array($session_data)) {
                                     <td><?php echo $row->customer_email_id; ?></td>
                                     <td><?php echo $row->customer_contact_number; ?></td>
                                     <td><?php echo $row->created_on; ?></td>
-        <!--                                    <td><button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->customer_id; ?>');"class="btn btn-outline-primary" >Edit</button>
+        <!--                       <td><button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->customer_id; ?>');"class="btn btn-outline-primary" >Edit</button>
                                     <button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->customer_id; ?>');"class="btn btn-outline-primary" >Delete</button></td>
                                     -->
-                                    <td><a class="btn btn-circle red btn-icon-only btn-default" onclick="delete_designation('CA')"><i class="fa fa-remove"></i></a>
-                                        <a class="btn btn-circle blue btn-icon-only btn-default" data-toggle="modal" data-target="#edit_designation" data-desig_id="CA"><i class="fa fa-pencil"></i></a></td>
+                                    <script>
+                                     document.getElementById("customer_id").value='<?php echo $customer_id;?>';
+                                    </script>
+                                    <td><a class="btn btn-circle red btn-icon-only btn-default" onclick="delete_customer('<?php echo $row->customer_id; ?>')"><i class="fa fa-remove"></i></a>
+                                        <a class="btn btn-circle blue btn-icon-only btn-default" href="<?= base_url("view_edit_customer/" . $row->customer_id); ?>" data-desig_id="CA"><i class="fa fa-pencil"></i></a></td>
+                                     <td><a class="btn btn-circle red btn-icon-only btn-primary" href="<?= base_url("view_edit_customer_files/" . $row->customer_id); ?>">Upload</a></td>
                                 </tr> 
                                 <?php
                                 $i++;
@@ -112,6 +119,31 @@ if (is_array($session_data)) {
 <?php $this->load->view('customer/footer'); ?>
 
 <script>
-
+function delete_customer()
+    {
+//        alert("gyhguyjhgujh");
+        var customer_id = document.getElementById('customer_id').value;
+        
+        var result = confirm("Are You Sure, You Want To Delete This customer?");
+        if (result) {
+            $.ajax({
+                type: "POST",
+                url: "<?= base_url("Customer_admin/del_customer") ?>",
+                dataType: "json",
+                data: {customer_id: customer_id},
+                
+                success: function (result) {
+                   
+                    if (result.status == true) {
+                        alert('Customer Deleted Successfully');
+                        location.reload();
+                    } else {
+                        alert('something went wrong');
+                    } 
+                }
+            });
+        } else {
+        }
+    }
 </script>
 
