@@ -452,7 +452,7 @@ class Internal_acc_report extends CI_Controller {
             $data = $result->row();
             $turn_id = $data->tax_libility_id;
             //generate user_id
-            $turn_id = str_pad( ++$turn_id, 5, '0', STR_PAD_LEFT);
+            $turn_id = str_pad(++$turn_id, 5, '0', STR_PAD_LEFT);
             return $turn_id;
         } else {
             $turn_id = 'tax_1001';
@@ -572,17 +572,20 @@ class Internal_acc_report extends CI_Controller {
                 $abc2[] = $rcm_liability[$o];
                 $aa2 = settype($abc2[$o], "float");
 
-                $abc3[] = $itc_ineligible[$o];
+                $abc3[] = $net_rtc[$o];
                 $aa3 = settype($abc3[$o], "float");
 
-                $abc4[] = $paid_credit[$o];
+                $abc4[] = $itc_ineligible[$o];
                 $aa4 = settype($abc4[$o], "float");
 
-                $abc5[] = $paid_cash[$o];
+                $abc5[] = $paid_credit[$o];
                 $aa5 = settype($abc5[$o], "float");
 
-                $abc6[] = $late_fee[$o];
+                $abc6[] = $paid_cash[$o];
                 $aa6 = settype($abc6[$o], "float");
+
+                $abc7[] = $late_fee[$o];
+                $aa7 = settype($abc6[$o], "float");
             }
 
             //function to get customer name
@@ -935,6 +938,7 @@ class Internal_acc_report extends CI_Controller {
         }
         $this->load->view('customer/gst_payable_vs_cash', $data);
     }
+
     public function gst_payable_vs_cash_index_admin() { //function load page gst payable vs cash
         $query_get_data = $this->Internal_acc_report_model->get_data_taxliability_admin();
         if ($query_get_data !== FALSE) {
