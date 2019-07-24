@@ -24,31 +24,25 @@ $this->load->view('admin/navigation');
     </section>
 
     <!-- Main content -->
-    <form class="form" id="ff">
-
-        <section class="content">
-
-            <!-- Default box -->
 
 
-            <div class="box-body">
-               
- <form method="post" id="import_form" name="import_form" enctype="multipart/form-data">
-                    <p><label>Select Excel File</label>
-                        <input type="file" name="file_ex" id="file_ex" aria-required="true" required accept=".xls,.xlsx,.rtf"/></p>
-                    <br/>
-                    <input type="button" name="import" id="import" value="import"  class="btn btn-info" />
-                </form>
-                <div id="container"></div>
+    <section class="content">
+        <div class="box-body"> 
+            <!--<form method="POST" id="import_form" name="import_form" enctype="multipart/form-data">-->
+            <form method="POST"  action="" name="import_form" id="import_form" class="form-horizontal" enctype="multipart/form-data" novalidate="novalidate">
+                <p><label>Select Excel File</label>
+                    <input type="file" class="form-control" name="file_ex" id="file_ex" value=""  placeholder="Name" aria-required="true">
+                </p>
+                <br/>
+                <input type="button" name="import" id="import" value="import"  class="btn btn-info" />
+            </form>
+            <!--<div id="container"></div>-->
 
-                <!--</iframe>-->
-            </div>
-
-
-        </section>
-
-    </form>
-    <!-- /.content -->
+            <!--</iframe>-->
+        </div>
+    </section>
+</form>
+<!-- /.content -->
 </div>
 
 
@@ -64,7 +58,7 @@ $this->load->view('admin/navigation');
 //        var formid = document.getElementById('import_form');
         event.preventDefault();
         $.ajax({
-           type: "POST",
+            type: "POST",
             url: "<?= base_url("Word_database/word_to_database") ?>",
             dataType: "json",
             data: $("#import_form").serialize(),
@@ -91,42 +85,42 @@ $this->load->view('admin/navigation');
 
 
 <script>
-(function () {
+    (function () {
 
-    var
-            form = $('.form'),
-            cache_width = form.width(),
-            a4 = [595.28, 841.89]; // for a4 size paper width and height  
+        var
+                form = $('.form'),
+                cache_width = form.width(),
+                a4 = [595.28, 841.89]; // for a4 size paper width and height  
 
-    $('#create_pdf').on('click', function () {
-        $('body').scrollTop(0);
-        createPDF();
-    });
-    //create pdf  
-    function createPDF() {
-        getCanvas().then(function (canvas) {
-            var
-                    img = canvas.toDataURL("image/png"),
-                    doc = new jsPDF({
-                        unit: 'px',
-                        format: 'a4'
-                    });
-            doc.addImage(img, 'JPEG', 20, 20);
-            doc.save('GST.pdf');
-            form.width(cache_width);
+        $('#create_pdf').on('click', function () {
+            $('body').scrollTop(0);
+            createPDF();
         });
-    }
+        //create pdf  
+        function createPDF() {
+            getCanvas().then(function (canvas) {
+                var
+                        img = canvas.toDataURL("image/png"),
+                        doc = new jsPDF({
+                            unit: 'px',
+                            format: 'a4'
+                        });
+                doc.addImage(img, 'JPEG', 20, 20);
+                doc.save('GST.pdf');
+                form.width(cache_width);
+            });
+        }
 
-    // create canvas object  
-    function getCanvas() {
-        form.width((a4[0] * 1.33333) - 80).css('max-width', 'none');
-        return html2canvas(form, {
-            imageTimeout: 2000,
-            removeContainer: true
-        });
-    }
+        // create canvas object  
+        function getCanvas() {
+            form.width((a4[0] * 1.33333) - 80).css('max-width', 'none');
+            return html2canvas(form, {
+                imageTimeout: 2000,
+                removeContainer: true
+            });
+        }
 
-}());
+    }());
 </script>  
 <script>
     /* 
