@@ -89,23 +89,6 @@ if (is_array($session_data)) {
                                     <td><?php echo $row->customer_email_id; ?></td>
                                     <td><?php echo $row->customer_contact_number; ?></td>
                                     <td><?php echo $row->created_on; ?></td>
-        <!--                       <td><button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->customer_id; ?>');"class="btn btn-outline-primary" >Edit</button>
-                                    <button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->customer_id; ?>');"class="btn btn-outline-primary" >Delete</button></td>
-
-                                    <script>
-                                     document.getElementById("customer_id").value='<?php echo $customer_id;?>';
-                                    </script>
-                                    <td><a class="btn btn-circle red btn-icon-only btn-default" onclick="delete_customer('<?php echo $row->customer_id; ?>')"><i class="fa fa-remove"></i></a>
-                                        <a class="btn btn-circle blue btn-icon-only btn-default" href="<?= base_url("view_edit_customer/" . $row->customer_id); ?>" data-desig_id="CA"><i class="fa fa-pencil"></i></a></td>
-                                     <td><a class="btn btn-circle red btn-icon-only btn-primary" href="<?= base_url("view_edit_customer_files/" . $row->customer_id); ?>">Upload</a></td>
-=======
-                                    <td><a class="btn btn-circle red btn-icon-only btn-default" onclick="delete_designation('CA')"><i class="fa fa-remove"></i></a>
-                                        <a class="btn btn-circle blue btn-icon-only btn-default" data-toggle="modal" data-target="#edit_designation" data-desig_id="CA"><i class="fa fa-pencil"></i></a></td>
-        <!--                                    <td><a class="btn btn-circle blue btn-icon-only btn-default"type="button" href="<?= base_url() . 'htmltopdf/details/' . $row->customer_id . '/' . $row->insert_id ?>">View</a></td>
-                                    <td><a class="btn btn-circle blue btn-icon-only btn-default"type="button" target="_blank" href="<?= base_url() . 'htmltopdf/pdfdetails/' . $row->customer_id . '/' . $row->insert_id ?>">View in PDF</a></td>
-                                    <td><a class="btn btn-circle blue btn-icon-only btn-default"type="button" target="_blank" onclick="view_pdf('<?php // echo $row->customer_id;  ?>', '<?php // echo $row->insert_id;  ?>')">View in PDF</a></td>-->
-
-                                </tr> 
                                 <?php
                                 $i++;
                             }
