@@ -48,7 +48,7 @@ class Gst_admin_login extends CI_Controller {
                 }
                 if ($user_type == '1') {  //superadmin
                     $this->session->set_userdata('login_session', $session_data);
-                    redirect(base_url() . 'admin_dashboard');
+                    redirect(base_url() . 'Customer_details');
                 } else {
                     $this->session->set_userdata('login_session', $session_data);
                     redirect(base_url() . 'Cust_dashboard');

@@ -57,9 +57,8 @@ if (is_array($session_data)) {
                         <tr>
                             <th>No.</th>
                             <th>Customer</th>
-
-
                             <th>View Observations</th>
+                            <th>GSTR1</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -76,6 +75,7 @@ if (is_array($session_data)) {
                                     <td><?php echo $row->customer_name; ?></td>
 
                                     <td><button type="button" name="get_records" id="get_records" data-insert_id="<?php echo $row->insert_id; ?>"data-customer_id="<?php echo $row->customer_id; ?>" data-toggle="modal" data-target="#view_value_modal"class="btn bg-maroon-gradient" ><i class="fa fa-fw fa-eye"></i></button></td>
+                                    <td><button type="button" name="get_gstr1_records" id="get_gstr1_records" data-insert_id="<?php echo $row->insert_id; ?>"data-customer_id="<?php echo $row->customer_id; ?>" data-toggle="modal" data-target="#view_gstr1_modal"class="btn bg-maroon-gradient" ><i class="fa fa-fw fa-eye"></i></button></td>
                                 </tr> 
                                 <?php
                                 $i++;
@@ -124,6 +124,33 @@ if (is_array($session_data)) {
 </div>
 
 
+<!--Modal for GSTR1 Return filled summary-->
+<div class="modal fade" id="view_gstr1_modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="ModalLabel">Observations</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="forms-sample" id="import_form1" method="post" name="import_form1" enctype="multipart/form-data">
+                    <input type="hidden" id="customer_id" name="customer_id">
+                    <input type="hidden" id="insert_id" name="insert_id">
+                    <div class="form-group">
+                        <div id="gstr1_data"></div>
+                     
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+</div>
 <?php $this->load->view('customer/footer'); ?>
 <script>
     $(function () {
@@ -149,6 +176,37 @@ if (is_array($session_data)) {
                 if (result.message === "success") {
                     var data = result.data;
                     $('#account_monthly_data').html(data);
+                    $('#example1').DataTable();
+                } else {
+
+                }
+            },
+
+        });
+    });
+    
+    
+    //view observation modal for GSTR1 return filled summary
+    $('#view_gstr1_modal').on('show.bs.modal', function (e) {
+//    alert("guh");
+        var customerid = $(e.relatedTarget).data('customer_id');
+        var customer_id = document.getElementById('customer_id').value = customerid;
+        var insertid = $(e.relatedTarget).data('insert_id');
+        var insert_id = document.getElementById('insert_id').value = insertid;
+//         alert(customer_id);
+//         alert(insert_id);
+        $('#gstr1_data').html("");
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Account_report/get_gstr1_details") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+//                 alert(data);
+                $('#gstr1_data').html("");
+                if (result.message === "success") {
+                    var data = result.data;
+                    $('#gstr1_data').html(data);
                     $('#example2').DataTable();
                 } else {
 
