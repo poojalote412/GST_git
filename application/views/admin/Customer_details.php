@@ -48,7 +48,7 @@ if (is_array($session_data)) {
                         <i class="fa fa-times"></i></button>
                 </div>
             </div><br>
-            <div class="actions" style="float: right;">
+<!--            <div class="actions" style="float: right;">
                 <div class="btn-group">
                     <a href="add_customer"><button id="" class="btn btn-primary"> 
                             <i class="fa fa-plus"></i>
@@ -56,7 +56,7 @@ if (is_array($session_data)) {
                         </button>
                     </a>
                 </div>
-            </div><br><br>
+            </div><br><br>-->
             <div class="box-body">
 
 
@@ -69,8 +69,7 @@ if (is_array($session_data)) {
                             <th>Contact No</th>
                             <th>Created On</th>
                             <th>Action</th>
-
-                            <th>Upload</th>
+                            <!--<th>Upload</th>-->
 
                         </tr>
                     </thead>
@@ -82,6 +81,7 @@ if (is_array($session_data)) {
                             $i = 1;
                             foreach ($result as $row) {
                                 $customer_id= $row->customer_id;
+                                $insert_id = $row->insert_id;
                                 ?>
                                 <tr>
                                     <td><?php echo $i; ?></td>
@@ -89,6 +89,7 @@ if (is_array($session_data)) {
                                     <td><?php echo $row->customer_email_id; ?></td>
                                     <td><?php echo $row->customer_contact_number; ?></td>
                                     <td><?php echo $row->created_on; ?></td>
+                                    <td><a href="<?= base_url("Generate_report/" . $row->customer_id.$row->insert_id); ?>"><button id="testing" onclick="testing()" class="btn btn-primary">Generate Report</button></a></td>
                                 <?php
                                 $i++;
                             }
@@ -110,7 +111,7 @@ if (is_array($session_data)) {
 
 <?php $this->load->view('customer/footer'); ?>
 
-<<<<<<< HEAD
+
 <script>
 function delete_customer()
     {
@@ -137,9 +138,9 @@ function delete_customer()
             });
         } else {
         }
-=======
+        }
 
-<script>
+
     $(function () {
         $("#example1").DataTable();
     });
@@ -231,7 +232,69 @@ function delete_customer()
             }
         }
         );
->>>>>>> 966bd20a1a036d7f96a5535b0e5def033a863c02
+
     }
+    
+    
+    
+      function testing1(){
+      alert("hujhj");
+    var insert_id = document.getElementById('insert_id').value;
+    $.ajax({
+            type: "post",
+            url: "<?= base_url("Report/index") ?>",
+            dataType: "json",
+            data: {insert_id: insert_id},
+            alert(data);
+            success: function (result) {
+                var ele3 = document.getElementById('insert_id');
+                if (result['message'] === 'success') {
+                    var data = result.user_data;
+
+                    //console.log(data.length);
+                    ele3.innerHTML = '<option value="">Select Employee</option>';
+                    for (i = 0; i < data.length; i++)
+                    {                        // POPULATE SELECT ELEMENT WITH JSON.
+                        ele3.innerHTML = ele3.innerHTML + '<option value="' + data[i]['user_id'] + '">' + data[i]['user_name'] + '</option>';
+                    }
+                } else {
+                    ele3.innerHTML = "";
+                }
+            }
+        });
+        }
+        
+        
+        function testing(){
+        alert("guhyjg");
+        var insert_id = document.getElementById('insert_id').value;
+        
+//        var result = confirm("Are You Sure, You Want To Delete This customer?");
+        if (result) {
+            $.ajax({
+                type: "POST",
+                url: "<?= base_url("Report/index") ?>",
+                dataType: "json",
+               data: {insert_id: insert_id},
+                
+                success: function (result) {
+                   
+                    if (result.status == true) {
+                        alert('Customer Deleted Successfully');
+                        location.reload();
+                    } else {
+                        alert('something went wrong');
+                    } 
+                }
+            });
+        }
+        }
+        
+        
+        $(document).ready(function() {
+    $("#testing").click(function(){
+        alert("button");
+    }); 
+});
 </script>
 

@@ -18,7 +18,7 @@ class Customer_admin extends CI_Controller {
 //         $result = $this->Customer_model->display_customers($customer_id);
 
 
-        $query = $this->db->query("SELECT * FROM `customer_header_all` where user_type='2'");
+//        $query = $this->db->query("SELECT * FROM `customer_header_all` where user_type='2'");
 
         $query = $this->db->query("SELECT customer_header_all.customer_id,customer_header_all.created_on,customer_header_all.customer_contact_number,customer_header_all.customer_name,customer_header_all.customer_email_id,insert_header_all.insert_id"
                 . " FROM insert_header_all INNER JOIN customer_header_all ON customer_header_all.customer_id=insert_header_all.customer_id");

@@ -21,6 +21,14 @@
                     </span>
                 </a>
             </li>
+             <li class="">
+                <a href="<?php echo base_url(); ?>Customer">
+                    <i class="fa fa-dashboard" ></i> <span>Customer Details</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+            </li>
             <li class="">
                 <a href="<?php echo base_url(); ?>Cfo_dashboard_admin">
                     <i class="fa fa-dashboard" ></i> <span>CFO Dashboard</span>
@@ -30,14 +38,7 @@
                 </a>
             </li>
             
-            <li class="">
-                <a href="<?php echo base_url(); ?>Customer">
-                    <i class="fa fa-dashboard" ></i> <span>Customer Details</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-            </li>
+           
 
             <li class="treeview">
                 <a href="#">

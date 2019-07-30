@@ -85,6 +85,7 @@ $route['Admin_dashboard'] = 'Admin_dashboard/index';
 $route['Cfo_dashboard_admin'] = 'Cfo_dashboard/index_admin';
 $route['Customer'] = 'Customer_admin/index';
 $route['add_customer'] = 'Customer_admin/add_customer';
+$route['Customer_details'] = 'Customer_admin/index';
 $route['Threeb_Vs_one_admin'] = 'Threeb_vs_one/index_admin';
 $route['Threeb_vs_twoa_admin'] = 'Threeb_vs_twoa/index_admin';
 $route['Sale_state_wise_admin'] = 'Management_report/state_wise_report_admin';
@@ -102,6 +103,7 @@ $route['partial_match_admin'] = 'Invoice_comp_report/partial_match_index_admin';
 $route['invoice_amendment'] = 'Invoice_comp_report/invoice_amendment_index';
 $route['invoice_not_included_admin'] = 'Invoice_comp_report/invoice_not_included_index_admin';
 $route['GST_Logout_admin'] = 'Gst_dashboard/index_admin';
+$route['Generate_report/(:any)']= 'Report/index/$1';
 
 $route['Word_to_database'] = 'Word_database/index_admin';
 
