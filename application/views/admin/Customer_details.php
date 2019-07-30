@@ -38,9 +38,9 @@ if (is_array($session_data)) {
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title"></h3>
-                <!--<input type="text" name="customer_id" name="customer_id" value="<?php echo $row->customer_id;?>">-->
+                <!--<input type="text" name="customer_id" name="customer_id" value="<?php echo $row->customer_id; ?>">-->
                 <div class="box-tools pull-right">
-                    <!--<input type="text" name="customer_id" id="customer_id"value="">-->
+                    <input type="hidden" name="insert_id" id="insert_id" value="">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
                             title="Collapse">
                         <i class="fa fa-minus"></i></button>
@@ -48,15 +48,15 @@ if (is_array($session_data)) {
                         <i class="fa fa-times"></i></button>
                 </div>
             </div><br>
-<!--            <div class="actions" style="float: right;">
-                <div class="btn-group">
-                    <a href="add_customer"><button id="" class="btn btn-primary"> 
-                            <i class="fa fa-plus"></i>
-                            Add New Customer
-                        </button>
-                    </a>
-                </div>
-            </div><br><br>-->
+            <!--            <div class="actions" style="float: right;">
+                            <div class="btn-group">
+                                <a href="add_customer"><button id="" class="btn btn-primary"> 
+                                        <i class="fa fa-plus"></i>
+                                        Add New Customer
+                                    </button>
+                                </a>
+                            </div>
+                        </div><br><br>-->
             <div class="box-body">
 
 
@@ -80,23 +80,23 @@ if (is_array($session_data)) {
                         if ($result !== "") {
                             $i = 1;
                             foreach ($result as $row) {
-                                $customer_id= $row->customer_id;
+                                $customer_id = $row->customer_id;
                                 $insert_id = $row->insert_id;
                                 ?>
                                 <tr>
                                     <td><?php echo $i; ?></td>
-                                    <td><?php echo $row->customer_name; ?></td>
+                                    <td><?php echo $row->customer_name; ?><input type="hidden" name="insert_id" id="insert_id" value="<?php echo $row->insert_id; ?>"></td>
                                     <td><?php echo $row->customer_email_id; ?></td>
                                     <td><?php echo $row->customer_contact_number; ?></td>
                                     <td><?php echo $row->created_on; ?></td>
-                                    <td><a href="<?= base_url("Generate_report/" . $row->customer_id.$row->insert_id); ?>"><button id="testing" onclick="testing()" class="btn btn-primary">Generate Report</button></a></td>
-                                <?php
-                                $i++;
+                                    <td><a href="<?= base_url("Generate_report/" . $row->customer_id . "/" . $row->insert_id); ?>"><button id="testing1" onclick="testing();" class="btn btn-primary">Generate Report</button></a></td>
+                                    <?php
+                                    $i++;
+                                }
+                            } else {
+                                
                             }
-                        } else {
-                            
-                        }
-                        ?>
+                            ?>
                     </tbody>
                 </table>
             </div>
@@ -113,11 +113,11 @@ if (is_array($session_data)) {
 
 
 <script>
-function delete_customer()
+    function delete_customer()
     {
 //        alert("gyhguyjhgujh");
         var customer_id = document.getElementById('customer_id').value;
-        
+
         var result = confirm("Are You Sure, You Want To Delete This customer?");
         if (result) {
             $.ajax({
@@ -125,20 +125,20 @@ function delete_customer()
                 url: "<?= base_url("Customer_admin/del_customer") ?>",
                 dataType: "json",
                 data: {customer_id: customer_id},
-                
+
                 success: function (result) {
-                   
+
                     if (result.status == true) {
                         alert('Customer Deleted Successfully');
                         location.reload();
                     } else {
                         alert('something went wrong');
-                    } 
+                    }
                 }
             });
         } else {
         }
-        }
+    }
 
 
     $(function () {
@@ -234,18 +234,18 @@ function delete_customer()
         );
 
     }
-    
-    
-    
-      function testing1(){
-      alert("hujhj");
-    var insert_id = document.getElementById('insert_id').value;
-    $.ajax({
+
+
+
+    function testing1() {
+        alert("hujhj");
+        var insert_id = document.getElementById('insert_id').value;
+        $.ajax({
             type: "post",
             url: "<?= base_url("Report/index") ?>",
             dataType: "json",
             data: {insert_id: insert_id},
-            alert(data);
+//            alert(data);
             success: function (result) {
                 var ele3 = document.getElementById('insert_id');
                 if (result['message'] === 'success') {
@@ -262,39 +262,38 @@ function delete_customer()
                 }
             }
         });
-        }
-        
-        
-        function testing(){
-        alert("guhyjg");
-        var insert_id = document.getElementById('insert_id').value;
-        
-//        var result = confirm("Are You Sure, You Want To Delete This customer?");
-        if (result) {
-            $.ajax({
-                type: "POST",
-                url: "<?= base_url("Report/index") ?>",
-                dataType: "json",
-               data: {insert_id: insert_id},
-                
-                success: function (result) {
-                   
-                    if (result.status == true) {
-                        alert('Customer Deleted Successfully');
-                        location.reload();
-                    } else {
-                        alert('something went wrong');
-                    } 
+    }
+
+
+    function testing() {
+
+        var insert_id = document.getElementById('insert_id').val();
+        alert(insert_id);
+//        var akshay=$('#insert_id').val();
+//        alert(akshay);
+        console.log(akshay);
+        console.log(insert_id);
+//      
+        $.ajax({
+            type: "POST",
+            url: "<?= base_url("Report/index") ?>",
+            dataType: "json",
+            data: {insert_id: insert_id},
+
+            success: function (result) {
+                console.log(result);
+                if (result.status == true) {
+                    alert('Customer Deleted Successfully');
+                    location.reload();
+                } else {
+                    alert('something went wrong');
                 }
-            });
-        }
-        }
-        
-        
-        $(document).ready(function() {
-    $("#testing").click(function(){
-        alert("button");
-    }); 
-});
+            }
+        });
+
+    }
+
+
+
 </script>
 

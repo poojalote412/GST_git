@@ -504,7 +504,7 @@ class Management_report extends CI_Controller {
             $max = max($sales_percent_values);
             $min = min($sales_percent_values);
 //            echo $variation=($max-$min)/($min*100);
-            $data .= "<hr><h4><b>Observation of  Sales month wise:</b></h4>";
+//            $data .= "<hr><h4><b>Observation of  Sales month wise:</b></h4>";
 
             // loop to get graph data as per graph script requirement
             $abc1 = array();
