@@ -12,6 +12,7 @@ class Report extends CI_Controller {
 
     public function index($customer_id = '', $insert_id = '') {
 //       $query_get_customer_name=fdjk;
+        
         $data['customer_id'] = $customer_id;
         $data['insert_id'] = $insert_id;
         $this->load->view('admin/Generate_report', $data);

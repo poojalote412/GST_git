@@ -52,7 +52,7 @@ if (is_array($session_data)) {
                                     </span>
                                     <input type="hidden" class="form-control" value="<?php echo $insert_id; ?>"disabled=""name="insert_id"  id="insert_id"   aria-required="true" aria-describedby="input_group-error">
                                     <input type="hidden" class="form-control" value="<?php echo $customer_id; ?>"disabled=""name="customer_id"  id="customer_id"   aria-required="true" aria-describedby="input_group-error">
-                                    <input type="text" class="form-control" value="<?php // echo $user_name[$x]['customer_name']          ?>"  disabled=""name="cust_name"  id="cust_name" onkeyup="remove_error('customer_name')"   aria-required="true" aria-describedby="input_group-error">
+                                    <input type="text" class="form-control" value="<?php // echo $user_name[$x]['customer_name']             ?>"  disabled=""name="cust_name"  id="cust_name" onkeyup="remove_error('customer_name')"   aria-required="true" aria-describedby="input_group-error">
 
                                 </div>
                                 <span class="required" style="color: red" id="customer_name_error"></span>
@@ -64,7 +64,7 @@ if (is_array($session_data)) {
                                     <span class="input-group-addon">
                                         <i class="fa fa-user"></i>
                                     </span>
-                                    <input type="text" class="form-control" value="<?php // echo $user_name[$x]['year_id']          ?>"  disabled=""name="year_id"  id="year_id" onkeyup="remove_error('customer_name')"   aria-required="true" aria-describedby="input_group-error">
+                                    <input type="text" class="form-control" value="<?php // echo $user_name[$x]['year_id']   ?>"  disabled=""name="year_id"  id="year_id" onkeyup="remove_error('customer_name')"   aria-required="true" aria-describedby="input_group-error">
 
                                 </div>
                                 <span class="required" style="color: red" id="customer_name_error"></span>
@@ -84,10 +84,16 @@ if (is_array($session_data)) {
                 <div id="JSFiddle">
                     <!-- Insert your document here -->
                     <header  style="display:none;margin-top:20px;">
-                        <p>Add your header</p>
+<!--                        <div class="right_content">
+     <img src="<?php echo base_url() . "images/12masi.png"; ?>" alt="12masi" 
+          title="image"/>
+</div>-->
+                        <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif">R Kabra & Co</p>
+                        <!--<img src="<?php echo base_url('images/samples/slide.jpg'); ?>" width="30px" height="30px"/>-->
+                        <!--<p style=" text-align: right;">Chartered Accounts</p>-->
                     </header>
                     <footer style="display:none">
-                        <p>Add your footer</p>
+                        <p>Strictly Private and Confidential</p>
                     </footer>
                     <!--<div id="container1" style="height: 500px; width:700px"></div>-->
 
@@ -107,8 +113,11 @@ if (is_array($session_data)) {
                         <div id="compare_b2b_data"></div>
                         <div id="container_GSTR3b_vs_2A" style="height: 500px; width: 700px"></div>
                         <div id="compare_GSTR3B_Vs2_data"></div>
-                        <div id="container_GSTR3b_vs_1" style="height: 500px; width: 700px"></div>
+                        <div id="container_GSTR3b_vs_1" style="height: 500px; width: 700px"></div><br><br>
                         <div id="compare_3b_vs1_data"></div>
+                        <div id="gstr3B_data"></div><br><br>
+                        <div id="gstr1_data"></div><br><br>
+                        <div id="invoice_ammends_data"></div>
                     </div>
                 </div>
             </div>
@@ -131,6 +140,8 @@ if (is_array($session_data)) {
             type: "post",
             url: "<?= base_url("Cfo_dashboard/get_graph_Turnover_vs_liabality") ?>",
             dataType: "json",
+//            processData: false,
+//            contentType: false,
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
 //                 alert();
@@ -310,7 +321,7 @@ if (is_array($session_data)) {
                 }
             }
         });
-        
+
         $.ajax({
             type: "post",
             url: "<?= base_url("Management_report/get_graph_sales_month_wise") ?>",
@@ -399,7 +410,7 @@ if (is_array($session_data)) {
             },
 
         });
-        
+
         //graph for sale tax and non-taxable exempt
         $.ajax({
             type: "POST",
@@ -531,7 +542,7 @@ if (is_array($session_data)) {
                 }
             }
         });
-        
+
         //observation table for sale tax and non-taxable exempt
         $.ajax({
             type: "post",
@@ -559,7 +570,7 @@ if (is_array($session_data)) {
             type: "POST",
             url: "<?= base_url("Management_report/get_graph_b2b") ?>",
             dataType: "json",
-            data: {customer_id: customer_id},
+            data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
                 if (result.message === "success") {
 
@@ -661,13 +672,13 @@ if (is_array($session_data)) {
                 }
             }
         });
-        
+
         //observation table for sales B2B & B2Cs
         $.ajax({
             type: "post",
             url: "<?= base_url("Management_report/get_graph_b2b") ?>",
             dataType: "json",
-            data: {customer_id: customer_id},
+            data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
 //                 alert();
                 if (result.message === "success") {
@@ -778,12 +789,12 @@ if (is_array($session_data)) {
 
 
 
-                }else{
-                
+                } else {
+
                 }
             }
         });
-        
+
         //observation table for comparison GSTR3B VS GSTR 2A
         $.ajax({
             type: "post",
@@ -807,7 +818,7 @@ if (is_array($session_data)) {
         });
 
         //Graph for comparison GSTR3B vs GSTR1
-        
+
         $.ajax({
             type: "POST",
             url: "<?= base_url("Threeb_vs_one/get_graph") ?>",
@@ -890,9 +901,9 @@ if (is_array($session_data)) {
                 }
             }
         });
-        
+
         //observation table for comparison GSTR3B VS GSTR 1
-        
+
         $.ajax({
             type: "post",
             url: "<?= base_url("Threeb_vs_one/get_graph") ?>",
@@ -913,66 +924,111 @@ if (is_array($session_data)) {
             },
 
         });
-        
-    });
-    Highcharts.getSVG = function (charts) {
-        var svgArr = [],
-                top = 0,
-                width = 0;
 
-        $.each(charts, function (i, chart) {
-            var svg = chart.getSVG();
-            svg = svg.replace('<svg', '<g transform="translate(0,' + top + ')" ');
-            svg = svg.replace('</svg>', '</g>');
 
-            top += chart.chartHeight;
-            width = Math.max(width, chart.chartWidth);
+  });
 
-            svgArr.push(svg);
+<!--observation table for GSTR-3b-->
+
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Account_report/get_graph") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+//                 alert();
+                $('#gstr3B_data').html("");
+                if (result.message === "success") {
+                    var data = result.data;
+                    $('#gstr3B_data').html(data);
+//                    $('#example1').DataTable();
+                } else {
+
+                }
+            },
+
         });
 
-        return '<svg height="' + top + '" width="' + width + '" version="1.1" xmlns="http://www.w3.org/2000/svg">' + svgArr.join('') + '</svg>';
-    };
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Account_report/get_gstr1_details") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+//                 alert(data);
+                $('#gstr1_data').html("");
+                if (result.message === "success") {
+                    var data = result.data;
+                    $('#gstr1_data').html(data);
+//                    $('#example2').DataTable();
+                } else {
 
-    /**
-     * Create a global exportCharts method that takes an array of charts as an argument,
-     * and exporting options as the second argument
-     */
-    Highcharts.exportCharts = function (charts, options) {
-        var form
-        svg = Highcharts.getSVG(charts);
+                }
+            },
 
-        // merge the options
-        options = Highcharts.merge(Highcharts.getOptions().exporting, options);
-
-        // create the form
-        form = Highcharts.createElement('form', {
-            method: 'post',
-            action: options.url
-        }, {
-            display: 'none'
-        }, document.body);
-
-        // add the values
-        Highcharts.each(['filename', 'type', 'width', 'svg'], function (name) {
-            Highcharts.createElement('input', {
-                type: 'hidden',
-                name: name,
-                value: {
-                    filename: options.filename || 'chart',
-                    type: options.type,
-                    width: options.width,
-                    svg: svg
-                }[name]
-            }, null, form);
         });
-        //console.log(svg); return;
-        // submit
-        form.submit();
 
-        // clean up
-        form.parentNode.removeChild(form);
-    };
+  
+
+
+
+        </script>
+        <script>
+            Highcharts.getSVG = function (charts) {
+                var svgArr = [],
+                        top = 0,
+                        width = 0;
+
+                $.each(charts, function (i, chart) {
+                    var svg = chart.getSVG();
+                    svg = svg.replace('<svg', '<g transform="translate(0,' + top + ')" ');
+                    svg = svg.replace('</svg>', '</g>');
+
+                    top += chart.chartHeight;
+                    width = Math.max(width, chart.chartWidth);
+
+                    svgArr.push(svg);
+                });
+
+            return '<svg height="' + top + '" width="' + width + '" version="1.1" xmlns="http://www.w3.org/2000/svg">' + svgArr.join('') + '</svg>';
+            };
+
+
+            Highcharts.exportCharts = function (charts, options) {
+                var form
+                svg = Highcharts.getSVG(charts);
+
+                // merge the options
+                options = Highcharts.merge(Highcharts.getOptions().exporting, options);
+
+                // create the form
+                form = Highcharts.createElement('form', {
+                    method: 'post',
+                    action: options.url
+                }, {
+                    display: 'none'
+                }, document.body);
+
+                // add the values
+                Highcharts.each(['filename', 'type', 'width', 'svg'], function (name) {
+                    Highcharts.createElement('input', {
+                        type: 'hidden',
+                        name: name,
+                        value: {
+                            filename: options.filename || 'chart',
+                            type: options.type,
+                            width: options.width,
+                            svg: svg
+                        }[name]
+                    }, null, form);
+                });
+                //console.log(svg); return;
+                // submit
+                form.submit();
+
+                // clean up
+                form.parentNode.removeChild(form);
+            };
 
 
 
@@ -980,6 +1036,6 @@ if (is_array($session_data)) {
 
 <!-- PDF, Postscript and XPS are set to download as Fiddle (and some browsers) will not embed them -->
 
-    var click = "return xepOnline.Formatter.Format('JSFiddle', {render:'download'})";
-    jQuery('#buttons').append('<button onclick="' + click + '">PDF</button>');
-</script>
+            var click = "return xepOnline.Formatter.Format('JSFiddle', {render:'download'})";
+            jQuery('#buttons').append('<button onclick="' + click + '">PDF</button>');
+            </script>

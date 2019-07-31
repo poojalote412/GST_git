@@ -1070,15 +1070,17 @@ class Invoice_comp_report extends CI_Controller {
     public function get_table_data_ammend() {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
-        $query = $this->Invoice_comp_report_model->get_details_invoice_ammneded($customer_id, $insert_id);
+        $query = $this->db->query("select * from invoices_amended_summary_all where customer_id='$customer_id' and insert_id='$insert_id'");
+//        $query = $this->Invoice_comp_report_model->get_details_invoice_ammneded($customer_id, $insert_id);
         $data = "";
         if ($query != FALSE) {
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
                          <table id="example2" class="table table-bordered table-striped">
-                                <thead>
+                                <thead style="background-color: #00008B;color:white">
                                     <tr>
+                                    <th>Sr No</th>
                                         <th>Original Month</th>
                                         <th>Included In Month</th>
                                         <th>Amendment in month</th>
@@ -1097,10 +1099,14 @@ class Invoice_comp_report extends CI_Controller {
                                     </tr>
                                 </thead>
                                 <tbody>';
+            $k = 1;
             foreach ($query as $row) {
 
+
+
                 $data .= '<tr>' .
-                        '<td>' . $row->original_month . '</td>
+                        '<td>' . $k . '</td>
+                        <td>' . $row->original_month . '</td>
                         <td>' . $row->included_in_month . '</td>
                         <td>' . $row->amendment_month . '</td>
                         <td>' . $row->category . '</td>
@@ -1117,8 +1123,10 @@ class Invoice_comp_report extends CI_Controller {
                         <td><b>' . ($row->igst + $row->cgst + $row->sgst + $row->cess) . '</b></td>
                         
                         </tr>';
+                $k++;
+                '</tbody></table></div></div></div>';
             }
-            $data .= '</tbody></table></div></div></div>';
+//            $data .= '</tbody></table></div></div></div>';
             $response['data'] = $data;
             $response['message'] = "success";
             $response['status'] = true;

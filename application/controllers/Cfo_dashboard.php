@@ -61,7 +61,7 @@ class Cfo_dashboard extends CI_Controller {
             $data = $result->row();
             $turn_id = $data->uniq_id;
             //generate turn_id
-            $turn_id = str_pad( ++$turn_id, 5, '0', STR_PAD_LEFT);
+            $turn_id = str_pad(++$turn_id, 5, '0', STR_PAD_LEFT);
             return $turn_id;
         } else {
             $turn_id = 'turn_1001';
@@ -88,7 +88,7 @@ class Cfo_dashboard extends CI_Controller {
                     <div class="col-md-12">
                         <div class="">
                          <table id="example2" class="table table-bordered table-striped">
-                                <thead>
+                                <thead style="background-color: #00008B;color:white">
                                     <tr>
                                         <th>No.</th>
                                         <th>Month</th>
@@ -128,8 +128,8 @@ class Cfo_dashboard extends CI_Controller {
 //         echo   max($ratio_val);
 //         echo   min($ratio_val);
             $data .= "<hr><h4><b>Observation of CFO:</b></h4>"
-                    . "<span>Percentage of GST payable to turnover is not stable for F.Y. 2017-18 it varies from <b>" . min($ratio_val) . "% </b>to<b> " . max($ratio_val) . "%</b>.</span>";
-
+                    . "<span>Percentage of GST payable to turnover is not stable for F.Y. 2017-18 it varies from <b>" . min($ratio_val) . "% </b>to<b> " . max($ratio_val) . "%</b>.</span><br>";
+            $data .= '<img src="' . base_url('images/samples/slide1.jpg') . '" width="200px" height="200px"/>';
 //            var_dump($turnover1);
             // loop to get turnover value
             $abc = array();
