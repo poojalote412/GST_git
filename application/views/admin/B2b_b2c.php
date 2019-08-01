@@ -258,13 +258,13 @@ if (is_array($session_data)) {
                         },
                         yAxis: [{
 
-                                max: max,
+//                                max: max,
                                 title: {
                                     text: 'Sales'
                                 }
                             }, {
 //                                min: 0,
-                                max: 100,
+//                                max: 100,
                                 opposite: true,
                                 title: {
                                     text: 'Ratio(in %) '

@@ -597,7 +597,7 @@ class Management_report extends CI_Controller {
             foreach ($result as $row1) {
                 $total_taxable_data_gst_export = $row1->total_taxable_data_gst_export;
                 $total_non_gst_export = $row1->total_non_gst_export;
-                
+
 
                 $taxable_supply1 = ( $total_taxable_data_gst_export + $total_non_gst_export);
                 $taxable_supply_arr1[] = $taxable_supply1; //taxable supply array
@@ -1216,6 +1216,25 @@ class Management_report extends CI_Controller {
                                 <tbody>';
             $k = 1;
             $turnover = array();
+            $taxable_supply_arr1 = array();
+            foreach ($result as $row1) {
+                $inter_state_supply = $row1->inter_state_supply;
+                $intra_state_supply = $row1->intra_state_supply;
+                $no_gst_paid_supply = $row1->no_gst_paid_supply;
+                $debit_value = $row1->debit_value;
+                $credit_value = $row1->credit_value;
+                //new changes 
+                $total_taxable_advance_no_invoice = $row1->total_taxable_advance_no_invoice;
+                $total_taxable_advance_invoice = $row1->total_taxable_advance_invoice;
+                $total_taxable_data_gst_export = $row1->total_taxable_data_gst_export;
+                $total_non_gst_export = $row1->total_non_gst_export;
+                //$month = $row1->month;
+
+                $taxable_supply1 = ($inter_state_supply + $intra_state_supply + $no_gst_paid_supply + $debit_value + $total_taxable_advance_no_invoice + $total_taxable_advance_invoice + $total_taxable_data_gst_export + $total_non_gst_export) - ($credit_value);
+                $taxable_supply_arr1[] = $taxable_supply1; //taxable supply array
+            }
+            $sum_tax = array_sum($taxable_supply_arr1);
+
             foreach ($result as $row) {
                 $month[] = $row->month;
                 $months = $row->month;
@@ -1237,10 +1256,17 @@ class Management_report extends CI_Controller {
                 $b2c_data = ($interstate_b2c + $intrastate_b2c + $debit_b2c + $advance_invoice_not_issue_b2c + $advance_invoice_issue_b2c) - $credit_b2c;
                 $array_b2b[] = $b2b_data;
                 $array_b2c[] = $b2c_data;
-                $array_b2b_ratio[] = round(($b2b_data * 100) / ($b2b_data + $b2c_data));
-                $array_b2b_ratio1 = round(($b2b_data * 100) / ($b2b_data + $b2c_data));
-                $array_b2c_ratio[] = round(($b2c_data * 100) / ($b2b_data + $b2c_data));
-                $array_b2c_ratio1 = round(($b2c_data * 100) / ($b2b_data + $b2c_data));
+                if (($sum_tax) != 0) {
+                    $array_b2c_ratio[] = round((($b2c_data) / ($sum_tax)) * 100);
+                    $array_b2c_ratio1 = round((($b2c_data ) / ($sum_tax)) * 100);
+                    $array_b2b_ratio[] = round((($b2b_data ) / ($sum_tax)) * 100);
+                    $array_b2b_ratio1 = round((($b2b_data ) / ($sum_tax)) * 100);
+                } else {
+                    $array_b2c_ratio[] = 0;
+                    $array_b2c_ratio1 = 0;
+                    $array_b2b_ratio[] = 0;
+                    $array_b2b_ratio1 = 0;
+                }
                 $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
                         '<td>' . $months . '</td>' .
@@ -1251,6 +1277,7 @@ class Management_report extends CI_Controller {
                         '</tr>';
                 $k++;
             }
+//            var_dump($array_b2b_ratio1);
             $data .= '<tr>' .
                     '<td>' . '<b>Total</b>' . '</td>' .
                     '<td>' . '' . '</td>' .
