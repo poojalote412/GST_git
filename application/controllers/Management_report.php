@@ -48,6 +48,16 @@ class Management_report extends CI_Controller {
         $this->load->view('admin/Sale_state_wise', $data);
     }
 
+    public function sale_exports_fun() {
+        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
+        if ($query_get_cfo_data !== FALSE) {
+            $data['exports_data'] = $query_get_cfo_data;
+        } else {
+            $data['exports_data'] = "";
+        }
+        $this->load->view('admin/sale_exports', $data);
+    }
+
     public function import_excel() { //function to get data from excel files
         if (isset($_FILES["file_ex"]["name"])) {
             $path = $_FILES["file_ex"]["tmp_name"];
@@ -556,6 +566,115 @@ class Management_report extends CI_Controller {
         } echo json_encode($respnose);
     }
 
+    //function get graphs  of export sale
+    public function get_graph_exports() {
+        $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
+        // "SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'";
+        $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
+        $data = ""; //view observations
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+            $result1 = $query->result();
+            $taxable_supply_arr = array();
+            $data .= '<div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="example2" class="table table-bordered table-striped">
+                                <thead style="background-color: #00008B;color:white">
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Month</th>
+                                        <th>Sales</th>
+                                        <th>Ratio</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>';
+            $k = 1;
+            $sales_percent_values = array();
+            $taxable_supply_arr1 = array();
+            foreach ($result as $row1) {
+                $total_taxable_data_gst_export = $row1->total_taxable_data_gst_export;
+                $total_non_gst_export = $row1->total_non_gst_export;
+                
+
+                $taxable_supply1 = ( $total_taxable_data_gst_export + $total_non_gst_export);
+                $taxable_supply_arr1[] = $taxable_supply1; //taxable supply array
+            }
+
+            $sum_tax = array_sum($taxable_supply_arr1);
+            foreach ($result as $row1) {
+
+                $total_taxable_data_gst_export = $row1->total_taxable_data_gst_export;
+                $total_non_gst_export = $row1->total_non_gst_export;
+                $month = $row1->month;
+                $taxable_supply = ($total_taxable_data_gst_export + $total_non_gst_export);
+                $taxable_supply_arr[] = $taxable_supply; //taxable supply array
+                if ($sum_tax != 0) {
+                    $sale_percent = (($taxable_supply) / ($sum_tax * 100));
+                } else {
+                    $sale_percent = 0;
+                }
+                $sales_percent_values1 = round(($sale_percent * 10000), 2);
+                $sales_percent_values[] = round(($sale_percent * 10000));
+
+                $data .= '<tr>' .
+                        '<td>' . $k . '</td>' .
+                        '<td>' . $month . '</td>' .
+                        '<td>' . $taxable_supply . '</td>' .
+                        '<td>' . $sales_percent_values1 . '%</td>' .
+                        '</tr>';
+
+                $k++;
+            }
+            $data .= '<tr>' .
+                    '<td>' . '<b>Total</b>' . '</td>' .
+                    '<td>' . '' . '</td>' .
+                    '<td>' . '<b>' . array_sum($taxable_supply_arr) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . array_sum($sales_percent_values) . '%</b> ' . '</td>' .
+                    '</tr>';
+            $data .= '</tbody></table></div></div></div>';
+
+//            echo $variation=($max-$min)/($min*100);
+//            $data .= "<hr><h4><b>Observation of  Sales month wise:</b></h4>";
+            // loop to get graph data as per graph script requirement
+            $abc1 = array();
+            for ($o = 0; $o < sizeof($taxable_supply_arr); $o++) {
+
+                $abc1[] = $taxable_supply_arr[$o];
+                $aa1 = settype($abc1[$o], "float");
+            }
+
+
+            //function to get months
+            $quer2 = $this->db->query("SELECT month from monthly_summary_all where customer_id='$customer_id'  AND insert_id='$insert_id'");
+            $months = array();
+            if ($quer2->num_rows() > 0) {
+                $res2 = $quer2->result();
+                foreach ($res2 as $row) {
+                    $months[] = $row->month;
+                }
+            }
+            //function to get customer name
+            $quer21 = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id'");
+
+            if ($quer21->num_rows() > 0) {
+                $res21 = $quer21->row();
+                $customer_name = $res21->customer_name;
+            }
+            $respnose['data'] = $data;
+            $respnose['message'] = "success";
+            $respnose['taxable_supply_arr'] = $abc1;  //taxable_supply data
+            $respnose['month_data'] = $months; //months 
+            $respnose['customer_name'] = $customer_name; //customer
+            $respnose['sales_percent_values'] = $sales_percent_values; //sales in percent
+        } else {
+            $respnose['message'] = "";
+            $respnose['taxable_supply_arr'] = "";  //taxable_supply data
+        } echo json_encode($respnose);
+    }
+
     // sale b2b view page function
     public function Sale_b2b_b2c() {
         $session_data = $this->session->userdata('login_session');
@@ -1056,7 +1175,7 @@ class Management_report extends CI_Controller {
             $data = $result->row();
             $uniq_id = $data->unique_id;
             //generate turn_id
-            $uniq_id = str_pad(++$uniq_id, 5, '0', STR_PAD_LEFT);
+            $uniq_id = str_pad( ++$uniq_id, 5, '0', STR_PAD_LEFT);
             return $uniq_id;
         } else {
             $uniq_id = 'btb_1001';
