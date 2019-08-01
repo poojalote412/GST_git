@@ -101,6 +101,7 @@ if (is_array($session_data)) {
                                 <div id="container2" style="height: 500px;  width:700px"></div>
                             </div>-->
                     <div style="page-break-before:always;">
+                        <div id="content_pdf"></div><br><br><br><br><br><br><br><br><br><br><br>
                         <div id="container" style="height: 500px;  width:700px"></div>
                         <div id="cfo_data"></div>
                         <div id="container1" style="height: 500px; width: 700px"></div>
@@ -136,6 +137,25 @@ if (is_array($session_data)) {
     $(document).ready(function () {
         var customer_id = document.getElementById("customer_id").value;
         var insert_id = document.getElementById("insert_id").value;
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Report/get_content_pdf1") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+//                 alert();
+                $('#content_pdf').html("");
+                if (result.message === "success") {
+
+                    var data = result.data;
+                    $('#content_pdf').html("");
+                    $('#content_pdf').html(data);
+//                    $('#example2').DataTable();
+                } else {
+
+                }
+            },
+        });
         $.ajax({
             type: "post",
             url: "<?= base_url("Cfo_dashboard/get_graph_Turnover_vs_liabality") ?>",

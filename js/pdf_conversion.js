@@ -753,7 +753,8 @@ xepOnline.Formatter = {
 	   ps: 'application/postscript',
 	   afp: 'application/afp',
 	   xep: 'application/xep',
-	   png: 'image/png'
+	   png: 'image/png',
+           jpg: 'image/jpg'
 	},
 	/* options	
 		{
@@ -885,11 +886,11 @@ xepOnline.Formatter = {
 		} else {
 			jQuery.ajax({
 				type: "POST",
-				url: current_mimetype == "image/png" || current_mimetype == "image/jpg" || current_mimetype == "image/gif" ? xepOnline.Formatter.xep_chandra_service_page_images : xepOnline.Formatter.xep_chandra_service,
+				url: current_mimetype === "image/png" || current_mimetype === "image/jpg" || current_mimetype === "image/gif" ? xepOnline.Formatter.xep_chandra_service_page_images : xepOnline.Formatter.xep_chandra_service,
 				processData: false,
 				contentType: false,
 				data: blob,
-				success: current_mimetype == "image/png" || current_mimetype == "image/jpg" || current_mimetype == "image/gif" ? xepOnline.Formatter.__processImages : xepOnline.Formatter.__postBackSuccess,
+				success: current_mimetype === "image/png" || current_mimetype === "image/jpg" || current_mimetype === "image/gif" ? xepOnline.Formatter.__processImages : xepOnline.Formatter.__postBackSuccess,
 				error: xepOnline.Formatter.__postBackFailure
 			});
 		}
@@ -923,10 +924,10 @@ xepOnline.Formatter = {
 		var objbuilder = '';
 		objbuilder += ('<object width="100%" height="100%" data="data:application/pdf;base64,');
 		objbuilder += (base64PDF);
-		objbuilder += ('" type="application/pdf" class="internal">');
+		objbuilder += ('" type="application/pdf", "image/png" class="internal">');
 		objbuilder += ('<embed src="data:application/pdf;base64,');
 		objbuilder += (base64PDF);
-		objbuilder += ('" type="application/pdf" />');
+		objbuilder += ('" type="application/pdf", "image/png" />');
 		objbuilder += ('</object>');
 
 		if(jQuery(xepOnline.Formatter.__container).attr('data-xeponline-embed-pending') === 'true') {			
@@ -1016,6 +1017,7 @@ xepOnline.Formatter = {
 	         jQuery(xepOnline.Formatter.__elm).html('');
              jQuery.each(Pages,function(index,value){
 			     jQuery(xepOnline.Formatter.__elm).append('<img style="border:1px solid black" height="100%" src="data:image/png;base64,' + jQuery(value).text() + '"/>');
+			     jQuery(xepOnline.Formatter.__elm).append('<img style="border:1px solid black" height="100%" src="data:image/jpg;base64,' + jQuery(value).text() + '"/>');
 			 });
 	     }
 	     else {
