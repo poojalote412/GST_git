@@ -158,30 +158,83 @@ class Report extends CI_Controller {
                       6. CFO Dashboard<br>
                       This will help the company immensely for their development.<br>
                       <ul><li>	We also evaluated some areas of improvement.</li></ul>
-                     </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
+                     </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
             
             
-             $data .= '<div style="float:left"> 
+             $data .= '<div> 
                        <b><p style="font-size:18px;text-align:center;background:#002366;color:white;padding:3px;border: 1px solid;">3. GST COMPONENTS AND OVERVIEW</p></b><br><br><br>  
                        <div class="row">
-                      <div class="col-md-12">
+                      <div class="col-md-6">
                       <p>
-                      This report’s insights will help the Business owners,<br>
-                      CFO’s, Analysts, marketing researchers with the<br>
-                      growth of the company and proper functioning of <br>
-                      business as in this report you will find various insights <br>
-                      with graphical representations of data which will not <br>
-                      only help you to find out the profitability and loss areas<br>
-                      of the business but also provide you with the clarity of<br>
+                      This report’s insights will help the Business owners,
+                      CFO’s, Analysts, marketing researchers with the
+                      growth of the company and proper functioning of 
+                      business as in this report you will find various insights 
+                      with graphical representations of data which will not 
+                      only help you to find out the profitability and loss areas
+                      of the business but also provide you with the clarity of
                       growth areas.<br>
                       The output reports will give you following insights:<br>
                       </p>
                       </div>
-                      <div class="col-md-6">
-                      <p>
-                     
-                      </p>
+                      
+                      </div><br><br>
+                      <div class="row">
+                      <div class="col-md-4" style="border:1px solid;padding:2px">
+                      <p style="text-align:center"><b><u>DATA INSIGHTS</u></b></p><br>
+                      <b>MANAGEMENT REPORT</b>
+                      <ul>
+                      <li>Graphical Insights</li>
+                      <li>Sales Health Index</li>
+                      <li>Profit/Loss Health Index</li>
+                      </ul>
+                      <b>COMPARISON & DEVIATION REPORT</b>
+                      <ul>
+                      <li>Graphical Insights</li>
+                      <li>Working Capital loss</li>
+                      <li>Output Tax Liability Reconciliation- Comparison of GSTR-3B & 1</li>
+                      <li>ITC Reconciliation- Comparison of GSTR-3B & 2A</li>
+                      </ul>
                       </div>
+                      <div class="col-md-8"></div>
+                      </div><br>
+                      <div class="row">
+                      <div class="col-md-4" style="border:1px solid;padding:2px">
+                      <p style="text-align:center"><b><u>VALUE DASHBOARD</u></b></p><br>
+                      <b>CFO DASHBOARD/TAX LIABILITY BAROMETER</b>
+                      <ul>
+                      <li>Overview of Turnover</li>
+                      <li>Turnover v/s Tax Liability</li>
+                      <li>Overview of Tax Liability</li>
+                      <li>GST payable v/s Cash</li>
+                      <li>Eligible and Ineligible Credit</li>
+                      </ul>
+                      </div>
+                      <div class="col-md-8"></div>
+                      </div>
+                      <div class="row">
+                      <div class="col-md-4" style="border:1px solid !important;padding:2px;margin-left: 460px !important;margin-top: -439px !important;">
+                      <p style="text-align:center"><b><u>    INFORMATION COMPARISON</u></b></p><br>
+                      <b>COMPLIANCE REPORT</b>
+                      <ul>
+                      <li>Period</li>
+                      <li>Due-date of Filing</li>
+                      <li>Actual Filing date</li>
+                      <li>Penalty</li>
+                      </ul>
+                      <b>INTERNAL CONTROL REPORT</b>
+                      <ul>
+                      <li>Invoices amended in other than original period</li>
+                      <li>Invoices not included in GSTR-1</li>
+                      </ul>
+                      <ul>
+                      <b>MISMATCH REPORT</b>
+                      <li>Invoices not present in GSTR-2A</li>
+                      <li>Invoices not present in Records</li>
+                      <li>POS, Invoice no., Period, Taxable value and Tax Value mismatch.</li>
+                      </ul>
+                      </div>
+                      <div class="col-md-8"></div>
                       </div>
                        </div><br>';
                     
