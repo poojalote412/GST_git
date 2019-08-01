@@ -158,7 +158,7 @@ class Management_report extends CI_Controller {
                     <div class="col-md-12">
                         <div class="">
                          <table id="example2" class="table table-bordered table-striped">
-                                <thead>
+                                <thead style="background-color: #00008B;color:white">
                                     <tr>
                                         <th>No.</th>
                                         <th>State</th>
@@ -273,7 +273,7 @@ class Management_report extends CI_Controller {
                     <div class="col-md-12">
                         <div class="">
                          <table id="example2" class="table table-bordered table-striped">
-                                <thead>
+                                <thead style="background-color: #00008B;color:white">
                                     <tr>
                                         <th>No.</th>
                                         <th>Month</th>
@@ -446,7 +446,7 @@ class Management_report extends CI_Controller {
                     <div class="col-md-12">
                         <div class="">
                          <table id="example2" class="table table-bordered table-striped">
-                                <thead>
+                                <thead style="background-color: #00008B;color:white">
                                     <tr>
                                         <th>No.</th>
                                         <th>Month</th>
@@ -504,7 +504,7 @@ class Management_report extends CI_Controller {
             $max = max($sales_percent_values);
             $min = min($sales_percent_values);
 //            echo $variation=($max-$min)/($min*100);
-            $data .= "<hr><h4><b>Observation of  Sales month wise:</b></h4>";
+//            $data .= "<hr><h4><b>Observation of  Sales month wise:</b></h4>";
 
             // loop to get graph data as per graph script requirement
             $abc1 = array();
@@ -1058,9 +1058,13 @@ class Management_report extends CI_Controller {
     public function get_graph_b2b() {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
-        $query_get_graph = $this->Management_report_model->get_graph_query($customer_id, $insert_id);
+        $query = $this->db->query("SELECT *  from monthly_summary_all where customer_id='$customer_id' and insert_id='$insert_id'");
+        
+//        $query_get_graph = $this->Management_report_model->get_graph_query($customer_id, $insert_id);
         $data = ""; //view observations
-        if (count($query_get_graph) > 0) {
+//        if (count($query_get_graph) > 0) {
+        if ($query->num_rows() > 0) {
+             $result = $query->result();
             $month = array();
             $array_b2b = array();
             $array_b2c = array();
@@ -1070,7 +1074,7 @@ class Management_report extends CI_Controller {
                     <div class="col-md-12">
                         <div class="">
                          <table id="example2" class="table table-bordered table-striped">
-                                <thead>
+                                <thead style="background-color: #00008B;color:white">
                                     <tr>
                                         <th>No.</th>
                                         <th>Month</th>
@@ -1083,7 +1087,7 @@ class Management_report extends CI_Controller {
                                 <tbody>';
             $k = 1;
             $turnover = array();
-            foreach ($query_get_graph as $row) {
+            foreach ($result as $row) {
                 $month[] = $row->month;
                 $months = $row->month;
                 $interstate_b2b = $row->interstate_b2b;
@@ -1173,7 +1177,7 @@ class Management_report extends CI_Controller {
                 }
             }
             //function to get customer name
-            $quer2 = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id' ");
+            $quer2 = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id'");
 
             if ($quer2->num_rows() > 0) {
                 $res2 = $quer2->row();

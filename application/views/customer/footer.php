@@ -206,6 +206,8 @@
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
+<script src="<?= base_url(); ?>js/pdf_conversion.js"></script>
+<script src="<?= base_url(); ?>js/pdf_conversion2.js"></script>
 <script src="<?= base_url(); ?>bower_components/jquery/dist/jquery.min.js"></script>
 
 <!-- Bootstrap 3.3.7 -->
@@ -220,10 +222,13 @@
 <script src="<?= base_url(); ?>dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?= base_url(); ?>dist/js/demo.js"></script>
+
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/series-label.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+
 
 <script>
     $(document).ready(function () {

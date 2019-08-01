@@ -27,7 +27,6 @@ class Account_report extends CI_Controller {
 
     function index_admin() {//to load the view page data
 //        $data['result'] = $result;
-       
         $query_res = $this->Account_model->get_data_account_admin();
         if ($query_res !== FALSE) {
             $data['account_data'] = $query_res;
@@ -55,10 +54,11 @@ class Account_report extends CI_Controller {
                     <div class="col-md-12">
                         <div class="">
                          <table id="example1" class="table table-bordered table-striped">
-                                <thead>
+                                <thead style="background-color: #00008B;color:white">
                                     <tr>
                                         <th>No.</th>
                                         <th>Month</th>
+                                        <th>Return Filling Status</th>
                                         <th>Late Fees</th>
                                         <th>Due Date</th>
                                         <th>Filling Date</th>
@@ -80,9 +80,11 @@ class Account_report extends CI_Controller {
 //                $filling_date[] = $filling_date;
 //                $months[] = $row->month;
 
+                $status = '';
                 $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
                         '<td>' . $months . '</td>' .
+                        '<td bgcolor="#00FF00" style="width:10px">' . $status . '</td>' .
                         '<td>' . $late_fees . '</td>' .
                         '<td>' . $due_date . '</td>' .
                         '<td>' . $filling_date . '</td>' .
@@ -100,9 +102,9 @@ class Account_report extends CI_Controller {
         }
         echo json_encode($respose);
     }
-    
+
     //function for get data of GSTR1 return filled summary
-    
+
     public function get_gstr1_details() {
         $customer_id = $this->input->post("customer_id");
 //        $insert_id = $this->input->post("insert_id");
@@ -117,7 +119,7 @@ class Account_report extends CI_Controller {
                     <div class="col-md-12">
                         <div class="">
                          <table id="example2" class="table table-bordered table-striped">
-                                <thead>
+                                <thead style="background-color: #00008B;color:white">
                                     <tr>
                                         <th>No.</th>
                                         <th>Period</th>
@@ -129,29 +131,39 @@ class Account_report extends CI_Controller {
                                 </thead>
                                 <tbody>';
             $k = 1;
+            
+            
             foreach ($result as $row) {
                 $period = $row->period;
                 $status = $row->status;
                 $filling_date = $row->filling_date;
                 $acknowledge_no = $row->acknowledge_no;
+//                if ($status == 'filed')// [val1] can be 'approved'
+//                    $data .= '<tr>' .
+//                            '<td bgcolor="#32CD32">' . $status . '</td>' .
+//                            '</tr>';
 
-
-//                //arrays
-//                $late_fees[] = $late_fees;
-//                $due_date[] = $due_date;
-//                $filling_date[] = $filling_date;
-//                $months[] = $row->month;
-
-                $data .= '<tr>' .
-                        '<td>' . $k . '</td>' .
-                        '<td>' . $period . '</td>' .
-                        '<td>' . $status . '</td>' .
-                        '<td>' . $filling_date . '</td>' .
-                        '<td>' . $acknowledge_no . '</td>' .
-                        '</tr>';
-                $k++;
-                '</tbody></table></div></div></div>';
+                  $data .= '<tr>'.
+                    '<td>' . $k . '</td>'.
+                  '<td>' . $period . '</td>'.
+//                  if ($status == 'filed')
+                   '<td bgcolor="#32CD32">' . $status . '</td>' .
+//                   else if($status == '')    
+//                   '<td bgcolor="#32CD32">' . $status . '</td>'.
+                  '<td>' . $filling_date . '</td>'. 
+                  '<td>' . $acknowledge_no . '</td>'. 
                 
+                '</tr>'; 
+                    $k++;
+//                $data .= '<tr>' .
+//                        '<td>' . $k . '</td>' .
+//                        '<td>' . $period . '</td>' .
+//                        '<td bgcolor="#32CD32">' . $status . '</td>' .
+//                        '<td>' . $filling_date . '</td>' .
+//                        '<td>' . $acknowledge_no . '</td>' .
+//                        '</tr>';
+//                $k++;
+                '</tbody></table></div></div></div>';
             }
 
 
@@ -163,8 +175,8 @@ class Account_report extends CI_Controller {
         }
         echo json_encode($respose);
     }
-    
-    public function test(){
+
+    public function test() {
         $query = $this->db->query("SELECT * FROM `customer_header_all` where user_type='2'");
 
         $query = $this->db->query("SELECT customer_header_all.customer_id,customer_header_all.created_on,customer_header_all.customer_contact_number,customer_header_all.customer_name,customer_header_all.customer_email_id,insert_header_all.insert_id"
@@ -178,7 +190,6 @@ class Account_report extends CI_Controller {
         }
         $this->load->view('customer/Account', $data);
     }
-    
 
     public function import() {
         if (isset($_FILES["file_ex"]["name"])) {
