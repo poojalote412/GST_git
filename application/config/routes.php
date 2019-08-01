@@ -74,7 +74,7 @@ $route['not_in_record'] = 'Invoice_comp_report/not_in_record_index';
 $route['partial_match'] = 'Invoice_comp_report/partial_match_index';
 $route['eligible_ineligible_itc'] = 'Internal_acc_report/eligible_ineligible_itc_index';
 $route['gst_payable_vs_cash'] = 'Internal_acc_report/gst_payable_vs_cash_index';
-//$route['Cust_login']='GST_Dashboard/employee_dashboard';
+
 
 $route['Customer'] = 'Customer/index';
 $route['test'] = 'Test/index';
@@ -103,7 +103,8 @@ $route['partial_match_admin'] = 'Invoice_comp_report/partial_match_index_admin';
 $route['invoice_amendment'] = 'Invoice_comp_report/invoice_amendment_index';
 $route['invoice_not_included_admin'] = 'Invoice_comp_report/invoice_not_included_index_admin';
 $route['GST_Logout_admin'] = 'Gst_dashboard/index_admin';
-$route['Generate_report/(:any)/(:any)']= 'Report/index/$1/$2';
+$route['sale_export'] = 'Management_report/sale_exports_fun';
+$route['Generate_report/(:any)/(:any)'] = 'Report/index/$1/$2';
 
 $route['Word_to_database'] = 'Word_database/index_admin';
 

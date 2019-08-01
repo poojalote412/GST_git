@@ -572,17 +572,20 @@ class Internal_acc_report extends CI_Controller {
                 $abc2[] = $rcm_liability[$o];
                 $aa2 = settype($abc2[$o], "float");
 
-                $abc3[] = $itc_ineligible[$o];
+                $abc3[] = $net_rtc[$o];
                 $aa3 = settype($abc3[$o], "float");
 
-                $abc4[] = $paid_credit[$o];
+                $abc4[] = $itc_ineligible[$o];
                 $aa4 = settype($abc4[$o], "float");
 
-                $abc5[] = $paid_cash[$o];
+                $abc5[] = $paid_credit[$o];
                 $aa5 = settype($abc5[$o], "float");
 
-                $abc6[] = $late_fee[$o];
+                $abc6[] = $paid_cash[$o];
                 $aa6 = settype($abc6[$o], "float");
+
+                $abc7[] = $late_fee[$o];
+                $aa7 = settype($abc6[$o], "float");
             }
 
             //function to get customer name
@@ -683,18 +686,28 @@ class Internal_acc_report extends CI_Controller {
                 $inter_state_supply = $row->inter_state_supply;
                 $intra_state_supply = $row->intra_state_supply;
                 $no_gst_paid_supply = $row->no_gst_paid_supply;
+
+                //new changes 
+                $total_taxable_advance_no_invoice = $row->total_taxable_advance_no_invoice;
+                $total_taxable_advance_invoice = $row->total_taxable_advance_invoice;
+                $total_taxable_data_gst_export = $row->total_taxable_data_gst_export;
+                $total_non_gst_export = $row->total_non_gst_export;
+
                 $debit_value = $row->debit_value;
                 $credit_value = $row->credit_value;
                 $tax_inter_state = $row->tax_inter_state;
                 $tax_intra_state = $row->tax_intra_state;
                 $tax_debit = $row->tax_debit;
                 $tax_credit = $row->tax_credit;
+                $total_tax_advance_no_invoice = $row->total_tax_advance_no_invoice;
+                $total_tax_advance_invoice = $row->total_tax_advance_invoice;
+                $total_tax_data_gst_export = $row->total_tax_data_gst_export;
                 $month = $row->month;
 
-                $taxable_val = ($inter_state_supply + $intra_state_supply + $no_gst_paid_supply + $debit_value) - ($credit_value);
+                $taxable_val = ($inter_state_supply + $intra_state_supply + $no_gst_paid_supply + $debit_value + $total_taxable_advance_no_invoice + $total_taxable_advance_invoice + $total_taxable_data_gst_export + $total_non_gst_export) - ($credit_value);
                 $taxable_value[] = $taxable_val; //taxable value array
 
-                $tax_val = ($tax_inter_state + $tax_intra_state + $tax_debit) - ($tax_credit);
+                $tax_val = ($tax_inter_state + $tax_intra_state + $tax_debit + $total_tax_advance_no_invoice + $total_tax_advance_invoice + $total_tax_data_gst_export) - ($tax_credit);
                 $tax_value[] = $tax_val; //tax array
 
 
@@ -935,6 +948,7 @@ class Internal_acc_report extends CI_Controller {
         }
         $this->load->view('customer/gst_payable_vs_cash', $data);
     }
+
     public function gst_payable_vs_cash_index_admin() { //function load page gst payable vs cash
         $query_get_data = $this->Internal_acc_report_model->get_data_taxliability_admin();
         if ($query_get_data !== FALSE) {

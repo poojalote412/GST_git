@@ -21,7 +21,7 @@
                     </span>
                 </a>
             </li>
-             <li class="">
+            <li class="">
                 <a href="<?php echo base_url(); ?>Customer">
                     <i class="fa fa-dashboard" ></i> <span>Customer Details</span>
                     <span class="pull-right-container">
@@ -37,8 +37,8 @@
                     </span>
                 </a>
             </li>
-            
-           
+
+
 
             <li class="treeview">
                 <a href="#">
@@ -66,6 +66,7 @@
                     <li><a href="<?php echo base_url(); ?>Sale_state_wise_admin"><i class="fa fa-circle-o"></i> Sales State Wise</a></li>
                     <li><a href="<?php echo base_url(); ?>Sale_taxable_nontaxable_admin"><i class="fa fa-circle-o"></i>Sales Taxable, non-taxable <br> and Exempt</a></li>
                     <li><a href="<?php echo base_url(); ?>Sale_month_wise_admin"><i class="fa fa-circle-o"></i> Sales Month Wise</a></li>
+                    <li><a href="<?php echo base_url(); ?>sale_export"><i class="fa fa-circle-o"></i>Export Sales </a></li>
                 </ul>
             </li>
             <li class="">
@@ -105,7 +106,7 @@
                     <li><a href="<?php echo base_url(); ?>invoice_not_included_admin"><i class="fa fa-circle-o"></i>Invoices not included in <br> original GSTR1 </a></li>
                 </ul>
             </li>
-            
+
             <li class="">
                 <a href="<?php echo base_url(); ?>Word_to_database">
                     <i class="fa fa-dashboard" ></i> <span>Word to Databse</span>
@@ -114,7 +115,7 @@
                     </span>
                 </a>
             </li>
-            
+
             <li class="">
                 <a href="<?php echo base_url(); ?>Gst_admin_login/admin_logout">
                     <i class="fa fa-dashboard" ></i> <span>Logout</span>

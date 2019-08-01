@@ -2,7 +2,7 @@
 $this->load->view('customer/header');
 $this->load->view('admin/navigation');
 ?>
-<!--<script src="http://code.highcharts.com/highcharts.js"></script>-->
+<script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="<?php base_url() . "/" ?>js/pdf_conversion.js"></script>
 <script src="<?php base_url() . "/" ?>js/pdf_conversion2.js"></script>
 
@@ -11,7 +11,7 @@ $this->load->view('admin/navigation');
     <section class="content-header">
         <h1>
             DASHBOARD
-            <!--<button id="export">Export all</button>-->
+            <button id="export">Export all</button>
             <!--<small>it all starts here</small>-->
         </h1>
 
@@ -30,7 +30,7 @@ $this->load->view('admin/navigation');
     <hr/>
     <div id="JSFiddle">
         <!-- Insert your document here -->
-        <header  style="display:none;margin-top:20px;">
+        <header style="display:none;margin-top:20px;">
             <p>Add your header</p>
         </header>
         <footer style="display:none">
@@ -50,7 +50,7 @@ $this->load->view('admin/navigation');
 
 
 </div>
-<?php $this->load->view('customer/footer'); ?>
+<?php // $this->load->view('customer/footer'); ?>
 
 <script>
     $(document).ready(function () {
@@ -58,7 +58,7 @@ $this->load->view('admin/navigation');
             type: "post",
             url: "<?= base_url("Cfo_dashboard/get_graph_Turnover_vs_liabality") ?>",
             dataType: "json",
-            data: {customer_id: 'cust_1007', insert_id: 'insert_1003'},
+            data: {customer_id: 'cust_1001', insert_id: 'insert_1001'},
             success: function (result) {
 //                 alert();
                 $('#cfo_data').html("");
@@ -67,19 +67,21 @@ $this->load->view('admin/navigation');
                     var data = result.data;
                     $('#cfo_data').html("");
                     $('#cfo_data').html(data);
-//                    $('#example2').DataTable();
+                    $('#example2').DataTable();
                 } else {
 
                 }
             },
+
         });
         $.ajax({
             type: "POST",
             url: "<?= base_url("Cfo_dashboard/get_graph_Turnover_vs_liabality") ?>",
             dataType: "json",
-            data: {customer_id: 'Cust_1007', insert_id: 'insert_1003'},
+            data: {customer_id: 'cust_1001', insert_id: 'insert_1001'},
             success: function (result) {
                 if (result.message === "success") {
+
                     var data_a = result.data_turn_over;
                     var data_liability = result.data_liability;
                     var data_ratio = result.ratio;
