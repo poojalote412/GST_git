@@ -73,7 +73,8 @@ class Cfo_dashboard extends CI_Controller {
     public function get_graph_Turnover_vs_liabality() {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
-        $quer1 = $this->db->query("SELECT `monthly_summary_all`.`month`,`monthly_summary_all`.`inter_state_supply`,`monthly_summary_all`.`intra_state_supply`,"
+        $quer1 = $this->db->query("SELECT `monthly_summary_all`.`total_non_gst_export`,`monthly_summary_all`.`total_taxable_advance_no_invoice`,`monthly_summary_all`.`total_taxable_advance_invoice`,"
+                . "`monthly_summary_all`.`total_taxable_data_gst_export`,`monthly_summary_all`.`month`,`monthly_summary_all`.`inter_state_supply`,`monthly_summary_all`.`intra_state_supply`,"
                 . "`monthly_summary_all`.`no_gst_paid_supply`, `monthly_summary_all`.`debit_value`,`monthly_summary_all`.`credit_value`,`3b_offset_summary_all`.`outward_liability`,"
                 . "`3b_offset_summary_all`.`rcb_liablity` FROM `monthly_summary_all` INNER JOIN `3b_offset_summary_all` "
                 . "ON `monthly_summary_all`.`month`=`3b_offset_summary_all`.`month` where `monthly_summary_all`.`customer_id`='$customer_id' "
@@ -101,7 +102,7 @@ class Cfo_dashboard extends CI_Controller {
             $k = 1;
             foreach ($res as $row) {
                 //formula to get turnover , ratio , liability
-                $turnover = ($row->inter_state_supply + $row->intra_state_supply + $row->no_gst_paid_supply + $row->debit_value) - (1 * $row->credit_value);
+                $turnover = ($row->inter_state_supply + $row->intra_state_supply + $row->no_gst_paid_supply + $row->debit_value+ $row->total_non_gst_export+ $row->total_taxable_advance_no_invoice+ $row->total_taxable_advance_invoice+ $row->total_taxable_data_gst_export) - (1 * $row->credit_value);
                 $tax_liabality = $row->outward_liability + (1 * $row->rcb_liablity);
                 $ratio = ($tax_liabality / $turnover) * 100;
                 $ratio_val[] = round($ratio);

@@ -452,7 +452,7 @@ class Internal_acc_report extends CI_Controller {
             $data = $result->row();
             $turn_id = $data->tax_libility_id;
             //generate user_id
-            $turn_id = str_pad(++$turn_id, 5, '0', STR_PAD_LEFT);
+            $turn_id = str_pad( ++$turn_id, 5, '0', STR_PAD_LEFT);
             return $turn_id;
         } else {
             $turn_id = 'tax_1001';
@@ -686,18 +686,28 @@ class Internal_acc_report extends CI_Controller {
                 $inter_state_supply = $row->inter_state_supply;
                 $intra_state_supply = $row->intra_state_supply;
                 $no_gst_paid_supply = $row->no_gst_paid_supply;
+
+                //new changes 
+                $total_taxable_advance_no_invoice = $row->total_taxable_advance_no_invoice;
+                $total_taxable_advance_invoice = $row->total_taxable_advance_invoice;
+                $total_taxable_data_gst_export = $row->total_taxable_data_gst_export;
+                $total_non_gst_export = $row->total_non_gst_export;
+
                 $debit_value = $row->debit_value;
                 $credit_value = $row->credit_value;
                 $tax_inter_state = $row->tax_inter_state;
                 $tax_intra_state = $row->tax_intra_state;
                 $tax_debit = $row->tax_debit;
                 $tax_credit = $row->tax_credit;
+                $total_tax_advance_no_invoice = $row->total_tax_advance_no_invoice;
+                $total_tax_advance_invoice = $row->total_tax_advance_invoice;
+                $total_tax_data_gst_export = $row->total_tax_data_gst_export;
                 $month = $row->month;
 
-                $taxable_val = ($inter_state_supply + $intra_state_supply + $no_gst_paid_supply + $debit_value) - ($credit_value);
+                $taxable_val = ($inter_state_supply + $intra_state_supply + $no_gst_paid_supply + $debit_value + $total_taxable_advance_no_invoice + $total_taxable_advance_invoice + $total_taxable_data_gst_export + $total_non_gst_export) - ($credit_value);
                 $taxable_value[] = $taxable_val; //taxable value array
 
-                $tax_val = ($tax_inter_state + $tax_intra_state + $tax_debit) - ($tax_credit);
+                $tax_val = ($tax_inter_state + $tax_intra_state + $tax_debit + $total_tax_advance_no_invoice + $total_tax_advance_invoice + $total_tax_data_gst_export) - ($tax_credit);
                 $tax_value[] = $tax_val; //tax array
 
 

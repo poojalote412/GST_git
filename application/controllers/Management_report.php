@@ -424,6 +424,7 @@ class Management_report extends CI_Controller {
         }
         $this->load->view('customer/Sales_month_wise', $data);
     }
+
     function sale_month_wise_admin() { //function to load data
         $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
         if ($query_get_cfo_data !== FALSE) {
@@ -465,9 +466,14 @@ class Management_report extends CI_Controller {
                 $no_gst_paid_supply = $row1->no_gst_paid_supply;
                 $debit_value = $row1->debit_value;
                 $credit_value = $row1->credit_value;
+                //new changes 
+                $total_taxable_advance_no_invoice = $row1->total_taxable_advance_no_invoice;
+                $total_taxable_advance_invoice = $row1->total_taxable_advance_invoice;
+                $total_taxable_data_gst_export = $row1->total_taxable_data_gst_export;
+                $total_non_gst_export = $row1->total_non_gst_export;
                 $month = $row1->month;
 
-                $taxable_supply1 = ($inter_state_supply + $intra_state_supply + $no_gst_paid_supply + $debit_value) - ($credit_value);
+                $taxable_supply1 = ($inter_state_supply + $intra_state_supply + $no_gst_paid_supply + $debit_value + $total_taxable_advance_no_invoice + $total_taxable_advance_invoice + $total_taxable_data_gst_export + $total_non_gst_export) - ($credit_value);
                 $taxable_supply_arr1[] = $taxable_supply1; //taxable supply array
             }
             $sum_tax = array_sum($taxable_supply_arr1);
@@ -478,8 +484,13 @@ class Management_report extends CI_Controller {
                 $debit_value = $row->debit_value;
                 $credit_value = $row->credit_value;
                 $month = $row->month;
+                //new changes 
+                $total_taxable_advance_no_invoice = $row1->total_taxable_advance_no_invoice;
+                $total_taxable_advance_invoice = $row1->total_taxable_advance_invoice;
+                $total_taxable_data_gst_export = $row1->total_taxable_data_gst_export;
+                $total_non_gst_export = $row1->total_non_gst_export;
 
-                $taxable_supply = ($inter_state_supply + $intra_state_supply + $no_gst_paid_supply + $debit_value) - ($credit_value);
+                $taxable_supply = ($inter_state_supply + $intra_state_supply + $no_gst_paid_supply + $debit_value + $total_taxable_advance_no_invoice + $total_taxable_advance_invoice + $total_taxable_data_gst_export + $total_non_gst_export) - ($credit_value);
                 $taxable_supply_arr[] = $taxable_supply; //taxable supply array
                 $sale_percent = (($taxable_supply) / ($sum_tax * 100));
                 $sales_percent_values1 = round(($sale_percent * 10000), 2);
@@ -505,7 +516,6 @@ class Management_report extends CI_Controller {
             $min = min($sales_percent_values);
 //            echo $variation=($max-$min)/($min*100);
 //            $data .= "<hr><h4><b>Observation of  Sales month wise:</b></h4>";
-
             // loop to get graph data as per graph script requirement
             $abc1 = array();
             for ($o = 0; $o < sizeof($taxable_supply_arr); $o++) {
@@ -1059,12 +1069,12 @@ class Management_report extends CI_Controller {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
         $query = $this->db->query("SELECT *  from monthly_summary_all where customer_id='$customer_id' and insert_id='$insert_id'");
-        
+
 //        $query_get_graph = $this->Management_report_model->get_graph_query($customer_id, $insert_id);
         $data = ""; //view observations
 //        if (count($query_get_graph) > 0) {
         if ($query->num_rows() > 0) {
-             $result = $query->result();
+            $result = $query->result();
             $month = array();
             $array_b2b = array();
             $array_b2c = array();
@@ -1094,14 +1104,18 @@ class Management_report extends CI_Controller {
                 $interstate_b2c = $row->interstate_b2c;
                 $intrastate_b2b = $row->intrastate_b2b;
                 $intrastate_b2c = $row->intrastate_b2c;
+                $advance_invoice_not_issue_b2b = $row->advance_invoice_not_issue_b2b;
+                $advance_invoice_not_issue_b2c = $row->advance_invoice_not_issue_b2c;
+                $advance_invoice_issue_b2b = $row->advance_invoice_issue_b2b;
+                $advance_invoice_issue_b2c = $row->advance_invoice_issue_b2c;
                 $credit_b2b = $row->credit_b2b;
                 $credit_b2c = $row->credit_b2c;
                 $debit_b2b = $row->debit_b2b;
                 $debit_b2c = $row->debit_b2c;
                 $turnover[] = ($row->inter_state_supply + $row->intra_state_supply + $row->no_gst_paid_supply + $row->debit_value) - (1 * $row->credit_value);
 
-                $b2b_data = ($interstate_b2b + $intrastate_b2b + $debit_b2b) - $credit_b2b;
-                $b2c_data = ($interstate_b2c + $intrastate_b2c + $debit_b2c) - $credit_b2c;
+                $b2b_data = ($interstate_b2b + $intrastate_b2b + $debit_b2b + $advance_invoice_not_issue_b2b + $advance_invoice_issue_b2b) - $credit_b2b;
+                $b2c_data = ($interstate_b2c + $intrastate_b2c + $debit_b2c + $advance_invoice_not_issue_b2c + $advance_invoice_issue_b2c) - $credit_b2c;
                 $array_b2b[] = $b2b_data;
                 $array_b2c[] = $b2c_data;
                 $array_b2b_ratio[] = round(($b2b_data * 100) / ($b2b_data + $b2c_data));
