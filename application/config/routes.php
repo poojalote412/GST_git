@@ -104,6 +104,7 @@ $route['invoice_amendment'] = 'Invoice_comp_report/invoice_amendment_index';
 $route['invoice_not_included_admin'] = 'Invoice_comp_report/invoice_not_included_index_admin';
 $route['GST_Logout_admin'] = 'Gst_dashboard/index_admin';
 $route['sale_export'] = 'Management_report/sale_exports_fun';
+$route['sale_nil_zero_rated'] = 'Management_report/sale_nil_zero_rated_fun';
 $route['Generate_report/(:any)/(:any)'] = 'Report/index/$1/$2';
 
 $route['Word_to_database'] = 'Word_database/index_admin';

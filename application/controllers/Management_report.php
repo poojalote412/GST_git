@@ -58,6 +58,16 @@ class Management_report extends CI_Controller {
         $this->load->view('admin/sale_exports', $data);
     }
 
+    public function sale_nil_zero_rated_fun() {
+        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
+        if ($query_get_cfo_data !== FALSE) {
+            $data['nil_n_zero_data'] = $query_get_cfo_data;
+        } else {
+            $data['nil_n_zero_data'] = "";
+        }
+        $this->load->view('admin/sale_nil_zero_rated', $data);
+    }
+
     public function import_excel() { //function to get data from excel files
         if (isset($_FILES["file_ex"]["name"])) {
             $path = $_FILES["file_ex"]["tmp_name"];
@@ -408,6 +418,159 @@ class Management_report extends CI_Controller {
             $respnose['month_data'] = $months; //months 
             $respnose['customer_name'] = $customer_name; //customer
             $respnose['max_range'] = $max_range; //maximum range for graph
+        } else {
+            $respnose['data'] = "";
+            $respnose['message'] = "";
+            $respnose['taxable_supply_arr'] = "";  //taxable_supply data
+            $respnose['sub_total_non_gst_arr'] = ""; //sub_total_non_gstdata
+            $respnose['sub_total_exempt_arr'] = ""; //sub_total_exempt data
+            $respnose['ratio_taxable_supply'] = ""; //ratio_taxable_supply
+            $respnose['ratio_subtotal_nongst'] = ""; //ratio_subtotal_nongst
+            $respnose['ratio_subtotal_exempt'] = ""; //ratio_subtotal_exempt
+        } echo json_encode($respnose);
+    }
+
+    //function to get data for nil rated and zero rated data
+    public function get_graph_nil_zero_rated() {
+        $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
+        $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' and insert_id='$insert_id'");
+        $data = ""; //view observations
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+            $taxable_supply_arr = array();
+            $sub_total_nil_rated_arr = array();
+            $sub_total_zero_ratedarr = array();
+            $ratio_taxable_supply = array();
+            $ratio_subtotal_nil_rated = array();
+            $ratio_subtotal_zero_rated = array();
+            $data .= '<div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="example2" class="table table-bordered table-striped">
+                                <thead style="background-color: #00008B;color:white">
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Month</th>
+                                        <th>Taxable Supply</th>
+                                        <th>Nil Rated Supply</th>
+                                        <th>Zero rated Supply</th>
+                                        <th>Ratio of taxable supply to total supply</th>
+                                        <th>Ratio of Nil Rated supply to total supply</th>
+                                        <th>Ratio of zero rated supply to total supply</th>
+                                    </tr>
+                                </thead>
+                                <tbody>';
+            $k = 1;
+            foreach ($result as $row) {
+                $inter_state_supply = $row->inter_state_supply;
+                $intra_state_supply = $row->intra_state_supply;
+                $debit_value = $row->debit_value;
+                $credit_value = $row->credit_value;
+                $month = $row->month;
+
+                $taxable_supply = ($inter_state_supply + $intra_state_supply + $debit_value) - ($credit_value);
+                $taxable_supply_arr[] = $taxable_supply; //taxable supply array
+
+                $sub_total_nil_rated = $row->sub_total_nil_rated;
+                $sub_total_nil_rated_arr[] = $sub_total_nil_rated; // sub total non gst array
+
+                $sub_total_zero_rated = ($row->total_non_gst_export) + ($row->total_taxable_data_gst_export);
+                $sub_total_zero_ratedarr[] = $sub_total_zero_rated; // sub total exempt array
+
+                $grand_total = $taxable_supply + $sub_total_nil_rated + $sub_total_zero_rated;
+              
+                if ($grand_total != 0) {
+                    $ratio_taxable_supply[] = round(($taxable_supply * 100) / ($grand_total));
+                    $ratio_subtotal_nil_rated[] = round(($sub_total_nil_rated * 100) / ($grand_total));
+                    $ratio_subtotal_zero_rated[] = round(($sub_total_zero_rated * 100) / ($grand_total));
+                } else {
+                    $ratio_taxable_supply[] = 0;
+                    $ratio_subtotal_nil_rated[] = 0;
+                    $ratio_subtotal_zero_rated[] = 0;
+                }
+                $data .= '<tr>' .
+                        '<td>' . $k . '</td>' .
+                        '<td>' . $month . '</td>' .
+                        '<td>' . $taxable_supply . '</td>' .
+                        '<td>' . $sub_total_nil_rated . '</td>' .
+                        '<td>' . $sub_total_zero_rated . '</td>' .
+                        '<td>' . (round(($taxable_supply * 100) / ($grand_total))) . "%" . '</td>' .
+                        '<td>' . (round(($sub_total_nil_rated * 100) / ($grand_total))) . "%" . '</td>' .
+                        '<td>' . (round(($sub_total_zero_rated * 100) / ($grand_total))) . "%" . '</td>' .
+                        '</tr>';
+                $k++;
+            }
+            
+            $data .= '<tr>' .
+                    '<td>' . '<b>Total</b>' . '</td>' .
+                    '<td>' . '' . '</td>' .
+                    '<td>' . '<b>' . array_sum($taxable_supply_arr) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . array_sum($sub_total_nil_rated_arr) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . array_sum($sub_total_zero_ratedarr) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . "" . '</b>' . '</td>' .
+                    '<td>' . '<b>' . "" . '</b>' . '</td>' .
+                    '<td>' . '<b>' . "" . '</b>' . '</td>' .
+                    '</tr>';
+            $data .= '</tbody></table></div></div></div>';
+//            $data .= "<hr><h4><b>Observation of Sales Taxable, non-taxable and Exempt:</b></h4>";
+//            $data .= "<span>There is variation in the ratio of sales , give us an oppurtunity to optimise purchase planning , sales incentives planning & efficiency in working capital marketing.</span>";
+            $abc1 = array();
+            $abc2 = array();
+            $abc3 = array();
+            $abc4 = array();
+            $abc5 = array();
+            $abc6 = array();
+            // loop to get graph data as per graph script requirement
+            for ($o = 0; $o < sizeof($taxable_supply_arr); $o++) {
+                $abc1[] = $taxable_supply_arr[$o];
+                $aa1 = settype($abc1[$o], "float");
+
+                $abc2[] = $sub_total_nil_rated_arr[$o];
+                $aa2 = settype($abc2[$o], "float");
+
+                $abc3[] = $sub_total_zero_ratedarr[$o];
+                $aa3 = settype($abc3[$o], "float");
+
+                $abc4[] = $ratio_taxable_supply[$o];
+                $aa4 = settype($abc4[$o], "float");
+
+                $abc5[] = $ratio_subtotal_nil_rated[$o];
+                $aa5 = settype($abc5[$o], "float");
+
+                $abc6[] = $ratio_subtotal_zero_rated[$o];
+                $aa6 = settype($abc6[$o], "float");
+            }
+
+
+
+            //function to get months
+            $quer2 = $this->db->query("SELECT month from  monthly_summary_all where customer_id='$customer_id'and insert_id='$insert_id'");
+            $months = array();
+            if ($quer2->num_rows() > 0) {
+                $res2 = $quer2->result();
+                foreach ($res2 as $row) {
+                    $months[] = $row->month;
+                }
+            }
+
+            //function to get customer name
+            $quer21 = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id'");
+
+            if ($quer21->num_rows() > 0) {
+                $res2 = $quer21->row();
+                $customer_name = $res2->customer_name;
+            }
+            $respnose['data'] = $data;
+            $respnose['message'] = "success";
+            $respnose['taxable_supply_arr'] = $abc1;  //taxable_supply data
+            $respnose['sub_total_nil_rate_arr'] = $abc2; //sub_total_nil rated
+            $respnose['sub_total_zero_rated_arr'] = $abc3; //sub_total_zero rated 
+            $respnose['ratio_taxable_supply'] = $abc4; //ratio_taxable_supply
+            $respnose['ratio_nil_rate'] = $abc5; //ratio_subtotal_nil rated
+            $respnose['ratio_zero_rated'] = $abc6; //ratio_subtotal_zero rated
+            $respnose['month_data'] = $months; //months 
+            $respnose['customer_name'] = $customer_name; //customer
         } else {
             $respnose['data'] = "";
             $respnose['message'] = "";
@@ -1175,7 +1338,7 @@ class Management_report extends CI_Controller {
             $data = $result->row();
             $uniq_id = $data->unique_id;
             //generate turn_id
-            $uniq_id = str_pad( ++$uniq_id, 5, '0', STR_PAD_LEFT);
+            $uniq_id = str_pad(++$uniq_id, 5, '0', STR_PAD_LEFT);
             return $uniq_id;
         } else {
             $uniq_id = 'btb_1001';
