@@ -83,10 +83,10 @@ class Report extends CI_Controller {
                       9. B2C Supply- Supply made to unregistered person.<br>
                       10. POS- Place Of Supply<br>
                       11. RCM- Reverse Charge Mechanism.<br>
-                    </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
+                    </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
             
             $data .= '<div>
-                      <b style="font-size:18px">Contents</b><br>  
+                      <b style="font-size:18px">Contents</b>
                       <div class="row">
                       <div class="col-md-4"><p style="border: 2px;padding:6px;background:#D3D3D3"><b>About Client&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pg.05</b></p></div>
                       <div class="col-md-4"><p style="border: 2px;background:#002366;padding:6px;color:white"><b>Executive Summary</b></p></div>
@@ -97,7 +97,7 @@ class Report extends CI_Controller {
                       </div>
                       <div class="row">
                       <div class="col-md-4"><p style="border: 2px;padding:10px;background:#D3D3D3"><b>Details of GST Reports & Insightst&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pg.05</b></p></div>
-                      <div class="col-md-4"><p style="border: 2px;padding:10px;color:white;background:#D3D3D3"><b>Issue Matrix&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pg.05</b></p></div>
+                      <div class="col-md-4"><p style="border: 2px;padding:10px;color:white;background:#002366"><b>Issue Matrix&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pg.05</b></p></div>
                       
                       </div>
                       <div class="row">
@@ -144,7 +144,7 @@ class Report extends CI_Controller {
                       <ul>
                       <li>R Kabra & Co. was provided with the data of the company “Anand Rathi
                       Global Finance Ltd.” to evaluate this health check report.</li>
-                      <li>R Kabra & Co. was also able to access all the information such as:</li>
+                      <li>R Kabra & Co. was also able to access all the information such as:</li><br>
                       </ul>
                       1. Sales data month wise.<br>
                       2. GSTR-1 <br>
@@ -162,24 +162,21 @@ class Report extends CI_Controller {
             
             
              $data .= '<div> 
-                       <b><p style="font-size:18px;text-align:center;background:#002366;color:white;padding:3px;border: 1px solid;">3. GST COMPONENTS AND OVERVIEW</p></b><br><br><br>  
+                       <b><p style="font-size:18px;text-align:center;background:#002366;color:white;padding:3px;border: 1px solid;">3. GST COMPONENTS AND OVERVIEW</p></b><br>
                        <div class="row">
-                      <div class="col-md-6">
+                       
+                      <div class="col-md-12">
                       <p>
-                      This report’s insights will help the Business owners,
-                      CFO’s, Analysts, marketing researchers with the
-                      growth of the company and proper functioning of 
-                      business as in this report you will find various insights 
-                      with graphical representations of data which will not 
-                      only help you to find out the profitability and loss areas
-                      of the business but also provide you with the clarity of
-                      growth areas.<br>
+                      This report’s insights will help the Business owners,CFO’s, Analysts, marketing researchers with the growth of the company and proper functioning of 
+                      business as in this report you will find various insights with graphical representations of data which will not 
+                      only help you to find out the profitability and loss areas of the business but also provide you with the clarity of growth areas.<br>
                       The output reports will give you following insights:<br>
                       </p>
                       </div>
                       
                       </div><br><br>
                       <div class="row">
+                      
                       <div class="col-md-4" style="border:1px solid;padding:2px">
                       <p style="text-align:center"><b><u>DATA INSIGHTS</u></b></p><br>
                       <b>MANAGEMENT REPORT</b>
@@ -196,8 +193,7 @@ class Report extends CI_Controller {
                       <li>ITC Reconciliation- Comparison of GSTR-3B & 2A</li>
                       </ul>
                       </div>
-                      <div class="col-md-8"></div>
-                      </div><br>
+                      </div>
                       <div class="row">
                       <div class="col-md-4" style="border:1px solid;padding:2px">
                       <p style="text-align:center"><b><u>VALUE DASHBOARD</u></b></p><br>
@@ -210,10 +206,7 @@ class Report extends CI_Controller {
                       <li>Eligible and Ineligible Credit</li>
                       </ul>
                       </div>
-                      <div class="col-md-8"></div>
-                      </div>
-                      <div class="row">
-                      <div class="col-md-4" style="border:1px solid !important;padding:2px;margin-left: 460px !important;margin-top: -439px !important;">
+                      <div class="col-md-4" style="border:1px solid !important;padding:2px;margin-top: -277px !important;margin-left: 2px !important;">
                       <p style="text-align:center"><b><u>    INFORMATION COMPARISON</u></b></p><br>
                       <b>COMPLIANCE REPORT</b>
                       <ul>
@@ -234,9 +227,10 @@ class Report extends CI_Controller {
                       <li>POS, Invoice no., Period, Taxable value and Tax Value mismatch.</li>
                       </ul>
                       </div>
+                      
                       <div class="col-md-8"></div>
                       </div>
-                       </div><br>';
+                     <br>';
                     
             $respose['data'] = $data;
             $respose['message'] = "success";

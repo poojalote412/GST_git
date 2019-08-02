@@ -18,7 +18,10 @@ if (is_array($session_data)) {
     $username = $this->session->userdata('login_session');
 }
 ?>
-
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/offline-exporting.js"></script>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -52,7 +55,7 @@ if (is_array($session_data)) {
                                     </span>
                                     <input type="hidden" class="form-control" value="<?php echo $insert_id; ?>"disabled=""name="insert_id"  id="insert_id"   aria-required="true" aria-describedby="input_group-error">
                                     <input type="hidden" class="form-control" value="<?php echo $customer_id; ?>"disabled=""name="customer_id"  id="customer_id"   aria-required="true" aria-describedby="input_group-error">
-                                    <input type="text" class="form-control" value="<?php // echo $user_name[$x]['customer_name']               ?>"  disabled=""name="cust_name"  id="cust_name" onkeyup="remove_error('customer_name')"   aria-required="true" aria-describedby="input_group-error">
+                                    <input type="text" class="form-control" value="<?php // echo $user_name[$x]['customer_name']                     ?>"  disabled=""name="cust_name"  id="cust_name" onkeyup="remove_error('customer_name')"   aria-required="true" aria-describedby="input_group-error">
 
                                 </div>
                                 <span class="required" style="color: red" id="customer_name_error"></span>
@@ -64,7 +67,7 @@ if (is_array($session_data)) {
                                     <span class="input-group-addon">
                                         <i class="fa fa-user"></i>
                                     </span>
-                                    <input type="text" class="form-control" value="<?php // echo $user_name[$x]['year_id']     ?>"  disabled=""name="year_id"  id="year_id" onkeyup="remove_error('customer_name')"   aria-required="true" aria-describedby="input_group-error">
+                                    <input type="text" class="form-control" value="<?php // echo $user_name[$x]['year_id']           ?>"  disabled=""name="year_id"  id="year_id" onkeyup="remove_error('customer_name')"   aria-required="true" aria-describedby="input_group-error">
 
                                 </div>
                                 <span class="required" style="color: red" id="customer_name_error"></span>
@@ -101,6 +104,7 @@ if (is_array($session_data)) {
                                 <div id="container2" style="height: 500px;  width:700px"></div>
                             </div>-->
                     <div style="page-break-before:always;">
+                        <div id="container3"></div>
                         <div id="content_pdf"></div><br><br><br><br><br><br><br><br><br><br><br>
                         <div id="container" style="height: 500px;  width:700px"></div>
                         <div id="cfo_data"></div>
@@ -496,7 +500,8 @@ if (is_array($session_data)) {
                                 tooltip: {
                                     valuePrefix: '₹',
                                     valueSuffix: ' M'
-                                }, }, {
+                                },
+                            }, {
                                 name: 'Non-GST Supply',
                                 data: sub_total_non_gst,
                                 color: '#5BCB45',
@@ -943,6 +948,7 @@ if (is_array($session_data)) {
             },
 
         });
+
         $.ajax({
             type: "post",
             url: "<?= base_url("Account_report/get_graph") ?>",
@@ -980,31 +986,39 @@ if (is_array($session_data)) {
             },
 
         });
+
+
+
     });
 
 
-
-</script>
-<script>
     Highcharts.getSVG = function (charts) {
         var svgArr = [],
                 top = 0,
                 width = 0;
+
         $.each(charts, function (i, chart) {
             var svg = chart.getSVG();
             svg = svg.replace('<svg', '<g transform="translate(0,' + top + ')" ');
             svg = svg.replace('</svg>', '</g>');
+
             top += chart.chartHeight;
             width = Math.max(width, chart.chartWidth);
+
             svgArr.push(svg);
         });
+
         return '<svg height="' + top + '" width="' + width + '" version="1.1" xmlns="http://www.w3.org/2000/svg">' + svgArr.join('') + '</svg>';
     };
+
+
     Highcharts.exportCharts = function (charts, options) {
         var form
         svg = Highcharts.getSVG(charts);
+
         // merge the options
         options = Highcharts.merge(Highcharts.getOptions().exporting, options);
+
         // create the form
         form = Highcharts.createElement('form', {
             method: 'post',
@@ -1012,6 +1026,7 @@ if (is_array($session_data)) {
         }, {
             display: 'none'
         }, document.body);
+
         // add the values
         Highcharts.each(['filename', 'type', 'width', 'svg'], function (name) {
             Highcharts.createElement('input', {
@@ -1025,18 +1040,47 @@ if (is_array($session_data)) {
                 }[name]
             }, null, form);
         });
-        //console.log(svg); return;
-        // submit
         form.submit();
-        // clean up
         form.parentNode.removeChild(form);
     };
 
 
 
 
+    function toDataURL(url, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                callback(reader.result);
+            }
+            reader.readAsDataURL(xhr.response);
+        };
+        xhr.open('GET', url);
+        xhr.responseType = 'blob';
+        xhr.send();
+    }
 
-<!-- PDF, Postscript and XPS are set to download as Fiddle (and some browsers) will not embed them -->
+    var svgImg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svgImg.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
+    svgImg.setAttribute('height', '400');
+    svgImg.setAttribute('width', '600');
+    svgImg.setAttribute('id', 'test');
+
+    var svgimg = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+    svgimg.setAttribute('height', '400');
+    svgimg.setAttribute('width', '600');
+    svgimg.setAttribute('id', 'testimg');
+
+    toDataURL('<?= base_url(); ?>/images/sale-month-wise.png', function (dataUrl) {
+        svgimg.setAttributeNS('http://www.w3.org/1999/xlink', 'href', dataUrl);
+    });
+
+    svgimg.setAttribute('x', '0');
+    svgimg.setAttribute('y', '0');
+    svgImg.appendChild(svgimg);
+
+    document.querySelector('#container3').appendChild(svgImg);
 
     var click = "return xepOnline.Formatter.Format('JSFiddle', {render:'download'})";
     jQuery('#buttons').append('<button onclick="' + click + '">PDF</button>');
