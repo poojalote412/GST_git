@@ -289,6 +289,10 @@ class Management_report extends CI_Controller {
             $ratio_taxable_supply = array();
             $ratio_subtotal_nongst = array();
             $ratio_subtotal_exempt = array();
+            $sub_total_nil_rated_arr = array();
+            $sub_total_zero_ratedarr = array();
+            $ratio_subtotal_nil_rated = array();
+            $ratio_subtotal_zero_rated = array();
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
@@ -300,9 +304,13 @@ class Management_report extends CI_Controller {
                                         <th>Taxable Supply</th>
                                         <th>Exempt Supply</th>
                                         <th>Non-GST Supply</th>
+                                        <th>Nil Rated Supply</th>
+                                        <th>Zero rated Supply</th>
                                         <th>Ratio of Taxable supply by Total supply</th>
                                         <th>Ratio of Exempt Supply by Total supply</th>
                                         <th>Ratio of Non-GST supply by Total supply</th>
+                                        <th>Ratio of Nil Rated supply to total supply</th>
+                                        <th>Ratio of zero rated supply to total supply</th>
                                     </tr>
                                 </thead>
                                 <tbody>';
@@ -323,19 +331,32 @@ class Management_report extends CI_Controller {
                 $sub_total_exempt = $row->sub_total_exempt;
                 $sub_total_exempt_arr[] = $sub_total_exempt; // sub total exempt array
 
-                $grand_total = $taxable_supply + $sub_total_non_gst + $sub_total_exempt;
+                $sub_total_nil_rated = $row->sub_total_nil_rated;
+                $sub_total_nil_rated_arr[] = $sub_total_nil_rated; // sub total non gst array
+
+                $sub_total_zero_rated = ($row->total_non_gst_export) + ($row->total_taxable_data_gst_export);
+                $sub_total_zero_ratedarr[] = $sub_total_zero_rated; // sub total exempt array
+
+                $grand_total = $taxable_supply + $sub_total_non_gst + $sub_total_exempt + $sub_total_nil_rated + $sub_total_zero_rated;
+
                 $ratio_taxable_supply[] = round(($taxable_supply * 100) / ($grand_total));
                 $ratio_subtotal_nongst[] = round(($sub_total_non_gst * 100) / ($grand_total));
                 $ratio_subtotal_exempt[] = round(($sub_total_exempt * 100) / ($grand_total));
+                $ratio_subtotal_nil_rated[] = round(($sub_total_nil_rated * 100) / ($grand_total));
+                $ratio_subtotal_zero_rated[] = round(($sub_total_zero_rated * 100) / ($grand_total));
                 $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
                         '<td>' . $month . '</td>' .
                         '<td>' . $taxable_supply . '</td>' .
                         '<td>' . $sub_total_exempt . '</td>' .
                         '<td>' . $sub_total_non_gst . '</td>' .
+                        '<td>' . $sub_total_nil_rated . '</td>' .
+                        '<td>' . $sub_total_zero_rated . '</td>' .
                         '<td>' . (round(($taxable_supply * 100) / ($grand_total))) . "%" . '</td>' .
                         '<td>' . (round(($sub_total_non_gst * 100) / ($grand_total))) . "%" . '</td>' .
                         '<td>' . (round(($sub_total_exempt * 100) / ($grand_total))) . "%" . '</td>' .
+                        '<td>' . (round(($sub_total_nil_rated * 100) / ($grand_total))) . "%" . '</td>' .
+                        '<td>' . (round(($sub_total_zero_rated * 100) / ($grand_total))) . "%" . '</td>' .
                         '</tr>';
                 $k++;
             }
@@ -345,6 +366,8 @@ class Management_report extends CI_Controller {
                     '<td>' . '<b>' . array_sum($taxable_supply_arr) . '</b> ' . '</td>' .
                     '<td>' . '<b>' . array_sum($sub_total_exempt_arr) . '</b>' . '</td>' .
                     '<td>' . '<b>' . array_sum($sub_total_non_gst_arr) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . array_sum($sub_total_nil_rated_arr) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . array_sum($sub_total_zero_ratedarr) . '</b>' . '</td>' .
                     '<td>' . '<b>' . "" . '</b>' . '</td>' .
                     '<td>' . '<b>' . "" . '</b>' . '</td>' .
                     '<td>' . '<b>' . "" . '</b>' . '</td>' .
@@ -358,6 +381,10 @@ class Management_report extends CI_Controller {
             $abc4 = array();
             $abc5 = array();
             $abc6 = array();
+            $abc7 = array();
+            $abc8 = array();
+            $abc9 = array();
+            $abc10 = array();
             // loop to get graph data as per graph script requirement
             for ($o = 0; $o < sizeof($taxable_supply_arr); $o++) {
                 $abc1[] = $taxable_supply_arr[$o];
@@ -376,6 +403,18 @@ class Management_report extends CI_Controller {
                 $aa5 = settype($abc5[$o], "float");
 
                 $abc6[] = $ratio_subtotal_exempt[$o];
+                $aa6 = settype($abc6[$o], "float");
+
+                $abc7[] = $sub_total_nil_rated_arr[$o];
+                $aa2 = settype($abc2[$o], "float");
+
+                $abc8[] = $sub_total_zero_ratedarr[$o];
+                $aa3 = settype($abc3[$o], "float");
+
+                $abc9[] = $ratio_subtotal_nil_rated[$o];
+                $aa5 = settype($abc5[$o], "float");
+
+                $abc10[] = $ratio_subtotal_zero_rated[$o];
                 $aa6 = settype($abc6[$o], "float");
             }
 
@@ -415,6 +454,10 @@ class Management_report extends CI_Controller {
             $respnose['ratio_taxable_supply'] = $abc4; //ratio_taxable_supply
             $respnose['ratio_subtotal_nongst'] = $abc5; //ratio_subtotal_nongst
             $respnose['ratio_subtotal_exempt'] = $abc6; //ratio_subtotal_exempt
+            $respnose['sub_total_nil_rate_arr'] = $abc7; //sub_total_nil rated
+            $respnose['sub_total_zero_rated_arr'] = $abc8; //sub_total_zero rated 
+            $respnose['ratio_nil_rate'] = $abc9; //ratio_subtotal_nil rated
+            $respnose['ratio_zero_rated'] = $abc10; //ratio_subtotal_zero rated
             $respnose['month_data'] = $months; //months 
             $respnose['customer_name'] = $customer_name; //customer
             $respnose['max_range'] = $max_range; //maximum range for graph
@@ -479,7 +522,7 @@ class Management_report extends CI_Controller {
                 $sub_total_zero_ratedarr[] = $sub_total_zero_rated; // sub total exempt array
 
                 $grand_total = $taxable_supply + $sub_total_nil_rated + $sub_total_zero_rated;
-              
+
                 if ($grand_total != 0) {
                     $ratio_taxable_supply[] = round(($taxable_supply * 100) / ($grand_total));
                     $ratio_subtotal_nil_rated[] = round(($sub_total_nil_rated * 100) / ($grand_total));
@@ -501,7 +544,7 @@ class Management_report extends CI_Controller {
                         '</tr>';
                 $k++;
             }
-            
+
             $data .= '<tr>' .
                     '<td>' . '<b>Total</b>' . '</td>' .
                     '<td>' . '' . '</td>' .
@@ -1338,7 +1381,7 @@ class Management_report extends CI_Controller {
             $data = $result->row();
             $uniq_id = $data->unique_id;
             //generate turn_id
-            $uniq_id = str_pad(++$uniq_id, 5, '0', STR_PAD_LEFT);
+            $uniq_id = str_pad( ++$uniq_id, 5, '0', STR_PAD_LEFT);
             return $uniq_id;
         } else {
             $uniq_id = 'btb_1001';
