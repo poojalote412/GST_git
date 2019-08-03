@@ -10,11 +10,12 @@ class Report extends CI_Controller {
         $this->load->helper('url');
     }
 
-    public function index($customer_id = '', $insert_id = '') {
+    public function index($customer_id = '', $insert_id = '',$cust_name='') {
 //       $query_get_customer_name=fdjk;
-
+//         $cust_name = $this->input->post("cust_name");
         $data['customer_id'] = $customer_id;
         $data['insert_id'] = $insert_id;
+        $data['cust_name'] = $cust_name;
         $this->load->view('admin/Generate_report', $data);
     }
 
@@ -29,6 +30,7 @@ class Report extends CI_Controller {
     public function get_content_pdf1() {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
+       
 
         $query_get_customer_name = $this->db->query("select customer_name,customer_address from customer_header_all where customer_id='$customer_id'");
         if ($this->db->affected_rows() > 0) {
@@ -40,7 +42,7 @@ class Report extends CI_Controller {
                   
                     <b>Mr. ' . $customer_name . '</b><br>
                     <b>Managing Director</b> <br>
-                    <b>Company Name</b> <br>
+                    <b>Company Name: Anand Rathi Finance Private Limited</b> <br>
                     Address :' . $address . '<br><br>
                     <b>Sub :GST Health Check Report</b> <br><br><p>
                     It has been an immense pleasure working for you and thank you for 
@@ -236,7 +238,7 @@ class Report extends CI_Controller {
                       </div>
                       <div class="col-md-8"></div>
                       </div>
-                       </div><br>';
+                       </div>';
                     
             $respose['data'] = $data;
             $respose['message'] = "success";
