@@ -68,6 +68,16 @@ class Management_report extends CI_Controller {
         $this->load->view('admin/sale_nil_zero_rated', $data);
     }
 
+    public function sale_rate_wise_fun() {
+        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
+        if ($query_get_cfo_data !== FALSE) {
+            $data['rate_wise_data'] = $query_get_cfo_data;
+        } else {
+            $data['rate_wise_data'] = "";
+        }
+        $this->load->view('admin/sale_rate_wise', $data);
+    }
+
     public function import_excel() { //function to get data from excel files
         if (isset($_FILES["file_ex"]["name"])) {
             $path = $_FILES["file_ex"]["tmp_name"];
@@ -772,6 +782,69 @@ class Management_report extends CI_Controller {
         } echo json_encode($respnose);
     }
 
+    //function to get data rate wise
+    public function get_data_rate_wise() {
+        $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
+
+        //to get total supply
+        $query1 = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
+        if ($query1->num_rows() > 0) {
+            $result1 = $query1->result();
+            foreach ($result1 as $row1) {
+                $inter_state_supply = $row1->inter_state_supply;
+                $intra_state_supply = $row1->intra_state_supply;
+                $no_gst_paid_supply = $row1->no_gst_paid_supply;
+                $debit_value = $row1->debit_value;
+                $credit_value = $row1->credit_value;
+                //new changes 
+                $total_taxable_advance_no_invoice = $row1->total_taxable_advance_no_invoice;
+                $total_taxable_advance_invoice = $row1->total_taxable_advance_invoice;
+                $total_taxable_data_gst_export = $row1->total_taxable_data_gst_export;
+                $total_non_gst_export = $row1->total_non_gst_export;
+                $taxable_supply1 = ($inter_state_supply + $intra_state_supply + $no_gst_paid_supply + $debit_value + $total_taxable_advance_no_invoice + $total_taxable_advance_invoice + $total_taxable_data_gst_export + $total_non_gst_export) - ($credit_value);
+            }
+        } else {
+            
+        }
+        $query = $this->db->query("SELECT * from rate_wise_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
+        $data = ""; //view observations
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+            
+            $data .= '<div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="example2" class="table table-bordered table-striped">
+                                <thead style="background-color: #00008B;color:white">
+                                    <tr>
+                                        <th>0%</th>
+                                        <th>5%</th>
+                                        <th>12%</th>
+                                        <th>18%</th>
+                                        <th>28%</th>
+                                        <th>Ratio of 0% rated supply to total supply</th>
+                                        <th>Ratio of 18% supply to total supply</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>';
+            foreach ($result as $row) {
+                $data .= '<tr>' .
+                        '<td>' . $row->rate_0 . '</td>' .
+                        '<td>' . $row->rate_5 . '</td>' .
+                        '<td>' . $row->rate_12 . '</td>' .
+                        '<td>' . $row->rate_18 . '</td>' .
+                        '<td>' . $row->rate_28 . '</td>' .
+                        '<td>' . '' . '</td>' .
+                        '<td>' . '' . '%</td>' .
+                        '</tr>';
+            }
+        } else {
+            
+        }
+    }
+
     //function get graphs  of export sale
     public function get_graph_exports() {
         $customer_id = $this->input->post("customer_id");
@@ -1381,7 +1454,7 @@ class Management_report extends CI_Controller {
             $data = $result->row();
             $uniq_id = $data->unique_id;
             //generate turn_id
-            $uniq_id = str_pad( ++$uniq_id, 5, '0', STR_PAD_LEFT);
+            $uniq_id = str_pad(++$uniq_id, 5, '0', STR_PAD_LEFT);
             return $uniq_id;
         } else {
             $uniq_id = 'btb_1001';

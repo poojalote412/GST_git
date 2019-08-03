@@ -67,6 +67,7 @@
                     <li><a href="<?php echo base_url(); ?>Sale_taxable_nontaxable_admin"><i class="fa fa-circle-o"></i>Sales Taxable, non-taxable <br> and Exempt</a></li>
                     <li><a href="<?php echo base_url(); ?>Sale_month_wise_admin"><i class="fa fa-circle-o"></i> Sales Month Wise</a></li>
                     <li><a href="<?php echo base_url(); ?>sale_export"><i class="fa fa-circle-o"></i>Export Sales </a></li>
+                    <li><a href="<?php echo base_url(); ?>sale_rate_wise"><i class="fa fa-circle-o"></i>Sales Rate Wise </a></li>
                     <!--<li><a href="<?php echo base_url(); ?>sale_nil_zero_rated"><i class="fa fa-circle-o"></i>Sales Nil Rated and Zero Rated </a></li>-->
                 </ul>
             </li>
