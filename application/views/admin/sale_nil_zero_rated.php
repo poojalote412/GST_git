@@ -124,7 +124,7 @@ if (is_array($session_data)) {
 <script>
     $(function () {
         $("#example1").DataTable();
-        $("#example2").DataTable();
+        $("#example21").DataTable();
     });
 </script>
 <script>
@@ -147,7 +147,7 @@ if (is_array($session_data)) {
                     var data = result.data;
 
                     $('#tax_ntax_Exempt_data').html(data);
-                    $('#example2').DataTable();
+                    $('#example21').DataTable();
                 } else {
 
                 }

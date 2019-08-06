@@ -19,6 +19,20 @@ if (is_array($session_data)) {
     $username = $this->session->userdata('login_session');
 }
 ?>
+<style>
+    .modal-dialog {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .modal-content {
+        height: auto;
+        min-height: 100%;
+        border-radius: 0;
+    }
+</style>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -94,7 +108,7 @@ if (is_array($session_data)) {
 </div>
 
 <div class="modal fade" id="view_value_modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog " role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title" id="ModalLabel">Observations</h3>
@@ -169,9 +183,13 @@ if (is_array($session_data)) {
                     var taxable_supply = result.taxable_supply_arr;
                     var sub_total_non_gst = result.sub_total_non_gst_arr;
                     var sub_total_exempt = result.sub_total_exempt_arr;
+                    var sub_total_nil = result.sub_total_nil_rate_arr;
+                    var sub_total_zero = result.sub_total_zero_rated_arr;
                     var ratio_taxable_supply = result.ratio_taxable_supply;
                     var ratio_subtotal_nongst = result.ratio_subtotal_nongst;
                     var ratio_subtotal_exempt = result.ratio_subtotal_exempt;
+                    var ratio_subtotal_nil = result.ratio_nil_rate;
+                    var ratio_subtotal_zero = result.ratio_zero_rated;
                     var data_month = result.month_data;
                     var max_range = result.max_range;
                     var customer_name = "Customer Name:" + result.customer_name;
@@ -224,6 +242,22 @@ if (is_array($session_data)) {
                                     valueSuffix: ' M'
                                 },
                             }, {
+                                name: 'Nil Rated Supply',
+                                data: sub_total_nil,
+                                color: '#B8160E',
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                },
+                            }, {
+                                name: 'Zero Rated Supply',
+                                data: sub_total_zero,
+                                color: '#094F85',
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                },
+                            }, {
                                 name: 'Non-GST Supply',
                                 data: sub_total_non_gst,
                                 color: '#5BCB45',
@@ -271,6 +305,40 @@ if (is_array($session_data)) {
                                 color: '#FAC127',
                                 name: 'Ratio of Non-GST supply by Total supply',
                                 data: ratio_subtotal_nongst,
+                                yAxis: 1,
+                                tooltip: {
+                                    valueSuffix: ' %'
+                                },
+                                plotOptions: {
+                                    spline: {
+                                        dataLabels: {
+                                            enabled: true
+                                        },
+                                        enableMouseTracking: false
+                                    }
+                                },
+                            }, {
+                                type: 'spline',
+                                color: '#E519EF',
+                                name: 'Ratio of Nil Rated supply to total supply',
+                                data: ratio_subtotal_nil,
+                                yAxis: 1,
+                                tooltip: {
+                                    valueSuffix: ' %'
+                                },
+                                plotOptions: {
+                                    spline: {
+                                        dataLabels: {
+                                            enabled: true
+                                        },
+                                        enableMouseTracking: false
+                                    }
+                                },
+                            }, {
+                                type: 'spline',
+                                color: '#6D9B0B',
+                                name: 'Ratio of zero rated supply to total supply',
+                                data: ratio_subtotal_zero,
                                 yAxis: 1,
                                 tooltip: {
                                     valueSuffix: ' %'

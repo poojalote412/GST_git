@@ -18,6 +18,10 @@ class Report extends CI_Controller {
         $data['cust_name'] = $cust_name;
         $this->load->view('admin/Generate_report', $data);
     }
+    public function load_pg()
+    {
+         $this->load->view('admin/dummy_report');
+    }
 
 //     public function edit_customer() {
 //     $customer_id = $this->input->post('customer_id');
