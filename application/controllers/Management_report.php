@@ -788,7 +788,9 @@ class Management_report extends CI_Controller {
         $insert_id = $this->input->post("insert_id");
 
         //to get total supply
+//        echo "SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'";
         $query1 = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
+        
         if ($query1->num_rows() > 0) {
             $result1 = $query1->result();
             foreach ($result1 as $row1) {
@@ -811,38 +813,48 @@ class Management_report extends CI_Controller {
         $data = ""; //view observations
         if ($query->num_rows() > 0) {
             $result = $query->result();
-            
+
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
                          <table id="example2" class="table table-bordered table-striped">
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
+                                        <th>#</th>
                                         <th>0%</th>
                                         <th>5%</th>
                                         <th>12%</th>
                                         <th>18%</th>
                                         <th>28%</th>
-                                        <th>Ratio of 0% rated supply to total supply</th>
-                                        <th>Ratio of 18% supply to total supply</th>
+                                        
                                         
                                     </tr>
                                 </thead>
                                 <tbody>';
             foreach ($result as $row) {
                 $data .= '<tr>' .
+                        '<td>' . '1.' . '</td>' .
                         '<td>' . $row->rate_0 . '</td>' .
                         '<td>' . $row->rate_5 . '</td>' .
                         '<td>' . $row->rate_12 . '</td>' .
                         '<td>' . $row->rate_18 . '</td>' .
                         '<td>' . $row->rate_28 . '</td>' .
-                        '<td>' . '' . '</td>' .
-                        '<td>' . '' . '%</td>' .
                         '</tr>';
             }
+            $data .= '<tr>' .
+                    '<td>' . '<b>Ratio</b>' . '</td>' .
+                    '<td>' . ((($row->rate_0) / ($taxable_supply1)) * 100) . '</td>' .
+                    '<td>' . (($row->rate_5) / ($taxable_supply1)) * 100 . '</td>' .
+                    '<td>' . (($row->rate_12) / ($taxable_supply1)) * 100 . '</td>' .
+                    '<td>' . (($row->rate_18) / ($taxable_supply1)) * 100 . '</td>' .
+                    '<td>' . (($row->rate_28) / ($taxable_supply1)) * 100 . '</td>' .
+                    '</tr>';
+            $respnose['data'] = $data;
+            $respnose['message'] = "success";
         } else {
-            
-        }
+            $respnose['data'] = "";
+            $respnose['message'] = "";
+        } echo json_encode($respnose);
     }
 
     //function get graphs  of export sale

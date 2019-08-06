@@ -52,7 +52,7 @@ if (is_array($session_data)) {
                                     </span>
                                     <input type="hidden" class="form-control" value="<?php echo $insert_id; ?>"disabled=""name="insert_id"  id="insert_id"   aria-required="true" aria-describedby="input_group-error">
                                     <input type="hidden" class="form-control" value="<?php echo $customer_id; ?>"disabled=""name="customer_id"  id="customer_id"   aria-required="true" aria-describedby="input_group-error">
-                                    <input type="text" class="form-control" value="<?php // echo $user_name[$x]['customer_name']               ?>"  disabled=""name="cust_name"  id="cust_name" onkeyup="remove_error('customer_name')"   aria-required="true" aria-describedby="input_group-error">
+                                    <input type="text" class="form-control" value="<?php // echo $user_name[$x]['customer_name']                 ?>"  disabled=""name="cust_name"  id="cust_name" onkeyup="remove_error('customer_name')"   aria-required="true" aria-describedby="input_group-error">
 
                                 </div>
                                 <span class="required" style="color: red" id="customer_name_error"></span>
@@ -64,7 +64,7 @@ if (is_array($session_data)) {
                                     <span class="input-group-addon">
                                         <i class="fa fa-user"></i>
                                     </span>
-                                    <input type="text" class="form-control" value="<?php // echo $user_name[$x]['year_id']     ?>"  disabled=""name="year_id"  id="year_id" onkeyup="remove_error('customer_name')"   aria-required="true" aria-describedby="input_group-error">
+                                    <input type="text" class="form-control" value="<?php // echo $user_name[$x]['year_id']       ?>"  disabled=""name="year_id"  id="year_id" onkeyup="remove_error('customer_name')"   aria-required="true" aria-describedby="input_group-error">
 
                                 </div>
                                 <span class="required" style="color: red" id="customer_name_error"></span>
@@ -89,7 +89,7 @@ if (is_array($session_data)) {
                                   title="image"/>
                         </div>-->
                         <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif">R Kabra & Co</p>
-                        <!--<img src="<?php echo base_url('images/samples/slide.jpg'); ?>" width="30px" height="30px"/>-->
+                        <img src="<?php echo base_url('images/samples/slide.jpg'); ?>" width="30px" height="30px"/>
                         <!--<p style=" text-align: right;">Chartered Accounts</p>-->
                     </header>
                     <footer style="display:none">
@@ -101,6 +101,9 @@ if (is_array($session_data)) {
                                 <div id="container2" style="height: 500px;  width:700px"></div>
                             </div>-->
                     <div style="page-break-before:always;">
+                        <img src="http://localhost/GST_git/images/samples/download.jpg" alt="ni aaya" />
+                        <!--<img src="<?php echo base_url('images/samples/slide.jpg'); ?>" />-->
+                        <!--<div id="container_image"></div>-->
                         <div id="content_pdf"></div><br><br><br><br><br><br><br><br><br><br><br>
                         <div id="container" style="height: 500px;  width:700px"></div>
                         <div id="cfo_data"></div>
@@ -135,6 +138,21 @@ if (is_array($session_data)) {
 <?php $this->load->view('customer/footer'); ?>
 <script>
     $(document).ready(function () {
+
+//        Highcharts.chart('container_image', {
+//
+//            chart: {
+//                events: {
+//                    load: function () {
+//                        this.renderer.image('https://res.cloudinary.com/dh4xz9esz/image/upload/v1564826750/sample.jpg', 120, 80, 350, 350).add();
+//                    }
+//                }
+//            },
+//            title: {
+//                text: 'Fourth Image'
+//            }
+//
+//        });
         var customer_id = document.getElementById("customer_id").value;
         var insert_id = document.getElementById("insert_id").value;
         $.ajax({
@@ -1037,7 +1055,12 @@ if (is_array($session_data)) {
 
 
 <!-- PDF, Postscript and XPS are set to download as Fiddle (and some browsers) will not embed them -->
-
-    var click = "return xepOnline.Formatter.Format('JSFiddle', {render:'download'})";
-    jQuery('#buttons').append('<button onclick="' + click + '">PDF</button>');
+ var click = "return xepOnline.Formatter.Format('JSFiddle', {render:'download'})";
+    
+    jQuery('#buttons').append('<button onclick="'+click+'">PDF</button>');
+    
+    function abc(){
+//    var click = "return xepOnline.Formatter.Format('JSFiddle', {render:'download'})";
+    return click;
+    }
 </script>
