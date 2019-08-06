@@ -101,6 +101,10 @@ if (is_array($session_data)) {
                                 <div id="container2" style="height: 500px;  width:700px"></div>
                             </div>-->
                     <div style="page-break-before:always;">
+                        <div id="container_image">
+                            <img src="https://premisafe.com/download.jpg">
+                            
+                        </div>
                         <div id="content_pdf"></div><br><br><br><br><br><br><br><br><br><br><br>
                         <div id="container" style="height: 500px;  width:700px"></div>
                         <div id="cfo_data"></div>
@@ -119,6 +123,7 @@ if (is_array($session_data)) {
                         <div id="gstr3B_data"></div><br><br>
                         <div id="gstr1_data"></div><br><br>
                         <div id="invoice_ammends_data"></div>
+                        
                     </div>
                 </div>
             </div>
@@ -980,6 +985,8 @@ if (is_array($session_data)) {
             },
 
         });
+
+       
     });
 
 
@@ -1000,6 +1007,8 @@ if (is_array($session_data)) {
         });
         return '<svg height="' + top + '" width="' + width + '" version="1.1" xmlns="http://www.w3.org/2000/svg">' + svgArr.join('') + '</svg>';
     };
+    
+    
     Highcharts.exportCharts = function (charts, options) {
         var form
         svg = Highcharts.getSVG(charts);
@@ -1040,4 +1049,6 @@ if (is_array($session_data)) {
 
     var click = "return xepOnline.Formatter.Format('JSFiddle', {render:'download'})";
     jQuery('#buttons').append('<button onclick="' + click + '">PDF</button>');
+    
+    
 </script>

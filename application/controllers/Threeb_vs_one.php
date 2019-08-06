@@ -278,7 +278,7 @@ class Threeb_vs_one extends CI_Controller {
                     '<td>' . '<b>' . array_sum($cumu_difference5) . '</b>' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
-
+            
             if ($ttl1 > $ttl2) {
                 $data .= "<hr><h4><b>Observation of GSTR-3B vs GSTR-1:</b></h4>";
                 $data .= '<span><b>1.</b>Value of GSTR-3B is greater than GSTR-1 ,It may impact your vendor relationshion and they shall not get the input tax credit though you have correctly paid the tax on such sales.<br>';

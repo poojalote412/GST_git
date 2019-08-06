@@ -130,6 +130,7 @@ class Cfo_dashboard extends CI_Controller {
 //         echo   min($ratio_val);
             $data .= "<hr><h4><b>Observation of CFO:</b></h4>"
                     . "<span>Percentage of GST payable to turnover is not stable for F.Y. 2017-18 it varies from <b>" . min($ratio_val) . "% </b>to<b> " . max($ratio_val) . "%</b>.</span><br>";
+            
             $data .= '<img src="' . base_url('images/samples/images122.png') . '" width="200px" height="200px"/>';
 //            var_dump($turnover1);
             // loop to get turnover value
