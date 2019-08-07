@@ -208,7 +208,6 @@
 <!-- jQuery 3 -->
 <script src="<?= base_url(); ?>js/pdf_conversion.js"></script>
 <script src="<?= base_url(); ?>js/pdf_conversion2.js"></script>
-<script src="<?= base_url(); ?>js/xepOnline.jqPlugin.js"></script>
 <script src="<?= base_url(); ?>bower_components/jquery/dist/jquery.min.js"></script>
 
 <!-- Bootstrap 3.3.7 -->
@@ -228,8 +227,8 @@
 <script src="https://code.highcharts.com/modules/series-label.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/offline-exporting.js"></script>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+
 
 <script>
     $(document).ready(function () {

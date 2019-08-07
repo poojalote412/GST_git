@@ -34,6 +34,18 @@ class Invoice_comp_report_model extends CI_Model {
         }
     }
 
+    //All data of company for report
+    
+    public function get_company_data($customer_id, $insert_id) {
+        $query = $this->db->query("select company_name,customer_id,insert_id from gstr_2a_reconciliation_all where customer_id='$customer_id' and insert_id='$insert_id' and status='not_in_2a'");
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+            return $result;
+        } else {
+            return FALSE;
+        }
+    }
+    
     public function get_company_not_in_rec($customer_id, $insert_id) {
         $query = $this->db->query("select distinct company_name,customer_id,insert_id from gstr_2a_reconciliation_all where customer_id='$customer_id'and insert_id='$insert_id' and status='not_in_rec'");
         if ($query->num_rows() > 0) {
@@ -76,6 +88,18 @@ class Invoice_comp_report_model extends CI_Model {
 
     public function get_company_partial($customer_id, $insert_id) {
         $query = $this->db->query("select distinct company_name,customer_id,insert_id from gstr_2a_reconciliation_partially_match_summary where customer_id='$customer_id' and insert_id='$insert_id' and status='Partly_Mat'");
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+            return $result;
+        } else {
+            return FALSE;
+        }
+    }
+    
+    //Get all partially company details for report
+    
+    public function get_company_partial_all_data($customer_id, $insert_id) {
+        $query = $this->db->query("select * from gstr_2a_reconciliation_partially_match_summary where customer_id='$customer_id' and insert_id='$insert_id' and status='Partly_Mat'");
         if ($query->num_rows() > 0) {
             $result = $query->result();
             return $result;

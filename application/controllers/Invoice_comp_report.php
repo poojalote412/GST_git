@@ -624,6 +624,101 @@ class Invoice_comp_report extends CI_Controller {
         }echo json_encode($response);
     }
 
+    //get all company partial records data
+
+    public function get_all_partial_records() { //getrecords ofpartial data
+        $company_name = $this->input->post("company_name");
+        $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
+        $query = $this->Invoice_comp_report_model->get_company_partial_all_data($customer_id, $insert_id);
+        $data = "";
+        if ($query != FALSE) {
+            $data .= '<div class="row">
+                <div class="col-md-12">
+               <center><h3 style="color:black"><b>C. Invoice wise comparison or mismatch report::</b></h3></center><br>
+               <center><h4 style="color:black"><b>3.Invoice no., POS and Period mismatch:</b></h4></center><br>
+                </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="example3" class="table table-bordered table-striped">
+                                <thead style="background-color: #00008B;color:white">
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Company Name</th>
+                                        <th>Period of as per Records</th>
+                                        <th>Invoice No as per Records</th>
+                                        <th>Place Of Supply as per Records</th>
+                                        <th>Period of as per GSTR-2A</th>
+                                        <th>Invoice No as per GSTR-2A</th>
+                                        <th>Place Of Supply as per GSTR-2A</th>
+                                        <th>Taxable Value Difference</th>
+                                        <th>Tax Difference</th>
+                                    </tr>
+                                </thead>
+                                <tbody>';
+
+            $company_name = array();
+            $period_apr = array();
+            $invoice_no_apr = array();
+            $place_of_supply_apr = array();
+            $period_2a = array();
+            $invoice_no_2a = array();
+            $place_of_supply_2a = array();
+            $taxable_value = array();
+            $tax = array();
+            $i = 1;
+            foreach ($query as $row) {
+
+                $company_name[] = $row->company_name;
+                $period_apr[] = $row->period_apr;
+                $invoice_no_apr[] = $row->invoice_no_apr;
+                $place_of_supply_apr[] = $row->place_of_supply_apr;
+                $period_2a[] = $row->period_2a;
+                $invoice_no_2a[] = $row->invoice_no_2a;
+                $place_of_supply_2a[] = $row->place_of_supply_2a;
+                $taxable_value[] = $row->taxable_value;
+                $tax[] = $row->tax;
+
+                $data .= '<tr>' .
+                        '<td>' . $i . '</td>' .
+                        '<td>' . $row->company_name . '</td>' .
+                        '<td>' . $row->period_apr . '</td>' .
+                        '<td>' . $row->invoice_no_apr . '</td>' .
+                        '<td>' . $row->place_of_supply_apr . '</td>' .
+                        '<td>' . $row->period_2a . '</td>' .
+                        '<td>' . $row->invoice_no_2a . '</td>' .
+                        '<td>' . $row->place_of_supply_2a . '</td>' .
+                        '<td>' . $row->taxable_value . '</td>' .
+                        '<td>' . $row->tax . '</td>' .
+                        '</tr>';
+                $i++;
+            }
+            $data .= '<tr>' .
+                    '<td>' . "<b>Total</b>" . '</td>' .
+                    '<td>' . "" . '</td>' .
+                    '<td>' . "" . '</td>' .
+                    '<td>' . "" . '</td>' .
+                    '<td>' . "" . '</td>' .
+                    '<td>' . "" . '</td>' .
+                    '<td>' . "" . '</td>' .
+                    '<td>' . "<b>" . array_sum($taxable_value) . "</b>" . '</td>' .
+                    '<td>' . "<b>" . array_sum($tax) . "</b>" . '</td>' .
+                    '</tr>';
+
+            $data .= '</tbody></table></div></div></div>';
+            $response['data'] = $data;
+            $response['message'] = "success";
+            $response['status'] = true;
+            $response['code'] = 200;
+        } else {
+            $response['message'] = "";
+            $response['status'] = FALSE;
+            $response['code'] = 204;
+        }echo json_encode($response);
+    }
+
     public function import_not_included_excel() {
         if (isset($_FILES["file_ex"]["name"])) {
             $path = $_FILES["file_ex"]["tmp_name"];
@@ -817,10 +912,12 @@ class Invoice_comp_report extends CI_Controller {
         if ($query != FALSE) {
             $data .= '<div class="row">
                     <div class="col-md-12">
+                    <center><h3 style="color:black"><b> 2.Invoice not included in GSTR-1:</b></h3></center><br>
                         <div class="">
                          <table id="example2" class="table table-bordered table-striped">
-                                <thead>
+                                <thead style="background-color: #00008B;color:white">
                                     <tr>
+                                        <th>Sr No.</th>
                                         <th>Original Month</th>
                                         <th>Showing in month</th>
                                         <th>Category</th>
@@ -838,10 +935,12 @@ class Invoice_comp_report extends CI_Controller {
                                     </tr>
                                 </thead>
                                 <tbody>';
+            $k = 1;
             foreach ($query as $row) {
 
                 $data .= '<tr>' .
-                        '<td>' . $row->original_month . '</td>
+                        '<td>' . $k . '</td>
+                        <td>' . $row->original_month . '</td>
                         <td>' . $row->showing_month . '</td>
                         <td>' . $row->category . '</td>
                         <td>' . $row->gstin_no . '</td>
@@ -857,6 +956,7 @@ class Invoice_comp_report extends CI_Controller {
                         <td><b>' . ($row->igst + $row->cgst + $row->sgst + $row->cess) . '</b></td>
                         
                         </tr>';
+                $k++;
             }
             $data .= '</tbody></table></div></div></div>';
             $response['data'] = $data;
@@ -1070,13 +1170,15 @@ class Invoice_comp_report extends CI_Controller {
     public function get_table_data_ammend() {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
-        $query = $this->db->query("select * from invoices_amended_summary_all where customer_id='$customer_id' and insert_id='$insert_id'");
-//        $query = $this->Invoice_comp_report_model->get_details_invoice_ammneded($customer_id, $insert_id);
+//        $query = $this->db->query("select * from invoices_amended_summary_all where customer_id='$customer_id' and insert_id='$insert_id'");
+        $query = $this->Invoice_comp_report_model->get_details_invoice_ammneded($customer_id, $insert_id);
         $data = "";
         if ($query != FALSE) {
             $data .= '<div class="row">
                     <div class="col-md-12">
-                        <div class="">
+                    <center><h3 style="color:black"><b>B. Internal Control Report:</b></h3></center><br>
+                    <center><h4 style="color:black"><b>1. Invoice amends in other than original period Analysis:</b></h4></center><br>
+                    <div class="">
                          <table id="example2" class="table table-bordered table-striped">
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>

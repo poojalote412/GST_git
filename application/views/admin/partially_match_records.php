@@ -173,14 +173,35 @@ if (is_array($session_data)) {
                     $('#example2').DataTable();
                 } else {
                     $('#company_data').html("");
-                    alert('no data available,please insert files.');
+//                    alert('no data available,please insert files.');
                 }
             },
 
         });
     }
 
+    function get_records_partial_match_details(customer_id, insert_id)
+    {
+        $('#company_data').html("");
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Invoice_comp_report/get_all_partial_records") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                if (result.status === true) {
+                    var data = result.data;
 
+                    $('#company_data').html(data);
+                    $('#example2').DataTable();
+                } else {
+                    $('#company_data').html("");
+//                    alert('no data available,please insert files.');
+                }
+            },
+
+        });
+    }
 
     //get modal for comapany detail
     $('#partial_records_data_modal').on('show.bs.modal', function (e) {

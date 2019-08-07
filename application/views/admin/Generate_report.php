@@ -84,28 +84,20 @@ if (is_array($session_data)) {
                 <div id="JSFiddle">
                     <!-- Insert your document here -->
                     <header  style="display:none;margin-top:20px;">
-                        <!--                        <div class="right_content">
-                             <img src="<?php echo base_url() . "images/12masi.png"; ?>" alt="12masi" 
-                                  title="image"/>
-                        </div>-->
-                        <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif">R Kabra & Co</p>
-                        <!--<img src="<?php echo base_url('images/samples/slide.jpg'); ?>" width="30px" height="30px"/>-->
-                        <!--<p style=" text-align: right;">Chartered Accounts</p>-->
+                        <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p>
+                      
                     </header>
                     <footer style="display:none">
                         <p>Strictly Private and Confidential</p>
                     </footer>
-                    <!--<div id="container1" style="height: 500px; width:700px"></div>-->
-
-                    <!--        <div style="page-break-before:always;">
-                                <div id="container2" style="height: 500px;  width:700px"></div>
-                            </div>-->
+                  
                     <div style="page-break-before:always;">
                         <div id="container_image">
+                            <!--<img src="https://premisafe.com/Logo.jpg" width="120px" height="30px">-->
                             <img src="https://premisafe.com/download.jpg">
                             
                         </div>
-                        <div id="content_pdf"></div><br><br><br><br><br><br><br><br><br><br><br>
+                        <!--<div id="content_pdf"></div><br><br><br><br><br><br><br><br><br><br><br>-->
                         <div id="container" style="height: 500px;  width:700px"></div>
                         <div id="cfo_data"></div>
                         <div id="container1" style="height: 500px; width: 700px"></div>
@@ -123,6 +115,11 @@ if (is_array($session_data)) {
                         <div id="gstr3B_data"></div><br><br>
                         <div id="gstr1_data"></div><br><br>
                         <div id="invoice_ammends_data"></div>
+                        <div id="invoice_ammend_original_data"></div>
+                        <div id="invoice_notinclude_gstr1_data"></div>
+                        <div id="company_all_notin2a_data"></div>
+                        <div id="company_all_notinrec_data"></div>
+                        <div id="company_all_partially_data"></div>
                         
                     </div>
                 </div>
@@ -981,6 +978,118 @@ if (is_array($session_data)) {
 //                    $('#example2').DataTable();
                 } else {
 
+                }
+            }
+
+        });
+
+        
+         //table data for Invoice ammend in other than original
+         
+//         $('#invoice_ammend_original_data').html("");
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Invoice_comp_report/get_table_data_ammend") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                if (result.status === true) {
+                    var data = result.data;
+
+                    $('#invoice_ammend_original_data').html(data);
+//                    $('#example2').DataTable();
+                } else {
+                    $('#invoice_ammend_original_data').html("");
+                    alert('no data availabale');
+                }
+            }
+
+        });
+
+        //table data for Invoice not included in GSTR1
+        
+        $('#invoice_notinclude_gstr1_data').html("");
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Invoice_comp_report/get_table_data") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                if (result.status === true) {
+                    var data = result.data;
+
+                    $('#invoice_notinclude_gstr1_data').html(data);
+//                    $('#example2').DataTable();
+                } else {
+                    $('#invoice_notinclude_gstr1_data').html("");
+                    alert('no data availabale');
+                }
+            },
+
+        });
+
+        //Get all Not in 2A records
+        
+        $('#company_all_notin2a_data').html("");
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Invoice_comp_report/get_not_in2a_records") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                if (result.status === true) {
+                    var data = result.data;
+
+                    $('#company_all_notin2a_data').html(data);
+//                    $('#example2').DataTable();
+                } else {
+                    $('#company_all_notin2a_data').html("");
+//                    alert('no data availabale');
+                }
+            },
+
+        });
+
+        //Get all Not in records
+        
+        $('#company_all_notinrec_data').html("");
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Invoice_comp_report/get_not_inrec_records") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                if (result.status === true) {
+                    var data = result.data;
+                    
+                    $('#company_all_notinrec_data').html(data);
+//                    $('#example2').DataTable();
+                } else {
+                    $('#company_all_notinrec_data').html("");
+//                    alert('no data available.please insert files.');
+                }
+            },
+
+        });
+        
+
+        //Get all company details for partially match summary
+        
+        $('#company_all_partially_data').html("");
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Invoice_comp_report/get_all_partial_records") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                if (result.status === true) {
+                    var data = result.data;
+
+                    $('#company_all_partially_data').html(data);
+//                    $('#example2').DataTable();
+                } else {
+                    $('#company_all_partially_data').html("");
+//                    alert('no data available,please insert files.');
                 }
             },
 

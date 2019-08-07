@@ -52,6 +52,9 @@ class Account_report extends CI_Controller {
             $months = array();
             $data .= '<div class="row">
                     <div class="col-md-12">
+                     <center><h3 style="color:black"><b>A. Compliance Report::</b></h3></center><br>
+               <center><h4 style="color:black"><b>1. GSTR-3B:</b></h4></center><br>
+               
                         <div class="">
                          <table id="example1" class="table table-bordered table-striped">
                                 <thead style="background-color: #00008B;color:white">
@@ -117,6 +120,7 @@ class Account_report extends CI_Controller {
             $period = array();
             $data .= '<div class="row">
                     <div class="col-md-12">
+                    <center><h4 style="color:black"><b>2. GSTR-1:</b></h4></center><br>
                         <div class="">
                          <table id="example2" class="table table-bordered table-striped">
                                 <thead style="background-color: #00008B;color:white">
@@ -131,8 +135,8 @@ class Account_report extends CI_Controller {
                                 </thead>
                                 <tbody>';
             $k = 1;
-            
-            
+
+
             foreach ($result as $row) {
                 $period = $row->period;
                 $status = $row->status;
@@ -143,18 +147,17 @@ class Account_report extends CI_Controller {
 //                            '<td bgcolor="#32CD32">' . $status . '</td>' .
 //                            '</tr>';
 
-                  $data .= '<tr>'.
-                    '<td>' . $k . '</td>'.
-                  '<td>' . $period . '</td>'.
+                $data .= '<tr>' .
+                        '<td>' . $k . '</td>' .
+                        '<td>' . $period . '</td>' .
 //                  if ($status == 'filed')
-                   '<td bgcolor="#32CD32">' . $status . '</td>' .
+                        '<td bgcolor="#32CD32">' . $status . '</td>' .
 //                   else if($status == '')    
 //                   '<td bgcolor="#32CD32">' . $status . '</td>'.
-                  '<td>' . $filling_date . '</td>'. 
-                  '<td>' . $acknowledge_no . '</td>'. 
-                
-                '</tr>'; 
-                    $k++;
+                        '<td>' . $filling_date . '</td>' .
+                        '<td>' . $acknowledge_no . '</td>' .
+                        '</tr>';
+                $k++;
 //                $data .= '<tr>' .
 //                        '<td>' . $k . '</td>' .
 //                        '<td>' . $period . '</td>' .
