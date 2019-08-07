@@ -120,6 +120,12 @@ if (is_array($session_data)) {
                     </div><hr>
                     <div class="row">
                         <div class="col-md-12">
+
+                            <div class="col-md-12"> <div id="rate_wise_data"></div></div>
+                        </div>
+                    </div><hr>
+                    <div class="row">
+                        <div class="col-md-12">
                             <div class="col-md-6">  <div id="container1" style="height: 500px; width: 700px"></div></div>
                             <div class="col-md-6"> <div id="sales_monthly_data"></div></div></div>
                     </div><hr>
@@ -127,6 +133,11 @@ if (is_array($session_data)) {
                         <div class="col-md-12">
                             <div class="col-md-6">  <div id="container_state_wise" style="height: 500px; width: 700px"></div></div>
                             <div class="col-md-6"> <div id="sales_state_wise_data"></div></div></div>
+                    </div><hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-6">  <div id="container_export" style="height: 500px; width: 700px"></div></div>
+                            <div class="col-md-6"> <div id="compare_3b1_data"></div></div></div>
                     </div><hr>
                     <div class="row">
                         <div class="col-md-12">
@@ -150,6 +161,26 @@ if (is_array($session_data)) {
                     </div><hr>
                     <div class="row">
                         <div class="col-md-12">
+                            <div class="col-md-6">  <div id="container_tax_liability" style="height: 500px; width: 700px"></div></div>
+                            <div class="col-md-6">   <div id="tax_liability_data"></div></div></div>
+                    </div><hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-6">  <div id="container_tax_turnover" style="height: 500px; width: 700px"></div></div>
+                            <div class="col-md-6">   <div id="tax_turnover_data"></div></div></div>
+                    </div><hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-6">  <div id="container_eligible" style="height: 500px; width: 700px"></div></div>
+                            <div class="col-md-6">   <div id="eligible_data"></div></div></div>
+                    </div><hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-6">  <div id="container_gst_payable" style="height: 500px; width: 700px"></div></div>
+                            <div class="col-md-6">   <div id="gst_payable"></div></div></div>
+                    </div><hr>
+                    <div class="row">
+                        <div class="col-md-12">
                             <div id="gstr3B_data"></div>
                         </div>
                     </div><hr>
@@ -160,7 +191,7 @@ if (is_array($session_data)) {
                     </div><hr>
                     <div class="row">
                         <div class="col-md-12">
-                            <div id="invoice_ammends_data"></div>
+                            <div id="invoice_ammend_original_data"></div>
                         </div>
                     </div><hr>
                 </div>
@@ -989,7 +1020,7 @@ if (is_array($session_data)) {
         });
         $.ajax({
             type: "post",
-            url: "<?= base_url("Account_report/get_graph") ?>",
+            url: "<?= base_url("Account_report/get_graph1") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
@@ -1008,7 +1039,7 @@ if (is_array($session_data)) {
 
         $.ajax({
             type: "post",
-            url: "<?= base_url("Account_report/get_gstr1_details") ?>",
+            url: "<?= base_url("Account_report/get_gstr1_details1") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
@@ -1025,7 +1056,701 @@ if (is_array($session_data)) {
 
         });
 
+//export sale
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Management_report/get_graph_exports") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+//                 alert();
+                if (result.message === "success") {
 
+                    var data = result.data;
+                    $('#compare_3b1_data').html("");
+                    $('#compare_3b1_data').html(data);
+//                    $('#example2').DataTable();
+                } else {
+
+                }
+            },
+
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "<?= base_url("Management_report/get_graph_exports") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                if (result.message === "success") {
+
+                    var taxable_supply = result.taxable_supply_arr;
+                    var data_month = result.month_data;
+                    var max_range = result.max_range;
+                    var sales_percent_values = result.sales_percent_values;
+                    var customer_name = "Customer Name:" + result.customer_name;
+                    Highcharts.chart('container_export', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Export Sale'
+                        },
+                        subtitle: {
+                            text: customer_name
+                        },
+                        xAxis: {
+                            categories: data_month
+                        },
+                        yAxis: [{
+                                max: max_range,
+                                title: {
+                                    text: 'Supply Values'
+                                }
+                            }, {
+                                min: 0,
+                                max: 100,
+                                opposite: true,
+                                title: {
+                                    text: 'Sales(in %)'
+                                }
+                            }],
+                        legend: {
+                            shadow: false
+                        },
+                        tooltip: {
+                            shared: true
+                        },
+                        series: [{
+                                type: 'column',
+                                name: 'Sales Month Wise',
+                                data: taxable_supply,
+                                color: '#098569',
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                },
+                            }, {
+                                type: 'spline',
+                                color: '#A91408',
+                                name: 'Ratio of Sales',
+                                data: sales_percent_values,
+                                yAxis: 1,
+                                tooltip: {
+                                    valueSuffix: ' %'
+                                },
+                                plotOptions: {
+                                    spline: {
+                                        dataLabels: {
+                                            enabled: true
+                                        },
+                                        enableMouseTracking: false
+                                    }
+                                },
+                            }, ]
+                    });
+                }
+            }
+        });
+
+        //rate wise summary
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Management_report/get_data_rate_wise") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                if (result.message === "success") {
+
+                    var data = result.data;
+                    $('#compare_3b1_data').html("");
+                    $('#compare_3b1_data').html(data);
+                    $('#example2').DataTable();
+                } else {
+
+                }
+            },
+
+        });
+
+//tax liabilty
+        $.ajax({
+            type: "POST",
+            url: "<?= base_url("Internal_acc_report/get_graph1") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                if (result.message === "success") {
+
+                    var data_outwards = result.data_outward;
+                    var data_rcbs = result.data_rcb;
+                    var data_inelligibles = result.data_inelligible;
+                    var data_rtcs = result.new_net_rtc;
+                    var data_paid_credit = result.data_paid_credit;
+                    var data_paid_cash = result.data_paid_cash;
+                    var data_late_fee = result.data_late_fee;
+                    var data_month = result.month_data;
+                    var customer_name = "Customer Name:" + result.customer_name;
+                    Highcharts.chart('container_tax_liability', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Tax Liability'
+                        },
+                        subtitle: {
+                            text: customer_name
+                        },
+                        xAxis: {
+                            categories: data_month,
+                            crosshair: true
+                        },
+                        yAxis: {
+                            min: 0,
+//                            max: 100000,                           
+                            title: {
+                                text: 'Rupees (millions)'
+                            },
+//                            stackLabels: {
+//                                enabled: true,
+//                                style: {
+//                                    fontWeight: 'bold',
+//                                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+//                                }
+//                            }
+
+                        },
+
+                        tooltip: {
+                            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                                    '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+                            footerFormat: '</table>',
+                            shared: true,
+                            useHTML: true
+                        },
+                        plotOptions: {
+                            column: {
+                                stacking: 'normal',
+                                pointPadding: 0.1,
+                                borderWidth: 0,
+
+                            },
+
+                            area: {
+                                stacking: 'normal',
+                                lineColor: '#FFFF00',
+                                lineWidth: 3,
+                                color: '#FFFF00',
+                                marker: {
+                                    lineWidth: 1,
+                                    lineColor: '#FFFF00'
+                                }
+                            }
+                        },
+                        series: [{
+
+                                type: 'column',
+                                name: 'Outward Liability',
+                                data: data_outwards,
+                                stack: data_outwards,
+                                lineColor: '#87ceeb',
+                                color: '#87ceeb'
+
+
+                            }, {
+                                type: 'column',
+                                name: 'RCB Liability',
+                                data: data_rcbs,
+                                stack: data_outwards,
+                                lineColor: '#000000',
+                                color: '#000000'
+
+
+                            }, {
+                                type: 'column',
+                                name: 'Ineligible ITC',
+                                stack: data_inelligibles,
+                                data: data_inelligibles,
+                                lineColor: '#228B22',
+                                color: '#228B22'
+
+                            }, {
+                                type: 'column',
+                                name: 'NET ITC',
+                                stack: data_inelligibles,
+                                data: data_rtcs,
+                                lineColor: '#FF8300',
+                                color: '#FF8300'
+
+                            }, {
+                                type: 'column',
+                                name: 'Paid in Credit',
+                                data: data_paid_credit,
+                                stack: data_paid_credit,
+                                lineColor: '#0078D7',
+                                color: '#0078D7'
+
+                            }, {
+                                type: 'column',
+                                name: 'Paid in Cash',
+                                data: data_paid_cash,
+                                stack: data_paid_credit,
+                                lineColor: '#e75480',
+                                color: '#e75480'
+
+                            }, {
+                                type: 'column',
+                                name: 'Interest Late Fee',
+                                data: data_late_fee,
+                                lineColor: '#FFFF00',
+                                color: '#FFFF00'
+                            }, ]
+                    });
+
+                }
+            }
+        });
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Internal_acc_report/get_graph1") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+//                 alert();
+                $('#tax_liability_data').html("");
+                if (result.message === "success") {
+
+                    var data = result.data;
+
+                    $('#tax_liability_data').html(data);
+                    $('#example2').DataTable();
+                } else {
+
+                }
+            },
+
+        });
+//rate wise data
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Management_report/get_data_rate_wise1") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                if (result.message === "success") {
+
+                    var data = result.data;
+                    $('#rate_wise_data').html("");
+                    $('#rate_wise_data').html(data);
+//                    $('#example2').DataTable();
+                } else {
+
+                }
+            },
+
+        });
+//tax turnover
+        $.ajax({
+            type: "POST",
+            url: "<?= base_url("Internal_acc_report/get_graph_tax_turnover1") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                if (result.message === "success") {
+
+                    var taxable_value = result.taxable_value;
+                    var tax_value = result.tax_value;
+                    var tax_ratio = result.tax_ratio;
+                    var data_month = result.month_data;
+                    var max_range = result.max_range;
+                    var customer_name = "Customer Name:" + result.customer_name;
+                    Highcharts.chart('container_tax_turnover', {
+                        chart: {
+                            type: 'Combination chart'
+                        },
+                        title: {
+                            text: 'Tax Turnover'
+                        },
+                        plotOptions: {
+                            column: {
+                                stacking: 'normal',
+                                pointPadding: 0.1,
+                                borderWidth: 0,
+
+                            },
+                            spline: {
+                                pointPadding: 0.1,
+                                borderWidth: 0
+                            },
+
+                            area: {
+                                stacking: 'normal',
+                                lineColor: '#FFFF00',
+                                lineWidth: 3,
+                                color: '#FFFF00',
+                                marker: {
+                                    lineWidth: 1,
+                                    lineColor: '#FFFF00'
+                                }
+                            }
+                        },
+                        subtitle: {
+                            text: customer_name
+                        },
+                        xAxis: {
+                            categories: data_month
+                        },
+                        yAxis: [{
+                                max: max_range,
+                                title: {
+                                    text: 'Tax Values'
+                                }
+                            }, {
+                                min: 0,
+                                max: 100,
+                                opposite: true,
+                                title: {
+                                    text: 'Ratio(in %)'
+                                }
+                            }],
+                        legend: {
+                            shadow: false
+                        },
+                        tooltip: {
+                            shared: true
+                        },
+                        series: [{
+                                type: 'column',
+                                name: 'Tax Value',
+                                data: tax_value,
+                                stack: taxable_value,
+                                color: '#AA381E',
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                },
+                            }, {
+                                type: 'column',
+                                name: 'Taxable Value',
+                                data: taxable_value,
+                                color: '#4D6FB0',
+                                stack: taxable_value,
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                },
+                            }, {
+                                type: 'spline',
+                                name: 'Tax ratio',
+                                data: tax_ratio,
+//                                stack: taxable_value,
+                                color: '#078436',
+                                yAxis: 1,
+                                tooltip: {
+                                    valueSuffix: ' %'
+                                },
+                                plotOptions: {
+                                    spline: {
+                                        dataLabels: {
+                                            enabled: true
+                                        },
+                                        enableMouseTracking: false
+                                    }
+                                },
+
+                            }, ]
+                    });
+                }
+            }
+        }
+        );
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Internal_acc_report/get_graph_tax_turnover1") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+//                 alert();
+                $('#tax_turnover_data').html("");
+                if (result.message === "success") {
+                    var data = result.data;
+
+                    $('#tax_turnover_data').html(data);
+//                    $('#example2').DataTable();
+                } else {
+
+                }
+            },
+
+        });
+//eligible and ineligible data
+        $.ajax({
+            type: "POST",
+            url: "<?= base_url("Internal_acc_report/get_graph_eligible_ineligible1") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                if (result.message === "success") {
+
+                    var ineligible_itc = result.ineligible_itc;
+                    var net_itc = result.net_itc;
+                    var ineligible_ratio = result.ineligible_ratio;
+                    var eligible_ratio = result.eligible_ratio;
+                    var data_month = result.month_data;
+                    var max_range = result.max_range;
+                    var customer_name = "Customer Name:" + result.customer_name;
+                    Highcharts.chart('container_eligible', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Eligible and Ineligible Credit'
+                        },
+                        subtitle: {
+                            text: customer_name
+                        },
+                        xAxis: {
+                            categories: data_month
+                        },
+                        yAxis: [{
+
+                                max: max_range,
+                                title: {
+                                    text: 'Sales'
+                                }
+                            }, {
+//                                min: 0,
+                                max: 100,
+                                opposite: true,
+                                title: {
+                                    text: 'Ratio(in %) '
+                                }
+                            }],
+                        legend: {
+                            shadow: false
+                        },
+                        tooltip: {
+                            shared: true
+                        },
+                        series: [{
+                                type: 'column',
+                                name: ' Ineligible ITC',
+                                data: ineligible_itc,
+                                color: '#146FA7',
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                }
+                            }, {
+                                type: 'column',
+                                name: 'Eligible ITC',
+                                data: net_itc,
+                                color: '#B8160E',
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                }
+                            }, {
+                                type: 'spline',
+                                color: '#5BCB45',
+                                name: 'Ratio Of Ineligible ITC to total ITC',
+                                data: ineligible_ratio,
+                                yAxis: 1,
+                                tooltip: {
+                                    valueSuffix: ' %'
+                                },
+                                plotOptions: {
+                                    spline: {
+                                        dataLabels: {
+                                            enabled: true
+                                        },
+                                        enableMouseTracking: false
+                                    }
+                                }
+                            }, {
+                                type: 'spline',
+                                color: '#B596E7',
+                                name: 'Ratio of Eligible ITC to Total ITC',
+                                data: eligible_ratio,
+                                yAxis: 1,
+                                tooltip: {
+                                    valueSuffix: ' %'
+                                },
+                                plotOptions: {
+                                    spline: {
+                                        dataLabels: {
+                                            enabled: true
+                                        },
+                                        enableMouseTracking: false
+                                    }
+                                }
+                            }]
+                    });
+                } else {
+                    alert('no graph available.please insert files.');
+                }
+            }
+        }
+        );
+
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Internal_acc_report/get_graph_eligible_ineligible1") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+//                 alert();
+                $('#eligible_data').html("");
+                if (result.message === "success") {
+
+                    var data = result.data;
+
+                    $('#eligible_data').html(data);
+//                    $('#example2').DataTable();
+                } else {
+
+                }
+            },
+
+        });
+//gst payable vs cash data
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Internal_acc_report/get_graph_gst_payable_vs_cash1") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+//                 alert();
+                $('#gst_payable').html("");
+                if (result.message === "success") {
+
+                    var data = result.data;
+                    $('#gst_payable').html("");
+                    $('#gst_payable').html(data);
+//                    $('#example2').DataTable();
+                } else {
+
+                }
+            },
+
+        });
+        $.ajax({
+            type: "POST",
+            url: "<?= base_url("Internal_acc_report/get_graph_gst_payable_vs_cash1") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                if (result.message === "success") {
+
+                    var liability = result.liability;
+                    var net_itc = result.net_itc;
+                    var paid_in_cash = result.paid_in_cash;
+                    var percent = result.percent;
+                    var data_month = result.month_data;
+                    var max_range = result.max_range;
+                    var customer_name = "Customer Name:" + result.customer_name;
+                    Highcharts.chart('container_gst_payable', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'GST Payable vs Cash'
+                        },
+                        subtitle: {
+                            text: customer_name,
+                        },
+                        xAxis: {
+                            categories: data_month
+                        },
+                        yAxis: [{
+                                max: max_range,
+                                title: {
+                                    text: 'TurnOver'
+                                }
+                            }, {
+                                min: 0,
+                                max: 100,
+                                opposite: true,
+                                title: {
+                                    text: 'Percentage(%) paid in cash'
+                                }
+                            }],
+                        legend: {
+                            shadow: false
+                        },
+                        tooltip: {
+                            shared: true
+                        },
+                        series: [{
+                                name: 'Tax Liability',
+                                data: liability,
+                                color: '#146FA7',
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                },
+                            }, {
+                                name: 'ITC',
+                                data: net_itc,
+                                color: '#B8160E',
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                },
+                            }, {
+                                name: 'Paid in Cash',
+                                data: paid_in_cash,
+                                color: '#36BE69',
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                },
+                            }, {
+                                type: 'spline',
+                                color: '#F9AB58',
+                                name: 'Percentage paid in cash',
+                                data: percent,
+                                yAxis: 1,
+                                tooltip: {
+                                    valueSuffix: ' %'
+                                },
+                                plotOptions: {
+                                    spline: {
+                                        dataLabels: {
+                                            enabled: true
+                                        },
+                                        enableMouseTracking: false
+                                    }
+                                },
+                            }]
+                    });
+                }
+            }
+        }
+        );
+        //table data for Invoice ammend in other than original
+
+//         $('#invoice_ammend_original_data').html("");
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Invoice_comp_report/get_table_data_ammend") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                if (result.status === true) {
+                    var data = result.data;
+
+                    $('#invoice_ammend_original_data').html(data);
+//                    $('#example2').DataTable();
+                } else {
+                    $('#invoice_ammend_original_data').html("");
+                    alert('no data availabale');
+                }
+            }
+
+        });
     });
 
 

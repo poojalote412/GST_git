@@ -206,6 +206,7 @@
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
+
 <script src="<?= base_url(); ?>js/pdf_conversion.js"></script>
 <script src="<?= base_url(); ?>js/pdf_conversion2.js"></script>
 <script src="<?= base_url(); ?>js/xepOnline.jqPlugin.js"></script>
@@ -219,10 +220,11 @@
 <script src="<?= base_url(); ?>bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
 <script src="<?= base_url(); ?>bower_components/fastclick/lib/fastclick.js"></script>
+<!--<script src="<?= base_url(); ?>dist/js/demo.js"></script>-->
+
 <!-- AdminLTE App -->
 <script src="<?= base_url(); ?>dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="<?= base_url(); ?>dist/js/demo.js"></script>
+
 
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/series-label.js"></script>
@@ -230,11 +232,10 @@
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/offline-exporting.js"></script>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-
-<script>
+<!--<script>
     $(document).ready(function () {
-        $('.sidebar-menu').tree()
-    })
-</script>
+        $('.sidebar-menu').tree();
+    });
+</script>-->
 </body>
 </html>

@@ -21,13 +21,13 @@ if (is_array($session_data)) {
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Sales B2B and B2Cs
+            Sales Rate Wise
             <!--<small>it all starts here</small>-->
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
             <!--            <li><a href="#">Examples</a></li>-->
-            <li class="active">Sales B2B and B2Cs</li>
+            <li class="active">Sales Rate Wise</li>
         </ol>
     </section>
 
@@ -120,12 +120,8 @@ if (is_array($session_data)) {
 
 </div>
 <?php $this->load->view('customer/footer'); ?>
-<script>
-    $(function () {
-        $("#example1").DataTable();
-        $("#example2").DataTable();
-    });
-</script>
+
+
 <script>
 //view observation modal
     $('#view_value_modal').on('show.bs.modal', function (e) {
@@ -139,7 +135,6 @@ if (is_array($session_data)) {
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
-//                 alert();
                 if (result.message === "success") {
 
                     var data = result.data;
@@ -157,11 +152,10 @@ if (is_array($session_data)) {
     function  remove_error(id) {
         $('#' + id + '_error').html("");
     }
-
-
-
-
-
+$(function () {
+        $("#example1").DataTable();
+        $("#example2").DataTable();
+    });
 
 
 </script>

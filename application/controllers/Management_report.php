@@ -1225,7 +1225,91 @@ class Management_report extends CI_Controller {
             $respnose['taxable_supply_arr'] = "";  //taxable_supply data
         } echo json_encode($respnose);
     }
+ public function get_data_rate_wise1() {
+        $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
 
+        //to get total supply
+//        echo "SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'";
+        $query1 = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
+
+        if ($query1->num_rows() > 0) {
+            $result1 = $query1->result();
+            foreach ($result1 as $row1) {
+                $inter_state_supply = $row1->inter_state_supply;
+                $intra_state_supply = $row1->intra_state_supply;
+                $no_gst_paid_supply = $row1->no_gst_paid_supply;
+                $debit_value = $row1->debit_value;
+                $credit_value = $row1->credit_value;
+                //new changes 
+                $total_taxable_advance_no_invoice = $row1->total_taxable_advance_no_invoice;
+                $total_taxable_advance_invoice = $row1->total_taxable_advance_invoice;
+                $total_taxable_data_gst_export = $row1->total_taxable_data_gst_export;
+                $total_non_gst_export = $row1->total_non_gst_export;
+                $taxable_supply1 = ($inter_state_supply + $intra_state_supply + $no_gst_paid_supply + $debit_value + $total_taxable_advance_no_invoice + $total_taxable_advance_invoice + $total_taxable_data_gst_export + $total_non_gst_export) - ($credit_value);
+            }
+        } else {
+            
+        }
+        $query = $this->db->query("SELECT * from rate_wise_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
+        $data = ""; //view observations
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+            $data .= "<label><h3>Sale Rate Wise:</h3></label>";
+            $data .= '<div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="example2" class="table table-bordered table-striped">
+                                <thead style="background-color: #00008B;color:white">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>0%</th>
+                                        <th>5%</th>
+                                        <th>12%</th>
+                                        <th>18%</th>
+                                        <th>28%</th>
+                                        
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>';
+            foreach ($result as $row) {
+                $data .= '<tr>' .
+                        '<td>' . '1.' . '</td>' .
+                        '<td>' . $row->rate_0 . '</td>' .
+                        '<td>' . $row->rate_5 . '</td>' .
+                        '<td>' . $row->rate_12 . '</td>' .
+                        '<td>' . $row->rate_18 . '</td>' .
+                        '<td>' . $row->rate_28 . '</td>' .
+                        '</tr>';
+            }
+            $data .= '<tr>' .
+                    '<td>' . '<b>Ratio</b>' . '</td>' .
+                    '<td>' . ((($row->rate_0) / ($taxable_supply1)) * 100) . '</td>' .
+                    '<td>' . (($row->rate_5) / ($taxable_supply1)) * 100 . '</td>' .
+                    '<td>' . (($row->rate_12) / ($taxable_supply1)) * 100 . '</td>' .
+                    '<td>' . (($row->rate_18) / ($taxable_supply1)) * 100 . '</td>' .
+                    '<td>' . (($row->rate_28) / ($taxable_supply1)) * 100 . '</td>' .
+                    '</tr>';
+            $data .= "</tbody></table></div></div></div><div class='col-md-12'>
+                                    <label><h4><b>Observation </b></h4></label><span class='required' aria-required='true'> </span>
+                                    <div class='input-group'>
+                                        <span class='input-group-addon'>
+                                            <i class='fa fa-eye'></i>
+                                        </span>
+                                        <textarea class='form-control' rows='5' id='rate_wise_observation' name='rate_wise_observation'>
+                                      
+                                        </textarea>
+                                    </div>
+                                    <span class='required' style='color: red' id='rate_wise_observation_error'></span>
+                                </div>";
+            $respnose['data'] = $data;
+            $respnose['message'] = "success";
+        } else {
+            $respnose['data'] = "";
+            $respnose['message'] = "";
+        } echo json_encode($respnose);
+    }
     //function to get data rate wise
     public function get_data_rate_wise() {
         $customer_id = $this->input->post("customer_id");
@@ -1370,6 +1454,18 @@ class Management_report extends CI_Controller {
                     '<td>' . '<b>' . array_sum($sales_percent_values) . '%</b> ' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
+            $data .= "<div class='col-md-12'>
+                                    <label><h4><b>Observation </b></h4></label><span class='required' aria-required='true'> </span>
+                                    <div class='input-group'>
+                                        <span class='input-group-addon'>
+                                            <i class='fa fa-eye'></i>
+                                        </span>
+                                        <textarea class='form-control' rows='5' id='export_observation' name='export_observation'>
+                                      
+                                        </textarea>
+                                    </div>
+                                    <span class='required' style='color: red' id='export_observation_error'></span>
+                                </div>";
 
 //            echo $variation=($max-$min)/($min*100);
 //            $data .= "<hr><h4><b>Observation of  Sales month wise:</b></h4>";
