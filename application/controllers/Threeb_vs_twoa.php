@@ -317,13 +317,137 @@ class Threeb_vs_twoa extends CI_Controller {
         echo json_encode($respose);
     }
 
+    public function get_graph1() { //function to get graph
+        $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
+
+        $query = $this->db->query("SELECT month,gstr2A_3B,gstr2A_difference,gstr2A_cummulative,gstr2A FROM comparison_summary_all WHERE customer_id='$customer_id' AND insert_id='$insert_id' order by id desc");
+        $data = ""; //view observations
+        if ($query->num_rows() > 0) {
+
+            $result = $query->result();
+            $gstr_tb1 = array();
+            $difference2 = array();
+            $cumu_difference3 = array();
+            $gstr2a4 = array();
+            $months = array();
+            $data .= '<div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="example2" class="table table-bordered table-striped">
+                                <thead style="background-color: #00008B;color:white">
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Month</th>
+                                        <th>GSTR-3B</th>
+                                        <th>GSTR-2A</th>
+                                        <th>Difference</th>
+                                        <th>Cummulative Difference</th>
+                                    </tr>
+                                </thead>
+                                <tbody>';
+            $k = 1;
+            foreach ($result as $row) { //to get values
+                $gstr_tb = $row->gstr2A_3B;
+                $difference = $row->gstr2A_difference;
+                $cumu_difference = $row->gstr2A_cummulative;
+                $gstr2a = $row->gstr2A;
+                $month = $row->month;
+
+                //arrays
+                $gstr_tb1[] = $gstr_tb;
+                $difference2[] = $difference;
+                $cumu_difference3[] = $cumu_difference;
+                $gstr2a4[] = $gstr2a;
+                $months[] = $row->month;
+
+                $data .= '<tr>' .
+                        '<td>' . $k . '</td>' .
+                        '<td>' . $month . '</td>' .
+                        '<td>' . $gstr_tb . '</td>' .
+                        '<td>' . $gstr2a . '</td>' .
+                        '<td>' . $difference . '</td>' .
+                        '<td>' . $cumu_difference . '</td>' .
+                        '</tr>';
+                $k++;
+            }
+            //to get total values
+            $data .= '<tr>' .
+                    '<td>' . '<b>Total</b>' . '</td>' .
+                    '<td>' . '' . '</td>' .
+                    '<td>' . '<b>' . $thb = array_sum($gstr_tb1) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . $twa = array_sum($gstr2a4) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . array_sum($difference2) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . array_sum($cumu_difference3) . '</b>' . '</td>' .
+                    '</tr>';
+            $data .= '</tbody></table></div></div></div>';
+
+           $data .= "<div class='col-md-12'>
+                                    <label><h4><b>Observation </b></h4></label><span class='required' aria-required='true'> </span>
+                                    <div class='input-group'>
+                                        <span class='input-group-addon'>
+                                            <i class='fa fa-eye'></i>
+                                        </span>
+                                        <textarea class='form-control' rows='5' id='tb2a_observation' name='tb2a_observation'>
+                                      
+                                        </textarea>
+                                    </div>
+                                    <span class='required' style='color: red' id='tb2a_observation_error'></span>
+                                </div>";
+            $abc = array();
+            $abc3 = array();
+            $abc4 = array();
+            $abc5 = array();
+
+            for ($o = 0; $o < sizeof($gstr_tb1); $o++) { //loop to convert string data into integer
+                $abc[] = $gstr_tb1[$o];
+                $aa1 = settype($abc[$o], "float");
+
+                $abc3[] = $difference2[$o];
+                $aa2 = settype($abc3[$o], "float");
+
+                $abc4[] = $cumu_difference3[$o];
+                $aa3 = settype($abc4[$o], "float");
+
+                $abc5[] = $gstr2a4[$o];
+                $aa4 = settype($abc5[$o], "float");
+            }
+
+
+            $quer_range = $this->db->query("SELECT MAX(gstr2A_3B) as gstrtb_max FROM comparison_summary_all WHERE customer_id='$customer_id' and insert_id='$insert_id' order by id desc");
+            $gstr3b_max = $quer_range->row();
+            $gstrtbmax = $gstr3b_max->gstrtb_max;
+            $quer_range1 = $this->db->query("SELECT MAX(gstr2A) as gstr2a_max FROM comparison_summary_all WHERE customer_id='$customer_id' and insert_id='$insert_id' order by id desc");
+            $gstr1_max = $quer_range1->row();
+            $gstr1max = $gstr1_max->gstr2a_max;
+            $max_value = (max($gstrtbmax, $gstr1max));
+
+            $respose['data'] = $data; //data of observation
+            $respose['message'] = "success";
+            $respose['gstr_tb'] = $abc; //data of gstr 3b
+            $respose['max'] = $max_value; //max values
+            $respose['difference'] = $abc3; //difference of 3b and 2a
+            $respose['cumu_difference'] = $abc4; //cummulative difference of 3b and 2a
+            $respose['gstr2a'] = $abc5; //data of gstr2a
+            $respose['month_data'] = $months; //months
+        } else {
+            $respose['data'] = "";
+            $respose['message'] = "fail";
+            $respose['gstr_tb'] = "";
+            $respose['difference'] = "";
+            $respose['cumu_difference'] = "";
+            $respose['gstr2a'] = "";
+        }
+        echo json_encode($respose);
+    }
+
     public function compare_unique_id() {
         $result = $this->db->query('SELECT compare_id FROM `gstr_compare` ORDER BY compare_id DESC LIMIT 0,1');
         if ($result->num_rows() > 0) {
             $data = $result->row();
             $comp_id = $data->compare_id;
             //generate user_id
-            $comp_id = str_pad( ++$comp_id, 5, '0', STR_PAD_LEFT);
+            $comp_id = str_pad(++$comp_id, 5, '0', STR_PAD_LEFT);
             return $comp_id;
         } else {
             $comp_id = 'cmpr_1001';

@@ -173,6 +173,109 @@ class Management_report extends CI_Controller {
     }
 
     //functio to get graph state wise
+    public function get_graph_state_wise1() {
+        $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
+        $query = $this->db->query("SELECT * from state_wise_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
+        $data = ""; //view observations
+        $state_arr = array();
+        $taxble_val_arr = array();
+
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+
+            $data .= '<div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="example2" class="table table-bordered table-striped">
+                                <thead style="background-color: #00008B;color:white">
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>State</th>
+                                        <th>Taxable Values</th>
+                                    </tr>
+                                </thead>
+                                <tbody>';
+            $k = 1;
+            foreach ($result as $row) {
+                $state = $row->state_name;
+                $state_arr[] = $row->state_name;
+                $taxble_val_arr[] = $row->taxable_value;
+                $taxble_val = $row->taxable_value;
+                $data .= '<tr>' .
+                        '<td>' . $k . '</td>' .
+                        '<td>' . $state . '</td>' .
+                        '<td>' . $taxble_val . '</td>' .
+                        '</tr>';
+                $k++;
+            }
+
+            $data .= '<tr>' .
+                    '<td>' . '<b>Total</b>' . '</td>' .
+                    '<td>' . '' . '</td>' .
+                    '<td>' . '<b>' . array_sum($taxble_val_arr) . '</b> ' . '</td>' .
+                    '</tr>';
+            $data .= '</tbody></table></div></div></div>';
+
+            //            get highest 3 records
+            $qrr = $this->db->query("SELECT * FROM state_wise_summary_all where customer_id='$customer_id' ORDER BY `taxable_value` DESC LIMIT 3 ");
+            $resss = $qrr->result();
+            $data .= "<div><h4><b>Top Three State: </b></h4>";
+            $g = 1;
+            $arr = array();
+            foreach ($resss as $roww) {
+                $data .= $g . ". <b><span style='color:#4D52B0'>" . $roww->state_name . "</span></b> - ₹ " . $roww->taxable_value . "<br></div>";
+                $g++;
+                $arr[] = $roww->taxable_value;
+            }
+            $total = array_sum($taxble_val_arr);
+            $top3 = array_sum($arr);
+            $top_3_state = round(($top3 / $total) * 100, 2);
+            $data .= "<h4><b>" . $top_3_state . " </b> % of total sales comes from top 3 states.</h4>";
+            $data .= "<div class='col-md-12'>
+                                    <label><h4><b>Observation</b></h4></label><span class='required' aria-required='true'> </span>
+                                    <div class='input-group'>
+                                        <span class='input-group-addon'>
+                                            <i class='fa fa-eye'></i>
+                                        </span>
+                                        <textarea class='form-control' rows='5' id='state_observation' name='state_observation'>
+                                        
+                                        </textarea>
+                                    </div>
+                                    <span class='required' style='color: red' id='state_observation_error'></span>
+                                </div>";
+
+            $state = array();
+            $taxable_value = array();
+            for ($o = 0; $o < sizeof($taxble_val_arr); $o++) {
+
+                $taxable_value[] = $taxble_val_arr[$o];
+                $aa2 = settype($taxable_value[$o], "float");
+            }
+            $max = max($taxable_value);
+            //function to get customer name
+            $quer21 = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id' ");
+
+            if ($quer21->num_rows() > 0) {
+                $res2 = $quer21->row();
+                $customer_name = $res2->customer_name;
+            }
+
+
+            $respnose['customer_name'] = $customer_name; //customer
+            $respnose['max'] = $max; //$max
+            $respnose['message'] = "success";
+            $respnose['taxable_value'] = $taxable_value;  //taxable value data
+            $respnose['state'] = $state_arr;  //state data
+            $respnose['data'] = $data; //table view data
+        } else {
+            $respnose['message'] = "";
+            $respnose['taxable_value'] = "";  //taxable value data
+            $respnose['state'] = "";  //state data
+            $respnose['data'] = "";
+        }echo json_encode($respnose);
+    }
+
     public function get_graph_state_wise() {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
@@ -385,6 +488,214 @@ class Management_report extends CI_Controller {
             $data .= '</tbody></table></div></div></div>';
             $data .= "<hr><h4><b>Observation of Sales Taxable, non-taxable and Exempt:</b></h4>";
             $data .= "<span>There is variation in the ratio of sales , give us an oppurtunity to optimise purchase planning , sales incentives planning & efficiency in working capital marketing.</span>";
+            $abc1 = array();
+            $abc2 = array();
+            $abc3 = array();
+            $abc4 = array();
+            $abc5 = array();
+            $abc6 = array();
+            $abc7 = array();
+            $abc8 = array();
+            $abc9 = array();
+            $abc10 = array();
+            // loop to get graph data as per graph script requirement
+            for ($o = 0; $o < sizeof($taxable_supply_arr); $o++) {
+                $abc1[] = $taxable_supply_arr[$o];
+                $aa1 = settype($abc1[$o], "float");
+
+                $abc2[] = $sub_total_non_gst_arr[$o];
+                $aa2 = settype($abc2[$o], "float");
+
+                $abc3[] = $sub_total_exempt_arr[$o];
+                $aa3 = settype($abc3[$o], "float");
+
+                $abc4[] = $ratio_taxable_supply[$o];
+                $aa4 = settype($abc4[$o], "float");
+
+                $abc5[] = $ratio_subtotal_nongst[$o];
+                $aa5 = settype($abc5[$o], "float");
+
+                $abc6[] = $ratio_subtotal_exempt[$o];
+                $aa6 = settype($abc6[$o], "float");
+
+                $abc7[] = $sub_total_nil_rated_arr[$o];
+                $aa2 = settype($abc2[$o], "float");
+
+                $abc8[] = $sub_total_zero_ratedarr[$o];
+                $aa3 = settype($abc3[$o], "float");
+
+                $abc9[] = $ratio_subtotal_nil_rated[$o];
+                $aa5 = settype($abc5[$o], "float");
+
+                $abc10[] = $ratio_subtotal_zero_rated[$o];
+                $aa6 = settype($abc6[$o], "float");
+            }
+
+            // to get max value for range
+            $arr = array($abc1, $abc2, $abc3);
+            $max_range = 0;
+            foreach ($arr as $val) {
+                foreach ($val as $key => $val1) {
+                    if ($val1 > $max_range) {
+                        $max_range = $val1;
+                    }
+                }
+            }
+
+            //function to get months
+            $quer2 = $this->db->query("SELECT month from  monthly_summary_all where customer_id='$customer_id'and insert_id='$insert_id'");
+            $months = array();
+            if ($quer2->num_rows() > 0) {
+                $res2 = $quer2->result();
+                foreach ($res2 as $row) {
+                    $months[] = $row->month;
+                }
+            }
+
+            //function to get customer name
+            $quer21 = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id'");
+
+            if ($quer21->num_rows() > 0) {
+                $res2 = $quer21->row();
+                $customer_name = $res2->customer_name;
+            }
+            $respnose['data'] = $data;
+            $respnose['message'] = "success";
+            $respnose['taxable_supply_arr'] = $abc1;  //taxable_supply data
+            $respnose['sub_total_non_gst_arr'] = $abc2; //sub_total_non_gstdata
+            $respnose['sub_total_exempt_arr'] = $abc3; //sub_total_exempt data
+            $respnose['ratio_taxable_supply'] = $abc4; //ratio_taxable_supply
+            $respnose['ratio_subtotal_nongst'] = $abc5; //ratio_subtotal_nongst
+            $respnose['ratio_subtotal_exempt'] = $abc6; //ratio_subtotal_exempt
+            $respnose['sub_total_nil_rate_arr'] = $abc7; //sub_total_nil rated
+            $respnose['sub_total_zero_rated_arr'] = $abc8; //sub_total_zero rated 
+            $respnose['ratio_nil_rate'] = $abc9; //ratio_subtotal_nil rated
+            $respnose['ratio_zero_rated'] = $abc10; //ratio_subtotal_zero rated
+            $respnose['month_data'] = $months; //months 
+            $respnose['customer_name'] = $customer_name; //customer
+            $respnose['max_range'] = $max_range; //maximum range for graph
+        } else {
+            $respnose['data'] = "";
+            $respnose['message'] = "";
+            $respnose['taxable_supply_arr'] = "";  //taxable_supply data
+            $respnose['sub_total_non_gst_arr'] = ""; //sub_total_non_gstdata
+            $respnose['sub_total_exempt_arr'] = ""; //sub_total_exempt data
+            $respnose['ratio_taxable_supply'] = ""; //ratio_taxable_supply
+            $respnose['ratio_subtotal_nongst'] = ""; //ratio_subtotal_nongst
+            $respnose['ratio_subtotal_exempt'] = ""; //ratio_subtotal_exempt
+        } echo json_encode($respnose);
+    }
+
+    public function get_graph_taxable_nontx_exempt1() { //get graph function of taxable nontaxable and exempt
+        $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
+        $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' and insert_id='$insert_id'");
+        $data = ""; //view observations
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+            $taxable_supply_arr = array();
+            $sub_total_non_gst_arr = array();
+            $sub_total_exempt_arr = array();
+            $ratio_taxable_supply = array();
+            $ratio_subtotal_nongst = array();
+            $ratio_subtotal_exempt = array();
+            $sub_total_nil_rated_arr = array();
+            $sub_total_zero_ratedarr = array();
+            $ratio_subtotal_nil_rated = array();
+            $ratio_subtotal_zero_rated = array();
+            $data .= '<div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="example2" class="table table-bordered table-striped">
+                                <thead style="background-color: #00008B;color:white">
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Month</th>
+                                        <th>Taxable Supply</th>
+                                        <th>Exempt Supply</th>
+                                        <th>Non-GST Supply</th>
+                                        <th>Nil Rated Supply</th>
+                                        <th>Zero rated Supply</th>
+                                        <th>Ratio of Taxable supply by Total supply</th>
+                                        <th>Ratio of Exempt Supply by Total supply</th>
+                                        <th>Ratio of Non-GST supply by Total supply</th>
+                                        <th>Ratio of Nil Rated supply to total supply</th>
+                                        <th>Ratio of zero rated supply to total supply</th>
+                                    </tr>
+                                </thead>
+                                <tbody>';
+            $k = 1;
+            foreach ($result as $row) {
+                $inter_state_supply = $row->inter_state_supply;
+                $intra_state_supply = $row->intra_state_supply;
+                $debit_value = $row->debit_value;
+                $credit_value = $row->credit_value;
+                $month = $row->month;
+
+                $taxable_supply = ($inter_state_supply + $intra_state_supply + $debit_value) - ($credit_value);
+                $taxable_supply_arr[] = $taxable_supply; //taxable supply array
+
+                $sub_total_non_gst = $row->sub_total_non_gst;
+                $sub_total_non_gst_arr[] = $sub_total_non_gst; // sub total non gst array
+
+                $sub_total_exempt = $row->sub_total_exempt;
+                $sub_total_exempt_arr[] = $sub_total_exempt; // sub total exempt array
+
+                $sub_total_nil_rated = $row->sub_total_nil_rated;
+                $sub_total_nil_rated_arr[] = $sub_total_nil_rated; // sub total non gst array
+
+                $sub_total_zero_rated = ($row->total_non_gst_export) + ($row->total_taxable_data_gst_export);
+                $sub_total_zero_ratedarr[] = $sub_total_zero_rated; // sub total exempt array
+
+                $grand_total = $taxable_supply + $sub_total_non_gst + $sub_total_exempt + $sub_total_nil_rated + $sub_total_zero_rated;
+
+                $ratio_taxable_supply[] = round(($taxable_supply * 100) / ($grand_total));
+                $ratio_subtotal_nongst[] = round(($sub_total_non_gst * 100) / ($grand_total));
+                $ratio_subtotal_exempt[] = round(($sub_total_exempt * 100) / ($grand_total));
+                $ratio_subtotal_nil_rated[] = round(($sub_total_nil_rated * 100) / ($grand_total));
+                $ratio_subtotal_zero_rated[] = round(($sub_total_zero_rated * 100) / ($grand_total));
+                $data .= '<tr>' .
+                        '<td>' . $k . '</td>' .
+                        '<td>' . $month . '</td>' .
+                        '<td>' . $taxable_supply . '</td>' .
+                        '<td>' . $sub_total_exempt . '</td>' .
+                        '<td>' . $sub_total_non_gst . '</td>' .
+                        '<td>' . $sub_total_nil_rated . '</td>' .
+                        '<td>' . $sub_total_zero_rated . '</td>' .
+                        '<td>' . (round(($taxable_supply * 100) / ($grand_total))) . "%" . '</td>' .
+                        '<td>' . (round(($sub_total_non_gst * 100) / ($grand_total))) . "%" . '</td>' .
+                        '<td>' . (round(($sub_total_exempt * 100) / ($grand_total))) . "%" . '</td>' .
+                        '<td>' . (round(($sub_total_nil_rated * 100) / ($grand_total))) . "%" . '</td>' .
+                        '<td>' . (round(($sub_total_zero_rated * 100) / ($grand_total))) . "%" . '</td>' .
+                        '</tr>';
+                $k++;
+            }
+            $data .= '<tr>' .
+                    '<td>' . '<b>Total</b>' . '</td>' .
+                    '<td>' . '' . '</td>' .
+                    '<td>' . '<b>' . array_sum($taxable_supply_arr) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . array_sum($sub_total_exempt_arr) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . array_sum($sub_total_non_gst_arr) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . array_sum($sub_total_nil_rated_arr) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . array_sum($sub_total_zero_ratedarr) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . "" . '</b>' . '</td>' .
+                    '<td>' . '<b>' . "" . '</b>' . '</td>' .
+                    '<td>' . '<b>' . "" . '</b>' . '</td>' .
+                    '</tr>';
+            $data .= '</tbody></table></div></div></div>';
+            $data .= "<div class='col-md-12'>
+                                    <label><h4><b>Observation </b></h4></label><span class='required' aria-required='true'> </span>
+                                    <div class='input-group'>
+                                        <span class='input-group-addon'>
+                                            <i class='fa fa-eye'></i>
+                                        </span>
+                                        <textarea class='form-control' rows='5' id='tax_exempt_observation' name='tax_exempt_observation'>
+                                      
+                                        </textarea>
+                                    </div>
+                                    <span class='required' style='color: red' id='tax_exempt_observation_error'></span>
+                                </div>";
+
             $abc1 = array();
             $abc2 = array();
             $abc3 = array();
@@ -782,6 +1093,223 @@ class Management_report extends CI_Controller {
         } echo json_encode($respnose);
     }
 
+    public function get_graph_sales_month_wise1() { //get graph function of Sales month wise
+        $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
+        $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
+        $data = ""; //view observations
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+            $taxable_supply_arr = array();
+            $data .= '<div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="example2" class="table table-bordered table-striped">
+                                <thead style="background-color: #00008B;color:white">
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Month</th>
+                                        <th>Sales</th>
+                                        <th>Ratio</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>';
+            $k = 1;
+            $sales_percent_values = array();
+            $taxable_supply_arr1 = array();
+            foreach ($result as $row1) {
+                $inter_state_supply = $row1->inter_state_supply;
+                $intra_state_supply = $row1->intra_state_supply;
+                $no_gst_paid_supply = $row1->no_gst_paid_supply;
+                $debit_value = $row1->debit_value;
+                $credit_value = $row1->credit_value;
+                //new changes 
+                $total_taxable_advance_no_invoice = $row1->total_taxable_advance_no_invoice;
+                $total_taxable_advance_invoice = $row1->total_taxable_advance_invoice;
+                $total_taxable_data_gst_export = $row1->total_taxable_data_gst_export;
+                $total_non_gst_export = $row1->total_non_gst_export;
+                $month = $row1->month;
+
+                $taxable_supply1 = ($inter_state_supply + $intra_state_supply + $no_gst_paid_supply + $debit_value + $total_taxable_advance_no_invoice + $total_taxable_advance_invoice + $total_taxable_data_gst_export + $total_non_gst_export) - ($credit_value);
+                $taxable_supply_arr1[] = $taxable_supply1; //taxable supply array
+            }
+            $sum_tax = array_sum($taxable_supply_arr1);
+            foreach ($result as $row) {
+                $inter_state_supply = $row->inter_state_supply;
+                $intra_state_supply = $row->intra_state_supply;
+                $no_gst_paid_supply = $row->no_gst_paid_supply;
+                $debit_value = $row->debit_value;
+                $credit_value = $row->credit_value;
+                $month = $row->month;
+                //new changes 
+                $total_taxable_advance_no_invoice = $row1->total_taxable_advance_no_invoice;
+                $total_taxable_advance_invoice = $row1->total_taxable_advance_invoice;
+                $total_taxable_data_gst_export = $row1->total_taxable_data_gst_export;
+                $total_non_gst_export = $row1->total_non_gst_export;
+
+                $taxable_supply = ($inter_state_supply + $intra_state_supply + $no_gst_paid_supply + $debit_value + $total_taxable_advance_no_invoice + $total_taxable_advance_invoice + $total_taxable_data_gst_export + $total_non_gst_export) - ($credit_value);
+                $taxable_supply_arr[] = $taxable_supply; //taxable supply array
+                $sale_percent = (($taxable_supply) / ($sum_tax * 100));
+                $sales_percent_values1 = round(($sale_percent * 10000), 2);
+                $sales_percent_values[] = round(($sale_percent * 10000));
+
+                $data .= '<tr>' .
+                        '<td>' . $k . '</td>' .
+                        '<td>' . $month . '</td>' .
+                        '<td>' . $taxable_supply . '</td>' .
+                        '<td>' . $sales_percent_values1 . '%</td>' .
+                        '</tr>';
+
+                $k++;
+            }
+            $data .= '<tr>' .
+                    '<td>' . '<b>Total</b>' . '</td>' .
+                    '<td>' . '' . '</td>' .
+                    '<td>' . '<b>' . array_sum($taxable_supply_arr) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . array_sum($sales_percent_values) . '%</b> ' . '</td>' .
+                    '</tr>';
+            $data .= '</tbody></table></div></div></div>';
+            $data .= "<div class='col-md-12'>
+                                    <label><h4><b>Observation :</b></h4></label><span class='required' aria-required='true'> </span>
+                                    <div class='input-group'>
+                                        <span class='input-group-addon'>
+                                            <i class='fa fa-eye'></i>
+                                        </span>
+                                        <textarea class='form-control' rows='5' id='monthwise_sale_observation' name='monthwise_sale_observation'>
+                                       
+                                        </textarea>
+                                    </div>
+                                    <span class='required' style='color: red' id='monthwise_sale_observation_error'></span>
+                                </div>";
+            $max = max($sales_percent_values);
+            $min = min($sales_percent_values);
+//            echo $variation=($max-$min)/($min*100);
+//            $data .= "<hr><h4><b>Observation of  Sales month wise:</b></h4>";
+            // loop to get graph data as per graph script requirement
+            $abc1 = array();
+            for ($o = 0; $o < sizeof($taxable_supply_arr); $o++) {
+
+                $abc1[] = $taxable_supply_arr[$o];
+                $aa1 = settype($abc1[$o], "float");
+            }
+
+//             to get max value for range
+            $max_range = max($abc1);
+
+            //function to get months
+            $quer2 = $this->db->query("SELECT month from monthly_summary_all where customer_id='$customer_id'  AND insert_id='$insert_id'");
+            $months = array();
+            if ($quer2->num_rows() > 0) {
+                $res2 = $quer2->result();
+                foreach ($res2 as $row) {
+                    $months[] = $row->month;
+                }
+            }
+            //function to get customer name
+            $quer21 = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id'");
+
+            if ($quer21->num_rows() > 0) {
+                $res21 = $quer21->row();
+                $customer_name = $res21->customer_name;
+            }
+            $respnose['data'] = $data;
+            $respnose['message'] = "success";
+            $respnose['taxable_supply_arr'] = $abc1;  //taxable_supply data
+            $respnose['month_data'] = $months; //months 
+            $respnose['max_range'] = $max_range; //maximum range for graph
+            $respnose['customer_name'] = $customer_name; //customer
+            $respnose['sales_percent_values'] = $sales_percent_values; //sales in percent
+        } else {
+            $respnose['message'] = "";
+            $respnose['taxable_supply_arr'] = "";  //taxable_supply data
+        } echo json_encode($respnose);
+    }
+ public function get_data_rate_wise1() {
+        $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
+
+        //to get total supply
+//        echo "SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'";
+        $query1 = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
+
+        if ($query1->num_rows() > 0) {
+            $result1 = $query1->result();
+            foreach ($result1 as $row1) {
+                $inter_state_supply = $row1->inter_state_supply;
+                $intra_state_supply = $row1->intra_state_supply;
+                $no_gst_paid_supply = $row1->no_gst_paid_supply;
+                $debit_value = $row1->debit_value;
+                $credit_value = $row1->credit_value;
+                //new changes 
+                $total_taxable_advance_no_invoice = $row1->total_taxable_advance_no_invoice;
+                $total_taxable_advance_invoice = $row1->total_taxable_advance_invoice;
+                $total_taxable_data_gst_export = $row1->total_taxable_data_gst_export;
+                $total_non_gst_export = $row1->total_non_gst_export;
+                $taxable_supply1 = ($inter_state_supply + $intra_state_supply + $no_gst_paid_supply + $debit_value + $total_taxable_advance_no_invoice + $total_taxable_advance_invoice + $total_taxable_data_gst_export + $total_non_gst_export) - ($credit_value);
+            }
+        } else {
+            
+        }
+        $query = $this->db->query("SELECT * from rate_wise_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
+        $data = ""; //view observations
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+            $data .= "<label><h3>Sale Rate Wise:</h3></label>";
+            $data .= '<div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="example2" class="table table-bordered table-striped">
+                                <thead style="background-color: #00008B;color:white">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>0%</th>
+                                        <th>5%</th>
+                                        <th>12%</th>
+                                        <th>18%</th>
+                                        <th>28%</th>
+                                        
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>';
+            foreach ($result as $row) {
+                $data .= '<tr>' .
+                        '<td>' . '1.' . '</td>' .
+                        '<td>' . $row->rate_0 . '</td>' .
+                        '<td>' . $row->rate_5 . '</td>' .
+                        '<td>' . $row->rate_12 . '</td>' .
+                        '<td>' . $row->rate_18 . '</td>' .
+                        '<td>' . $row->rate_28 . '</td>' .
+                        '</tr>';
+            }
+            $data .= '<tr>' .
+                    '<td>' . '<b>Ratio</b>' . '</td>' .
+                    '<td>' . ((($row->rate_0) / ($taxable_supply1)) * 100) . '</td>' .
+                    '<td>' . (($row->rate_5) / ($taxable_supply1)) * 100 . '</td>' .
+                    '<td>' . (($row->rate_12) / ($taxable_supply1)) * 100 . '</td>' .
+                    '<td>' . (($row->rate_18) / ($taxable_supply1)) * 100 . '</td>' .
+                    '<td>' . (($row->rate_28) / ($taxable_supply1)) * 100 . '</td>' .
+                    '</tr>';
+            $data .= "</tbody></table></div></div></div><div class='col-md-12'>
+                                    <label><h4><b>Observation </b></h4></label><span class='required' aria-required='true'> </span>
+                                    <div class='input-group'>
+                                        <span class='input-group-addon'>
+                                            <i class='fa fa-eye'></i>
+                                        </span>
+                                        <textarea class='form-control' rows='5' id='rate_wise_observation' name='rate_wise_observation'>
+                                      
+                                        </textarea>
+                                    </div>
+                                    <span class='required' style='color: red' id='rate_wise_observation_error'></span>
+                                </div>";
+            $respnose['data'] = $data;
+            $respnose['message'] = "success";
+        } else {
+            $respnose['data'] = "";
+            $respnose['message'] = "";
+        } echo json_encode($respnose);
+    }
     //function to get data rate wise
     public function get_data_rate_wise() {
         $customer_id = $this->input->post("customer_id");
@@ -790,7 +1318,7 @@ class Management_report extends CI_Controller {
         //to get total supply
 //        echo "SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'";
         $query1 = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
-        
+
         if ($query1->num_rows() > 0) {
             $result1 = $query1->result();
             foreach ($result1 as $row1) {
@@ -926,6 +1454,18 @@ class Management_report extends CI_Controller {
                     '<td>' . '<b>' . array_sum($sales_percent_values) . '%</b> ' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
+            $data .= "<div class='col-md-12'>
+                                    <label><h4><b>Observation </b></h4></label><span class='required' aria-required='true'> </span>
+                                    <div class='input-group'>
+                                        <span class='input-group-addon'>
+                                            <i class='fa fa-eye'></i>
+                                        </span>
+                                        <textarea class='form-control' rows='5' id='export_observation' name='export_observation'>
+                                      
+                                        </textarea>
+                                    </div>
+                                    <span class='required' style='color: red' id='export_observation_error'></span>
+                                </div>";
 
 //            echo $variation=($max-$min)/($min*100);
 //            $data .= "<hr><h4><b>Observation of  Sales month wise:</b></h4>";
@@ -1586,6 +2126,196 @@ class Management_report extends CI_Controller {
 //                $data .= "<hr><h4><b>Observation of Sales B2B and B2C:</b></h4>";
 //                $data .= " <span>Your the turnover is less then <b>150 Lacs </b>& B2C sales is grater than <b>90%</b> , Our advise to go form composition scheme.</span>";
             }
+
+            $count = count($month);
+            $array_b2b1 = array();
+            $array_b2c1 = array();
+            $array_b2b_ratio1 = array();
+            $array_b2c_ratio1 = array();
+
+            for ($i = 0; $i < $count; $i++) {
+                $array_b2b1[] = $array_b2b[$i];
+                $aa1 = settype($array_b2b1[$i], "float");
+
+                $array_b2c1[] = $array_b2c[$i];
+                $aa2 = settype($array_b2c1[$i], "float");
+
+                $array_b2b_ratio1[] = $array_b2b_ratio[$i];
+                $aa2 = settype($array_b2b_ratio1[$i], "float");
+
+                $array_b2c_ratio1[] = $array_b2c_ratio[$i];
+                $aa2 = settype($array_b2c_ratio1[$i], "float");
+            }
+            // to get max value for range
+            $arr = array($array_b2c1, $array_b2b1);
+            $max_range = 0;
+            foreach ($arr as $val) {
+                foreach ($val as $key => $val1) {
+                    if ($val1 > $max_range) {
+                        $max_range = $val1;
+                    }
+                }
+            }
+
+            // to get max value for ratio
+            $arr1 = array($array_b2b_ratio1, $array_b2b_ratio1);
+            $max_ratio = 0;
+            foreach ($arr1 as $val1) {
+                foreach ($val1 as $key => $val11) {
+                    if ($val11 > $max_ratio) {
+                        $max_ratio = $val11;
+                    }
+                }
+            }
+            //function to get customer name
+            $quer2 = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id'");
+
+            if ($quer2->num_rows() > 0) {
+                $res2 = $quer2->row();
+                $customer_name = $res2->customer_name;
+            }
+            $response['data'] = $data;
+            $response['message'] = "success";
+            $response['array_b2b'] = $array_b2b1;  // B2B data
+            $response['array_b2c'] = $array_b2c1;  // B2Cs data
+            $response['array_b2b_ratio'] = $array_b2b_ratio1;  // B2Cs data
+            $response['array_b2c_ratio'] = $array_b2c_ratio1;  // B2Cs data
+            $response['month'] = $month;  // month data
+            $response['max_range'] = $max_range;  // Max Range
+            $response['max_ratio'] = $max_ratio;  // Max Ratio
+            $response['customer_name'] = $customer_name;  // Customer
+        } else {
+            $response['data'] = "";
+            $response['message'] = "";
+            $response['array_b2b'] = "";  // B2B data
+            $response['array_b2c'] = "";  // B2Cs data
+            $response['month'] = "";  // month data
+            $response['max_range'] = 0;
+        }echo json_encode($response);
+    }
+
+    public function get_graph_b2b1() {
+        $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
+        $query = $this->db->query("SELECT *  from monthly_summary_all where customer_id='$customer_id' and insert_id='$insert_id'");
+
+//        $query_get_graph = $this->Management_report_model->get_graph_query($customer_id, $insert_id);
+        $data = ""; //view observations
+//        if (count($query_get_graph) > 0) {
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+            $month = array();
+            $array_b2b = array();
+            $array_b2c = array();
+            $array_b2b_ratio = array();
+            $array_b2c_ratio = array();
+            $data .= '<div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="example2" class="table table-bordered table-striped">
+                                <thead style="background-color: #00008B;color:white">
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Month</th>
+                                        <th>Sales B2B</th>
+                                        <th>Sales B2C</th>
+                                        <th>Ratio of sales B2B to total sales</th>
+                                        <th>Ratio of B2C to total sales</th>
+                                    </tr>
+                                </thead>
+                                <tbody>';
+            $k = 1;
+            $turnover = array();
+            $taxable_supply_arr1 = array();
+            foreach ($result as $row1) {
+                $inter_state_supply = $row1->inter_state_supply;
+                $intra_state_supply = $row1->intra_state_supply;
+                $no_gst_paid_supply = $row1->no_gst_paid_supply;
+                $debit_value = $row1->debit_value;
+                $credit_value = $row1->credit_value;
+                //new changes 
+                $total_taxable_advance_no_invoice = $row1->total_taxable_advance_no_invoice;
+                $total_taxable_advance_invoice = $row1->total_taxable_advance_invoice;
+                $total_taxable_data_gst_export = $row1->total_taxable_data_gst_export;
+                $total_non_gst_export = $row1->total_non_gst_export;
+                //$month = $row1->month;
+
+                $taxable_supply1 = ($inter_state_supply + $intra_state_supply + $no_gst_paid_supply + $debit_value + $total_taxable_advance_no_invoice + $total_taxable_advance_invoice + $total_taxable_data_gst_export + $total_non_gst_export) - ($credit_value);
+                $taxable_supply_arr1[] = $taxable_supply1; //taxable supply array
+            }
+            $sum_tax = array_sum($taxable_supply_arr1);
+
+            foreach ($result as $row) {
+                $month[] = $row->month;
+                $months = $row->month;
+                $interstate_b2b = $row->interstate_b2b;
+                $interstate_b2c = $row->interstate_b2c;
+                $intrastate_b2b = $row->intrastate_b2b;
+                $intrastate_b2c = $row->intrastate_b2c;
+                $advance_invoice_not_issue_b2b = $row->advance_invoice_not_issue_b2b;
+                $advance_invoice_not_issue_b2c = $row->advance_invoice_not_issue_b2c;
+                $advance_invoice_issue_b2b = $row->advance_invoice_issue_b2b;
+                $advance_invoice_issue_b2c = $row->advance_invoice_issue_b2c;
+                $credit_b2b = $row->credit_b2b;
+                $credit_b2c = $row->credit_b2c;
+                $debit_b2b = $row->debit_b2b;
+                $debit_b2c = $row->debit_b2c;
+                $turnover[] = ($row->inter_state_supply + $row->intra_state_supply + $row->no_gst_paid_supply + $row->debit_value) - (1 * $row->credit_value);
+
+                $b2b_data = ($interstate_b2b + $intrastate_b2b + $debit_b2b + $advance_invoice_not_issue_b2b + $advance_invoice_issue_b2b) - $credit_b2b;
+                $b2c_data = ($interstate_b2c + $intrastate_b2c + $debit_b2c + $advance_invoice_not_issue_b2c + $advance_invoice_issue_b2c) - $credit_b2c;
+                $array_b2b[] = $b2b_data;
+                $array_b2c[] = $b2c_data;
+                if (($sum_tax) != 0) {
+                    $array_b2c_ratio[] = round((($b2c_data) / ($sum_tax)) * 100);
+                    $array_b2c_ratio1 = round((($b2c_data ) / ($sum_tax)) * 100);
+                    $array_b2b_ratio[] = round((($b2b_data ) / ($sum_tax)) * 100);
+                    $array_b2b_ratio1 = round((($b2b_data ) / ($sum_tax)) * 100);
+                } else {
+                    $array_b2c_ratio[] = 0;
+                    $array_b2c_ratio1 = 0;
+                    $array_b2b_ratio[] = 0;
+                    $array_b2b_ratio1 = 0;
+                }
+                $data .= '<tr>' .
+                        '<td>' . $k . '</td>' .
+                        '<td>' . $months . '</td>' .
+                        '<td>' . $b2b_data . '</td>' .
+                        '<td>' . $b2c_data . '</td>' .
+                        '<td>' . $array_b2b_ratio1 . '</td>' .
+                        '<td>' . $array_b2c_ratio1 . '</td>' .
+                        '</tr>';
+                $k++;
+            }
+//            var_dump($array_b2b_ratio1);
+            $data .= '<tr>' .
+                    '<td>' . '<b>Total</b>' . '</td>' .
+                    '<td>' . '' . '</td>' .
+                    '<td>' . '<b>' . array_sum($array_b2b) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . array_sum($array_b2c) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . array_sum($array_b2b_ratio) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . $ttl_b2c_ratio = array_sum($array_b2c_ratio) . '</b>' . '</td>' .
+                    '</tr>';
+            $data .= '</tbody></table></div></div></div>';
+//            $total_turnover = array_sum($turnover);
+//            if ($total_turnover < 15000000 && $ttl_b2c_ratio >= 90) {
+//                $data .= "<hr><h4><b>Observation of Sales B2B and B2C:</b></h4>";
+//                $data .= " <span>Your the turnover is less then <b>150 Lacs </b>& B2C sales is grater than <b>90%</b> , Our advise to go form composition scheme.</span>";
+//            } else {
+////                $data .= "<hr><h4><b>Observation of Sales B2B and B2C:</b></h4>";
+////                $data .= " <span>Your the turnover is less then <b>150 Lacs </b>& B2C sales is grater than <b>90%</b> , Our advise to go form composition scheme.</span>";
+//            }
+            $data .= "<div class='col-md-12'>
+                                    <label><h4><b>Observation </b></h4></label><span class='required' aria-required='true'> </span>
+                                    <div class='input-group'>
+                                        <span class='input-group-addon'>
+                                            <i class='fa fa-eye'></i>
+                                        </span>
+                                        <textarea class='form-control' rows='5' id='b2b_b2c_observation' name='b2b_b2c_observation'>
+                                        </textarea>
+                                    </div>
+                                    <span class='required' style='color: red' id='b2b_b2c_observation_error'></span>
+                                </div>";
 
             $count = count($month);
             $array_b2b1 = array();

@@ -89,7 +89,7 @@ if (is_array($session_data)) {
                                     <td><?php echo $row->customer_email_id; ?></td>
                                     <td><?php echo $row->customer_contact_number; ?></td>
                                     <td><?php echo $row->created_on; ?></td>
-                                    <td><a href="<?= base_url("Generate_report/" . $row->customer_id . "/" . $row->insert_id); ?>"><button id="testing1" onclick="testing();" class="btn btn-primary">Generate Report</button></a></td>
+                                    <td><a href="<?= base_url("enter_detail/" . $row->customer_id . "/" . $row->insert_id); ?>"><button id="testing1" onclick="testing();" class="btn btn-primary">Generate Report</button></a></td>
                                     <?php
                                     $i++;
                                 }

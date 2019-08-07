@@ -106,6 +106,83 @@ class Account_report extends CI_Controller {
         echo json_encode($respose);
     }
 
+    public function get_graph1() {
+        $customer_id = $this->input->post("customer_id");
+//        $insert_id = $this->input->post("insert_id");
+
+        $query = $this->db->query("SELECT month,late_fees,due_date,filling_date FROM 3b_offset_summary_all WHERE customer_id='$customer_id' order by id desc");
+        $data = ""; //view observations
+        if ($query->num_rows() > 0) {
+
+            $result = $query->result();
+//            $late_fees = array();
+//            $due_date = array();
+//            $filling_date = array();
+
+            $months = array();
+            $data .= '<div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="" class="table table-bordered table-striped">
+                                <thead style="background-color: #00008B;color:white">
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Month</th>
+                                        <th>Return Filling Status</th>
+                                        <th>Late Fees</th>
+                                        <th>Due Date</th>
+                                        <th>Filling Date</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>';
+            $k = 1;
+            foreach ($result as $row) {
+                $months = $row->month;
+                $late_fees = $row->late_fees;
+                $due_date = $row->due_date;
+                $filling_date = $row->filling_date;
+
+
+//                //arrays
+//                $late_fees[] = $late_fees;
+//                $due_date[] = $due_date;
+//                $filling_date[] = $filling_date;
+//                $months[] = $row->month;
+
+                $status = '';
+                $data .= '<tr>' .
+                        '<td>' . $k . '</td>' .
+                        '<td>' . $months . '</td>' .
+                        '<td bgcolor="#00FF00" style="width:10px">' . $status . '</td>' .
+                        '<td>' . $late_fees . '</td>' .
+                        '<td>' . $due_date . '</td>' .
+                        '<td>' . $filling_date . '</td>' .
+                        '</tr>';
+                $k++;
+            }
+            $data .= "</tbody></table></div></div></div><div class='col-md-12'>
+                                    <label><h4><b>Observation </b></h4></label><span class='required' aria-required='true'> </span>
+                                    <div class='input-group'>
+                                        <span class='input-group-addon'>
+                                            <i class='fa fa-eye'></i>
+                                        </span>
+                                        <textarea class='form-control' rows='5' id='tax_exempt_observation' name='tax_exempt_observation'>
+                                      
+                                        </textarea>
+                                    </div>
+                                    <span class='required' style='color: red' id='tax_exempt_observation_error'></span>
+                                </div><br>";
+
+            $respose['data'] = $data;
+            $respose['message'] = "success";
+        } else {
+            $respose['data'] = "";
+            $respose['message'] = "fail";
+        }
+        echo json_encode($respose);
+    }
+
     //function for get data of GSTR1 return filled summary
 
     public function get_gstr1_details() {
@@ -168,6 +245,87 @@ class Account_report extends CI_Controller {
 //                $k++;
                 '</tbody></table></div></div></div>';
             }
+
+
+            $respose['data'] = $data;
+            $respose['message'] = "success";
+        } else {
+            $respose['data'] = "";
+            $respose['message'] = "fail";
+        }
+        echo json_encode($respose);
+    }
+
+    public function get_gstr1_details1() {
+        $customer_id = $this->input->post("customer_id");
+//        $insert_id = $this->input->post("insert_id");
+
+        $query = $this->db->query("SELECT period,status,filling_date,acknowledge_no FROM return_filled_gstr1_summary WHERE customer_id='$customer_id' order by id desc");
+        $data = ""; //view observations
+        if ($query->num_rows() > 0) {
+
+            $result = $query->result();
+            $period = array();
+            $data .= '<div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="example2" class="table table-bordered table-striped">
+                                <thead style="background-color: #00008B;color:white">
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Period</th>
+                                        <th>Status</th>
+                                        <th>Filling Date</th>
+                                        <th>Acknowledge No</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>';
+            $k = 1;
+
+
+            foreach ($result as $row) {
+                $period = $row->period;
+                $status = $row->status;
+                $filling_date = $row->filling_date;
+                $acknowledge_no = $row->acknowledge_no;
+//                if ($status == 'filed')// [val1] can be 'approved'
+//                    $data .= '<tr>' .
+//                            '<td bgcolor="#32CD32">' . $status . '</td>' .
+//                            '</tr>';
+
+                $data .= '<tr>' .
+                        '<td>' . $k . '</td>' .
+                        '<td>' . $period . '</td>' .
+//                  if ($status == 'filed')
+                        '<td bgcolor="#32CD32">' . $status . '</td>' .
+//                   else if($status == '')    
+//                   '<td bgcolor="#32CD32">' . $status . '</td>'.
+                        '<td>' . $filling_date . '</td>' .
+                        '<td>' . $acknowledge_no . '</td>' .
+                        '</tr>';
+                $k++;
+//                $data .= '<tr>' .
+//                        '<td>' . $k . '</td>' .
+//                        '<td>' . $period . '</td>' .
+//                        '<td bgcolor="#32CD32">' . $status . '</td>' .
+//                        '<td>' . $filling_date . '</td>' .
+//                        '<td>' . $acknowledge_no . '</td>' .
+//                        '</tr>';
+//                $k++;
+            }
+            $data .= "</tbody></table></div></div></div><div class='col-md-12'>
+                                    <label><h4><b>Observation </b></h4></label><span class='required' aria-required='true'> </span>
+                                    <div class='input-group'>
+                                        <span class='input-group-addon'>
+                                            <i class='fa fa-eye'></i>
+                                        </span>
+                                        <textarea class='form-control' rows='5' id='tax_exempt_observation' name='tax_exempt_observation'>
+                                      
+                                        </textarea>
+                                    </div>
+                                    <span class='required' style='color: red' id='tax_exempt_observation_error'></span>
+                                </div>";
 
 
             $respose['data'] = $data;
