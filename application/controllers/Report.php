@@ -10,7 +10,7 @@ class Report extends CI_Controller {
         $this->load->helper('url');
     }
 
-    public function index($customer_id = '', $insert_id = '',$cust_name='') {
+    public function index($customer_id = '', $insert_id = '', $cust_name = '') {
 //       $query_get_customer_name=fdjk;
 //         $cust_name = $this->input->post("cust_name");
         $data['customer_id'] = $customer_id;
@@ -18,23 +18,24 @@ class Report extends CI_Controller {
         $data['cust_name'] = $cust_name;
         $this->load->view('admin/Generate_report', $data);
     }
-    public function load_pg()
-    {
-         $this->load->view('admin/dummy_report');
+
+    public function load_pg() {
+        $this->load->view('admin/dummy_report');
     }
 
-//     public function edit_customer() {
-//     $customer_id = $this->input->post('customer_id');
-//     $data = array(
-////            'customer_id' => $customer_id,
-//            'customer_id' => $customer_id,
-//        );
-//     
-//     }
+    public function enter_detail_fun($customer_id = '', $insert_id = '') {
+        $data['customer_id'] = $customer_id;
+        $data['insert_id'] = $insert_id;
+        $query = $this->db->query("select * from customer_header_all where customer_id='$customer_id'");
+        $result = $query->row();
+        $data['cust_result'] = $result;
+        $this->load->view('admin/client_details', $data);
+    }
+
     public function get_content_pdf1() {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
-       
+
 
         $query_get_customer_name = $this->db->query("select customer_name,customer_address from customer_header_all where customer_id='$customer_id'");
         if ($this->db->affected_rows() > 0) {
@@ -63,7 +64,7 @@ class Report extends CI_Controller {
                     Yours faithfully <br><br><br>
                     Authorized Signatory
                     </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
-                   
+
             $data .= '<div style="float:left">
                     <b style="font-size:18px">LIMITED USAGE AND NON-DISCLOSURE:</b><br>
                     This Report is intended solely for the information and internal use of 
@@ -75,7 +76,7 @@ class Report extends CI_Controller {
                     report only to the Client and any forward transmission shall not be the 
                     responsibility of R Kabra & Co.
                     </div><br><br><br><br><br><br><br><br>';
-            
+
             $data .= '<div style="float:left">
                       <b style="font-size:18px"><u>ABBREVIATION/GLOSSARY OF TERMS:</u></b><br>
                       1. GST- Goods and Services Tax. <br>
@@ -90,7 +91,7 @@ class Report extends CI_Controller {
                       10. POS- Place Of Supply<br>
                       11. RCM- Reverse Charge Mechanism.<br>
                     </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
-            
+
             $data .= '<div>
                       <b style="font-size:18px">Contents</b><br>  
                       <div class="row">
@@ -117,7 +118,7 @@ class Report extends CI_Controller {
                       <div class="col-md-8"><p style="border: 2px;background:#002366;padding:4px;color:white"><b>About R Kabra & Co.</b></p></div>
                       </div>
                       </div><br><br><br><br><br><br><br><br><br><br>';
-            
+
             $data .= '<div style="float:left;background:#002366;color:white;padding:20px">
                       <b style="font-size:18px;margin-left: 150px;">1. ABOUT ANAND RATHI GLOBAL FINANCE LTD.</b><br><br><br>
                       <p>Anand Rathi Global Finance Limited (ARGFL) was incorporated on 3rd February, 1982. The 
@@ -144,7 +145,7 @@ class Report extends CI_Controller {
                       <li>Structured Financing</li>
                       </ul>
                       </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
-            
+
             $data .= '<div style="float:left">
                       <b><p style="font-size:18px;text-align:center;background:#002366;color:white;padding:3px;border: 1px solid;">2. EXECUTIVE SUMMARY</p></b><br><br><br>  
                       <ul>
@@ -165,9 +166,9 @@ class Report extends CI_Controller {
                       This will help the company immensely for their development.<br>
                       <ul><li>	We also evaluated some areas of improvement.</li></ul>
                      </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
-            
-            
-             $data .= '<div> 
+
+
+            $data .= '<div> 
                        <b><p style="font-size:18px;text-align:center;background:#002366;color:white;padding:3px;border: 1px solid;">3. GST COMPONENTS AND OVERVIEW</p></b><br><br><br>  
                        <div class="row">
                       <div class="col-md-6">
@@ -243,7 +244,7 @@ class Report extends CI_Controller {
                       <div class="col-md-8"></div>
                       </div>
                        </div>';
-                    
+
             $respose['data'] = $data;
             $respose['message'] = "success";
         } else {

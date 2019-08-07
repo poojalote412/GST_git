@@ -106,6 +106,7 @@ $route['GST_Logout_admin'] = 'Gst_dashboard/index_admin';
 $route['sale_export'] = 'Management_report/sale_exports_fun';
 $route['sale_nil_zero_rated'] = 'Management_report/sale_nil_zero_rated_fun';
 $route['sale_rate_wise'] = 'Management_report/sale_rate_wise_fun';
+$route['enter_detail/(:any)/(:any)'] = 'report/enter_detail_fun/$1/$2';
 $route['Generate_report/(:any)/(:any)'] = 'Report/index/$1/$2';
 
 $route['Word_to_database'] = 'Word_database/index_admin';
