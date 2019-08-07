@@ -213,6 +213,32 @@ if (is_array($session_data)) {
 
         });
     }
+    
+    //Get all not in 2A records with company datails for report
+    
+    function get_records_not_in_2a_details(customer_id, insert_id)
+    {
+        $('#company_data').html("");
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Invoice_comp_report/get_not_in2a_records_details") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                if (result.status === true) {
+                    var data = result.data;
+
+                    $('#company_data').html(data);
+                    $('#example2').DataTable();
+                } else {
+                    $('#company_data').html("");
+                    alert('no data availabale');
+                }
+            },
+
+        });
+    }
+    
     $('#not_in_2a_data_modal').on('show.bs.modal', function (e) {
         var companyname = $(e.relatedTarget).data('company_name');
         var company_name = document.getElementById('company_name').value = companyname;

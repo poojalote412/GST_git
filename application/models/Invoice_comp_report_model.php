@@ -65,6 +65,18 @@ class Invoice_comp_report_model extends CI_Model {
             return FALSE;
         }
     }
+    
+     //function for get all records all not in 2A records with company details
+    
+     public function get_notin2a_records_all($customer_id, $insert_id) {
+        $query = $this->db->query("select * from gstr_2a_reconciliation_all where status='not_in_2a' and customer_id='$customer_id'and insert_id='$insert_id'");
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+            return $result;
+        } else {
+            return FALSE;
+        }
+    }
 
     public function get_notinrec_records($company_name, $customer_id, $insert_id) {
         $query = $this->db->query("select * from gstr_2a_reconciliation_all where company_name='$company_name' and status='not_in_rec' and customer_id='$customer_id'and insert_id='$insert_id'");
@@ -76,6 +88,18 @@ class Invoice_comp_report_model extends CI_Model {
         }
     }
 
+    //function for get all records all not in records with company details
+    
+    public function get_notinrec_records_all($customer_id, $insert_id) {
+        $query = $this->db->query("select * from gstr_2a_reconciliation_all where status='not_in_rec' and customer_id='$customer_id'and insert_id='$insert_id'");
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+            return $result;
+        } else {
+            return FALSE;
+        }
+    }
+    
     public function get_partial_record($company_name, $customer_id, $insert_id) {
         $query = $this->db->query("select * from gstr_2a_reconciliation_partially_match_summary where customer_id='$customer_id' and status='Partly_Mat' and company_name='$company_name' and insert_id='$insert_id'");
         if ($query->num_rows() > 0) {

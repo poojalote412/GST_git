@@ -398,6 +398,86 @@ class Invoice_comp_report extends CI_Controller {
             $response['code'] = 204;
         }echo json_encode($response);
     }
+    
+    //function for get all not in 2a records with company details
+    
+    public function get_not_in2a_records_details() { //get not in 2A data of perticular company wise
+        $company_name = $this->input->post("company_name");
+        $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
+        $query = $this->Invoice_comp_report_model->get_notin2a_records_all($customer_id, $insert_id);
+        $data = "";
+        if ($query != FALSE) {
+            $data .= '<div class="row">
+                <div class="col-md-12">
+                <center><h3 style="color:black"><b>C. Invoice wise comparison or mismatch report::</b></h3></center><br>
+               <center><h4 style="color:black"><b>1. Not in GSTR-2A, but recorded under purchasers book.</b></h4></center><br>
+                </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="example3" class="table table-bordered table-striped">
+                                <thead style="background-color: #00008B;color:white">
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Company Name</th>
+                                        <th>Period</th>
+                                        <th>Invoice No</th>
+                                        <th>Place Of Supply</th>
+                                        <th>Invoice Date</th>
+                                        <th>Invoice Value</th>
+                                        <th>Taxable Value</th>
+                                        <th>Tax</th>
+                                    </tr>
+                                </thead>
+                                <tbody>';
+
+            $invoice_value = array();
+            $taxable_value = array();
+            $tax = array();
+            $i = 1;
+            foreach ($query as $row) {
+
+                $invoice_value[] = $row->invoice_value;
+                $taxable_value[] = $row->taxable_value;
+                $tax[] = $row->tax;
+
+                $data .= '<tr>' .
+                        '<td>' . $i . '</td>' .
+                        '<td>' . $row->company_name . '</td>' .
+                        '<td>' . $row->period . '</td>' .
+                        '<td>' . $row->invoice_no . '</td>' .
+                        '<td>' . $row->place_of_supply . '</td>' .
+                        '<td>' . $row->invoice_date . '</td>' .
+                        '<td>' . $row->invoice_value . '</td>' .
+                        '<td>' . $row->taxable_value . '</td>' .
+                        '<td>' . $row->tax . '</td>' .
+                        '</tr>';
+                $i++;
+            }
+            $data .= '<tr>' .
+                    '<td>' . "<b>Total</b>" . '</td>' .
+                    '<td>' . "" . '</td>' .
+                    '<td>' . "" . '</td>' .
+                    '<td>' . "" . '</td>' .
+                    '<td>' . "" . '</td>' .
+                    '<td>' . "<b>" . array_sum($invoice_value) . "</b>" . '</td>' .
+                    '<td>' . "<b>" . array_sum($taxable_value) . "</b>" . '</td>' .
+                    '<td>' . "<b>" . array_sum($tax) . "</b>" . '</td>' .
+                    '</tr>';
+
+            $data .= '</tbody></table></div></div></div>';
+            $response['data'] = $data;
+            $response['message'] = "success";
+            $response['status'] = true;
+            $response['code'] = 200;
+        } else {
+            $response['message'] = "";
+            $response['status'] = FALSE;
+            $response['code'] = 204;
+        }echo json_encode($response);
+    }
 
     public function get_not_inrec_records() { //get not in records data of perticular company wise
         $company_name = $this->input->post("company_name");
@@ -475,6 +555,86 @@ class Invoice_comp_report extends CI_Controller {
         }echo json_encode($response);
     }
 
+    //function to get all not in records with company details on report
+    
+    public function get_not_inrec_records_all() { //get not in records data of perticular company wise
+        $company_name = $this->input->post("company_name");
+        $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
+        $query = $this->Invoice_comp_report_model->get_notinrec_records_all($customer_id, $insert_id);
+        $data = "";
+        if ($query != FALSE) {
+            $data .= '
+                <div class="row">
+                <div class="col-md-12">
+               <center><h4 style="color:black"><b>2. Not in records, but recorded under GSTR-2A.</b></h4></center><br>
+                </div>
+                </div>
+            <div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="example3" class="table table-bordered table-striped">
+                                <thead style="background-color: #00008B;color:white">
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Company Name</th>
+                                        <th>Period</th>
+                                        <th>Invoice No</th>
+                                        <th>Place Of Supply</th>
+                                        <th>Invoice Date</th>
+                                        <th>Invoice Value</th>
+                                        <th>Taxable Value</th>
+                                        <th>Tax</th>
+                                    </tr>
+                                </thead>
+                                <tbody>';
+
+            $invoice_value = array();
+            $taxable_value = array();
+            $tax = array();
+            $i = 1;
+            foreach ($query as $row) {
+
+                $invoice_value[] = $row->invoice_value;
+                $taxable_value[] = $row->taxable_value;
+                $tax[] = $row->tax;
+
+                $data .= '<tr>' .
+                        '<td>' . $i . '</td>' .
+                        '<td>' . $row->company_name . '</td>' .
+                        '<td>' . $row->period . '</td>' .
+                        '<td>' . $row->invoice_no . '</td>' .
+                        '<td>' . $row->place_of_supply . '</td>' .
+                        '<td>' . $row->invoice_date . '</td>' .
+                        '<td>' . $row->invoice_value . '</td>' .
+                        '<td>' . $row->taxable_value . '</td>' .
+                        '<td>' . $row->tax . '</td>' .
+                        '</tr>';
+                $i++;
+            }
+            $data .= '<tr>' .
+                    '<td>' . "<b>Total</b>" . '</td>' .
+                    '<td>' . "" . '</td>' .
+                    '<td>' . "" . '</td>' .
+                    '<td>' . "" . '</td>' .
+                    '<td>' . "" . '</td>' .
+                    '<td>' . "<b>" . array_sum($invoice_value) . "</b>" . '</td>' .
+                    '<td>' . "<b>" . array_sum($taxable_value) . "</b>" . '</td>' .
+                    '<td>' . "<b>" . array_sum($tax) . "</b>" . '</td>' .
+                    '</tr>';
+
+            $data .= '</tbody></table></div></div></div>';
+            $response['data'] = $data;
+            $response['message'] = "success";
+            $response['status'] = true;
+            $response['code'] = 200;
+        } else {
+            $response['message'] = "";
+            $response['status'] = FALSE;
+            $response['code'] = 204;
+        }echo json_encode($response);
+    }
+    
     //function to load partial match data
     public function partial_match_index() {
         $session_data = $this->session->userdata('login_session');
@@ -635,7 +795,7 @@ class Invoice_comp_report extends CI_Controller {
         if ($query != FALSE) {
             $data .= '<div class="row">
                 <div class="col-md-12">
-               <center><h3 style="color:black"><b>C. Invoice wise comparison or mismatch report::</b></h3></center><br>
+               
                <center><h4 style="color:black"><b>3.Invoice no., POS and Period mismatch:</b></h4></center><br>
                 </div>
                 </div>
@@ -914,7 +1074,7 @@ class Invoice_comp_report extends CI_Controller {
                     <div class="col-md-12">
                     <center><h3 style="color:black"><b> 2.Invoice not included in GSTR-1:</b></h3></center><br>
                         <div class="">
-                         <table id="example2" class="table table-bordered table-striped">
+                         <table id="example2" class="table table-bordered table-striped" style="width:40%">
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
                                         <th>Sr No.</th>
@@ -1179,9 +1339,9 @@ class Invoice_comp_report extends CI_Controller {
                     <center><h3 style="color:black"><b>B. Internal Control Report:</b></h3></center><br>
                     <center><h4 style="color:black"><b>1. Invoice amends in other than original period Analysis:</b></h4></center><br>
                     <div class="">
-                         <table id="example2" class="table table-bordered table-striped">
+                         <table id="example2" class="table table-bordered table-striped" style="width:200px !important">
                                 <thead style="background-color: #00008B;color:white">
-                                    <tr>
+                                    <tr style="width:2px">
                                     <th>Sr No</th>
                                         <th>Original Month</th>
                                         <th>Included In Month</th>
