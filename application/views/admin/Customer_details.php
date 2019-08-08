@@ -76,7 +76,7 @@ if (is_array($session_data)) {
                     <tbody>
 
                         <?php
-//                                    var_dump($cfo_data);
+//                                    var_dump($result);
                         if ($result !== "") {
                             $i = 1;
                             foreach ($result as $row) {

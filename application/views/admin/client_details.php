@@ -114,7 +114,7 @@ if (is_array($session_data)) {
                 <div>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="col-md-6"> <div id="container" style="height: 500px;  width:700px"></div></div>
+                            <div class="col-md-6"> <div id="container" ></div></div>
                             <div class="col-md-6"> <div id="cfo_data"></div></div>
                         </div>
                     </div><hr>
@@ -126,57 +126,57 @@ if (is_array($session_data)) {
                     </div><hr>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="col-md-6">  <div id="container1" style="height: 500px; width: 700px"></div></div>
+                            <div class="col-md-6">  <div id="container1" ></div></div>
                             <div class="col-md-6"> <div id="sales_monthly_data"></div></div></div>
                     </div><hr>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="col-md-6">  <div id="container_state_wise" style="height: 500px; width: 700px"></div></div>
+                            <div class="col-md-6">  <div id="container_state_wise" ></div></div>
                             <div class="col-md-6"> <div id="sales_state_wise_data"></div></div></div>
                     </div><hr>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="col-md-6">  <div id="container_export" style="height: 500px; width: 700px"></div></div>
+                            <div class="col-md-6">  <div id="container_export" ></div></div>
                             <div class="col-md-6"> <div id="compare_3b1_data"></div></div></div>
                     </div><hr>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="col-md-6">  <div id="container_nontax_exempt" style="height: 500px; width: 700px"></div></div>
+                            <div class="col-md-6">  <div id="container_nontax_exempt" ></div></div>
                             <div class="col-md-6"> <div id="tax_ntax_Exempt_data"></div></div></div>
                     </div><hr>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="col-md-6">  <div id="container_sales_b2b_b2c" style="height: 500px; width: 700px"></div></div>
+                            <div class="col-md-6">  <div id="container_sales_b2b_b2c" ></div></div>
                             <div class="col-md-6"> <div id="compare_b2b_data"></div></div></div>
                     </div><hr>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="col-md-6">  <div id="container_GSTR3b_vs_2A" style="height: 500px; width: 700px"></div></div>
+                            <div class="col-md-6">  <div id="container_GSTR3b_vs_2A" ></div></div>
                             <div class="col-md-6">  <div id="compare_GSTR3B_Vs2_data"></div></div></div>
                     </div><hr>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="col-md-6">  <div id="container_GSTR3b_vs_1" style="height: 500px; width: 700px"></div></div>
+                            <div class="col-md-6">  <div id="container_GSTR3b_vs_1" ></div></div>
                             <div class="col-md-6">   <div id="compare_3b_vs1_data"></div></div></div>
                     </div><hr>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="col-md-6">  <div id="container_tax_liability" style="height: 500px; width: 700px"></div></div>
+                            <div class="col-md-6">  <div id="container_tax_liability" ></div></div>
                             <div class="col-md-6">   <div id="tax_liability_data"></div></div></div>
                     </div><hr>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="col-md-6">  <div id="container_tax_turnover" style="height: 500px; width: 700px"></div></div>
+                            <div class="col-md-6">  <div id="container_tax_turnover"></div></div>
                             <div class="col-md-6">   <div id="tax_turnover_data"></div></div></div>
                     </div><hr>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="col-md-6">  <div id="container_eligible" style="height: 500px; width: 700px"></div></div>
+                            <div class="col-md-6">  <div id="container_eligible" ></div></div>
                             <div class="col-md-6">   <div id="eligible_data"></div></div></div>
                     </div><hr>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="col-md-6">  <div id="container_gst_payable" style="height: 500px; width: 700px"></div></div>
+                            <div class="col-md-6">  <div id="container_gst_payable" ></div></div>
                             <div class="col-md-6">   <div id="gst_payable"></div></div></div>
                     </div><hr>
                     <div class="row">
@@ -192,6 +192,16 @@ if (is_array($session_data)) {
                     <div class="row">
                         <div class="col-md-12">
                             <div id="invoice_ammend_original_data"></div>
+                        </div>
+                    </div><hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="invoice_notinclude_gstr1_data"></div>
+                        </div>
+                    </div><hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="company_all_partially_data"></div>
                         </div>
                     </div><hr>
                 </div>
@@ -1746,9 +1756,47 @@ if (is_array($session_data)) {
 //                    $('#example2').DataTable();
                 } else {
                     $('#invoice_ammend_original_data').html("");
-                    alert('no data availabale');
+
                 }
             }
+
+        });
+        //table data for Invoice not included in GSTR1
+
+        $('#invoice_notinclude_gstr1_data').html("");
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Invoice_comp_report/get_table_data") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                if (result.status === true) {
+                    var data = result.data;
+
+                    $('#invoice_notinclude_gstr1_data').html(data);
+//                    $('#example2').DataTable();
+                } else {
+                    $('#invoice_notinclude_gstr1_data').html("");
+                }
+            },
+
+        });
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Invoice_comp_report/get_all_partial_records") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                if (result.status === true) {
+                    var data = result.data;
+
+                    $('#company_all_partially_data').html(data);
+//                    $('#example2').DataTable();
+                } else {
+                    $('#company_all_partially_data').html("");
+//                    alert('no data available,please insert files.');
+                }
+            },
 
         });
     });
