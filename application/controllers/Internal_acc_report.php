@@ -1042,11 +1042,11 @@ class Internal_acc_report extends CI_Controller {
                                         <span class='input-group-addon'>
                                             <i class='fa fa-eye'></i>
                                         </span>
-                                        <textarea class='form-control' rows='5' id='tax_exempt_observation' name='tax_exempt_observation'>
+                                        <textarea class='form-control' rows='5' id='tax_turnover_observation' name='tax_turnover_observation'>
                                       
                                         </textarea>
                                     </div>
-                                    <span class='required' style='color: red' id='tax_exempt_observation_error'></span>
+                                    <span class='required' style='color: red' id='tax_turnover_observation_error'></span>
                                 </div>";
             // loop to get graph data as per graph script requirement
             $abc1 = array();

@@ -132,21 +132,18 @@ class Cfo_dashboard extends CI_Controller {
             $data .= '</tbody></table></div></div></div>';
 //         echo   max($ratio_val);
 //         echo   min($ratio_val);
-            $data .= "<div class='col-md-12'>
-                                    <label><h4><b>Observation of CFO:</b></h4></label><span class='required' aria-required='true'> </span>
-                                    <div class='input-group'>
-                                        <span class='input-group-addon'>
-                                            <i class='fa fa-eye'></i>
+            $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation of CFO:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
                                         </span>
-                                        <textarea class='form-control' rows='5' id='cfo_observation' name='cfo_observation'>
-                                        Percentage of GST payable to turnover is not stable for F.Y. 2017-18 it varies from " . min($ratio_val) . "% to " . max($ratio_val) . "%.
-                                        </textarea>
+                                        <textarea class="form-control" rows="5" id="cfo_observation" name="cfo_observation">Percentage of GST payable to turnover is not stable for F.Y. 2017-18 it varies from ' . min($ratio_val) . '% to ' . max($ratio_val) . '%.</textarea>
                                     </div>
-                                    <span class='required' style='color: red' id='cfo_observation_error'></span>
-                                </div>";
+                                    <span class="required" style="color: red" id="cfo_observation_error"></span> 
+                                </div><br>';
 
-            // $data .= '<img src="' . base_url('images/samples/images122.png') . '" width="200px" height="200px"/>';
-//            var_dump($turnover1);
+
             // loop to get turnover value
             $abc = array();
             $pqr = array();
@@ -247,7 +244,7 @@ class Cfo_dashboard extends CI_Controller {
                 $total_taxable_data_gst_export = $row->total_taxable_data_gst_export;
                 $credit_value = $row->credit_value;
                 $total1 = $inter_state_supply + $intra_state_supply + $no_gst_paid_supply + $debit_value + $total_non_gst_export + $total_taxable_advance_no_invoice + $total_taxable_advance_invoice + $total_taxable_data_gst_export;
-                $turnover = (round((1 * $total1) - (1 * $credit_value),2));
+                $turnover = (round((1 * $total1) - (1 * $credit_value), 2));
                 $tax_liabality = round(($row->outward_liability + (1 * $row->rcb_liablity)), 2);
                 if ($turnover != 0) {
                     $ratio = ($tax_liabality / $turnover) * 100;

@@ -16,8 +16,6 @@ class Customer_admin extends CI_Controller {
     function index() {
 //        $data['result'] = $result;
 //         $result = $this->Customer_model->display_customers($customer_id);
-
-       
 //        $query = $this->db->query("SELECT * FROM `customer_header_all` where user_type='2'");
 
         $query = $this->db->query("SELECT customer_header_all.customer_id,customer_header_all.created_on,customer_header_all.customer_contact_number,customer_header_all.customer_name,customer_header_all.customer_email_id,insert_header_all.insert_id"
@@ -59,12 +57,10 @@ class Customer_admin extends CI_Controller {
             $response['error'] = 'Enter Proper Name';
             echo json_encode($response);
             exit;
-        }
-        elseif (!preg_match("/^[A-Za-zéåäöÅÄÖ\s\ ]*$/", $customer_name)) {
+        } elseif (!preg_match("/^[A-Za-zéåäöÅÄÖ\s\ ]*$/", $customer_name)) {
             $response['id'] = 'customer_name';
             $response['error'] = 'Enter  Customer Name';
-        } 
-        elseif (empty($customer_address)) {
+        } elseif (empty($customer_address)) {
             $response['id'] = 'customer_address';
             $response['error'] = 'Enter customer_address';
             echo json_encode($response);
@@ -84,7 +80,7 @@ class Customer_admin extends CI_Controller {
             $response['error'] = "Invalid email format";
             echo json_encode($response);
             exit;
-        }elseif (empty($customer_no)) {
+        } elseif (empty($customer_no)) {
             $response['id'] = 'customer_contact_number';
             $response['error'] = 'Enter Customer Contact No.';
             echo json_encode($response);
@@ -156,49 +152,9 @@ class Customer_admin extends CI_Controller {
         echo json_encode($response);
     }
 
-    //function for edit customer
-//
-//    public function edit_customer_details1() {
-//        $customer_name = $this->input->post('customer_name');
-////        echo $customer_name;
-////        $record = $this->Customer_model->display_customers($customer_id);
-//        $query = $this->db->query("select * from customer_header_all");
-//
-//        $this->db->select(`customer_id`,`customer_name`, `customer_address`, `customer_city`, `customer_state`, `customer_country`, `customer_email_id`, `customer_contact_number`, `gst_no`, `pincode`, `pan_no`);
-//        $this->db->from('customer_header_all');
-//        $this->db->where('customer_name',$customer_name);
-//        foreach ($query->result() as $row) {
-//            $data['customer_id'] = $row->customer_id;
-//            $data['customer_name'] = $row->customer_name;
-//             $data['customer_address'] = $row->customer_address;
-//             $data['customer_city'] = $row->customer_city;
-//             $data['customer_state'] = $row->customer_state;
-//             $data['customer_country'] = $row->customer_country;
-//           $data['customer_email_id'] = $row->customer_email_id;
-//            $data['customer_contact_number'] = $row->customer_contact_number;
-//             $data['gst_no'] = $row->gst_no;
-//             $data['pincode'] = $row->pincode;
-//             $data['pan_no'] = $row->pan_no;
-//           
-//        }
-//
-////        if ($record) {
-////            
-////            $response['message'] = 'success';
-////            $response['code'] = 200;
-////            $response['status'] = true;
-////        } else {
-////            $response['message'] = 'No data to display';
-////            $response['code'] = 204;
-////            $response['status'] = false;
-////        }
-////
-////        echo json_encode($response);
-////        $this->load->view('admin/edit_customer',$data);
-//    }
     public function edit_customer_details($cust_id) {
 //        $cust_id = $this->input->post('customer_id');
-        
+
         $data['prev_title'] = "";
         $data['page_title'] = "Edit Customer";
         $record = $this->Customer_model->display_customers($cust_id);
@@ -216,9 +172,9 @@ class Customer_admin extends CI_Controller {
         echo json_encode($response);
         $this->load->view('admin/edit_customer', $data);
     }
-    
+
     public function edit_customer_details_file($cust_id) {
-        
+
         $record = $this->Customer_model->display_customers($cust_id);
         if ($record) {
             $data['record'] = $record->row();
@@ -293,7 +249,7 @@ class Customer_admin extends CI_Controller {
             $response['error'] = 'Enter GST.';
             echo json_encode($response);
             exit;
-        } 
+        }
 
 
         $data = array(
@@ -347,6 +303,127 @@ class Customer_admin extends CI_Controller {
 
     public function edit_customer_details_files() {
         $this->load->view('admin/edit_customer_files');
+    }
+
+    public function save_observation() {
+        $created_on = date('y-m-d h:i:s');
+        $insert_id = $this->input->post('insert_id');
+        $customer_id = $this->input->post('customer_id');
+        $company_name = $this->input->post('company_name');
+        $m_d_name = $this->input->post('m_d_name');
+        $about_company = $this->input->post('about_company');
+        $cfo_observation = nl2br($this->input->post('cfo_observation'));
+        $rate_wise_observation = nl2br($this->input->post('rate_wise_observation'));
+        $monthwise_sale_observation = nl2br($this->input->post('monthwise_sale_observation'));
+        $tax_liability_observation = nl2br($this->input->post('tax_liability_observation'));
+        $tax_exempt_observation = nl2br($this->input->post('tax_exempt_observation'));
+        $tax_turnover_observation = nl2br($this->input->post('tax_turnover_observation'));
+        $eligible_ineligible_observation = nl2br($this->input->post('eligible_ineligible_observation'));
+        if (empty($company_name)) {
+            $response['id'] = 'company_name';
+            $response['error'] = 'Enter Proper Company Name';
+            echo json_encode($response);
+            exit;
+        } elseif (empty($m_d_name)) {
+            $response['id'] = 'm_d_name';
+            $response['error'] = 'Enter Managing Director Name';
+            echo json_encode($response);
+            exit;
+        }elseif (empty($about_company)) {
+            $response['id'] = 'about_company';
+            $response['error'] = 'Enter Details About Company';
+            echo json_encode($response);
+            exit;
+        }
+//         elseif (empty($cfo_observation)) {
+//            $response['id'] = 'cfo_observation';
+//            $response['error'] = 'Enter CFO Observation';
+//            echo json_encode($response);
+//            exit;
+//        } elseif (($rate_wise_observation) == "") {
+//            $response['id'] = 'rate_wise_observation';
+//            $response['error'] = 'Enter Observation';
+//            echo json_encode($response);
+//            exit;
+//        } elseif (empty($monthwise_sale_observation)) {
+//            $response['id'] = 'monthwise_sale_observation';
+//            $response['error'] = 'Enter Observation';
+//            echo json_encode($response);
+//            exit;
+//        } elseif (empty($tax_liability_observation)) {
+//            $response['id'] = 'tax_liability_observation';
+//            $response['error'] = 'Enter Observation';
+//            echo json_encode($response);
+//            exit;
+//        } elseif (empty($tax_exempt_observation)) {
+//            $response['id'] = 'tax_exempt_observation';
+//            $response['error'] = 'Enter Observation';
+//            echo json_encode($response);
+//            exit;
+//        } elseif (empty($tax_turnover_observation)) {
+//            $response['id'] = 'tax_turnover_observation';
+//            $response['error'] = 'Enter Observation';
+//            echo json_encode($response);
+//            exit;
+//        } elseif (empty($eligible_ineligible_observation)) {
+//            $response['id'] = 'eligible_ineligible_observation';
+//            $response['error'] = 'Enter Observation';
+//            echo json_encode($response);
+//            exit;
+//        }
+        else {
+            $report_id = $this->report_id();
+
+            $data = array(
+                'insert_id' => $insert_id,
+                'customer_id' => $customer_id,
+                'report_id' => $report_id,
+                'company_name' => $company_name,
+                'managing_director_name' => $m_d_name,
+                'about_company' => $about_company,
+                'cfo_observation' => $cfo_observation,
+                'rate_wise_observation' => $rate_wise_observation,
+                'month_wise_observation' => $monthwise_sale_observation,
+                'tax_liability_observation' => $tax_liability_observation,
+                'tax_nontax_observation' => $tax_exempt_observation,
+                'tax_turnover_observation' => $tax_turnover_observation,
+                'eligible_ineligible_observation' => $eligible_ineligible_observation,
+                'created_on' => $created_on,
+            );
+
+
+            $record = $this->db->insert('observation_transaction_all', $data);
+            $data1 = array(
+                'insert_id' => $insert_id,
+                'customer_id' => $customer_id,
+                'report_id' => $report_id,
+                'created_on' => $created_on,
+            );
+            $record1 = $this->db->insert('report_header_all', $data1);
+            if ($record == TRUE && $record1 == TRUE) {
+                $response['message'] = 'success';
+                $response['code'] = 200;
+                $response['status'] = true;
+            } else {
+                $response['message'] = 'No data to display';
+                $response['code'] = 204;
+                $response['status'] = false;
+            }
+        }echo json_encode($response);
+    }
+
+    public function report_id() {
+        $result = $this->db->query('SELECT report_id FROM `observation_transaction_all` ORDER BY report_id DESC LIMIT 0,1');
+        if ($result->num_rows() > 0) {
+            $data = $result->row();
+            $report_id = $data->report_id;
+            //generate turn_id
+            $report_id = str_pad(++$report_id, 5, '0', STR_PAD_LEFT);
+            return $report_id;
+        } else {
+            $report_id = 'report_1001';
+            return $report_id;
+        }
     }
 
 }

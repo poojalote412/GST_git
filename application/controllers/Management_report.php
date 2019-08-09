@@ -232,18 +232,7 @@ class Management_report extends CI_Controller {
             $top3 = array_sum($arr);
             $top_3_state = round(($top3 / $total) * 100, 2);
             $data .= "<h4><b>" . $top_3_state . " </b> % of total sales comes from top 3 states.</h4>";
-            $data .= "<div class='col-md-12'>
-                                    <label><h4><b>Observation</b></h4></label><span class='required' aria-required='true'> </span>
-                                    <div class='input-group'>
-                                        <span class='input-group-addon'>
-                                            <i class='fa fa-eye'></i>
-                                        </span>
-                                        <textarea class='form-control' rows='5' id='state_observation' name='state_observation'>
-                                        
-                                        </textarea>
-                                    </div>
-                                    <span class='required' style='color: red' id='state_observation_error'></span>
-                                </div>";
+
 
             $state = array();
             $taxable_value = array();
@@ -980,7 +969,7 @@ class Management_report extends CI_Controller {
         if ($query->num_rows() > 0) {
             $result = $query->result();
             $taxable_supply_arr = array();
-            $data .= '<div class="row">
+            $data .= '<div class="row"><br><br><br>
                     <div class="col-md-12">
                         <div class="">
                          <table id="example2" class="table table-bordered table-striped">
@@ -1153,6 +1142,7 @@ class Management_report extends CI_Controller {
                 $sale_percent = (($taxable_supply) / ($sum_tax * 100));
                 $sales_percent_values1 = round(($sale_percent * 10000), 2);
                 $sales_percent_values[] = round(($sale_percent * 10000));
+                $sales_percent_values2[] = (($sale_percent * 10000));
 
                 $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
@@ -1170,6 +1160,9 @@ class Management_report extends CI_Controller {
                     '<td>' . '<b>' . array_sum($sales_percent_values) . '%</b> ' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
+            $max = max($sales_percent_values2);
+            $min = min($sales_percent_values2);
+            $variation = round(((($max - $min) / ($min)) * 100), 2);
             $data .= "<div class='col-md-12'>
                                     <label><h4><b>Observation :</b></h4></label><span class='required' aria-required='true'> </span>
                                     <div class='input-group'>
@@ -1182,9 +1175,7 @@ class Management_report extends CI_Controller {
                                     </div>
                                     <span class='required' style='color: red' id='monthwise_sale_observation_error'></span>
                                 </div>";
-            $max = max($sales_percent_values);
-            $min = min($sales_percent_values);
-//            echo $variation=($max-$min)/($min*100);
+
 //            $data .= "<hr><h4><b>Observation of  Sales month wise:</b></h4>";
             // loop to get graph data as per graph script requirement
             $abc1 = array();
@@ -1225,32 +1216,12 @@ class Management_report extends CI_Controller {
             $respnose['taxable_supply_arr'] = "";  //taxable_supply data
         } echo json_encode($respnose);
     }
- public function get_data_rate_wise1() {
+
+    public function get_data_rate_wise1() {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
 
         //to get total supply
-//        echo "SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'";
-        $query1 = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
-
-        if ($query1->num_rows() > 0) {
-            $result1 = $query1->result();
-            foreach ($result1 as $row1) {
-                $inter_state_supply = $row1->inter_state_supply;
-                $intra_state_supply = $row1->intra_state_supply;
-                $no_gst_paid_supply = $row1->no_gst_paid_supply;
-                $debit_value = $row1->debit_value;
-                $credit_value = $row1->credit_value;
-                //new changes 
-                $total_taxable_advance_no_invoice = $row1->total_taxable_advance_no_invoice;
-                $total_taxable_advance_invoice = $row1->total_taxable_advance_invoice;
-                $total_taxable_data_gst_export = $row1->total_taxable_data_gst_export;
-                $total_non_gst_export = $row1->total_non_gst_export;
-                $taxable_supply1 = ($inter_state_supply + $intra_state_supply + $no_gst_paid_supply + $debit_value + $total_taxable_advance_no_invoice + $total_taxable_advance_invoice + $total_taxable_data_gst_export + $total_non_gst_export) - ($credit_value);
-            }
-        } else {
-            
-        }
         $query = $this->db->query("SELECT * from rate_wise_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         $data = ""; //view observations
         if ($query->num_rows() > 0) {
@@ -1283,13 +1254,14 @@ class Management_report extends CI_Controller {
                         '<td>' . $row->rate_28 . '</td>' .
                         '</tr>';
             }
+            $total_value = ($row->rate_0 + $row->rate_5 + $row->rate_12 + $row->rate_18 + $row->rate_28);
             $data .= '<tr>' .
                     '<td>' . '<b>Ratio</b>' . '</td>' .
-                    '<td>' . ((($row->rate_0) / ($taxable_supply1)) * 100) . '</td>' .
-                    '<td>' . (($row->rate_5) / ($taxable_supply1)) * 100 . '</td>' .
-                    '<td>' . (($row->rate_12) / ($taxable_supply1)) * 100 . '</td>' .
-                    '<td>' . (($row->rate_18) / ($taxable_supply1)) * 100 . '</td>' .
-                    '<td>' . (($row->rate_28) / ($taxable_supply1)) * 100 . '</td>' .
+                    '<td><b>' . round((($row->rate_0) / ($total_value)) * 100) . '%</b></td>' .
+                    '<td><b>' . round((($row->rate_5) / ($total_value)) * 100) . '%</b></td>' .
+                    '<td><b>' . round((($row->rate_12) / ($total_value)) * 100) . '%</b></td>' .
+                    '<td><b>' . round((($row->rate_18) / ($total_value)) * 100) . '%</b></td>' .
+                    '<td><b>' . round((($row->rate_28) / ($total_value)) * 100) . '%</b></td>' .
                     '</tr>';
             $data .= "</tbody></table></div></div></div><div class='col-md-12'>
                                     <label><h4><b>Observation </b></h4></label><span class='required' aria-required='true'> </span>
@@ -1310,38 +1282,18 @@ class Management_report extends CI_Controller {
             $respnose['message'] = "";
         } echo json_encode($respnose);
     }
+
     //function to get data rate wise
     public function get_data_rate_wise() {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
 
         //to get total supply
-//        echo "SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'";
-        $query1 = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
-
-        if ($query1->num_rows() > 0) {
-            $result1 = $query1->result();
-            foreach ($result1 as $row1) {
-                $inter_state_supply = $row1->inter_state_supply;
-                $intra_state_supply = $row1->intra_state_supply;
-                $no_gst_paid_supply = $row1->no_gst_paid_supply;
-                $debit_value = $row1->debit_value;
-                $credit_value = $row1->credit_value;
-                //new changes 
-                $total_taxable_advance_no_invoice = $row1->total_taxable_advance_no_invoice;
-                $total_taxable_advance_invoice = $row1->total_taxable_advance_invoice;
-                $total_taxable_data_gst_export = $row1->total_taxable_data_gst_export;
-                $total_non_gst_export = $row1->total_non_gst_export;
-                $taxable_supply1 = ($inter_state_supply + $intra_state_supply + $no_gst_paid_supply + $debit_value + $total_taxable_advance_no_invoice + $total_taxable_advance_invoice + $total_taxable_data_gst_export + $total_non_gst_export) - ($credit_value);
-            }
-        } else {
-            
-        }
         $query = $this->db->query("SELECT * from rate_wise_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         $data = ""; //view observations
         if ($query->num_rows() > 0) {
             $result = $query->result();
-
+            $data .= "<label><h3>Sale Rate Wise:</h3></label>";
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
@@ -1369,14 +1321,27 @@ class Management_report extends CI_Controller {
                         '<td>' . $row->rate_28 . '</td>' .
                         '</tr>';
             }
+            $total_value = ($row->rate_0 + $row->rate_5 + $row->rate_12 + $row->rate_18 + $row->rate_28);
             $data .= '<tr>' .
                     '<td>' . '<b>Ratio</b>' . '</td>' .
-                    '<td>' . ((($row->rate_0) / ($taxable_supply1)) * 100) . '</td>' .
-                    '<td>' . (($row->rate_5) / ($taxable_supply1)) * 100 . '</td>' .
-                    '<td>' . (($row->rate_12) / ($taxable_supply1)) * 100 . '</td>' .
-                    '<td>' . (($row->rate_18) / ($taxable_supply1)) * 100 . '</td>' .
-                    '<td>' . (($row->rate_28) / ($taxable_supply1)) * 100 . '</td>' .
+                    '<td><b>' . round((($row->rate_0) / ($total_value)) * 100) . '%</b></td>' .
+                    '<td><b>' . round((($row->rate_5) / ($total_value)) * 100) . '%</b></td>' .
+                    '<td><b>' . round((($row->rate_12) / ($total_value)) * 100) . '%</b></td>' .
+                    '<td><b>' . round((($row->rate_18) / ($total_value)) * 100) . '%</b></td>' .
+                    '<td><b>' . round((($row->rate_28) / ($total_value)) * 100) . '%</b></td>' .
                     '</tr>';
+            $data .= "</tbody></table></div></div></div><div class='col-md-12'>
+                                    <label><h4><b>Observation </b></h4></label><span class='required' aria-required='true'> </span>
+                                    <div class='input-group'>
+                                        <span class='input-group-addon'>
+                                            <i class='fa fa-eye'></i>
+                                        </span>
+                                        <textarea class='form-control' rows='5' id='rate_wise_observation' name='rate_wise_observation'>
+                                      
+                                        </textarea>
+                                    </div>
+                                    <span class='required' style='color: red' id='rate_wise_observation_error'></span>
+                                </div>";
             $respnose['data'] = $data;
             $respnose['message'] = "success";
         } else {
@@ -2123,8 +2088,8 @@ class Management_report extends CI_Controller {
                 $data .= "<hr><h4><b>Observation of Sales B2B and B2C:</b></h4>";
                 $data .= " <span>Your the turnover is less then <b>150 Lacs </b>& B2C sales is grater than <b>90%</b> , Our advise to go form composition scheme.</span>";
             } else {
-//                $data .= "<hr><h4><b>Observation of Sales B2B and B2C:</b></h4>";
-//                $data .= " <span>Your the turnover is less then <b>150 Lacs </b>& B2C sales is grater than <b>90%</b> , Our advise to go form composition scheme.</span>";
+                $data .= "<hr><h4><b>Observation of Sales B2B and B2C:</b></h4>";
+                $data .= " <span>B2B supply is " . array_sum($array_b2b_ratio) . "% and B2C supply is " . array_sum($array_b2c_ratio) . "% of total supply.</span>";
             }
 
             $count = count($month);
@@ -2267,10 +2232,10 @@ class Management_report extends CI_Controller {
                 $array_b2b[] = $b2b_data;
                 $array_b2c[] = $b2c_data;
                 if (($sum_tax) != 0) {
-                    $array_b2c_ratio[] = round((($b2c_data) / ($sum_tax)) * 100);
-                    $array_b2c_ratio1 = round((($b2c_data ) / ($sum_tax)) * 100);
-                    $array_b2b_ratio[] = round((($b2b_data ) / ($sum_tax)) * 100);
-                    $array_b2b_ratio1 = round((($b2b_data ) / ($sum_tax)) * 100);
+                    $array_b2c_ratio[] = round(((($b2c_data) / ($sum_tax)) * 100), 2);
+                    $array_b2c_ratio1 = round(((($b2c_data ) / ($sum_tax)) * 100), 2);
+                    $array_b2b_ratio[] = round(((($b2b_data ) / ($sum_tax)) * 100), 2);
+                    $array_b2b_ratio1 = round(((($b2b_data ) / ($sum_tax)) * 100), 2);
                 } else {
                     $array_b2c_ratio[] = 0;
                     $array_b2c_ratio1 = 0;
@@ -2297,25 +2262,15 @@ class Management_report extends CI_Controller {
                     '<td>' . '<b>' . $ttl_b2c_ratio = array_sum($array_b2c_ratio) . '</b>' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
-//            $total_turnover = array_sum($turnover);
-//            if ($total_turnover < 15000000 && $ttl_b2c_ratio >= 90) {
-//                $data .= "<hr><h4><b>Observation of Sales B2B and B2C:</b></h4>";
-//                $data .= " <span>Your the turnover is less then <b>150 Lacs </b>& B2C sales is grater than <b>90%</b> , Our advise to go form composition scheme.</span>";
-//            } else {
-////                $data .= "<hr><h4><b>Observation of Sales B2B and B2C:</b></h4>";
-////                $data .= " <span>Your the turnover is less then <b>150 Lacs </b>& B2C sales is grater than <b>90%</b> , Our advise to go form composition scheme.</span>";
-//            }
-            $data .= "<div class='col-md-12'>
-                                    <label><h4><b>Observation </b></h4></label><span class='required' aria-required='true'> </span>
-                                    <div class='input-group'>
-                                        <span class='input-group-addon'>
-                                            <i class='fa fa-eye'></i>
-                                        </span>
-                                        <textarea class='form-control' rows='5' id='b2b_b2c_observation' name='b2b_b2c_observation'>
-                                        </textarea>
-                                    </div>
-                                    <span class='required' style='color: red' id='b2b_b2c_observation_error'></span>
-                                </div>";
+            $total_turnover = array_sum($turnover);
+            if ($total_turnover < 15000000 && $ttl_b2c_ratio >= 90) {
+                $data .= "<hr><h4><b>Observation of Sales B2B and B2C:</b></h4>";
+                $data .= " <span>Your the turnover is less then <b>150 Lacs </b>& B2C sales is grater than <b>90%</b> , Our advise to go form composition scheme.</span>";
+            } else {
+                $data .= "<hr><h4><b>Observation of Sales B2B and B2C:</b></h4>";
+                $data .= " <span>B2B supply is " . array_sum($array_b2b_ratio) . "% and B2C supply is " . array_sum($array_b2c_ratio) . "% of total supply.</span>";
+            }
+
 
             $count = count($month);
             $array_b2b1 = array();
