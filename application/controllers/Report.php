@@ -29,6 +29,8 @@ class Report extends CI_Controller {
         $query = $this->db->query("select * from customer_header_all where customer_id='$customer_id'");
         $result = $query->row();
         $data['cust_result'] = $result;
+
+        
         $this->load->view('admin/client_details', $data);
     }
 

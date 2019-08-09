@@ -14,9 +14,8 @@ class Customer_admin extends CI_Controller {
 
 //
     function index() {
-//        $data['result'] = $result;
-//         $result = $this->Customer_model->display_customers($customer_id);
-//        $query = $this->db->query("SELECT * FROM `customer_header_all` where user_type='2'");
+
+
 
         $query = $this->db->query("SELECT customer_header_all.customer_id,customer_header_all.created_on,customer_header_all.customer_contact_number,customer_header_all.customer_name,customer_header_all.customer_email_id,insert_header_all.insert_id"
                 . " FROM customer_header_all INNER JOIN insert_header_all ON customer_header_all.customer_id=insert_header_all.customer_id");
@@ -27,7 +26,20 @@ class Customer_admin extends CI_Controller {
         } else {
             $data['result'] = "";
         }
+
+
         $this->load->view('admin/Customer_details', $data);
+    }
+
+    public function page_diversion() {
+        $customer_id = $this->input->post('customer_id');
+        $insert_id = $this->input->post('insert_id');
+        $get_report_data = $this->db->query("Select report_id from report_header_all where customer_id='$customer_id' and insert_id='$insert_id'");
+        if ($this->db->affected_rows() > 0) {
+            $response['report_sts'] = '1';
+        } else {
+            $response['report_sts'] = '0';
+        }echo json_encode($response);
     }
 
     function add_customer() {
@@ -293,7 +305,7 @@ class Customer_admin extends CI_Controller {
             $data = $result->row();
             $customer_id = $data->customer_id;
 //generate user_id
-            $customer_id = str_pad( ++$customer_id, 5, '0', STR_PAD_LEFT);
+            $customer_id = str_pad(++$customer_id, 5, '0', STR_PAD_LEFT);
             return $customer_id;
         } else {
             $customer_id = 'Cust_1001';
@@ -329,7 +341,7 @@ class Customer_admin extends CI_Controller {
             $response['error'] = 'Enter Managing Director Name';
             echo json_encode($response);
             exit;
-        }elseif (empty($about_company)) {
+        } elseif (empty($about_company)) {
             $response['id'] = 'about_company';
             $response['error'] = 'Enter Details About Company';
             echo json_encode($response);
@@ -418,7 +430,7 @@ class Customer_admin extends CI_Controller {
             $data = $result->row();
             $report_id = $data->report_id;
             //generate turn_id
-            $report_id = str_pad(++$report_id, 5, '0', STR_PAD_LEFT);
+            $report_id = str_pad( ++$report_id, 5, '0', STR_PAD_LEFT);
             return $report_id;
         } else {
             $report_id = 'report_1001';

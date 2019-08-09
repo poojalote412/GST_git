@@ -606,8 +606,8 @@ class Management_report extends CI_Controller {
                                         <th>Nil Rated Supply</th>
                                         <th>Zero rated Supply</th>
                                         <th>Ratio of Taxable supply by Total supply</th>
-                                        <th>Ratio of Exempt Supply by Total supply</th>
                                         <th>Ratio of Non-GST supply by Total supply</th>
+                                        <th>Ratio of Exempt Supply by Total supply</th>
                                         <th>Ratio of Nil Rated supply to total supply</th>
                                         <th>Ratio of zero rated supply to total supply</th>
                                     </tr>
@@ -672,15 +672,76 @@ class Management_report extends CI_Controller {
                     '<td>' . '<b>' . "" . '</b>' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
+
+            if (empty(array_filter($ratio_taxable_supply))) {
+                $variation_taxable = 0;
+            } else {
+                $max_taxable = max(array_filter($ratio_taxable_supply));
+                $min_taxable = min(array_filter($ratio_taxable_supply));
+                $variation_taxable = ((($max_taxable - $min_taxable) / $min_taxable) * 100);
+            }
+            if (empty(array_filter($ratio_subtotal_nongst))) {
+                $variation_subtotal_nongst = 0;
+            } else {
+                $max_subtotal_nongst = max(array_filter($ratio_subtotal_nongst));
+                $min_subtotal_nongst = min(array_filter($ratio_subtotal_nongst));
+                $variation_subtotal_nongst = ((($max_subtotal_nongst - $min_subtotal_nongst) / $min_subtotal_nongst) * 100);
+            }
+           
+            if (empty(array_filter($ratio_subtotal_exempt))) {
+                $variation_subtotal_exempt = 0;
+            } else {
+                $max_subtotal_exempt = max(array_filter($ratio_subtotal_exempt));
+                $min_subtotal_exempt = min(array_filter($ratio_subtotal_exempt));
+                $variation_subtotal_exempt = ((($max_subtotal_exempt - $min_subtotal_exempt) / $min_subtotal_exempt) * 100);
+            }
+            if (empty(array_filter($ratio_subtotal_nil_rated))) {
+                $variation_subtotal_nil_rated = 0;
+            } else {
+                $max_subtotal_nil_rated = max(array_filter($ratio_subtotal_nil_rated));
+                $min_subtotal_nil_rated = min(array_filter($ratio_subtotal_nil_rated));
+                $variation_subtotal_nil_rated = ((($max_subtotal_nil_rated - $min_subtotal_nil_rated) / $min_subtotal_nil_rated) * 100);
+            }
+            if (empty(array_filter($ratio_subtotal_zero_rated))) {
+                $variation_subtotal_zero_rated = 0;
+            } else {
+                $max_subtotal_zero_rated = max(array_filter($ratio_subtotal_zero_rated));
+                $min_subtotal_zero_rated = min(array_filter($ratio_subtotal_zero_rated));
+                $variation_subtotal_zero_rated = ((($max_subtotal_zero_rated - $min_subtotal_zero_rated) / $min_taxable) * 100);
+            }
+
+            if ($variation_taxable != 0) {
+                $observation1 = round($variation_taxable) . ' is the % variation of taxable supply. ';
+            } else {
+                $observation1 = "";
+            }
+            if ($variation_subtotal_nongst != 0) {
+                $observation2 = round($variation_subtotal_nongst) . ' is the % variation of Non GST supply. ';
+            } else {
+                $observation2 = "";
+            }
+            if ($variation_subtotal_exempt != 0) {
+                $observation3 = round($variation_subtotal_exempt) . ' is the % variation of Exempt supply. ';
+            } else {
+                $observation3 = "";
+            }
+            if ($variation_subtotal_nil_rated != 0) {
+                $observation4 = round($variation_subtotal_nil_rated) . ' is the % variation of Nil Rated supply. ';
+            } else {
+                $observation4 = "";
+            }
+            if ($variation_subtotal_zero_rated != 0) {
+                $observation5 = round($variation_subtotal_zero_rated) . ' is the % variation of Zero Rated supply. ';
+            } else {
+                $observation5 = "";
+            }
             $data .= "<div class='col-md-12'>
                                     <label><h4><b>Observation </b></h4></label><span class='required' aria-required='true'> </span>
                                     <div class='input-group'>
                                         <span class='input-group-addon'>
                                             <i class='fa fa-eye'></i>
                                         </span>
-                                        <textarea class='form-control' rows='5' id='tax_exempt_observation' name='tax_exempt_observation'>
-                                      
-                                        </textarea>
+                                        <textarea class='form-control' rows='5' id='tax_exempt_observation' name='tax_exempt_observation'>" . $observation1 . $observation2 . $observation3 . $observation4 . $observation5 . "</textarea>
                                     </div>
                                     <span class='required' style='color: red' id='tax_exempt_observation_error'></span>
                                 </div>";
@@ -1160,18 +1221,17 @@ class Management_report extends CI_Controller {
                     '<td>' . '<b>' . array_sum($sales_percent_values) . '%</b> ' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
+
             $max = max($sales_percent_values2);
             $min = min($sales_percent_values2);
-            $variation = round(((($max - $min) / ($min)) * 100), 2);
+            $variation = round(((($max - $min) / ($min))) * 100, 2);
             $data .= "<div class='col-md-12'>
                                     <label><h4><b>Observation :</b></h4></label><span class='required' aria-required='true'> </span>
                                     <div class='input-group'>
                                         <span class='input-group-addon'>
                                             <i class='fa fa-eye'></i>
                                         </span>
-                                        <textarea class='form-control' rows='5' id='monthwise_sale_observation' name='monthwise_sale_observation'>
-                                       
-                                        </textarea>
+                                        <textarea class='form-control' rows='5' id='monthwise_sale_observation' name='monthwise_sale_observation'>" . $variation . " is the % variation of maximum & minimum sales per month requiring careful working capital planning in case receivable delay.</textarea>
                                     </div>
                                     <span class='required' style='color: red' id='monthwise_sale_observation_error'></span>
                                 </div>";
@@ -1254,6 +1314,7 @@ class Management_report extends CI_Controller {
                         '<td>' . $row->rate_28 . '</td>' .
                         '</tr>';
             }
+
             $total_value = ($row->rate_0 + $row->rate_5 + $row->rate_12 + $row->rate_18 + $row->rate_28);
             $data .= '<tr>' .
                     '<td>' . '<b>Ratio</b>' . '</td>' .
@@ -1263,15 +1324,17 @@ class Management_report extends CI_Controller {
                     '<td><b>' . round((($row->rate_18) / ($total_value)) * 100) . '%</b></td>' .
                     '<td><b>' . round((($row->rate_28) / ($total_value)) * 100) . '%</b></td>' .
                     '</tr>';
+            $array = array("0%" => $row->rate_0, "5%" => $row->rate_5, "12%" => $row->rate_12, "18%" => $row->rate_18, "28%" => $row->rate_28);
+            $aa = max($array);
+            $k = array_keys($array, $aa);
+            $maximum_rate = $k[0];
             $data .= "</tbody></table></div></div></div><div class='col-md-12'>
                                     <label><h4><b>Observation </b></h4></label><span class='required' aria-required='true'> </span>
                                     <div class='input-group'>
                                         <span class='input-group-addon'>
                                             <i class='fa fa-eye'></i>
                                         </span>
-                                        <textarea class='form-control' rows='5' id='rate_wise_observation' name='rate_wise_observation'>
-                                      
-                                        </textarea>
+                                        <textarea class='form-control' rows='5' id='rate_wise_observation' name='rate_wise_observation'>Maximum Range of Product falls under the Category of " . $maximum_rate . "</textarea>
                                     </div>
                                     <span class='required' style='color: red' id='rate_wise_observation_error'></span>
                                 </div>";
@@ -1321,6 +1384,8 @@ class Management_report extends CI_Controller {
                         '<td>' . $row->rate_28 . '</td>' .
                         '</tr>';
             }
+
+
             $total_value = ($row->rate_0 + $row->rate_5 + $row->rate_12 + $row->rate_18 + $row->rate_28);
             $data .= '<tr>' .
                     '<td>' . '<b>Ratio</b>' . '</td>' .
@@ -1336,9 +1401,7 @@ class Management_report extends CI_Controller {
                                         <span class='input-group-addon'>
                                             <i class='fa fa-eye'></i>
                                         </span>
-                                        <textarea class='form-control' rows='5' id='rate_wise_observation' name='rate_wise_observation'>
-                                      
-                                        </textarea>
+                                        <textarea class='form-control' rows='5' id='rate_wise_observation' name='rate_wise_observation'></textarea>
                                     </div>
                                     <span class='required' style='color: red' id='rate_wise_observation_error'></span>
                                 </div>";

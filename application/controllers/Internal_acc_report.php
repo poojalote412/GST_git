@@ -657,6 +657,23 @@ class Internal_acc_report extends CI_Controller {
             for ($m = 0; $m < $count; $m++) {
                 $new_net_rtc[] = $net_rtc[$m] - $debit_tax[$m] . '<br>';
             }
+            $months = "";
+            $get_month_observation = $this->db->query("SELECT month from 3b_offset_summary_all where paid_in_cash !='0'");
+            if ($this->db->affected_rows() > 0) {
+                $res1 = $get_month_observation->result();
+                foreach ($res1 as $value) {
+                    $paid_mon = $value->month;
+                    $months .= $paid_mon . ",";
+                }
+                $final_months = rtrim($months, ",");
+            }
+
+            $count1 = count($res1);
+            if ($count1 != 0) {
+                $observation = "Cash Payment of Liability has been done in " . $final_months . ".";
+            } else {
+                $observation = "No Cash Payment has been done.";
+            }
 
             $data .= '<div class="row">
                     <div class="col-md-12">
@@ -711,9 +728,7 @@ class Internal_acc_report extends CI_Controller {
                                         <span class='input-group-addon'>
                                             <i class='fa fa-eye'></i>
                                         </span>
-                                        <textarea class='form-control' rows='5' id='tax_liability_observation' name='tax_liability_observation'>
-                                      
-                                        </textarea>
+                                        <textarea class='form-control' rows='5' id='tax_liability_observation' name='tax_liability_observation'>" . $observation . "</textarea>
                                     </div>
                                     <span class='required' style='color: red' id='tax_liability_observation_error'></span>
                                 </div>";
@@ -725,6 +740,7 @@ class Internal_acc_report extends CI_Controller {
             $abc5 = array();
             $abc6 = array();
             $abc7 = array();
+
 
             for ($o = 0; $o < sizeof($liabilityoutward); $o++) {
                 $abc[] = $liabilityoutward[$o];
@@ -961,6 +977,7 @@ class Internal_acc_report extends CI_Controller {
     public function get_graph_tax_turnover1() {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
+        $year = $this->Internal_acc_report_model->get_year($customer_id, $insert_id);
         $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         if ($query->num_rows() > 0) {
             $result = $query->result();
@@ -1034,17 +1051,15 @@ class Internal_acc_report extends CI_Controller {
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
             $max_ratio = max($tax_ratio);
+            $average = round(array_sum($tax_ratio1) / count($tax_ratio));
 
-            $average = array_sum($tax_ratio1) / count($tax_ratio);
             $data .= "<div class='col-md-12'>
                                     <label><h4><b>Observation </b></h4></label><span class='required' aria-required='true'> </span>
                                     <div class='input-group'>
                                         <span class='input-group-addon'>
                                             <i class='fa fa-eye'></i>
                                         </span>
-                                        <textarea class='form-control' rows='5' id='tax_turnover_observation' name='tax_turnover_observation'>
-                                      
-                                        </textarea>
+                                        <textarea class='form-control' rows='5' id='tax_turnover_observation' name='tax_turnover_observation'>The average tax value to turnover is " . $average . "% & higher tax value is " . $max_ratio . "% of Year F.Y." . $year . ".</textarea>
                                     </div>
                                     <span class='required' style='color: red' id='tax_turnover_observation_error'></span>
                                 </div>";
@@ -1313,9 +1328,7 @@ class Internal_acc_report extends CI_Controller {
                                         <span class='input-group-addon'>
                                             <i class='fa fa-eye'></i>
                                         </span>
-                                        <textarea class='form-control' rows='5' id='eligible_ineligible_observation' name='eligible_ineligible_observation'>
-                                      
-                                        </textarea>
+    <textarea class='form-control' rows='5' id='eligible_ineligible_observation' name='eligible_ineligible_observation'>Total ineligible ITC to Total ITC has been increase from ____(month name) to _____(month name).Total eligible ITC to total ITC has been decreased from ____(month name) to ____(maonthname).</textarea>
                                     </div>
                                     <span class='required' style='color: red' id='eligible_ineligible_observation_error'></span>
                                 </div>";

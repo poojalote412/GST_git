@@ -106,7 +106,7 @@ if (is_array($session_data)) {
                         </div>
                     </div>
 
-                </form> 
+                
                 <hr/>
 
 
@@ -153,10 +153,12 @@ if (is_array($session_data)) {
                     </div>
 
                 </div>
+                </form> 
                 <div class="form-actions" align="center"><br>
                     <div class="row" >
                         <div  class="col-md-offset-3 col-md-9" >
                             <!--<a href="Customer" class="btn btn-primary"  style="float:right; margin: 2px;">Cancel</a>-->
+                            
                             <button type="button"  id="save_info" name="save_info" class="btn btn-primary"  style="float:right;  margin: 2px;">Save</button>
                         </div>
                     </div>
