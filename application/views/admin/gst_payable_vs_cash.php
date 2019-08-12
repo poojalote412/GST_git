@@ -320,8 +320,7 @@ if (is_array($session_data)) {
                     });
                 }
             }
-        }
-        );
+        });
 
     }
 </script>

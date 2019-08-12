@@ -131,7 +131,7 @@ if (is_array($session_data)) {
         $("#example1").DataTable();
     });
     $(function () {
-        $("#example2").DataTable();
+        $("#example_invoice_not_include").DataTable();
     });
     $(function () {
         $("#example3").DataTable();
@@ -181,7 +181,7 @@ if (is_array($session_data)) {
                     var data = result.data;
 
                     $('#company_data').html(data);
-                    $('#example2').DataTable();
+                    $('#example_invoice_not_include').DataTable();
                 } else {
                     $('#company_data').html("");
                     alert('no data availabale');

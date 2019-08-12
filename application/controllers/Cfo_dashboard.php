@@ -138,7 +138,7 @@ class Cfo_dashboard extends CI_Controller {
                                         <span class="input-group-addon">
                                             <i class="fa fa-eye"></i>
                                         </span>
-                                        <textarea class="form-control" rows="5" id="cfo_observation" name="cfo_observation">Percentage of GST payable to turnover is not stable for F.Y. 2017-18 it varies from ' . min($ratio_val) . '% to ' . max($ratio_val) . '%.</textarea>
+                                        <textarea class="form-control" rows="5" id="cfo_observation" name="cfo_observation" >Percentage of GST payable to turnover is not stable for F.Y. 2017-18 it varies from ' . min($ratio_val) . '% to ' . max($ratio_val) . '%.</textarea>
                                     </div>
                                     <span class="required" style="color: red" id="cfo_observation_error"></span> 
                                 </div><br>';

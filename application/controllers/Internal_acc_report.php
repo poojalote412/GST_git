@@ -911,10 +911,16 @@ class Internal_acc_report extends CI_Controller {
             $data .= '</tbody></table></div></div></div>';
             $max_ratio = max($tax_ratio);
 
-            $average = array_sum($tax_ratio1) / count($tax_ratio);
-            $data .= "<hr><h4><b>Observation of Tax Turnover:</b></h4>"
-                    . "<span>The average tax value to turnover is <b>" . round($average, 2) . "%</b>. </span><br>"
-                    . "<span>The tax value as <b>" . $max_ratio . "%</b> of taxable value which is higher than the rest.</span>";
+//            $average = array_sum($tax_ratio1) / count($tax_ratio);
+            $get_observation = $this->db->query("select tax_turnover_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' and activity_status=1");
+            if ($this->db->affected_rows() > 0) {
+                $res = $get_observation->row();
+                $observation = $res->tax_turnover_observation;
+            } else {
+                $observation = "";
+            }
+
+            $data .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
             // loop to get graph data as per graph script requirement
             $abc1 = array();
             $abc2 = array();
@@ -1411,6 +1417,8 @@ class Internal_acc_report extends CI_Controller {
     public function get_graph_gst_payable_vs_cash() {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
+
+        $year = $this->Internal_acc_report_model->get_year($customer_id, $insert_id);
         $query = $this->db->query("SELECT * from 3b_offset_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         if ($query->num_rows() > 0) {
             $result = $query->result();
@@ -1475,10 +1483,14 @@ class Internal_acc_report extends CI_Controller {
             $max_percent = max($percent_arr);
             $min_percent = min($percent_arr);
             $avg = array_sum($percent_arr) / count($percent_arr);
-            $data .= "<hr><h4><b>Observation of GST Payable vs Cash:</b></h4>"
-                    . "<span>GST paid in cash varies from <b>" . $min_percent . "%</b> to  <b>" . $max_percent . "%.</b> "
-                    . "Average percentage of liability paid by cash is <b>" . round($avg) . "%</b>.</span><br>"
-                    . "<span>So, analysis of huge payment by cash to be done & accordingly input tax credit planning should be done.</span>";
+            $data .= "<hr><h4><b>Observation of GST Payable vs Cash:</b></h4>";
+            if ($avg > 35) {
+                $data .= "<span>GST paid in cash varies from <b>" . $min_percent . "%</b> to  <b>" . $max_percent . "%</b> for F.Y. " . $year
+                        . ".  Average percentage of liability paid by cash is <b>" . round($avg) . "%</b> for F.Y. " . $year . ".</span><br>"
+                        . "<span>So, analysis of huge payment by cash to be done & accordingly input tax credit planning should be done.</span>";
+            } else {
+                $data .= "GST paid in cash has varied from <b>" . $min_percent . "%</b> to  <b>" . $max_percent . "% for FY –" . $year;
+            }
             //graph work
             $abc1 = array();
             $abc2 = array();
