@@ -125,9 +125,10 @@ class Cfo_dashboard extends CI_Controller {
                     '<td>' . '<b>' . array_sum($tax_liabality1) . '</b>' . '</td>' .
                     '<td>' . '<b>' . array_sum($ratio_val) . "%" . '</b>' . '</td>' .
                     '</tr>';
-            $data .= '</tbody></table></div></div></div>';
+            $data .= '</tbody></table></div></div></div><br><br>';
 //         echo   max($ratio_val);
 //         echo   min($ratio_val);
+            
             $data .= "<hr><h4><b>Observation of CFO:</b></h4>"
                     . "<span>Percentage of GST payable to turnover is not stable for F.Y. 2017-18 it varies from <b>" . min($ratio_val) . "% </b>to<b> " . max($ratio_val) . "%</b>.</span><br>";
             

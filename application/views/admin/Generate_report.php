@@ -64,7 +64,7 @@ if (is_array($session_data)) {
                                     <span class="input-group-addon">
                                         <i class="fa fa-user"></i>
                                     </span>
-                                    <input type="text" class="form-control" value="<?php // echo $user_name[$x]['year_id']     ?>"  disabled=""name="year_id"  id="year_id" onkeyup="remove_error('customer_name')"   aria-required="true" aria-describedby="input_group-error">
+                                    <input type="text" class="form-control" value=""  disabled=""name="year_id"  id="year_id" onkeyup="remove_error('customer_name')"   aria-required="true" aria-describedby="input_group-error">
 
                                 </div>
                                 <span class="required" style="color: red" id="customer_name_error"></span>
@@ -84,49 +84,51 @@ if (is_array($session_data)) {
                 <div id="JSFiddle">
                     <!-- Insert your document here -->
                     <header  style="display:none;margin-top:20px;">
-                        <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p>
+                        <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br><br><br>
                       
                     </header>
-                    <footer style="display:none">
+                    
+                    <footer style="display:none;margin-top:-30px;">
                         <p>Strictly Private and Confidential</p>
                     </footer>
                   
-                    <div style="page-break-before:always;">
-                        <div id="container_image_front">
+                    <!--<div style="page-break-before:always;">-->
+                        <div id="container_image_front" style="page-break-before:always;">
                             <!--<img src="https://premisafe.com/Logo.jpg" width="120px" height="30px">-->
-                            <img src="https://premisafe.com/GST_image/GSTReportCover.jpg" width="700px" height="700px">
+                            <img src="https://premisafe.com/GST_image/GSTReportCover.jpg" style="page-break-before:always" width="1200px" height="700px">
                             
                         </div>
-                        <div id="container_image_letter_client"><img src="https://premisafe.com/GST_image/LettertoClient.jpg" width="700px" height="700px"></div>
-                        <div id="container_image_limited_usage"><img src="https://premisafe.com/GST_image/LimitedUsage&Abbreviation.jpg" width="700px" height="700px"></div>
-                        <div id="container_image_components_overview"><img src="https://premisafe.com/GST_image/GSTComponents&Overview.jpg" width="700px" height="700px"></div>
-                        <div id="container_image_GST_framework"><img src="https://premisafe.com/GST_image/GSTFramework.jpg" width="700px" height="700px"></div>
-                        <div id="container_image_approach"><img src="https://premisafe.com/GST_image/Approach.jpg" width="700px" height="700px"></div>
-                        <!--<div id="content_pdf"></div><br><br><br><br><br><br><br><br><br><br><br>-->
-                        <div id="container" style="height: 500px;  width:700px"></div>
-                        <div id="cfo_data"></div>
-                        <div id="container1" style="height: 500px; width: 700px"></div>
-                        <div id="sales_monthly_data"></div>
-                        <div id="container_state_wise" style="height: 500px; width: 700px"></div>
-                        <div id="sales_state_wise_data"></div>
-                        <div id="container_nontax_exempt" style="height: 500px; width: 700px"></div>
-                        <div id="tax_ntax_Exempt_data"></div>
-                        <div id="container_sales_b2b_b2c" style="height: 500px; width: 700px"></div>
-                        <div id="compare_b2b_data"></div>
-                        <div id="container_GSTR3b_vs_2A" style="height: 500px; width: 700px"></div>
-                        <div id="compare_GSTR3B_Vs2_data"></div>
-                        <div id="container_GSTR3b_vs_1" style="height: 500px; width: 700px"></div><br><br>
-                        <div id="compare_3b_vs1_data"></div>
-                        <div id="gstr3B_data"></div><br><br>
-                        <div id="gstr1_data"></div><br><br>
-                        <div id="invoice_ammends_data" style="height: 500px; width: 700px"></div>
-                        <div id="invoice_ammend_original_data"></div>
-                        <div id="invoice_notinclude_gstr1_data"></div>
-                        <div id="company_all_notin2a_data"></div>
-                        <div id="company_all_notinrec_data"></div>
+                        <!--<div id="content_pdf"></div><br><br><br><br><br><br>-->
+                        <div id="container_image_letter_client" style="margin-top:140px;"><img src="https://premisafe.com/GST_image/LettertoClient.jpg" width="900px" height="900px" style="page-break-before:always;"></div>
+                        <div id="container_image_limited_usage" style="margin-top:140px;"><img src="https://premisafe.com/GST_image/LimitedUsage&Abbreviation.jpg" width="800px" height="700px" style="page-break-before:always;"></div>
+                        <div id="container_image_components_overview" style="margin-top:140px;"><img src="https://premisafe.com/GST_image/GSTComponents&Overview.jpg" width="800px" height="700px" style="page-break-before:always;"></div>
+                        <div id="container_image_GST_framework" style="margin-top:140px;"><img src="https://premisafe.com/GST_image/GSTFramework.jpg" width="800px" height="900px" style="page-break-before:always;"></div>
+                        <div id="container_image_approach" style="margin-top:140px;"><img src="https://premisafe.com/GST_image/Approach.jpg" width="800px" height="900px" style="page-break-before:always;"></div>
+                        
+                        <div id="container" style="page-break-before:always;width:700px;margin-top:140px;"></div>
+                        <div id="cfo_data" style="width:700px"></div>
+                        <div id="container1"  style="page-break-before:always;width:700px;margin-top:140px;"><h4>DETAILS OF GST REPORTS AND INSIGHTS</h4></div>
+                        <div id="sales_monthly_data" style="width:700px"></div>
+                        <div id="container_state_wise" style="page-break-before:always;width:700px;margin-top:140px;"></div>
+                        <div id="sales_state_wise_data"  style="width:700px"></div>
+                        <div id="container_nontax_exempt" style="page-break-before:always;width:700px;margin-top:140px;"></div>
+                        <div id="tax_ntax_Exempt_data" style="width:700px"></div>
+                        <div id="container_sales_b2b_b2c" style="page-break-before:always;width:700px;margin-top:140px;"></div>
+                        <div id="compare_b2b_data" style="width:700px"></div>
+                        <div id="container_GSTR3b_vs_2A"  style="page-break-before:always;width:700px;margin-top:140px;"></div>
+                        <div id="compare_GSTR3B_Vs2_data" style="width:700px"></div>
+                        <div id="container_GSTR3b_vs_1" style="page-break-before:always;width:700px;margin-top:140px;"></div>
+                        <div id="compare_3b_vs1_data" style="width:700px"></div>
+                        <div id="gstr3B_data" style="page-break-before:always;width:700px;margin-top:140px;"></div>
+                        <div id="gstr1_data" style="page-break-before:always;width:700px;margin-top:140px;"></div>
+                        <!--<div id="invoice_ammends_data" style="page-break-before:always;width:700px"></div>-->
+                        <div id="invoice_ammend_original_data" style="page-break-before:always;margin-top:140px;"></div>
+                        <div id="invoice_notinclude_gstr1_data" style="page-break-before:always;margin-top:140px;"></div>
+                        <div id="company_all_notin2a_data" style="page-break-before:always;margin-top:140px;"></div>
+                        <div id="company_all_notinrec_data" style="page-break-before:always;margin-top:140px;"></div>
                         <div id="company_all_partially_data"></div>
                         
-                    </div>
+                    <!--</div>-->
                 </div>
             </div>
 
@@ -1014,6 +1016,7 @@ if (is_array($session_data)) {
         //table data for Invoice not included in GSTR1
         
 //        $('#invoice_notinclude_gstr1_data').html("");
+
         $.ajax({
             type: "post",
             url: "<?= base_url("Invoice_comp_report/get_table_data") ?>",
@@ -1068,6 +1071,10 @@ if (is_array($session_data)) {
                     var data = result.data;
                     
                     $('#company_all_notinrec_data').html(data);
+//                     $('<table>').append(
+//                $('table tr:first-child').clone(),
+//                $('table tr').slice(Math.ceil($('table tr').length / 2))
+//                ).appendTo('body');
 //                    $('#example2').DataTable();
                 } else {
                     $('#company_all_notinrec_data').html("");

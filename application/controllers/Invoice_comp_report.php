@@ -398,9 +398,9 @@ class Invoice_comp_report extends CI_Controller {
             $response['code'] = 204;
         }echo json_encode($response);
     }
-    
+
     //function for get all not in 2a records with company details
-    
+
     public function get_not_in2a_records_details() { //get not in 2A data of perticular company wise
         $company_name = $this->input->post("company_name");
         $customer_id = $this->input->post("customer_id");
@@ -556,13 +556,14 @@ class Invoice_comp_report extends CI_Controller {
     }
 
     //function to get all not in records with company details on report
-    
+
     public function get_not_inrec_records_all() { //get not in records data of perticular company wise
         $company_name = $this->input->post("company_name");
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
         $query = $this->Invoice_comp_report_model->get_notinrec_records_all($customer_id, $insert_id);
         $data = "";
+         $i = 1;    
         if ($query != FALSE) {
             $data .= '
                 <div class="row">
@@ -573,7 +574,7 @@ class Invoice_comp_report extends CI_Controller {
             <div class="row">
                     <div class="col-md-12">
                         <div class="">
-                         <table id="example3" class="table table-bordered table-striped">
+                         <table  class="table table-bordered table-striped" style=" page-break-after:auto">
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
                                         <th>No.</th>
@@ -592,13 +593,22 @@ class Invoice_comp_report extends CI_Controller {
             $invoice_value = array();
             $taxable_value = array();
             $tax = array();
-            $i = 1;
+//            $TotalNoOfRecords = count($data);
+           
+           
             foreach ($query as $row) {
-
+                
                 $invoice_value[] = $row->invoice_value;
                 $taxable_value[] = $row->taxable_value;
                 $tax[] = $row->tax;
-
+//                if($i > 20) {
+////                    if ($i && $i % 10 == 0) {
+////                    continue;
+//                    $data .= '<!-- break -->';
+////                    $data .= '<span class="pageBreak" style=" page-break-before: always;">&NBSP;</span>';
+////                      echo '<span class="pageBreak"></span>' . PHP_EOL;
+////                    $i++; // <-- Oh and reset $i
+//                }
                 $data .= '<tr>' .
                         '<td>' . $i . '</td>' .
                         '<td>' . $row->company_name . '</td>' .
@@ -610,8 +620,19 @@ class Invoice_comp_report extends CI_Controller {
                         '<td>' . $row->taxable_value . '</td>' .
                         '<td>' . $row->tax . '</td>' .
                         '</tr>';
+                
+               
+//                if($i % 20) {
+////                    if ($i && $i % 10 == 0) {
+////                    continue;
+//                    $data .= '<!-- break -->';
+////                    $data .= '<span class="pageBreak" style=" page-break-before: always;">&NBSP;</span>';
+////                      echo '<span class="pageBreak"></span>' . PHP_EOL;
+////                    $i++; // <-- Oh and reset $i
+//                }
                 $i++;
             }
+              
             $data .= '<tr>' .
                     '<td>' . "<b>Total</b>" . '</td>' .
                     '<td>' . "" . '</td>' .
@@ -634,7 +655,7 @@ class Invoice_comp_report extends CI_Controller {
             $response['code'] = 204;
         }echo json_encode($response);
     }
-    
+
     //function to load partial match data
     public function partial_match_index() {
         $session_data = $this->session->userdata('login_session');
@@ -1074,9 +1095,9 @@ class Invoice_comp_report extends CI_Controller {
                     <div class="col-md-12">
                     <center><h3 style="color:black"><b> 2.Invoice not included in GSTR-1:</b></h3></center><br>
                         <div class="">
-                         <table id="example2" class="table table-bordered table-striped" style="width:40%">
+                         <table id="example2" class="table table-bordered table-striped" style="break-inside:auto;width:40%">
                                 <thead style="background-color: #00008B;color:white">
-                                    <tr>
+                                    <tr style="page-break-before:always;">
                                         <th>Sr No.</th>
                                         <th>Original Month</th>
                                         <th>Showing in month</th>
@@ -1099,21 +1120,21 @@ class Invoice_comp_report extends CI_Controller {
             foreach ($query as $row) {
 
                 $data .= '<tr>' .
-                        '<td>' . $k . '</td>
-                        <td>' . $row->original_month . '</td>
-                        <td>' . $row->showing_month . '</td>
-                        <td>' . $row->category . '</td>
-                        <td>' . $row->gstin_no . '</td>
-                        <td>' . $row->invoice_date . '</td>
-                        <td>' . $row->invoice_no . '</td>
-                        <td>' . $row->name . '</td>
-                        <td>' . $row->invoice_value . '</td>
-                        <td>' . $row->taxable_value . '</td>
-                        <td>' . $row->igst . '</td>
-                        <td>' . $row->cgst . '</td>
-                        <td>' . $row->sgst . '</td>
-                        <td>' . $row->cess . '</td>
-                        <td><b>' . ($row->igst + $row->cgst + $row->sgst + $row->cess) . '</b></td>
+                        '<td><div style="page-break-before:always;">' . $k . '</div></td>
+                        <td><div style="page-break-before:always;">' . $row->original_month . '</div></td>
+                        <td><div style="page-break-before:always;">' . $row->showing_month . '</div></td>
+                        <td><div style="page-break-before:always;">' . $row->category . '</div></td>
+                        <td><div style="page-break-before:always;">' . $row->gstin_no . '</div></td>
+                        <td><div style="page-break-before:always;">' . $row->invoice_date . '</div></td>
+                        <td><div style="page-break-before:always;">' . $row->invoice_no . '</div></td>
+                        <td><div style="page-break-before:always;">' . $row->name . '</div></td>
+                        <td><div style="page-break-before:always;">' . $row->invoice_value . '</div></td>
+                        <td><div style="page-break-before:always;">' . $row->taxable_value . '</div></td>
+                        <td><div style="page-break-before:always;">' . $row->igst . '</div></td>
+                        <td><div style="page-break-before:always;">' . $row->cgst . '</div></td>
+                        <td><div style="page-break-before:always;">' . $row->sgst . '</div></td>
+                        <td><div style="page-break-before:always;">' . $row->cess . '</div></td>
+                        <td><div style="page-break-before:always;"><b>' . ($row->igst + $row->cgst + $row->sgst + $row->cess) . '</b></div></td>
                         
                         </tr>';
                 $k++;
