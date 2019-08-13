@@ -1207,6 +1207,15 @@ class Invoice_comp_report extends CI_Controller {
                 $k++;
             }
             $data .= '</tbody></table></div></div></div>';
+            $get_observation = $this->db->query("select invoice_not_include_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' and activity_status=1");
+            if ($this->db->affected_rows() > 0) {
+                $res = $get_observation->row();
+                $observation = $res->invoice_not_include_observation;
+            } else {
+                $observation = "";
+            }
+
+            $data .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
 
             $response['data'] = $data;
             $response['message'] = "success";
@@ -1550,9 +1559,17 @@ class Invoice_comp_report extends CI_Controller {
                         
                         </tr>';
                 $k++;
-                '</tbody></table></div></div></div>';
             }
-//            $data .= '</tbody></table></div></div></div>';
+            $data .= '</tbody></table></div></div></div>';
+            $get_observation = $this->db->query("select amendment_records_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' and activity_status=1");
+            if ($this->db->affected_rows() > 0) {
+                $res = $get_observation->row();
+                $observation = $res->amendment_records_observation;
+            } else {
+                $observation = "";
+            }
+
+            $data .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
             $response['data'] = $data;
             $response['message'] = "success";
             $response['status'] = true;

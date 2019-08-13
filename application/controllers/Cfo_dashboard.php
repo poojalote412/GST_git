@@ -61,7 +61,7 @@ class Cfo_dashboard extends CI_Controller {
             $data = $result->row();
             $turn_id = $data->uniq_id;
             //generate turn_id
-            $turn_id = str_pad( ++$turn_id, 5, '0', STR_PAD_LEFT);
+            $turn_id = str_pad(++$turn_id, 5, '0', STR_PAD_LEFT);
             return $turn_id;
         } else {
             $turn_id = 'turn_1001';
@@ -274,10 +274,15 @@ class Cfo_dashboard extends CI_Controller {
             $data .= '</tbody></table></div></div></div>';
 //         echo   max($ratio_val);
 //         echo   min($ratio_val);
-            $data .= "<hr><h4><b>Observation of CFO:</b></h4>"
-                    . "<span>Percentage of GST payable to turnover is not stable for F.Y. 2017-18 it varies from <b>" . min($ratio_val) . "% </b>to<b> " . max($ratio_val) . "%</b>.</span><br>"
-                    . "<div class='col-md-4'>
-                                    <label>About Company:</label><span class='required' aria-required='true'> </span>";
+            $get_observation = $this->db->query("select cfo_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' and activity_status=1");
+            if ($this->db->affected_rows() > 0) {
+                $res = $get_observation->row();
+                $observation = $res->cfo_observation;
+            } else {
+                $observation = "";
+            }
+
+            $data .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
 
             // $data .= '<img src="' . base_url('images/samples/images122.png') . '" width="200px" height="200px"/>';
 //            var_dump($turnover1);

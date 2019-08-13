@@ -452,7 +452,7 @@ class Internal_acc_report extends CI_Controller {
             $data = $result->row();
             $turn_id = $data->tax_libility_id;
             //generate user_id
-            $turn_id = str_pad(++$turn_id, 5, '0', STR_PAD_LEFT);
+            $turn_id = str_pad( ++$turn_id, 5, '0', STR_PAD_LEFT);
             return $turn_id;
         } else {
             $turn_id = 'tax_1001';
@@ -556,7 +556,14 @@ class Internal_acc_report extends CI_Controller {
                     '<td>' . '<b>' . array_sum($late_fee) . '</b> ' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
-//            $data .= "<hr><h4><b>Observation of Tax Liability:</b></h4>";
+            $get_observation = $this->db->query("select tax_liability_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' and activity_status=1");
+            if ($this->db->affected_rows() > 0) {
+                $res = $get_observation->row();
+                $observation = $res->tax_liability_observation;
+            } else {
+                $observation = "";
+            }
+            $data .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
             $abc = array();
             $abc2 = array();
             $abc3 = array();
@@ -1210,11 +1217,15 @@ class Internal_acc_report extends CI_Controller {
                     '<td>' . '<b>' . "" . '</b>' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
-//            $max_ratio = max($tax_ratio);
-//            $average = array_sum($tax_ratio1) / count($tax_ratio);
-//            $data .= "<hr><h4><b>Observation of Tax Turnover:</b></h4>"
-//                    . "<span>The average tax value to turnover is <b>" . round($average, 2) . "%</b>. </span><br>"
-//                    . "<span>The tax value as <b>" . $max_ratio . "%</b> of taxable value which is higher than the rest.</span>";
+            $get_observation = $this->db->query("select eligible_ineligible_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' and activity_status=1");
+            if ($this->db->affected_rows() > 0) {
+                $res = $get_observation->row();
+                $observation = $res->eligible_ineligible_observation;
+            } else {
+                $observation = "";
+            }
+
+            $data .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
             // loop to get graph data as per graph script requirement
             $abc1 = array();
             $abc2 = array();
