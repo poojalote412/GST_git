@@ -1443,7 +1443,7 @@ class Internal_acc_report extends CI_Controller {
                     <div class="col-md-12">
                         <div class="">
                          <table id="example2" class="table table-bordered table-striped">
-                                <thead>
+                                <thead style="background-color: #00008B;color:white">
                                     <tr>
                                         <th>No.</th>
                                         <th>Month</th>

@@ -115,16 +115,21 @@ if (is_array($session_data)) {
                         <div id="tax_ntax_Exempt_data" style="width:700px"></div>
                         <div id="container_sales_b2b_b2c" style="page-break-before:always;width:700px;margin-top:140px;"></div>
                         <div id="compare_b2b_data" style="width:700px"></div>
+                        <div id="compare_sales_ratewise_data" style="width:700px"></div>
                         <div id="container_GSTR3b_vs_2A"  style="page-break-before:always;width:700px;margin-top:140px;"></div>
                         <div id="compare_GSTR3B_Vs2_data" style="width:700px"></div>
                         <div id="container_GSTR3b_vs_1" style="page-break-before:always;width:700px;margin-top:140px;"></div>
                         <div id="compare_3b_vs1_data" style="width:700px"></div>
                         <div id="container_tax_liability" style="page-break-before:always;width:700px;margin-top:140px;"></div>
                         <div id="tax_liability_data" style="width:700px"></div>
-                        <div id="gstr3B_data" style="page-break-before:always;width:700px;margin-top:140px;"></div>
-                        <div id="gstr1_data" style="page-break-before:always;width:700px;margin-top:140px;"></div>
                         <div id="container_tax_turnover"  style="page-break-before:always;width:700px;margin-top:140px;"></div>
                         <div id="tax_turnover_data" style="page-break-before:always;width:700px;margin-top:140px;"></div>
+                        <div id="container_gst_payablevscash"  style="page-break-before:always;width:700px;margin-top:140px;"></div>
+                        <div id="gst_payablevscash_data" style="page-break-before:always;width:700px;margin-top:140px;"></div>
+                        <div id="container_eligible_credit"  style="page-break-before:always;width:700px;margin-top:140px;"></div>
+                        <div id="tax_iniligible_data" style="page-break-before:always;width:700px;margin-top:140px;"></div>
+                         <div id="gstr3B_data" style="page-break-before:always;width:700px;margin-top:140px;"></div>
+                        <div id="gstr1_data" style="page-break-before:always;width:700px;margin-top:140px;"></div>
                         <!--<div id="invoice_ammends_data" style="page-break-before:always;width:700px"></div>-->
                         <div id="invoice_ammend_original_data" style="page-break-before:always;margin-top:140px;"></div>
                         <div id="invoice_notinclude_gstr1_data" style="page-break-before:always;margin-top:140px;"></div>
@@ -705,6 +710,8 @@ if (is_array($session_data)) {
             }
         });
 
+
+
         //observation table for sales B2B & B2Cs
         $.ajax({
             type: "post",
@@ -718,6 +725,27 @@ if (is_array($session_data)) {
                     var data = result.data;
                     $('#compare_b2b_data').html("");
                     $('#compare_b2b_data').html(data);
+//                    $('#example2').DataTable();
+                } else {
+
+                }
+            },
+
+        });
+
+        //table for sales rate wise
+        
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Management_report/get_data_rate_wise") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                if (result.message === "success") {
+
+                    var data = result.data;
+                    $('#compare_sales_ratewise_data').html("");
+                    $('#compare_sales_ratewise_data').html(data);
 //                    $('#example2').DataTable();
                 } else {
 
@@ -1135,7 +1163,7 @@ if (is_array($session_data)) {
             }
         });
         
-        //table 
+        //table  for tax overview liability
         $.ajax({
             type: "post",
             url: "<?= base_url("Internal_acc_report/get_graph") ?>",
@@ -1296,6 +1324,259 @@ if (is_array($session_data)) {
 
         });
 
+        
+        //Graph for GST PAyable vs Cash
+        
+        $.ajax({
+            type: "POST",
+            url: "<?= base_url("Internal_acc_report/get_graph_gst_payable_vs_cash") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                if (result.message === "success") {
+
+                    var liability = result.liability;
+                    var net_itc = result.net_itc;
+                    var paid_in_cash = result.paid_in_cash;
+                    var percent = result.percent;
+                    var data_month = result.month_data;
+                    var max_range = result.max_range;
+                    var customer_name = "Customer Name:" + result.customer_name;
+                    Highcharts.chart('container_gst_payablevscash', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'GST Payable vs Cash'
+                        },
+                        subtitle: {
+                            text: customer_name,
+                        },
+                        xAxis: {
+                            categories: data_month
+                        },
+                        yAxis: [{
+                                max: max_range,
+                                title: {
+                                    text: 'TurnOver'
+                                }
+                            }, {
+                                min: 0,
+                                max: 100,
+                                opposite: true,
+                                title: {
+                                    text: 'Percentage(%) paid in cash'
+                                }
+                            }],
+                        legend: {
+                            shadow: false
+                        },
+                        tooltip: {
+                            shared: true
+                        },
+                        series: [{
+                                name: 'Tax Liability',
+                                data: liability,
+                                color: '#146FA7',
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                },
+                            }, {
+                                name: 'ITC',
+                                data: net_itc,
+                                color: '#B8160E',
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                },
+                            }, {
+                                name: 'Paid in Cash',
+                                data: paid_in_cash,
+                                color: '#36BE69',
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                },
+                            }, {
+                                type: 'spline',
+                                color: '#F9AB58',
+                                name: 'Percentage paid in cash',
+                                data: percent,
+                                yAxis: 1,
+                                tooltip: {
+                                    valueSuffix: ' %'
+                                },
+                                plotOptions: {
+                                    spline: {
+                                        dataLabels: {
+                                            enabled: true
+                                        },
+                                        enableMouseTracking: false
+                                    }
+                                },
+                            }]
+                    });
+                }
+            }
+        });
+        
+        //Table data for GST payable vs cash
+        
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Internal_acc_report/get_graph_gst_payable_vs_cash") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+//                 alert();
+                $('#cfo_data').html("");
+                if (result.message === "success") {
+
+                    var data = result.data;
+                    $('#gst_payablevscash_data').html("");
+                    $('#gst_payablevscash_data').html(data);
+//                    $('#example2').DataTable();
+                } else {
+
+                }
+            },
+
+        });
+
+
+        //Graph for GST iniligible and eligible credit
+        
+        $.ajax({
+            type: "POST",
+            url: "<?= base_url("Internal_acc_report/get_graph_eligible_ineligible") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                if (result.message === "success") {
+
+                    var ineligible_itc = result.ineligible_itc;
+                    var net_itc = result.net_itc;
+                    var ineligible_ratio = result.ineligible_ratio;
+                    var eligible_ratio = result.eligible_ratio;
+                    var data_month = result.month_data;
+                    var max_range = result.max_range;
+                    var customer_name = "Customer Name:" + result.customer_name;
+                    Highcharts.chart('container_eligible_credit', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Eligible and Ineligible Credit'
+                        },
+                        subtitle: {
+                            text: customer_name
+                        },
+                        xAxis: {
+                            categories: data_month
+                        },
+                        yAxis: [{
+
+                                max: max_range,
+                                title: {
+                                    text: 'Sales'
+                                }
+                            }, {
+//                                min: 0,
+                                max: 100,
+                                opposite: true,
+                                title: {
+                                    text: 'Ratio(in %) '
+                                }
+                            }],
+                        legend: {
+                            shadow: false
+                        },
+                        tooltip: {
+                            shared: true
+                        },
+                        series: [{
+                                type: 'column',
+                                name: ' Ineligible ITC',
+                                data: ineligible_itc,
+                                color: '#146FA7',
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                }
+                            }, {
+                                type: 'column',
+                                name: 'Eligible ITC',
+                                data: net_itc,
+                                color: '#B8160E',
+                                tooltip: {
+                                    valuePrefix: '₹',
+                                    valueSuffix: ' M'
+                                }
+                            }, {
+                                type: 'spline',
+                                color: '#5BCB45',
+                                name: 'Ratio Of Ineligible ITC to total ITC',
+                                data: ineligible_ratio,
+                                yAxis: 1,
+                                tooltip: {
+                                    valueSuffix: ' %'
+                                },
+                                plotOptions: {
+                                    spline: {
+                                        dataLabels: {
+                                            enabled: true
+                                        },
+                                        enableMouseTracking: false
+                                    }
+                                }
+                            }, {
+                                type: 'spline',
+                                color: '#B596E7',
+                                name: 'Ratio of Eligible ITC to Total ITC',
+                                data: eligible_ratio,
+                                yAxis: 1,
+                                tooltip: {
+                                    valueSuffix: ' %'
+                                },
+                                plotOptions: {
+                                    spline: {
+                                        dataLabels: {
+                                            enabled: true
+                                        },
+                                        enableMouseTracking: false
+                                    }
+                                }
+                            }]
+                    });
+                } else {
+                    alert('no graph available.please insert files.');
+                }
+            }
+        });
+        
+        //table data for GST iniligible and eligible credit
+        
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Internal_acc_report/get_graph_eligible_ineligible") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+//                 alert();
+                $('#tax_iniligible_data').html("");
+                if (result.message === "success") {
+
+                    var data = result.data;
+
+                    $('#tax_iniligible_data').html(data);
+//                    $('#example2').DataTable();
+                } else {
+
+                }
+            },
+
+        });
         
          //table data for Invoice ammend in other than original
          
