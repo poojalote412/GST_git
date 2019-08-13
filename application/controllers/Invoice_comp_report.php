@@ -415,9 +415,9 @@ class Invoice_comp_report extends CI_Controller {
                 </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12" id="div_notin2a_data">
                         <div class="">
-                         <table id="example3" class="table table-bordered table-striped">
+                         <table id="not_in2a_data" class="table table-bordered table-striped">
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
                                         <th>No.</th>
@@ -572,9 +572,9 @@ class Invoice_comp_report extends CI_Controller {
                 </div>
                 </div>
             <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12" id="div_notrecord_data">
                         <div class="">
-                         <table  class="table table-bordered table-striped" style=" page-break-after:auto">
+                         <table id="not_record_data" class="table table-bordered table-striped" style=" page-break-after:auto">
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
                                         <th>No.</th>
@@ -1365,15 +1365,15 @@ class Invoice_comp_report extends CI_Controller {
                                     <tr style="width:2px">
                                     <th>Sr No</th>
                                         <th>Original Month</th>
-                                        <th>Included In Month</th>
-                                        <th>Amendment in month</th>
+                                        <th>Included Month</th>
+                                        <th>Amendment month</th>
                                         <th>Category</th>
                                         <th>GSTIN</th>
-                                        <th>Invoice Date</th>
-                                        <th>Invoice No</th>
+                                        <th>Inv.Date</th>
+                                        <th>Inv.No</th>
                                         <th>Name</th>
-                                        <th>Invoice Value</th>
-                                        <th>Taxable Value</th>
+                                        <th>Inv.Value</th>
+                                        <th>Taxable</th>
                                         <th>IGST</th>
                                         <th>CGST</th>
                                         <th>SGST</th>
@@ -1388,8 +1388,8 @@ class Invoice_comp_report extends CI_Controller {
 
 
                 $data .= '<tr>' .
-                        '<td>' . $k . '</td>
-                        <td>' . $row->original_month . '</td>
+                        '<td style="width:100px">' . $k . '</td>
+                        <td style="width:100px">' . $row->original_month . '</td>
                         <td>' . $row->included_in_month . '</td>
                         <td>' . $row->amendment_month . '</td>
                         <td>' . $row->category . '</td>

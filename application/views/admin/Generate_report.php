@@ -52,7 +52,7 @@ if (is_array($session_data)) {
                                     </span>
                                     <input type="hidden" class="form-control" value="<?php echo $insert_id; ?>"disabled=""name="insert_id"  id="insert_id"   aria-required="true" aria-describedby="input_group-error">
                                     <input type="hidden" class="form-control" value="<?php echo $customer_id; ?>"disabled=""name="customer_id"  id="customer_id"   aria-required="true" aria-describedby="input_group-error">
-                                    <input type="text" class="form-control" value="<?php // echo $user_name[$x]['customer_name']               ?>"  disabled=""name="cust_name"  id="cust_name" onkeyup="remove_error('customer_name')"   aria-required="true" aria-describedby="input_group-error">
+                                    <input type="text" class="form-control" value="<?php // echo $user_name[$x]['customer_name']                      ?>"  disabled=""name="cust_name"  id="cust_name" onkeyup="remove_error('customer_name')"   aria-required="true" aria-describedby="input_group-error">
 
                                 </div>
                                 <span class="required" style="color: red" id="customer_name_error"></span>
@@ -85,59 +85,89 @@ if (is_array($session_data)) {
                     <!-- Insert your document here -->
                     <header  style="display:none;margin-top:20px;">
                         <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br><br><br>
-                      
+
                     </header>
-                    
+
                     <footer style="display:none;margin-top:-30px;">
                         <p>Strictly Private and Confidential</p>
                     </footer>
-                  
+
                     <!--<div style="page-break-before:always;">-->
-                        <div id="container_image_front" style="page-break-before:always;">
-                            <!--<img src="https://premisafe.com/Logo.jpg" width="120px" height="30px">-->
-                            <img src="https://premisafe.com/GST_image/GSTReportCover.jpg" style="page-break-before:always" width="1200px" height="700px">
-                            
-                        </div>
-                        <!--<div id="content_pdf"></div><br><br><br><br><br><br>-->
-                        <div id="container_image_letter_client" style="margin-top:140px;"><img src="https://premisafe.com/GST_image/LettertoClient.jpg" width="900px" height="900px" style="page-break-before:always;"></div>
-                        <div id="container_image_limited_usage" style="margin-top:140px;"><img src="https://premisafe.com/GST_image/LimitedUsage&Abbreviation.jpg" width="800px" height="700px" style="page-break-before:always;"></div>
-                        <div id="container_image_components_overview" style="margin-top:140px;"><img src="https://premisafe.com/GST_image/GSTComponents&Overview.jpg" width="800px" height="700px" style="page-break-before:always;"></div>
-                        <div id="container_image_GST_framework" style="margin-top:140px;"><img src="https://premisafe.com/GST_image/GSTFramework.jpg" width="800px" height="900px" style="page-break-before:always;"></div>
-                        <div id="container_image_approach" style="margin-top:140px;"><img src="https://premisafe.com/GST_image/Approach.jpg" width="800px" height="900px" style="page-break-before:always;"></div>
+                    <div id="container_image_front" style="page-break-before:always;">
+                        <!--<img src="https://premisafe.com/Logo.jpg" width="120px" height="30px">-->
+                        <img src="https://premisafe.com/GST_image/GSTReportCover.jpg" style="page-break-before:always" width="1200px" height="700px">
+
+                    </div>
+                    <!--<div id="content_pdf"></div><br><br><br><br><br><br>-->
+                    <div id="container_image_letter_client" style="margin-top:140px;"><img src="https://premisafe.com/GST_image/LettertoClient.jpg" width="900px" height="900px" style="page-break-before:always;"></div>
+                    <div id="container_image_limited_usage" style="margin-top:140px;"><img src="https://premisafe.com/GST_image/LimitedUsage&Abbreviation.jpg" width="800px" height="700px" style="page-break-before:always;"></div>
+                    <div id="content_pdf" style="margin-top:140px;"><img src="https://premisafe.com/GST_image/LimitedUsage&Abbreviation.jpg" width="800px" height="700px" style="page-break-before:always;"></div>
+                    <div id="container_image_components_overview" style="margin-top:140px;"><img src="https://premisafe.com/GST_image/GSTComponents&Overview.jpg" width="800px" height="700px" style="page-break-before:always;"></div>
+                    <div id="container_image_GST_framework" style="margin-top:140px;"><img src="https://premisafe.com/GST_image/GSTFramework.jpg" width="800px" height="900px" style="page-break-before:always;"></div>
+                    <div id="container_image_approach" style="margin-top:140px;"><img src="https://premisafe.com/GST_image/Approach.jpg" width="800px" height="900px" style="page-break-before:always;"></div>
+
+                    <!--Details of GST Reports & insights-->
+                    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                    <div class="test" style="margin-top:180px">
+                        <h4 style="color:#1d2f66;"><b>6.DETAILS OF GST REPORTS AND INSIGHTS</b></h4>
+                    <p style="background:#1d2f66; color:white;padding:4px;border:1px solid;width:700px;text-align:center">DATA INSIGHTS</p>
+                    <h4 style="color:#1d2f66"><b>A.MANAGEMENT REPORT</b></h4><br>
+                    <h4><b>1.Sales Month Wise</b></h4>
+                    </div>
+                    <div id="container_sales_month_wise"  style="width:700px;margin-top:140px;padding: 20px;border: 3px solid"></div>
+                    <!--<div id="sales_monthly_data" style="page-break-before:always;width:700px"></div>-->
+                    <div class="test" style="margin-top:180px">
                         
-                        <div id="container" style="page-break-before:always;width:700px;margin-top:140px;"></div>
-                        <div id="cfo_data" style="width:700px"></div>
-                        <div id="container1"  style="page-break-before:always;width:700px;margin-top:140px;"><h4>DETAILS OF GST REPORTS AND INSIGHTS</h4></div>
-                        <div id="sales_monthly_data" style="width:700px"></div>
-                        <div id="container_state_wise" style="page-break-before:always;width:700px;margin-top:140px;"></div>
-                        <div id="sales_state_wise_data"  style="width:700px"></div>
-                        <div id="container_nontax_exempt" style="page-break-before:always;width:700px;margin-top:140px;"></div>
-                        <div id="tax_ntax_Exempt_data" style="width:700px"></div>
-                        <div id="container_sales_b2b_b2c" style="page-break-before:always;width:700px;margin-top:140px;"></div>
-                        <div id="compare_b2b_data" style="width:700px"></div>
-                        <div id="compare_sales_ratewise_data" style="width:700px"></div>
-                        <div id="container_GSTR3b_vs_2A"  style="page-break-before:always;width:700px;margin-top:140px;"></div>
-                        <div id="compare_GSTR3B_Vs2_data" style="width:700px"></div>
-                        <div id="container_GSTR3b_vs_1" style="page-break-before:always;width:700px;margin-top:140px;"></div>
-                        <div id="compare_3b_vs1_data" style="width:700px"></div>
-                        <div id="container_tax_liability" style="page-break-before:always;width:700px;margin-top:140px;"></div>
-                        <div id="tax_liability_data" style="width:700px"></div>
-                        <div id="container_tax_turnover"  style="page-break-before:always;width:700px;margin-top:140px;"></div>
-                        <div id="tax_turnover_data" style="page-break-before:always;width:700px;margin-top:140px;"></div>
-                        <div id="container_gst_payablevscash"  style="page-break-before:always;width:700px;margin-top:140px;"></div>
-                        <div id="gst_payablevscash_data" style="page-break-before:always;width:700px;margin-top:140px;"></div>
-                        <div id="container_eligible_credit"  style="page-break-before:always;width:700px;margin-top:140px;"></div>
-                        <div id="tax_iniligible_data" style="page-break-before:always;width:700px;margin-top:140px;"></div>
-                         <div id="gstr3B_data" style="page-break-before:always;width:700px;margin-top:140px;"></div>
-                        <div id="gstr1_data" style="page-break-before:always;width:700px;margin-top:140px;"></div>
-                        <!--<div id="invoice_ammends_data" style="page-break-before:always;width:700px"></div>-->
-                        <div id="invoice_ammend_original_data" style="page-break-before:always;margin-top:140px;"></div>
-                        <div id="invoice_notinclude_gstr1_data" style="page-break-before:always;margin-top:140px;"></div>
-                        <div id="company_all_notin2a_data" style="page-break-before:always;margin-top:140px;"></div>
-                        <div id="company_all_notinrec_data" style="page-break-before:always;margin-top:140px;"></div>
-                        <div id="company_all_partially_data"></div>
+                        <h4><b>2.Sales Tax Rate Wise</b></h4>
+                    </div>
+                    <div id="compare_sales_ratewise_data" style="width:700px"></div>
+                    <div class="test" style="margin-top:180px">
                         
-                    <!--</div>-->
+                        <h4><b>3.Sales State Wise</b></h4>
+                    </div>
+                    <div id="container_state_wise" style="page-break-before:always;width:700px;margin-top:140px;"></div>
+                    
+                    <div id="container_nontax_exempt" style="page-break-before:always;width:700px;margin-top:140px;"></div>
+                    <div id="container_sales_b2b_b2c" style="page-break-before:always;width:700px;margin-top:140px;"></div>
+
+                    <!--Comparison & Deviation Report-->
+                    <div id="container_GSTR3b_vs_2A"  style="page-break-before:always;width:700px;margin-top:140px;"></div>
+                    <div id="compare_GSTR3B_Vs2_data" style="width:700px"></div>
+                    <div id="container_GSTR3b_vs_1" style="page-break-before:always;width:700px;margin-top:140px;"></div>
+                    <div id="compare_3b_vs1_data" style="width:700px"></div>
+
+                    <!--BAROMETER CFO DASHBOARD-->
+                    <div id="container_tax_turnover"  style="page-break-before:always;width:700px;margin-top:140px;"></div>
+                    <div id="tax_turnover_data" style="width:700px;margin-top:140px;"></div>
+                    <div id="container_turnovervs_liability" style="page-break-before:always;width:700px;margin-top:140px;"></div>
+                    <div id="cfo_data" style="width:700px;margin-top:140px;"></div>
+                    <div id="container_tax_liability" style="page-break-before:always;width:700px;margin-top:140px;"></div>
+                    <div id="tax_liability_data" style="width:700px"></div>
+                    <div id="container_gst_payablevscash"  style="page-break-before:always;width:700px;margin-top:140px;"></div>
+                    <div id="gst_payablevscash_data" style="width:700px;margin-top:140px;"></div>
+                    <div id="container_eligible_credit"  style="page-break-before:always;width:700px;margin-top:140px;"></div>
+                    <div id="tax_iniligible_data" style="width:700px;margin-top:140px;"></div>
+
+
+                    <!--InFORMATION COMPARISON-->
+                    <div id="gstr3B_data" style="page-break-before:always;width:700px;margin-top:140px;"></div>
+                    <div id="gstr1_data" style="page-break-before:always;width:700px;margin-top:140px;"></div>
+
+                    <div id="invoice_ammend_original_data" style="page-break-before:always;margin-top:140px;"></div>
+                    <div id="invoice_notinclude_gstr1_data" style="page-break-before:always;margin-top:140px;"></div>
+                    <div id="company_all_notin2a_data" style="page-break-before:always;margin-top:140px;"></div>
+                    <div id="company_all_notinrec_data" style="page-break-before:always;margin-top:140px;"></div>
+                     <div id="company_all_partially_data"></div>
+
+
+<!--                    <div id="sales_monthly_data" style="width:700px"></div>
+
+                    <div id="sales_state_wise_data"  style="width:700px"></div>
+
+                    <div id="tax_ntax_Exempt_data" style="width:700px"></div>
+
+                    <div id="compare_b2b_data" style="width:700px"></div>-->
+
                 </div>
             </div>
 
@@ -176,7 +206,7 @@ if (is_array($session_data)) {
         });
         $.ajax({
             type: "post",
-            url: "<?= base_url("Cfo_dashboard/get_graph_Turnover_vs_liabality") ?>",
+            url: "<?= base_url("Cfo_dashboard/get_graph_Turnover_vs_liabality1") ?>",
             dataType: "json",
 //            processData: false,
 //            contentType: false,
@@ -187,7 +217,7 @@ if (is_array($session_data)) {
                 if (result.message === "success") {
 
                     var data = result.data;
-                    $('#cfo_data').html("");
+//                    $('#cfo_data').html("");
                     $('#cfo_data').html(data);
 //                    $('#example2').DataTable();
                 } else {
@@ -208,7 +238,8 @@ if (is_array($session_data)) {
                     var data_month = result.month_data;
                     var max_range = result.max_range;
                     var customer_name = "Customer Name:" + result.customer_name;
-                    var chart = Highcharts.chart('container', {
+                     Highcharts.chart('container_turnovervs_liability', {
+//                    var chart = Highcharts.chart('container_turnovervs_liability', {
                         chart: {
                             type: 'column'
                         },
@@ -296,7 +327,7 @@ if (is_array($session_data)) {
                     var max_range = result.max_range;
                     var sales_percent_values = result.sales_percent_values;
                     var customer_name = "Customer Name:" + result.customer_name;
-                    Highcharts.chart('container1', {
+                    Highcharts.chart('container_sales_month_wise', {
                         chart: {
                             type: 'column'
                         },
@@ -734,7 +765,7 @@ if (is_array($session_data)) {
         });
 
         //table for sales rate wise
-        
+
         $.ajax({
             type: "post",
             url: "<?= base_url("Management_report/get_data_rate_wise") ?>",
@@ -1021,10 +1052,10 @@ if (is_array($session_data)) {
             }
 
         });
-        
+
         //Graph for tax overview liability
-        
-        
+
+
         $.ajax({
             type: "POST",
             url: "<?= base_url("Internal_acc_report/get_graph") ?>",
@@ -1162,7 +1193,7 @@ if (is_array($session_data)) {
                 }
             }
         });
-        
+
         //table  for tax overview liability
         $.ajax({
             type: "post",
@@ -1184,9 +1215,9 @@ if (is_array($session_data)) {
             },
 
         });
-        
+
         //Graph for tax turnover
-        
+
         $.ajax({
             type: "POST",
             url: "<?= base_url("Internal_acc_report/get_graph_tax_turnover") ?>",
@@ -1300,9 +1331,9 @@ if (is_array($session_data)) {
                 }
             }
         });
-        
+
         //Table data for tax turnover
-        
+
         $.ajax({
             type: "post",
             url: "<?= base_url("Internal_acc_report/get_graph_tax_turnover") ?>",
@@ -1324,9 +1355,9 @@ if (is_array($session_data)) {
 
         });
 
-        
+
         //Graph for GST PAyable vs Cash
-        
+
         $.ajax({
             type: "POST",
             url: "<?= base_url("Internal_acc_report/get_graph_gst_payable_vs_cash") ?>",
@@ -1420,9 +1451,9 @@ if (is_array($session_data)) {
                 }
             }
         });
-        
+
         //Table data for GST payable vs cash
-        
+
         $.ajax({
             type: "post",
             url: "<?= base_url("Internal_acc_report/get_graph_gst_payable_vs_cash") ?>",
@@ -1446,7 +1477,7 @@ if (is_array($session_data)) {
 
 
         //Graph for GST iniligible and eligible credit
-        
+
         $.ajax({
             type: "POST",
             url: "<?= base_url("Internal_acc_report/get_graph_eligible_ineligible") ?>",
@@ -1554,9 +1585,9 @@ if (is_array($session_data)) {
                 }
             }
         });
-        
+
         //table data for GST iniligible and eligible credit
-        
+
         $.ajax({
             type: "post",
             url: "<?= base_url("Internal_acc_report/get_graph_eligible_ineligible") ?>",
@@ -1577,9 +1608,9 @@ if (is_array($session_data)) {
             },
 
         });
-        
-         //table data for Invoice ammend in other than original
-         
+
+        //table data for Invoice ammend in other than original
+
 //         $('#invoice_ammend_original_data').html("");
         $.ajax({
             type: "post",
@@ -1601,7 +1632,7 @@ if (is_array($session_data)) {
         });
 
         //table data for Invoice not included in GSTR1
-        
+
 //        $('#invoice_notinclude_gstr1_data').html("");
 
         $.ajax({
@@ -1624,7 +1655,7 @@ if (is_array($session_data)) {
         });
 
         //Get all Not in 2A records
-        
+
 //        $('#company_all_notin2a_data').html("");
         $.ajax({
             type: "post",
@@ -1636,7 +1667,30 @@ if (is_array($session_data)) {
                     var data = result.data;
 
                     $('#company_all_notin2a_data').html(data);
+//                    $('<table id="not_in2a_data"  class="table table-bordered table-striped">').append(
+//                            $('#not_in2a_data tr:first-child').clone(),
+//                            $('#not_in2a_data tr').slice(Math.ceil($('#not_in2a_data tr').length / 2))
+//                            ).appendTo('#div_notin2a_data');
 //                    $('#example2').DataTable();
+
+//                    var max = 10; // change this
+//
+//                    var $t = $('#not_in2a_data');
+//                    var $th = $('tr:first-child', $t).remove();
+//                    var l = $('tr', $t).length;
+//
+//                    while (l > max) {
+//                        // extract trs with index larger than max and add them to a new table
+//                        var $trs = $('tr', $t).filter(function () {
+//                            return $(this).index() < max;
+//                        });
+//                        $('<table/>').append($trs).insertBefore($t);
+//                        l -= max;
+//                    }
+//                    $('#not_in2a_data').each(function () {
+//                        $(this).prepend($th.clone());
+//                    });
+
                 } else {
                     $('#company_all_notin2a_data').html("");
 //                    alert('no data availabale');
@@ -1646,7 +1700,9 @@ if (is_array($session_data)) {
         });
 
         //Get all Not in records
-        
+//        $(function () {
+//            $("#example3").DataTable();
+//        });
 //        $('#company_all_notinrec_data').html("");
         $.ajax({
             type: "post",
@@ -1656,12 +1712,31 @@ if (is_array($session_data)) {
             success: function (result) {
                 if (result.status === true) {
                     var data = result.data;
-                    
+
                     $('#company_all_notinrec_data').html(data);
-//                     $('<table>').append(
-//                $('table tr:first-child').clone(),
-//                $('table tr').slice(Math.ceil($('table tr').length / 2))
-//                ).appendTo('body');
+
+                    $('<table id="not_record_data"  class="table table-bordered table-striped">').append(
+                            $('#not_record_data tr:first-child').clone(),
+                            $('#not_record_data tr').slice(Math.ceil($('#not_record_data tr').length / 2))
+                            ).appendTo('#div_notrecord_data');
+//                    var max = 20; // change this
+//
+//                    var $t = $('.test_data');
+//                    var $th = $('tr:first-child', $t).remove();
+//                    var l = $('tr', $t).length;
+//
+//                    while (l > max) {
+//                        // extract trs with index larger than max and add them to a new table
+//                        var $trs = $('tr', $t).filter(function () {
+//                            return $(this).index() < max;
+//                        });
+//                        $('<table/>').append($trs).insertBefore($t);
+////                        l -= max;
+//                    }
+//                    $('.test_data').each(function () {
+//                        $(this).prepend($th.clone());
+//                    });
+//                     
 //                    $('#example2').DataTable();
                 } else {
                     $('#company_all_notinrec_data').html("");
@@ -1670,10 +1745,10 @@ if (is_array($session_data)) {
             }
 
         });
-        
+
 
         //Get all company details for partially match summary
-        
+
 //        $('#company_all_partially_data').html("");
         $.ajax({
             type: "post",
@@ -1693,10 +1768,10 @@ if (is_array($session_data)) {
             }
 
         });
-        
-       
 
-       
+
+
+
     });
 
 
@@ -1717,8 +1792,8 @@ if (is_array($session_data)) {
         });
         return '<svg height="' + top + '" width="' + width + '" version="1.1" xmlns="http://www.w3.org/2000/svg">' + svgArr.join('') + '</svg>';
     };
-    
-    
+
+
     Highcharts.exportCharts = function (charts, options) {
         var form
         svg = Highcharts.getSVG(charts);
@@ -1759,6 +1834,6 @@ if (is_array($session_data)) {
 
     var click = "return xepOnline.Formatter.Format('JSFiddle', {render:'download'})";
     jQuery('#buttons').append('<button onclick="' + click + '">PDF</button>');
-    
-    
+
+
 </script>
