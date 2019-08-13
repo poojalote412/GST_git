@@ -305,7 +305,7 @@ class Customer_admin extends CI_Controller {
             $data = $result->row();
             $customer_id = $data->customer_id;
 //generate user_id
-            $customer_id = str_pad(++$customer_id, 5, '0', STR_PAD_LEFT);
+            $customer_id = str_pad( ++$customer_id, 5, '0', STR_PAD_LEFT);
             return $customer_id;
         } else {
             $customer_id = 'Cust_1001';
@@ -434,9 +434,6 @@ class Customer_admin extends CI_Controller {
                 'insert_id' => $insert_id,
                 'customer_id' => $customer_id,
                 'report_id' => $report_id,
-                'company_name' => $company_name,
-                'managing_director_name' => $m_d_name,
-                'about_company' => $about_company,
                 'cfo_observation' => $cfo_observation,
                 'rate_wise_observation' => $rate_wise_observation,
                 'month_wise_observation' => $monthwise_sale_observation,
@@ -454,6 +451,7 @@ class Customer_admin extends CI_Controller {
                 'deviation_output' => $deviation_output,
                 'gst_payable' => $gst_payable,
                 'created_on' => $created_on,
+                'activity_status' => 1
             );
 
 
@@ -463,6 +461,9 @@ class Customer_admin extends CI_Controller {
                 'customer_id' => $customer_id,
                 'report_id' => $report_id,
                 'created_on' => $created_on,
+                'company_name' => $company_name,
+                'managing_director_name' => $m_d_name,
+                'about_company' => $about_company,
             );
             $record1 = $this->db->insert('report_header_all', $data1);
             if ($record == TRUE && $record1 == TRUE) {
@@ -483,12 +484,197 @@ class Customer_admin extends CI_Controller {
             $data = $result->row();
             $report_id = $data->report_id;
             //generate turn_id
-            $report_id = str_pad( ++$report_id, 5, '0', STR_PAD_LEFT);
+            $report_id = str_pad(++$report_id, 5, '0', STR_PAD_LEFT);
             return $report_id;
         } else {
             $report_id = 'report_1001';
             return $report_id;
         }
+    }
+
+    public function update_observation() {
+        $created_on = date('y-m-d h:i:s');
+        $insert_id = $this->input->post('insert_id');
+        $customer_id = $this->input->post('customer_id');
+        $company_name = $this->input->post('company_name');
+        $m_d_name = $this->input->post('m_d_name');
+        $about_company = $this->input->post('about_company');
+        $cfo_observation = nl2br($this->input->post('cfo_observation'));
+        $rate_wise_observation = nl2br($this->input->post('rate_wise_observation'));
+        $monthwise_sale_observation = nl2br($this->input->post('monthwise_sale_observation'));
+        $tax_liability_observation = nl2br($this->input->post('tax_liability_observation'));
+        $tax_exempt_observation = nl2br($this->input->post('tax_exempt_observation'));
+        $tax_turnover_observation = nl2br($this->input->post('tax_turnover_observation'));
+        $eligible_ineligible_observation = nl2br($this->input->post('eligible_ineligible_observation'));
+        $invoice_not_observation = nl2br($this->input->post('invoice_not_observation'));
+        $amend_observation = nl2br($this->input->post('amend_observation'));
+        $conclusion_summary = ($this->input->post('editor12'));
+        $time_over_run = ($this->input->post('range_issue_matrix1'));
+        $internal_control = ($this->input->post('range_issue_matrix2'));
+        $transaction_mismatch = ($this->input->post('range_issue_matrix3'));
+        $deviation_itc = ($this->input->post('range_issue_matrix4'));
+        $deviation_output = ($this->input->post('range_issue_matrix5'));
+        $gst_payable = ($this->input->post('range_issue_matrix6'));
+        if (empty($company_name)) {
+            $response['id'] = 'company_name';
+            $response['error'] = 'Enter Proper Company Name';
+            echo json_encode($response);
+            exit;
+        } elseif (empty($m_d_name)) {
+            $response['id'] = 'm_d_name';
+            $response['error'] = 'Enter Managing Director Name';
+            echo json_encode($response);
+            exit;
+        } elseif (empty($about_company)) {
+            $response['id'] = 'about_company';
+            $response['error'] = 'Enter Details About Company';
+            echo json_encode($response);
+            exit;
+        } elseif (empty($conclusion_summary)) {
+            $response['id'] = 'editor12';
+            $response['error'] = 'Enter Details Conclusion Summary';
+            echo json_encode($response);
+            exit;
+        } elseif (($time_over_run) == 0) {
+            $response['id'] = 'range_issue_matrix1';
+            $response['error'] = 'Select Value';
+            echo json_encode($response);
+            exit;
+        } elseif (($internal_control) == 0) {
+            $response['id'] = 'range_issue_matrix2';
+            $response['error'] = 'Select Value';
+            echo json_encode($response);
+            exit;
+        } elseif (($transaction_mismatch) == 0) {
+            $response['id'] = 'range_issue_matrix3';
+            $response['error'] = 'Select Value';
+            echo json_encode($response);
+            exit;
+        } elseif (($deviation_itc) == 0) {
+            $response['id'] = 'range_issue_matrix4';
+            $response['error'] = 'Select Value';
+            echo json_encode($response);
+            exit;
+        } elseif (($deviation_output) == 0) {
+            $response['id'] = 'range_issue_matrix5';
+            $response['error'] = 'Select Value';
+            echo json_encode($response);
+            exit;
+        } elseif (($gst_payable) == 0) {
+            $response['id'] = 'range_issue_matrix6';
+            $response['error'] = 'Select Value';
+            echo json_encode($response);
+            exit;
+        }
+//         elseif (empty($cfo_observation)) {
+//            $response['id'] = 'cfo_observation';
+//            $response['error'] = 'Enter CFO Observation';
+//            echo json_encode($response);
+//            exit;
+//        } elseif (($rate_wise_observation) == "") {
+//            $response['id'] = 'rate_wise_observation';
+//            $response['error'] = 'Enter Observation';
+//            echo json_encode($response);
+//            exit;
+//        } elseif (empty($monthwise_sale_observation)) {
+//            $response['id'] = 'monthwise_sale_observation';
+//            $response['error'] = 'Enter Observation';
+//            echo json_encode($response);
+//            exit;
+//        } elseif (empty($tax_liability_observation)) {
+//            $response['id'] = 'tax_liability_observation';
+//            $response['error'] = 'Enter Observation';
+//            echo json_encode($response);
+//            exit;
+//        } elseif (empty($tax_exempt_observation)) {
+//            $response['id'] = 'tax_exempt_observation';
+//            $response['error'] = 'Enter Observation';
+//            echo json_encode($response);
+//            exit;
+//        } elseif (empty($tax_turnover_observation)) {
+//            $response['id'] = 'tax_turnover_observation';
+//            $response['error'] = 'Enter Observation';
+//            echo json_encode($response);
+//            exit;
+//        } elseif (empty($eligible_ineligible_observation)) {
+//            $response['id'] = 'eligible_ineligible_observation';
+//            $response['error'] = 'Enter Observation';
+//            echo json_encode($response);
+//            exit;
+//        }
+        else {
+            $get_report_id = $this->db->query("select report_id from report_header_all where customer_id='$customer_id' and insert_id='$insert_id'");
+            $rec = $get_report_id->row();
+            $report_id = $rec->report_id;
+            $data = array(
+                'insert_id' => $insert_id,
+                'customer_id' => $customer_id,
+                'report_id' => $report_id,
+                'cfo_observation' => $cfo_observation,
+                'rate_wise_observation' => $rate_wise_observation,
+                'month_wise_observation' => $monthwise_sale_observation,
+                'tax_liability_observation' => $tax_liability_observation,
+                'tax_nontax_observation' => $tax_exempt_observation,
+                'tax_turnover_observation' => $tax_turnover_observation,
+                'eligible_ineligible_observation' => $eligible_ineligible_observation,
+                'invoice_not_include_observation' => $invoice_not_observation,
+                'amendment_records_observation' => $amend_observation,
+                'conclusion_summary' => $conclusion_summary,
+                'time_over_run' => $time_over_run,
+                'internal_control' => $internal_control,
+                'transaction_mismatch' => $transaction_mismatch,
+                'deviation_itc' => $deviation_itc,
+                'deviation_output' => $deviation_output,
+                'gst_payable' => $gst_payable,
+                'created_on' => $created_on,
+                'activity_status' => 1
+            );
+            $data1 = array(
+                'insert_id' => $insert_id,
+                'customer_id' => $customer_id,
+                'report_id' => $report_id,
+                'created_on' => $created_on,
+                'company_name' => $company_name,
+                'managing_director_name' => $m_d_name,
+                'about_company' => $about_company,
+            );
+            $get_observation = $this->db->query("select file_location,id from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+            if ($this->db->affected_rows() > 0) {
+                $res = $get_observation->row();
+                $file_location = $res->file_location;
+                $id = $res->id;
+                if ($file_location == "") {
+                    $this->db->where('id', $id);
+                    $record = $this->db->update('observation_transaction_all', $data);
+                    $this->db->where('report_id', $report_id);
+                    $record1 = $this->db->update('report_header_all', $data1);
+                    if ($record == TRUE && $record1 == TRUE) {
+                        $response['message'] = 'success';
+                        $response['code'] = 200;
+                        $response['status'] = true;
+                    } else {
+                        $response['message'] = 'No data to display';
+                        $response['code'] = 204;
+                        $response['status'] = false;
+                    }
+                } else {
+                    $record = $this->db->insert('observation_transaction_all', $data);
+                    $this->db->where('report_id', $report_id);
+                    $record1 = $this->db->update('report_header_all', $data1);
+                    if ($record == TRUE && $record1 == TRUE) {
+                        $response['message'] = 'success';
+                        $response['code'] = 200;
+                        $response['status'] = true;
+                    } else {
+                        $response['message'] = 'No data to display';
+                        $response['code'] = 204;
+                        $response['status'] = false;
+                    }
+                }
+            } else {
+                
+            }
+        }echo json_encode($response);
     }
 
 }

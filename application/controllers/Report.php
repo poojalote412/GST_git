@@ -24,13 +24,17 @@ class Report extends CI_Controller {
     }
 
     public function enter_detail_fun($customer_id = '', $insert_id = '') {
-        $data['customer_id'] = $customer_id;
-        $data['insert_id'] = $insert_id;
-        $query = $this->db->query("select * from customer_header_all where customer_id='$customer_id'");
+        $customer_id1 = base64_decode($customer_id);
+        $insert_id1 = base64_decode($insert_id);
+        $data['customer_id'] = base64_decode($customer_id);
+        $data['insert_id'] = base64_decode($insert_id);
+        $query = $this->db->query("select * from customer_header_all where customer_id='$customer_id1'");
         $result = $query->row();
         $data['cust_result'] = $result;
 
-        
+
+
+
         $this->load->view('admin/client_details', $data);
     }
 
@@ -252,6 +256,33 @@ class Report extends CI_Controller {
         } else {
             $respose['message'] = "";
         }echo json_encode($respose);
+    }
+
+    public function update_detail_fun($customer_id = '', $insert_id = '') { //function to load update page
+        $customer_id1 = base64_decode($customer_id);
+        $insert_id1 = base64_decode($insert_id);
+        $data['customer_id'] = base64_decode($customer_id);
+        $data['insert_id'] = base64_decode($insert_id);
+        $query = $this->db->query("select * from customer_header_all where customer_id='$customer_id1'");
+        $result = $query->row();
+        $data['cust_result'] = $result;
+
+        $query1 = $this->db->query("select * from report_header_all where customer_id='$customer_id1' and insert_id='$insert_id1'");
+        if ($this->db->affected_rows() > 0) {
+            $result_observation = $query1->row();
+        } else {
+            $result_observation = '';
+        }
+
+        $query2 = $this->db->query("select * from observation_transaction_all where customer_id='$customer_id1' and insert_id='$insert_id1' ORDER BY ID DESC LIMIT 1");
+        if ($this->db->affected_rows() > 0) {
+            $result_observation1 = $query2->row();
+        } else {
+            $result_observation1 = '';
+        }
+        $data['result_observation'] = $result_observation;
+        $data['result_observation1'] = $result_observation1;
+        $this->load->view('admin/update_report', $data);
     }
 
 }

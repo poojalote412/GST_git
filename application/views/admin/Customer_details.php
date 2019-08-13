@@ -116,6 +116,7 @@ if (is_array($session_data)) {
 
     function page_diversion(customer_id, insert_id)
     {
+      
         $.ajax({
             type: "POST",
             url: "<?= base_url("Customer_admin/page_diversion") ?>",
@@ -125,9 +126,9 @@ if (is_array($session_data)) {
             success: function (result) {
 
                 if (result.report_sts == '1') {
-                    window.location.href = "<?= base_url() ?>update_detail/" + customer_id + "/" + insert_id;
+                    window.location.href = "<?= base_url() ?>update_detail/" + btoa(customer_id) + "/" + btoa(insert_id);
                 } else {
-                    window.location.href = "<?= base_url() ?>enter_detail/" + customer_id + "/" + insert_id;
+                    window.location.href = "<?= base_url() ?>enter_detail/" + btoa(customer_id) + "/" + btoa(insert_id);
                 }
             }
         });

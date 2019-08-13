@@ -475,7 +475,7 @@ class Management_report extends CI_Controller {
                     '<td>' . '<b>' . "" . '</b>' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
-           $get_observation = $this->db->query("select tax_nontax_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' and activity_status=1");
+            $get_observation = $this->db->query("select tax_nontax_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
             if ($this->db->affected_rows() > 0) {
                 $res = $get_observation->row();
                 $observation = $res->tax_nontax_observation;
@@ -483,7 +483,7 @@ class Management_report extends CI_Controller {
                 $observation = "";
             }
 
-            $data .= "<hr><h4><b>Observation :</b></h4><span>".$observation."</span>";
+            $data .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
             $abc1 = array();
             $abc2 = array();
             $abc3 = array();
@@ -585,6 +585,7 @@ class Management_report extends CI_Controller {
     public function get_graph_taxable_nontx_exempt1() { //get graph function of taxable nontaxable and exempt
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
+        $curr_url = $this->input->post("curr_url");
         $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' and insert_id='$insert_id'");
         $data = ""; //view observations
         if ($query->num_rows() > 0) {
@@ -742,17 +743,37 @@ class Management_report extends CI_Controller {
             } else {
                 $observation5 = "";
             }
-            $data .= "<div class='col-md-12'>
+            $url = base_url() . "update_detail/" . base64_encode($customer_id) . "/" . base64_encode($insert_id);
+            if ($curr_url == $url) {
+                $get_observation = $this->db->query("select tax_nontax_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+                if ($this->db->affected_rows() > 0) {
+                    $res = $get_observation->row();
+                    $observation = $res->tax_nontax_observation;
+                } else {
+                    $observation = "";
+                }
+                $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation of CFO:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                        <textarea class="form-control" rows="5" id="tax_exempt_observation" name="tax_exempt_observation" onkeyup="countWords(this.id);" >' . $observation . '</textarea>
+                                    </div>
+                                    <span class="required" style="color: red" id="tax_exempt_observation_error"></span> 
+                                </div><br>';
+            } else {
+                $data .= "<div class='col-md-12'>
                                     <label><h4><b>Observation </b></h4></label><span class='required' aria-required='true'> </span>
                                     <div class='input-group'>
                                         <span class='input-group-addon'>
                                             <i class='fa fa-eye'></i>
                                         </span>
-                                        <textarea class='form-control' rows='5' id='tax_exempt_observation' name='tax_exempt_observation'>" . $observation1 . $observation2 . $observation3 . $observation4 . $observation5 . "</textarea>
+                                        <textarea class='form-control' rows='5' id='tax_exempt_observation' name='tax_exempt_observation' onkeyup='countWords(this.id);'>" . $observation1 . $observation2 . $observation3 . $observation4 . $observation5 . "</textarea>
                                     </div>
                                     <span class='required' style='color: red' id='tax_exempt_observation_error'></span>
                                 </div>";
-
+            }
             $abc1 = array();
             $abc2 = array();
             $abc3 = array();
@@ -1109,7 +1130,7 @@ class Management_report extends CI_Controller {
             $max = max($sales_percent_values);
             $min = min($sales_percent_values);
 
-            $get_observation = $this->db->query("select cfo_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' and activity_status=1");
+            $get_observation = $this->db->query("select cfo_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
             if ($this->db->affected_rows() > 0) {
                 $res = $get_observation->row();
                 $observation = $res->cfo_observation;
@@ -1161,6 +1182,7 @@ class Management_report extends CI_Controller {
     public function get_graph_sales_month_wise1() { //get graph function of Sales month wise
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
+        $curr_url = $this->input->post("curr_url");
         $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         $data = ""; //view observations
         if ($query->num_rows() > 0) {
@@ -1240,16 +1262,38 @@ class Management_report extends CI_Controller {
             $max = max($sales_percent_values2);
             $min = min($sales_percent_values2);
             $variation = round(((($max - $min) / ($min))) * 100, 2);
-            $data .= "<div class='col-md-12'>
+            $url = base_url() . "update_detail/" . base64_encode($customer_id) . "/" . base64_encode($insert_id);
+            if ($curr_url == $url) {
+                $get_observation = $this->db->query("select month_wise_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+                if ($this->db->affected_rows() > 0) {
+                    $res = $get_observation->row();
+                    $observation = $res->month_wise_observation;
+                } else {
+                    $observation = "";
+                }
+                $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation of CFO:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                        <textarea class="form-control" rows="5" id="monthwise_sale_observation" name="monthwise_sale_observation" onkeyup="countWords(this.id);" >' . $observation . '</textarea>
+                                    </div>
+                                    <span class="required" style="color: red" id="monthwise_sale_observation_error"></span> 
+                                </div><br>';
+            } else {
+                $data .= "<div class='col-md-12'>
                                     <label><h4><b>Observation :</b></h4></label><span class='required' aria-required='true'> </span>
                                     <div class='input-group'>
                                         <span class='input-group-addon'>
                                             <i class='fa fa-eye'></i>
                                         </span>
-                                        <textarea class='form-control' rows='5' id='monthwise_sale_observation' name='monthwise_sale_observation'>" . $variation . " is the % variation of maximum & minimum sales per month requiring careful working capital planning in case receivable delay.</textarea>
+                                        <textarea class='form-control' rows='5' id='monthwise_sale_observation' name='monthwise_sale_observation' onkeyup='countWords(this.id);'>" . $variation . " is the % variation of maximum & minimum sales per month requiring careful working capital planning in case receivable delay.</textarea>
                                     </div>
                                     <span class='required' style='color: red' id='monthwise_sale_observation_error'></span>
                                 </div>";
+            }
+
 
 //            $data .= "<hr><h4><b>Observation of  Sales month wise:</b></h4>";
             // loop to get graph data as per graph script requirement
@@ -1295,7 +1339,7 @@ class Management_report extends CI_Controller {
     public function get_data_rate_wise1() {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
-
+        $curr_url = $this->input->post("curr_url");
         //to get total supply
         $query = $this->db->query("SELECT * from rate_wise_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         $data = ""; //view observations
@@ -1339,20 +1383,43 @@ class Management_report extends CI_Controller {
                     '<td><b>' . round((($row->rate_18) / ($total_value)) * 100) . '%</b></td>' .
                     '<td><b>' . round((($row->rate_28) / ($total_value)) * 100) . '%</b></td>' .
                     '</tr>';
+            $data .= "</tbody></table></div></div></div>";
             $array = array("0%" => $row->rate_0, "5%" => $row->rate_5, "12%" => $row->rate_12, "18%" => $row->rate_18, "28%" => $row->rate_28);
             $aa = max($array);
             $k = array_keys($array, $aa);
             $maximum_rate = $k[0];
-            $data .= "</tbody></table></div></div></div><div class='col-md-12'>
+            $url = base_url() . "update_detail/" . base64_encode($customer_id) . "/" . base64_encode($insert_id);
+            if ($curr_url == $url) {
+                $get_observation = $this->db->query("select rate_wise_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+                if ($this->db->affected_rows() > 0) {
+                    $res = $get_observation->row();
+                    $observation = $res->rate_wise_observation;
+                } else {
+                    $observation = "";
+                }
+                $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation of CFO:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                        <textarea class="form-control" rows="5" id="rate_wise_observation" name="rate_wise_observation" onkeyup="countWords(this.id);" >' . $observation . '</textarea>
+                                    </div>
+                                    <span class="required" style="color: red" id="rate_wise_observation_error"></span> 
+                                </div><br>';
+            } else {
+                $data .= "<div class='col-md-12'>
                                     <label><h4><b>Observation </b></h4></label><span class='required' aria-required='true'> </span>
                                     <div class='input-group'>
                                         <span class='input-group-addon'>
                                             <i class='fa fa-eye'></i>
                                         </span>
-                                        <textarea class='form-control' rows='5' id='rate_wise_observation' name='rate_wise_observation'>Maximum Range of Product falls under the Category of " . $maximum_rate . "</textarea>
+                                        <textarea class='form-control' rows='5' id='rate_wise_observation' name='rate_wise_observation' onkeyup='countWords(this.id);'>Maximum Range of Product falls under the Category of " . $maximum_rate . "</textarea>
                                     </div>
                                     <span class='required' style='color: red' id='rate_wise_observation_error'></span>
                                 </div>";
+            }
+
             $respnose['data'] = $data;
             $respnose['message'] = "success";
         } else {
@@ -1411,7 +1478,7 @@ class Management_report extends CI_Controller {
                     '<td><b>' . round((($row->rate_28) / ($total_value)) * 100) . '%</b></td>' .
                     '</tr>';
             $data .= "</tbody></table></div></div></div>";
-            $get_observation = $this->db->query("select rate_wise_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' and activity_status=1");
+            $get_observation = $this->db->query("select rate_wise_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
             if ($this->db->affected_rows() > 0) {
                 $res = $get_observation->row();
                 $observation = $res->rate_wise_observation;
@@ -2042,7 +2109,7 @@ class Management_report extends CI_Controller {
             $data = $result->row();
             $uniq_id = $data->unique_id;
             //generate turn_id
-            $uniq_id = str_pad(++$uniq_id, 5, '0', STR_PAD_LEFT);
+            $uniq_id = str_pad( ++$uniq_id, 5, '0', STR_PAD_LEFT);
             return $uniq_id;
         } else {
             $uniq_id = 'btb_1001';

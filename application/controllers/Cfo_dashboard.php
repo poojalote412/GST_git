@@ -61,7 +61,7 @@ class Cfo_dashboard extends CI_Controller {
             $data = $result->row();
             $turn_id = $data->uniq_id;
             //generate turn_id
-            $turn_id = str_pad(++$turn_id, 5, '0', STR_PAD_LEFT);
+            $turn_id = str_pad( ++$turn_id, 5, '0', STR_PAD_LEFT);
             return $turn_id;
         } else {
             $turn_id = 'turn_1001';
@@ -73,6 +73,7 @@ class Cfo_dashboard extends CI_Controller {
     public function get_graph_Turnover_vs_liabality1() {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
+        $curr_url = $this->input->post("curr_url");
         $quer1 = $this->db->query("SELECT `monthly_summary_all`.`total_non_gst_export`,`monthly_summary_all`.`total_taxable_advance_no_invoice`,`monthly_summary_all`.`total_taxable_advance_invoice`,"
                 . "`monthly_summary_all`.`total_taxable_data_gst_export`,`monthly_summary_all`.`month`,`monthly_summary_all`.`inter_state_supply`,`monthly_summary_all`.`intra_state_supply`,"
                 . "`monthly_summary_all`.`no_gst_paid_supply`, `monthly_summary_all`.`debit_value`,`monthly_summary_all`.`credit_value`,`3b_offset_summary_all`.`outward_liability`,"
@@ -132,18 +133,41 @@ class Cfo_dashboard extends CI_Controller {
             $data .= '</tbody></table></div></div></div>';
 //         echo   max($ratio_val);
 //         echo   min($ratio_val);
-            $data .= '<div class="col-md-12">
+            $url = base_url() . "update_detail/" . base64_encode($customer_id) . "/" . base64_encode($insert_id);
+            if ($curr_url == $url) {
+                $get_observation = $this->db->query("select cfo_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+                if ($this->db->affected_rows() > 0) {
+                    $res = $get_observation->row();
+                    $observation = $res->cfo_observation;
+                } else {
+                    $observation = "";
+                }
+                $data .= '<div class="col-md-12">
                                     <label><h4><b>Observation of CFO:</b></h4></label><span class="required" aria-required="true"> </span>
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="fa fa-eye"></i>
                                         </span>
-                                        <textarea class="form-control" rows="5" id="cfo_observation" name="cfo_observation" >Percentage of GST payable to turnover is not stable for F.Y. 2017-18 it varies from ' . min($ratio_val) . '% to ' . max($ratio_val) . '%.</textarea>
+                                        <textarea class="form-control" rows="5" id="cfo_observation" name="cfo_observation" onkeyup="countWords(this.id);">' . $observation . '</textarea>
                                     </div>
                                     <span class="required" style="color: red" id="cfo_observation_error"></span> 
                                 </div><br>';
+            } else {
+                $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation of CFO:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                        <textarea class="form-control" rows="5" id="cfo_observation" name="cfo_observation"  onkeyup="countWords(this.id);">Percentage of GST payable to turnover is not stable for F.Y. 2017-18 it varies from ' . min($ratio_val) . '% to ' . max($ratio_val) . '%.</textarea>
+                                    </div>
+                                    <span class="required" style="color: red" id="cfo_observation_error"></span> 
+                                </div><br>';
+            }
 
 
+
+            //echo base_url();
             // loop to get turnover value
             $abc = array();
             $pqr = array();
@@ -274,7 +298,7 @@ class Cfo_dashboard extends CI_Controller {
             $data .= '</tbody></table></div></div></div>';
 //         echo   max($ratio_val);
 //         echo   min($ratio_val);
-            $get_observation = $this->db->query("select cfo_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' and activity_status=1");
+            $get_observation = $this->db->query("select cfo_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
             if ($this->db->affected_rows() > 0) {
                 $res = $get_observation->row();
                 $observation = $res->cfo_observation;

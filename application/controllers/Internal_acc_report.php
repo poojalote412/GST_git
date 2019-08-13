@@ -452,7 +452,7 @@ class Internal_acc_report extends CI_Controller {
             $data = $result->row();
             $turn_id = $data->tax_libility_id;
             //generate user_id
-            $turn_id = str_pad( ++$turn_id, 5, '0', STR_PAD_LEFT);
+            $turn_id = str_pad(++$turn_id, 5, '0', STR_PAD_LEFT);
             return $turn_id;
         } else {
             $turn_id = 'tax_1001';
@@ -556,7 +556,7 @@ class Internal_acc_report extends CI_Controller {
                     '<td>' . '<b>' . array_sum($late_fee) . '</b> ' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
-            $get_observation = $this->db->query("select tax_liability_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' and activity_status=1");
+            $get_observation = $this->db->query("select tax_liability_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' and ORDER BY ID DESC LIMIT 1");
             if ($this->db->affected_rows() > 0) {
                 $res = $get_observation->row();
                 $observation = $res->tax_liability_observation;
@@ -639,6 +639,7 @@ class Internal_acc_report extends CI_Controller {
     public function get_graph1() {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
+        $curr_url = $this->input->post("curr_url");
         $query = $this->db->query("SELECT * FROM 3b_offset_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         $query1 = $this->db->query("SELECT tax_debit FROM monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         $data = ""; //view observations
@@ -729,16 +730,38 @@ class Internal_acc_report extends CI_Controller {
                     '<td>' . '<b>' . array_sum($late_fee) . '</b> ' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
-            $data .= "<div class='col-md-12'>
+
+            $url = base_url() . "update_detail/" . base64_encode($customer_id) . "/" . base64_encode($insert_id);
+            if ($curr_url == $url) {
+                $get_observation = $this->db->query("select tax_liability_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+                if ($this->db->affected_rows() > 0) {
+                    $res = $get_observation->row();
+                    $observation1 = $res->tax_liability_observation;
+                } else {
+                    $observation1 = "";
+                }
+                $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation of CFO:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                        <textarea class="form-control" rows="5" id="tax_liability_observation" name="tax_liability_observation" onkeyup="countWords(this.id);">' . $observation1 . '</textarea>
+                                    </div>
+                                    <span class="required" style="color: red" id="tax_liability_observation_error"></span> 
+                                </div><br>';
+            } else {
+                $data .= "<div class='col-md-12'>
                                     <label><h4><b>Observation </b></h4></label><span class='required' aria-required='true'> </span>
                                     <div class='input-group'>
                                         <span class='input-group-addon'>
                                             <i class='fa fa-eye'></i>
                                         </span>
-                                        <textarea class='form-control' rows='5' id='tax_liability_observation' name='tax_liability_observation'>" . $observation . "</textarea>
+                                        <textarea class='form-control' rows='5' id='tax_liability_observation' name='tax_liability_observation' onkeyup='countWords(this.id);'>" . $observation . "</textarea>
                                     </div>
                                     <span class='required' style='color: red' id='tax_liability_observation_error'></span>
                                 </div>";
+            }
 //            $data .= "<hr><h4><b>Observation of Tax Liability:</b></h4>";
             $abc = array();
             $abc2 = array();
@@ -919,7 +942,7 @@ class Internal_acc_report extends CI_Controller {
             $max_ratio = max($tax_ratio);
 
 //            $average = array_sum($tax_ratio1) / count($tax_ratio);
-            $get_observation = $this->db->query("select tax_turnover_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' and activity_status=1");
+            $get_observation = $this->db->query("select tax_turnover_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
             if ($this->db->affected_rows() > 0) {
                 $res = $get_observation->row();
                 $observation = $res->tax_turnover_observation;
@@ -990,6 +1013,7 @@ class Internal_acc_report extends CI_Controller {
     public function get_graph_tax_turnover1() {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
+        $curr_url = $this->input->post("curr_url");
         $year = $this->Internal_acc_report_model->get_year($customer_id, $insert_id);
         $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         if ($query->num_rows() > 0) {
@@ -1065,17 +1089,37 @@ class Internal_acc_report extends CI_Controller {
             $data .= '</tbody></table></div></div></div>';
             $max_ratio = max($tax_ratio);
             $average = round(array_sum($tax_ratio1) / count($tax_ratio));
-
-            $data .= "<div class='col-md-12'>
+            $url = base_url() . "update_detail/" . base64_encode($customer_id) . "/" . base64_encode($insert_id);
+            if ($curr_url == $url) {
+                $get_observation = $this->db->query("select tax_turnover_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+                if ($this->db->affected_rows() > 0) {
+                    $res = $get_observation->row();
+                    $observation = $res->tax_turnover_observation;
+                } else {
+                    $observation = "";
+                }
+                $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation of CFO:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                        <textarea class="form-control" rows="5" id="tax_turnover_observation" name="tax_turnover_observation" onkeyup="countWords(this.id);" >' . $observation . '</textarea>
+                                    </div>
+                                    <span class="required" style="color: red" id="tax_turnover_observation_error"></span> 
+                                </div><br>';
+            } else {
+                $data .= "<div class='col-md-12'>
                                     <label><h4><b>Observation </b></h4></label><span class='required' aria-required='true'> </span>
                                     <div class='input-group'>
                                         <span class='input-group-addon'>
                                             <i class='fa fa-eye'></i>
                                         </span>
-                                        <textarea class='form-control' rows='5' id='tax_turnover_observation' name='tax_turnover_observation'>The average tax value to turnover is " . $average . "% & higher tax value is " . $max_ratio . "% of Year F.Y." . $year . ".</textarea>
+                                        <textarea class='form-control' rows='5' id='tax_turnover_observation' name='tax_turnover_observation' onkeyup='countWords(this.id);'>The average tax value to turnover is " . $average . "% & higher tax value is " . $max_ratio . "% of Year F.Y." . $year . ".</textarea>
                                     </div>
                                     <span class='required' style='color: red' id='tax_turnover_observation_error'></span>
                                 </div>";
+            }
             // loop to get graph data as per graph script requirement
             $abc1 = array();
             $abc2 = array();
@@ -1217,7 +1261,7 @@ class Internal_acc_report extends CI_Controller {
                     '<td>' . '<b>' . "" . '</b>' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
-            $get_observation = $this->db->query("select eligible_ineligible_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' and activity_status=1");
+            $get_observation = $this->db->query("select eligible_ineligible_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
             if ($this->db->affected_rows() > 0) {
                 $res = $get_observation->row();
                 $observation = $res->eligible_ineligible_observation;
@@ -1282,6 +1326,7 @@ class Internal_acc_report extends CI_Controller {
     public function get_graph_eligible_ineligible1() { //function to get graph and observation for eligible and ineligible itc credit
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
+        $curr_url = $this->input->post("curr_url");
         $query = $this->db->query("SELECT * from 3b_offset_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         if ($query->num_rows() > 0) {
             $result = $query->result();
@@ -1339,17 +1384,37 @@ class Internal_acc_report extends CI_Controller {
                     '<td>' . '<b>' . "" . '</b>' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
-            $data .= "<div class='col-md-12'>
+            $url = base_url() . "update_detail/" . base64_encode($customer_id) . "/" . base64_encode($insert_id);
+            if ($curr_url == $url) {
+                $get_observation = $this->db->query("select eligible_ineligible_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+                if ($this->db->affected_rows() > 0) {
+                    $res = $get_observation->row();
+                    $observation = $res->eligible_ineligible_observation;
+                } else {
+                    $observation = "";
+                }
+                $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation of CFO:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                        <textarea class="form-control" rows="5" id="eligible_ineligible_observation" name="eligible_ineligible_observation" onkeyup="countWords(this.id);">' . $observation . '</textarea>
+                                    </div>
+                                    <span class="required" style="color: red" id="eligible_ineligible_observation_error"></span> 
+                                </div><br>';
+            } else {
+                $data .= "<div class='col-md-12'>
                                     <label><h4><b>Observation </b></h4></label><span class='required' aria-required='true'> </span>
                                     <div class='input-group'>
                                         <span class='input-group-addon'>
                                             <i class='fa fa-eye'></i>
                                         </span>
-    <textarea class='form-control' rows='5' id='eligible_ineligible_observation' name='eligible_ineligible_observation'>Total ineligible ITC to Total ITC has been increase from ____(month name) to _____(month name).Total eligible ITC to total ITC has been decreased from ____(month name) to ____(maonthname).</textarea>
+    <textarea class='form-control' rows='5' id='eligible_ineligible_observation' name='eligible_ineligible_observation' onkeyup='countWords(this.id);'>Total ineligible ITC to Total ITC has been increase from ____(month name) to _____(month name).Total eligible ITC to total ITC has been decreased from ____(month name) to ____(maonthname).</textarea>
                                     </div>
                                     <span class='required' style='color: red' id='eligible_ineligible_observation_error'></span>
                                 </div>";
-
+            }
             // loop to get graph data as per graph script requirement
             $abc1 = array();
             $abc2 = array();

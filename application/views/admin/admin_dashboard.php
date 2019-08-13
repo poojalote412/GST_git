@@ -26,26 +26,26 @@ $this->load->view('admin/navigation');
 
     <!-- Insert your document here -->
 
-    <div id="buttons"></div>
+<!--    <div id="buttons"></div>
     <hr/>
     <div id="JSFiddle">
-        <!-- Insert your document here -->
+         Insert your document here 
         <header style="display:none;margin-top:20px;">
             <p>Add your header</p>
         </header>
         <footer style="display:none">
             <p>Add your footer</p>
         </footer>
-        <!--<div id="container1" style="height: 500px; width:700px"></div>-->
+        <div id="container1" style="height: 500px; width:700px"></div>
 
-        <!--        <div style="page-break-before:always;">
+                <div style="page-break-before:always;">
                     <div id="container2" style="height: 500px;  width:700px"></div>
-                </div>-->
+                </div>
         <div style="page-break-before:always;">
             <div id="container" style="height: 500px;  width:700px"></div>
             <div id="cfo_data"></div>
         </div>
-    </div>
+    </div>-->
 
 
 
@@ -53,6 +53,9 @@ $this->load->view('admin/navigation');
 <?php // $this->load->view('customer/footer'); ?>
 
 <script>
+    
+    
+    
     $(document).ready(function () {
         $.ajax({
             type: "post",

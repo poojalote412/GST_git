@@ -1207,7 +1207,7 @@ class Invoice_comp_report extends CI_Controller {
                 $k++;
             }
             $data .= '</tbody></table></div></div></div>';
-            $get_observation = $this->db->query("select invoice_not_include_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' and activity_status=1");
+            $get_observation = $this->db->query("select invoice_not_include_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
             if ($this->db->affected_rows() > 0) {
                 $res = $get_observation->row();
                 $observation = $res->invoice_not_include_observation;
@@ -1231,6 +1231,7 @@ class Invoice_comp_report extends CI_Controller {
     public function get_table_data1() {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
+        $curr_url = $this->input->post("curr_url");
         $query = $this->Invoice_comp_report_model->get_details_invoice_not_included($customer_id, $insert_id);
         $data = "";
         if ($query != FALSE) {
@@ -1282,16 +1283,38 @@ class Invoice_comp_report extends CI_Controller {
                 $k++;
             }
             $data .= '</tbody></table></div></div></div>';
-            $data .= '<div class="col-md-12">
+            $curr_url = $this->input->post("curr_url");
+            $url = base_url() . "update_detail/" . base64_encode($customer_id) . "/" . base64_encode($insert_id);
+            if ($curr_url == $url) {
+                $get_observation = $this->db->query("select invoice_not_include_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+                if ($this->db->affected_rows() > 0) {
+                    $res = $get_observation->row();
+                    $observation = $res->invoice_not_include_observation;
+                } else {
+                    $observation = "";
+                }
+                $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation of CFO:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                        <textarea class="form-control" rows="5" id="invoice_not_observation" name="invoice_not_observation" onkeyup="countWords(this.id);" >' . $observation . '</textarea>
+                                    </div>
+                                    <span class="required" style="color: red" id="invoice_not_observation_error"></span> 
+                                </div><br>';
+            } else {
+                $data .= '<div class="col-md-12">
                                     <label><h4><b>Observation:</b></h4></label><span class="required" aria-required="true"> </span>
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="fa fa-eye"></i>
                                         </span>
-                                        <textarea class="form-control" rows="5" id="invoice_not_observation" name="invoice_not_observation">The recording of the invoices need to be reviewed.</textarea>
+                                        <textarea class="form-control" rows="5" id="invoice_not_observation" name="invoice_not_observation" onkeyup="countWords(this.id);">The recording of the invoices need to be reviewed.</textarea>
                                     </div>
                                     <span class="required" style="color: red" id="invoice_not_observation_error"></span> 
                                 </div><br>';
+            }
             $response['data'] = $data;
             $response['message'] = "success";
             $response['status'] = true;
@@ -1561,7 +1584,7 @@ class Invoice_comp_report extends CI_Controller {
                 $k++;
             }
             $data .= '</tbody></table></div></div></div>';
-            $get_observation = $this->db->query("select amendment_records_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' and activity_status=1");
+            $get_observation = $this->db->query("select amendment_records_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
             if ($this->db->affected_rows() > 0) {
                 $res = $get_observation->row();
                 $observation = $res->amendment_records_observation;
@@ -1584,6 +1607,7 @@ class Invoice_comp_report extends CI_Controller {
     public function get_table_data_ammend1() {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
+        $curr_url = $this->input->post("curr_url");
 //        $query = $this->db->query("select * from invoices_amended_summary_all where customer_id='$customer_id' and insert_id='$insert_id'");
         $query = $this->Invoice_comp_report_model->get_details_invoice_ammneded($customer_id, $insert_id);
         $data = "";
@@ -1640,17 +1664,37 @@ class Invoice_comp_report extends CI_Controller {
                 $k++;
             }
             $data .= '</tbody></table></div></div></div>';
-            $data .= '<div class="col-md-12">
-                                    <label><h4><b>Observation of CFO:</b></h4></label><span class="required" aria-required="true"> </span>
+            $url = base_url() . "update_detail/" . base64_encode($customer_id) . "/" . base64_encode($insert_id);
+            if ($curr_url == $url) {
+                $get_observation = $this->db->query("select amendment_records_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+                if ($this->db->affected_rows() > 0) {
+                    $res = $get_observation->row();
+                    $observation = $res->amendment_records_observation;
+                } else {
+                    $observation = "";
+                }
+                $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation:</b></h4></label><span class="required" aria-required="true"> </span>
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="fa fa-eye"></i>
                                         </span>
-                                        <textarea class="form-control" rows="5" id="amend_observation" name="amend_observation">The recording of the invoices need to be reviewed..</textarea>
+                                        <textarea class="form-control" rows="5" id="amend_observation" name="amend_observation" onkeyup="countWords(this.id);">' . $observation . '</textarea>
                                     </div>
                                     <span class="required" style="color: red" id="amend_observation_error"></span> 
                                 </div><br>';
-
+            } else {
+                $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation :</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                        <textarea class="form-control" rows="5" id="amend_observation" name="amend_observation" onkeyup="countWords(this.id);">The recording of the invoices need to be reviewed..</textarea>
+                                    </div>
+                                    <span class="required" style="color: red" id="amend_observation_error"></span> 
+                                </div><br>';
+            }
             $response['data'] = $data;
             $response['message'] = "success";
             $response['status'] = true;
