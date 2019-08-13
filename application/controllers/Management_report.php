@@ -477,8 +477,15 @@ class Management_report extends CI_Controller {
                     '<td>' . '<b>' . "" . '</b>' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
-            $data .= "<hr><h4><b>Observation of Sales Taxable, non-taxable and Exempt:</b></h4>";
-            $data .= "<span>There is variation in the ratio of sales , give us an oppurtunity to optimise purchase planning , sales incentives planning & efficiency in working capital marketing.</span>";
+           $get_observation = $this->db->query("select tax_nontax_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' and activity_status=1");
+            if ($this->db->affected_rows() > 0) {
+                $res = $get_observation->row();
+                $observation = $res->tax_nontax_observation;
+            } else {
+                $observation = "";
+            }
+
+            $data .= "<hr><h4><b>Observation :</b></h4><span>".$observation."</span>";
             $abc1 = array();
             $abc2 = array();
             $abc3 = array();
@@ -689,7 +696,7 @@ class Management_report extends CI_Controller {
                 $min_subtotal_nongst = min(array_filter($ratio_subtotal_nongst));
                 $variation_subtotal_nongst = ((($max_subtotal_nongst - $min_subtotal_nongst) / $min_subtotal_nongst) * 100);
             }
-           
+
             if (empty(array_filter($ratio_subtotal_exempt))) {
                 $variation_subtotal_exempt = 0;
             } else {
@@ -1103,8 +1110,16 @@ class Management_report extends CI_Controller {
             $data .= '</tbody></table></div></div></div>';
             $max = max($sales_percent_values);
             $min = min($sales_percent_values);
+
+            $get_observation = $this->db->query("select cfo_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' and activity_status=1");
+            if ($this->db->affected_rows() > 0) {
+                $res = $get_observation->row();
+                $observation = $res->cfo_observation;
+            } else {
+                $observation = "";
+            }
 //            echo $variation=($max-$min)/($min*100);
-//            $data .= "<hr><h4><b>Observation of  Sales month wise:</b></h4>";
+            $data .= "<hr><h4><b>Observation of  Sales month wise:</b></h4><span>" . $observation . "</span>";
             // loop to get graph data as per graph script requirement
             $abc1 = array();
             for ($o = 0; $o < sizeof($taxable_supply_arr); $o++) {
@@ -1397,16 +1412,16 @@ class Management_report extends CI_Controller {
                     '<td><b>' . round((($row->rate_18) / ($total_value)) * 100) . '%</b></td>' .
                     '<td><b>' . round((($row->rate_28) / ($total_value)) * 100) . '%</b></td>' .
                     '</tr>';
-            $data .= "</tbody></table></div></div></div><div class='col-md-12'>
-                                    <label><h4><b>Observation </b></h4></label><span class='required' aria-required='true'> </span>
-                                    <div class='input-group'>
-                                        <span class='input-group-addon'>
-                                            <i class='fa fa-eye'></i>
-                                        </span>
-                                        <textarea class='form-control' rows='5' id='rate_wise_observation' name='rate_wise_observation'></textarea>
-                                    </div>
-                                    <span class='required' style='color: red' id='rate_wise_observation_error'></span>
-                                </div>";
+            $data .= "</tbody></table></div></div></div>";
+            $get_observation = $this->db->query("select rate_wise_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' and activity_status=1");
+            if ($this->db->affected_rows() > 0) {
+                $res = $get_observation->row();
+                $observation = $res->rate_wise_observation;
+            } else {
+                $observation = "";
+            }
+
+            $data .= "<hr><h4><b>Observation of  Sales Rate wise:</b></h4><span>" . $observation . "</span>";
             $respnose['data'] = $data;
             $respnose['message'] = "success";
         } else {
@@ -1485,15 +1500,8 @@ class Management_report extends CI_Controller {
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
             $data .= "<div class='col-md-12'>
-                                    <label><h4><b>Observation </b></h4></label><span class='required' aria-required='true'> </span>
-                                    <div class='input-group'>
-                                        <span class='input-group-addon'>
-                                            <i class='fa fa-eye'></i>
-                                        </span>
-                                        <textarea class='form-control' rows='5' id='export_observation' name='export_observation'>
-                                      
-                                        </textarea>
-                                    </div>
+                                    <label><h4><b>Observation: </b></h4></label><br>
+                                       " . array_sum($sales_percent_values) . " % is the total percentage of export sales done with respect to total sales.
                                     <span class='required' style='color: red' id='export_observation_error'></span>
                                 </div>";
 
@@ -2049,10 +2057,8 @@ class Management_report extends CI_Controller {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
         $query = $this->db->query("SELECT *  from monthly_summary_all where customer_id='$customer_id' and insert_id='$insert_id'");
-
 //        $query_get_graph = $this->Management_report_model->get_graph_query($customer_id, $insert_id);
         $data = ""; //view observations
-//        if (count($query_get_graph) > 0) {
         if ($query->num_rows() > 0) {
             $result = $query->result();
             $month = array();

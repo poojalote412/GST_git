@@ -331,6 +331,15 @@ class Customer_admin extends CI_Controller {
         $tax_exempt_observation = nl2br($this->input->post('tax_exempt_observation'));
         $tax_turnover_observation = nl2br($this->input->post('tax_turnover_observation'));
         $eligible_ineligible_observation = nl2br($this->input->post('eligible_ineligible_observation'));
+        $invoice_not_observation = nl2br($this->input->post('invoice_not_observation'));
+        $amend_observation = nl2br($this->input->post('amend_observation'));
+        $conclusion_summary = ($this->input->post('editor12'));
+        $time_over_run = ($this->input->post('range_issue_matrix1'));
+        $internal_control = ($this->input->post('range_issue_matrix2'));
+        $transaction_mismatch = ($this->input->post('range_issue_matrix3'));
+        $deviation_itc = ($this->input->post('range_issue_matrix4'));
+        $deviation_output = ($this->input->post('range_issue_matrix5'));
+        $gst_payable = ($this->input->post('range_issue_matrix6'));
         if (empty($company_name)) {
             $response['id'] = 'company_name';
             $response['error'] = 'Enter Proper Company Name';
@@ -344,6 +353,41 @@ class Customer_admin extends CI_Controller {
         } elseif (empty($about_company)) {
             $response['id'] = 'about_company';
             $response['error'] = 'Enter Details About Company';
+            echo json_encode($response);
+            exit;
+        } elseif (empty($conclusion_summary)) {
+            $response['id'] = 'editor12';
+            $response['error'] = 'Enter Details Conclusion Summary';
+            echo json_encode($response);
+            exit;
+        } elseif (($time_over_run) == 0) {
+            $response['id'] = 'range_issue_matrix1';
+            $response['error'] = 'Select Value';
+            echo json_encode($response);
+            exit;
+        } elseif (($internal_control) == 0) {
+            $response['id'] = 'range_issue_matrix2';
+            $response['error'] = 'Select Value';
+            echo json_encode($response);
+            exit;
+        } elseif (($transaction_mismatch) == 0) {
+            $response['id'] = 'range_issue_matrix3';
+            $response['error'] = 'Select Value';
+            echo json_encode($response);
+            exit;
+        } elseif (($deviation_itc) == 0) {
+            $response['id'] = 'range_issue_matrix4';
+            $response['error'] = 'Select Value';
+            echo json_encode($response);
+            exit;
+        } elseif (($deviation_output) == 0) {
+            $response['id'] = 'range_issue_matrix5';
+            $response['error'] = 'Select Value';
+            echo json_encode($response);
+            exit;
+        } elseif (($gst_payable) == 0) {
+            $response['id'] = 'range_issue_matrix6';
+            $response['error'] = 'Select Value';
             echo json_encode($response);
             exit;
         }
@@ -400,6 +444,15 @@ class Customer_admin extends CI_Controller {
                 'tax_nontax_observation' => $tax_exempt_observation,
                 'tax_turnover_observation' => $tax_turnover_observation,
                 'eligible_ineligible_observation' => $eligible_ineligible_observation,
+                'invoice_not_include_observation' => $invoice_not_observation,
+                'amendment_records_observation' => $amend_observation,
+                'conclusion_summary' => $conclusion_summary,
+                'time_over_run' => $time_over_run,
+                'internal_control' => $internal_control,
+                'transaction_mismatch' => $transaction_mismatch,
+                'deviation_itc' => $deviation_itc,
+                'deviation_output' => $deviation_output,
+                'gst_payable' => $gst_payable,
                 'created_on' => $created_on,
             );
 

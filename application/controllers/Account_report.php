@@ -85,9 +85,9 @@ class Account_report extends CI_Controller {
                         '<td>' . $k . '</td>' .
                         '<td>' . $months . '</td>';
                 if (strtotime($filling_date1) > strtotime($due_date1)) {
-                    $data .= '<td bgcolor="#DD2F10" style="width:10px">' . $status . '</td>';
+                    $data .= '<td ><button type="button" class="btn btn-block btn-danger">Late Filed</button></td>';
                 } else {
-                    $data .= '<td bgcolor="#00FF00" style="width:10px">' . $status . '</td>';
+                    $data .= '<td ><button type="button" class="btn btn-block btn-success">Filed</button></td>';
                 }
 
                 $data .= '<td>' . $late_fees . '</td>' .
@@ -148,16 +148,16 @@ class Account_report extends CI_Controller {
                         '<td>' . $k . '</td>' .
                         '<td>' . $period . '</td>';
                 if ($status == 'Filed') {
-                    $data .= '<td bgcolor="#32CD32">' . $status . '</td>';
+                    $data .= '<td ><button type="button" class="btn btn-block btn-success">Filed</button></td>';
                 } else {
-                    $data .= '<td bgcolor="#DD2F10">' . $status . '</td>';
+                    $data .= '<td ><button type="button" class="btn btn-block btn-danger">Late Filed</button></td>';
                 }
                 $data .= '<td>' . $filling_date . '</td>' .
                         '<td>' . $acknowledge_no . '</td>' .
                         '</tr>';
                 $k++;
             }
-           
+
             $respose['data'] = $data;
             $respose['message'] = "success";
         } else {

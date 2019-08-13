@@ -18,6 +18,8 @@
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
         <link rel="stylesheet" href="<?= base_url(); ?>dist/css/skins/_all-skins.min.css">
+        <link rel="stylesheet" href="<?= base_url(); ?>/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+        <link rel="stylesheet" href="<?= base_url(); ?>bower_components/select2/dist/css/select2.min.css">
      
 
 

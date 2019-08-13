@@ -212,6 +212,10 @@
 
 <!-- Bootstrap 3.3.7 -->
 <script src="<?= base_url(); ?>bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="<?= base_url(); ?>/bower_components/select2/dist/js/select2.full.min.js"></script>
+<script src="<?= base_url(); ?>/plugins/input-mask/jquery.inputmask.js"></script>
+<script src="<?= base_url(); ?>/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="<?= base_url(); ?>/plugins/input-mask/jquery.inputmask.extensions.js"></script>
 <script src="<?= base_url(); ?>bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?= base_url(); ?>bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- SlimScroll -->
@@ -222,6 +226,9 @@
 <script src="<?= base_url(); ?>dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?= base_url(); ?>dist/js/demo.js"></script>
+<script src="<?= base_url(); ?>bower_components/ckeditor/ckeditor.js"></script>
+<script src="<?= base_url(); ?>/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+
 
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/series-label.js"></script>
