@@ -410,9 +410,7 @@ class Invoice_comp_report extends CI_Controller {
         if ($query != FALSE) {
             $data .= '<div class="row">
                 <div class="col-md-12">
-                <center><h3 style="color:black"><b>C. Invoice wise comparison or mismatch report::</b></h3></center><br>
-               <center><h4 style="color:black"><b>1. Not in GSTR-2A, but recorded under purchasers book.</b></h4></center><br>
-                </div>
+                 </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12" id="div_notin2a_data">
@@ -648,7 +646,7 @@ class Invoice_comp_report extends CI_Controller {
             $data .= '
                 <div class="row">
                 <div class="col-md-12">
-               <center><h4 style="color:black"><b>2. Not in records, but recorded under GSTR-2A.</b></h4></center><br>
+               
                 </div>
                 </div>
             <div class="row">
@@ -905,7 +903,6 @@ class Invoice_comp_report extends CI_Controller {
             $data .= '<div class="row">
                 <div class="col-md-12">
                
-               <center><h4 style="color:black"><b>3.Invoice no., POS and Period mismatch:</b></h4></center><br>
                 </div>
                 </div>
                 <div class="row">
@@ -1185,7 +1182,6 @@ class Invoice_comp_report extends CI_Controller {
         if ($query != FALSE) {
             $data .= '<div class="row">
                     <div class="col-md-12">
-                    <center><h3 style="color:black"><b> 2.Invoice not included in GSTR-1:</b></h3></center><br>
                         <div class="">
                          <table id="example_invoice_not_include" class="table table-bordered table-striped" style="width:40%">
                                 <thead style="background-color: #00008B;color:white">
@@ -1557,9 +1553,7 @@ class Invoice_comp_report extends CI_Controller {
         if ($query != FALSE) {
             $data .= '<div class="row">
                     <div class="col-md-12">
-                    <center><h3 style="color:black"><b>B. Internal Control Report:</b></h3></center><br>
-                    <center><h4 style="color:black"><b>1. Invoice amends in other than original period Analysis:</b></h4></center><br>
-                    <div class="">
+                     <div class="">
                          <table id="example2" class="table table-bordered table-striped" style="width:200px !important">
                                 <thead style="background-color: #00008B;color:white">
                                     <tr style="width:2px">

@@ -81,7 +81,7 @@ class Report extends CI_Controller {
                       <b style="font-size:18px;color:#1d2f66;">1. ABOUT ANAND RATHI GLOBAL FINANCE LTD.</b><br><br><br>';
 
 
-            $data = '<div style="float:left;margin-left: 30px;">
+            $data = '<div style="float:left;">
                       <b style="font-size:18px;color:#1d2f66;">1. ABOUT ANAND RATHI GLOBAL FINANCE LTD.</b><br><br><br>
 
                       <p>Anand Rathi Global Finance Limited (ARGFL) was incorporated on 3rd February, 1982. The 

@@ -205,23 +205,35 @@ if (is_array($session_data)) {
                             <div id="invoice_ammend_original_data" style="margin-top:140px;"></div>
                         </div>
 
+                        
+
+                        <div class="test" style="page-break-before:always;margin-top:160px">
+                            <h4 style="color:#1d2f66"><b>2.Invoice not included in GSTR-1:</b></h4>
+                            <div id="invoice_notinclude_gstr1_data" style=""></div>
+                        </div>
+                        
+                        <div class="test" style="page-break-before:always;margin-top:160px">
+                            <h4 style="color:#1d2f66;"><b>C. INVOICE WISE COMPARISON OR MISMATCH REPORT</b></h4>
+                            <h4 style="color:#1d2f66"><b>1.Not in GSTR-2A,but recorderd under purchaser's book:</b></h4>
+                            <div id="company_all_notin2a_data" style=""></div>
+                        </div>
+                        
+                        <div class="test" style="page-break-before:always;margin-top:160px">
+                            <h4 style="color:#1d2f66"><b>2.Not in records,but recorded under GSTR-2A:</b></h4>
+                            <div id="company_all_notinrec_data" style=""></div>
+                        </div>
+                        
+                        <div class="test" style="page-break-before:always;margin-top:160px">
+                            <h4 style="color:#1d2f66"><b>3.Invoice no.,POS and Period mismatch:</b></h4>
+                            <div id="company_all_partially_data" style=""></div>
+                        </div>
+                        
+                        
                         <div class="test" style="page-break-before:always;">
                             <div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/IssueMatrix.jpg" width="1200px" height="" style=""></div>  
                             <div id="heat_map_tbl" style="width:700px"></div>
                             <div id="container_heat_map" style="width:700px"></div>
                         </div>
-
-                        <div class="test" style="page-break-before:always;margin-top:160px">
-                            <h4 style="color:#1d2f66"><b>2.Invoice not included in GSTR-1:</b></h4>
-                            <div id="invoice_notinclude_gstr1_data" style="margin-top:140px;"></div>
-                        </div>
-
-
-                        <div id="company_all_notin2a_data" style="page-break-before:always;margin-top:140px;"></div>
-                        <div id="company_all_notinrec_data" style="page-break-before:always;margin-top:140px;"></div>
-                        <div id="company_all_partially_data"></div>
-
-
 
 
 
@@ -1838,6 +1850,7 @@ if (is_array($session_data)) {
 
                     $('#invoice_notinclude_gstr1_data').html(data);
 //                    $('#example2').DataTable();
+                       
                 } else {
                     $('#invoice_notinclude_gstr1_data').html("");
 //                    alert('no data availabale');
