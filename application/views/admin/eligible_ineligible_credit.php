@@ -267,8 +267,7 @@ if (is_array($session_data)) {
                     alert('no graph available.please insert files.');
                 }
             }
-        }
-        );
+        });
 
     }
 </script>

@@ -258,7 +258,7 @@ class Threeb_vs_twoa extends CI_Controller {
                     '<td>' . '<b>' . array_sum($difference2) . '</b>' . '</td>' .
                     '<td>' . '<b>' . array_sum($cumu_difference3) . '</b>' . '</td>' .
                     '</tr>';
-            $data .= '</tbody></table></div></div></div>';
+            $data .= '</tbody></table></div></div></div><br><br><br><br>';
 
             $data .= "<hr><h4><b>Observation of GSTR-3B vs GSTR-2A:</b></h4>";
             if ($thb > $twa) {

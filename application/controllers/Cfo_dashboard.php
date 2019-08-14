@@ -295,7 +295,7 @@ class Cfo_dashboard extends CI_Controller {
                     '<td>' . '<b>' . array_sum($tax_liabality1) . '</b>' . '</td>' .
                     '<td>' . '<b>' . array_sum($ratio_val) . "%" . '</b>' . '</td>' .
                     '</tr>';
-            $data .= '</tbody></table></div></div></div>';
+            $data .= '</tbody></table></div></div></div><br><br>';
 //         echo   max($ratio_val);
 //         echo   min($ratio_val);
             $get_observation = $this->db->query("select cfo_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
@@ -307,6 +307,12 @@ class Cfo_dashboard extends CI_Controller {
             }
 
             $data .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
+            
+            $data .= "<hr><h4><b>Observation of CFO:</b></h4>"
+                    . "<span>Percentage of GST payable to turnover is not stable for F.Y. 2017-18 it varies from <b>" . min($ratio_val) . "% </b>to<b> " . max($ratio_val) . "%</b>.</span><br>"
+                    . "<div class='col-md-4'>
+                                    <label>About Company:</label><span class='required' aria-required='true'> </span>";
+
 
             // $data .= '<img src="' . base_url('images/samples/images122.png') . '" width="200px" height="200px"/>';
 //            var_dump($turnover1);

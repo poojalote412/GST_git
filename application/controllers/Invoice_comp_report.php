@@ -643,6 +643,7 @@ class Invoice_comp_report extends CI_Controller {
         $insert_id = $this->input->post("insert_id");
         $query = $this->Invoice_comp_report_model->get_notinrec_records_all($customer_id, $insert_id);
         $data = "";
+         $i = 1;    
         if ($query != FALSE) {
             $data .= '
                 <div class="row">
@@ -672,13 +673,22 @@ class Invoice_comp_report extends CI_Controller {
             $invoice_value = array();
             $taxable_value = array();
             $tax = array();
-            $i = 1;
+//            $TotalNoOfRecords = count($data);
+           
+           
             foreach ($query as $row) {
-
+                
                 $invoice_value[] = $row->invoice_value;
                 $taxable_value[] = $row->taxable_value;
                 $tax[] = $row->tax;
-
+//                if($i > 20) {
+////                    if ($i && $i % 10 == 0) {
+////                    continue;
+//                    $data .= '<!-- break -->';
+////                    $data .= '<span class="pageBreak" style=" page-break-before: always;">&NBSP;</span>';
+////                      echo '<span class="pageBreak"></span>' . PHP_EOL;
+////                    $i++; // <-- Oh and reset $i
+//                }
                 $data .= '<tr>' .
                         '<td>' . $i . '</td>' .
                         '<td>' . $row->company_name . '</td>' .
@@ -690,8 +700,19 @@ class Invoice_comp_report extends CI_Controller {
                         '<td>' . $row->taxable_value . '</td>' .
                         '<td>' . $row->tax . '</td>' .
                         '</tr>';
+                
+               
+//                if($i % 20) {
+////                    if ($i && $i % 10 == 0) {
+////                    continue;
+//                    $data .= '<!-- break -->';
+////                    $data .= '<span class="pageBreak" style=" page-break-before: always;">&NBSP;</span>';
+////                      echo '<span class="pageBreak"></span>' . PHP_EOL;
+////                    $i++; // <-- Oh and reset $i
+//                }
                 $i++;
             }
+              
             $data .= '<tr>' .
                     '<td>' . "<b>Total</b>" . '</td>' .
                     '<td>' . "" . '</td>' .
@@ -886,7 +907,7 @@ class Invoice_comp_report extends CI_Controller {
                 <div class="row">
                     <div class="col-md-12">
                         <div class="">
-                         <table id="example_partial" class="table table-bordered table-striped">
+                         <table id="example3" class="table table-bordered table-striped">
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
                                         <th>No.</th>

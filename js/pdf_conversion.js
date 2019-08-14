@@ -294,9 +294,9 @@ xepOnline.mobilecheck = function() {
 }
 
 xepOnline.DEFAULTS = {
-	pageWidth:"8.5in",
-	pageHeight:"11in",
-	pageMargin:".50in"
+	pageWidth:"9.5in",
+	pageHeight:"13.5in",
+	pageMargin:".10in"
 };
 
 // TODO: better media ignore method, maybe poke the css stylesheet to verify this is "the" bootstrap.css media to ignore

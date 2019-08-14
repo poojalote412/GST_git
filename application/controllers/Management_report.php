@@ -403,16 +403,16 @@ class Management_report extends CI_Controller {
                                     <tr>
                                         <th>No.</th>
                                         <th>Month</th>
-                                        <th>Taxable Supply</th>
-                                        <th>Exempt Supply</th>
-                                        <th>Non-GST Supply</th>
-                                        <th>Nil Rated Supply</th>
-                                        <th>Zero rated Supply</th>
-                                        <th>Ratio of Taxable supply by Total supply</th>
-                                        <th>Ratio of Exempt Supply by Total supply</th>
-                                        <th>Ratio of Non-GST supply by Total supply</th>
-                                        <th>Ratio of Nil Rated supply to total supply</th>
-                                        <th>Ratio of zero rated supply to total supply</th>
+                                        <th>Taxable</th>
+                                        <th>Exempt</th>
+                                        <th>Non-GST</th>
+                                        <th>Nil</th>
+                                        <th>Zero</th>
+                                        <th>Ratio Taxable</th>
+                                        <th>Ratio Exempt</th>
+                                        <th>Ratio Non-GST</th>
+                                        <th>Ratio Nil</th>
+                                        <th>Ratio zero</th>
                                     </tr>
                                 </thead>
                                 <tbody>';
@@ -470,6 +470,8 @@ class Management_report extends CI_Controller {
                     '<td>' . '<b>' . array_sum($sub_total_non_gst_arr) . '</b>' . '</td>' .
                     '<td>' . '<b>' . array_sum($sub_total_nil_rated_arr) . '</b>' . '</td>' .
                     '<td>' . '<b>' . array_sum($sub_total_zero_ratedarr) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . "" . '</b>' . '</td>' .
+                    '<td>' . '<b>' . "" . '</b>' . '</td>' .
                     '<td>' . '<b>' . "" . '</b>' . '</td>' .
                     '<td>' . '<b>' . "" . '</b>' . '</td>' .
                     '<td>' . '<b>' . "" . '</b>' . '</td>' .

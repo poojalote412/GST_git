@@ -276,7 +276,7 @@ class Threeb_vs_one extends CI_Controller {
                     '<td>' . '<b>' . array_sum($difference4) . '</b>' . '</td>' .
                     '<td>' . '<b>' . array_sum($cumu_difference5) . '</b>' . '</td>' .
                     '</tr>';
-            $data .= '</tbody></table></div></div></div>';
+            $data .= '</tbody></table></div></div></div><br><br><br><br>';
 
             if ($ttl1 > $ttl2) {
                 $data .= "<hr><h4><b>Observation of GSTR-3B vs GSTR-1:</b></h4>";
