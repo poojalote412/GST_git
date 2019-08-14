@@ -258,9 +258,9 @@ class Threeb_vs_twoa extends CI_Controller {
                     '<td>' . '<b>' . array_sum($difference2) . '</b>' . '</td>' .
                     '<td>' . '<b>' . array_sum($cumu_difference3) . '</b>' . '</td>' .
                     '</tr>';
-            $data .= '</tbody></table></div></div></div><br><br><br><br>';
+            $data .= '</tbody></table></div></div></div><br><br><br><br><br><br><br><br><br><br>';
 
-            $data .= "<hr><h4><b>Observation of GSTR-3B vs GSTR-2A:</b></h4>";
+            $data .= "<br><br><h4><b>Observation of GSTR-3B vs GSTR-2A:</b></h4>";
             if ($thb > $twa) {
                 $data .= '<span>GSTR-3B > 2A, ITC declared and ITC claimed is showing a huge difference as either the company has taken excess credit or vendor has not recorded our purchases in his GSTR 1. '
                         . 'This may lead to interest liability & penalties notices or permanent loss of credit if vendor is not informed and corrective action is not taken by such vendor.</span>';

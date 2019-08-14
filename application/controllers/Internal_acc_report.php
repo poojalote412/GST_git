@@ -513,7 +513,7 @@ class Internal_acc_report extends CI_Controller {
                     <div class="col-md-12">
                         <div class="">
                          <table id="example2" class="table table-bordered table-striped">
-                                <thead style="background-color: #00008B;color:white">
+                                <thead style="background-color: #FE6666;color:white">
                                     <tr>
                                         <th>No.</th>
                                         <th>Month</th>
@@ -855,7 +855,7 @@ class Internal_acc_report extends CI_Controller {
                     <div class="col-md-12">
                         <div class="">
                          <table id="example2" class="table table-bordered table-striped">
-                                <thead style="background-color: #00008B;color:white">
+                                <thead style="background-color: #FE6666;color:white">
                                     <tr>
                                         <th>No.</th>
                                         <th>Month</th>
@@ -1173,7 +1173,7 @@ class Internal_acc_report extends CI_Controller {
                     <div class="col-md-12">
                         <div class="">
                          <table id="example2" class="table table-bordered table-striped">
-                                <thead style="background-color: #00008B;color:white">
+                                <thead style="background-color: #FE6666;color:white">
                                     <tr>
                                         <th>No.</th>
                                         <th>Month</th>
@@ -1443,7 +1443,7 @@ class Internal_acc_report extends CI_Controller {
                     <div class="col-md-12">
                         <div class="">
                          <table id="example2" class="table table-bordered table-striped">
-                                <thead style="background-color: #00008B;color:white">
+                                <thead style="background-color: #FE6666;color:white">
                                     <tr>
                                         <th>No.</th>
                                         <th>Month</th>

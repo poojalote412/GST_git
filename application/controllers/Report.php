@@ -73,8 +73,8 @@ class Report extends CI_Controller {
 //                    
 //                    </div>';
             
-            $data = '<div style="float:left;background:#002366;color:white;padding:20px">
-                      <b style="font-size:18px;margin-left: 150px;">1. ABOUT ANAND RATHI GLOBAL FINANCE LTD.</b><br><br><br>
+            $data = '<div style="float:left;margin-left: 30px">
+                      <b style="font-size:18px;color:#1d2f66;">1. ABOUT ANAND RATHI GLOBAL FINANCE LTD.</b><br><br><br>
                       <p>Anand Rathi Global Finance Limited (ARGFL) was incorporated on 3rd February, 1982. The 
                       Company is wholly owned subsidiary of Anand Rathi Financial Services Ltd. The Company is 
                       registered with Reserve Bank of India (RBI) as non-banking finance company (NBFC) and 
@@ -99,25 +99,24 @@ class Report extends CI_Controller {
                       </ul>
                       </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
             
-            $data .= '<div style="float:left;">
-                      <b><p style="font-size:18px;text-align:center;background:#002366;color:white;padding:3px;border: 1px solid;">2. EXECUTIVE SUMMARY</p></b><br><br><br>  
-                      <ul>
-                      <li>Ecovis RKCA was provided with the data of the company  “Anand Rathi
-                      Global Finance Ltd.” to evaluate this health check report.</li>
-                      <li>Ecovis RKCA  was also able to access all the information such as:</li>
-                      </ul>
+            $data .= '<div style="float:left;margin-left: 30px;">
+                <b style="font-size:18px;color:#1d2f66;">2. EXECUTIVE SUMMARY</b><br><br><br>
+                      Ecovis RKCA was provided with the data of the company  “Anand Rathi
+                      Global Finance Ltd.” to evaluate this health check report.<br>    
+                      Ecovis RKCA  was also able to access all the information such as:
+                      
                       1. Sales data month wise.<br>
                       2. GSTR-1 <br>
-                     3. GSTR-3B.<br>
+                      3. GSTR-3B.<br>
                       and  Ecovis RKCA. Uses this data to provide them with GST insights in form of:<br>
                       1. Management Report<br>
                       2. Compliance Report<br>
                       3. Internal control Reports<br>
                       4. Mismatch Reports<br>
                       5. Deviation Reports<br>
-                     6. CFO Dashboard<br>
+                      6. CFO Dashboard<br>
                       This will help the company immensely for their development.<br>
-                      <ul><li>	We also evaluated some areas of improvement.</li></ul>
+                      	We also evaluated some areas of improvement.
                      </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
 
 //            

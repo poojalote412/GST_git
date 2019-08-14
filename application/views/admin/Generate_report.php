@@ -52,7 +52,7 @@ if (is_array($session_data)) {
                                     </span>
                                     <input type="hidden" class="form-control" value="<?php echo $insert_id; ?>"disabled=""name="insert_id"  id="insert_id"   aria-required="true" aria-describedby="input_group-error">
                                     <input type="hidden" class="form-control" value="<?php echo $customer_id; ?>"disabled=""name="customer_id"  id="customer_id"   aria-required="true" aria-describedby="input_group-error">
-                                    <input type="text" class="form-control" value="<?php // echo $user_name[$x]['customer_name']                      ?>"  disabled=""name="cust_name"  id="cust_name" onkeyup="remove_error('customer_name')"   aria-required="true" aria-describedby="input_group-error">
+                                    <input type="text" class="form-control" value="<?php // echo $user_name[$x]['customer_name']                        ?>"  disabled=""name="cust_name"  id="cust_name" onkeyup="remove_error('customer_name')"   aria-required="true" aria-describedby="input_group-error">
 
                                 </div>
                                 <span class="required" style="color: red" id="customer_name_error"></span>
@@ -99,74 +99,132 @@ if (is_array($session_data)) {
 
                     </div>
                     <!--<div id="content_pdf"></div><br><br><br><br><br><br>-->
-                    <div id="container_image_letter_client" style="margin-top:140px;"><img src="https://premisafe.com/GST_image/LettertoClient.jpg" width="900px" height="900px" style="page-break-before:always;"></div>
-                    <div id="container_image_limited_usage" style="margin-top:140px;"><img src="https://premisafe.com/GST_image/LimitedUsage&Abbreviation.jpg" width="800px" height="700px" style="page-break-before:always;"></div>
-                    <div id="content_pdf" style="margin-top:140px;"><img src="https://premisafe.com/GST_image/LimitedUsage&Abbreviation.jpg" width="800px" height="700px" style="page-break-before:always;"></div>
-                    <div id="container_image_components_overview" style="margin-top:140px;"><img src="https://premisafe.com/GST_image/GSTComponents&Overview.jpg" width="800px" height="700px" style="page-break-before:always;"></div>
-                    <div id="container_image_GST_framework" style="margin-top:140px;"><img src="https://premisafe.com/GST_image/GSTFramework.jpg" width="800px" height="900px" style="page-break-before:always;"></div>
-                    <div id="container_image_approach" style="margin-top:140px;"><img src="https://premisafe.com/GST_image/Approach.jpg" width="800px" height="900px" style="page-break-before:always;"></div>
+                    <div id="container_image_letter_client" style="margin-top:440px;"><img src="https://premisafe.com/GST_image/LettertoClient.jpg" width="900px" height="900px" style="page-break-before:always;"></div>
+                    <div id="container_image_limited_usage" style="margin-top:440px;"><img src="https://premisafe.com/GST_image/LimitedUsage&Abbreviation.jpg" width="800px" height="700px" style="page-break-before:always;"></div>
+                    <div id="content_pdf" style="margin-top:440px;"><img src="https://premisafe.com/GST_image/LimitedUsage&Abbreviation.jpg" width="800px" height="700px" style="page-break-before:always;"></div>
+                    <div id="container_image_components_overview" style="margin-top:440px;"><img src="https://premisafe.com/GST_image/GSTComponents&Overview.jpg" width="800px" height="700px" style="page-break-before:always;"></div>
+                    <div id="container_image_GST_framework" style="margin-top:440px;"><img src="https://premisafe.com/GST_image/GSTFramework.jpg" width="800px" height="900px" style="page-break-before:always;"></div>
+                    <div id="container_image_approach" style="margin-top:440px;"><img src="https://premisafe.com/GST_image/Approach.jpg" width="800px" height="900px" style="page-break-before:always;"></div>
 
                     <!--Details of GST Reports & insights-->
-                    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                    <div class="test" style="margin-top:180px">
+<!--                    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>-->
+                    <div class="test" style="margin-top:130px;page-break-before:always;">
                         <h4 style="color:#1d2f66;"><b>6.DETAILS OF GST REPORTS AND INSIGHTS</b></h4>
-                    <p style="background:#1d2f66; color:white;padding:4px;border:1px solid;width:700px;text-align:center">DATA INSIGHTS</p>
-                    <h4 style="color:#1d2f66"><b>A.MANAGEMENT REPORT</b></h4><br>
-                    <h4><b>1.Sales Month Wise</b></h4>
+                        <p style="background:#1d2f66; color:white;padding:4px;border:1px solid;width:700px;text-align:center">DATA INSIGHTS</p>
+                        <h4 style="color:#1d2f66"><b>A.MANAGEMENT REPORT</b></h4><br>
+                        <h4><b>1.Sales Month Wise</b></h4>
+                        <div id="container_sales_month_wise"  style="width:700px;padding: 20px;border: 3px solid"></div>
+                        <div id="sales_monthly_data" style="width:700px">
                     </div>
-                    <div id="container_sales_month_wise"  style="width:700px;margin-top:140px;padding: 20px;border: 3px solid"></div>
+<!--                    <div id="container_sales_month_wise"  style="width:700px;margin-top:140px;padding: 20px;border: 3px solid"></div>-->
                     <!--<div id="sales_monthly_data" style="page-break-before:always;width:700px"></div>-->
+
                     <div class="test" style="margin-top:180px">
-                        
                         <h4><b>2.Sales Tax Rate Wise</b></h4>
+                        <div id="compare_sales_ratewise_data" style="width:700px"></div>
                     </div>
-                    <div id="compare_sales_ratewise_data" style="width:700px"></div>
-                    <div class="test" style="margin-top:180px">
-                        
+
+                    <div class="test" style="page-break-before:always;margin-top:50px">
                         <h4><b>3.Sales State Wise</b></h4>
+                         <div id="sales_state_wise_data"  style="width:700px"></div>
+                        <div id="container_state_wise" style="width:700px;padding: 15px;border: 3px solid"></div>
+                        
                     </div>
-                    <div id="container_state_wise" style="page-break-before:always;width:700px;margin-top:140px;"></div>
-                    
-                    <div id="container_nontax_exempt" style="page-break-before:always;width:700px;margin-top:140px;"></div>
-                    <div id="container_sales_b2b_b2c" style="page-break-before:always;width:700px;margin-top:140px;"></div>
+
+                    <div class="test" style="page-break-before:always;margin-top:180px">
+                        <h4><b>4.Sales Taxable,Non-taxable and Exempt</b></h4>
+                        <div id="tax_ntax_Exempt_data" style="width:700px"></div>
+                        <div id="container_nontax_exempt" style="width:700px;padding: 20px;border: 3px solid"></div>
+                    </div>
+
+                    <div class="test" style="page-break-before:always;margin-top:180px">
+                        <h4><b>5.Sales B2B and B2C</b></h4>
+                        <div id="compare_b2b_data" style="width:700px"></div>
+                        <div id="container_sales_b2b_b2c" style="width:700px;margin-top:140px;padding: 20px;border: 3px solid"></div>
+                    </div>
 
                     <!--Comparison & Deviation Report-->
-                    <div id="container_GSTR3b_vs_2A"  style="page-break-before:always;width:700px;margin-top:140px;"></div>
-                    <div id="compare_GSTR3B_Vs2_data" style="width:700px"></div>
-                    <div id="container_GSTR3b_vs_1" style="page-break-before:always;width:700px;margin-top:140px;"></div>
-                    <div id="compare_3b_vs1_data" style="width:700px"></div>
+                    <div class="test" style="page-break-before:always;margin-top:140px">
+                        <h4 style="color:#1d2f66;"><b>B.COMPARISON AND DEVIATION REPORT</b></h4>
+                        <h4><b>1.GSTR3B VS. GSTR2A -Input Tax Credit Reconcillation</b></h4>
+                        <div id="compare_GSTR3B_Vs2_data" style="width:700px"></div>
+                        <div id="container_GSTR3b_vs_2A"  style="width:700px;padding: 20px;border: 3px solid"></div>
+
+                    </div>
+                    <div class="test" style="page-break-before:always;margin-top:140px">
+                        <h4><b>2.GSTR3B VS. GSTR1 - Output Liability Reconcillation</b></h4>
+                        <div id="compare_3b_vs1_data" style="width:700px"></div>
+                        <div id="container_GSTR3b_vs_1" style="width:700px;padding: 20px;border: 3px solid"></div>
+                    </div>
 
                     <!--BAROMETER CFO DASHBOARD-->
-                    <div id="container_tax_turnover"  style="page-break-before:always;width:700px;margin-top:140px;"></div>
-                    <div id="tax_turnover_data" style="width:700px;margin-top:140px;"></div>
-                    <div id="container_turnovervs_liability" style="page-break-before:always;width:700px;margin-top:140px;"></div>
-                    <div id="cfo_data" style="width:700px;margin-top:140px;"></div>
-                    <div id="container_tax_liability" style="page-break-before:always;width:700px;margin-top:140px;"></div>
-                    <div id="tax_liability_data" style="width:700px"></div>
-                    <div id="container_gst_payablevscash"  style="page-break-before:always;width:700px;margin-top:140px;"></div>
-                    <div id="gst_payablevscash_data" style="width:700px;margin-top:140px;"></div>
-                    <div id="container_eligible_credit"  style="page-break-before:always;width:700px;margin-top:140px;"></div>
-                    <div id="tax_iniligible_data" style="width:700px;margin-top:140px;"></div>
+                    <div class="test" style="page-break-before:always;margin-top:140px">
+                        <p style="background:#FE6666; color:white;padding:4px;border:1px solid;width:700px;text-align:center"><b>BAROMETER-CFO DASHBOARD</b></p>
+                        <h4 style="color:#1d2f66;"><b>A. CFO DASHBOARD</b></h4>
+                        <h4 style="color:#1d2f66"><b>1. Overview of Turnover</b></h4><br>
+                        <div id="tax_turnover_data" style="width:700px"></div>
+                        <div id="container_tax_turnover"  style="width:700px;padding: 20px;border: 3px solid"></div>
+                    </div>
 
+                    <div class="test" style="page-break-before:always;margin-top:160px">
+                        <h4 style="color:#1d2f66"><b>2. Turnover vs Tax Liability:</b></h4><br>
+                        <div id="cfo_data" style="width:700px;"></div>
+                        <div id="container_turnovervs_liability" style="width:700px;padding: 20px;border: 3px solid"></div>
+                    </div>
+
+                    <div class="test" style="page-break-before:always;margin-top:180px">
+                        <h4 style="color:#1d2f66"><b>3. Overview of Tax Liability:</b></h4><br>
+                        <div id="tax_liability_data" style="width:700px"></div>
+                        <div id="container_tax_liability" style="width:700px;padding: 20px;border: 3px solid"></div>
+                    </div>
+
+                    <div class="test" style="page-break-before:always;margin-top:160px">
+                        <h4 style="color:#1d2f66"><b>4. GST Payable V/s Cash:</b></h4><br>
+                        <div id="gst_payablevscash_data" style="width:700px"></div>
+                        <div id="container_gst_payablevscash"  style="width:700px;padding: 20px;border: 3px solid"></div>
+                    </div>
+
+                    <div class="test" style="page-break-before:always;margin-top:160px">
+                        <h4 style="color:#1d2f66"><b>5. Eligible and Inligible Credit:</b></h4><br>
+                        <div id="tax_iniligible_data" style="width:700px;"></div>
+                        <div id="container_eligible_credit"  style="width:700px;padding: 20px;border: 3px solid"></div>
+                    </div>
 
                     <!--InFORMATION COMPARISON-->
-                    <div id="gstr3B_data" style="page-break-before:always;width:700px;margin-top:140px;"></div>
-                    <div id="gstr1_data" style="page-break-before:always;width:700px;margin-top:140px;"></div>
-
-                    <div id="invoice_ammend_original_data" style="page-break-before:always;margin-top:140px;"></div>
+                    <div class="test" style="page-break-before:always;margin-top:120px">
+                        <p style="background:#017101; color:white;padding:4px;border:1px solid;width:700px;text-align:center"><b>INFORMATION COMPARISON</b></p>
+                        <h4 style="color:#1d2f66;"><b>A. COMPLIANCE REPORT</b></h4>
+                        <h4 style="color:#1d2f66"><b>1. GSTR-3B:</b></h4>
+                        <div id="gstr3B_data" style="width:700px"></div><br><br><br>
+                        <h4 style="color:#1d2f66"><b>2. GSTR-1:</b></h4>
+                        <div id="gstr1_data" style="width:700px"></div>
+                    </div>
+                    
+                    <div class="test" style="page-break-before:always;margin-top:160px">
+                        <h4 style="color:#1d2f66;"><b>B. INTERNAL CONTROL REPORT</b></h4>
+                        <h4 style="color:#1d2f66"><b>1.Invoice amends in other than original period Analysis:</b></h4>
+                    <div id="invoice_ammend_original_data" style="margin-top:140px;"></div>
+                    </div>
+                    
                     <div id="invoice_notinclude_gstr1_data" style="page-break-before:always;margin-top:140px;"></div>
                     <div id="company_all_notin2a_data" style="page-break-before:always;margin-top:140px;"></div>
                     <div id="company_all_notinrec_data" style="page-break-before:always;margin-top:140px;"></div>
-                     <div id="company_all_partially_data"></div>
+                    <div id="company_all_partially_data"></div>
+                    
+                    <div class="test" style="page-break-before:always;margin-top:160px">
+                        <h4 style="color:#1d2f66"><b>6.Issue Matrix:</b></h4>
+                    <div id="heat_map_tbl" style="margin-top:140px;"></div>
+                    <div id="container_heat_map" style="margin-top:140px;"></div>
+                    </div>
 
 
-<!--                    <div id="sales_monthly_data" style="width:700px"></div>
-
-                    <div id="sales_state_wise_data"  style="width:700px"></div>
-
-                    <div id="tax_ntax_Exempt_data" style="width:700px"></div>
-
-                    <div id="compare_b2b_data" style="width:700px"></div>-->
+                    <!--                    <div id="sales_monthly_data" style="width:700px"></div>
+                    
+                                        <div id="sales_state_wise_data"  style="width:700px"></div>
+                    
+                                        <div id="tax_ntax_Exempt_data" style="width:700px"></div>
+                    
+                                        <div id="compare_b2b_data" style="width:700px"></div>-->
 
                 </div>
             </div>
@@ -238,7 +296,7 @@ if (is_array($session_data)) {
                     var data_month = result.month_data;
                     var max_range = result.max_range;
                     var customer_name = "Customer Name:" + result.customer_name;
-                     Highcharts.chart('container_turnovervs_liability', {
+                    Highcharts.chart('container_turnovervs_liability', {
 //                    var chart = Highcharts.chart('container_turnovervs_liability', {
                         chart: {
                             type: 'column'
@@ -1475,7 +1533,134 @@ if (is_array($session_data)) {
 
         });
 
+        
+        //Graph for heat map
+        
+        
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Report/get_heat_map") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+//                 alert();
+                $('#heat_map_tbl').html("");
+                if (result.message === "success") {
 
+                    var data = result.data;
+                    $('#heat_map_tbl').html("");
+                    $('#heat_map_tbl').html(data);
+                    $('#heat_map_tbl_id').DataTable();
+                } else {
+
+                }
+            },
+
+        });
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Report/get_heat_map") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                if (result.message === "success") {
+                    var likelihood_impact = result.likelihood_impact;
+                    var likelihood_risk = result.likelihood_risk;
+                    Highcharts.chart('container_heat_map', {
+                        chart: {
+                            type: 'scatter',
+                            zoomType: 'xy',
+//                            backgroundColor: '#E38B0B',
+                        },
+
+                        title: {
+                            text: 'ISSUE MATRIX'
+                        },
+                        subtitle: {
+//                            text: 'Source: Heinz  2003'
+                        },
+                        xAxis: {
+                            gridLineWidth: 1,
+                            title: {
+                                enabled: true,
+//                                text: 'Height (cm)'
+                            },
+                            startOnTick: true,
+                            endOnTick: true,
+                            showLastLabel: true
+                        },
+                        yAxis: {
+                            gridLineWidth: 1,
+
+                            plotBands: [{// mark the weekend
+                                    color: '#74D56F',
+                                    from: 0,
+                                    to: 6
+                                }, {// mark the weekend
+                                    color: '#D8D824',
+                                    from: 6,
+                                    to: 11
+                                }, {// mark the weekend
+                                    color: '#eb5c3d',
+                                    from: 11,
+                                    to: 25
+                                }],
+
+                        },
+
+                        legend: {
+                            layout: 'vertical',
+                            align: 'left',
+                            verticalAlign: 'top',
+                            x: 100,
+                            y: 70,
+                            floating: true,
+                            backgroundColor: Highcharts.defaultOptions.chart.backgroundColor,
+                            borderWidth: 1
+                        },
+
+                        plotOptions: {
+                            scatter: {
+                                marker: {
+                                    radius: 5,
+                                    states: {
+                                        hover: {
+                                            enabled: true,
+                                            lineColor: 'rgb(100,100,100)'
+                                        }
+                                    }
+                                },
+                                states: {
+                                    hover: {
+                                        marker: {
+                                            enabled: false
+                                        }
+                                    }
+                                },
+                                tooltip: {
+                                    headerFormat: '<b>{series.name}</b><br>',
+                                    pointFormat: '{point.x} , {point.y} '
+                                }
+                            }
+                        },
+                        series: [{
+                                name: 'Impact',
+                                color: '#1D6AB2',
+                                data: likelihood_impact
+
+                            }, {
+                                name: 'Risk Score',
+                                color: '#C62E2E',
+                                data: likelihood_risk
+                            }]
+                    });
+                } else {
+
+                }
+            },
+
+        });
+        
         //Graph for GST iniligible and eligible credit
 
         $.ajax({
