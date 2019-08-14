@@ -159,6 +159,7 @@ if (is_array($session_data)) {
     $(function () {
         $("#example3").DataTable();
     });
+    
 </script>
 <script>
 
@@ -231,7 +232,7 @@ if (is_array($session_data)) {
                     var data = result.data;
 
                     $('#company_data').html(data);
-//                    $('#example3').DataTable();
+                    $('#example3').DataTable();
                 } else {
                     $('#company_data').html("");
                     alert('no data available.please insert files.');

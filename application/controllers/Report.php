@@ -68,26 +68,63 @@ class Report extends CI_Controller {
             $customer_name = $res->customer_name;
             $address = $res->customer_address;
 
-            $data = '<div style="float:left;">XXth March, 2019 <br>
-                  
-                    <b>Mr. ' . $customer_name . '</b><br>
-                    <b>Managing Director</b> <br>
-                    <b>Company Name: Anand Rathi Finance Private Limited</b> <br>
-                    Address :' . $address . '<br><br>
-                    
-                    </div>';
+//            $data = '<div style="float:left;">XXth March, 2019 <br>
+//                  
+//                    <b>Mr. ' . $customer_name . '</b><br>
+//                    <b>Managing Director</b> <br>
+//                    <b>Company Name: Anand Rathi Finance Private Limited</b> <br>
+//                    Address :' . $address . '<br><br>
+//                    
+//                    </div>';
+            
+            $data = '<div style="float:left;background:#002366;color:white;padding:20px">
+                      <b style="font-size:18px;margin-left: 150px;">1. ABOUT ANAND RATHI GLOBAL FINANCE LTD.</b><br><br><br>
+                      <p>Anand Rathi Global Finance Limited (ARGFL) was incorporated on 3rd February, 1982. The 
+                      Company is wholly owned subsidiary of Anand Rathi Financial Services Ltd. The Company is 
+                      registered with Reserve Bank of India (RBI) as non-banking finance company (NBFC) and 
+                      classified as a Loan company and categorized as "Systemically important non-deposit taking non-/                      banking financial company" (NBFC-ND-SI). The Company is engaged in the business of financial 
+                      consultancy, corporate advisory and fund-based activities. The Company has a team of 
+                      qualified people having diversified industry exposure. ARGFL had handled various 
+                      consultancy projects for reputed companies both in India and abroad.</p>
+                      <p>Currently, ARGFL is mainly offering Loan against securities, 
+                      Commodities, Mutual Funds, Bonds, ESOPs and other liquid collaterals.
+                      ARGFL has ambitious plans to expand its fund-based activities primary 
+                      to provide value added products / services to the large client base of
+                      the Group.</p>
+                      <p>The Products include:</p>
+                      <ul>
+                      <li>Loan against securities</li>
+                      <li>Loan against Demat-Commodities</li>
+                      <li>IPO Finance</li>
+                      <li>ESOPs Funding</li>
+                      <li>Customized Financing</li>
+                      <li>Promoter Funding</li>
+                      <li>Structured Financing</li>
+                      </ul>
+                      </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
+            
+            $data .= '<div style="float:left;">
+                      <b><p style="font-size:18px;text-align:center;background:#002366;color:white;padding:3px;border: 1px solid;">2. EXECUTIVE SUMMARY</p></b><br><br><br>  
+                      <ul>
+                      <li>Ecovis RKCA was provided with the data of the company  “Anand Rathi
+                      Global Finance Ltd.” to evaluate this health check report.</li>
+                      <li>Ecovis RKCA  was also able to access all the information such as:</li>
+                      </ul>
+                      1. Sales data month wise.<br>
+                      2. GSTR-1 <br>
+                     3. GSTR-3B.<br>
+                      and  Ecovis RKCA. Uses this data to provide them with GST insights in form of:<br>
+                      1. Management Report<br>
+                      2. Compliance Report<br>
+                      3. Internal control Reports<br>
+                      4. Mismatch Reports<br>
+                      5. Deviation Reports<br>
+                     6. CFO Dashboard<br>
+                      This will help the company immensely for their development.<br>
+                      <ul><li>	We also evaluated some areas of improvement.</li></ul>
+                     </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
 
-//            $data .= '<div style="float:left">
-//                    <b style="font-size:18px">LIMITED USAGE AND NON-DISCLOSURE:</b><br>
-//                    This Report is intended solely for the information and internal use of 
-//                    Client and is not intended to be and should not be used by any other 
-//                    person or entity. In case this report has been accessed by any party 
-//                    other than those intended to, such person/ entity shall send it back to 
-//                    the intended party or R Kabra & Co. or destroy the same so as to protect 
-//                    the confidentiality of the contents.  R Kabra & Co. shall submit this 
-//                    report only to the Client and any forward transmission shall not be the 
-//                    responsibility of R Kabra & Co.
-//                    </div><br><br><br><br><br><br><br><br>';
+//            
 //            $data .= '<div style="float:left">
 //                      <b style="font-size:18px"><u>ABBREVIATION/GLOSSARY OF TERMS:</u></b><br>
 //                      1. GST- Goods and Services Tax. <br>
@@ -128,52 +165,8 @@ class Report extends CI_Controller {
 //                      <div class="col-md-8"><p style="border: 2px;background:#002366;padding:4px;color:white"><b>About R Kabra & Co.</b></p></div>
 //                      </div>
 //                      </div><br><br><br><br><br><br><br><br><br><br>';
-//            $data .= '<div style="float:left;background:#002366;color:white;padding:20px">
-//                      <b style="font-size:18px;margin-left: 150px;">1. ABOUT ANAND RATHI GLOBAL FINANCE LTD.</b><br><br><br>
-//                      <p>Anand Rathi Global Finance Limited (ARGFL) was incorporated on 3rd February, 1982. The 
-//                      Company is wholly owned subsidiary of Anand Rathi Financial Services Ltd. The Company is 
-//                      registered with Reserve Bank of India (RBI) as non-banking finance company (NBFC) and 
-//                      classified as a Loan company and categorized as "Systemically important non-deposit taking non-
-//                      banking financial company" (NBFC-ND-SI). The Company is engaged in the business of financial 
-//                      consultancy, corporate advisory and fund-based activities. The Company has a team of 
-//                      qualified people having diversified industry exposure. ARGFL had handled various 
-//                      consultancy projects for reputed companies both in India and abroad.</p>
-//                      <p>Currently, ARGFL is mainly offering Loan against securities, 
-//                      Commodities, Mutual Funds, Bonds, ESOPs and other liquid collaterals.
-//                      ARGFL has ambitious plans to expand its fund-based activities primary 
-//                      to provide value added products / services to the large client base of
-//                      the Group.</p>
-//                      <p>The Products include:</p>
-//                      <ul>
-//                      <li>Loan against securities</li>
-//                      <li>Loan against Demat-Commodities</li>
-//                      <li>IPO Finance</li>
-//                      <li>ESOPs Funding</li>
-//                      <li>Customized Financing</li>
-//                      <li>Promoter Funding</li>
-//                      <li>Structured Financing</li>
-//                      </ul>
-//                      </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
-//            $data .= '<div style="float:left">
-//                      <b><p style="font-size:18px;text-align:center;background:#002366;color:white;padding:3px;border: 1px solid;">2. EXECUTIVE SUMMARY</p></b><br><br><br>  
-//                      <ul>
-//                      <li>R Kabra & Co. was provided with the data of the company “Anand Rathi
-//                      Global Finance Ltd.” to evaluate this health check report.</li>
-//                      <li>R Kabra & Co. was also able to access all the information such as:</li>
-//                      </ul>
-//                      1. Sales data month wise.<br>
-//                      2. GSTR-1 <br>
-//                      3. GSTR-3B.<br>
-//                      and R Kabra & Co. uses this data to provide them with GST insights in form of:<br>
-//                      1. Management Report<br>
-//                      2. Compliance Report<br>
-//                      3. Internal control Reports<br>
-//                      4. Mismatch Reports<br>
-//                      5. Deviation Reports<br>
-//                      6. CFO Dashboard<br>
-//                      This will help the company immensely for their development.<br>
-//                      <ul><li>	We also evaluated some areas of improvement.</li></ul>
-//                     </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
+//            
+//            
 //            $data .= '<div> 
 //                       <b><p style="font-size:18px;text-align:center;background:#002366;color:white;padding:3px;border: 1px solid;">3. GST COMPONENTS AND OVERVIEW</p></b><br><br><br>  
 //                       <div class="row">
