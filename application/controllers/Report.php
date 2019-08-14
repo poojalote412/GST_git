@@ -76,7 +76,7 @@ class Report extends CI_Controller {
 //                    Address :' . $address . '<br><br>
 //                    
 //                    </div>';
-            
+
             $data = '<div style="float:left;background:#002366;color:white;padding:20px">
                       <b style="font-size:18px;margin-left: 150px;">1. ABOUT ANAND RATHI GLOBAL FINANCE LTD.</b><br><br><br>
                       <p>Anand Rathi Global Finance Limited (ARGFL) was incorporated on 3rd February, 1982. The 
@@ -102,7 +102,7 @@ class Report extends CI_Controller {
                       <li>Structured Financing</li>
                       </ul>
                       </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
-            
+
             $data .= '<div style="float:left;">
                       <b><p style="font-size:18px;text-align:center;background:#002366;color:white;padding:3px;border: 1px solid;">2. EXECUTIVE SUMMARY</p></b><br><br><br>  
                       <ul>
@@ -276,6 +276,12 @@ class Report extends CI_Controller {
         $data['result_observation'] = $result_observation;
         $data['result_observation1'] = $result_observation1;
         $this->load->view('admin/update_report', $data);
+    }
+
+    public function get_heat_map() {
+        $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
+        $query_get_data= $this->db->query("SELECT time_over_run,internal_control,transaction_mismatch,deviation_itc,deviation_output,gst_payable from ");
     }
 
 }
