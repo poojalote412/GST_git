@@ -24,9 +24,11 @@ class Report extends CI_Controller {
     }
 
     public function enter_detail_fun($customer_id = '', $insert_id = '') {
-        $data['customer_id'] = $customer_id;
-        $data['insert_id'] = $insert_id;
-        $query = $this->db->query("select * from customer_header_all where customer_id='$customer_id'");
+        $customer_id1 = base64_decode($customer_id);
+        $insert_id1 = base64_decode($insert_id);
+        $data['customer_id'] = base64_decode($customer_id);
+        $data['insert_id'] = base64_decode($insert_id);
+        $query = $this->db->query("select * from customer_header_all where customer_id='$customer_id1'");
         $result = $query->row();
         $data['cust_result'] = $result;
 
@@ -244,6 +246,199 @@ class Report extends CI_Controller {
         } else {
             $respose['message'] = "";
         }echo json_encode($respose);
+    }
+
+    public function update_detail_fun($customer_id = '', $insert_id = '') { //function to load update page
+        $customer_id1 = base64_decode($customer_id);
+        $insert_id1 = base64_decode($insert_id);
+        $data['customer_id'] = base64_decode($customer_id);
+        $data['insert_id'] = base64_decode($insert_id);
+        $query = $this->db->query("select * from customer_header_all where customer_id='$customer_id1'");
+        $result = $query->row();
+        $data['cust_result'] = $result;
+
+        $query1 = $this->db->query("select * from report_header_all where customer_id='$customer_id1' and insert_id='$insert_id1'");
+        if ($this->db->affected_rows() > 0) {
+            $result_observation = $query1->row();
+        } else {
+            $result_observation = '';
+}
+
+        $query2 = $this->db->query("select * from observation_transaction_all where customer_id='$customer_id1' and insert_id='$insert_id1' ORDER BY ID DESC LIMIT 1");
+        if ($this->db->affected_rows() > 0) {
+            $result_observation1 = $query2->row();
+        } else {
+            $result_observation1 = '';
+        }
+        $data['result_observation'] = $result_observation;
+        $data['result_observation1'] = $result_observation1;
+        $this->load->view('admin/update_report', $data);
+    }
+
+    public function get_heat_map() {
+        $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
+        $query_get_data = $this->db->query("SELECT time_over_run,internal_control,transaction_mismatch,deviation_itc,deviation_output,gst_payable "
+                . "from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+        $data = "";
+        if ($this->db->affected_rows() > 0) {
+            $result_observation1 = $query_get_data->row();
+
+            $t1 = $result_observation1->time_over_run;
+            $a1 = explode(",", $t1);
+            $time_over_run1 = (1 * $a1[0]);
+            $time_over_run2 = (1 * $a1[1]);
+            $time_over_run3 = $time_over_run1 * $time_over_run2;
+            $t2 = $result_observation1->internal_control;
+            $a2 = explode(",", $t2);
+            $internal_control1 = (1 * $a2[0]);
+            $internal_control2 = (1 * $a2[1]);
+            $internal_control3 = $internal_control1 * $internal_control2;
+            $t3 = $result_observation1->transaction_mismatch;
+            $a3 = explode(",", $t3);
+            $transaction_mismatch1 = (1 * $a3[0]);
+            $transaction_mismatch2 = (1 * $a3[1]);
+            $transaction_mismatch3 = $transaction_mismatch1 * $transaction_mismatch2;
+            $t4 = $result_observation1->deviation_itc;
+            $a4 = explode(",", $t4);
+            $deviation_itc1 = (1 * $a4[0]);
+            $deviation_itc2 = (1 * $a4[1]);
+            $deviation_itc3 = $deviation_itc1 * $deviation_itc2;
+            $t5 = $result_observation1->deviation_output;
+            $a5 = explode(",", $t5);
+            $deviation_output1 = (1 * $a5[0]);
+            $deviation_output2 = (1 * $a5[1]);
+            $deviation_output3 = $deviation_output1 * $deviation_output2;
+            $t6 = $result_observation1->gst_payable;
+            $a6 = explode(",", $t6);
+            $gst_payable1 = (1 * $a6[0]);
+            $gst_payable2 = (1 * $a6[1]);
+            $gst_payable3 = $gst_payable1 * $gst_payable2;
+
+            $get_bg_color = $this->get_bg_color_fun($time_over_run3, $internal_control3, $transaction_mismatch3, $deviation_itc3, $deviation_output3, $gst_payable3);
+
+            $data .= '<div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="heat_map_tbl_id" class="table table-bordered table-striped">
+                                <thead style="color:white">
+                                    <tr>
+                                        <th bgcolor="#C7273D">No.</th>
+                                        <th bgcolor="#C7273D">Risk Element</th>
+                                        <th bgcolor="#C7273D">Mitigant/Controls</th>
+                                        <th bgcolor="#C7273D">Likelihood</th>
+                                        <th bgcolor="#C7273D">Impact</th>
+                                        <th bgcolor="#C7273D">Risk Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                <td>1.</td>
+                                <td>Time over-run resulting into penalties.</td>
+                                <td>File GSTR monthly before duedate to avoid any penalties.</td>
+                                <td>' . $time_over_run1 . '</td>
+                                <td>' . $time_over_run2 . '</td>
+                                <td bgcolor="' . $get_bg_color[0] . '">' . $time_over_run3 . '</td>
+                                </tr>
+                                <tr>
+                                <td>2.</td>
+                                <td>Lack of Internal control management leads to interest penalties GST Notices, inefficient working capital management.</td>
+                                <td>Recording of invoices needs to be reviewed.</td>
+                                <td>' . $internal_control1 . '</td>
+                                <td>' . $internal_control2 . '</td>
+                                <td bgcolor="' . $get_bg_color[1] . '">' . $internal_control1 . '</td>
+                                </tr>
+                                <tr>
+                                <td>3.</td>
+                                <td>Mismatches of transactions leads to loss of ITC, Interest, Liability or GST Notices</td>
+                                <td>Follow-up with the clients with whom out transactions are mismatched. Also invoice processing for GST Claim & Reconciliation need to be reviewed.</td>
+                                <td>' . $transaction_mismatch1 . '</td>
+                                <td>' . $transaction_mismatch2 . '</td>
+                                <td bgcolor="' . $get_bg_color[2] . '">' . $transaction_mismatch3 . '</td>
+                                </tr>
+                                <tr>
+                                <td>4.</td>
+                                <td>Deviation in ITC after comparing GSTR-3B vs 2A</td>
+                                <td>Check the eligibility and ineligibility of credit reflecting in GSTR-2A and prepare reconciliation statement accordingly.</td>
+                                <td>' . $deviation_itc1 . '</td>
+                                <td>' . $deviation_itc2 . '</td>
+                                <td bgcolor="' . $get_bg_color[3] . '">' . $deviation_itc3 . '</td>
+                                </tr>
+                                <tr>
+                                <td>5.</td>
+                                <td>Deviation in output liability after comparing GSTR-3B vs GSTR-1.</td>
+                                <td>Regular follow-ups with the client.</td>
+                                <td>' . $deviation_output1 . '</td>
+                                <td>' . $deviation_output2 . '</td>
+                                <td bgcolor="' . $get_bg_color[4] . '">' . $deviation_output3 . '</td>
+                                </tr>
+                                <tr>
+                                <td>6.</td>
+                                <td>GST Payable in cash</td>
+                                <td>Analysis of huge payment by cash to be done & accordingly ITC planning should be done.</td>
+                                <td>' . $gst_payable1 . '</td>
+                                <td>' . $gst_payable2 . '</td>
+                                <td bgcolor="' . $get_bg_color[5] . '">' . $gst_payable3 . '</td>
+                                </tr>
+                                </tbody></table></div></div></div>';
+            $likelihood_impact = [[$time_over_run1, $time_over_run2], [$internal_control1, $internal_control2], [$transaction_mismatch1, $transaction_mismatch2],
+                [$deviation_itc1, $deviation_itc2], [$deviation_output1, $deviation_output2], [$gst_payable1, $gst_payable2]];
+            $likelihood_risk = [[$time_over_run1, $time_over_run3], [$internal_control1, $internal_control3], [$transaction_mismatch1, $transaction_mismatch3],
+                [$deviation_itc1, $deviation_itc3], [$deviation_output1, $deviation_output3], [$gst_payable1, $gst_payable3]];
+            $respose['likelihood_impact'] = $likelihood_impact;
+            $respose['likelihood_risk'] = $likelihood_risk;
+            $respose['data'] = $data;
+            $respose['message'] = "success";
+        } else {
+            $respose['message'] = "";
+        }echo json_encode($respose);
+    }
+
+    public function get_bg_color_fun($time_over_run3, $internal_control3, $transaction_mismatch3, $deviation_itc3, $deviation_output3, $gst_payable3) {
+        if ($time_over_run3 > 0 || $time_over_run3 <= 6) {
+            $bg_clr1 = "#74D56F";
+        } elseif ($time_over_run3 > 6 || $time_over_run3 <= 11) {
+            $bg_clr1 = "#D8D824";
+        } else {
+            $bg_clr1 = "#eb5c3d";
+        }
+        if ($internal_control3 > 0 || $internal_control3 <= 6) {
+            $bg_clr2 = "#74D56F";
+        } elseif ($internal_control3 > 6 || $internal_control3 <= 11) {
+            $bg_clr2 = "#D8D824";
+        } else {
+            $bg_clr2 = "#eb5c3d";
+        }
+        if ($transaction_mismatch3 > 0 || $transaction_mismatch3 <= 6) {
+            $bg_clr3 = "#74D56F";
+        } elseif ($transaction_mismatch3 > 6 || $time_over_run3 <= 11) {
+            $bg_clr3 = "#D8D824";
+        } else {
+            $bg_clr3 = "#eb5c3d";
+        }
+        if ($deviation_itc3 > 0 || $deviation_itc3 <= 6) {
+            $bg_clr4 = "#74D56F";
+        } elseif ($deviation_itc3 > 6 || $deviation_itc3 <= 11) {
+            $bg_clr4 = "#D8D824";
+        } else {
+            $bg_clr4 = "#eb5c3d";
+        }
+        echo $deviation_output3;
+        if ($deviation_output3 > 0 && $deviation_output3 <= 6) {
+            $bg_clr5 = "#74D56F";
+        } elseif ($deviation_output3 > 6 && $deviation_output3 <= 11) {
+            $bg_clr5 = "#D8D824";
+        } else {
+            $bg_clr5 = "#eb5c3d";
+        }
+        if ($gst_payable3 > 0 || $gst_payable3 <= 6) {
+            $bg_clr6 = "#74D56F";
+        } elseif ($gst_payable3 > 6 || $gst_payable3 <= 11) {
+            $bg_clr6 = "#D8D824";
+        } else {
+            $bg_clr6 = "#eb5c3d";
+        }
+        return array($bg_clr1, $bg_clr2, $bg_clr3, $bg_clr4, $bg_clr5, $bg_clr6);
     }
 
 }
