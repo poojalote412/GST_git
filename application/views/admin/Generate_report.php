@@ -207,7 +207,7 @@ if (is_array($session_data)) {
                             <div id="invoice_notinclude_gstr1_data" style=""></div>
                         </div>
                         
-                        <div class="test" style="page-break-before:always;margin-top:160px">
+                        <div class="test" style="page-break-before:always;margin-top:80px">
                             <h4 style="color:#1d2f66;"><b>C. INVOICE WISE COMPARISON OR MISMATCH REPORT</b></h4>
                             <h4 style="color:#1d2f66"><b>1.Not in GSTR-2A,but recorderd under purchaser's book:</b></h4>
                             <div id="company_all_notin2a_data" style=""></div>
@@ -225,7 +225,7 @@ if (is_array($session_data)) {
                         
                         
                         <div class="test" style="page-break-before:always;">
-                            <div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/IssueMatrix.jpg" width="1200px" height="" style=""></div>  
+                            <div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/IssueMatrix.jpg" width="600px" height="50px" style=""></div>  
                             <div id="heat_map_tbl" style="width:700px"></div>
                             <div id="container_heat_map" style="width:700px"></div>
                         </div>

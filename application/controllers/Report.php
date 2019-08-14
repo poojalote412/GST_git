@@ -332,12 +332,12 @@ class Report extends CI_Controller {
                          <table id="heat_map_tbl_id" class="table table-bordered table-striped">
                                 <thead style="color:white">
                                     <tr>
-                                        <th bgcolor="#C7273D">No.</th>
-                                        <th bgcolor="#C7273D">Risk Element</th>
-                                        <th bgcolor="#C7273D">Mitigant/Controls</th>
-                                        <th bgcolor="#C7273D">Likelihood</th>
-                                        <th bgcolor="#C7273D">Impact</th>
-                                        <th bgcolor="#C7273D">Risk Score</th>
+                                        <th bgcolor="#C7273D" height="20">No.</th>
+                                        <th bgcolor="#C7273D" height="20">Risk Element</th>
+                                        <th bgcolor="#C7273D" height="20">Mitigant/Controls</th>
+                                        <th bgcolor="#C7273D" height="20">Likelihood</th>
+                                        <th bgcolor="#C7273D" height="20">Impact</th>
+                                        <th bgcolor="#C7273D" height="20">Risk Score</th>
                                     </tr>
                                 </thead>
                                 <tbody>
