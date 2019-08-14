@@ -595,57 +595,118 @@ if (is_array($session_data)) {
                         </div>
                         <div class="col-md-8">
                             <div class="col-md-9">
+                                <label>Time over-run resulting into penalties.</label>
                                 <div class="form-group">
-                                    <label>Time over-run resulting into penalties.</label>
-                                    <select class="form-control select2" id="range_issue_matrix1" onchange="remove_error('range_issue_matrix1')" name="range_issue_matrix1">
-                                        <option selected="selected">Select Option</option>
-                                    </select>
-                                    <span class="required" style="color: red" id="range_issue_matrix1_error"></span>
+                                    <div class="col-md-4">
+                                        <h5>Likelihood</h5>
+                                        <select class="form-control select2" id="range_issue_matrix1" onchange="remove_error('range_issue_matrix1')" name="range_issue_matrix1">
+                                            <option selected="selected">Select Option</option>
+                                        </select>
+                                        <span class="required" style="color: red" id="range_issue_matrix1_error"></span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h5>Impact</h5>
+                                        <select class="form-control select2" id="range_issue_matrix12" onchange="remove_error('range_issue_matrix12')" name="range_issue_matrix12">
+                                            <option selected="selected">Select Option</option>
+                                        </select>
+                                        <span class="required" style="color: red" id="range_issue_matrix12_error"></span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-9">
+                                <label>Lack of Internal control management leads to interest penalties GST Notices, inefficient working capital management.</label>
                                 <div class="form-group">
-                                    <label>Lack of Internal control management leads to interest penalties GST Notices, inefficient working capital management.</label>
-                                    <select class="form-control select2" id="range_issue_matrix2" onchange="remove_error('range_issue_matrix2')" name="range_issue_matrix2">
-                                        <option selected="selected">Select Option</option>
-                                    </select>
-                                    <span class="required" style="color: red" id="range_issue_matrix2_error"></span>
+                                    <div class="col-md-4">
+                                         <h5>Likelihood</h5>
+                                        <select class="form-control select2" id="range_issue_matrix2" onchange="remove_error('range_issue_matrix2')" name="range_issue_matrix2">
+                                            <option selected="selected">Select Option</option>
+                                        </select>
+                                        <span class="required" style="color: red" id="range_issue_matrix2_error"></span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h5>Impact</h5>
+                                        <select class="form-control select2" id="range_issue_matrix22" onchange="remove_error('range_issue_matrix22')" name="range_issue_matrix22">
+                                            <option selected="selected">Select Option</option>
+                                        </select>
+                                        <span class="required" style="color: red" id="range_issue_matrix22_error"></span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-9">
+
+                                <label>Mismatches of transactions leads to loss of ITC, Interest, Liability or GST Notices</label>
                                 <div class="form-group">
-                                    <label>Mismatches of transactions leads to loss of ITC, Interest, Liability or GST Notices</label>
-                                    <select class="form-control select2" id="range_issue_matrix3" onchange="remove_error('range_issue_matrix3')" name="range_issue_matrix3">
-                                        <option selected="selected">Select Option</option>
-                                    </select>
-                                    <span class="required" style="color: red" id="range_issue_matrix3_error"></span>
+                                    <div class="col-md-4">
+                                         <h5>Likelihood</h5>
+                                        <select class="form-control select2" id="range_issue_matrix3" onchange="remove_error('range_issue_matrix3')" name="range_issue_matrix3">
+                                            <option selected="selected">Select Option</option>
+                                        </select>
+                                        <span class="required" style="color: red" id="range_issue_matrix3_error"></span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h5>Impact</h5>
+                                        <select class="form-control select2" id="range_issue_matrix32" onchange="remove_error('range_issue_matrix32')" name="range_issue_matrix32">
+                                            <option selected="selected">Select Option</option>
+                                        </select>
+                                        <span class="required" style="color: red" id="range_issue_matrix32_error"></span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-9">
+                                <label>Deviation in ITC after comparing GSTR-3B vs 2A </label>
                                 <div class="form-group">
-                                    <label>Deviation in ITC after comparing GSTR-3B vs 2A </label>
-                                    <select class="form-control select2" id="range_issue_matrix4" onchange="remove_error('range_issue_matrix4')" name="range_issue_matrix4">
-                                        <option selected="selected">Select Option</option>
-                                    </select>
-                                    <span class="required" style="color: red" id="range_issue_matrix4_error"></span>
+                                    <div class="col-md-4">
+                                         <h5>Likelihood</h5>
+                                        <select class="form-control select2" id="range_issue_matrix4" onchange="remove_error('range_issue_matrix4')" name="range_issue_matrix4">
+                                            <option selected="selected">Select Option</option>
+                                        </select>
+                                        <span class="required" style="color: red" id="range_issue_matrix4_error"></span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h5>Impact</h5>
+                                        <select class="form-control select2" id="range_issue_matrix42" onchange="remove_error('range_issue_matrix42')" name="range_issue_matrix42">
+                                            <option selected="selected">Select Option</option>
+                                        </select>
+                                        <span class="required" style="color: red" id="range_issue_matrix42_error"></span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-9">
+                                <label>Deviation in output liability after comparing GSTR-3B vs GSTR-1.</label>
                                 <div class="form-group">
-                                    <label>Deviation in output liability after comparing GSTR-3B vs GSTR-1.</label>
-                                    <select class="form-control select2" id="range_issue_matrix5" onchange="remove_error('range_issue_matrix5')" name="range_issue_matrix5">
-                                        <option selected="selected">Select Option</option>
-                                    </select>
-                                    <span class="required" style="color: red" id="range_issue_matrix5_error"></span>
+                                    <div class="col-md-4">
+                                         <h5>Likelihood</h5>
+                                        <select class="form-control select2" id="range_issue_matrix5" onchange="remove_error('range_issue_matrix5')" name="range_issue_matrix5">
+                                            <option selected="selected">Select Option</option>
+                                        </select>
+                                        <span class="required" style="color: red" id="range_issue_matrix5_error"></span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h5>Impact</h5>
+                                        <select class="form-control select2" id="range_issue_matrix52" onchange="remove_error('range_issue_matrix52')" name="range_issue_matrix52">
+                                            <option selected="selected">Select Option</option>
+                                        </select>
+                                        <span class="required" style="color: red" id="range_issue_matrix52_error"></span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-9">
+                                <label>GST Payable in cash.</label>
                                 <div class="form-group">
-                                    <label>GST Payable in cash.</label>
-                                    <select class="form-control select2" id="range_issue_matrix6" onchange="remove_error('range_issue_matrix6')" name="range_issue_matrix6">
-                                        <option selected="selected">Select Option</option>
-                                    </select>
-                                    <span class="required" style="color: red" id="range_issue_matrix6_error"></span>
+                                    <div class="col-md-4">
+                                         <h5>Likelihood</h5>
+                                        <select class="form-control select2" id="range_issue_matrix6" onchange="remove_error('range_issue_matrix6')" name="range_issue_matrix6">
+                                            <option selected="selected">Select Option</option>
+                                        </select>
+                                        <span class="required" style="color: red" id="range_issue_matrix6_error"></span>
+                                    </div>
+                                    <div class="col-md-4">
+                                         <h5>Impact</h5>
+                                        <select class="form-control select2" id="range_issue_matrix62" onchange="remove_error('range_issue_matrix62')" name="range_issue_matrix62">
+                                            <option selected="selected">Select Option</option>
+                                        </select>
+                                        <span class="required" style="color: red" id="range_issue_matrix62_error"></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -684,30 +745,34 @@ if (is_array($session_data)) {
         $("#example_not_in_rec").DataTable();
 
 
-        var $select = $("#range_issue_matrix1");
+        var $select1 = $("#range_issue_matrix1");
+        var $select2 = $("#range_issue_matrix2");
+        var $select3 = $("#range_issue_matrix3");
+        var $select4 = $("#range_issue_matrix4");
+        var $select5 = $("#range_issue_matrix5");
+        var $select6 = $("#range_issue_matrix6");
+        var $select7 = $("#range_issue_matrix12");
+        var $select8 = $("#range_issue_matrix22");
+        var $select9 = $("#range_issue_matrix32");
+        var $select10 = $("#range_issue_matrix42");
+        var $select11 = $("#range_issue_matrix52");
+        var $select12 = $("#range_issue_matrix62");
         for (i = 1; i <= 25; i++) {
-            $select.append($('<option></option>').val(i).html(i))
+            $select1.append($('<option></option>').val(i).html(i));
+            $select2.append($('<option></option>').val(i).html(i));
+            $select3.append($('<option></option>').val(i).html(i));
+            $select4.append($('<option></option>').val(i).html(i));
+            $select5.append($('<option></option>').val(i).html(i));
+            $select6.append($('<option></option>').val(i).html(i));
+            $select7.append($('<option></option>').val(i).html(i));
+            $select8.append($('<option></option>').val(i).html(i));
+            $select9.append($('<option></option>').val(i).html(i));
+            $select10.append($('<option></option>').val(i).html(i));
+            $select11.append($('<option></option>').val(i).html(i));
+            $select12.append($('<option></option>').val(i).html(i));
+
         }
-        var $select = $("#range_issue_matrix2");
-        for (i = 1; i <= 25; i++) {
-            $select.append($('<option></option>').val(i).html(i))
-        }
-        var $select = $("#range_issue_matrix3");
-        for (i = 1; i <= 25; i++) {
-            $select.append($('<option></option>').val(i).html(i))
-        }
-        var $select = $("#range_issue_matrix4");
-        for (i = 1; i <= 25; i++) {
-            $select.append($('<option></option>').val(i).html(i))
-        }
-        var $select = $("#range_issue_matrix5");
-        for (i = 1; i <= 25; i++) {
-            $select.append($('<option></option>').val(i).html(i))
-        }
-        var $select = $("#range_issue_matrix6");
-        for (i = 1; i <= 25; i++) {
-            $select.append($('<option></option>').val(i).html(i))
-        }
+
     });
 </script>
 <script>

@@ -2,39 +2,11 @@
 $this->load->view('customer/header');
 $this->load->view('admin/navigation');
 ?>
-<script src="http://code.highcharts.com/highcharts.js"></script>
+<!--<script src="http://code.highcharts.com/highcharts.js"></script>-->
 <script src="<?php base_url() . "/" ?>js/pdf_conversion.js"></script>
 <script src="<?php base_url() . "/" ?>js/pdf_conversion2.js"></script>
 <style>
-    caption {
-        padding-bottom: 15px;
-        font-family: 'Verdana';
-        font-size: 1.2em;
-        color:#555;
-    }
-
-    table {
-        font-family: 'Verdana';
-        font-size: 12pt;          
-        border-collapse: collapse;
-        border: 1px solid #EBEBEB;
-        margin: 10px auto;
-        text-align: center;
-        width: 100%;
-    }
-
-    table tr:nth-child(odd) {
-        background-color: #fff;
-    }
-
-    table tr:nth-child(even) {
-        background-color: #FCF9F9;
-    }
-
-    th {
-        font-weight: 600;
-        padding: 10px;
-    }
+   
 </style>
 
 <div class="content-wrapper">
@@ -54,6 +26,7 @@ $this->load->view('admin/navigation');
 
         </ol>
         <div id="container" style="min-width: 310px; height: 400px; max-width: 800px; margin: 0 auto"></div>
+        <div id="heat_map_tbl"></div>
     </section>
 
     <!-- Insert your document here -->
@@ -82,7 +55,7 @@ $this->load->view('admin/navigation');
 
 
 </div>
-<?php // $this->load->view('customer/footer'); ?>
+<?php $this->load->view('customer/footer'); ?>
 
 <script>
 
@@ -95,38 +68,71 @@ $this->load->view('admin/navigation');
             dataType: "json",
             data: {customer_id: 'cust_1006', insert_id: 'insert_1001'},
             success: function (result) {
-                alert();
-                $('#cfo_data').html("");
+//                 alert();
+                $('#heat_map_tbl').html("");
                 if (result.message === "success") {
 
+                    var data = result.data;
+                    $('#heat_map_tbl').html("");
+                    $('#heat_map_tbl').html(data);
+                    $('#heat_map_tbl_id').DataTable();
+                } else {
+
+                }
+            },
+
+        });
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Report/get_heat_map") ?>",
+            dataType: "json",
+            data: {customer_id: 'cust_1006', insert_id: 'insert_1001'},
+            success: function (result) {
+                if (result.message === "success") {
+                    var likelihood_impact = result.likelihood_impact;
+                    var likelihood_risk = result.likelihood_risk;
                     Highcharts.chart('container', {
                         chart: {
                             type: 'scatter',
-                            zoomType: 'xy'
+                            zoomType: 'xy',
+//                            backgroundColor: '#E38B0B',
                         },
-                        accessibility: {
-                            description: 'A scatter plot compares the height and weight of 507 individuals by gender. Height in centimeters is plotted on the X-axis and weight in kilograms is plotted on the Y-axis. The chart is interactive, and each data point can be hovered over to expose the height and weight data for each individual. The scatter plot is fairly evenly divided by gender with females dominating the left-hand side of the chart and males dominating the right-hand side. The height data for females ranges from 147.2 to 182.9 centimeters with the greatest concentration between 160 and 165 centimeters. The weight data for females ranges from 42 to 105.2 kilograms with the greatest concentration at around 60 kilograms. The height data for males ranges from 157.2 to 198.1 centimeters with the greatest concentration between 175 and 180 centimeters. The weight data for males ranges from 53.9 to 116.4 kilograms with the greatest concentration at around 80 kilograms.'
-                        },
+
                         title: {
-                            text: 'Height Versus Weight of 507 Individuals by Gender'
+                            text: 'ISSUE MATRIX'
                         },
                         subtitle: {
-                            text: 'Source: Heinz  2003'
+//                            text: 'Source: Heinz  2003'
                         },
                         xAxis: {
+                            gridLineWidth: 1,
                             title: {
                                 enabled: true,
-                                text: 'Height (cm)'
+//                                text: 'Height (cm)'
                             },
                             startOnTick: true,
                             endOnTick: true,
                             showLastLabel: true
                         },
                         yAxis: {
-                            title: {
-                                text: 'Weight (kg)'
-                            }
+                            gridLineWidth: 1,
+
+                            plotBands: [{// mark the weekend
+                                    color: '#74D56F',
+                                    from: 0,
+                                    to: 6
+                                }, {// mark the weekend
+                                    color: '#D8D824',
+                                    from: 6,
+                                    to: 11
+                                }, {// mark the weekend
+                                    color: '#eb5c3d',
+                                    from: 11,
+                                    to: 25
+                                }],
+
                         },
+
                         legend: {
                             layout: 'vertical',
                             align: 'left',
@@ -137,6 +143,7 @@ $this->load->view('admin/navigation');
                             backgroundColor: Highcharts.defaultOptions.chart.backgroundColor,
                             borderWidth: 1
                         },
+
                         plotOptions: {
                             scatter: {
                                 marker: {
@@ -157,21 +164,19 @@ $this->load->view('admin/navigation');
                                 },
                                 tooltip: {
                                     headerFormat: '<b>{series.name}</b><br>',
-                                    pointFormat: '{point.x} cm, {point.y} kg'
+                                    pointFormat: '{point.x} , {point.y} '
                                 }
                             }
                         },
                         series: [{
-                                name: 'Female',
-                                color: 'rgba(223, 83, 83, .5)',
-                                data: [[161.2, 51.6], [167.5, 59.0], [159.5, 49.2], [157.0, 63.0], [155.8, 53.6],
-                                    [170.0, 59.0], [159.1, 47.6], [166.0, 69.8], [176.2, 66.8], [160.2, 75.2]]
+                                name: 'Impact',
+                                color: '#1D6AB2',
+                                data: likelihood_impact
 
                             }, {
-                                name: 'Male',
-                                color: 'rgba(119, 152, 191, .5)',
-                                data: [[174.0, 65.6], [175.3, 71.8], [193.5, 80.7], [186.5, 72.6], [187.2, 78.8],
-                                    [181.5, 74.8], [184.0, 86.4], [184.5, 78.4], [175.0, 62.0], [184.0, 81.6]]
+                                name: 'Risk Score',
+                                color: '#C62E2E',
+                                data: likelihood_risk
                             }]
                     });
                 } else {
