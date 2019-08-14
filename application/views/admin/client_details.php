@@ -794,7 +794,7 @@ if (is_array($session_data)) {
                     window.location.href = "<?= base_url() ?>Generate_report/" + customer_id + "/" + insert_id;
                 } else {
 //                    document.getElementById('loaders1').style.display = "none";
-                    $('#message').html(result.error);
+//                    $('#message').html(result.error);
                     $('#' + result.id + '_error').html(result.error);
                     $(window).scrollTop($('#' + result.id).offset().top);
                 }
