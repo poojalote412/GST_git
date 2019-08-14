@@ -6,7 +6,7 @@ $this->load->view('admin/navigation');
 <script src="<?php base_url() . "/" ?>js/pdf_conversion.js"></script>
 <script src="<?php base_url() . "/" ?>js/pdf_conversion2.js"></script>
 <style>
-   
+
 </style>
 
 <div class="content-wrapper">
@@ -338,8 +338,10 @@ $this->load->view('admin/navigation');
 
 
 
+ 
 <!-- PDF, Postscript and XPS are set to download as Fiddle (and some browsers) will not embed them -->
 
     var click = "return xepOnline.Formatter.Format('JSFiddle', {render:'download'})";
     jQuery('#buttons').append('<button onclick="' + click + '">PDF</button>');
+
 </script>
