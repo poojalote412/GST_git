@@ -63,7 +63,7 @@ if (is_array($session_data)) {
                                     <span class="input-group-addon">
                                         <i class="fa fa-bank"></i>
                                     </span>
-                                    <input type="text" class="form-control" name="company_name"  id="company_name" onkeyup="remove_error('company_name')"   aria-required="true" aria-describedby="input_group-error">
+                                    <input type="text" class="form-control" name="company_name" value="<?php echo $result_observation->company_name; ?>"  id="company_name" onkeyup="remove_error('company_name')"   aria-required="true" aria-describedby="input_group-error">
                                 </div>
                                 <span class="required" style="color: red" id="company_name_error"></span>
                             </div>
@@ -87,7 +87,7 @@ if (is_array($session_data)) {
                                         <span class="input-group-addon">
                                             <i class="fa fa-map"></i>
                                         </span>
-                                        <input type="text" class="form-control" name="m_d_name" value=""  id="m_d_name" onkeyup="remove_error('m_d_name')"   aria-required="true" aria-describedby="input_group-error">
+                                        <input type="text" class="form-control" value="<?php echo $result_observation->managing_director_name; ?>" name="m_d_name" value=""  id="m_d_name" onkeyup="remove_error('m_d_name')"   aria-required="true" aria-describedby="input_group-error">
 
                                     </div>
                                     <span class="required" style="color: red" id="m_d_name_error"></span>
@@ -98,7 +98,7 @@ if (is_array($session_data)) {
                                         <span class="input-group-addon">
                                             <i class="fa fa-industry"></i>
                                         </span>
-                                        <textarea class="form-control" rows="5" id="about_company" name="about_company"></textarea>
+                                        <textarea class="form-control" rows="5" id="about_company" name="about_company"><?php echo $result_observation->about_company; ?></textarea>
                                     </div>
                                     <span class="required" style="color: red" id="about_company_error"></span>
                                 </div>
@@ -568,7 +568,7 @@ if (is_array($session_data)) {
                     <!-- /.box-header -->
                     <div class="box-body pad">
 
-                        <textarea id="editor12" name="editor12" rows="10" style="width: 100%" onkeyup="final_word_count(this.id);remove_error('editor12')"></textarea>
+                        <textarea id="editor12" name="editor12" rows="10" style="width: 100%" onkeyup="final_word_count(this.id);remove_error('editor12')"><?php echo $result_observation1->conclusion_summary; ?></textarea>
                         <span class="required" style="color: red" id="editor12_error"></span>
 
                     </div>
@@ -593,6 +593,32 @@ if (is_array($session_data)) {
                         <div class="col-md-4">
                             <img src="<?= base_url() ?>/images/IssueMatrix.jpg" style="width: 100%;" >
                         </div>
+                        <?php
+                        $t1 = $result_observation1->time_over_run;
+                        $a1 = explode(",", $t1);
+                        $time_over_run1 = $a1[0];
+                        $time_over_run2 = $a1[1];
+                        $t2 = $result_observation1->internal_control;
+                        $a2 = explode(",", $t2);
+                        $internal_control1 = $a2[0];
+                        $internal_control2 = $a2[1];
+                        $t3 = $result_observation1->transaction_mismatch;
+                        $a3 = explode(",", $t3);
+                        $transaction_mismatch1 = $a3[0];
+                        $transaction_mismatch2 = $a3[1];
+                        $t4 = $result_observation1->deviation_itc;
+                        $a4 = explode(",", $t4);
+                        $deviation_itc1 = $a4[0];
+                        $deviation_itc2 = $a4[1];
+                        $t5 = $result_observation1->deviation_output;
+                        $a5 = explode(",", $t5);
+                        $deviation_output1 = $a5[0];
+                        $deviation_output2 = $a5[1];
+                        $t6 = $result_observation1->gst_payable;
+                        $a6 = explode(",", $t6);
+                        $gst_payable1 = $a6[0];
+                        $gst_payable2 = $a6[1];
+                        ?>
                         <div class="col-md-8">
                             <div class="col-md-9">
                                 <label>Time over-run resulting into penalties.</label>
@@ -600,14 +626,14 @@ if (is_array($session_data)) {
                                     <div class="col-md-4">
                                         <h5>Likelihood</h5>
                                         <select class="form-control select2" id="range_issue_matrix1" onchange="remove_error('range_issue_matrix1')" name="range_issue_matrix1">
-                                            <option selected="selected">Select Option</option>
+                                            <option selected="selected" value="<?php echo $time_over_run1; ?>"><?php echo $time_over_run1; ?></option>
                                         </select>
                                         <span class="required" style="color: red" id="range_issue_matrix1_error"></span>
                                     </div>
                                     <div class="col-md-4">
                                         <h5>Impact</h5>
                                         <select class="form-control select2" id="range_issue_matrix12" onchange="remove_error('range_issue_matrix12')" name="range_issue_matrix12">
-                                            <option selected="selected">Select Option</option>
+                                            <option selected="selected"value="<?php echo $time_over_run2; ?>"><?php echo $time_over_run2; ?></option>
                                         </select>
                                         <span class="required" style="color: red" id="range_issue_matrix12_error"></span>
                                     </div>
@@ -617,16 +643,16 @@ if (is_array($session_data)) {
                                 <label>Lack of Internal control management leads to interest penalties GST Notices, inefficient working capital management.</label>
                                 <div class="form-group">
                                     <div class="col-md-4">
-                                         <h5>Likelihood</h5>
+                                        <h5>Likelihood</h5>
                                         <select class="form-control select2" id="range_issue_matrix2" onchange="remove_error('range_issue_matrix2')" name="range_issue_matrix2">
-                                            <option selected="selected">Select Option</option>
+                                            <option selected="selected"value="<?php echo $internal_control1; ?>"><?php echo $internal_control1; ?></option>
                                         </select>
                                         <span class="required" style="color: red" id="range_issue_matrix2_error"></span>
                                     </div>
                                     <div class="col-md-4">
                                         <h5>Impact</h5>
                                         <select class="form-control select2" id="range_issue_matrix22" onchange="remove_error('range_issue_matrix22')" name="range_issue_matrix22">
-                                            <option selected="selected">Select Option</option>
+                                            <option selected="selected"value="<?php echo $internal_control2; ?>"><?php echo $internal_control2; ?></option>
                                         </select>
                                         <span class="required" style="color: red" id="range_issue_matrix22_error"></span>
                                     </div>
@@ -637,16 +663,16 @@ if (is_array($session_data)) {
                                 <label>Mismatches of transactions leads to loss of ITC, Interest, Liability or GST Notices</label>
                                 <div class="form-group">
                                     <div class="col-md-4">
-                                         <h5>Likelihood</h5>
+                                        <h5>Likelihood</h5>
                                         <select class="form-control select2" id="range_issue_matrix3" onchange="remove_error('range_issue_matrix3')" name="range_issue_matrix3">
-                                            <option selected="selected">Select Option</option>
+                                            <option selected="selected"value="<?php echo $transaction_mismatch1; ?>"><?php echo $transaction_mismatch1; ?></option>
                                         </select>
                                         <span class="required" style="color: red" id="range_issue_matrix3_error"></span>
                                     </div>
                                     <div class="col-md-4">
                                         <h5>Impact</h5>
                                         <select class="form-control select2" id="range_issue_matrix32" onchange="remove_error('range_issue_matrix32')" name="range_issue_matrix32">
-                                            <option selected="selected">Select Option</option>
+                                            <option selected="selected"value="<?php echo $transaction_mismatch2; ?>"><?php echo $transaction_mismatch2; ?></option>
                                         </select>
                                         <span class="required" style="color: red" id="range_issue_matrix32_error"></span>
                                     </div>
@@ -656,16 +682,16 @@ if (is_array($session_data)) {
                                 <label>Deviation in ITC after comparing GSTR-3B vs 2A </label>
                                 <div class="form-group">
                                     <div class="col-md-4">
-                                         <h5>Likelihood</h5>
+                                        <h5>Likelihood</h5>
                                         <select class="form-control select2" id="range_issue_matrix4" onchange="remove_error('range_issue_matrix4')" name="range_issue_matrix4">
-                                            <option selected="selected">Select Option</option>
+                                            <option selected="selected"value="<?php echo $deviation_itc1; ?>"><?php echo $deviation_itc1; ?></option>
                                         </select>
                                         <span class="required" style="color: red" id="range_issue_matrix4_error"></span>
                                     </div>
                                     <div class="col-md-4">
                                         <h5>Impact</h5>
                                         <select class="form-control select2" id="range_issue_matrix42" onchange="remove_error('range_issue_matrix42')" name="range_issue_matrix42">
-                                            <option selected="selected">Select Option</option>
+                                            <option selected="selected" value="<?php echo $deviation_itc2; ?>"><?php echo $deviation_itc2; ?></option>
                                         </select>
                                         <span class="required" style="color: red" id="range_issue_matrix42_error"></span>
                                     </div>
@@ -675,16 +701,16 @@ if (is_array($session_data)) {
                                 <label>Deviation in output liability after comparing GSTR-3B vs GSTR-1.</label>
                                 <div class="form-group">
                                     <div class="col-md-4">
-                                         <h5>Likelihood</h5>
+                                        <h5>Likelihood</h5>
                                         <select class="form-control select2" id="range_issue_matrix5" onchange="remove_error('range_issue_matrix5')" name="range_issue_matrix5">
-                                            <option selected="selected">Select Option</option>
+                                            <option selected="selected" value="<?php echo $deviation_output1; ?>"><?php echo $deviation_output1; ?></option>
                                         </select>
                                         <span class="required" style="color: red" id="range_issue_matrix5_error"></span>
                                     </div>
                                     <div class="col-md-4">
                                         <h5>Impact</h5>
                                         <select class="form-control select2" id="range_issue_matrix52" onchange="remove_error('range_issue_matrix52')" name="range_issue_matrix52">
-                                            <option selected="selected">Select Option</option>
+                                            <option selected="selected" value="<?php echo $deviation_output2; ?>"><?php echo $deviation_output2; ?></option>
                                         </select>
                                         <span class="required" style="color: red" id="range_issue_matrix52_error"></span>
                                     </div>
@@ -694,16 +720,16 @@ if (is_array($session_data)) {
                                 <label>GST Payable in cash.</label>
                                 <div class="form-group">
                                     <div class="col-md-4">
-                                         <h5>Likelihood</h5>
+                                        <h5>Likelihood</h5>
                                         <select class="form-control select2" id="range_issue_matrix6" onchange="remove_error('range_issue_matrix6')" name="range_issue_matrix6">
-                                            <option selected="selected">Select Option</option>
+                                            <option selected="selected" value="<?php echo $gst_payable1; ?>"><?php echo $gst_payable1; ?></option>
                                         </select>
                                         <span class="required" style="color: red" id="range_issue_matrix6_error"></span>
                                     </div>
                                     <div class="col-md-4">
-                                         <h5>Impact</h5>
+                                        <h5>Impact</h5>
                                         <select class="form-control select2" id="range_issue_matrix62" onchange="remove_error('range_issue_matrix62')" name="range_issue_matrix62">
-                                            <option selected="selected">Select Option</option>
+                                            <option selected="selected" value="<?php echo $gst_payable2; ?>"><?php echo $gst_payable2; ?></option>
                                         </select>
                                         <span class="required" style="color: red" id="range_issue_matrix62_error"></span>
                                     </div>
@@ -716,7 +742,7 @@ if (is_array($session_data)) {
             <div class="form-actions" align="center"><br>
                 <div class="row" >
                     <div  class="col-md-12" >
-                        <button type="button"  id="save_info" name="save_info" class="btn btn-primary btn-block"  >Save</button>
+                        <button type="button"  id="update_info" name="update_info" class="btn btn-primary btn-block"  >Update</button>
                     </div>
                 </div>
             </div>
@@ -772,24 +798,23 @@ if (is_array($session_data)) {
             $select12.append($('<option></option>').val(i).html(i));
 
         }
-
     });
 </script>
 <script>
 
-    $("#save_info").click(function () {
+    $("#update_info").click(function () {
         var customer_id = document.getElementById("customer_id").value;
         var insert_id = document.getElementById("insert_id").value;
         $.ajax({
             type: "POST",
-            url: "<?= base_url("Customer_admin/save_observation") ?>",
+            url: "<?= base_url("Customer_admin/update_observation") ?>",
             dataType: "json",
             data: $("#frm_add_observations").serialize(),
             success: function (result) {
                 console.log(result);
                 if (result.status === true) {
 //                    document.getElementById('loaders1').style.display = "none";
-                    alert('Information Added successfully');
+                    alert('Information Updated successfully');
 
                     window.location.href = "<?= base_url() ?>Generate_report/" + customer_id + "/" + insert_id;
                 } else {
@@ -811,7 +836,6 @@ if (is_array($session_data)) {
             }
         });
     });
-
     function countWords(id) {
         s = document.getElementById(id).value;
         s = s.replace(/(^\s*)|(\s*$)/gi, "");
@@ -824,7 +848,6 @@ if (is_array($session_data)) {
         } else {
         }
     }
-
     function final_word_count(id) {
         s = document.getElementById(id).value;
         s = s.replace(/(^\s*)|(\s*$)/gi, "");
@@ -839,10 +862,10 @@ if (is_array($session_data)) {
     }
     $(document).ready(function () {
 
+        var curr_url = document.URL;
 
         var customer_id = document.getElementById("customer_id").value;
         var insert_id = document.getElementById("insert_id").value;
-
         $.ajax({
             type: "post",
             url: "<?= base_url("Report/get_content_pdf1") ?>",
@@ -868,7 +891,7 @@ if (is_array($session_data)) {
             dataType: "json",
 //            processData: false,
 //            contentType: false,
-            data: {customer_id: customer_id, insert_id: insert_id},
+            data: {customer_id: customer_id, insert_id: insert_id, curr_url: curr_url},
             success: function (result) {
 //                 alert();
                 $('#cfo_data').html("");
@@ -1057,7 +1080,7 @@ if (is_array($session_data)) {
             type: "post",
             url: "<?= base_url("Management_report/get_graph_sales_month_wise1") ?>",
             dataType: "json",
-            data: {customer_id: customer_id, insert_id: insert_id},
+            data: {customer_id: customer_id, insert_id: insert_id, curr_url: curr_url},
             success: function (result) {
 //                 alert();
                 $('#sales_monthly_data').html("");
@@ -1227,7 +1250,7 @@ if (is_array($session_data)) {
             type: "post",
             url: "<?= base_url("Management_report/get_graph_taxable_nontx_exempt1") ?>",
             dataType: "json",
-            data: {customer_id: customer_id, insert_id: insert_id},
+            data: {customer_id: customer_id, insert_id: insert_id, curr_url: curr_url},
             success: function (result) {
 //                 alert();
                 $('#tax_ntax_Exempt_data').html("");
@@ -1382,7 +1405,7 @@ if (is_array($session_data)) {
             type: "post",
             url: "<?= base_url("Internal_acc_report/get_graph1") ?>",
             dataType: "json",
-            data: {customer_id: customer_id, insert_id: insert_id},
+            data: {customer_id: customer_id, insert_id: insert_id, curr_url: curr_url},
             success: function (result) {
 //                 alert();
                 $('#tax_liability_data').html("");
@@ -1401,7 +1424,7 @@ if (is_array($session_data)) {
             type: "post",
             url: "<?= base_url("Management_report/get_data_rate_wise1") ?>",
             dataType: "json",
-            data: {customer_id: customer_id, insert_id: insert_id},
+            data: {customer_id: customer_id, insert_id: insert_id, curr_url: curr_url},
             success: function (result) {
                 if (result.message === "success") {
 
@@ -1533,7 +1556,7 @@ if (is_array($session_data)) {
             type: "post",
             url: "<?= base_url("Internal_acc_report/get_graph_tax_turnover1") ?>",
             dataType: "json",
-            data: {customer_id: customer_id, insert_id: insert_id},
+            data: {customer_id: customer_id, insert_id: insert_id, curr_url: curr_url},
             success: function (result) {
 //                 alert();
                 $('#tax_turnover_data').html("");
@@ -1659,7 +1682,7 @@ if (is_array($session_data)) {
             type: "post",
             url: "<?= base_url("Internal_acc_report/get_graph_eligible_ineligible1") ?>",
             dataType: "json",
-            data: {customer_id: customer_id, insert_id: insert_id},
+            data: {customer_id: customer_id, insert_id: insert_id, curr_url: curr_url},
             success: function (result) {
 //                 alert();
                 $('#eligible_data').html("");
@@ -2355,7 +2378,7 @@ if (is_array($session_data)) {
             type: "post",
             url: "<?= base_url("Invoice_comp_report/get_table_data1") ?>",
             dataType: "json",
-            data: {customer_id: customer_id, insert_id: insert_id},
+            data: {customer_id: customer_id, insert_id: insert_id, curr_url: curr_url},
             success: function (result) {
                 if (result.status === true) {
                     $('#invoce_not_included_data').html("");
@@ -2374,7 +2397,7 @@ if (is_array($session_data)) {
             type: "post",
             url: "<?= base_url("Invoice_comp_report/get_table_data_ammend1") ?>",
             dataType: "json",
-            data: {customer_id: customer_id, insert_id: insert_id},
+            data: {customer_id: customer_id, insert_id: insert_id, curr_url: curr_url},
             success: function (result) {
                 if (result.status === true) {
                     var data = result.data;

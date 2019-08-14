@@ -89,7 +89,7 @@ if (is_array($session_data)) {
                                     <td><?php echo $row->customer_email_id; ?></td>
                                     <td><?php echo $row->customer_contact_number; ?></td>
                                     <td><?php echo $row->created_on; ?></td>
-                                    <td><a href="<?= base_url("Generate_report/" . $row->customer_id . "/" . $row->insert_id); ?>"><button id="testing1" onclick="testing();" class="btn btn-primary">Generate Report</button></a></td>
+                                    <td><button id="testing1" onclick="page_diversion('<?php echo $customer_id; ?>', '<?php echo $insert_id; ?>');" class="btn btn-primary">Generate Report</button></td>
                                     <?php
                                     $i++;
                                 }
@@ -113,6 +113,25 @@ if (is_array($session_data)) {
 
 
 <script>
+    function page_diversion(customer_id, insert_id)
+    {
+
+        $.ajax({
+            type: "POST",
+            url: "<?= base_url("Customer_admin/page_diversion") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+
+            success: function (result) {
+
+                if (result.report_sts == '1') {
+                    window.location.href = "<?= base_url() ?>update_detail/" + btoa(customer_id) + "/" + btoa(insert_id);
+                } else {
+                    window.location.href = "<?= base_url() ?>enter_detail/" + btoa(customer_id) + "/" + btoa(insert_id);
+                }
+            }
+        });
+    }
     function delete_customer()
     {
 //        alert("gyhguyjhgujh");

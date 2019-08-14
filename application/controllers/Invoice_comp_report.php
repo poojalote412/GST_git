@@ -468,6 +468,86 @@ class Invoice_comp_report extends CI_Controller {
                     '</tr>';
 
             $data .= '</tbody></table></div></div></div>';
+            $data .= "<h4><b>Observation of GST Payable vs Cash:</b></h4>";
+            $data .= "<span>Follow up from the above clients' needs to be done as the business is facing the risk of loss "
+                    . "of input tax credit of Rs. " . array_sum($tax) . ". The situation of non-reconciliation may lead to interest liability or GST notices. </span>";
+            $response['data'] = $data;
+            $response['message'] = "success";
+            $response['status'] = true;
+            $response['code'] = 200;
+        } else {
+            $response['message'] = "";
+            $response['status'] = FALSE;
+            $response['code'] = 204;
+        }echo json_encode($response);
+    }
+
+    public function get_not_in2a_records_details1() { //get not in 2A data of perticular company wise
+        $company_name = $this->input->post("company_name");
+        $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
+        $query = $this->Invoice_comp_report_model->get_notin2a_records_all($customer_id, $insert_id);
+        $data = "";
+        if ($query != FALSE) {
+            $data .= '
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="example_not_in_2a" class="table table-bordered table-striped">
+                                <thead style="background-color: #00008B;color:white">
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Company Name</th>
+                                        <th>Period</th>
+                                        <th>Invoice No</th>
+                                        <th>Place Of Supply</th>
+                                        <th>Invoice Date</th>
+                                        <th>Invoice Value</th>
+                                        <th>Taxable Value</th>
+                                        <th>Tax</th>
+                                    </tr>
+                                </thead>
+                                <tbody>';
+
+            $invoice_value = array();
+            $taxable_value = array();
+            $tax = array();
+            $i = 1;
+            foreach ($query as $row) {
+
+                $invoice_value[] = $row->invoice_value;
+                $taxable_value[] = $row->taxable_value;
+                $tax[] = $row->tax;
+
+                $data .= '<tr>' .
+                        '<td>' . $i . '</td>' .
+                        '<td>' . $row->company_name . '</td>' .
+                        '<td>' . $row->period . '</td>' .
+                        '<td>' . $row->invoice_no . '</td>' .
+                        '<td>' . $row->place_of_supply . '</td>' .
+                        '<td>' . $row->invoice_date . '</td>' .
+                        '<td>' . $row->invoice_value . '</td>' .
+                        '<td>' . $row->taxable_value . '</td>' .
+                        '<td>' . $row->tax . '</td>' .
+                        '</tr>';
+                $i++;
+            }
+            $data .= '<tr>' .
+                    '<td>' . "<b>Total</b>" . '</td>' .
+                    '<td>' . "" . '</td>' .
+                    '<td>' . "" . '</td>' .
+                    '<td>' . "" . '</td>' .
+                    '<td>' . "" . '</td>' .
+                    '<td>' . "" . '</td>' .
+                    '<td>' . "<b>" . array_sum($invoice_value) . "</b>" . '</td>' .
+                    '<td>' . "<b>" . array_sum($taxable_value) . "</b>" . '</td>' .
+                    '<td>' . "<b>" . array_sum($tax) . "</b>" . '</td>' .
+                    '</tr>';
+
+            $data .= '</tbody></table></div></div></div>';
+            $data .= "<hr><h4><b>Observation:</b></h4>";
+            $data .= "<span>Follow up from the above clients' needs to be done as the business is facing the risk of loss "
+                    . "of input tax credit of Rs. " . array_sum($tax) . ". The situation of non-reconciliation may lead to interest liability or GST notices. </span>";
             $response['data'] = $data;
             $response['message'] = "success";
             $response['status'] = true;
@@ -574,7 +654,11 @@ class Invoice_comp_report extends CI_Controller {
             <div class="row">
                     <div class="col-md-12" id="div_notrecord_data">
                         <div class="">
+<<<<<<< HEAD
+                         <table id="example_not_in_rec" class="table table-bordered table-striped">
+=======
                          <table id="not_record_data" class="table table-bordered table-striped" style=" page-break-after:auto">
+>>>>>>> 480448c3a8728af3bd762b8bedd869df93c1fedc
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
                                         <th>No.</th>
@@ -639,12 +723,16 @@ class Invoice_comp_report extends CI_Controller {
                     '<td>' . "" . '</td>' .
                     '<td>' . "" . '</td>' .
                     '<td>' . "" . '</td>' .
+                    '<td>' . "" . '</td>' .
                     '<td>' . "<b>" . array_sum($invoice_value) . "</b>" . '</td>' .
                     '<td>' . "<b>" . array_sum($taxable_value) . "</b>" . '</td>' .
                     '<td>' . "<b>" . array_sum($tax) . "</b>" . '</td>' .
                     '</tr>';
 
             $data .= '</tbody></table></div></div></div>';
+            $data .= "<hr><h4><b>Observation:</b></h4>"
+                    . "<span>Accounting system & Invoice processing for GST Claim and reconciliation need to be reviewed.
+                        There is a risk of losing the credit if prompt action has not been taken</span>";
             $response['data'] = $data;
             $response['message'] = "success";
             $response['status'] = true;
@@ -884,11 +972,15 @@ class Invoice_comp_report extends CI_Controller {
                     '<td>' . "" . '</td>' .
                     '<td>' . "" . '</td>' .
                     '<td>' . "" . '</td>' .
+                    '<td>' . "" . '</td>' .
                     '<td>' . "<b>" . array_sum($taxable_value) . "</b>" . '</td>' .
                     '<td>' . "<b>" . array_sum($tax) . "</b>" . '</td>' .
                     '</tr>';
 
             $data .= '</tbody></table></div></div></div>';
+            $data .= "<hr><h4><b>Observation:</b></h4>"
+                    . "<span>Cross check the mismatched invoice no., POS and Period with the client in order to prevent any confusion or else it will effect on your ITC."
+                    . " Data master review needs to be done and root-cause analysis will help to minimize this errors.</span>";
             $response['data'] = $data;
             $response['message'] = "success";
             $response['status'] = true;
@@ -1095,9 +1187,9 @@ class Invoice_comp_report extends CI_Controller {
                     <div class="col-md-12">
                     <center><h3 style="color:black"><b> 2.Invoice not included in GSTR-1:</b></h3></center><br>
                         <div class="">
-                         <table id="example2" class="table table-bordered table-striped" style="break-inside:auto;width:40%">
+                         <table id="example_invoice_not_include" class="table table-bordered table-striped" style="width:40%">
                                 <thead style="background-color: #00008B;color:white">
-                                    <tr style="page-break-before:always;">
+                                    <tr>
                                         <th>Sr No.</th>
                                         <th>Original Month</th>
                                         <th>Showing in month</th>
@@ -1120,26 +1212,134 @@ class Invoice_comp_report extends CI_Controller {
             foreach ($query as $row) {
 
                 $data .= '<tr>' .
-                        '<td><div style="page-break-before:always;">' . $k . '</div></td>
-                        <td><div style="page-break-before:always;">' . $row->original_month . '</div></td>
-                        <td><div style="page-break-before:always;">' . $row->showing_month . '</div></td>
-                        <td><div style="page-break-before:always;">' . $row->category . '</div></td>
-                        <td><div style="page-break-before:always;">' . $row->gstin_no . '</div></td>
-                        <td><div style="page-break-before:always;">' . $row->invoice_date . '</div></td>
-                        <td><div style="page-break-before:always;">' . $row->invoice_no . '</div></td>
-                        <td><div style="page-break-before:always;">' . $row->name . '</div></td>
-                        <td><div style="page-break-before:always;">' . $row->invoice_value . '</div></td>
-                        <td><div style="page-break-before:always;">' . $row->taxable_value . '</div></td>
-                        <td><div style="page-break-before:always;">' . $row->igst . '</div></td>
-                        <td><div style="page-break-before:always;">' . $row->cgst . '</div></td>
-                        <td><div style="page-break-before:always;">' . $row->sgst . '</div></td>
-                        <td><div style="page-break-before:always;">' . $row->cess . '</div></td>
-                        <td><div style="page-break-before:always;"><b>' . ($row->igst + $row->cgst + $row->sgst + $row->cess) . '</b></div></td>
+                        '<td>' . $k . '</td>
+                        <td>' . $row->original_month . '</td>
+                        <td>' . $row->showing_month . '</td>
+                        <td>' . $row->category . '</td>
+                        <td>' . $row->gstin_no . '</td>
+                        <td>' . $row->invoice_date . '</td>
+                        <td>' . $row->invoice_no . '</td>
+                        <td>' . $row->name . '</td>
+                        <td>' . $row->invoice_value . '</td>
+                        <td>' . $row->taxable_value . '</td>
+                        <td>' . $row->igst . '</td>
+                        <td>' . $row->cgst . '</td>
+                        <td>' . $row->sgst . '</td>
+                        <td>' . $row->cess . '</td>
+                        <td><b>' . ($row->igst + $row->cgst + $row->sgst + $row->cess) . '</b></td>
                         
                         </tr>';
                 $k++;
             }
             $data .= '</tbody></table></div></div></div>';
+            $get_observation = $this->db->query("select invoice_not_include_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+            if ($this->db->affected_rows() > 0) {
+                $res = $get_observation->row();
+                $observation = $res->invoice_not_include_observation;
+            } else {
+                $observation = "";
+            }
+
+            $data .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
+
+            $response['data'] = $data;
+            $response['message'] = "success";
+            $response['status'] = true;
+            $response['code'] = 200;
+        } else {
+            $response['message'] = "";
+            $response['status'] = FALSE;
+            $response['code'] = 204;
+        }echo json_encode($response);
+    }
+
+    public function get_table_data1() {
+        $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
+        $curr_url = $this->input->post("curr_url");
+        $query = $this->Invoice_comp_report_model->get_details_invoice_not_included($customer_id, $insert_id);
+        $data = "";
+        if ($query != FALSE) {
+            $data .= '<div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="example_invoice_not_include" class="table table-bordered table-striped" >
+                                <thead style="background-color: #00008B;color:white">
+                                    <tr>
+                                        <th>Sr No.</th>
+                                        <th>Original Month</th>
+                                        <th>Showing in month</th>
+                                        <th>Category</th>
+                                        <th>GSTIN</th>
+                                        <th>Invoice Date</th>
+                                        <th>Invoice No</th>
+                                        <th>Name</th>
+                                        <th>Invoice Value</th>
+                                        <th>Taxable Value</th>
+                                        <th>IGST</th>
+                                        <th>CGST</th>
+                                        <th>SGST</th>
+                                        <th>CESS</th>
+                                        <th>Total Tax</th>
+                                    </tr>
+                                </thead>
+                                <tbody>';
+            $k = 1;
+            foreach ($query as $row) {
+
+                $data .= '<tr>' .
+                        '<td>' . $k . '</td>
+                        <td>' . $row->original_month . '</td>
+                        <td>' . $row->showing_month . '</td>
+                        <td>' . $row->category . '</td>
+                        <td>' . $row->gstin_no . '</td>
+                        <td>' . $row->invoice_date . '</td>
+                        <td>' . $row->invoice_no . '</td>
+                        <td>' . $row->name . '</td>
+                        <td>' . $row->invoice_value . '</td>
+                        <td>' . $row->taxable_value . '</td>
+                        <td>' . $row->igst . '</td>
+                        <td>' . $row->cgst . '</td>
+                        <td>' . $row->sgst . '</td>
+                        <td>' . $row->cess . '</td>
+                        <td><b>' . ($row->igst + $row->cgst + $row->sgst + $row->cess) . '</b></td>
+                        
+                        </tr>';
+                $k++;
+            }
+            $data .= '</tbody></table></div></div></div>';
+            $curr_url = $this->input->post("curr_url");
+            $url = base_url() . "update_detail/" . base64_encode($customer_id) . "/" . base64_encode($insert_id);
+            if ($curr_url == $url) {
+                $get_observation = $this->db->query("select invoice_not_include_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+                if ($this->db->affected_rows() > 0) {
+                    $res = $get_observation->row();
+                    $observation = $res->invoice_not_include_observation;
+                } else {
+                    $observation = "";
+                }
+                $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation of CFO:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                        <textarea class="form-control" rows="5" id="invoice_not_observation" name="invoice_not_observation" onkeyup="countWords(this.id);" >' . $observation . '</textarea>
+                                    </div>
+                                    <span class="required" style="color: red" id="invoice_not_observation_error"></span> 
+                                </div><br>';
+            } else {
+                $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                        <textarea class="form-control" rows="5" id="invoice_not_observation" name="invoice_not_observation" onkeyup="countWords(this.id);">The recording of the invoices need to be reviewed.</textarea>
+                                    </div>
+                                    <span class="required" style="color: red" id="invoice_not_observation_error"></span> 
+                                </div><br>';
+            }
             $response['data'] = $data;
             $response['message'] = "success";
             $response['status'] = true;
@@ -1407,9 +1607,119 @@ class Invoice_comp_report extends CI_Controller {
                         
                         </tr>';
                 $k++;
-                '</tbody></table></div></div></div>';
             }
-//            $data .= '</tbody></table></div></div></div>';
+            $data .= '</tbody></table></div></div></div>';
+            $get_observation = $this->db->query("select amendment_records_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+            if ($this->db->affected_rows() > 0) {
+                $res = $get_observation->row();
+                $observation = $res->amendment_records_observation;
+            } else {
+                $observation = "";
+            }
+
+            $data .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
+            $response['data'] = $data;
+            $response['message'] = "success";
+            $response['status'] = true;
+            $response['code'] = 200;
+        } else {
+            $response['message'] = "";
+            $response['status'] = FALSE;
+            $response['code'] = 204;
+        }echo json_encode($response);
+    }
+
+    public function get_table_data_ammend1() {
+        $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
+        $curr_url = $this->input->post("curr_url");
+//        $query = $this->db->query("select * from invoices_amended_summary_all where customer_id='$customer_id' and insert_id='$insert_id'");
+        $query = $this->Invoice_comp_report_model->get_details_invoice_ammneded($customer_id, $insert_id);
+        $data = "";
+        if ($query != FALSE) {
+            $data .= '<div class="row">
+                    <div class="col-md-12">
+                    <div class="">
+                         <table id="example_ammend" class="table table-bordered table-striped" >
+                                <thead style="background-color: #00008B;color:white">
+                                    <tr style="width:2px">
+                                    <th>Sr No</th>
+                                        <th>Original Month</th>
+                                        <th>Included In Month</th>
+                                        <th>Amendment in month</th>
+                                        <th>Category</th>
+                                        <th>GSTIN</th>
+                                        <th>Invoice Date</th>
+                                        <th>Invoice No</th>
+                                        <th>Name</th>
+                                        <th>Invoice Value</th>
+                                        <th>Taxable Value</th>
+                                        <th>IGST</th>
+                                        <th>CGST</th>
+                                        <th>SGST</th>
+                                        <th>CESS</th>
+                                        <th>Total Tax</th>
+                                    </tr>
+                                </thead>
+                                <tbody>';
+            $k = 1;
+            foreach ($query as $row) {
+
+
+
+                $data .= '<tr>' .
+                        '<td>' . $k . '</td>
+                        <td>' . $row->original_month . '</td>
+                        <td>' . $row->included_in_month . '</td>
+                        <td>' . $row->amendment_month . '</td>
+                        <td>' . $row->category . '</td>
+                        <td>' . $row->gstin_no . '</td>
+                        <td>' . $row->invoice_date . '</td>
+                        <td>' . $row->invoice_no . '</td>
+                        <td>' . $row->name . '</td>
+                        <td>' . $row->invoice_value . '</td>
+                        <td>' . $row->taxable_value . '</td>
+                        <td>' . $row->igst . '</td>
+                        <td>' . $row->cgst . '</td>
+                        <td>' . $row->sgst . '</td>
+                        <td>' . $row->cess . '</td>
+                        <td><b>' . ($row->igst + $row->cgst + $row->sgst + $row->cess) . '</b></td>
+                        
+                        </tr>';
+                $k++;
+            }
+            $data .= '</tbody></table></div></div></div>';
+            $url = base_url() . "update_detail/" . base64_encode($customer_id) . "/" . base64_encode($insert_id);
+            if ($curr_url == $url) {
+                $get_observation = $this->db->query("select amendment_records_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+                if ($this->db->affected_rows() > 0) {
+                    $res = $get_observation->row();
+                    $observation = $res->amendment_records_observation;
+                } else {
+                    $observation = "";
+                }
+                $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                        <textarea class="form-control" rows="5" id="amend_observation" name="amend_observation" onkeyup="countWords(this.id);">' . $observation . '</textarea>
+                                    </div>
+                                    <span class="required" style="color: red" id="amend_observation_error"></span> 
+                                </div><br>';
+            } else {
+                $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation :</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                        <textarea class="form-control" rows="5" id="amend_observation" name="amend_observation" onkeyup="countWords(this.id);">The recording of the invoices need to be reviewed..</textarea>
+                                    </div>
+                                    <span class="required" style="color: red" id="amend_observation_error"></span> 
+                                </div><br>';
+            }
             $response['data'] = $data;
             $response['message'] = "success";
             $response['status'] = true;
