@@ -654,11 +654,11 @@ class Invoice_comp_report extends CI_Controller {
             <div class="row">
                     <div class="col-md-12" id="div_notrecord_data">
                         <div class="">
-<<<<<<< HEAD
+
                          <table id="example_not_in_rec" class="table table-bordered table-striped">
-=======
+
                          <table id="not_record_data" class="table table-bordered table-striped" style=" page-break-after:auto">
->>>>>>> 480448c3a8728af3bd762b8bedd869df93c1fedc
+
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
                                         <th>No.</th>
@@ -1617,7 +1617,7 @@ class Invoice_comp_report extends CI_Controller {
                 $observation = "";
             }
 
-            $data .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
+            $data .= "<div class='col-md-12'><br><br><hr><h4><b>Observation :</b></h4><span>" . $observation . "</span></div>";
             $response['data'] = $data;
             $response['message'] = "success";
             $response['status'] = true;

@@ -401,7 +401,7 @@ class Management_report extends CI_Controller {
                          <table id="example2" class="table table-bordered table-striped">
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
-                                        <th>No.</th>
+                                       
                                         <th>Month</th>
                                         <th>Taxable</th>
                                         <th>Exempt</th>
@@ -447,7 +447,7 @@ class Management_report extends CI_Controller {
                 $ratio_subtotal_nil_rated[] = round(($sub_total_nil_rated * 100) / ($grand_total));
                 $ratio_subtotal_zero_rated[] = round(($sub_total_zero_rated * 100) / ($grand_total));
                 $data .= '<tr>' .
-                        '<td>' . $k . '</td>' .
+//                        '<td>' . $k . '</td>' .
                         '<td>' . $month . '</td>' .
                         '<td>' . $taxable_supply . '</td>' .
                         '<td>' . $sub_total_exempt . '</td>' .
@@ -460,11 +460,11 @@ class Management_report extends CI_Controller {
                         '<td>' . (round(($sub_total_nil_rated * 100) / ($grand_total))) . "%" . '</td>' .
                         '<td>' . (round(($sub_total_zero_rated * 100) / ($grand_total))) . "%" . '</td>' .
                         '</tr>';
-                $k++;
+//                $k++;
             }
             $data .= '<tr>' .
+//                    '<td>' . '<b>Total</b>' . '</td>' .
                     '<td>' . '<b>Total</b>' . '</td>' .
-                    '<td>' . '' . '</td>' .
                     '<td>' . '<b>' . array_sum($taxable_supply_arr) . '</b> ' . '</td>' .
                     '<td>' . '<b>' . array_sum($sub_total_exempt_arr) . '</b>' . '</td>' .
                     '<td>' . '<b>' . array_sum($sub_total_non_gst_arr) . '</b>' . '</td>' .
