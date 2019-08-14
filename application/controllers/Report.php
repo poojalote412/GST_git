@@ -32,7 +32,9 @@ class Report extends CI_Controller {
         $result = $query->row();
         $data['cust_result'] = $result;
 
-        
+
+
+
         $this->load->view('admin/client_details', $data);
     }
 
@@ -74,9 +76,14 @@ class Report extends CI_Controller {
 //                    Address :' . $address . '<br><br>
 //                    
 //                    </div>';
-            
+
             $data = '<div style="float:left;margin-left: 30px">
+                      <b style="font-size:18px;color:#1d2f66;">1. ABOUT ANAND RATHI GLOBAL FINANCE LTD.</b><br><br><br>';
+
+
+            $data = '<div style="float:left;margin-left: 30px;">
                       <b style="font-size:18px;color:#1d2f66;">1. ABOUT ANAND RATHI GLOBAL FINANCE LTD.</b><br><br><br>
+
                       <p>Anand Rathi Global Finance Limited (ARGFL) was incorporated on 3rd February, 1982. The 
                       Company is wholly owned subsidiary of Anand Rathi Financial Services Ltd. The Company is 
                       registered with Reserve Bank of India (RBI) as non-banking finance company (NBFC) and 
@@ -100,13 +107,15 @@ class Report extends CI_Controller {
                       <li>Structured Financing</li>
                       </ul>
                       </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
+
             
             $data .= '<div style="float:left;margin-left: 30px;">
                 <b style="font-size:18px;color:#1d2f66;">2. EXECUTIVE SUMMARY</b><br><br><br>
                       Ecovis RKCA was provided with the data of the company  “Anand Rathi
                       Global Finance Ltd.” to evaluate this health check report.<br>    
                       Ecovis RKCA  was also able to access all the information such as:
-                      
+                
+
                       1. Sales data month wise.<br>
                       2. GSTR-1 <br>
                       3. GSTR-3B.<br>
@@ -262,7 +271,7 @@ class Report extends CI_Controller {
             $result_observation = $query1->row();
         } else {
             $result_observation = '';
-}
+        }
 
         $query2 = $this->db->query("select * from observation_transaction_all where customer_id='$customer_id1' and insert_id='$insert_id1' ORDER BY ID DESC LIMIT 1");
         if ($this->db->affected_rows() > 0) {
@@ -391,39 +400,42 @@ class Report extends CI_Controller {
             $respose['message'] = "success";
         } else {
             $respose['message'] = "";
+             $respose['likelihood_impact'] = "";
+            $respose['likelihood_risk'] = "";
+            $respose['data'] = "";
         }echo json_encode($respose);
     }
 
     public function get_bg_color_fun($time_over_run3, $internal_control3, $transaction_mismatch3, $deviation_itc3, $deviation_output3, $gst_payable3) {
-        if ($time_over_run3 > 0 || $time_over_run3 <= 6) {
+        if ($time_over_run3 > 0 && $time_over_run3 <= 6) {
             $bg_clr1 = "#74D56F";
-        } elseif ($time_over_run3 > 6 || $time_over_run3 <= 11) {
+        } elseif ($time_over_run3 > 6 && $time_over_run3 <= 11) {
             $bg_clr1 = "#D8D824";
         } else {
             $bg_clr1 = "#eb5c3d";
         }
-        if ($internal_control3 > 0 || $internal_control3 <= 6) {
+        if ($internal_control3 > 0 && $internal_control3 <= 6) {
             $bg_clr2 = "#74D56F";
-        } elseif ($internal_control3 > 6 || $internal_control3 <= 11) {
+        } elseif ($internal_control3 > 6 && $internal_control3 <= 11) {
             $bg_clr2 = "#D8D824";
         } else {
             $bg_clr2 = "#eb5c3d";
         }
-        if ($transaction_mismatch3 > 0 || $transaction_mismatch3 <= 6) {
+        if ($transaction_mismatch3 > 0 && $transaction_mismatch3 <= 6) {
             $bg_clr3 = "#74D56F";
-        } elseif ($transaction_mismatch3 > 6 || $time_over_run3 <= 11) {
+        } elseif ($transaction_mismatch3 > 6 && $time_over_run3 <= 11) {
             $bg_clr3 = "#D8D824";
         } else {
             $bg_clr3 = "#eb5c3d";
         }
-        if ($deviation_itc3 > 0 || $deviation_itc3 <= 6) {
+        if ($deviation_itc3 > 0 && $deviation_itc3 <= 6) {
             $bg_clr4 = "#74D56F";
-        } elseif ($deviation_itc3 > 6 || $deviation_itc3 <= 11) {
+        } elseif ($deviation_itc3 > 6 && $deviation_itc3 <= 11) {
             $bg_clr4 = "#D8D824";
         } else {
             $bg_clr4 = "#eb5c3d";
         }
-        echo $deviation_output3;
+//        echo $deviation_output3;
         if ($deviation_output3 > 0 && $deviation_output3 <= 6) {
             $bg_clr5 = "#74D56F";
         } elseif ($deviation_output3 > 6 && $deviation_output3 <= 11) {
@@ -431,9 +443,9 @@ class Report extends CI_Controller {
         } else {
             $bg_clr5 = "#eb5c3d";
         }
-        if ($gst_payable3 > 0 || $gst_payable3 <= 6) {
+        if ($gst_payable3 > 0 && $gst_payable3 <= 6) {
             $bg_clr6 = "#74D56F";
-        } elseif ($gst_payable3 > 6 || $gst_payable3 <= 11) {
+        } elseif ($gst_payable3 > 6 && $gst_payable3 <= 11) {
             $bg_clr6 = "#D8D824";
         } else {
             $bg_clr6 = "#eb5c3d";

@@ -950,7 +950,7 @@ class Internal_acc_report extends CI_Controller {
                 $observation = "";
             }
 
-            $data .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
+            $data .= "<div class='col-md-12'><br><h4><b>Observation :</b></h4><span>" . $observation . "</span></div>";
             // loop to get graph data as per graph script requirement
             $abc1 = array();
             $abc2 = array();

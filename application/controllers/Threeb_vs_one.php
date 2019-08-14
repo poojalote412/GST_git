@@ -279,14 +279,14 @@ class Threeb_vs_one extends CI_Controller {
             $data .= '</tbody></table></div></div></div><br><br><br><br>';
 
             if ($ttl1 > $ttl2) {
-                $data .= "<hr><h4><b>Observation of GSTR-3B vs GSTR-1:</b></h4>";
-                $data .= '<span><b>1.</b>Value of GSTR-3B is greater than GSTR-1 ,It may impact your vendor relationshion and they shall not get the input tax credit though you have correctly paid the tax on such sales.<br>';
+                $data .= "<div class='col-md-12'><br><br><h4><b>Observation of GSTR-3B vs GSTR-1:</b></h4>";
+                $data .= '<span><b>1.</b>Value of GSTR-3B is greater than GSTR-1 ,It may impact your vendor relationshion and they shall not get the input tax credit though you have correctly paid the tax on such sales.<br></div>';
             } elseif ($ttl2 > $ttl1) {
                 $data .= "<hr><h4><b>Observation of GSTR-3B vs GSTR-1:</b></h4>";
-                $data .= '<span><b>1.</b> Value of GSTR-1 is greater than GSTR-3B ,Then it mean that output tax liability has not  been paid to govt. in full in comparision to the output tax liability reflected in sales return, this may lead to interest penalties,GST notices & also effect your gst rating leading to adverse GST scrutinies selection.<br>';
+                $data .= '<span><b>1.</b> Value of GSTR-1 is greater than GSTR-3B ,Then it mean that output tax liability has not  been paid to govt. in full in comparision to the output tax liability reflected in sales return, this may lead to interest penalties,GST notices & also effect your gst rating leading to adverse GST scrutinies selection.<br></div>';
             } else {
-                $data .= "<hr><h4><b>Observation of GSTR-3B vs GSTR-1:</b></h4>";
-                $data .= 'No difference.';
+                $data .= "<hr><h4><b>Observation of GSTR-3B vs GSTR-1:</b></h4></div>";
+                $data .= 'No difference.</div>';
             }
 
 
