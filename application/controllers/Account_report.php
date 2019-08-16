@@ -125,7 +125,7 @@ class Account_report extends CI_Controller {
 
             $result = $query->result();
             $period = array();
-            $data1 .= '<h4 style="color:#1d2f66"><b>2. GSTR-1:</b></h4>';
+            $data1 .= '<br><br><br><br><h4 style="color:#1d2f66"><b>2. GSTR-1:</b></h4>';
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">

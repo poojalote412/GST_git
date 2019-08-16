@@ -558,7 +558,7 @@ class Internal_acc_report extends CI_Controller {
                     '<td>' . '<b>' . array_sum($late_fee) . '</b> ' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
-            $get_observation = $this->db->query("select tax_liability_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' and ORDER BY ID DESC LIMIT 1");
+            $get_observation = $this->db->query("select tax_liability_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id'");
             if ($this->db->affected_rows() > 0) {
                 $res = $get_observation->row();
                 $observation = $res->tax_liability_observation;
@@ -647,7 +647,7 @@ class Internal_acc_report extends CI_Controller {
         $query = $this->db->query("SELECT * FROM 3b_offset_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         $query1 = $this->db->query("SELECT tax_debit FROM monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         $data = ""; //view observations
-        $data1 = ""; //view observations
+        
         if ($query->num_rows() > 0 && $query1->num_rows() > 0) {
             $result_outward = $query->result();
             $ress = $query1->result();
@@ -817,7 +817,7 @@ class Internal_acc_report extends CI_Controller {
             $respose['message'] = "success";
             $respose['data_outward'] = $abc;
             $respose['data'] = $data;
-            $respose['data1'] = $data1;
+            
             $respose['data_rcb'] = $abc2;
             $respose['data_inelligible'] = $abc3;
             $respose['new_net_rtc'] = $abc4;

@@ -1193,7 +1193,7 @@ if (is_array($session_data)) {
 
         $.ajax({
             type: "POST",
-            url: "<?= base_url("Internal_acc_report/get_graph1") ?>",
+            url: "<?= base_url("Internal_acc_report/get_graph") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
@@ -1332,7 +1332,7 @@ if (is_array($session_data)) {
         //table  for tax overview liability
         $.ajax({
             type: "post",
-            url: "<?= base_url("Internal_acc_report/get_graph1") ?>",
+            url: "<?= base_url("Internal_acc_report/get_graph") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {

@@ -646,6 +646,7 @@ class Invoice_comp_report extends CI_Controller {
         $insert_id = $this->input->post("insert_id");
         $query = $this->Invoice_comp_report_model->get_notinrec_records_all($customer_id, $insert_id);
         $data = "";
+        $data1 = "";
 //        $i = 1;
 
         if ($query != FALSE) {
@@ -653,12 +654,14 @@ class Invoice_comp_report extends CI_Controller {
             $show = $records / 15;
             $table = ceil($show);
             $min_value = 1;
+            $data1 .= '<h4 style="color:#1d2f66"><b>2.Not in records,but recorded under GSTR-2A:</b></h4>';
             for ($i = 0, $k = 1; $i < $table; $i++) {
                 $invoice_value = array();
                 $taxable_value = array();
                 $tax = array();
 //            $TotalNoOfRecords = count($data);
                 //query logics
+                
                 $data .= '
                 <div class="row">
                 <div class="col-md-12">
@@ -706,6 +709,7 @@ class Invoice_comp_report extends CI_Controller {
                 }
                 $data .= '</table></div></div></div>';
                 $response['data'] = $data;
+                $response['data1'] = $data1;
                 $response['message'] = "success";
                 $response['status'] = true;
                 $response['code'] = 200;
