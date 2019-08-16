@@ -817,6 +817,7 @@ class Internal_acc_report extends CI_Controller {
             $respose['message'] = "success";
             $respose['data_outward'] = $abc;
             $respose['data'] = $data;
+            $respose['data1'] = $data1;
             $respose['data_rcb'] = $abc2;
             $respose['data_inelligible'] = $abc3;
             $respose['new_net_rtc'] = $abc4;
