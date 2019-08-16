@@ -647,7 +647,7 @@ class Internal_acc_report extends CI_Controller {
         $query = $this->db->query("SELECT * FROM 3b_offset_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         $query1 = $this->db->query("SELECT tax_debit FROM monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         $data = ""; //view observations
-        
+        $data1 = ""; //view observations
         if ($query->num_rows() > 0 && $query1->num_rows() > 0) {
             $result_outward = $query->result();
             $ress = $query1->result();
@@ -690,7 +690,6 @@ class Internal_acc_report extends CI_Controller {
 
             $data .= '<div class="row">
                     <div class="col-md-12">
-                        <div class="">
                          <table id="example2" class="table table-bordered table-striped">
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
@@ -734,7 +733,7 @@ class Internal_acc_report extends CI_Controller {
                     '<td>' . '<b>' . array_sum($paid_cash) . '</b> ' . '</td>' .
                     '<td>' . '<b>' . array_sum($late_fee) . '</b> ' . '</td>' .
                     '</tr>';
-            $data .= '</tbody></table></div></div></div>';
+            $data .= '</tbody></table>';
 
             $url = base_url() . "update_detail/" . base64_encode($customer_id) . "/" . base64_encode($insert_id);
             if ($curr_url == $url) {
@@ -745,21 +744,20 @@ class Internal_acc_report extends CI_Controller {
                 } else {
                     $observation1 = "";
                 }
-                $data1 .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
-                $data .= '<div class="col-md-12">
+                $data .= '
                                     <label><h4><b>Observation of CFO:</b></h4></label><span class="required" aria-required="true"> </span>
-                                    <div class="input-group">
-                                        
-                                        <textarea class="form-control" rows="5" id="tax_liability_observation" name="tax_liability_observation" onkeyup="countWords(this.id);">' . $observation1 . '</textarea>
+                                    
+                                        <div class="col-md-12">
+                                        <textarea class="form-control" rows="5"  id="tax_liability_observation" name="tax_liability_observation" onkeyup="countWords(this.id);">' . $observation1 . '</textarea>
                                     </div>
                                     <span class="required" style="color: red" id="tax_liability_observation_error"></span> 
                                 </div><br>';
             } else {
-                $data .= "<div class='col-md-12'>
+                $data .= "
                                     <label><h4><b>Observation </b></h4></label><span class='required' aria-required='true'> </span>
-                                    <div class='input-group'>
-                                        
-                                        <textarea class='form-control' rows='5' id='tax_liability_observation' name='tax_liability_observation' onkeyup='countWords(this.id);'>" . $observation . "</textarea>
+                                    
+                                         <div class='col-md-12'>
+                                        <textarea class='form-control' rows='5'  id='tax_liability_observation' name='tax_liability_observation' onkeyup='countWords(this.id);'>" . $observation . "</textarea>
                                     </div>
                                     <span class='required' style='color: red' id='tax_liability_observation_error'></span>
                                 </div>";
@@ -817,7 +815,7 @@ class Internal_acc_report extends CI_Controller {
             $respose['message'] = "success";
             $respose['data_outward'] = $abc;
             $respose['data'] = $data;
-            
+            $respose['data1'] = $data1;
             $respose['data_rcb'] = $abc2;
             $respose['data_inelligible'] = $abc3;
             $respose['new_net_rtc'] = $abc4;
