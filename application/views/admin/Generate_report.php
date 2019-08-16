@@ -93,9 +93,9 @@ if (is_array($session_data)) {
                     </footer>
 
                     <!--<div style="page-break-before:always;">-->
-                    <div id="container_image_front" style="page-break-before:always;">
+                    <div id="container_image_front" style="page-break-before:always;margin-top:130px">
                         <!--<img src="https://premisafe.com/Logo.jpg" width="120px" height="30px">-->
-                        <img src="https://premisafe.com/GST_image/GSTReportCover.jpg" style="page-break-before:always" width="1200px" height="700px">
+                        <img src="https://premisafe.com/GST_image/GSTReportCover.jpg" style="page-break-before:always" style="width:900px;"width="900px" height="700px">
 
                     </div>
                     <!--<div id="content_pdf"></div><br><br><br><br><br><br>-->
@@ -120,25 +120,20 @@ if (is_array($session_data)) {
                             <h4><b>2.Sales Tax Rate Wise</b></h4>
                             <div id="compare_sales_ratewise_data" style="width:700px"></div>
                             <h4><b>3.Sales State Wise</b></h4>
-                            <div id="sales_state_wise_data"  style="width:700px"></div>
-                        </div>
-
-                        <div class="test" style="page-break-before:always;margin-top:50px">
-
-                            <!--                         <div id="sales_state_wise_data"  style="width:700px"></div>-->
                             <div id="container_state_wise" style="width:700px;padding: 15px;border: 3px solid"></div>
-
+                            <!--<div id="sales_state_wise_data"  style="width:700px"></div>-->
                         </div>
+
 
                         <div class="test" style="page-break-before:always;margin-top:180px">
                             <h4><b>4.Sales Taxable,Non-taxable and Exempt</b></h4>
-                            <div id="tax_ntax_Exempt_data" style="width:700px"></div>
+                            <!--<div id="tax_ntax_Exempt_data" style="width:700px"></div>-->
                             <div id="container_nontax_exempt" style="width:700px;padding: 20px;border: 3px solid"></div>
                         </div>
 
                         <div class="test" style="page-break-before:always;margin-top:180px">
                             <h4><b>5.Sales B2B and B2C</b></h4>
-                            <div id="compare_b2b_data" style="width:700px"></div>
+                            <!--<div id="compare_b2b_data" style="width:700px"></div>-->
                             <div id="container_sales_b2b_b2c" style="width:700px;margin-top:140px;padding: 20px;border: 3px solid"></div>
                         </div>
 
@@ -212,7 +207,7 @@ if (is_array($session_data)) {
                             <div id="invoice_notinclude_gstr1_data" style=""></div>
                         </div>
                         
-                        <div class="test" style="page-break-before:always;margin-top:160px">
+                        <div class="test" style="page-break-before:always;margin-top:80px">
                             <h4 style="color:#1d2f66;"><b>C. INVOICE WISE COMPARISON OR MISMATCH REPORT</b></h4>
                             <h4 style="color:#1d2f66"><b>1.Not in GSTR-2A,but recorderd under purchaser's book:</b></h4>
                             <div id="company_all_notin2a_data" style=""></div>
@@ -220,7 +215,7 @@ if (is_array($session_data)) {
                         
                         <div class="test" style="page-break-before:always;margin-top:160px">
                             <h4 style="color:#1d2f66"><b>2.Not in records,but recorded under GSTR-2A:</b></h4>
-                            <div id="company_all_notinrec_data" style=""></div>
+                            <div id="company_all_notinrec_data" style="height:auto"></div>
                         </div>
                         
                         <div class="test" style="page-break-before:always;margin-top:160px">
@@ -230,7 +225,7 @@ if (is_array($session_data)) {
                         
                         
                         <div class="test" style="page-break-before:always;">
-                            <div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/IssueMatrix.jpg" width="1200px" height="" style=""></div>  
+                            <div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/IssueMatrix.jpg" width="600px" height="50px" style=""></div>  
                             <div id="heat_map_tbl" style="width:700px"></div>
                             <div id="container_heat_map" style="width:700px"></div>
                         </div>
