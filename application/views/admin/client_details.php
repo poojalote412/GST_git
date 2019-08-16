@@ -308,7 +308,7 @@ if (is_array($session_data)) {
                 </div>
                 <div class="box collapsed-box">
                     <div class="box-header">
-                        <h3 class="box-title">GSTR-2A vs GSTR-1
+                        <h3 class="box-title">GSTR-3B vs GSTR-2A
                             <!--<small>Simple and fast</small>-->
                         </h3>
                         <!-- tools box -->
