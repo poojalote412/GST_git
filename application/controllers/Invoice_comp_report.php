@@ -460,6 +460,7 @@ class Invoice_comp_report extends CI_Controller {
                     '<td>' . "" . '</td>' .
                     '<td>' . "" . '</td>' .
                     '<td>' . "" . '</td>' .
+                    '<td>' . "" . '</td>' .
                     '<td>' . "<b>" . array_sum($invoice_value) . "</b>" . '</td>' .
                     '<td>' . "<b>" . array_sum($taxable_value) . "</b>" . '</td>' .
                     '<td>' . "<b>" . array_sum($tax) . "</b>" . '</td>' .
@@ -532,6 +533,7 @@ class Invoice_comp_report extends CI_Controller {
             }
             $data .= '<tr>' .
                     '<td>' . "<b>Total</b>" . '</td>' .
+                    '<td>' . "" . '</td>' .
                     '<td>' . "" . '</td>' .
                     '<td>' . "" . '</td>' .
                     '<td>' . "" . '</td>' .
