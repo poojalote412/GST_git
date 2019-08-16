@@ -643,9 +643,21 @@ class Invoice_comp_report extends CI_Controller {
         $insert_id = $this->input->post("insert_id");
         $query = $this->Invoice_comp_report_model->get_notinrec_records_all($customer_id, $insert_id);
         $data = "";
-         $i = 1;    
+//        $i = 1;
+
         if ($query != FALSE) {
-            $data .= '
+            $records = count($query);
+            $show = $records / 15;
+            $table = ceil($show);
+            $min_value = 1;
+            $max_value = 15;
+            for ($i = 0, $k = 1; $i < $table; $i++) {
+                $invoice_value = array();
+                $taxable_value = array();
+                $tax = array();
+//            $TotalNoOfRecords = count($data);
+                //query logics
+                $data .= '
                 <div class="row">
                 <div class="col-md-12">
                
@@ -661,7 +673,6 @@ class Invoice_comp_report extends CI_Controller {
 
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
-                                        <th>No.</th>
                                         <th>Company Name</th>
                                         <th>Period</th>
                                         <th>Invoice No</th>
@@ -673,70 +684,34 @@ class Invoice_comp_report extends CI_Controller {
                                     </tr>
                                 </thead>
                                 <tbody>';
+                $query2 = $this->db->query("select * from gstr_2a_reconciliation_all where status='not_in_rec' and customer_id='$customer_id'and insert_id='$insert_id' LIMIT $min_value,15 ");
+                $result = $query2->result();
+                foreach ($result as $row) {
+//                    $invoice_value[] = $row->invoice_value;
+//                    $taxable_value[] = $row->taxable_value;
+//                    $tax[] = $row->tax;
+                    $data .= '<tr>' .
+                            '<td>' . $row->company_name . '</td>' .
+                            '<td>' . $row->period . '</td>' .
+                            '<td>' . $row->invoice_no . '</td>' .
+                            '<td>' . $row->place_of_supply . '</td>' .
+                            '<td>' . $row->invoice_date . '</td>' .
+                            '<td>' . $row->invoice_value . '</td>' .
+                            '<td>' . $row->taxable_value . '</td>' .
+                            '<td>' . $row->tax . '</td>' .
+                            '</tr>';
+                    $k++;
+                }
+                $data .= '</table></div></div></div>';
+                $response['data'] = $data;
+                $response['message'] = "success";
+                $response['status'] = true;
+                $response['code'] = 200;
 
-            $invoice_value = array();
-            $taxable_value = array();
-            $tax = array();
-//            $TotalNoOfRecords = count($data);
-           
-           
-            foreach ($query as $row) {
-                
-                $invoice_value[] = $row->invoice_value;
-                $taxable_value[] = $row->taxable_value;
-                $tax[] = $row->tax;
-//                if($i > 20) {
-////                    if ($i && $i % 10 == 0) {
-////                    continue;
-//                    $data .= '<!-- break -->';
-////                    $data .= '<span class="pageBreak" style=" page-break-before: always;">&NBSP;</span>';
-////                      echo '<span class="pageBreak"></span>' . PHP_EOL;
-////                    $i++; // <-- Oh and reset $i
-//                }
-                $data .= '<tr>' .
-                        '<td>' . $i . '</td>' .
-                        '<td>' . $row->company_name . '</td>' .
-                        '<td>' . $row->period . '</td>' .
-                        '<td>' . $row->invoice_no . '</td>' .
-                        '<td>' . $row->place_of_supply . '</td>' .
-                        '<td>' . $row->invoice_date . '</td>' .
-                        '<td>' . $row->invoice_value . '</td>' .
-                        '<td>' . $row->taxable_value . '</td>' .
-                        '<td>' . $row->tax . '</td>' .
-                        '</tr>';
-                
-               
-//                if($i % 20) {
-////                    if ($i && $i % 10 == 0) {
-////                    continue;
-//                    $data .= '<!-- break -->';
-////                    $data .= '<span class="pageBreak" style=" page-break-before: always;">&NBSP;</span>';
-////                      echo '<span class="pageBreak"></span>' . PHP_EOL;
-////                    $i++; // <-- Oh and reset $i
-//                }
-                $i++;
+                //query logics
+                $min_value = $min_value + 15;
+//                $max_value = ($max_value ) + 15;
             }
-              
-            $data .= '<tr>' .
-                    '<td>' . "<b>Total</b>" . '</td>' .
-                    '<td>' . "" . '</td>' .
-                    '<td>' . "" . '</td>' .
-                    '<td>' . "" . '</td>' .
-                    '<td>' . "" . '</td>' .
-                    '<td>' . "" . '</td>' .
-                    '<td>' . "<b>" . array_sum($invoice_value) . "</b>" . '</td>' .
-                    '<td>' . "<b>" . array_sum($taxable_value) . "</b>" . '</td>' .
-                    '<td>' . "<b>" . array_sum($tax) . "</b>" . '</td>' .
-                    '</tr>';
-
-            $data .= '</tbody></table></div></div></div>';
-            $data .= "<hr><h4><b>Observation:</b></h4>"
-                    . "<span>Accounting system & Invoice processing for GST Claim and reconciliation need to be reviewed.
-                        There is a risk of losing the credit if prompt action has not been taken</span>";
-            $response['data'] = $data;
-            $response['message'] = "success";
-            $response['status'] = true;
-            $response['code'] = 200;
         } else {
             $response['message'] = "";
             $response['status'] = FALSE;
