@@ -42,6 +42,7 @@ class Account_report extends CI_Controller {
 
         $query = $this->db->query("SELECT month,late_fees,due_date,filling_date FROM 3b_offset_summary_all WHERE customer_id='$customer_id' order by id desc");
         $data = ""; //view observations
+        $data1 = ""; //view Table name
         if ($query->num_rows() > 0) {
 
             $result = $query->result();
@@ -50,6 +51,7 @@ class Account_report extends CI_Controller {
 //            $filling_date = array();
 
             $months = array();
+            $data .= ' <h4 style="color:#1d2f66"><b>1. GSTR-3B:</b></h4>';
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
@@ -99,6 +101,7 @@ class Account_report extends CI_Controller {
 
 
             $respose['data'] = $data;
+            $respose['data1'] = $data1;
             $respose['message'] = "success";
         } else {
             $respose['data'] = "";
@@ -117,10 +120,12 @@ class Account_report extends CI_Controller {
 
         $query = $this->db->query("SELECT period,status,filling_date,acknowledge_no FROM return_filled_gstr1_summary WHERE customer_id='$customer_id' order by id desc");
         $data = ""; //view observations
+        $data1 = ""; //view observations
         if ($query->num_rows() > 0) {
 
             $result = $query->result();
             $period = array();
+            $data1 .= '<h4 style="color:#1d2f66"><b>2. GSTR-1:</b></h4>';
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
@@ -159,6 +164,7 @@ class Account_report extends CI_Controller {
             }
 
             $respose['data'] = $data;
+            $respose['data1'] = $data1;
             $respose['message'] = "success";
         } else {
             $respose['data'] = "";

@@ -179,12 +179,13 @@ class Management_report extends CI_Controller {
         $query = $this->db->query("SELECT * from state_wise_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         $data = ""; //view observations
         $data1 = ""; //view observations
+        $data2 = ""; //view observations
         $state_arr = array();
         $taxble_val_arr = array();
 
         if ($query->num_rows() > 0) {
             $result = $query->result();
-
+            $data2 .='<h4><b>3.Sales State Wise</b></h4>';
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
@@ -232,6 +233,7 @@ class Management_report extends CI_Controller {
             $total = array_sum($taxble_val_arr);
             $top3 = array_sum($arr);
             $top_3_state = round(($top3 / $total) * 100, 2);
+            $data1 .= '<h4><b>Observation:</b></h4>';
             $data1 .= "<h4><b>" . $top_3_state . " </b> % of total sales comes from top 3 states.</h4>";
 
 
@@ -258,6 +260,8 @@ class Management_report extends CI_Controller {
             $respnose['taxable_value'] = $taxable_value;  //taxable value data
             $respnose['state'] = $state_arr;  //state data
             $respnose['data'] = $data; //table view data
+            $respnose['data1'] = $data1; //table view data
+            $respnose['data2'] = $data2; //table view data
         } else {
             $respnose['message'] = "";
             $respnose['taxable_value'] = "";  //taxable value data
@@ -385,6 +389,7 @@ class Management_report extends CI_Controller {
         $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' and insert_id='$insert_id'");
         $data = ""; //view observations
         $data1 = ""; //view observations
+        $data2 = ""; //view observations
         if ($query->num_rows() > 0) {
             $result = $query->result();
             $taxable_supply_arr = array();
@@ -397,6 +402,7 @@ class Management_report extends CI_Controller {
             $sub_total_zero_ratedarr = array();
             $ratio_subtotal_nil_rated = array();
             $ratio_subtotal_zero_rated = array();
+            $data2 .= '<h4><b>4.Sales Taxable,Non-taxable and Exempt</b></h4>';
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
@@ -561,6 +567,7 @@ class Management_report extends CI_Controller {
             }
             $respnose['data'] = $data;
             $respnose['data1'] = $data1;
+            $respnose['data2'] = $data2;
             $respnose['message'] = "success";
             $respnose['taxable_supply_arr'] = $abc1;  //taxable_supply data
             $respnose['sub_total_non_gst_arr'] = $abc2; //sub_total_non_gstdata
@@ -1353,6 +1360,7 @@ class Management_report extends CI_Controller {
         //to get total supply
         $query = $this->db->query("SELECT * from rate_wise_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         $data = ""; //view observations
+        $data1 = ""; //view observations
         if ($query->num_rows() > 0) {
             $result = $query->result();
             $data .= "<label><h3>Sale Rate Wise:</h3></label>";
@@ -1448,7 +1456,7 @@ class Management_report extends CI_Controller {
         $data = ""; //view observations
         if ($query->num_rows() > 0) {
             $result = $query->result();
-            $data .= "<label><h3>Sale Rate Wise:</h3></label>";
+            $data .= "<h4><b>2.Sales Tax Rate Wise</b></h4>";
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
@@ -2135,6 +2143,7 @@ class Management_report extends CI_Controller {
 //        $query_get_graph = $this->Management_report_model->get_graph_query($customer_id, $insert_id);
         $data = ""; //view observations
         $data1 = ""; //view observations
+        $data2 = ""; //view observations
         if ($query->num_rows() > 0) {
             $result = $query->result();
             $month = array();
@@ -2142,6 +2151,7 @@ class Management_report extends CI_Controller {
             $array_b2c = array();
             $array_b2b_ratio = array();
             $array_b2c_ratio = array();
+            $data2 .= '<h4><b>5.Sales B2B and B2C</b></h4>';
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
@@ -2288,6 +2298,7 @@ class Management_report extends CI_Controller {
             }
             $response['data'] = $data;
             $response['data1'] = $data1;
+            $response['data2'] = $data2;
             $response['message'] = "success";
             $response['array_b2b'] = $array_b2b1;  // B2B data
             $response['array_b2c'] = $array_b2c1;  // B2Cs data

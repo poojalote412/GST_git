@@ -81,6 +81,7 @@ class Cfo_dashboard extends CI_Controller {
                 . "ON `monthly_summary_all`.`month`=`3b_offset_summary_all`.`month` where `monthly_summary_all`.`customer_id`='$customer_id' "
                 . "AND `3b_offset_summary_all`.`customer_id`='$customer_id' AND `monthly_summary_all`.`insert_id`='$insert_id'AND `3b_offset_summary_all`.`insert_id`='$insert_id'");
         $data = ""; //view observations
+        $data1 = ""; //view observations
         if ($quer1->num_rows() > 0) {
             $res = $quer1->result();
             $turnover1 = array();
@@ -142,7 +143,7 @@ class Cfo_dashboard extends CI_Controller {
                 } else {
                     $observation = "";
                 }
-                $data .= '<div class="col-md-12">
+                $data1 .= '<div class="col-md-12">
                                     <label><h4><b>Observation of CFO:</b></h4></label><span class="required" aria-required="true"> </span>
                                     <div class="input-group">
                                         <span class="input-group-addon">
@@ -153,7 +154,7 @@ class Cfo_dashboard extends CI_Controller {
                                     <span class="required" style="color: red" id="cfo_observation_error"></span> 
                                 </div><br>';
             } else {
-                $data .= '<div class="col-md-12">
+                $data1 .= '<div class="col-md-12">
                                     <label><h4><b>Observation of CFO:</b></h4></label><span class="required" aria-required="true"> </span>
                                     <div class="input-group">
                                         <span class="input-group-addon">
@@ -211,6 +212,7 @@ class Cfo_dashboard extends CI_Controller {
             }
 
             $respose['data'] = $data;
+            $respose['data1'] = $data1;
             $respose['message'] = "success";
             $respose['data_turn_over'] = $abc;  //turnover data
             $respose['data_liability'] = $pqr; //tax liability data
@@ -236,11 +238,14 @@ class Cfo_dashboard extends CI_Controller {
                 . "ON `monthly_summary_all`.`month`=`3b_offset_summary_all`.`month` where `monthly_summary_all`.`customer_id`='$customer_id' "
                 . "AND `3b_offset_summary_all`.`customer_id`='$customer_id' AND `monthly_summary_all`.`insert_id`='$insert_id'AND `3b_offset_summary_all`.`insert_id`='$insert_id'");
         $data = ""; //view observations
+        $data1 = ""; //view observations
+        $data2 = ""; //view observations
         if ($quer1->num_rows() > 0) {
             $res = $quer1->result();
             $turnover1 = array();
             $tax_liabality1 = array();
             $ratio_val = array();
+            $data2 .= '<h4 style="color:#1d2f66"><b>2. Turnover vs Tax Liability:</b></h4><br>';
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
@@ -306,12 +311,12 @@ class Cfo_dashboard extends CI_Controller {
                 $observation = "";
             }
 
-            $data .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
+            $data1 .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
             
-            $data .= "<hr><h4><b>Observation of CFO:</b></h4>"
-                    . "<span>Percentage of GST payable to turnover is not stable for F.Y. 2017-18 it varies from <b>" . min($ratio_val) . "% </b>to<b> " . max($ratio_val) . "%</b>.</span><br>"
-                    . "<div class='col-md-4'>
-                                    <label>About Company:</label><span class='required' aria-required='true'> </span>";
+//            $data1 .= "<hr><h4><b>Observation of CFO:</b></h4>"
+//                    . "<span>Percentage of GST payable to turnover is not stable for F.Y. 2017-18 it varies from <b>" . min($ratio_val) . "% </b>to<b> " . max($ratio_val) . "%</b>.</span><br>"
+//                    . "<div class='col-md-4'>
+//                                    <label>About Company:</label><span class='required' aria-required='true'> </span>";
 
 
             // $data .= '<img src="' . base_url('images/samples/images122.png') . '" width="200px" height="200px"/>';
@@ -359,6 +364,8 @@ class Cfo_dashboard extends CI_Controller {
             }
 
             $respose['data'] = $data;
+            $respose['data1'] = $data1;
+            $respose['data2'] = $data2;
             $respose['message'] = "success";
             $respose['data_turn_over'] = $abc;  //turnover data
             $respose['data_liability'] = $pqr; //tax liability data

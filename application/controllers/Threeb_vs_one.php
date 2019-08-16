@@ -220,6 +220,7 @@ class Threeb_vs_one extends CI_Controller {
                 . "and insert_id='$insert_id' order by id desc ");
         $data = ""; //view observations
         $data1 = ""; //view observations
+        $data2 = ""; //view observations
         if ($query->num_rows() > 0) {
 
             $result = $query->result();
@@ -228,6 +229,7 @@ class Threeb_vs_one extends CI_Controller {
             $gstr_one_ammend3 = array();
             $difference4 = array();
             $cumu_difference5 = array();
+            $data2 .= '<h4><b>2.GSTR3B VS. GSTR1 - Output Liability Reconcillation</b></h4>';
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
@@ -331,6 +333,7 @@ class Threeb_vs_one extends CI_Controller {
 
             $respose['data'] = $data;
             $respose['data1'] = $data1;
+            $respose['data2'] = $data2;
             $respose['message'] = "success";
             $respose['data_gstr3b'] = $abc1;
             $respose['data_gstr1'] = $abc2;

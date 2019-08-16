@@ -202,6 +202,7 @@ class Threeb_vs_twoa extends CI_Controller {
         $query = $this->db->query("SELECT month,gstr2A_3B,gstr2A_difference,gstr2A_cummulative,gstr2A FROM comparison_summary_all WHERE customer_id='$customer_id' AND insert_id='$insert_id' order by id desc");
         $data = ""; //view observations
         $data1 = ""; //view observations
+        $data2 = ""; //view observations
         if ($query->num_rows() > 0) {
 
             $result = $query->result();
@@ -210,6 +211,7 @@ class Threeb_vs_twoa extends CI_Controller {
             $cumu_difference3 = array();
             $gstr2a4 = array();
             $months = array();
+            $data2 .= '<h4><b>1.GSTR3B VS. GSTR2A -Input Tax Credit Reconcillation</b></h4>';
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
@@ -301,6 +303,7 @@ class Threeb_vs_twoa extends CI_Controller {
 
             $respose['data'] = $data; //data of observation
             $respose['data1'] = $data1; //data of observation
+            $respose['data2'] = $data2; //data of observation
             $respose['message'] = "success";
             $respose['gstr_tb'] = $abc; //data of gstr 3b
             $respose['max'] = $max_value; //max values
@@ -309,7 +312,7 @@ class Threeb_vs_twoa extends CI_Controller {
             $respose['gstr2a'] = $abc5; //data of gstr2a
             $respose['month_data'] = $months; //months
         } else {
-            $respose['data1'] = "";
+            $respose['data'] = "";
             $respose['data1'] = "";
             $respose['message'] = "fail";
             $respose['gstr_tb'] = "";

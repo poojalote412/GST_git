@@ -486,6 +486,8 @@ class Internal_acc_report extends CI_Controller {
         $query = $this->db->query("SELECT * FROM 3b_offset_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         $query1 = $this->db->query("SELECT tax_debit FROM monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         $data = ""; //view observations
+        $data1 = ""; //view observations
+        $data2 = ""; //view observations
         if ($query->num_rows() > 0 && $query1->num_rows() > 0) {
             $result_outward = $query->result();
             $ress = $query1->result();
@@ -508,7 +510,7 @@ class Internal_acc_report extends CI_Controller {
             for ($m = 0; $m < $count; $m++) {
                 $new_net_rtc[] = $net_rtc[$m] - $debit_tax[$m] . '<br>';
             }
-
+            $data2 .='<h4 style="color:#1d2f66"><b>3. Overview of Tax Liability:</b></h4>';
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
@@ -563,7 +565,7 @@ class Internal_acc_report extends CI_Controller {
             } else {
                 $observation = "";
             }
-            $data .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
+            $data1 .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
             $abc = array();
             $abc2 = array();
             $abc3 = array();
@@ -615,6 +617,8 @@ class Internal_acc_report extends CI_Controller {
             $respose['message'] = "success";
             $respose['data_outward'] = $abc;
             $respose['data'] = $data;
+            $respose['data1'] = $data1;
+            $respose['data2'] = $data2;
             $respose['data_rcb'] = $abc2;
             $respose['data_inelligible'] = $abc3;
             $respose['new_net_rtc'] = $abc4;
@@ -643,6 +647,7 @@ class Internal_acc_report extends CI_Controller {
         $query = $this->db->query("SELECT * FROM 3b_offset_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         $query1 = $this->db->query("SELECT tax_debit FROM monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         $data = ""; //view observations
+        $data1 = ""; //view observations
         if ($query->num_rows() > 0 && $query1->num_rows() > 0) {
             $result_outward = $query->result();
             $ress = $query1->result();
@@ -740,12 +745,11 @@ class Internal_acc_report extends CI_Controller {
                 } else {
                     $observation1 = "";
                 }
+                $data1 .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
                 $data .= '<div class="col-md-12">
                                     <label><h4><b>Observation of CFO:</b></h4></label><span class="required" aria-required="true"> </span>
                                     <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="fa fa-eye"></i>
-                                        </span>
+                                        
                                         <textarea class="form-control" rows="5" id="tax_liability_observation" name="tax_liability_observation" onkeyup="countWords(this.id);">' . $observation1 . '</textarea>
                                     </div>
                                     <span class="required" style="color: red" id="tax_liability_observation_error"></span> 
@@ -754,9 +758,7 @@ class Internal_acc_report extends CI_Controller {
                 $data .= "<div class='col-md-12'>
                                     <label><h4><b>Observation </b></h4></label><span class='required' aria-required='true'> </span>
                                     <div class='input-group'>
-                                        <span class='input-group-addon'>
-                                            <i class='fa fa-eye'></i>
-                                        </span>
+                                        
                                         <textarea class='form-control' rows='5' id='tax_liability_observation' name='tax_liability_observation' onkeyup='countWords(this.id);'>" . $observation . "</textarea>
                                     </div>
                                     <span class='required' style='color: red' id='tax_liability_observation_error'></span>
@@ -874,6 +876,9 @@ class Internal_acc_report extends CI_Controller {
             $tax_value = array();
             $tax_ratio = array();
             $data = ""; //view observations
+            $data1 = ""; //view observations
+            $data2= ""; //View table name
+            $data2 .= '<h4 style="color:#1d2f66"><b>1. Overview of Turnover</b></h4><br>';
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
@@ -950,7 +955,7 @@ class Internal_acc_report extends CI_Controller {
                 $observation = "";
             }
 
-            $data .= "<div class='col-md-12'><br><h4><b>Observation :</b></h4><span>" . $observation . "</span></div>";
+            $data1 .= "<div class='col-md-12'><br><h4><b>Observation :</b></h4><span>" . $observation . "</span></div>";
             // loop to get graph data as per graph script requirement
             $abc1 = array();
             $abc2 = array();
@@ -996,6 +1001,8 @@ class Internal_acc_report extends CI_Controller {
                 $customer_name = $res21->customer_name;
             }
             $respnose['data'] = $data;
+            $respnose['data1'] = $data1;
+            $respnose['data2'] = $data2;
             $respnose['message'] = "success";
             $respnose['taxable_value'] = $abc1;  //taxable_supply data
             $respnose['tax_value'] = $abc2; //tax value
@@ -1005,6 +1012,7 @@ class Internal_acc_report extends CI_Controller {
             $respnose['customer_name'] = $customer_name; //customer
         } else {
             $respnose['data'] = "";
+            $respnose['data1'] = "";
             $respnose['message'] = "";
             $respnose['taxable_supply_arr'] = "";  //taxable_supply data
         } echo json_encode($respnose);
@@ -1213,6 +1221,10 @@ class Internal_acc_report extends CI_Controller {
             $ineligible_ratio_arr = array();
             $months = array();
             $data = ""; //view observations
+            $data1 = ""; //view observations
+            $data2 = ""; //view table name
+            
+           $data2 .= '<h4 style="color:#1d2f66"><b>5. Eligible and Inligible Credit:</b></h4><br>';
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
@@ -1269,7 +1281,7 @@ class Internal_acc_report extends CI_Controller {
                 $observation = "";
             }
 
-            $data .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
+            $data1 .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
             // loop to get graph data as per graph script requirement
             $abc1 = array();
             $abc2 = array();
@@ -1308,6 +1320,8 @@ class Internal_acc_report extends CI_Controller {
                 $customer_name = $res21->customer_name;
             }
             $respnose['data'] = $data;
+            $respnose['data1'] = $data1;
+            $respnose['data2'] = $data2;
             $respnose['message'] = "success";
             $respnose['ineligible_itc'] = $abc1;  //taxable_supply data
             $respnose['net_itc'] = $abc2; //tax value
@@ -1318,6 +1332,7 @@ class Internal_acc_report extends CI_Controller {
             $respnose['customer_name'] = $customer_name; //customer
         } else {
             $respnose['data'] = "";
+            $respnose['data1'] = "";
             $respnose['message'] = "";
             $respnose['taxable_supply_arr'] = "";  //taxable_supply data
         } echo json_encode($respnose);
@@ -1504,6 +1519,10 @@ class Internal_acc_report extends CI_Controller {
             $percent_arr = array();
             $months = array();
             $data = ""; //view observations
+            $data1 = ""; //view observations
+            $data2 = ""; //view table name
+            $data2 .= '<h4 style="color:#1d2f66"><b>4. GST Payable V/s Cash:</b></h4><br>';
+            
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
@@ -1559,13 +1578,13 @@ class Internal_acc_report extends CI_Controller {
             $max_percent = max($percent_arr);
             $min_percent = min($percent_arr);
             $avg = array_sum($percent_arr) / count($percent_arr);
-            $data .= "<hr><h4><b>Observation of GST Payable vs Cash:</b></h4>";
+            $data1 .= "<hr><h4><b>Observation of GST Payable vs Cash:</b></h4>";
             if ($avg > 35) {
-                $data .= "<span>GST paid in cash varies from <b>" . $min_percent . "%</b> to  <b>" . $max_percent . "%</b> for F.Y. " . $year
+                $data1 .= "<span>GST paid in cash varies from <b>" . $min_percent . "%</b> to  <b>" . $max_percent . "%</b> for F.Y. " . $year
                         . ".  Average percentage of liability paid by cash is <b>" . round($avg) . "%</b> for F.Y. " . $year . ".</span><br>"
                         . "<span>So, analysis of huge payment by cash to be done & accordingly input tax credit planning should be done.</span>";
             } else {
-                $data .= "GST paid in cash has varied from <b>" . $min_percent . "%</b> to  <b>" . $max_percent . "% for FY –" . $year;
+                $data1 .= "GST paid in cash has varied from <b>" . $min_percent . "%</b> to  <b>" . $max_percent . "% for FY –" . $year;
             }
             //graph work
             $abc1 = array();
@@ -1605,6 +1624,8 @@ class Internal_acc_report extends CI_Controller {
                 $customer_name = $res21->customer_name;
             }
             $respnose['data'] = $data;
+            $respnose['data1'] = $data1;
+            $respnose['data2'] = $data2;
             $respnose['message'] = "success";
             $respnose['liability'] = $abc1;  //taxable_supply data
             $respnose['net_itc'] = $abc2; //tax value
@@ -1615,6 +1636,7 @@ class Internal_acc_report extends CI_Controller {
             $respnose['customer_name'] = $customer_name; //customer
         } else {
             $respnose['data'] = "";
+            $respnose['data1'] = "";
             $respnose['message'] = "";
             $respnose['taxable_supply_arr'] = "";  //taxable_supply data
         } echo json_encode($respnose);

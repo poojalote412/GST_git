@@ -290,6 +290,7 @@ class Report extends CI_Controller {
         $query_get_data = $this->db->query("SELECT time_over_run,internal_control,transaction_mismatch,deviation_itc,deviation_output,gst_payable "
                 . "from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
         $data = "";
+//        $data1 = "";
         if ($this->db->affected_rows() > 0) {
             $result_observation1 = $query_get_data->row();
 
@@ -325,7 +326,7 @@ class Report extends CI_Controller {
             $gst_payable3 = $gst_payable1 * $gst_payable2;
 
             $get_bg_color = $this->get_bg_color_fun($time_over_run3, $internal_control3, $transaction_mismatch3, $deviation_itc3, $deviation_output3, $gst_payable3);
-
+//            $data1 .= '<h3><b>6.Issue Matrix</b></h3>';
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
@@ -397,6 +398,7 @@ class Report extends CI_Controller {
             $respose['likelihood_impact'] = $likelihood_impact;
             $respose['likelihood_risk'] = $likelihood_risk;
             $respose['data'] = $data;
+//            $respose['data1'] = $data1;
             $respose['message'] = "success";
         } else {
             $respose['message'] = "";

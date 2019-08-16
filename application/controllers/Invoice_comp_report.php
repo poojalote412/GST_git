@@ -407,7 +407,9 @@ class Invoice_comp_report extends CI_Controller {
         $insert_id = $this->input->post("insert_id");
         $query = $this->Invoice_comp_report_model->get_notin2a_records_all($customer_id, $insert_id);
         $data = "";
+        $data1= "";
         if ($query != FALSE) {
+            $data1 .= '<h4 style="color:#1d2f66"><b>1.Not in GSTR-2A,but recorderd under purchasers book:</b></h4>';
             $data .= '<div class="row">
                 <div class="col-md-12">
                  </div>
@@ -471,6 +473,7 @@ class Invoice_comp_report extends CI_Controller {
             $data .= "<span>Follow up from the above clients' needs to be done as the business is facing the risk of loss "
                     . "of input tax credit of Rs. " . array_sum($tax) . ". The situation of non-reconciliation may lead to interest liability or GST notices. </span>";
             $response['data'] = $data;
+            $response['data1'] = $data1;
             $response['message'] = "success";
             $response['status'] = true;
             $response['code'] = 200;
@@ -643,8 +646,10 @@ class Invoice_comp_report extends CI_Controller {
         $insert_id = $this->input->post("insert_id");
         $query = $this->Invoice_comp_report_model->get_notinrec_records_all($customer_id, $insert_id);
         $data = "";
+        $data1 = "";
          $i = 1;    
         if ($query != FALSE) {
+            $data1 .='<h4 style="color:#1d2f66"><b>2.Not in records,but recorded under GSTR-2A:</b></h4>';
             $data .= '
                 <div class="row">
                 <div class="col-md-12">
@@ -734,6 +739,7 @@ class Invoice_comp_report extends CI_Controller {
                     . "<span>Accounting system & Invoice processing for GST Claim and reconciliation need to be reviewed.
                         There is a risk of losing the credit if prompt action has not been taken</span>";
             $response['data'] = $data;
+            $response['data1'] = $data1;
             $response['message'] = "success";
             $response['status'] = true;
             $response['code'] = 200;
@@ -901,7 +907,9 @@ class Invoice_comp_report extends CI_Controller {
         $insert_id = $this->input->post("insert_id");
         $query = $this->Invoice_comp_report_model->get_company_partial_all_data($customer_id, $insert_id);
         $data = "";
+        $data1 = "";
         if ($query != FALSE) {
+            $data1 .= '<h4 style="color:#1d2f66"><b>3.Invoice no.,POS and Period mismatch:</b></h4>';
             $data .= '<div class="row">
                 <div class="col-md-12">
                
@@ -981,6 +989,7 @@ class Invoice_comp_report extends CI_Controller {
                     . "<span>Cross check the mismatched invoice no., POS and Period with the client in order to prevent any confusion or else it will effect on your ITC."
                     . " Data master review needs to be done and root-cause analysis will help to minimize this errors.</span>";
             $response['data'] = $data;
+            $response['data1'] = $data1;
             $response['message'] = "success";
             $response['status'] = true;
             $response['code'] = 200;
@@ -1181,7 +1190,9 @@ class Invoice_comp_report extends CI_Controller {
         $insert_id = $this->input->post("insert_id");
         $query = $this->Invoice_comp_report_model->get_details_invoice_not_included($customer_id, $insert_id);
         $data = "";
+        $data1 = "";
         if ($query != FALSE) {
+            $data1 .='<h4 style="color:#1d2f66"><b>2.Invoice not included in GSTR-1:</b></h4>';
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
@@ -1241,6 +1252,7 @@ class Invoice_comp_report extends CI_Controller {
             $data .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
 
             $response['data'] = $data;
+            $response['data1'] = $data1;
             $response['message'] = "success";
             $response['status'] = true;
             $response['code'] = 200;
@@ -1552,7 +1564,9 @@ class Invoice_comp_report extends CI_Controller {
 //        $query = $this->db->query("select * from invoices_amended_summary_all where customer_id='$customer_id' and insert_id='$insert_id'");
         $query = $this->Invoice_comp_report_model->get_details_invoice_ammneded($customer_id, $insert_id);
         $data = "";
+        $data1 = "";
         if ($query != FALSE) {
+            $data1 .='<h4 style="color:#1d2f66"><b>1.Invoice amends in other than original period Analysis:</b></h4>';
             $data .= '<div class="row">
                     <div class="col-md-12">
                      <div class="">
@@ -1615,6 +1629,7 @@ class Invoice_comp_report extends CI_Controller {
 
             $data .= "<div class='col-md-12'><br><br><hr><h4><b>Observation :</b></h4><span>" . $observation . "</span></div>";
             $response['data'] = $data;
+            $response['data1'] = $data1;
             $response['message'] = "success";
             $response['status'] = true;
             $response['code'] = 200;

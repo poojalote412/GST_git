@@ -109,48 +109,54 @@ if (is_array($session_data)) {
                     <!--Details of GST Reports & insights-->
                     <div class="test" style="margin-top:130px;page-break-before:always;">
                         <h4 style="color:#1d2f66;"><b>6.DETAILS OF GST REPORTS AND INSIGHTS</b></h4>
-                        <p style="background:#1d2f66; color:white;padding:4px;border:1px solid;width:700px;text-align:center">DATA INSIGHTS</p>
+                        <p style="background:#1d2f66; color:white;width:700px;text-align:center">DATA INSIGHTS</p>
                         <h4 style="color:#1d2f66"><b>A.MANAGEMENT REPORT</b></h4><br>
                         <!--<h4><b>1.Sales Month Wise</b></h4>-->
                         <div id="sales_monthly_data2"></div>
-                        <div id="container_sales_month_wise"  style="width:700px;padding: 20px;border: 3px solid"></div>
+                        <div id="container_sales_month_wise"  style="width:700px;"></div>
                         <div id="sales_monthly_data1" style="width:700px">
                         </div>
 
                         <div class="test" style="margin-top:120px;page-break-before:always;">
-                            <h4><b>2.Sales Tax Rate Wise</b></h4>
+<!--                            <h4><b>2.Sales Tax Rate Wise</b></h4>-->
+                            <div id="compare_sales_ratewise_data1" style="width:700px"></div>
                             <div id="compare_sales_ratewise_data" style="width:700px"></div>
-                            <h4><b>3.Sales State Wise</b></h4>
-                            <div id="container_state_wise" style="width:700px;padding: 15px;border: 3px solid"></div>
-                            <!--<div id="sales_state_wise_data"  style="width:700px"></div>-->
+                            <!--<h4><b>3.Sales State Wise</b></h4>-->
+                            <div id="sales_state_wise_data2"  style="width:700px"></div>
+                            <div id="container_state_wise" style="width:700px;"></div>
+                            <div id="sales_state_wise_data1"  style="width:700px"></div>
                         </div>
 
 
                         <div class="test" style="page-break-before:always;margin-top:180px">
-                            <h4><b>4.Sales Taxable,Non-taxable and Exempt</b></h4>
-                            <div id="container_nontax_exempt" style="width:700px;padding: 20px;border: 3px solid"></div>
+                            <!--<h4><b>4.Sales Taxable,Non-taxable and Exempt</b></h4>-->
+                            <div id="tax_ntax_Exempt_data2" style="width:700px"></div>
+                            <div id="container_nontax_exempt" style="width:700px;"></div>
                             <div id="tax_ntax_Exempt_data1" style="width:700px"></div>
                         </div>
 
                         <div class="test" style="page-break-before:always;margin-top:180px">
-                            <h4><b>5.Sales B2B and B2C</b></h4>
-                            <div id="container_sales_b2b_b2c" style="width:700px;margin-top:140px;padding: 20px;border: 3px solid"></div>
+<!--                            <h4><b>5.Sales B2B and B2C</b></h4>-->
+                            <div id="compare_b2b_data2" style="width:700px"></div>
+                            <div id="container_sales_b2b_b2c" style="width:700px;margin-top:140px;"></div>
                             <div id="compare_b2b_data1" style="width:700px"></div>
                         </div>
 
                         <!--Comparison & Deviation Report-->
                         <div class="test" style="page-break-before:always;margin-top:140px">
                             <h4 style="color:#1d2f66;"><b>B.COMPARISON AND DEVIATION REPORT</b></h4>
-                            <h4><b>1.GSTR3B VS. GSTR2A -Input Tax Credit Reconcillation</b></h4>
+                            <!--<h4><b>1.GSTR3B VS. GSTR2A -Input Tax Credit Reconcillation</b></h4>-->
+                            <div id="compare_GSTR3B_Vs2_data2" style="width:700px"></div>
                             <div id="compare_GSTR3B_Vs2_data" style="width:700px"></div>
-                            <div id="container_GSTR3b_vs_2A"  style="width:700px;padding: 20px;border: 3px solid"></div>
+                            <div id="container_GSTR3b_vs_2A"  style="width:700px;"></div>
                             <div id="compare_GSTR3B_Vs2_data1" style="width:700px"></div>
 
                         </div>
                         <div class="test" style="page-break-before:always;margin-top:140px">
-                            <h4><b>2.GSTR3B VS. GSTR1 - Output Liability Reconcillation</b></h4>
+<!--                            <h4><b>2.GSTR3B VS. GSTR1 - Output Liability Reconcillation</b></h4>-->
+                            <div id="compare_3b_vs1_data2" style="width:700px"></div>
                             <div id="compare_3b_vs1_data" style="width:700px"></div>
-                            <div id="container_GSTR3b_vs_1" style="width:700px;padding: 20px;border: 3px solid"></div>
+                            <div id="container_GSTR3b_vs_1" style="width:700px;"></div>
                             <div id="compare_3b_vs1_data1" style="width:700px"></div>
                         </div>
 
@@ -158,77 +164,96 @@ if (is_array($session_data)) {
                         <div class="test" style="page-break-before:always;margin-top:140px">
                             <p style="background:#FE6666; color:white;padding:4px;border:1px solid;width:700px;text-align:center"><b>BAROMETER-CFO DASHBOARD</b></p>
                             <h4 style="color:#1d2f66;"><b>A. CFO DASHBOARD</b></h4>
-                            <h4 style="color:#1d2f66"><b>1. Overview of Turnover</b></h4><br>
+<!--                            <h4 style="color:#1d2f66"><b>1. Overview of Turnover</b></h4><br>-->
+                            <div id="tax_turnover_data2" style="width:700px"></div>
                             <div id="tax_turnover_data" style="width:700px"></div>
-                            <div id="container_tax_turnover"  style="width:700px;padding: 20px;border: 3px solid"></div>
+                            <div id="container_tax_turnover"  style="width:700px;"></div>
+                            <div id="tax_turnover_data1" style="width:700px"></div>
                         </div>
 
                         <div class="test" style="page-break-before:always;margin-top:160px">
-                            <h4 style="color:#1d2f66"><b>2. Turnover vs Tax Liability:</b></h4><br>
+                            <!--<h4 style="color:#1d2f66"><b>2. Turnover vs Tax Liability:</b></h4><br>-->
+                            <div id="cfo_data2" style="width:700px;"></div>
                             <div id="cfo_data" style="width:700px;"></div>
-                            <div id="container_turnovervs_liability" style="width:700px;padding: 20px;border: 3px solid"></div>
+                            <div id="container_turnovervs_liability" style="width:700px;"></div>
+                            <div id="cfo_data1" style="width:700px;"></div>
                         </div>
 
                         <div class="test" style="page-break-before:always;margin-top:140px">
-                            <h4 style="color:#1d2f66"><b>3. Overview of Tax Liability:</b></h4><br>
+                            <!--<h4 style="color:#1d2f66"><b>3. Overview of Tax Liability:</b></h4><br>-->
+                            <div id="tax_liability_data2" style="width:700px"></div>
                             <div id="tax_liability_data" style="width:700px"></div>
-                            <div id="container_tax_liability" style="width:700px;padding: 20px;border: 3px solid"></div>
+                            <div id="container_tax_liability" style="width:700px;"></div>
+                            <div id="tax_liability_data1" style="width:700px"></div>
                         </div>
 
                         <div class="test" style="page-break-before:always;margin-top:160px">
-                            <h4 style="color:#1d2f66"><b>4. GST Payable V/s Cash:</b></h4><br>
+                            <!--<h4 style="color:#1d2f66"><b>4. GST Payable V/s Cash:</b></h4><br>-->
+                            <div id="gst_payablevscash_data2" style="width:700px"></div>
                             <div id="gst_payablevscash_data" style="width:700px"></div>
-                            <div id="container_gst_payablevscash"  style="width:700px;padding: 20px;border: 3px solid"></div>
+                            <div id="container_gst_payablevscash"  style="width:700px;"></div>
+                            <div id="gst_payablevscash_data1" style="width:700px"></div>
                         </div>
 
                         <div class="test" style="page-break-before:always;margin-top:160px">
-                            <h4 style="color:#1d2f66"><b>5. Eligible and Inligible Credit:</b></h4><br>
+<!--                            <h4 style="color:#1d2f66"><b>5. Eligible and Inligible Credit:</b></h4><br>-->
+                            <div id="tax_iniligible_data2" style="width:700px;"></div>
                             <div id="tax_iniligible_data" style="width:700px;"></div>
-                            <div id="container_eligible_credit"  style="width:700px;padding: 20px;border: 3px solid"></div>
+                            <div id="container_eligible_credit"  style="width:700px;"></div>
+                            <div id="tax_iniligible_data1" style="width:700px;"></div>
                         </div>
 
                         <!--InFORMATION COMPARISON-->
                         <div class="test" style="page-break-before:always;margin-top:120px">
-                            <p style="background:#017101; color:white;padding:4px;border:1px solid;width:700px;text-align:center"><b>INFORMATION COMPARISON</b></p>
+                            <p style="background:#017101; color:white;width:700px;text-align:center"><b>INFORMATION COMPARISON</b></p>
                             <h4 style="color:#1d2f66;"><b>A. COMPLIANCE REPORT</b></h4>
-                            <h4 style="color:#1d2f66"><b>1. GSTR-3B:</b></h4>
+<!--                            <h4 style="color:#1d2f66"><b>1. GSTR-3B:</b></h4>-->
+                            <div id="gstr3B_data1" style="width:700px"></div><br><br><br>
                             <div id="gstr3B_data" style="width:700px"></div><br><br><br>
-                            <h4 style="color:#1d2f66"><b>2. GSTR-1:</b></h4>
+<!--                            <h4 style="color:#1d2f66"><b>2. GSTR-1:</b></h4>-->
+                            <div id="gstr1_data1" style="width:700px"></div>
                             <div id="gstr1_data" style="width:700px"></div>
                         </div>
 
                         <div class="test" style="page-break-before:always;margin-top:160px">
                             <h4 style="color:#1d2f66;"><b>B. INTERNAL CONTROL REPORT</b></h4>
-                            <h4 style="color:#1d2f66"><b>1.Invoice amends in other than original period Analysis:</b></h4>
+<!--                            <h4 style="color:#1d2f66"><b>1.Invoice amends in other than original period Analysis:</b></h4>-->
+                            <div id="invoice_ammend_original_data1" style="margin-top:140px;"></div>
                             <div id="invoice_ammend_original_data" style="margin-top:140px;"></div>
                         </div>
 
                         
 
                         <div class="test" style="page-break-before:always;margin-top:160px">
-                            <h4 style="color:#1d2f66"><b>2.Invoice not included in GSTR-1:</b></h4>
+<!--                            <h4 style="color:#1d2f66"><b>2.Invoice not included in GSTR-1:</b></h4>-->
+                            <div id="invoice_notinclude_gstr1_data1" style=""></div>
                             <div id="invoice_notinclude_gstr1_data" style=""></div>
                         </div>
                         
                         <div class="test" style="page-break-before:always;margin-top:80px">
                             <h4 style="color:#1d2f66;"><b>C. INVOICE WISE COMPARISON OR MISMATCH REPORT</b></h4>
-                            <h4 style="color:#1d2f66"><b>1.Not in GSTR-2A,but recorderd under purchaser's book:</b></h4>
+<!--                            <h4 style="color:#1d2f66"><b>1.Not in GSTR-2A,but recorderd under purchaser's book:</b></h4>-->
+                            <div id="company_all_notin2a_data1" style=""></div>
                             <div id="company_all_notin2a_data" style=""></div>
                         </div>
                         
                         <div class="test" style="page-break-before:always;margin-top:160px">
-                            <h4 style="color:#1d2f66"><b>2.Not in records,but recorded under GSTR-2A:</b></h4>
+<!--                            <h4 style="color:#1d2f66"><b>2.Not in records,but recorded under GSTR-2A:</b></h4>-->
+                            <div id="company_all_notinrec_data1" style="height:auto"></div>
                             <div id="company_all_notinrec_data" style="height:auto"></div>
                         </div>
                         
                         <div class="test" style="page-break-before:always;margin-top:160px">
-                            <h4 style="color:#1d2f66"><b>3.Invoice no.,POS and Period mismatch:</b></h4>
+<!--                            <h4 style="color:#1d2f66"><b>3.Invoice no.,POS and Period mismatch:</b></h4>-->
+                            <div id="company_all_partially_data1" style=""></div>
                             <div id="company_all_partially_data" style=""></div>
                         </div>
                         
                         
                         <div class="test" style="page-break-before:always;">
+                            <h3><b>6.Issue Matrix</b></h3>
                             <div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/IssueMatrix.jpg" width="600px" height="50px" style=""></div>  
+                            <!--<div id="heat_map_tbl1" style="width:700px"></div>-->
                             <div id="heat_map_tbl" style="width:700px"></div>
                             <div id="container_heat_map" style="width:700px"></div>
                         </div>
@@ -292,8 +317,12 @@ if (is_array($session_data)) {
                 if (result.message === "success") {
 
                     var data = result.data;
+                    var data1 = result.data1;
+                    var data2 = result.data2;
 //                    $('#cfo_data').html("");
                     $('#cfo_data').html(data);
+                    $('#cfo_data1').html(data1);
+                    $('#cfo_data2').html(data2);
 //                    $('#example2').DataTable();
                 } else {
 
@@ -543,7 +572,7 @@ if (is_array($session_data)) {
         });
         $.ajax({
             type: "post",
-            url: "<?= base_url("Management_report/get_graph_state_wise") ?>",
+            url: "<?= base_url("Management_report/get_graph_state_wise1") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
@@ -551,8 +580,12 @@ if (is_array($session_data)) {
                 if (result.message === "success") {
 
                     var data = result.data;
+                    var data1 = result.data1;
+                    var data2 = result.data2;
 //                    $('#location_data').html("");
                     $('#sales_state_wise_data').html(data);
+                    $('#sales_state_wise_data1').html(data1);
+                    $('#sales_state_wise_data2').html(data2);
 //                    $('#example2').DataTable();
                 } else {
 
@@ -705,9 +738,11 @@ if (is_array($session_data)) {
 
                     var data = result.data;
                     var data1 = result.data1;
+                    var data2 = result.data2;
 
                     $('#tax_ntax_Exempt_data').html(data);
                     $('#tax_ntax_Exempt_data1').html(data1);
+                    $('#tax_ntax_Exempt_data2').html(data2);
 //                    $('#example2').DataTable();
                 } else {
 
@@ -838,9 +873,11 @@ if (is_array($session_data)) {
 
                     var data = result.data;
                     var data1 = result.data1;
+                    var data2 = result.data2;
                     $('#compare_b2b_data').html("");
                     $('#compare_b2b_data').html(data);
                     $('#compare_b2b_data1').html(data1);
+                    $('#compare_b2b_data2').html(data2);
 //                    $('#example2').DataTable();
                 } else {
 
@@ -862,6 +899,7 @@ if (is_array($session_data)) {
                     var data = result.data;
                     $('#compare_sales_ratewise_data').html("");
                     $('#compare_sales_ratewise_data').html(data);
+                    $('#compare_sales_ratewise_data1').html(data1);
 //                    $('#example2').DataTable();
                 } else {
 
@@ -984,9 +1022,11 @@ if (is_array($session_data)) {
 
                     var data = result.data;
                     var data1 = result.data1;
+                    var data2 = result.data2;
                     $('#compare_GSTR3B_Vs2_data').html("");
                     $('#compare_GSTR3B_Vs2_data').html(data);
                     $('#compare_GSTR3B_Vs2_data1').html(data1);
+                    $('#compare_GSTR3B_Vs2_data2').html(data2);
 //                    $('#example2').DataTable();
                 } else {
 
@@ -1094,9 +1134,11 @@ if (is_array($session_data)) {
 
                     var data = result.data;
                     var data1 = result.data1;
+                    var data2 = result.data2;
                     $('#compare_3b_vs1_data').html("");
                     $('#compare_3b_vs1_data').html(data);
                     $('#compare_3b_vs1_data1').html(data1);
+                    $('#compare_3b_vs1_data2').html(data2);
 //                    $('#example2').DataTable();
                 } else {
 
@@ -1114,7 +1156,9 @@ if (is_array($session_data)) {
                 $('#gstr3B_data').html("");
                 if (result.message === "success") {
                     var data = result.data;
+                    var data1 = result.data1;
                     $('#gstr3B_data').html(data);
+                    $('#gstr3B_data1').html(data1);
 //                    $('#example1').DataTable();
                 } else {
 
@@ -1133,7 +1177,9 @@ if (is_array($session_data)) {
                 $('#gstr1_data').html("");
                 if (result.message === "success") {
                     var data = result.data;
+                    var data1 = result.data1;
                     $('#gstr1_data').html(data);
+                    $('#gstr1_data1').html(data1);
 //                    $('#example2').DataTable();
                 } else {
 
@@ -1292,11 +1338,16 @@ if (is_array($session_data)) {
             success: function (result) {
 //                 alert();
                 $('#tax_liability_data').html("");
+                $('#tax_liability_data1').html("");
                 if (result.message === "success") {
 
                     var data = result.data;
+                    var data1 = result.data1;
+                    var data2 = result.data2;
 
                     $('#tax_liability_data').html(data);
+                    $('#tax_liability_data1').html(data1);
+                    $('#tax_liability_data2').html(data2);
 //                    $('#example2').DataTable();
                 } else {
 
@@ -1434,8 +1485,12 @@ if (is_array($session_data)) {
                 if (result.message === "success") {
 
                     var data = result.data;
+                    var data1 = result.data1;
+                    var data2 = result.data2;
 
                     $('#tax_turnover_data').html(data);
+                    $('#tax_turnover_data1').html(data1);
+                    $('#tax_turnover_data2').html(data2);
 //                    $('#example2').DataTable();
                 } else {
 
@@ -1554,8 +1609,12 @@ if (is_array($session_data)) {
                 if (result.message === "success") {
 
                     var data = result.data;
+                    var data1 = result.data1;
+                    var data2 = result.data2;
                     $('#gst_payablevscash_data').html("");
                     $('#gst_payablevscash_data').html(data);
+                    $('#gst_payablevscash_data1').html(data1);
+                    $('#gst_payablevscash_data2').html(data2);
 //                    $('#example2').DataTable();
                 } else {
 
@@ -1579,8 +1638,10 @@ if (is_array($session_data)) {
                 if (result.message === "success") {
 
                     var data = result.data;
+//                    var data1 = result.data1;
                     $('#heat_map_tbl').html("");
                     $('#heat_map_tbl').html(data);
+//                    $('#heat_map_tbl1').html(data1);
 //                    $('#heat_map_tbl_id').DataTable();
                 } else {
 
@@ -1605,7 +1666,7 @@ if (is_array($session_data)) {
                         },
 
                         title: {
-                            text: 'ISSUE MATRIX'
+                            text: 'Heat Map'
                         },
                         subtitle: {
 //                            text: 'Source: Heinz  2003'
@@ -1815,8 +1876,12 @@ if (is_array($session_data)) {
                 if (result.message === "success") {
 
                     var data = result.data;
+                    var data1 = result.data1;
+                    var data2 = result.data2;
 
                     $('#tax_iniligible_data').html(data);
+                    $('#tax_iniligible_data1').html(data1);
+                    $('#tax_iniligible_data2').html(data2);
 //                    $('#example2').DataTable();
                 } else {
 
@@ -1836,11 +1901,14 @@ if (is_array($session_data)) {
             success: function (result) {
                 if (result.status === true) {
                     var data = result.data;
+                    var data1 = result.data1;
 
                     $('#invoice_ammend_original_data').html(data);
+                    $('#invoice_ammend_original_data1').html(data1);
 //                    $('#example2').DataTable();
                 } else {
                     $('#invoice_ammend_original_data').html("");
+                    $('#invoice_ammend_original_data1').html("");
 //                    alert('no data availabale');
                 }
             }
@@ -1859,8 +1927,10 @@ if (is_array($session_data)) {
             success: function (result) {
                 if (result.status === true) {
                     var data = result.data;
+                    var data1 = result.data1;
 
                     $('#invoice_notinclude_gstr1_data').html(data);
+                    $('#invoice_notinclude_gstr1_data1').html(data1);
 //                    $('#example2').DataTable();
                        
                 } else {
@@ -1882,8 +1952,10 @@ if (is_array($session_data)) {
             success: function (result) {
                 if (result.status === true) {
                     var data = result.data;
+                    var data1 = result.data1;
 
                     $('#company_all_notin2a_data').html(data);
+                    $('#company_all_notin2a_data1').html(data1);
 //                    $('<table id="not_in2a_data"  class="table table-bordered table-striped">').append(
 //                            $('#not_in2a_data tr:first-child').clone(),
 //                            $('#not_in2a_data tr').slice(Math.ceil($('#not_in2a_data tr').length / 2))
@@ -1934,8 +2006,10 @@ if (is_array($session_data)) {
             success: function (result) {
                 if (result.status === true) {
                     var data = result.data;
+                    var data1 = result.data1;
 
                     $('#company_all_notinrec_data').html(data);
+                    $('#company_all_notinrec_data1').html(data1);
 
                 } else {
                     $('#company_all_notinrec_data').html("");
@@ -1957,8 +2031,10 @@ if (is_array($session_data)) {
             success: function (result) {
                 if (result.status === true) {
                     var data = result.data;
+                    var data1 = result.data1;
 
                     $('#company_all_partially_data').html(data);
+                    $('#company_all_partially_data1').html(data1);
                     //                    $('#example2').DataTable();
                 } else {
                     $('#company_all_partially_data').html("");
