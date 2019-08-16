@@ -18,6 +18,21 @@ if (is_array($session_data)) {
     $username = $this->session->userdata('login_session');
 }
 ?>
+<style>
+    #btn_pdf {
+        width: 60%;
+        margin-right: 20% !important;
+        margin-top: 2.5% !important;
+        margin-left: 20% !important;
+    }
+    #btn_div {
+        margin-right: 20% !important;
+        margin-left: 20% !important;
+        width: 60%;
+        border:1px solid black;
+        height:100px;
+    }
+</style>
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -52,19 +67,19 @@ if (is_array($session_data)) {
                                     </span>
                                     <input type="hidden" class="form-control" value="<?php echo $insert_id; ?>"disabled=""name="insert_id"  id="insert_id"   aria-required="true" aria-describedby="input_group-error">
                                     <input type="hidden" class="form-control" value="<?php echo $customer_id; ?>"disabled=""name="customer_id"  id="customer_id"   aria-required="true" aria-describedby="input_group-error">
-                                    <input type="text" class="form-control" value=""  disabled=""name="cust_name"  id="cust_name" onkeyup="remove_error('customer_name')"   aria-required="true" aria-describedby="input_group-error">
+                                    <input type="text" class="form-control" value="<?php echo $customer_details->customer_name ?>"  disabled=""name="cust_name"  id="cust_name" onkeyup="remove_error('customer_name')"   aria-required="true" aria-describedby="input_group-error">
 
                                 </div>
                                 <span class="required" style="color: red" id="customer_name_error"></span>
                             </div>
 
                             <div class="col-md-4">
-                                <label>Year ID</label><span class="required" aria-required="true"> </span>
+                                <label>Financial Year </label><span class="required" aria-required="true"> </span>
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="fa fa-user"></i>
                                     </span>
-                                    <input type="text" class="form-control" value=""  disabled=""name="year_id"  id="year_id" onkeyup="remove_error('customer_name')"   aria-required="true" aria-describedby="input_group-error">
+                                    <input type="text" class="form-control" value="<?php echo $insert_header_details->year_id; ?>"  disabled=""name="year_id"  id="year_id" onkeyup="remove_error('customer_name')"   aria-required="true" aria-describedby="input_group-error">
 
                                 </div>
                                 <span class="required" style="color: red" id="customer_name_error"></span>
@@ -96,7 +111,6 @@ if (is_array($session_data)) {
                     <div id="container_image_front" style="page-break-before:always;margin-top:130px">
                         <!--<img src="https://premisafe.com/Logo.jpg" width="120px" height="30px">-->
                         <img src="https://premisafe.com/GST_image/GSTReportCover.jpg" style="page-break-before:always" style="width:900px;"width="900px" height="700px">
-
                     </div>
                     <!--<div id="content_pdf"></div><br><br><br><br><br><br>-->
                     <div id="container_image_letter_client" style="margin-top:440px;"><img src="https://premisafe.com/GST_image/LettertoClient.jpg" width="900px" height="900px" style="page-break-before:always;"></div>
@@ -118,7 +132,7 @@ if (is_array($session_data)) {
                         </div>
 
                         <div class="test" style="margin-top:120px;page-break-before:always;">
-<!--                            <h4><b>2.Sales Tax Rate Wise</b></h4>-->
+                            <!--                            <h4><b>2.Sales Tax Rate Wise</b></h4>-->
                             <div id="compare_sales_ratewise_data1" style="width:700px"></div>
                             <div id="compare_sales_ratewise_data" style="width:700px"></div><br><br><br>
                             <!--<h4><b>3.Sales State Wise</b></h4>-->
@@ -136,7 +150,7 @@ if (is_array($session_data)) {
                         </div>
 
                         <div class="test" style="page-break-before:always;margin-top:180px">
-<!--                            <h4><b>5.Sales B2B and B2C</b></h4>-->
+                            <!--                            <h4><b>5.Sales B2B and B2C</b></h4>-->
                             <div id="compare_b2b_data2" style="width:700px"></div>
                             <div id="container_sales_b2b_b2c" style="width:700px;margin-top:140px;"></div>
                             <div id="compare_b2b_data1" style="width:700px"></div>
@@ -153,7 +167,7 @@ if (is_array($session_data)) {
 
                         </div>
                         <div class="test" style="page-break-before:always;margin-top:140px">
-<!--                            <h4><b>2.GSTR3B VS. GSTR1 - Output Liability Reconcillation</b></h4>-->
+                            <!--                            <h4><b>2.GSTR3B VS. GSTR1 - Output Liability Reconcillation</b></h4>-->
                             <div id="compare_3b_vs1_data2" style="width:700px"></div>
                             <div id="compare_3b_vs1_data" style="width:700px"></div><br><br>
                             <div id="container_GSTR3b_vs_1" style="width:700px;"></div>
@@ -164,7 +178,7 @@ if (is_array($session_data)) {
                         <div class="test" style="page-break-before:always;margin-top:140px">
                             <p style="background:#FE6666; color:white;padding:4px;border:1px solid;width:700px;text-align:center"><b>BAROMETER-CFO DASHBOARD</b></p>
                             <h4 style="color:#1d2f66;"><b>A. CFO DASHBOARD</b></h4>
-<!--                            <h4 style="color:#1d2f66"><b>1. Overview of Turnover</b></h4><br>-->
+                            <!--                            <h4 style="color:#1d2f66"><b>1. Overview of Turnover</b></h4><br>-->
                             <div id="tax_turnover_data2" style="width:700px"></div>
                             <div id="tax_turnover_data" style="width:700px"></div><br><br>
                             <div id="container_tax_turnover"  style="width:700px;"></div>
@@ -196,7 +210,7 @@ if (is_array($session_data)) {
                         </div>
 
                         <div class="test" style="page-break-before:always;margin-top:160px">
-<!--                            <h4 style="color:#1d2f66"><b>5. Eligible and Inligible Credit:</b></h4><br>-->
+                            <!--                            <h4 style="color:#1d2f66"><b>5. Eligible and Inligible Credit:</b></h4><br>-->
                             <div id="tax_iniligible_data2" style="width:700px;"></div>
                             <div id="tax_iniligible_data" style="width:700px;"></div>
                             <div id="container_eligible_credit"  style="width:700px;"></div>
@@ -207,53 +221,56 @@ if (is_array($session_data)) {
                         <div class="test" style="page-break-before:always;margin-top:10px">
                             <p style="background:#017101; color:white;width:700px;text-align:center"><b>INFORMATION COMPARISON</b></p>
                             <h4 style="color:#1d2f66;"><b>A. COMPLIANCE REPORT</b></h4>
-<!--                            <h4 style="color:#1d2f66"><b>1. GSTR-3B:</b></h4>-->
+                            <!--                            <h4 style="color:#1d2f66"><b>1. GSTR-3B:</b></h4>-->
                             <div id="gstr3B_data1" style="width:700px"></div>
                             <div id="gstr3B_data" style="width:700px;padding: 0px"></div>
-<!--                            <h4 style="color:#1d2f66"><b>2. GSTR-1:</b></h4>-->
+                            <!--                            <h4 style="color:#1d2f66"><b>2. GSTR-1:</b></h4>-->
                             <div id="gstr1_data1" style="width:700px"></div>
                             <div id="gstr1_data" style="width:700px;padding: 0px"></div>
                         </div>
 
-                        <div class="test" style="page-break-before:always;margin-top:160px">
+
+
+
+
+
+
+                        <div class="test" style="page-break-before:always;margin-top:100px">
                             <h4 style="color:#1d2f66;"><b>B. INTERNAL CONTROL REPORT</b></h4>
-<!--                            <h4 style="color:#1d2f66"><b>1.Invoice amends in other than original period Analysis:</b></h4>-->
-                            <div id="invoice_ammend_original_data1" style="margin-top:140px;"></div>
-                            <div id="invoice_ammend_original_data" style="margin-top:140px;"></div>
+
+                            <div id="invoice_ammend_original_data" style="margin-top:20px;"></div>
+                            <div id="invoice_ammend_original_data1" style="margin-top:10px;"></div>
                         </div>
 
-                        
+
 
                         <div class="test" style="page-break-before:always;margin-top:160px">
-<!--                            <h4 style="color:#1d2f66"><b>2.Invoice not included in GSTR-1:</b></h4>-->
-                            <div id="invoice_notinclude_gstr1_data1" style=""></div>
                             <div id="invoice_notinclude_gstr1_data" style=""></div>
+                            <div id="invoice_notinclude_gstr1_data1" style=""></div>
                         </div>
-                        
-                        <div class="test" style="page-break-before:always;margin-top:80px">
+
+                        <div class="test" style="page-break-before:always;margin-top:20px">
                             <h4 style="color:#1d2f66;"><b>C. INVOICE WISE COMPARISON OR MISMATCH REPORT</b></h4>
-<!--                            <h4 style="color:#1d2f66"><b>1.Not in GSTR-2A,but recorderd under purchaser's book:</b></h4>-->
-                            <div id="company_all_notin2a_data1" style=""></div>
                             <div id="company_all_notin2a_data" style=""></div>
+                            <div id="company_all_notin2a_data1" style=""></div>
                         </div>
-                        
-                        <div class="test" style="page-break-before:always;margin-top:160px">
-<!--                            <h4 style="color:#1d2f66"><b>2.Not in records,but recorded under GSTR-2A:</b></h4>-->
-                            <div id="company_all_notinrec_data1" style="height:auto"></div>
-                            <div id="company_all_notinrec_data" style="height:auto"></div>
-                        </div>
-                        
-                        <div class="test" style="page-break-before:always;margin-top:160px">
-<!--                            <h4 style="color:#1d2f66"><b>3.Invoice no.,POS and Period mismatch:</b></h4>-->
-                            <div id="company_all_partially_data1" style=""></div>
-                            <div id="company_all_partially_data" style=""></div>
-                        </div>
-                        
-                        
+
                         <div class="test" style="page-break-before:always;">
+
+                            <div id="company_all_notinrec_data" style=""></div>
+                            <div id="company_all_notinrec_data1" style=""></div>
+                        </div>
+
+                        <div class="test" style="page-break-before:always;">
+
+                            <div id="company_all_partially_data" style=""></div>
+                            <div id="company_all_partially_data1" style=""></div>
+                        </div>
+
+
+                        <div class="test" style="page-break-before:always;margin-top:30px">
                             <h3><b>6.Issue Matrix</b></h3>
                             <div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/IssueMatrix.jpg" width="600px" height="50px" style=""></div>  
-                            <!--<div id="heat_map_tbl1" style="width:700px"></div>-->
                             <div id="heat_map_tbl" style="width:850px"></div>
                             <div id="container_heat_map" style="width:700px"></div>
                         </div>
@@ -1932,7 +1949,7 @@ if (is_array($session_data)) {
                     $('#invoice_notinclude_gstr1_data').html(data);
                     $('#invoice_notinclude_gstr1_data1').html(data1);
 //                    $('#example2').DataTable();
-                       
+
                 } else {
                     $('#invoice_notinclude_gstr1_data').html("");
 //                    alert('no data availabale');
@@ -1956,29 +1973,6 @@ if (is_array($session_data)) {
 
                     $('#company_all_notin2a_data').html(data);
                     $('#company_all_notin2a_data1').html(data1);
-//                    $('<table id="not_in2a_data"  class="table table-bordered table-striped">').append(
-//                            $('#not_in2a_data tr:first-child').clone(),
-//                            $('#not_in2a_data tr').slice(Math.ceil($('#not_in2a_data tr').length / 2))
-//                            ).appendTo('#div_notin2a_data');
-//                    $('#example2').DataTable();
-
-//                    var max = 10; // change this
-//
-//                    var $t = $('#not_in2a_data');
-//                    var $th = $('tr:first-child', $t).remove();
-//                    var l = $('tr', $t).length;
-//
-//                    while (l > max) {
-//                        // extract trs with index larger than max and add them to a new table
-//                        var $trs = $('tr', $t).filter(function () {
-//                            return $(this).index() < max;
-//                        });
-//                        $('<table/>').append($trs).insertBefore($t);
-//                        l -= max;
-//                    }
-//                    $('#not_in2a_data').each(function () {
-//                        $(this).prepend($th.clone());
-//                    });
 
                 } else {
                     $('#company_all_notin2a_data').html("");
@@ -2104,7 +2098,7 @@ if (is_array($session_data)) {
 
 
     var click = "return xepOnline.Formatter.Format('JSFiddle', {render:'download'})";
-    jQuery('#buttons').append('<button onclick="' + click + '">PDF</button>');
+    jQuery('#buttons').append('<div class=""><div id="btn_div" class="col-md-12"><button class="btn btn-block btn-success btn-lg" id="btn_pdf" onclick="' + click + '">Generate PDF</button></div></div>');
 
 
 </script>

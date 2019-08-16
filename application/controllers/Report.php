@@ -11,13 +11,17 @@ class Report extends CI_Controller {
     }
 
     public function index($customer_id = '', $insert_id = '', $cust_name = '') {
-//       $query_get_customer_name=fdjk;
-//         $cust_name = $this->input->post("cust_name");
-        
-        
-        
-        
+        $query_get_customer_name = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id'");
+        $result = $query_get_customer_name->row();
+        $query_get_insert_header = $this->db->query("SELECT year_id from insert_header_all where insert_id='$insert_id'");
+        $result1 = $query_get_insert_header->row();
+        $query_get_company_header = $this->db->query("SELECT * from observation_transaction_all where insert_id='$insert_id' and customer_id='$customer_id'");
+        $result2 = $query_get_company_header->row();
+
         $data['customer_id'] = $customer_id;
+        $data['customer_details'] = $result;
+        $data['insert_header_details'] = $result1;
+        $data['company_details'] = $result2;
         $data['insert_id'] = $insert_id;
         $data['cust_name'] = $cust_name;
         $this->load->view('admin/Generate_report', $data);
@@ -40,25 +44,6 @@ class Report extends CI_Controller {
 
 
         $this->load->view('admin/client_details', $data);
-    }
-
-    public function get_year_id() {
-        $customer_id = $this->input->post("customer_id");
-        $insert_id = $this->input->post("insert_id");
-
-
-        $query_get_customer_name = $this->db->query("select year_id from insert_header where insert_id='$insert_id' and customer_id='$customer_id'");
-        if ($this->db->affected_rows() > 0) {
-            $res = $query_get_customer_name->row();
-            $insert_id = $res->insert_id;
-
-            $respose['data'] = $res;
-            $respose['message'] = "success";
-        } else {
-            $respose['message'] = "";
-        }echo json_encode($respose);
-
-        $this->load->view('admin/Generate_report', $data);
     }
 
     public function get_content_pdf1() {
@@ -112,7 +97,7 @@ class Report extends CI_Controller {
                       </ul>
                       </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
 
-            
+
             $data .= '<div style="float:left;margin-left: 30px;">
                 <b style="font-size:18px;color:#1d2f66;">2. EXECUTIVE SUMMARY</b><br><br><br>
                       Ecovis RKCA was provided with the data of the company  “Anand Rathi
@@ -406,7 +391,7 @@ class Report extends CI_Controller {
             $respose['message'] = "success";
         } else {
             $respose['message'] = "";
-             $respose['likelihood_impact'] = "";
+            $respose['likelihood_impact'] = "";
             $respose['likelihood_risk'] = "";
             $respose['data'] = "";
         }echo json_encode($respose);

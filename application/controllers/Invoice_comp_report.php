@@ -409,7 +409,7 @@ class Invoice_comp_report extends CI_Controller {
         $data = "";
         $data1 = "";
         if ($query != FALSE) {
-            $data1 .= '<h4 style="color:#1d2f66"><b>1.Not in GSTR-2A,but recorderd under purchasers book:</b></h4>';
+            $data .= '<h4 style="color:#1d2f66"><b>1.Not in GSTR-2A,but recorderd under purchasers book:</b></h4>';
 
             $records = count($query);
             $show = $records / 15;
@@ -426,7 +426,6 @@ class Invoice_comp_report extends CI_Controller {
                          <table id="not_in2a_data" class="table table-bordered table-striped">
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
-                                        <th>No.</th>
                                         <th>Company Name</th>
                                         <th>Period</th>
                                         <th>Invoice No</th>
@@ -451,7 +450,6 @@ class Invoice_comp_report extends CI_Controller {
                     $tax[] = $row->tax;
 
                     $data .= '<tr>' .
-                            '<td>' . $k . '</td>' .
                             '<td>' . $row->company_name . '</td>' .
                             '<td>' . $row->period . '</td>' .
                             '<td>' . $row->invoice_no . '</td>' .
@@ -481,9 +479,9 @@ class Invoice_comp_report extends CI_Controller {
 //                    '<td>' . "<b>" . array_sum($taxable_value) . "</b>" . '</td>' .
 //                    '<td>' . "<b>" . array_sum($tax) . "</b>" . '</td>' .
 //                    '</tr>';
-//            $data2 = "<h4><b>Observation:</b></h4>";
-//            $data2 .= "<span>Follow up from the above clients' needs to be done as the business is facing the risk of loss "
-//                    . "of input tax credit of Rs. " . array_sum($tax) . ". The situation of non-reconciliation may lead to interest liability or GST notices. </span>";
+            $data1 = "<h4><b>Observation:</b></h4>";
+            $data1 .= "<span>Follow up from the above clients' needs to be done as the business is facing the risk of loss "
+                    . "of input tax credit of Rs. " . array_sum($tax) . ". The situation of non-reconciliation may lead to interest liability or GST notices. </span>";
             $response['data1'] = $data1;
         } else {
             $response['message'] = "";
@@ -669,7 +667,7 @@ class Invoice_comp_report extends CI_Controller {
                 $tax = array();
 //            $TotalNoOfRecords = count($data);
                 //query logics
-                
+
                 $data .= '
                 <div class="row">
                 <div class="col-md-12">
@@ -726,7 +724,7 @@ class Invoice_comp_report extends CI_Controller {
                 $min_value = $min_value + 15;
 //                $max_value = ($max_value ) + 15;
             }
-            $data2 = "<hr><h4><b>Observation:</b></h4>"
+            $data1 = "<h4><b>Observation:</b></h4>"
                     . "<span>Accounting system & Invoice processing for GST Claim and reconciliation need to be reviewed.
                         There is a risk of losing the credit if prompt action has not been taken.</span>";
             $response['data1'] = $data1;
@@ -896,7 +894,7 @@ class Invoice_comp_report extends CI_Controller {
         $data = "";
         $data1 = "";
         if ($query != FALSE) {
-            $data1 .= '<h4 style="color:#1d2f66"><b>3.Invoice no.,POS and Period mismatch:</b></h4>';
+            $data .= '<h4 style="color:#1d2f66"><b>3.Invoice no.,POS and Period mismatch:</b></h4>';
             $records = count($query);
             $show = $records / 15;
             $table = ceil($show);
@@ -913,7 +911,6 @@ class Invoice_comp_report extends CI_Controller {
                          <table id="example3" class="table table-bordered table-striped">
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
-                                        <th>No.</th>
                                         <th>Company Name</th>
                                         <th>Period of as per Records</th>
                                         <th>Invoice No as per Records</th>
@@ -951,7 +948,6 @@ class Invoice_comp_report extends CI_Controller {
                     $tax[] = $row->tax;
 
                     $data .= '<tr>' .
-                            '<td>' . $k . '</td>' .
                             '<td>' . $row->company_name . '</td>' .
                             '<td>' . $row->period_apr . '</td>' .
                             '<td>' . $row->invoice_no_apr . '</td>' .
@@ -985,10 +981,11 @@ class Invoice_comp_report extends CI_Controller {
                 $response['status'] = true;
                 $response['code'] = 200;
             }
-            $response['data1'] = $data1;
-            $data .= "<hr><h4><b>Observation:</b></h4>"
+
+            $data1 .= "<hr><h4><b>Observation:</b></h4>"
                     . "<span>Cross check the mismatched invoice no., POS and Period with the client in order to prevent any confusion or else it will effect on your ITC."
                     . " Data master review needs to be done and root-cause analysis will help to minimize this errors.</span>";
+            $response['data1'] = $data1;
         } else {
             $response['message'] = "";
             $response['status'] = FALSE;
@@ -1293,7 +1290,6 @@ class Invoice_comp_report extends CI_Controller {
                          <table id="example_invoice_not_include" class="table table-bordered table-striped" style="width:40%">
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
-                                        <th>Sr No.</th>
                                         <th>Original Month</th>
                                         <th>Showing in month</th>
                                         <th>Category</th>
@@ -1315,8 +1311,7 @@ class Invoice_comp_report extends CI_Controller {
             foreach ($query as $row) {
 
                 $data .= '<tr>' .
-                        '<td>' . $k . '</td>
-                        <td>' . $row->original_month . '</td>
+                        '<td>' . $row->original_month . '</td>
                         <td>' . $row->showing_month . '</td>
                         <td>' . $row->category . '</td>
                         <td>' . $row->gstin_no . '</td>
@@ -1660,22 +1655,21 @@ class Invoice_comp_report extends CI_Controller {
         $data = "";
         $data1 = "";
         if ($query != FALSE) {
-            $data1 .= '<h4 style="color:#1d2f66"><b>1.Invoice amends in other than original period Analysis:</b></h4>';
+            $data .= '<h4 style="color:#1d2f66"><b>1.Invoice amends in other than original period Analysis:</b></h4>';
             $records = count($query);
             $show = $records / 15;
             $table = ceil($show);
             $min_value = 1;
-            for ($i = 0, $k = 1; $i < $table; $i++) {
+            for ($i = 0; $i < $table; $i++) {
                 $data .= '<div class="row">
                     <div class="col-md-12">
                      <div class="">
-                         <table id="example2" class="table table-bordered table-striped" style="width:200px !important">
+                         <table id="example2" class=" table-bordered table-striped" style="width:90 !important">
                                 <thead style="background-color: #00008B;color:white">
                                     <tr style="width:2px">
-                                    <th>Sr No</th>
                                         <th>Original Month</th>
-                                        <th>Included Month</th>
-                                        <th>Amendment month</th>
+                                        <th>Include Month</th>
+                                        <th>Amend month</th>
                                         <th>Category</th>
                                         <th>GSTIN</th>
                                         <th>Inv.Date</th>
@@ -1696,8 +1690,7 @@ class Invoice_comp_report extends CI_Controller {
                 $result = $query2->result();
                 foreach ($result as $row) {
                     $data .= '<tr>' .
-                            '<td style="width:100px">' . $k . '</td>
-                        <td style="width:100px">' . $row->original_month . '</td>
+                            '<td style="width:100px">' . $row->original_month . '</td>
                         <td>' . $row->included_in_month . '</td>
                         <td>' . $row->amendment_month . '</td>
                         <td>' . $row->category . '</td>
@@ -1714,11 +1707,10 @@ class Invoice_comp_report extends CI_Controller {
                         <td><b>' . ($row->igst + $row->cgst + $row->sgst + $row->cess) . '</b></td>
                         
                         </tr>';
-                    $k++;
                 }
                 $data .= '</tbody></table></div></div></div>';
                 $min_value = $min_value + 15;
-                $response['data1'] = $data1;
+//                $response['data1'] = $data1;
                 $response['data'] = $data;
                 $response['message'] = "success";
                 $response['status'] = true;
@@ -1732,8 +1724,8 @@ class Invoice_comp_report extends CI_Controller {
                 $observation = "";
             }
 
-            $data2 = "<div class='col-md-12'><br><br><hr><h4><b>Observation :</b></h4><span>" . $observation . "</span></div>";
-            $response['data2'] = $data2;
+            $data1 = "<div class='col-md-12'><h4><b>Observation :</b></h4><span>" . $observation . "</span></div>";
+            $response['data1'] = $data1;
         } else {
             $response['message'] = "";
             $response['status'] = FALSE;
