@@ -302,13 +302,13 @@ if (is_array($session_data)) {
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="col-md-6">  <div id="container3b_vs_1" ></div></div>
-                                <div class="col-md-6">   <div id="compare_3b1_data"></div></div></div>
+                                <div class="col-md-6">   <div id="compare_3b1_data"></div> <div id="compare_3b1_data1"></div></div></div>
                         </div>
                     </div>
                 </div>
                 <div class="box collapsed-box">
                     <div class="box-header">
-                        <h3 class="box-title">GSTR-2A vs GSTR-1
+                        <h3 class="box-title">GSTR-3B vs GSTR-2A
                             <!--<small>Simple and fast</small>-->
                         </h3>
                         <!-- tools box -->
@@ -327,7 +327,7 @@ if (is_array($session_data)) {
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="col-md-6">  <div id="gstr2a_vs1" ></div></div>
-                                <div class="col-md-6">   <div id="compare_3b2a_data"></div></div></div>
+                                <div class="col-md-6">   <div id="compare_3b2a_data"></div> <div id="compare_3b2a_data1"></div></div></div>
                         </div>
                     </div>
                 </div>
@@ -352,7 +352,7 @@ if (is_array($session_data)) {
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="col-md-6">  <div id="container_b2b_b2c" ></div></div>
-                                <div class="col-md-6">   <div id="b2b_b2c_sale"></div></div></div>
+                                <div class="col-md-6">   <div id="b2b_b2c_sale"></div><div id="b2b_b2c_sale1"></div></div></div>
                         </div>
                     </div>
                 </div>
@@ -452,7 +452,7 @@ if (is_array($session_data)) {
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="col-md-6">  <div id="container_payble_vs_cash" ></div></div>
-                                <div class="col-md-6">   <div id="gst_payable_vs_cash_data"></div></div></div>
+                                <div class="col-md-6">   <div id="gst_payable_vs_cash_data"></div><div id="gst_payable_vs_cash_data1"></div></div></div>
                         </div>
                     </div>
                 </div>
@@ -528,7 +528,7 @@ if (is_array($session_data)) {
                     </div>
                     <div class="box-body pad">
                         <div class="row">
-                            <div class="col-md-12">  <div id="company_all_notinrec_data" ></div></div>
+                            <div class="col-md-12">  <div id="company_all_notinrec_data" ></div><div id="company_all_notinrec_data_obs" ></div></div>
                         </div>
                     </div>
                 </div>
@@ -1793,8 +1793,11 @@ if (is_array($session_data)) {
                 if (result.message === "success") {
 
                     var data = result.data;
+                    var data1 = result.data1;
                     $('#compare_3b1_data').html("");
+                    $('#compare_3b1_data1').html("");
                     $('#compare_3b1_data').html(data);
+                    $('#compare_3b1_data1').html(data1);
                     $('#example2').DataTable();
                 } else {
 
@@ -1910,8 +1913,11 @@ if (is_array($session_data)) {
                 if (result.message === "success") {
 
                     var data = result.data;
+                    var data1 = result.data1;
                     $('#compare_3b2a_data').html("");
+                    $('#compare_3b2a_data1').html("");
                     $('#compare_3b2a_data').html(data);
+                    $('#compare_3b2a_data1').html(data1);
                     $('#example2').DataTable();
                 } else {
 
@@ -2039,8 +2045,11 @@ if (is_array($session_data)) {
                 if (result.message === "success") {
 
                     var data = result.data;
+                    var data1 = result.data1;
                     $('#b2b_b2c_sale').html("");
+                    $('#b2b_b2c_sale1').html("");
                     $('#b2b_b2c_sale').html(data);
+                    $('#b2b_b2c_sale1').html(data1);
                     $('#example2').DataTable();
                 } else {
 
@@ -2364,8 +2373,11 @@ if (is_array($session_data)) {
                 if (result.message === "success") {
 
                     var data = result.data;
+                    var data1 = result.data1;
                     $('#gst_payable_vs_cash_data').html("");
+                    $('#gst_payable_vs_cash_data1').html("");
                     $('#gst_payable_vs_cash_data').html(data);
+                    $('#gst_payable_vs_cash_data1').html(data1);
                     $('#example2').DataTable();
                 } else {
 
@@ -2440,8 +2452,10 @@ if (is_array($session_data)) {
             success: function (result) {
                 if (result.status === true) {
                     var data = result.data;
+                    var data1 = result.data1;
 
                     $('#company_all_notinrec_data').html(data);
+                    $('#company_all_notinrec_data_obs').html(data1);
                     $('#example_not_in_rec').DataTable();
                 } else {
                     $('#company_all_notinrec_data').html("");
@@ -2454,7 +2468,7 @@ if (is_array($session_data)) {
 //partially matched records
         $.ajax({
             type: "post",
-            url: "<?= base_url("Invoice_comp_report/get_all_partial_records") ?>",
+            url: "<?= base_url("Invoice_comp_report/get_all_partial_records1") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {

@@ -529,7 +529,7 @@ if (is_array($session_data)) {
                     </div>
                     <div class="box-body pad">
                         <div class="row">
-                            <div class="col-md-12">  <div id="company_all_notinrec_data" ></div></div>
+                            <div class="col-md-12">  <div id="company_all_notinrec_data" ></div><div id="company_all_notinrec_data_obs" ></div></div>
                         </div>
                     </div>
                 </div>
@@ -2432,8 +2432,10 @@ if (is_array($session_data)) {
             success: function (result) {
                 if (result.status === true) {
                     var data = result.data;
+                    var data1 = result.data1;
 
                     $('#company_all_notinrec_data').html(data);
+                    $('#company_all_notinrec_data_obs').html(data1);
                     $('#example_not_in_rec').DataTable();
                 } else {
                     $('#company_all_notinrec_data').html("");
@@ -2446,7 +2448,7 @@ if (is_array($session_data)) {
 //partially matched records
         $.ajax({
             type: "post",
-            url: "<?= base_url("Invoice_comp_report/get_all_partial_records") ?>",
+            url: "<?= base_url("Invoice_comp_report/get_all_partial_records1") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
