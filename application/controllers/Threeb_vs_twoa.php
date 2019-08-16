@@ -201,6 +201,7 @@ class Threeb_vs_twoa extends CI_Controller {
 
         $query = $this->db->query("SELECT month,gstr2A_3B,gstr2A_difference,gstr2A_cummulative,gstr2A FROM comparison_summary_all WHERE customer_id='$customer_id' AND insert_id='$insert_id' order by id desc");
         $data = ""; //view observations
+        $data1 = ""; //view observations
         if ($query->num_rows() > 0) {
 
             $result = $query->result();
@@ -260,15 +261,15 @@ class Threeb_vs_twoa extends CI_Controller {
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
 
-            $data .= "<div class='col-md-12'><br><br><h4><b>Observation of GSTR-3B vs GSTR-2A:</b></h4>";
+            $data1 .= "<div class='col-md-12'><br><br><h4><b>Observation of GSTR-3B vs GSTR-2A:</b></h4>";
             if ($thb > $twa) {
-                $data .= '<span>GSTR-3B > 2A, ITC declared and ITC claimed is showing a huge difference as either the company has taken excess credit or vendor has not recorded our purchases in his GSTR 1. '
+                $data1 .= '<span>GSTR-3B > 2A, ITC declared and ITC claimed is showing a huge difference as either the company has taken excess credit or vendor has not recorded our purchases in his GSTR 1. '
                         . 'This may lead to interest liability & penalties notices or permanent loss of credit if vendor is not informed and corrective action is not taken by such vendor.</span></div>';
             } elseif ($twa > $thb) {
-                $data .= '<span>GSTR-3B < 2A, company need to check the eligibility and ineligibility of credit reflecting in GSTR-2A & prepare a reconciliation statement accordingly. There may be the case where input tax credit has not been taken by the company on its genuine eligible input credit. '
+                $data1 .= '<span>GSTR-3B < 2A, company need to check the eligibility and ineligibility of credit reflecting in GSTR-2A & prepare a reconciliation statement accordingly. There may be the case where input tax credit has not been taken by the company on its genuine eligible input credit. '
                         . 'This may lead to a huge loss of working Capital & also permanent loss of credit if corrective actions not taken immediately.</span></div>';
             } else {
-                $data .= '<span>No difference.</span></div>';
+                $data1 .= '<span>No difference.</span></div>';
             }
             $abc = array();
             $abc3 = array();
@@ -299,6 +300,7 @@ class Threeb_vs_twoa extends CI_Controller {
             $max_value = (max($gstrtbmax, $gstr1max));
 
             $respose['data'] = $data; //data of observation
+            $respose['data1'] = $data1; //data of observation
             $respose['message'] = "success";
             $respose['gstr_tb'] = $abc; //data of gstr 3b
             $respose['max'] = $max_value; //max values
@@ -307,7 +309,8 @@ class Threeb_vs_twoa extends CI_Controller {
             $respose['gstr2a'] = $abc5; //data of gstr2a
             $respose['month_data'] = $months; //months
         } else {
-            $respose['data'] = "";
+            $respose['data1'] = "";
+            $respose['data1'] = "";
             $respose['message'] = "fail";
             $respose['gstr_tb'] = "";
             $respose['difference'] = "";

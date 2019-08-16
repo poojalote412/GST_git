@@ -178,6 +178,7 @@ class Management_report extends CI_Controller {
         $insert_id = $this->input->post("insert_id");
         $query = $this->db->query("SELECT * from state_wise_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         $data = ""; //view observations
+        $data1 = ""; //view observations
         $state_arr = array();
         $taxble_val_arr = array();
 
@@ -231,7 +232,7 @@ class Management_report extends CI_Controller {
             $total = array_sum($taxble_val_arr);
             $top3 = array_sum($arr);
             $top_3_state = round(($top3 / $total) * 100, 2);
-            $data .= "<h4><b>" . $top_3_state . " </b> % of total sales comes from top 3 states.</h4>";
+            $data1 .= "<h4><b>" . $top_3_state . " </b> % of total sales comes from top 3 states.</h4>";
 
 
             $state = array();
@@ -383,6 +384,7 @@ class Management_report extends CI_Controller {
         $insert_id = $this->input->post("insert_id");
         $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' and insert_id='$insert_id'");
         $data = ""; //view observations
+        $data1 = ""; //view observations
         if ($query->num_rows() > 0) {
             $result = $query->result();
             $taxable_supply_arr = array();
@@ -485,7 +487,7 @@ class Management_report extends CI_Controller {
                 $observation = "";
             }
 
-            $data .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
+            $data1 .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
             $abc1 = array();
             $abc2 = array();
             $abc3 = array();
@@ -558,6 +560,7 @@ class Management_report extends CI_Controller {
                 $customer_name = $res2->customer_name;
             }
             $respnose['data'] = $data;
+            $respnose['data1'] = $data1;
             $respnose['message'] = "success";
             $respnose['taxable_supply_arr'] = $abc1;  //taxable_supply data
             $respnose['sub_total_non_gst_arr'] = $abc2; //sub_total_non_gstdata
@@ -1057,9 +1060,12 @@ class Management_report extends CI_Controller {
         $insert_id = $this->input->post("insert_id");
         $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         $data = ""; //view observations
+        $data1 ="";
+        $data2 ="";
         if ($query->num_rows() > 0) {
             $result = $query->result();
             $taxable_supply_arr = array();
+            $data2 .= '<h4><b>1.Sales Month Wise</b></h4>';
             $data .= '<div class="row"><br><br><br>
                     <div class="col-md-12">
                         <div class="">
@@ -1140,7 +1146,7 @@ class Management_report extends CI_Controller {
                 $observation = "";
             }
 //            echo $variation=($max-$min)/($min*100);
-            $data .= "<hr><h4><b>Observation of  Sales month wise:</b></h4><span>" . $observation . "</span>";
+            $data1 .= "<hr><h4><b>Observation of  Sales month wise:</b></h4><span>" . $observation . "</span>";
             // loop to get graph data as per graph script requirement
             $abc1 = array();
             for ($o = 0; $o < sizeof($taxable_supply_arr); $o++) {
@@ -1169,6 +1175,8 @@ class Management_report extends CI_Controller {
                 $customer_name = $res21->customer_name;
             }
             $respnose['data'] = $data;
+            $respnose['data2'] = $data2;
+            $respnose['data1'] = $data1;
             $respnose['message'] = "success";
             $respnose['taxable_supply_arr'] = $abc1;  //taxable_supply data
             $respnose['month_data'] = $months; //months 
@@ -2126,6 +2134,7 @@ class Management_report extends CI_Controller {
         $query = $this->db->query("SELECT *  from monthly_summary_all where customer_id='$customer_id' and insert_id='$insert_id'");
 //        $query_get_graph = $this->Management_report_model->get_graph_query($customer_id, $insert_id);
         $data = ""; //view observations
+        $data1 = ""; //view observations
         if ($query->num_rows() > 0) {
             $result = $query->result();
             $month = array();
@@ -2223,11 +2232,11 @@ class Management_report extends CI_Controller {
             $data .= '</tbody></table></div></div></div>';
             $total_turnover = array_sum($turnover);
             if ($total_turnover < 15000000 && $ttl_b2c_ratio >= 90) {
-                $data .= "<hr><h4><b>Observation of Sales B2B and B2C:</b></h4>";
-                $data .= " <span>Your the turnover is less then <b>150 Lacs </b>& B2C sales is grater than <b>90%</b> , Our advise to go form composition scheme.</span>";
+                $data1 .= "<hr><h4><b>Observation of Sales B2B and B2C:</b></h4>";
+                $data1 .= " <span>Your the turnover is less then <b>150 Lacs </b>& B2C sales is grater than <b>90%</b> , Our advise to go form composition scheme.</span>";
             } else {
-                $data .= "<hr><h4><b>Observation of Sales B2B and B2C:</b></h4>";
-                $data .= " <span>B2B supply is " . array_sum($array_b2b_ratio) . "% and B2C supply is " . array_sum($array_b2c_ratio) . "% of total supply.</span>";
+                $data1 .= "<hr><h4><b>Observation of Sales B2B and B2C:</b></h4>";
+                $data1 .= " <span>B2B supply is " . array_sum($array_b2b_ratio) . "% and B2C supply is " . array_sum($array_b2c_ratio) . "% of total supply.</span>";
             }
 
             $count = count($month);
@@ -2278,6 +2287,7 @@ class Management_report extends CI_Controller {
                 $customer_name = $res2->customer_name;
             }
             $response['data'] = $data;
+            $response['data1'] = $data1;
             $response['message'] = "success";
             $response['array_b2b'] = $array_b2b1;  // B2B data
             $response['array_b2c'] = $array_b2c1;  // B2Cs data

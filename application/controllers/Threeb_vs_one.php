@@ -219,6 +219,7 @@ class Threeb_vs_one extends CI_Controller {
         $query = $this->db->query("SELECT month,gstr1_3B,gstr1,gstr1_ammend,gstr1_difference,gstr1_cummulative from comparison_summary_all where customer_id='$customer_id' "
                 . "and insert_id='$insert_id' order by id desc ");
         $data = ""; //view observations
+        $data1 = ""; //view observations
         if ($query->num_rows() > 0) {
 
             $result = $query->result();
@@ -279,14 +280,14 @@ class Threeb_vs_one extends CI_Controller {
             $data .= '</tbody></table></div></div></div><br><br><br><br>';
 
             if ($ttl1 > $ttl2) {
-                $data .= "<div class='col-md-12'><br><br><h4><b>Observation of GSTR-3B vs GSTR-1:</b></h4>";
-                $data .= '<span><b>1.</b>Value of GSTR-3B is greater than GSTR-1 ,It may impact your vendor relationshion and they shall not get the input tax credit though you have correctly paid the tax on such sales.<br></div>';
+                $data1 .= "<div class='col-md-12'><br><br><h4><b>Observation of GSTR-3B vs GSTR-1:</b></h4>";
+                $data1 .= '<span><b>1.</b>Value of GSTR-3B is greater than GSTR-1 ,It may impact your vendor relationshion and they shall not get the input tax credit though you have correctly paid the tax on such sales.<br></div>';
             } elseif ($ttl2 > $ttl1) {
-                $data .= "<hr><h4><b>Observation of GSTR-3B vs GSTR-1:</b></h4>";
-                $data .= '<span><b>1.</b> Value of GSTR-1 is greater than GSTR-3B ,Then it mean that output tax liability has not  been paid to govt. in full in comparision to the output tax liability reflected in sales return, this may lead to interest penalties,GST notices & also effect your gst rating leading to adverse GST scrutinies selection.<br></div>';
+                $data1 .= "<hr><h4><b>Observation of GSTR-3B vs GSTR-1:</b></h4>";
+                $data1 .= '<span><b>1.</b> Value of GSTR-1 is greater than GSTR-3B ,Then it mean that output tax liability has not  been paid to govt. in full in comparision to the output tax liability reflected in sales return, this may lead to interest penalties,GST notices & also effect your gst rating leading to adverse GST scrutinies selection.<br></div>';
             } else {
-                $data .= "<hr><h4><b>Observation of GSTR-3B vs GSTR-1:</b></h4></div>";
-                $data .= 'No difference.</div>';
+                $data1 .= "<hr><h4><b>Observation of GSTR-3B vs GSTR-1:</b></h4></div>";
+                $data1 .= 'No difference.</div>';
             }
 
 
@@ -329,6 +330,7 @@ class Threeb_vs_one extends CI_Controller {
             $max_value = (max($gstrtbmax, $gstr1max));
 
             $respose['data'] = $data;
+            $respose['data1'] = $data1;
             $respose['message'] = "success";
             $respose['data_gstr3b'] = $abc1;
             $respose['data_gstr1'] = $abc2;
@@ -340,6 +342,7 @@ class Threeb_vs_one extends CI_Controller {
             $respose['cumu_difference'] = $abc5;
         } else {
             $respose['data'] = "";
+            $respose['data1'] = "";
             $respose['message'] = "fail";
             $respose['data_gstr3b'] = "";
             $respose['data_gstr1'] = "";

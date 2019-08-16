@@ -111,9 +111,10 @@ if (is_array($session_data)) {
                         <h4 style="color:#1d2f66;"><b>6.DETAILS OF GST REPORTS AND INSIGHTS</b></h4>
                         <p style="background:#1d2f66; color:white;padding:4px;border:1px solid;width:700px;text-align:center">DATA INSIGHTS</p>
                         <h4 style="color:#1d2f66"><b>A.MANAGEMENT REPORT</b></h4><br>
-                        <h4><b>1.Sales Month Wise</b></h4>
+                        <!--<h4><b>1.Sales Month Wise</b></h4>-->
+                        <div id="sales_monthly_data2"></div>
                         <div id="container_sales_month_wise"  style="width:700px;padding: 20px;border: 3px solid"></div>
-                        <div id="sales_monthly_data" style="width:700px">
+                        <div id="sales_monthly_data1" style="width:700px">
                         </div>
 
                         <div class="test" style="margin-top:120px;page-break-before:always;">
@@ -127,14 +128,14 @@ if (is_array($session_data)) {
 
                         <div class="test" style="page-break-before:always;margin-top:180px">
                             <h4><b>4.Sales Taxable,Non-taxable and Exempt</b></h4>
-                            <!--<div id="tax_ntax_Exempt_data" style="width:700px"></div>-->
                             <div id="container_nontax_exempt" style="width:700px;padding: 20px;border: 3px solid"></div>
+                            <div id="tax_ntax_Exempt_data1" style="width:700px"></div>
                         </div>
 
                         <div class="test" style="page-break-before:always;margin-top:180px">
                             <h4><b>5.Sales B2B and B2C</b></h4>
-                            <!--<div id="compare_b2b_data" style="width:700px"></div>-->
                             <div id="container_sales_b2b_b2c" style="width:700px;margin-top:140px;padding: 20px;border: 3px solid"></div>
+                            <div id="compare_b2b_data1" style="width:700px"></div>
                         </div>
 
                         <!--Comparison & Deviation Report-->
@@ -143,12 +144,14 @@ if (is_array($session_data)) {
                             <h4><b>1.GSTR3B VS. GSTR2A -Input Tax Credit Reconcillation</b></h4>
                             <div id="compare_GSTR3B_Vs2_data" style="width:700px"></div>
                             <div id="container_GSTR3b_vs_2A"  style="width:700px;padding: 20px;border: 3px solid"></div>
+                            <div id="compare_GSTR3B_Vs2_data1" style="width:700px"></div>
 
                         </div>
                         <div class="test" style="page-break-before:always;margin-top:140px">
                             <h4><b>2.GSTR3B VS. GSTR1 - Output Liability Reconcillation</b></h4>
                             <div id="compare_3b_vs1_data" style="width:700px"></div>
                             <div id="container_GSTR3b_vs_1" style="width:700px;padding: 20px;border: 3px solid"></div>
+                            <div id="compare_3b_vs1_data1" style="width:700px"></div>
                         </div>
 
                         <!--BAROMETER CFO DASHBOARD-->
@@ -471,11 +474,17 @@ if (is_array($session_data)) {
             success: function (result) {
 //                 alert();
                 $('#sales_monthly_data').html("");
+                $('#sales_monthly_data1').html("");
+                $('#sales_monthly_data2').html("");
                 if (result.message === "success") {
 
                     var data = result.data;
+                    var data1 = result.data1;
+                    var data2 = result.data2;
 
                     $('#sales_monthly_data').html(data);
+                    $('#sales_monthly_data1').html(data1);
+                    $('#sales_monthly_data2').html(data2);
 //                    $('#example2').DataTable();
                 } else {
 
@@ -695,8 +704,10 @@ if (is_array($session_data)) {
                 if (result.message === "success") {
 
                     var data = result.data;
+                    var data1 = result.data1;
 
                     $('#tax_ntax_Exempt_data').html(data);
+                    $('#tax_ntax_Exempt_data1').html(data1);
 //                    $('#example2').DataTable();
                 } else {
 
@@ -826,8 +837,10 @@ if (is_array($session_data)) {
                 if (result.message === "success") {
 
                     var data = result.data;
+                    var data1 = result.data1;
                     $('#compare_b2b_data').html("");
                     $('#compare_b2b_data').html(data);
+                    $('#compare_b2b_data1').html(data1);
 //                    $('#example2').DataTable();
                 } else {
 
@@ -970,8 +983,10 @@ if (is_array($session_data)) {
                 if (result.message === "success") {
 
                     var data = result.data;
+                    var data1 = result.data1;
                     $('#compare_GSTR3B_Vs2_data').html("");
                     $('#compare_GSTR3B_Vs2_data').html(data);
+                    $('#compare_GSTR3B_Vs2_data1').html(data1);
 //                    $('#example2').DataTable();
                 } else {
 
@@ -1078,8 +1093,10 @@ if (is_array($session_data)) {
                 if (result.message === "success") {
 
                     var data = result.data;
+                    var data1 = result.data1;
                     $('#compare_3b_vs1_data').html("");
                     $('#compare_3b_vs1_data').html(data);
+                    $('#compare_3b_vs1_data1').html(data1);
 //                    $('#example2').DataTable();
                 } else {
 
@@ -1617,7 +1634,7 @@ if (is_array($session_data)) {
                                 }, {// mark the weekend
                                     color: '#eb5c3d',
                                     from: 11,
-                                    to: 25
+                                    to: 625
                                 }],
 
                         },
