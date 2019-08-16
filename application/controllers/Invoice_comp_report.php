@@ -650,7 +650,6 @@ class Invoice_comp_report extends CI_Controller {
             $show = $records / 15;
             $table = ceil($show);
             $min_value = 1;
-            $max_value = 15;
             for ($i = 0, $k = 1; $i < $table; $i++) {
                 $invoice_value = array();
                 $taxable_value = array();
