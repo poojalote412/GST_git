@@ -81,7 +81,6 @@ class Cfo_dashboard extends CI_Controller {
                 . "ON `monthly_summary_all`.`month`=`3b_offset_summary_all`.`month` where `monthly_summary_all`.`customer_id`='$customer_id' "
                 . "AND `3b_offset_summary_all`.`customer_id`='$customer_id' AND `monthly_summary_all`.`insert_id`='$insert_id'AND `3b_offset_summary_all`.`insert_id`='$insert_id'");
         $data = ""; //view observations
-        $data1 = ""; //view observations
         if ($quer1->num_rows() > 0) {
             $res = $quer1->result();
             $turnover1 = array();
@@ -143,7 +142,7 @@ class Cfo_dashboard extends CI_Controller {
                 } else {
                     $observation = "";
                 }
-                $data1 .= '<div class="col-md-12">
+                $data .= '<div class="col-md-12">
                                     <label><h4><b>Observation of CFO:</b></h4></label><span class="required" aria-required="true"> </span>
                                     <div class="input-group">
                                         <span class="input-group-addon">
@@ -154,7 +153,7 @@ class Cfo_dashboard extends CI_Controller {
                                     <span class="required" style="color: red" id="cfo_observation_error"></span> 
                                 </div><br>';
             } else {
-                $data1 .= '<div class="col-md-12">
+                $data .= '<div class="col-md-12">
                                     <label><h4><b>Observation of CFO:</b></h4></label><span class="required" aria-required="true"> </span>
                                     <div class="input-group">
                                         <span class="input-group-addon">
@@ -212,7 +211,6 @@ class Cfo_dashboard extends CI_Controller {
             }
 
             $respose['data'] = $data;
-            $respose['data1'] = $data1;
             $respose['message'] = "success";
             $respose['data_turn_over'] = $abc;  //turnover data
             $respose['data_liability'] = $pqr; //tax liability data

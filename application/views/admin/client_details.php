@@ -302,7 +302,7 @@ if (is_array($session_data)) {
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="col-md-6">  <div id="container3b_vs_1" ></div></div>
-                                <div class="col-md-6">   <div id="compare_3b1_data"></div></div></div>
+                                <div class="col-md-6">   <div id="compare_3b1_data"></div><div id="compare_3b1_data1"></div></div></div>
                         </div>
                     </div>
                 </div>
@@ -327,7 +327,8 @@ if (is_array($session_data)) {
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="col-md-6">  <div id="gstr2a_vs1" ></div></div>
-                                <div class="col-md-6">   <div id="compare_3b2a_data"></div></div></div>
+                                <div class="col-md-6">   <div id="compare_3b2a_data">
+                                    </div><div id="compare_3b2a_data1"></div></div></div>
                         </div>
                     </div>
                 </div>
@@ -352,7 +353,7 @@ if (is_array($session_data)) {
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="col-md-6">  <div id="container_b2b_b2c" ></div></div>
-                                <div class="col-md-6">   <div id="b2b_b2c_sale"></div></div></div>
+                                <div class="col-md-6">   <div id="b2b_b2c_sale"></div> <div id="b2b_b2c_sale1"></div></div></div>
                         </div>
                     </div>
                 </div>
@@ -452,7 +453,7 @@ if (is_array($session_data)) {
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="col-md-6">  <div id="container_payble_vs_cash" ></div></div>
-                                <div class="col-md-6">   <div id="gst_payable_vs_cash_data"></div></div></div>
+                                <div class="col-md-6">   <div id="gst_payable_vs_cash_data"></div><div id="gst_payable_vs_cash_data1"></div></div></div>
                         </div>
                     </div>
                 </div>
@@ -617,7 +618,7 @@ if (is_array($session_data)) {
                                 <label>Lack of Internal control management leads to interest penalties GST Notices, inefficient working capital management.</label>
                                 <div class="form-group">
                                     <div class="col-md-4">
-                                         <h5>Likelihood</h5>
+                                        <h5>Likelihood</h5>
                                         <select class="form-control select2" id="range_issue_matrix2" onchange="remove_error('range_issue_matrix2')" name="range_issue_matrix2">
                                             <option selected="selected">Select Option</option>
                                         </select>
@@ -637,7 +638,7 @@ if (is_array($session_data)) {
                                 <label>Mismatches of transactions leads to loss of ITC, Interest, Liability or GST Notices</label>
                                 <div class="form-group">
                                     <div class="col-md-4">
-                                         <h5>Likelihood</h5>
+                                        <h5>Likelihood</h5>
                                         <select class="form-control select2" id="range_issue_matrix3" onchange="remove_error('range_issue_matrix3')" name="range_issue_matrix3">
                                             <option selected="selected">Select Option</option>
                                         </select>
@@ -656,7 +657,7 @@ if (is_array($session_data)) {
                                 <label>Deviation in ITC after comparing GSTR-3B vs 2A </label>
                                 <div class="form-group">
                                     <div class="col-md-4">
-                                         <h5>Likelihood</h5>
+                                        <h5>Likelihood</h5>
                                         <select class="form-control select2" id="range_issue_matrix4" onchange="remove_error('range_issue_matrix4')" name="range_issue_matrix4">
                                             <option selected="selected">Select Option</option>
                                         </select>
@@ -675,7 +676,7 @@ if (is_array($session_data)) {
                                 <label>Deviation in output liability after comparing GSTR-3B vs GSTR-1.</label>
                                 <div class="form-group">
                                     <div class="col-md-4">
-                                         <h5>Likelihood</h5>
+                                        <h5>Likelihood</h5>
                                         <select class="form-control select2" id="range_issue_matrix5" onchange="remove_error('range_issue_matrix5')" name="range_issue_matrix5">
                                             <option selected="selected">Select Option</option>
                                         </select>
@@ -694,14 +695,14 @@ if (is_array($session_data)) {
                                 <label>GST Payable in cash.</label>
                                 <div class="form-group">
                                     <div class="col-md-4">
-                                         <h5>Likelihood</h5>
+                                        <h5>Likelihood</h5>
                                         <select class="form-control select2" id="range_issue_matrix6" onchange="remove_error('range_issue_matrix6')" name="range_issue_matrix6">
                                             <option selected="selected">Select Option</option>
                                         </select>
                                         <span class="required" style="color: red" id="range_issue_matrix6_error"></span>
                                     </div>
                                     <div class="col-md-4">
-                                         <h5>Impact</h5>
+                                        <h5>Impact</h5>
                                         <select class="form-control select2" id="range_issue_matrix62" onchange="remove_error('range_issue_matrix62')" name="range_issue_matrix62">
                                             <option selected="selected">Select Option</option>
                                         </select>
@@ -885,7 +886,7 @@ if (is_array($session_data)) {
         });
         $.ajax({
             type: "POST",
-            url: "<?= base_url("Cfo_dashboard/get_graph_Turnover_vs_liabality") ?>",
+            url: "<?= base_url("Cfo_dashboard/get_graph_Turnover_vs_liabality1") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
@@ -1766,12 +1767,15 @@ if (is_array($session_data)) {
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
 //                 alert();
+                $('#compare_3b1_data1').html("");
                 $('#compare_3b1_data').html("");
                 if (result.message === "success") {
 
                     var data = result.data;
+                    var data1 = result.data1;
                     $('#compare_3b1_data').html("");
                     $('#compare_3b1_data').html(data);
+                    $('#compare_3b1_data1').html(data1);
                     $('#example2').DataTable();
                 } else {
 
@@ -1878,20 +1882,24 @@ if (is_array($session_data)) {
         });
         $.ajax({
             type: "post",
-            url: "<?= base_url("Threeb_vs_twoa/get_graph") ?>",
+            url: "<?= base_url("Threeb_vs_twoa/get_graph_with_observation") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
 //                 alert();
                 $('#compare_3b2a_data').html("");
+                $('#compare_3b2a_data1').html("");
                 if (result.message === "success") {
 
                     var data = result.data;
+                    var data1 = result.data1;
                     $('#compare_3b2a_data').html("");
                     $('#compare_3b2a_data').html(data);
+                    $('#compare_3b2a_data1').html(data1);
+                    $('#compare_3b2a_data1').prepend("<labale><b>Less: In-Eligible Credit:</b></lable> <input type='number' id='less_in_credit' name='less_in_credit' value='a'>");
                     $('#example2').DataTable();
                 } else {
-
+                  
                 }
             },
 
@@ -2016,8 +2024,11 @@ if (is_array($session_data)) {
                 if (result.message === "success") {
 
                     var data = result.data;
+                    var data1 = result.data1;
                     $('#b2b_b2c_sale').html("");
+                    $('#b2b_b2c_sale1').html("");
                     $('#b2b_b2c_sale').html(data);
+                    $('#b2b_b2c_sale1').html(data1);
                     $('#example2').DataTable();
                 } else {
 
@@ -2338,11 +2349,15 @@ if (is_array($session_data)) {
             success: function (result) {
 //                 alert();
                 $('#gst_payable_vs_cash_data').html("");
+                $('#gst_payable_vs_cash_data1').html("");
                 if (result.message === "success") {
 
                     var data = result.data;
+                    var data1 = result.data1;
                     $('#gst_payable_vs_cash_data').html("");
+                    $('#gst_payable_vs_cash_data1').html("");
                     $('#gst_payable_vs_cash_data').html(data);
+                    $('#gst_payable_vs_cash_data1').html(data1);
                     $('#example2').DataTable();
                 } else {
 
