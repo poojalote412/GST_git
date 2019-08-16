@@ -55,9 +55,9 @@ class Account_report extends CI_Controller {
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
-                         <table id="" class="table table-bordered table-striped">
-                                <thead style="background-color: #017101;color:white">
-                                    <tr>
+                         <table id="" style="padding:3px" class="table table-bordered table-striped">
+                                <thead style="background-color: #017101;padding:3px;color:white">
+                                    <tr style="padding:3px">
                                         <th>No.</th>
                                         <th>Month</th>
                                         <th>Return Filling Status</th>
@@ -125,7 +125,7 @@ class Account_report extends CI_Controller {
 
             $result = $query->result();
             $period = array();
-            $data1 .= '<br><br><br><br><h4 style="color:#1d2f66"><b>2. GSTR-1:</b></h4>';
+            $data1 .= '<br><br><h4 style="color:#1d2f66"><b>2. GSTR-1:</b></h4>';
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">

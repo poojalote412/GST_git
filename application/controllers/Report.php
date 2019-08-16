@@ -13,6 +13,10 @@ class Report extends CI_Controller {
     public function index($customer_id = '', $insert_id = '', $cust_name = '') {
 //       $query_get_customer_name=fdjk;
 //         $cust_name = $this->input->post("cust_name");
+        
+        
+        
+        
         $data['customer_id'] = $customer_id;
         $data['insert_id'] = $insert_id;
         $data['cust_name'] = $cust_name;

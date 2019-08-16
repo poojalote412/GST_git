@@ -52,7 +52,7 @@ if (is_array($session_data)) {
                                     </span>
                                     <input type="hidden" class="form-control" value="<?php echo $insert_id; ?>"disabled=""name="insert_id"  id="insert_id"   aria-required="true" aria-describedby="input_group-error">
                                     <input type="hidden" class="form-control" value="<?php echo $customer_id; ?>"disabled=""name="customer_id"  id="customer_id"   aria-required="true" aria-describedby="input_group-error">
-                                    <input type="text" class="form-control" value="<?php // echo $user_name[$x]['customer_name']                          ?>"  disabled=""name="cust_name"  id="cust_name" onkeyup="remove_error('customer_name')"   aria-required="true" aria-describedby="input_group-error">
+                                    <input type="text" class="form-control" value=""  disabled=""name="cust_name"  id="cust_name" onkeyup="remove_error('customer_name')"   aria-required="true" aria-describedby="input_group-error">
 
                                 </div>
                                 <span class="required" style="color: red" id="customer_name_error"></span>
@@ -120,7 +120,7 @@ if (is_array($session_data)) {
                         <div class="test" style="margin-top:120px;page-break-before:always;">
 <!--                            <h4><b>2.Sales Tax Rate Wise</b></h4>-->
                             <div id="compare_sales_ratewise_data1" style="width:700px"></div>
-                            <div id="compare_sales_ratewise_data" style="width:700px"></div>
+                            <div id="compare_sales_ratewise_data" style="width:700px"></div><br><br><br>
                             <!--<h4><b>3.Sales State Wise</b></h4>-->
                             <div id="sales_state_wise_data2"  style="width:700px"></div>
                             <div id="container_state_wise" style="width:700px;"></div>
@@ -147,7 +147,7 @@ if (is_array($session_data)) {
                             <h4 style="color:#1d2f66;"><b>B.COMPARISON AND DEVIATION REPORT</b></h4>
                             <!--<h4><b>1.GSTR3B VS. GSTR2A -Input Tax Credit Reconcillation</b></h4>-->
                             <div id="compare_GSTR3B_Vs2_data2" style="width:700px"></div>
-                            <div id="compare_GSTR3B_Vs2_data" style="width:700px"></div>
+                            <div id="compare_GSTR3B_Vs2_data" style="width:700px"></div><br><br>
                             <div id="container_GSTR3b_vs_2A"  style="width:700px;"></div>
                             <div id="compare_GSTR3B_Vs2_data1" style="width:700px"></div>
 
@@ -155,7 +155,7 @@ if (is_array($session_data)) {
                         <div class="test" style="page-break-before:always;margin-top:140px">
 <!--                            <h4><b>2.GSTR3B VS. GSTR1 - Output Liability Reconcillation</b></h4>-->
                             <div id="compare_3b_vs1_data2" style="width:700px"></div>
-                            <div id="compare_3b_vs1_data" style="width:700px"></div>
+                            <div id="compare_3b_vs1_data" style="width:700px"></div><br><br>
                             <div id="container_GSTR3b_vs_1" style="width:700px;"></div>
                             <div id="compare_3b_vs1_data1" style="width:700px"></div>
                         </div>
@@ -166,7 +166,7 @@ if (is_array($session_data)) {
                             <h4 style="color:#1d2f66;"><b>A. CFO DASHBOARD</b></h4>
 <!--                            <h4 style="color:#1d2f66"><b>1. Overview of Turnover</b></h4><br>-->
                             <div id="tax_turnover_data2" style="width:700px"></div>
-                            <div id="tax_turnover_data" style="width:700px"></div>
+                            <div id="tax_turnover_data" style="width:700px"></div><br><br>
                             <div id="container_tax_turnover"  style="width:700px;"></div>
                             <div id="tax_turnover_data1" style="width:700px"></div>
                         </div>
@@ -204,15 +204,15 @@ if (is_array($session_data)) {
                         </div>
 
                         <!--InFORMATION COMPARISON-->
-                        <div class="test" style="page-break-before:always;margin-top:120px">
+                        <div class="test" style="page-break-before:always;margin-top:10px">
                             <p style="background:#017101; color:white;width:700px;text-align:center"><b>INFORMATION COMPARISON</b></p>
                             <h4 style="color:#1d2f66;"><b>A. COMPLIANCE REPORT</b></h4>
 <!--                            <h4 style="color:#1d2f66"><b>1. GSTR-3B:</b></h4>-->
-                            <div id="gstr3B_data1" style="width:700px"></div><br><br><br>
-                            <div id="gstr3B_data" style="width:700px"></div><br><br><br>
+                            <div id="gstr3B_data1" style="width:700px"></div>
+                            <div id="gstr3B_data" style="width:700px;padding: 0px"></div>
 <!--                            <h4 style="color:#1d2f66"><b>2. GSTR-1:</b></h4>-->
                             <div id="gstr1_data1" style="width:700px"></div>
-                            <div id="gstr1_data" style="width:700px"></div>
+                            <div id="gstr1_data" style="width:700px;padding: 0px"></div>
                         </div>
 
                         <div class="test" style="page-break-before:always;margin-top:160px">
@@ -254,7 +254,7 @@ if (is_array($session_data)) {
                             <h3><b>6.Issue Matrix</b></h3>
                             <div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/IssueMatrix.jpg" width="600px" height="50px" style=""></div>  
                             <!--<div id="heat_map_tbl1" style="width:700px"></div>-->
-                            <div id="heat_map_tbl" style="width:700px"></div>
+                            <div id="heat_map_tbl" style="width:850px"></div>
                             <div id="container_heat_map" style="width:700px"></div>
                         </div>
 
