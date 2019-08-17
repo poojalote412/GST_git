@@ -667,11 +667,13 @@ class Invoice_comp_report extends CI_Controller {
                 $tax = array();
 //            $TotalNoOfRecords = count($data);
                 //query logics
-
+                if ($i == 0) {
+                    $mrgin = "margin-top:5%;";
+                }else{
+                    $mrgin = "margin-top:5%;";
+                }
                 $data .= '
-                    <div class="col-md-12" id="div_notrecord_data">
-                        <div class="">
-                         <table id="not_record_data" class=" table-bordered table-striped" width="800">
+                         <table id="not_record_data" class="table-bordered table-striped" width="800" style="margin-top:20%;">
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
                                         <th>Company Name</th>
@@ -703,7 +705,7 @@ class Invoice_comp_report extends CI_Controller {
                             '</tr>';
                     $k++;
                 }
-                $data .= '</table></div></div>';
+                $data .= '</table>';
                 $response['data'] = $data;
 //                $response['data1'] = $data1;
                 $response['message'] = "success";
@@ -892,7 +894,7 @@ class Invoice_comp_report extends CI_Controller {
             for ($i = 0, $k = 1; $i < $table; $i++) {
                 $data .= '
                 
-                         <table id="example3" class=" table-bordered table-striped" width="800">
+                         <table id="example3" class=" table-bordered table-striped" width="800" style="margin-top:20%;" >
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
                                         <th>Company</th>

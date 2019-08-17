@@ -255,15 +255,15 @@ if (is_array($session_data)) {
                             <div id="company_all_notin2a_data1" style="margin-top:20px"></div>
                         </div>
 
-                        <div class="test" style="page-break-before:always; margin-top:20px">
+                        <div class="test" style="page-break-before:always; margin-top:50px">
 
-                            <div id="company_all_notinrec_data" style=" page-break-inside: avoid;margin-top:20px"></div>
+                            <div id="company_all_notinrec_data" style=" margin-top:20px ;"></div>
                             <div id="company_all_notinrec_data1" style="margin-top:20px"></div>
                         </div>
 
-                        <div class="test" style="page-break-before:always; margin-top:20px">
+                        <div class="test" style="page-break-before:always; margin-top:50px">
 
-                            <div id="company_all_partially_data" style=" page-break-inside: avoid;margin-top:20px"></div>
+                            <div id="company_all_partially_data" style=" margin-top:20px"></div>
                             <div id="company_all_partially_data1" style=" margin-top:20px"></div>
                         </div>
 
