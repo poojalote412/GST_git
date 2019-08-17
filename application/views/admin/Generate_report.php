@@ -32,6 +32,26 @@ if (is_array($session_data)) {
         border:1px solid black;
         height:100px;
     }
+
+
+    .page-break {
+        page-break-after: always;
+        page-break-inside: avoid;
+        clear:both;
+    }
+    .page-break-before {
+        page-break-before: always;
+        page-break-inside: avoid;
+        clear:both;
+    }
+/*    #JSFiddle{
+        position: absolute; 
+        left: 20px; 
+        top: 50px; 
+        bottom: 0; 
+        overflow: auto; 
+        width: 600px;
+    }*/
 </style>
 
 <div class="content-wrapper">
@@ -96,7 +116,7 @@ if (is_array($session_data)) {
                 </form> 
                 <div id="buttons"></div>
                 <hr/>
-                <div id="JSFiddle">
+                <div id="JSFiddle" class="page-break-before page-break">
                     <!-- Insert your document here -->
                     <header  style="display:none;margin-top:20px;">
                         <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br><br><br>
@@ -121,21 +141,17 @@ if (is_array($session_data)) {
                     <div id="container_image_approach" style="margin-top:440px;"><img src="https://premisafe.com/GST_image/Approach.jpg" width="800px" height="900px" style="page-break-before:always;"></div>
 
                     <!--Details of GST Reports & insights-->
-                    <div class="test" style="margin-top:130px;page-break-before:always;">
+                    <div class="test" style="page-break-before:always;">
                         <h4 style="color:#1d2f66;"><b>6.DETAILS OF GST REPORTS AND INSIGHTS</b></h4>
                         <p style="background:#1d2f66; color:white;width:700px;text-align:center">DATA INSIGHTS</p>
                         <h4 style="color:#1d2f66"><b>A.MANAGEMENT REPORT</b></h4><br>
-                        <!--<h4><b>1.Sales Month Wise</b></h4>-->
                         <div id="sales_monthly_data2"></div>
                         <div id="container_sales_month_wise"  style="width:700px;"></div>
-                        <div id="sales_monthly_data1" style="width:700px">
-                        </div>
+                        <div id="sales_monthly_data1" style="width:700px"></div>
 
                         <div class="test" style="margin-top:120px;page-break-before:always;">
-                            <!--                            <h4><b>2.Sales Tax Rate Wise</b></h4>-->
                             <div id="compare_sales_ratewise_data1" style="width:700px"></div>
                             <div id="compare_sales_ratewise_data" style="width:700px"></div><br><br><br>
-                            <!--<h4><b>3.Sales State Wise</b></h4>-->
                             <div id="sales_state_wise_data2"  style="width:700px"></div>
                             <div id="container_state_wise" style="width:700px;"></div>
                             <div id="sales_state_wise_data1"  style="width:700px"></div>
@@ -143,14 +159,12 @@ if (is_array($session_data)) {
 
 
                         <div class="test" style="page-break-before:always;margin-top:180px">
-                            <!--<h4><b>4.Sales Taxable,Non-taxable and Exempt</b></h4>-->
                             <div id="tax_ntax_Exempt_data2" style="width:700px"></div>
                             <div id="container_nontax_exempt" style="width:700px;"></div>
                             <div id="tax_ntax_Exempt_data1" style="width:700px"></div>
                         </div>
 
                         <div class="test" style="page-break-before:always;margin-top:180px">
-                            <!--                            <h4><b>5.Sales B2B and B2C</b></h4>-->
                             <div id="compare_b2b_data2" style="width:700px"></div>
                             <div id="container_sales_b2b_b2c" style="width:700px;margin-top:140px;"></div>
                             <div id="compare_b2b_data1" style="width:700px"></div>
@@ -159,7 +173,6 @@ if (is_array($session_data)) {
                         <!--Comparison & Deviation Report-->
                         <div class="test" style="page-break-before:always;margin-top:140px">
                             <h4 style="color:#1d2f66;"><b>B.COMPARISON AND DEVIATION REPORT</b></h4>
-                            <!--<h4><b>1.GSTR3B VS. GSTR2A -Input Tax Credit Reconcillation</b></h4>-->
                             <div id="compare_GSTR3B_Vs2_data2" style="width:700px"></div>
                             <div id="compare_GSTR3B_Vs2_data" style="width:700px"></div><br><br>
                             <div id="container_GSTR3b_vs_2A"  style="width:700px;"></div>
@@ -167,7 +180,6 @@ if (is_array($session_data)) {
 
                         </div>
                         <div class="test" style="page-break-before:always;margin-top:140px">
-                            <!--                            <h4><b>2.GSTR3B VS. GSTR1 - Output Liability Reconcillation</b></h4>-->
                             <div id="compare_3b_vs1_data2" style="width:700px"></div>
                             <div id="compare_3b_vs1_data" style="width:700px"></div><br><br>
                             <div id="container_GSTR3b_vs_1" style="width:700px;"></div>
@@ -178,7 +190,6 @@ if (is_array($session_data)) {
                         <div class="test" style="page-break-before:always;margin-top:140px">
                             <p style="background:#FE6666; color:white;padding:4px;border:1px solid;width:700px;text-align:center"><b>BAROMETER-CFO DASHBOARD</b></p>
                             <h4 style="color:#1d2f66;"><b>A. CFO DASHBOARD</b></h4>
-                            <!--                            <h4 style="color:#1d2f66"><b>1. Overview of Turnover</b></h4><br>-->
                             <div id="tax_turnover_data2" style="width:700px"></div>
                             <div id="tax_turnover_data" style="width:700px"></div><br><br>
                             <div id="container_tax_turnover"  style="width:700px;"></div>
@@ -186,7 +197,6 @@ if (is_array($session_data)) {
                         </div>
 
                         <div class="test" style="page-break-before:always;margin-top:160px">
-                            <!--<h4 style="color:#1d2f66"><b>2. Turnover vs Tax Liability:</b></h4><br>-->
                             <div id="cfo_data2" style="width:700px;"></div>
                             <div id="cfo_data" style="width:700px;"></div>
                             <div id="container_turnovervs_liability" style="width:700px;"></div>
@@ -194,7 +204,6 @@ if (is_array($session_data)) {
                         </div>
 
                         <div class="test" style="page-break-before:always;margin-top:140px">
-                            <!--<h4 style="color:#1d2f66"><b>3. Overview of Tax Liability:</b></h4><br>-->
                             <div id="tax_liability_data2" style="width:700px"></div>
                             <div id="tax_liability_data" style="width:700px"></div>
                             <div id="container_tax_liability" style="width:700px;"></div>
@@ -202,7 +211,6 @@ if (is_array($session_data)) {
                         </div>
 
                         <div class="test" style="page-break-before:always;margin-top:160px">
-                            <!--<h4 style="color:#1d2f66"><b>4. GST Payable V/s Cash:</b></h4><br>-->
                             <div id="gst_payablevscash_data2" style="width:700px"></div>
                             <div id="gst_payablevscash_data" style="width:700px"></div>
                             <div id="container_gst_payablevscash"  style="width:700px;"></div>
@@ -210,7 +218,6 @@ if (is_array($session_data)) {
                         </div>
 
                         <div class="test" style="page-break-before:always;margin-top:160px">
-                            <!--                            <h4 style="color:#1d2f66"><b>5. Eligible and Inligible Credit:</b></h4><br>-->
                             <div id="tax_iniligible_data2" style="width:700px;"></div>
                             <div id="tax_iniligible_data" style="width:700px;"></div>
                             <div id="container_eligible_credit"  style="width:700px;"></div>
@@ -221,18 +228,11 @@ if (is_array($session_data)) {
                         <div class="test" style="page-break-before:always;margin-top:10px">
                             <p style="background:#017101; color:white;width:700px;text-align:center"><b>INFORMATION COMPARISON</b></p>
                             <h4 style="color:#1d2f66;"><b>A. COMPLIANCE REPORT</b></h4>
-                            <!--                            <h4 style="color:#1d2f66"><b>1. GSTR-3B:</b></h4>-->
                             <div id="gstr3B_data1" style="width:700px"></div>
                             <div id="gstr3B_data" style="width:700px;padding: 0px"></div>
-                            <!--                            <h4 style="color:#1d2f66"><b>2. GSTR-1:</b></h4>-->
                             <div id="gstr1_data1" style="width:700px"></div>
                             <div id="gstr1_data" style="width:700px;padding: 0px"></div>
                         </div>
-
-
-
-
-
 
 
                         <div class="test" style="page-break-before:always;margin-top:100px">
@@ -251,20 +251,20 @@ if (is_array($session_data)) {
 
                         <div class="test" style="page-break-before:always;margin-top:20px">
                             <h4 style="color:#1d2f66;"><b>C. INVOICE WISE COMPARISON OR MISMATCH REPORT</b></h4>
-                            <div id="company_all_notin2a_data" style=""></div>
-                            <div id="company_all_notin2a_data1" style=""></div>
+                            <div id="company_all_notin2a_data" style="margin-top:20px"></div>
+                            <div id="company_all_notin2a_data1" style="margin-top:20px"></div>
                         </div>
 
-                        <div class="test" style="page-break-before:always;">
+                        <div class="test" style="page-break-before:always; margin-top:20px">
 
-                            <div id="company_all_notinrec_data" style=""></div>
-                            <div id="company_all_notinrec_data1" style=""></div>
+                            <div id="company_all_notinrec_data" style=" page-break-inside: avoid;margin-top:20px"></div>
+                            <div id="company_all_notinrec_data1" style="margin-top:20px"></div>
                         </div>
 
-                        <div class="test" style="page-break-before:always;">
+                        <div class="test" style="page-break-before:always; margin-top:20px">
 
-                            <div id="company_all_partially_data" style=""></div>
-                            <div id="company_all_partially_data1" style=""></div>
+                            <div id="company_all_partially_data" style=" page-break-inside: avoid;margin-top:20px"></div>
+                            <div id="company_all_partially_data1" style=" margin-top:20px"></div>
                         </div>
 
 
