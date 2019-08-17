@@ -269,9 +269,15 @@ if (is_array($session_data)) {
 
 
                         <div class="test" style="page-break-before:always;margin-top:30px">
-                            <div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/IssueMatrix.jpg" style="width:700px" height="100px" style=""></div><br><br>  
+                            <div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/IssueMatrix.jpg" style="width:700px" height="100px" style=""></div><br><br><br>  
                             <div id="heat_map_tbl" style="width:850px"></div>
                             <div id="container_heat_map" style="width:700px"></div>
+                        </div>
+                        
+                        <div class="test" style="page-break-before:always;margin-top:50px">
+                            <!--<div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="900px" height="900px" style=""></div><br><br>-->  
+                            <div id="content_pdf_summary_observ" style="width:850px"></div>
+                            <!--<div id="container_heat_map" style="width:700px"></div>-->
                         </div>
                         
                          <div class="test" style="page-break-before:always;margin-top:50px">
@@ -338,6 +344,29 @@ if (is_array($session_data)) {
                 }
             },
         });
+
+        //Function for summary & observation Conclusion
+        
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Report/content_pdf_summary_observ") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+//                 alert();
+                $('#content_pdf').html("");
+                if (result.message === "success") {
+
+                    var data = result.data;
+                    $('#content_pdf_summary_observ').html("");
+                    $('#content_pdf_summary_observ').html(data);
+//                    $('#example2').DataTable();
+                } else {
+
+                }
+            },
+        });
+        
         $.ajax({
             type: "post",
             url: "<?= base_url("Cfo_dashboard/get_graph_Turnover_vs_liabality") ?>",
