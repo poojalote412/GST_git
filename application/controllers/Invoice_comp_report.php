@@ -671,10 +671,10 @@ class Invoice_comp_report extends CI_Controller {
                     $mrgin = "margin-top:5%;";
                     $mrgin1 = "margin-bottom:30%;";
                 } elseif ($i == ($table - 1)) {
-                    $mrgin = "margin-top:5%;";
+                    $mrgin = "margin-top:7%;";
                     $mrgin1 = "margin-bottom:5%;";
                 } else {
-                    $mrgin = "margin-top:5%;";
+                    $mrgin = "margin-top:7%;";
                     $mrgin1 = "margin-bottom:30%;";
                 }
                 $data .= '
@@ -893,7 +893,7 @@ class Invoice_comp_report extends CI_Controller {
         if ($query != FALSE) {
             $data .= '<h4 style="color:#1d2f66"><b>3.Invoice no.,POS and Period mismatch:</b></h4>';
             $records = count($query);
-            $show = $records / 35;
+            $show = $records / 25;
             $table = ceil($show);
             $min_value = 1;
             for ($i = 0, $k = 1; $i < $table; $i++) {
@@ -901,10 +901,10 @@ class Invoice_comp_report extends CI_Controller {
                     $mrgin = "margin-top:5%;";
                     $mrgin1 = "margin-bottom:20%;";
                 } elseif ($i == ($table - 1)) {
-                    $mrgin = "margin-top:5%;";
+                    $mrgin = "margin-top:7%;";
                     $mrgin1 = "margin-bottom:5%;";
                 } else {
-                    $mrgin = "margin-top:5%;";
+                    $mrgin = "margin-top:7%;";
                     $mrgin1 = "margin-bottom:20%;";
                 }
                 $data .= '<table id="example3" class=" table-bordered table-striped" width="800" style="' . $mrgin . $mrgin1 . '" >
@@ -932,7 +932,7 @@ class Invoice_comp_report extends CI_Controller {
                 $place_of_supply_2a = array();
                 $taxable_value = array();
                 $tax = array();
-                $query2 = $this->db->query("select * from gstr_2a_reconciliation_partially_match_summary where customer_id='$customer_id' and insert_id='$insert_id' and status='Partly_Mat' LIMIT $min_value,35 ");
+                $query2 = $this->db->query("select * from gstr_2a_reconciliation_partially_match_summary where customer_id='$customer_id' and insert_id='$insert_id' and status='Partly_Mat' LIMIT $min_value,25 ");
                 $result = $query2->result();
                 foreach ($result as $row) {
 
@@ -974,7 +974,7 @@ class Invoice_comp_report extends CI_Controller {
 //                    '</tr>';
 
 
-                $min_value = $min_value + 35;
+                $min_value = $min_value + 25;
                 $response['data'] = $data;
                 $response['message'] = "success";
                 $response['status'] = true;
