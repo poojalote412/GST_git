@@ -669,11 +669,16 @@ class Invoice_comp_report extends CI_Controller {
                 //query logics
                 if ($i == 0) {
                     $mrgin = "margin-top:5%;";
+                    $mrgin1 = "margin-bottom:30%;";
+                } elseif ($i == ($table - 1)) {
+                    $mrgin = "margin-top:5%;";
+                    $mrgin1 = "margin-bottom:5%;";
                 } else {
-                    $mrgin = "margin-top:25%;";
+                    $mrgin = "margin-top:5%;";
+                    $mrgin1 = "margin-bottom:30%;";
                 }
                 $data .= '
-                         <table id="not_record_data" class="table-bordered table-striped" width="800" style="' . $mrgin . '">
+                         <table id="not_record_data" class="table-bordered table-striped" width="800" style="' . $mrgin . $mrgin1 . '">
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
                                         <th>Company Name</th>
@@ -888,16 +893,21 @@ class Invoice_comp_report extends CI_Controller {
         if ($query != FALSE) {
             $data .= '<h4 style="color:#1d2f66"><b>3.Invoice no.,POS and Period mismatch:</b></h4>';
             $records = count($query);
-            $show = $records / 40;
+            $show = $records / 35;
             $table = ceil($show);
             $min_value = 1;
             for ($i = 0, $k = 1; $i < $table; $i++) {
                 if ($i == 0) {
                     $mrgin = "margin-top:5%;";
+                    $mrgin1 = "margin-bottom:20%;";
+                } elseif ($i == ($table - 1)) {
+                    $mrgin = "margin-top:5%;";
+                    $mrgin1 = "margin-bottom:5%;";
                 } else {
-                    $mrgin = "margin-top:20%;";
+                    $mrgin = "margin-top:5%;";
+                    $mrgin1 = "margin-bottom:20%;";
                 }
-                $data .= '<table id="example3" class=" table-bordered table-striped" width="800" style="' . $mrgin . '" >
+                $data .= '<table id="example3" class=" table-bordered table-striped" width="800" style="' . $mrgin . $mrgin1 . '" >
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
                                         <th>Company</th>
@@ -922,7 +932,7 @@ class Invoice_comp_report extends CI_Controller {
                 $place_of_supply_2a = array();
                 $taxable_value = array();
                 $tax = array();
-                $query2 = $this->db->query("select * from gstr_2a_reconciliation_partially_match_summary where customer_id='$customer_id' and insert_id='$insert_id' and status='Partly_Mat' LIMIT $min_value,40 ");
+                $query2 = $this->db->query("select * from gstr_2a_reconciliation_partially_match_summary where customer_id='$customer_id' and insert_id='$insert_id' and status='Partly_Mat' LIMIT $min_value,35 ");
                 $result = $query2->result();
                 foreach ($result as $row) {
 
@@ -964,14 +974,14 @@ class Invoice_comp_report extends CI_Controller {
 //                    '</tr>';
 
 
-                $min_value = $min_value + 40;
+                $min_value = $min_value + 35;
                 $response['data'] = $data;
                 $response['message'] = "success";
                 $response['status'] = true;
                 $response['code'] = 200;
             }
 
-            $data1 .= "<hr><h4><b>Observation:</b></h4>"
+            $data1 .= "<h4><b>Observation:</b></h4>"
                     . "<span>Cross check the mismatched invoice no., POS and Period with the client in order to prevent any confusion or else it will effect on your ITC."
                     . " Data master review needs to be done and root-cause analysis will help to minimize this errors.</span>";
             $response['data1'] = $data1;
