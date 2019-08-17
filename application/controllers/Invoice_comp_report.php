@@ -412,7 +412,7 @@ class Invoice_comp_report extends CI_Controller {
             $data .= '<h4 style="color:#1d2f66"><b>1.Not in GSTR-2A,but recorderd under purchasers book:</b></h4>';
 
             $records = count($query);
-            $show = $records / 15;
+            $show = $records / 50;
             $table = ceil($show);
             $min_value = 1;
             for ($i = 0, $k = 1; $i < $table; $i++) {
@@ -423,7 +423,7 @@ class Invoice_comp_report extends CI_Controller {
                 <div class="row">
                     <div class="col-md-12" id="div_notin2a_data">
                         <div class="">
-                         <table id="not_in2a_data" class="table table-bordered table-striped">
+                         <table id="not_in2a_data" class=" table-bordered table-striped" width="800">
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
                                         <th>Company Name</th>
@@ -441,7 +441,7 @@ class Invoice_comp_report extends CI_Controller {
                 $invoice_value = array();
                 $taxable_value = array();
                 $tax = array();
-                $query2 = $this->db->query("select * from gstr_2a_reconciliation_all where status='not_in_2a' and customer_id='$customer_id'and insert_id='$insert_id' LIMIT $min_value,15");
+                $query2 = $this->db->query("select * from gstr_2a_reconciliation_all where status='not_in_2a' and customer_id='$customer_id'and insert_id='$insert_id' LIMIT $min_value,50");
                 $result = $query2->result();
                 foreach ($result as $row) {
 
@@ -462,7 +462,7 @@ class Invoice_comp_report extends CI_Controller {
                     $k++;
                 }
                 $data .= '</tbody></table></div></div></div>';
-                $min_value = $min_value + 15;
+                $min_value = $min_value + 50;
                 $response['data'] = $data;
                 $response['message'] = "success";
                 $response['status'] = true;
@@ -657,7 +657,7 @@ class Invoice_comp_report extends CI_Controller {
 
         if ($query != FALSE) {
             $records = count($query);
-            $show = $records / 13;
+            $show = $records / 50;
             $table = ceil($show);
             $min_value = 1;
             $data .= '<h4 style="color:#1d2f66"><b>2.Not in records,but recorded under GSTR-2A:</b></h4>';
@@ -669,19 +669,9 @@ class Invoice_comp_report extends CI_Controller {
                 //query logics
 
                 $data .= '
-                <div class="row">
-                <div class="col-md-12">
-               
-                </div>
-                </div>
-            <div class="row">
                     <div class="col-md-12" id="div_notrecord_data">
                         <div class="">
-
-                         <table id="example_not_in_rec" class="table table-bordered table-striped">
-
-                         <table id="not_record_data" class="table table-bordered table-striped" style=" page-break-after:auto">
-
+                         <table id="not_record_data" class=" table-bordered table-striped" width="800">
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
                                         <th>Company Name</th>
@@ -695,7 +685,7 @@ class Invoice_comp_report extends CI_Controller {
                                     </tr>
                                 </thead>
                                 <tbody>';
-                $query2 = $this->db->query("select * from gstr_2a_reconciliation_all where status='not_in_rec' and customer_id='$customer_id'and insert_id='$insert_id' LIMIT $min_value,13 ");
+                $query2 = $this->db->query("select * from gstr_2a_reconciliation_all where status='not_in_rec' and customer_id='$customer_id'and insert_id='$insert_id' LIMIT $min_value,50 ");
                 $result = $query2->result();
                 foreach ($result as $row) {
 //                    $invoice_value[] = $row->invoice_value;
@@ -713,7 +703,7 @@ class Invoice_comp_report extends CI_Controller {
                             '</tr>';
                     $k++;
                 }
-                $data .= '</table></div></div></div>';
+                $data .= '</table></div></div>';
                 $response['data'] = $data;
 //                $response['data1'] = $data1;
                 $response['message'] = "success";
@@ -721,7 +711,7 @@ class Invoice_comp_report extends CI_Controller {
                 $response['code'] = 200;
 
                 //query logics
-                $min_value = $min_value + 15;
+                $min_value = $min_value + 50;
 //                $max_value = ($max_value ) + 15;
             }
             $data1 = "<h4><b>Observation:</b></h4>"
@@ -896,28 +886,22 @@ class Invoice_comp_report extends CI_Controller {
         if ($query != FALSE) {
             $data .= '<h4 style="color:#1d2f66"><b>3.Invoice no.,POS and Period mismatch:</b></h4>';
             $records = count($query);
-            $show = $records / 10;
+            $show = $records / 40;
             $table = ceil($show);
             $min_value = 1;
             for ($i = 0, $k = 1; $i < $table; $i++) {
-                $data .= '<div class="row">
-                <div class="col-md-12">
-               
-                </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="">
-                         <table id="example3" class="table table-bordered table-striped">
+                $data .= '
+                
+                         <table id="example3" class=" table-bordered table-striped" width="800">
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
-                                        <th>Company Name</th>
-                                        <th>Period of as per Records</th>
-                                        <th>Invoice No as per Records</th>
-                                        <th>Place Of Supply as per Records</th>
-                                        <th>Period of as per GSTR-2A</th>
-                                        <th>Invoice No as per GSTR-2A</th>
-                                        <th>Place Of Supply as per GSTR-2A</th>
+                                        <th>Company</th>
+                                        <th>Period (Records)</th>
+                                        <th>Invoice No (Records)</th>
+                                        <th>POS (Records)</th>
+                                        <th>Period (GSTR-2A)</th>
+                                        <th>Invoice No (GSTR-2A)</th>
+                                        <th>POS (GSTR-2A)</th>
                                         <th>Taxable Value Difference</th>
                                         <th>Tax Difference</th>
                                     </tr>
@@ -933,7 +917,7 @@ class Invoice_comp_report extends CI_Controller {
                 $place_of_supply_2a = array();
                 $taxable_value = array();
                 $tax = array();
-                $query2 = $this->db->query("select * from gstr_2a_reconciliation_partially_match_summary where customer_id='$customer_id' and insert_id='$insert_id' and status='Partly_Mat' LIMIT $min_value,10 ");
+                $query2 = $this->db->query("select * from gstr_2a_reconciliation_partially_match_summary where customer_id='$customer_id' and insert_id='$insert_id' and status='Partly_Mat' LIMIT $min_value,40 ");
                 $result = $query2->result();
                 foreach ($result as $row) {
 
@@ -960,7 +944,7 @@ class Invoice_comp_report extends CI_Controller {
                             '</tr>';
                     $k++;
                 }
-                $data .= '</tbody></table></div></div></div>';
+                $data .= '</tbody></table>';
 //            $data .= '<tr>' .
 //                    '<td>' . "<b>Total</b>" . '</td>' .
 //                    '<td>' . "" . '</td>' .
@@ -975,7 +959,7 @@ class Invoice_comp_report extends CI_Controller {
 //                    '</tr>';
 
 
-                $min_value = $min_value + 15;
+                $min_value = $min_value + 40;
                 $response['data'] = $data;
                 $response['message'] = "success";
                 $response['status'] = true;
