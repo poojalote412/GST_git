@@ -669,11 +669,11 @@ class Invoice_comp_report extends CI_Controller {
                 //query logics
                 if ($i == 0) {
                     $mrgin = "margin-top:5%;";
-                }else{
-                    $mrgin = "margin-top:5%;";
+                } else {
+                    $mrgin = "margin-top:25%;";
                 }
                 $data .= '
-                         <table id="not_record_data" class="table-bordered table-striped" width="800" style="margin-top:20%;">
+                         <table id="not_record_data" class="table-bordered table-striped" width="800" style="' . $mrgin . '">
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
                                         <th>Company Name</th>
@@ -892,9 +892,12 @@ class Invoice_comp_report extends CI_Controller {
             $table = ceil($show);
             $min_value = 1;
             for ($i = 0, $k = 1; $i < $table; $i++) {
-                $data .= '
-                
-                         <table id="example3" class=" table-bordered table-striped" width="800" style="margin-top:20%;" >
+                if ($i == 0) {
+                    $mrgin = "margin-top:5%;";
+                } else {
+                    $mrgin = "margin-top:20%;";
+                }
+                $data .= '<table id="example3" class=" table-bordered table-striped" width="800" style="' . $mrgin . '" >
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
                                         <th>Company</th>
