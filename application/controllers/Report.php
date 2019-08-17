@@ -316,10 +316,7 @@ class Report extends CI_Controller {
 
             $get_bg_color = $this->get_bg_color_fun($time_over_run3, $internal_control3, $transaction_mismatch3, $deviation_itc3, $deviation_output3, $gst_payable3);
 //            $data1 .= '<h3><b>6.Issue Matrix</b></h3>';
-            $data .= '<div class="row">
-                    <div class="col-md-12">
-                        <div class="">
-                         <table id="heat_map_tbl_id" class="table table-bordered table-striped">
+            $data .= '<table id="heat_map_tbl_id" class="table-bordered table-striped" width="800">
                                 <thead style="color:white">
                                     <tr>
                                         <th bgcolor="#C7273D" height="20">No.</th>
@@ -379,7 +376,7 @@ class Report extends CI_Controller {
                                 <td>' . $gst_payable2 . '</td>
                                 <td bgcolor="' . $get_bg_color[5] . '">' . $gst_payable3 . '</td>
                                 </tr>
-                                </tbody></table></div></div></div>';
+                                </tbody></table>';
             $likelihood_impact = [[$time_over_run1, $time_over_run2], [$internal_control1, $internal_control2], [$transaction_mismatch1, $transaction_mismatch2],
                 [$deviation_itc1, $deviation_itc2], [$deviation_output1, $deviation_output2], [$gst_payable1, $gst_payable2]];
             $likelihood_risk = [[$time_over_run1, $time_over_run3], [$internal_control1, $internal_control3], [$transaction_mismatch1, $transaction_mismatch3],

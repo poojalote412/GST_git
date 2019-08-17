@@ -1457,10 +1457,7 @@ class Management_report extends CI_Controller {
         if ($query->num_rows() > 0) {
             $result = $query->result();
             $data .= "<h4><b>2.Sales Tax Rate Wise</b></h4>";
-            $data .= '<div class="row">
-                    <div class="col-md-12">
-                        <div class="">
-                         <table id="example2" class="table table-bordered table-striped">
+            $data .= '<table id="example2" class="table-bordered table-striped" width="800">
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
                                         <th>#</th>
@@ -1495,7 +1492,7 @@ class Management_report extends CI_Controller {
                     '<td><b>' . round((($row->rate_18) / ($total_value)) * 100) . '%</b></td>' .
                     '<td><b>' . round((($row->rate_28) / ($total_value)) * 100) . '%</b></td>' .
                     '</tr>';
-            $data .= "</tbody></table></div></div></div>";
+            $data .= "</tbody></table>";
             $get_observation = $this->db->query("select rate_wise_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
             if ($this->db->affected_rows() > 0) {
                 $res = $get_observation->row();

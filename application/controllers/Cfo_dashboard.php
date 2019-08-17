@@ -86,10 +86,7 @@ class Cfo_dashboard extends CI_Controller {
             $turnover1 = array();
             $tax_liabality1 = array();
             $ratio_val = array();
-            $data .= '<div class="row">
-                    <div class="col-md-12">
-                        <div class="">
-                         <table id="example2" class="table table-bordered table-striped">
+            $data .= '<table id="example2" class="table-bordered table-striped" width="800">
                                 <thead style="background-color: #FE6666;color:white">
                                     <tr>
                                         <th>No.</th>
@@ -130,7 +127,7 @@ class Cfo_dashboard extends CI_Controller {
                     '<td>' . '<b>' . array_sum($tax_liabality1) . '</b>' . '</td>' .
                     '<td>' . '<b>' . array_sum($ratio_val) . "%" . '</b>' . '</td>' .
                     '</tr>';
-            $data .= '</tbody></table></div></div></div>';
+            $data .= '</tbody></table>';
 //         echo   max($ratio_val);
 //         echo   min($ratio_val);
             $url = base_url() . "update_detail/" . base64_encode($customer_id) . "/" . base64_encode($insert_id);
@@ -142,8 +139,7 @@ class Cfo_dashboard extends CI_Controller {
                 } else {
                     $observation = "";
                 }
-                $data .= '<div class="col-md-12">
-                                    <label><h4><b>Observation of CFO:</b></h4></label><span class="required" aria-required="true"> </span>
+                $data .= '<label><h4><b>Observation of CFO:</b></h4></label><span class="required" aria-required="true"> </span>
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="fa fa-eye"></i>
@@ -151,10 +147,9 @@ class Cfo_dashboard extends CI_Controller {
                                         <textarea class="form-control" rows="5" id="cfo_observation" name="cfo_observation" onkeyup="countWords(this.id);">' . $observation . '</textarea>
                                     </div>
                                     <span class="required" style="color: red" id="cfo_observation_error"></span> 
-                                </div><br>';
+                                <br>';
             } else {
-                $data .= '<div class="col-md-12">
-                                    <label><h4><b>Observation of CFO:</b></h4></label><span class="required" aria-required="true"> </span>
+                $data .= '<label><h4><b>Observation of CFO:</b></h4></label><span class="required" aria-required="true"> </span>
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="fa fa-eye"></i>
@@ -162,7 +157,7 @@ class Cfo_dashboard extends CI_Controller {
                                         <textarea class="form-control" rows="5" id="cfo_observation" name="cfo_observation"  onkeyup="countWords(this.id);">Percentage of GST payable to turnover is not stable for F.Y. 2017-18 it varies from ' . min($ratio_val) . '% to ' . max($ratio_val) . '%.</textarea>
                                     </div>
                                     <span class="required" style="color: red" id="cfo_observation_error"></span> 
-                                </div><br>';
+                                <br>';
             }
 
 

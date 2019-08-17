@@ -511,10 +511,7 @@ class Internal_acc_report extends CI_Controller {
                 $new_net_rtc[] = $net_rtc[$m] - $debit_tax[$m] . '<br>';
             }
             $data2 .='<h4 style="color:#1d2f66"><b>3. Overview of Tax Liability:</b></h4>';
-            $data .= '<div class="row">
-                    <div class="col-md-12">
-                        <div class="">
-                         <table id="example2" class="table table-bordered table-striped">
+            $data .= '<table id="example2" class="table-bordered table-striped" width="800">
                                 <thead style="background-color: #FE6666;color:white">
                                     <tr>
                                         <th>No.</th>
@@ -557,7 +554,7 @@ class Internal_acc_report extends CI_Controller {
                     '<td>' . '<b>' . array_sum($paid_cash) . '</b> ' . '</td>' .
                     '<td>' . '<b>' . array_sum($late_fee) . '</b> ' . '</td>' .
                     '</tr>';
-            $data .= '</tbody></table></div></div></div>';
+            $data .= '</tbody></table>';
             $get_observation = $this->db->query("select tax_liability_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id'");
             if ($this->db->affected_rows() > 0) {
                 $res = $get_observation->row();
@@ -878,10 +875,7 @@ class Internal_acc_report extends CI_Controller {
             $data1 = ""; //view observations
             $data2= ""; //View table name
             $data2 .= '<h4 style="color:#1d2f66"><b>1. Overview of Turnover</b></h4><br>';
-            $data .= '<div class="row">
-                    <div class="col-md-12">
-                        <div class="">
-                         <table id="example2" class="table table-bordered table-striped">
+            $data .= '<table id="example2" class="table-bordered table-striped" width="800">
                                 <thead style="background-color: #FE6666;color:white">
                                     <tr>
                                         <th>No.</th>
@@ -942,7 +936,7 @@ class Internal_acc_report extends CI_Controller {
                     '<td>' . '<b>' . array_sum($taxable_value) . '</b>' . '</td>' .
                     '<td>' . '<b>' . array_sum($tax_ratio) . "%" . '</b>' . '</td>' .
                     '</tr>';
-            $data .= '</tbody></table></div></div></div>';
+            $data .= '</tbody></table>';
             $max_ratio = max($tax_ratio);
 
 //            $average = array_sum($tax_ratio1) / count($tax_ratio);
@@ -954,7 +948,7 @@ class Internal_acc_report extends CI_Controller {
                 $observation = "";
             }
 
-            $data1 .= "<div class='col-md-12'><br><h4><b>Observation :</b></h4><span>" . $observation . "</span></div>";
+            $data1 .= "<br><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
             // loop to get graph data as per graph script requirement
             $abc1 = array();
             $abc2 = array();
@@ -1224,10 +1218,7 @@ class Internal_acc_report extends CI_Controller {
             $data2 = ""; //view table name
             
            $data2 .= '<h4 style="color:#1d2f66"><b>5. Eligible and Inligible Credit:</b></h4><br>';
-            $data .= '<div class="row">
-                    <div class="col-md-12">
-                        <div class="">
-                         <table id="example2" class="table table-bordered table-striped">
+            $data .= '<table id="example2" class="table-bordered table-striped" width="800">
                                 <thead style="background-color: #FE6666;color:white">
                                     <tr>
                                         <th>No.</th>
@@ -1271,7 +1262,7 @@ class Internal_acc_report extends CI_Controller {
                     '<td>' . '<b>' . "" . '</b>' . '</td>' .
                     '<td>' . '<b>' . "" . '</b>' . '</td>' .
                     '</tr>';
-            $data .= '</tbody></table></div></div></div>';
+            $data .= '</tbody></table>';
             $get_observation = $this->db->query("select eligible_ineligible_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
             if ($this->db->affected_rows() > 0) {
                 $res = $get_observation->row();
@@ -1522,10 +1513,7 @@ class Internal_acc_report extends CI_Controller {
             $data2 = ""; //view table name
             $data2 .= '<h4 style="color:#1d2f66"><b>4. GST Payable V/s Cash:</b></h4><br>';
             
-            $data .= '<div class="row">
-                    <div class="col-md-12">
-                        <div class="">
-                         <table id="example2" class="table table-bordered table-striped">
+            $data .= '<table id="example2" class="table-bordered table-striped" width="800">
                                 <thead style="background-color: #FE6666;color:white">
                                     <tr>
                                         <th>No.</th>
@@ -1572,7 +1560,7 @@ class Internal_acc_report extends CI_Controller {
                     '<td>' . '<b>' . array_sum($paid_in_cash_arr) . '</b>' . '</td>' .
                     '<td>' . '<b>' . "" . '</b>' . '</td>' .
                     '</tr>';
-            $data .= '</tbody></table></div></div></div>';
+            $data .= '</tbody></table>';
 
             $max_percent = max($percent_arr);
             $min_percent = min($percent_arr);

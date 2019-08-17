@@ -212,10 +212,7 @@ class Threeb_vs_twoa extends CI_Controller {
             $gstr2a4 = array();
             $months = array();
             $data2 .= '<h4><b>1.GSTR3B VS. GSTR2A -Input Tax Credit Reconcillation</b></h4>';
-            $data .= '<div class="row">
-                    <div class="col-md-12">
-                        <div class="">
-                         <table id="example2" class="table table-bordered table-striped">
+            $data .= '<table id="example2" class="table-bordered table-striped" width="800">
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
                                         <th>No.</th>
@@ -261,9 +258,9 @@ class Threeb_vs_twoa extends CI_Controller {
                     '<td>' . '<b>' . array_sum($difference2) . '</b>' . '</td>' .
                     '<td>' . '<b>' . array_sum($cumu_difference3) . '</b>' . '</td>' .
                     '</tr>';
-            $data .= '</tbody></table></div></div></div>';
+            $data .= '</tbody></table>';
 
-            $data1 .= "<div class='col-md-12'><br><br><h4><b>Observation of GSTR-3B vs GSTR-2A:</b></h4>";
+            $data1 .= "<br><br><h4><b>Observation of GSTR-3B vs GSTR-2A:</b></h4>";
             if ($thb > $twa) {
                 $data1 .= '<span>GSTR-3B > 2A, ITC declared and ITC claimed is showing a huge difference as either the company has taken excess credit or vendor has not recorded our purchases in his GSTR 1. '
                         . 'This may lead to interest liability & penalties notices or permanent loss of credit if vendor is not informed and corrective action is not taken by such vendor.</span></div>';
@@ -271,7 +268,7 @@ class Threeb_vs_twoa extends CI_Controller {
                 $data1 .= '<span>GSTR-3B < 2A, company need to check the eligibility and ineligibility of credit reflecting in GSTR-2A & prepare a reconciliation statement accordingly. There may be the case where input tax credit has not been taken by the company on its genuine eligible input credit. '
                         . 'This may lead to a huge loss of working Capital & also permanent loss of credit if corrective actions not taken immediately.</span></div>';
             } else {
-                $data1 .= '<span>No difference.</span></div>';
+                $data1 .= '<span>No difference.</span>';
             }
             $abc = array();
             $abc3 = array();

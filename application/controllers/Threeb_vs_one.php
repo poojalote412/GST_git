@@ -230,10 +230,7 @@ class Threeb_vs_one extends CI_Controller {
             $difference4 = array();
             $cumu_difference5 = array();
             $data2 .= '<h4><b>2.GSTR3B VS. GSTR1 - Output Liability Reconcillation</b></h4>';
-            $data .= '<div class="row">
-                    <div class="col-md-12">
-                        <div class="">
-                         <table id="example2" class="table table-bordered table-striped">
+            $data .= '<table id="example2" class="table-bordered table-striped" width="800">
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
                                         <th>No.</th>
@@ -279,17 +276,17 @@ class Threeb_vs_one extends CI_Controller {
                     '<td>' . '<b>' . array_sum($difference4) . '</b>' . '</td>' .
                     '<td>' . '<b>' . array_sum($cumu_difference5) . '</b>' . '</td>' .
                     '</tr>';
-            $data .= '</tbody></table></div></div></div><br><br><br><br>';
+            $data .= '</tbody></table><br><br><br><br>';
 
             if ($ttl1 > $ttl2) {
-                $data1 .= "<div class='col-md-12'><br><br><h4><b>Observation of GSTR-3B vs GSTR-1:</b></h4>";
+                $data1 .= "<br><br><h4><b>Observation of GSTR-3B vs GSTR-1:</b></h4>";
                 $data1 .= '<span><b>1.</b>Value of GSTR-3B is greater than GSTR-1 ,It may impact your vendor relationshion and they shall not get the input tax credit though you have correctly paid the tax on such sales.<br></div>';
             } elseif ($ttl2 > $ttl1) {
                 $data1 .= "<hr><h4><b>Observation of GSTR-3B vs GSTR-1:</b></h4>";
                 $data1 .= '<span><b>1.</b> Value of GSTR-1 is greater than GSTR-3B ,Then it mean that output tax liability has not  been paid to govt. in full in comparision to the output tax liability reflected in sales return, this may lead to interest penalties,GST notices & also effect your gst rating leading to adverse GST scrutinies selection.<br></div>';
             } else {
                 $data1 .= "<hr><h4><b>Observation of GSTR-3B vs GSTR-1:</b></h4></div>";
-                $data1 .= 'No difference.</div>';
+                $data1 .= 'No difference.';
             }
 
 
