@@ -245,6 +245,8 @@ class Report extends CI_Controller {
             $respose['message'] = "";
         }echo json_encode($respose);
     }
+    
+    
 
     public function update_detail_fun($customer_id = '', $insert_id = '') { //function to load update page
         $customer_id1 = base64_decode($customer_id);

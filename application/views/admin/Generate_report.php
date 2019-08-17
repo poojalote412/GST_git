@@ -269,8 +269,25 @@ if (is_array($session_data)) {
 
 
                         <div class="test" style="page-break-before:always;margin-top:30px">
-                            <h3><b>6.Issue Matrix</b></h3>
-                            <div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/IssueMatrix.jpg" width="600px" height="50px" style=""></div>  
+                            <div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/IssueMatrix.jpg" style="width:700px" height="100px" style=""></div><br><br>  
+                            <div id="heat_map_tbl" style="width:850px"></div>
+                            <div id="container_heat_map" style="width:700px"></div>
+                        </div>
+                        
+                         <div class="test" style="page-break-before:always;margin-top:50px">
+                            <div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="900px" height="900px" style=""></div><br><br>  
+                            <div id="heat_map_tbl" style="width:850px"></div>
+                            <div id="container_heat_map" style="width:700px"></div>
+                        </div>
+                        
+                        <div class="test" style="page-break-before:always;margin-top:50px">
+                            <div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/about.jpg" width="900px" height="900px" style=""></div><br><br>  
+                            <div id="heat_map_tbl" style="width:850px"></div>
+                            <div id="container_heat_map" style="width:700px"></div>
+                        </div>
+                        
+                        <div class="test" style="page-break-before:always;margin-top:50px">
+                            <div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/OurServicesPage.jpg" width="900px" height="900px" style=""></div><br><br>  
                             <div id="heat_map_tbl" style="width:850px"></div>
                             <div id="container_heat_map" style="width:700px"></div>
                         </div>
@@ -914,6 +931,7 @@ if (is_array($session_data)) {
                 if (result.message === "success") {
 
                     var data = result.data;
+                    var data1 = result.data1;
                     $('#compare_sales_ratewise_data').html("");
                     $('#compare_sales_ratewise_data').html(data);
                     $('#compare_sales_ratewise_data1').html(data1);
