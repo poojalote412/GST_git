@@ -203,12 +203,12 @@ class Report extends CI_Controller {
 
 
             $final_value = ($time_over_run3) * 10 + ($internal_control1) * 20 + ($transaction_mismatch3) * 20 + ($deviation_output3) * 20 + ($gst_payable3) * 10;
-            if ($final_value > 100 && $final_value < 500) {
-                $bg_clr1 = "#74D56F";
-            } elseif ($final_value > 500 && $final_value < 1000) {
-                $bg_clr1 = "#D8D824";
+            if ($final_value > 100 && $final_value <= 500) {
+                $bg_clr1 = "#009746";
+            } elseif ($final_value >= 501 && $final_value <= 1000) {
+                $bg_clr1 = "#feed00";
             } else {
-                $bg_clr1 = "#eb5c3d";
+                $bg_clr1 = "#e31e25";
             }
 
             $get_bg_color = $this->get_bg_color_fun($time_over_run3, $internal_control3, $transaction_mismatch3, $deviation_itc3, $deviation_output3, $gst_payable3);
@@ -436,47 +436,47 @@ class Report extends CI_Controller {
 
     public function get_bg_color_fun($time_over_run3, $internal_control3, $transaction_mismatch3, $deviation_itc3, $deviation_output3, $gst_payable3) {
         if ($time_over_run3 > 0 && $time_over_run3 <= 6) {
-            $bg_clr1 = "#74D56F";
+            $bg_clr1 = "#009746";
         } elseif ($time_over_run3 > 6 && $time_over_run3 <= 11) {
-            $bg_clr1 = "#D8D824";
+            $bg_clr1 = "#feed00";
         } else {
-            $bg_clr1 = "#eb5c3d";
+            $bg_clr1 = "#e31e25";
         }
         if ($internal_control3 > 0 && $internal_control3 <= 6) {
-            $bg_clr2 = "#74D56F";
+            $bg_clr2 = "#009746";
         } elseif ($internal_control3 > 6 && $internal_control3 <= 11) {
-            $bg_clr2 = "#D8D824";
+            $bg_clr2 = "#feed00";
         } else {
-            $bg_clr2 = "#eb5c3d";
+            $bg_clr2 = "#e31e25";
         }
         if ($transaction_mismatch3 > 0 && $transaction_mismatch3 <= 6) {
-            $bg_clr3 = "#74D56F";
+            $bg_clr3 = "#009746";
         } elseif ($transaction_mismatch3 > 6 && $time_over_run3 <= 11) {
-            $bg_clr3 = "#D8D824";
+            $bg_clr3 = "#feed00";
         } else {
-            $bg_clr3 = "#eb5c3d";
+            $bg_clr3 = "#e31e25";
         }
         if ($deviation_itc3 > 0 && $deviation_itc3 <= 6) {
-            $bg_clr4 = "#74D56F";
+            $bg_clr4 = "#009746";
         } elseif ($deviation_itc3 > 6 && $deviation_itc3 <= 11) {
-            $bg_clr4 = "#D8D824";
+            $bg_clr4 = "#feed00";
         } else {
-            $bg_clr4 = "#eb5c3d";
+            $bg_clr4 = "#e31e25";
         }
 //        echo $deviation_output3;
         if ($deviation_output3 > 0 && $deviation_output3 <= 6) {
-            $bg_clr5 = "#74D56F";
+            $bg_clr5 = "#009746";
         } elseif ($deviation_output3 > 6 && $deviation_output3 <= 11) {
-            $bg_clr5 = "#D8D824";
+            $bg_clr5 = "#feed00";
         } else {
-            $bg_clr5 = "#eb5c3d";
+            $bg_clr5 = "#e31e25";
         }
         if ($gst_payable3 > 0 && $gst_payable3 <= 6) {
-            $bg_clr6 = "#74D56F";
+            $bg_clr6 = "#009746";
         } elseif ($gst_payable3 > 6 && $gst_payable3 <= 11) {
-            $bg_clr6 = "#D8D824";
+            $bg_clr6 = "#feed00";
         } else {
-            $bg_clr6 = "#eb5c3d";
+            $bg_clr6 = "#e31e25";
         }
         return array($bg_clr1, $bg_clr2, $bg_clr3, $bg_clr4, $bg_clr5, $bg_clr6);
     }

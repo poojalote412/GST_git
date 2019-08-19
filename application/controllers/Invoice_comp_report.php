@@ -1290,11 +1290,26 @@ class Invoice_comp_report extends CI_Controller {
         $data1 = "";
         if ($query != FALSE) {
             $data1 .= '<h4 style="color:#0e385e"><b>2.Invoice not included in GSTR-1:</b></h4>';
-            $data .= '<div class="row">
+            $records = count($query);
+            $show = $records / 50;
+            $table = ceil($show);
+            $min_value = 0;
+            for ($i = 0; $i < $table; $i++) {
+                if ($i == 0) {
+                    $mrgin = "margin-top:5%;";
+                    $mrgin1 = "margin-bottom:20%;";
+                } elseif ($i == ($table - 1)) {
+                    $mrgin = "margin-top:7%;";
+                    $mrgin1 = "margin-bottom:5%;";
+                } else {
+                    $mrgin = "margin-top:7%;";
+                    $mrgin1 = "margin-bottom:20%;";
+                }
+                $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
-                         <table id="example_invoice_not_include" class="table table-bordered table-striped" style="width:40%">
-                                <thead style="background-color: #0e385e;color:white">
+                         <table id="example_invoice_not_include" class=" table-bordered table-striped" width:"800";style="' . $mrgin . $mrgin1 . '" >
+                                <thead style="background-color: #516b22;color:white">
                                     <tr>
                                         <th>Original Month</th>
                                         <th>Showing in month</th>
@@ -1305,19 +1320,17 @@ class Invoice_comp_report extends CI_Controller {
                                         <th>Name</th>
                                         <th>Invoice Value</th>
                                         <th>Taxable Value</th>
-                                        <th>IGST</th>
-                                        <th>CGST</th>
-                                        <th>SGST</th>
-                                        <th>CESS</th>
+                                        
                                         <th>Total Tax</th>
                                     </tr>
                                 </thead>
                                 <tbody>';
-            $k = 1;
-            foreach ($query as $row) {
+                $query2 = $this->db->query("select * from invoice_not_included_gstr1 where customer_id='$customer_id' and insert_id='$insert_id' LIMIT $min_value,50 ");
+                $result = $query2->result();
+                foreach ($result as $row) {
 
-                $data .= '<tr>' .
-                        '<td>' . $row->original_month . '</td>
+                    $data .= '<tr>' .
+                            '<td>' . $row->original_month . '</td>
                         <td>' . $row->showing_month . '</td>
                         <td>' . $row->category . '</td>
                         <td>' . $row->gstin_no . '</td>
@@ -1326,16 +1339,13 @@ class Invoice_comp_report extends CI_Controller {
                         <td>' . $row->name . '</td>
                         <td>' . $row->invoice_value . '</td>
                         <td>' . $row->taxable_value . '</td>
-                        <td>' . $row->igst . '</td>
-                        <td>' . $row->cgst . '</td>
-                        <td>' . $row->sgst . '</td>
-                        <td>' . $row->cess . '</td>
                         <td><b>' . ($row->igst + $row->cgst + $row->sgst + $row->cess) . '</b></td>
                         
                         </tr>';
-                $k++;
+                }
+                $data .= '</tbody></table></div></div></div>';
+                $min_value = $min_value + 50;
             }
-            $data .= '</tbody></table></div></div></div>';
             $get_observation = $this->db->query("select invoice_not_include_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
             if ($this->db->affected_rows() > 0) {
                 $res = $get_observation->row();
@@ -1665,13 +1675,13 @@ class Invoice_comp_report extends CI_Controller {
             $records = count($query);
             $show = $records / 15;
             $table = ceil($show);
-            $min_value = 1;
+            $min_value = 0;
             for ($i = 0; $i < $table; $i++) {
                 $data .= '<div class="row">
                     <div class="col-md-12">
                      <div class="">
                          <table id="example2" class=" table-bordered table-striped" style="width:90 !important">
-                                <thead style="background-color: #0e385e;color:white">
+                                <thead style="background-color: #516b22;color:white">
                                     <tr style="width:2px">
                                         <th>Original Month</th>
                                         <th>Include Month</th>
