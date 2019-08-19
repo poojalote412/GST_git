@@ -409,7 +409,7 @@ class Invoice_comp_report extends CI_Controller {
         $data = "";
         $data1 = "";
         if ($query != FALSE) {
-            $data .= '<h4 style="color:#1d2f66"><b>1.Not in GSTR-2A,but recorderd under purchasers book:</b></h4>';
+            $data .= '<h4 style="color:#0e385e"><b>1.Not in GSTR-2A,but recorderd under purchasers book:</b></h4>';
 
             $records = count($query);
             $show = $records / 50;
@@ -431,7 +431,7 @@ class Invoice_comp_report extends CI_Controller {
                 }
                 $data .= '
                          <table id="not_in2a_data" class=" table-bordered table-striped" width="800" style="' . $mrgin . $mrgin1 . '">
-                                <thead style="background-color: #00008B;color:white">
+                                <thead style="background-color: #0e385e;color:white">
                                     <tr>
                                         <th>Company Name</th>
                                         <th>Period</th>
@@ -667,7 +667,7 @@ class Invoice_comp_report extends CI_Controller {
             $show = $records / 46;
             $table = ceil($show);
             $min_value = 1;
-            $data .= '<h4 style="color:#1d2f66"><b>2.Not in records,but recorded under GSTR-2A:</b></h4>';
+            $data .= '<h4 style="color:#0e385e"><b>2.Not in records,but recorded under GSTR-2A:</b></h4>';
             for ($i = 0, $k = 1; $i < $table; $i++) {
                 $invoice_value = array();
                 $taxable_value = array();
@@ -686,7 +686,7 @@ class Invoice_comp_report extends CI_Controller {
                 }
                 $data .= '
                          <table id="not_record_data" class="table-bordered table-striped" width="800" style="' . $mrgin . $mrgin1 . '">
-                                <thead style="background-color: #00008B;color:white">
+                                <thead style="background-color: #0e385e;color:white">
                                     <tr>
                                         <th>Company Name</th>
                                         <th>Period</th>
@@ -898,7 +898,7 @@ class Invoice_comp_report extends CI_Controller {
         $data = "";
         $data1 = "";
         if ($query != FALSE) {
-            $data .= '<h4 style="color:#1d2f66"><b>3.Invoice no.,POS and Period mismatch:</b></h4>';
+            $data .= '<h4 style="color:#0e385e"><b>3.Invoice no.,POS and Period mismatch:</b></h4>';
             $records = count($query);
             $show = $records / 24;
             $table = ceil($show);
@@ -915,7 +915,7 @@ class Invoice_comp_report extends CI_Controller {
                     $mrgin1 = "margin-bottom:20%;";
                 }
                 $data .= '<table id="example3" class=" table-bordered table-striped" width="800" style="' . $mrgin . $mrgin1 . '" >
-                                <thead style="background-color: #00008B;color:white">
+                                <thead style="background-color: #0e385e;color:white">
                                     <tr>
                                         <th>Company</th>
                                         <th>Period (Records)</th>
@@ -1289,12 +1289,12 @@ class Invoice_comp_report extends CI_Controller {
         $data = "";
         $data1 = "";
         if ($query != FALSE) {
-            $data1 .= '<h4 style="color:#1d2f66"><b>2.Invoice not included in GSTR-1:</b></h4>';
+            $data1 .= '<h4 style="color:#0e385e"><b>2.Invoice not included in GSTR-1:</b></h4>';
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
                          <table id="example_invoice_not_include" class="table table-bordered table-striped" style="width:40%">
-                                <thead style="background-color: #00008B;color:white">
+                                <thead style="background-color: #0e385e;color:white">
                                     <tr>
                                         <th>Original Month</th>
                                         <th>Showing in month</th>
@@ -1661,7 +1661,7 @@ class Invoice_comp_report extends CI_Controller {
         $data = "";
         $data1 = "";
         if ($query != FALSE) {
-            $data .= '<h4 style="color:#1d2f66"><b>1.Invoice amends in other than original period Analysis:</b></h4>';
+            $data .= '<h4 style="color:#0e385e"><b>1.Invoice amends in other than original period Analysis:</b></h4>';
             $records = count($query);
             $show = $records / 15;
             $table = ceil($show);
@@ -1671,7 +1671,7 @@ class Invoice_comp_report extends CI_Controller {
                     <div class="col-md-12">
                      <div class="">
                          <table id="example2" class=" table-bordered table-striped" style="width:90 !important">
-                                <thead style="background-color: #00008B;color:white">
+                                <thead style="background-color: #0e385e;color:white">
                                     <tr style="width:2px">
                                         <th>Original Month</th>
                                         <th>Include Month</th>

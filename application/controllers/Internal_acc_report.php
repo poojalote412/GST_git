@@ -512,7 +512,7 @@ class Internal_acc_report extends CI_Controller {
             }
             $data2 .='<h4 style="color:#1d2f66"><b>3. Overview of Tax Liability:</b></h4>';
             $data .= '<table id="example2" class="table-bordered table-striped" width="800">
-                                <thead style="background-color: #FE6666;color:white">
+                                <thead style="background-color: #cd273f;color:white">
                                     <tr>
                                         <th>No.</th>
                                         <th>Month</th>
@@ -876,7 +876,7 @@ class Internal_acc_report extends CI_Controller {
             $data2= ""; //View table name
             $data2 .= '<h4 style="color:#1d2f66"><b>1. Overview of Turnover</b></h4><br>';
             $data .= '<table id="example2" class="table-bordered table-striped" width="800">
-                                <thead style="background-color: #FE6666;color:white">
+                                <thead style="background-color: #cd273f;color:white">
                                     <tr>
                                         <th>No.</th>
                                         <th>Month</th>
@@ -1219,7 +1219,7 @@ class Internal_acc_report extends CI_Controller {
             
            $data2 .= '<h4 style="color:#1d2f66"><b>5. Eligible and Inligible Credit:</b></h4><br>';
             $data .= '<table id="example2" class="table-bordered table-striped" width="800">
-                                <thead style="background-color: #FE6666;color:white">
+                                <thead style="background-color: #cd273f;color:white">
                                     <tr>
                                         <th>No.</th>
                                         <th>Month</th>
@@ -1514,7 +1514,7 @@ class Internal_acc_report extends CI_Controller {
             $data2 .= '<h4 style="color:#1d2f66"><b>4. GST Payable V/s Cash:</b></h4><br>';
             
             $data .= '<table id="example2" class="table-bordered table-striped" width="800">
-                                <thead style="background-color: #FE6666;color:white">
+                                <thead style="background-color: #cd273f;color:white">
                                     <tr>
                                         <th>No.</th>
                                         <th>Month</th>

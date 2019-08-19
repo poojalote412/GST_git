@@ -294,8 +294,8 @@ xepOnline.mobilecheck = function() {
 }
 
 xepOnline.DEFAULTS = {
-	pageWidth:"9.5in",
-	pageHeight:"13.5in",
+	pageWidth:"8.27in",
+	pageHeight:"11.69in",
 	pageMargin:".10in"
 };
 

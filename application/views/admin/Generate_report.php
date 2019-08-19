@@ -52,6 +52,13 @@ if (is_array($session_data)) {
             overflow: auto; 
             width: 600px;
         }*/
+    
+    tr{
+        text-align: center;
+    }
+    th{
+        text-align: center;
+    }
 </style>
 
 <div class="content-wrapper">
@@ -152,9 +159,9 @@ if (is_array($session_data)) {
 
                                     <!--Details of GST Reports & insights-->
                                     <div class="test" style="page-break-before:always;margin-top:120px;">
-                                        <h4 style="color:#1d2f66;"><b>6.DETAILS OF GST REPORTS AND INSIGHTS</b></h4>
-                                        <p style="background:#1d2f66; color:white;width:700px;text-align:center">DATA INSIGHTS</p>
-                                        <h4 style="color:#1d2f66"><b>A.MANAGEMENT REPORT</b></h4><br>
+                                        <h4 style="color:#0e385e;"><b>6.DETAILS OF GST REPORTS AND INSIGHTS</b></h4>
+                                        <p style="background:#0e385e; color:white;width:700px;text-align:center">DATA INSIGHTS</p>
+                                        <h4 style="color:#0e385e"><b>A.MANAGEMENT REPORT</b></h4><br>
                                         <div id="sales_monthly_data2"></div>
                                         <div id="container_sales_month_wise"  style="width:700px;"></div>
                                         <div id="sales_monthly_data1" style="width:700px"></div>
@@ -182,7 +189,7 @@ if (is_array($session_data)) {
 
                                         <!--Comparison & Deviation Report-->
                                         <div class="test" style="page-break-before:always;margin-top:140px">
-                                            <h4 style="color:#1d2f66;"><b>B.COMPARISON AND DEVIATION REPORT</b></h4>
+                                            <h4 style="color:#0e385e;"><b>B.COMPARISON AND DEVIATION REPORT</b></h4>
                                             <div id="compare_GSTR3B_Vs2_data2" style="width:700px"></div>
                                             <div id="compare_GSTR3B_Vs2_data" style="width:700px"></div><br><br>
                                             <div id="container_GSTR3b_vs_2A"  style="width:700px;"></div>
@@ -198,8 +205,8 @@ if (is_array($session_data)) {
 
                                         <!--BAROMETER CFO DASHBOARD-->
                                         <div class="test" style="page-break-before:always;margin-top:140px">
-                                            <p style="background:#FE6666; color:white;padding:4px;border:1px solid;width:700px;text-align:center"><b>BAROMETER-CFO DASHBOARD</b></p>
-                                            <h4 style="color:#1d2f66;"><b>A. CFO DASHBOARD</b></h4>
+                                            <p style="background:#cd273f; color:white;padding:4px;border:1px solid;width:700px;text-align:center"><b>BAROMETER-CFO DASHBOARD</b></p>
+                                            <h4 style="color:#0e385e;"><b>A. CFO DASHBOARD</b></h4>
                                             <div id="tax_turnover_data2" style="width:700px"></div>
                                             <div id="tax_turnover_data" style="width:700px"></div><br><br>
                                             <div id="container_tax_turnover"  style="width:700px;"></div>
@@ -236,8 +243,8 @@ if (is_array($session_data)) {
 
                                         <!--InFORMATION COMPARISON-->
                                         <div class="test" style="page-break-before:always;margin-top:10px">
-                                            <p style="background:#017101; color:white;width:700px;text-align:center"><b>INFORMATION COMPARISON</b></p>
-                                            <h4 style="color:#1d2f66;"><b>A. COMPLIANCE REPORT</b></h4>
+                                            <p style="background:#516b22; color:white;width:700px;text-align:center"><b>INFORMATION COMPARISON</b></p>
+                                            <h4 style="color:#0e385e;"><b>A. COMPLIANCE REPORT</b></h4>
                                             <div id="gstr3B_data1" style="width:700px"></div>
                                             <div id="gstr3B_data" style="width:700px;padding: 0px"></div>
                                             <div id="gstr1_data1" style="width:700px"></div>
@@ -246,7 +253,7 @@ if (is_array($session_data)) {
 
 
                                         <div class="test" style="page-break-before:always;margin-top:100px">
-                                            <h4 style="color:#1d2f66;"><b>B. INTERNAL CONTROL REPORT</b></h4>
+                                            <h4 style="color:#0e385e;"><b>B. INTERNAL CONTROL REPORT</b></h4>
 
                                             <div id="invoice_ammend_original_data" style="margin-top:20px;"></div>
                                             <div id="invoice_ammend_original_data1" style="margin-top:10px;"></div>
@@ -260,7 +267,7 @@ if (is_array($session_data)) {
                                         </div>
 
                                         <div class="test" style="page-break-before:always;margin-top:20px">
-                                            <h4 style="color:#1d2f66;"><b>C. INVOICE WISE COMPARISON OR MISMATCH REPORT</b></h4>
+                                            <h4 style="color:#0e385e;"><b>C. INVOICE WISE COMPARISON OR MISMATCH REPORT</b></h4>
                                             <div id="company_all_notin2a_data" style="margin-top:20px"></div>
                                             <div id="company_all_notin2a_data1" style="margin-top:20px"></div>
                                         </div>
@@ -343,6 +350,8 @@ if (is_array($session_data)) {
                                         $(document).ready(function () {
                                             var customer_id = document.getElementById("customer_id").value;
                                             var insert_id = document.getElementById("insert_id").value;
+                                            
+                                            
                                             $.ajax({
                                                 type: "post",
                                                 url: "<?= base_url("Report/get_content_pdf1") ?>",

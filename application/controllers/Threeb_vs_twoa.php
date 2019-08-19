@@ -213,7 +213,7 @@ class Threeb_vs_twoa extends CI_Controller {
             $months = array();
             $data2 .= '<h4><b>1.GSTR3B VS. GSTR2A -Input Tax Credit Reconcillation</b></h4>';
             $data .= '<table id="example2" class="table-bordered table-striped" width="800">
-                                <thead style="background-color: #00008B;color:white">
+                                <thead style="background-color: #0e385e;color:white">
                                     <tr>
                                         <th>No.</th>
                                         <th>Month</th>

@@ -1458,7 +1458,7 @@ class Management_report extends CI_Controller {
             $result = $query->result();
             $data .= "<h4><b>2.Sales Tax Rate Wise</b></h4>";
             $data .= '<table id="example2" class="table-bordered table-striped" width="800">
-                                <thead style="background-color: #00008B;color:white">
+                                <thead style="background-color: #0e385e;color:white">
                                     <tr>
                                         <th>#</th>
                                         <th>0%</th>

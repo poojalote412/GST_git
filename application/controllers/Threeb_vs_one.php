@@ -231,7 +231,7 @@ class Threeb_vs_one extends CI_Controller {
             $cumu_difference5 = array();
             $data2 .= '<h4><b>2.GSTR3B VS. GSTR1 - Output Liability Reconcillation</b></h4>';
             $data .= '<table id="example2" class="table-bordered table-striped" width="800">
-                                <thead style="background-color: #00008B;color:white">
+                                <thead style="background-color: #0e385e;color:white">
                                     <tr>
                                         <th>No.</th>
                                         <th>Month</th>
