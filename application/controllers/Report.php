@@ -19,7 +19,7 @@ class Report extends CI_Controller {
         $result2 = $query_get_company_header->row();
         $query_get_report_header = $this->db->query("SELECT * from report_header_all where insert_id='$insert_id' and customer_id='$customer_id'");
         $result3 = $query_get_report_header->row();
-        $query_get_client_letter = $this->db->query("select customer_name,customer_address,company_name,managing_director_name from customer_header_all INNER JOIN report_header_all on customer_header_all.customer_id= report_header_all.customer_id");
+        $query_get_client_letter = $this->db->query("select customer_header_all.customer_name,customer_header_all.customer_address,report_header_all.company_name,report_header_all.managing_director_name from customer_header_all INNER JOIN report_header_all on customer_header_all.customer_id= report_header_all.customer_id where customer_header_all.customer_id ='$customer_id' and report_header_all.insert_id ='$insert_id'");
         $result4 = $query_get_client_letter->row();
         
         $data['customer_id'] = $customer_id;
