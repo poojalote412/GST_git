@@ -131,8 +131,15 @@ if (is_array($session_data)) {
                     </footer>
 
                     <!--<div style="page-break-before:always;">-->
-                    <div id="container_image_front" style="page-break-before:always;margin-top:130px">
+                    <div id="container_image_front" style="page-break-before:always;margin-top:130px;position: relative;color: white;">
                         <!--<img src="https://premisafe.com/Logo.jpg" width="120px" height="30px">-->
+                        <div style="position: absolute;bottom: -190px;font-size: 18;right: 200px;letter-spacing: 4px;color: white;background: #E00201" class="centered"> 
+                        <b><?php echo $client_details->company_name ?></b> <br>
+                        
+                            </div>
+                        <div style="position: absolute;bottom: -255px;right: 400px;letter-spacing: 4px;color: white;" class="centered"> 
+                        <b><?php echo $insert_header_details->year_id ?></b> <br>
+                    </div>
                         <img src="https://premisafe.com/GST_image/GSTReportCover.jpg" style="page-break-before:always" style="width:900px;"width="900px" height="700px">
                     </div>
                     <!--<div id="content_pdf"></div><br><br><br><br><br><br>-->
@@ -142,17 +149,24 @@ if (is_array($session_data)) {
                     <div style="page-break-before:always;"><br><br>
                         <div style="margin-left: 35% ;margin-top: 5% ;">
                             <b style="font-size:22px;color:#1d2f66;">LETTER TO CLIENT</b></div>
-                        <div style="margin-top: 70px;margin-left: 5% ;" >19th August, 2019 <br>
-                            <b>Mr/Miss. Anand Rathi</b><br>
-                            <b>Managing Director: Rakesh Rawal</b> <br>
-                            <b>Company Name: Anand Rathi Global Finance Limited</b> <br>
-                            <b> Address :Thane<br><b><br>
+                            <div style="margin-top: 70px;margin-left: 5% ;" ><b>19th August, 2019</b> <br>
+                            <b><?php echo $client_details->customer_name ?></b><br>
+                            <b>Managing Director:<?php echo $client_details->managing_director_name ?></b> <br>
+                            <b>Company Name:<?php echo $client_details->company_name ?></b> <br>
+                            <b> Address :<?php echo $client_details->customer_address ?></b><br>
                                     </div>
                                     <div id="container_image_letter_client"  ><img src="https://premisafe.com/GST_image/LettertoClient.jpg" width="900px" height="900px"></div>
 
                                     </div>
+                    
                                     <div id="container_image_limited_usage" style="margin-top:440px;"><img src="https://premisafe.com/GST_image/LimitedUsage&Abbreviation.jpg" width="800px" height="700px"style="page-break-before:always;" ></div>
-                                    <div id="content_pdf" style="margin-top:440px;"><img src="https://premisafe.com/GST_image/LimitedUsage&Abbreviation.jpg" width="800px" height="700px" style="page-break-before:always;"></div>
+                                    
+                                     <div style="page-break-before:always;width:700px;margin-left: 5%;margin-top:440px;text-align: justify;"><br><br>
+                                        <b style="font-size:18px;color:#1d2f66;">1. ABOUT <?php echo $client_details->company_name ?>:</b>
+                                            <br><br>  <?php echo $report_details->about_company ?><br>  
+                                    </div>
+                                    
+                                    <!--<div id="content_pdf" style="margin-top:440px;"><img src="https://premisafe.com/GST_image/LimitedUsage&Abbreviation.jpg" width="800px" height="700px" style="page-break-before:always;"></div>-->
                                     <div id="container_image_components_overview" style="margin-top:440px;"><img src="https://premisafe.com/GST_image/GSTComponents&Overview.jpg" width="800px" height="700px" style="page-break-before:always;"></div>
                                     <div id="container_image_GST_framework" style="margin-top:440px;"><img src="https://premisafe.com/GST_image/GSTFramework.jpg" width="800px" height="900px" style="page-break-before:always;"></div>
                                     <div id="container_image_approach" style="margin-top:440px;"><img src="https://premisafe.com/GST_image/Approach.jpg" width="800px" height="900px" style="page-break-before:always;"></div>
