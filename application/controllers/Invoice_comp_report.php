@@ -415,15 +415,22 @@ class Invoice_comp_report extends CI_Controller {
             $show = $records / 50;
             $table = ceil($show);
             $min_value = 1;
+
+
             for ($i = 0, $k = 1; $i < $table; $i++) {
-                $data .= '<div class="row">
-                <div class="col-md-12">
-                 </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12" id="div_notin2a_data">
-                        <div class="">
-                         <table id="not_in2a_data" class=" table-bordered table-striped" width="800">
+
+                if ($i == 0) {
+                    $mrgin = "margin-top:5%;";
+                    $mrgin1 = "margin-bottom:30%;";
+                } elseif ($i == ($table - 1)) {
+                    $mrgin = "margin-top:7%;";
+                    $mrgin1 = "margin-bottom:5%;";
+                } else {
+                    $mrgin = "margin-top:7%;";
+                    $mrgin1 = "margin-bottom:30%;";
+                }
+                $data .= '
+                         <table id="not_in2a_data" class=" table-bordered table-striped" width="800" style="' . $mrgin . $mrgin1 . '">
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
                                         <th>Company Name</th>
@@ -461,7 +468,7 @@ class Invoice_comp_report extends CI_Controller {
                             '</tr>';
                     $k++;
                 }
-                $data .= '</tbody></table></div></div></div>';
+                $data .= '</tbody></table>';
                 $min_value = $min_value + 50;
                 $response['data'] = $data;
                 $response['message'] = "success";
