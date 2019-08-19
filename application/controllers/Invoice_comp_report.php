@@ -664,7 +664,7 @@ class Invoice_comp_report extends CI_Controller {
 
         if ($query != FALSE) {
             $records = count($query);
-            $show = $records / 50;
+            $show = $records / 46;
             $table = ceil($show);
             $min_value = 1;
             $data .= '<h4 style="color:#1d2f66"><b>2.Not in records,but recorded under GSTR-2A:</b></h4>';
@@ -699,7 +699,7 @@ class Invoice_comp_report extends CI_Controller {
                                     </tr>
                                 </thead>
                                 <tbody>';
-                $query2 = $this->db->query("select * from gstr_2a_reconciliation_all where status='not_in_rec' and customer_id='$customer_id'and insert_id='$insert_id' LIMIT $min_value,50 ");
+                $query2 = $this->db->query("select * from gstr_2a_reconciliation_all where status='not_in_rec' and customer_id='$customer_id'and insert_id='$insert_id' LIMIT $min_value,46 ");
                 $result = $query2->result();
                 foreach ($result as $row) {
 //                    $invoice_value[] = $row->invoice_value;
@@ -725,7 +725,7 @@ class Invoice_comp_report extends CI_Controller {
                 $response['code'] = 200;
 
                 //query logics
-                $min_value = $min_value + 50;
+                $min_value = $min_value + 46;
 //                $max_value = ($max_value ) + 15;
             }
             $data1 = "<h4><b>Observation:</b></h4>"
@@ -900,7 +900,7 @@ class Invoice_comp_report extends CI_Controller {
         if ($query != FALSE) {
             $data .= '<h4 style="color:#1d2f66"><b>3.Invoice no.,POS and Period mismatch:</b></h4>';
             $records = count($query);
-            $show = $records / 25;
+            $show = $records / 24;
             $table = ceil($show);
             $min_value = 1;
             for ($i = 0, $k = 1; $i < $table; $i++) {
@@ -939,7 +939,7 @@ class Invoice_comp_report extends CI_Controller {
                 $place_of_supply_2a = array();
                 $taxable_value = array();
                 $tax = array();
-                $query2 = $this->db->query("select * from gstr_2a_reconciliation_partially_match_summary where customer_id='$customer_id' and insert_id='$insert_id' and status='Partly_Mat' LIMIT $min_value,25 ");
+                $query2 = $this->db->query("select * from gstr_2a_reconciliation_partially_match_summary where customer_id='$customer_id' and insert_id='$insert_id' and status='Partly_Mat' LIMIT $min_value,24 ");
                 $result = $query2->result();
                 foreach ($result as $row) {
 
@@ -981,7 +981,7 @@ class Invoice_comp_report extends CI_Controller {
 //                    '</tr>';
 
 
-                $min_value = $min_value + 25;
+                $min_value = $min_value + 24;
                 $response['data'] = $data;
                 $response['message'] = "success";
                 $response['status'] = true;
