@@ -97,7 +97,7 @@ class Report extends CI_Controller {
             $company_name = $res->company_name;
 //            $address = $res->customer_address;
 
-            $data = '<div style="float:left;margin-left: 30px;margin-top:100px">
+            $data = '<div style="float:left;margin-left: 30px">
                 <b style="font-size:18px;color:#1d2f66;">2. EXECUTIVE SUMMARY</b><br><br><br>
                      <p> Ecovis RKCA was provided with the data of the company  "'.$company_name.'" to evaluate this health check report.</p>    
                       <p>Ecovis RKCA  was also able to access all the information such as:</p>

@@ -19,6 +19,7 @@ if (is_array($session_data)) {
 }
 ?>
 <style>
+    
     #btn_pdf {
         width: 60%;
         margin-right: 20% !important;
@@ -124,16 +125,6 @@ if (is_array($session_data)) {
                 <hr/>
                 <div id="JSFiddle" class="page-break-before page-break" style="font-family: 'Futura BdCn BT';">
                     <!-- Insert your document here -->
-                    <header  style="display:none;margin-top:20px;">
-                        <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br><br><br>
-
-                    </header>
-
-                    <footer style="display:none;margin-top:-30px;">
-                        <p>Strictly Private and Confidential</p>
-                    </footer>
-
-                    <!--<div style="page-break-before:always;">-->
                     <div id="container_image_front" style="page-break-before:always;margin-top:130px;position: relative;color: white;">
                         <!--<img src="https://premisafe.com/Logo.jpg" width="120px" height="30px">-->
                         <div style="position: absolute;bottom: -190px;font-size: 18;right: 200px;letter-spacing: 4px;color: white;background: #ed3c2c" class="centered"> 
@@ -145,6 +136,19 @@ if (is_array($session_data)) {
                         </div>
                         <img src="https://premisafe.com/GST_image/GSTReportCover.jpg" style="page-break-before:always" style="width:900px;"width="900px" height="700px">
                     </div>
+                    
+                    
+                    <header id="header_id" style="display:none;margin-top:20px;">
+                        <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br><br><br>
+
+                    </header>
+
+                    <footer style="display:none;margin-top:-30px;">
+                        <p>Strictly Private and Confidential</p>
+                    </footer>
+
+                    <!--<div style="page-break-before:always;">-->
+                    
 
                     <div style="page-break-before:always;" style="font-family: 'Futura BdCn BT';"><br><br>
                         <div style="margin-left: 35% ;margin-top: 5% ;">
@@ -165,8 +169,8 @@ if (is_array($session_data)) {
                         <b style="font-size:18px;color:#0e385e;">1. ABOUT <?php echo $client_details->company_name ?>:</b>
                         <br>  <?php echo $report_details->about_company ?><br>  
                     </div>
-                        <div style="page-break-before:always;page-break-after:always;width:700px;margin-left: 5%;margin-right:  5%;margin-top:7%;text-align: justify;font-family: 'Futura BdCn BT';">
-                        <div id="content_pdf" style="margin-top:440px;"><img src="https://premisafe.com/GST_image/LimitedUsage&Abbreviation.jpg" width="800px" height="700px" style="page-break-before:always;"></div>
+                        <div style="page-break-before:always;page-break-after:always;width:700px;margin-left: 5%;margin-right:  5%;margin-top:7%;text-align: justify;">
+                        <div id="content_pdf" style="margin-top:440px;"></div>
                         </div>
                         
                     <div id="container_image_components_overview" style="margin-top:7%"><img src="https://premisafe.com/GST_image/GSTComponents&Overview.jpg" width="800px" height="700px" style="page-break-before:always;"></div>
