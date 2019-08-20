@@ -328,6 +328,7 @@ class Management_report extends CI_Controller {
             $top3 = array_sum($arr);
             $top_3_state = round(($top3 / $total) * 100, 2);
             $data .= "<h4><b>" . $top_3_state . " </b> % of total sales comes from top 3 states.</h4>";
+            $data .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             $state = array();
             $taxable_value = array();
             for ($o = 0; $o < sizeof($taxble_val_arr); $o++) {
@@ -494,6 +495,7 @@ class Management_report extends CI_Controller {
             }
 
             $data1 .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
+            $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             $abc1 = array();
             $abc2 = array();
             $abc3 = array();
@@ -1153,7 +1155,8 @@ class Management_report extends CI_Controller {
                 $observation = "";
             }
 //            echo $variation=($max-$min)/($min*100);
-            $data1 .= "<hr><h4><b>Observation of  Sales month wise:</b></h4><span>" . $observation . "</span>";
+            $data1 .= "<hr><h4><b>Observation:</b></h4><span>" . $observation . "</span>";
+            $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             // loop to get graph data as per graph script requirement
             $abc1 = array();
             for ($o = 0; $o < sizeof($taxable_supply_arr); $o++) {
@@ -1501,7 +1504,8 @@ class Management_report extends CI_Controller {
                 $observation = "";
             }
 
-            $data .= "<hr><h4><b>Observation of  Sales Rate wise:</b></h4><span>" . $observation . "</span>";
+            $data .= "<hr><h4><b>Observation:</b></h4><span>" . $observation . "</span>";
+            $data .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             $respnose['data'] = $data;
             $respnose['message'] = "success";
         } else {
@@ -2244,6 +2248,7 @@ class Management_report extends CI_Controller {
             } else {
                 $data1 .= "<hr><h4><b>Observation of Sales B2B and B2C:</b></h4>";
                 $data1 .= " <span>B2B supply is " . array_sum($array_b2b_ratio) . "% and B2C supply is " . array_sum($array_b2c_ratio) . "% of total supply.</span>";
+                $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             }
 
             $count = count($month);

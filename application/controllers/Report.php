@@ -97,39 +97,7 @@ class Report extends CI_Controller {
             $customer_name = $res->customer_name;
             $address = $res->customer_address;
 
-
-            
-
-
-            $data = '<div style="float:left;">
-                      <b style="font-size:18px;color:#1d2f66;">1. ABOUT ANAND RATHI GLOBAL FINANCE LTD.</b><br><br><br>
-
-                      <p>Anand Rathi Global Finance Limited (ARGFL) was incorporated on 3rd February, 1982. The 
-                      Company is wholly owned subsidiary of Anand Rathi Financial Services Ltd. The Company is 
-                      registered with Reserve Bank of India (RBI) as non-banking finance company (NBFC) and 
-                      classified as a Loan company and categorized as "Systemically important non-deposit taking non-/                      banking financial company" (NBFC-ND-SI). The Company is engaged in the business of financial 
-                      consultancy, corporate advisory and fund-based activities. The Company has a team of 
-                      qualified people having diversified industry exposure. ARGFL had handled various 
-                      consultancy projects for reputed companies both in India and abroad.</p>
-                      <p>Currently, ARGFL is mainly offering Loan against securities, 
-                      Commodities, Mutual Funds, Bonds, ESOPs and other liquid collaterals.
-                      ARGFL has ambitious plans to expand its fund-based activities primary 
-                      to provide value added products / services to the large client base of
-                      the Group.</p>
-                      <p>The Products include:</p>
-                      <ul>
-                      <li>Loan against securities</li>
-                      <li>Loan against Demat-Commodities</li>
-                      <li>IPO Finance</li>
-                      <li>ESOPs Funding</li>
-                      <li>Customized Financing</li>
-                      <li>Promoter Funding</li>
-                      <li>Structured Financing</li>
-                      </ul>
-                      </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
-
-
-            $data .= '<div style="float:left;margin-left: 30px;margin-top:100px">
+            $data = '<div style="float:left;margin-left: 30px;margin-top:100px">
                 <b style="font-size:18px;color:#1d2f66;">2. EXECUTIVE SUMMARY</b><br><br><br>
                       Ecovis RKCA was provided with the data of the company  “Anand Rathi
                       Global Finance Ltd.” to evaluate this health check report.<br>    

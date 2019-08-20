@@ -85,6 +85,7 @@ class Account_report extends CI_Controller {
                         '<td>' . $months . '</td>';
                 if (strtotime($filling_date1) > strtotime($due_date1)) {
                     $data .= '<td ><button type="button" style="background-color: #e31e25;border: none;color: white;padding: 7px 25px 7px 25px;display: inline-block; border-radius:5px;"></button></td>';
+                    
                 } else {
                     $data .= '<td ><button type="button" style="background-color: #84ab32;border: none;color: white;padding: 7px 25px 7px 25px;display: inline-block; border-radius:5px;"></button></td>';
                 }

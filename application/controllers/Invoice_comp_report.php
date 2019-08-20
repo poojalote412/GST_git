@@ -489,6 +489,7 @@ class Invoice_comp_report extends CI_Controller {
             $data1 = "<h4><b>Observation:</b></h4>";
             $data1 .= "<span>Follow up from the above clients' needs to be done as the business is facing the risk of loss "
                     . "of input tax credit of Rs. " . array_sum($tax) . ". The situation of non-reconciliation may lead to interest liability or GST notices. </span>";
+            $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             $response['data1'] = $data1;
         } else {
             $response['message'] = "";
@@ -731,6 +732,7 @@ class Invoice_comp_report extends CI_Controller {
             $data1 = "<h4><b>Observation:</b></h4>"
                     . "<span>Accounting system & Invoice processing for GST Claim and reconciliation need to be reviewed.
                         There is a risk of losing the credit if prompt action has not been taken.</span>";
+            $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             $response['data1'] = $data1;
         } else {
             $response['message'] = "";
@@ -991,6 +993,7 @@ class Invoice_comp_report extends CI_Controller {
             $data1 .= "<h4><b>Observation:</b></h4>"
                     . "<span>Cross check the mismatched invoice no., POS and Period with the client in order to prevent any confusion or else it will effect on your ITC."
                     . " Data master review needs to be done and root-cause analysis will help to minimize this errors.</span>";
+            $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             $response['data1'] = $data1;
         } else {
             $response['message'] = "";
@@ -1355,6 +1358,7 @@ class Invoice_comp_report extends CI_Controller {
             }
 
             $data .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
+            $data .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
 
             $response['data'] = $data;
             $response['data1'] = $data1;
@@ -1741,6 +1745,7 @@ class Invoice_comp_report extends CI_Controller {
             }
 
             $data1 = "<div class='col-md-12'><h4><b>Observation :</b></h4><span>" . $observation . "</span></div>";
+            $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             $response['data1'] = $data1;
         } else {
             $response['message'] = "";
