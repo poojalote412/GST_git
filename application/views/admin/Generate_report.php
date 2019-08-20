@@ -55,7 +55,7 @@ if (is_array($session_data)) {
 
     td{
          /*text-align: left;*/
-         padding-left:  1%; 
+         /*padding-left:  1%;*/     
     }
     th{
         text-align: center;
@@ -286,13 +286,13 @@ if (is_array($session_data)) {
                             <div id="company_all_notin2a_data1" style="margin-left: 5%"></div>
                         </div>
 
-                        <div class="test" style="page-break-before:always; margin-top:7%">
+                        <div class="test" style="page-break-before:always; ">
 
                             <div id="company_all_notinrec_data" style=" margin-top:20px ;margin-left: 5%"></div>
                             <div id="company_all_notinrec_data1" style="margin-left: 5%"></div>
                         </div>
 
-                        <div class="test" style="page-break-before:always; margin-top:7%">
+                        <div class="test" style="page-break-before:always;">
 
                             <div id="company_all_partially_data" style=" margin-top:20px;margin-left: 5%"></div>
                             <div id="company_all_partially_data1" style="margin-left: 5%"></div>
