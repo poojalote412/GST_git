@@ -90,32 +90,29 @@ class Report extends CI_Controller {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
 
-
-        $query_get_customer_name = $this->db->query("select customer_name,customer_address from customer_header_all where customer_id='$customer_id'");
+        $query_get_company_header = $this->db->query("SELECT company_name from report_header_all where insert_id='$insert_id' and customer_id='$customer_id'");
+//        $query_get_customer_name = $this->db->query("select customer_name,customer_address from customer_header_all where customer_id='$customer_id'");
         if ($this->db->affected_rows() > 0) {
-            $res = $query_get_customer_name->row();
-            $customer_name = $res->customer_name;
-            $address = $res->customer_address;
+            $res = $query_get_company_header->row();
+            $company_name = $res->company_name;
+//            $address = $res->customer_address;
 
             $data = '<div style="float:left;margin-left: 30px;margin-top:100px">
                 <b style="font-size:18px;color:#1d2f66;">2. EXECUTIVE SUMMARY</b><br><br><br>
-                      Ecovis RKCA was provided with the data of the company  “Anand Rathi
-                      Global Finance Ltd.” to evaluate this health check report.<br>    
-                      Ecovis RKCA  was also able to access all the information such as:
-                
-
-                      1. Sales data month wise.<br>
-                      2. GSTR-1 <br>
-                      3. GSTR-3B.<br>
-                      and  Ecovis RKCA. Uses this data to provide them with GST insights in form of:<br>
-                      1. Management Report<br>
-                      2. Compliance Report<br>
-                      3. Internal control Reports<br>
-                      4. Mismatch Reports<br>
-                      5. Deviation Reports<br>
-                      6. CFO Dashboard<br>
-                      This will help the company immensely for their development.<br>
-                      	We also evaluated some areas of improvement.
+                     <p> Ecovis RKCA was provided with the data of the company  "'.$company_name.'" to evaluate this health check report.</p>    
+                      <p>Ecovis RKCA  was also able to access all the information such as:</p>
+                      <p>1. Sales data month wise.</p>
+                      <p>2. GSTR-1 </p>
+                      <p>3. GSTR-3B.</p>
+                      <p>And  Ecovis RKCA. Uses this data to provide them with GST insights in form of:</p>
+                      <p>1. Management Report</p>
+                      <p>2. Compliance Report</p>
+                      <p>3. Internal control Reports</p>
+                      <p>4. Mismatch Reports</p>
+                      <p>5. Deviation Reports</p>
+                      <p>6. CFO Dashboard</p>
+                      <p>This will help the company immensely for their development.</p>
+                      	<p>We also evaluated some areas of improvement.</p>
                      </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
 
 

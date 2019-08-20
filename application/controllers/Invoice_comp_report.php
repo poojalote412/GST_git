@@ -421,13 +421,13 @@ class Invoice_comp_report extends CI_Controller {
 
                 if ($i == 0) {
                     $mrgin = "margin-top:5%;";
-                    $mrgin1 = "margin-bottom:30%;";
+                    $mrgin1 = "margin-bottom:10%;";
                 } elseif ($i == ($table - 1)) {
                     $mrgin = "margin-top:7%;";
-                    $mrgin1 = "margin-bottom:5%;";
+                    $mrgin1 = "margin-bottom:4%;";
                 } else {
                     $mrgin = "margin-top:7%;";
-                    $mrgin1 = "margin-bottom:30%;";
+                    $mrgin1 = "margin-bottom:10%;";
                 }
                 $data .= '<table id="not_in2a_data" class=" table-bordered table-striped" width="800" style="' . $mrgin . $mrgin1 . '">
                                 <thead style="background-color: #0e385e;color:white">
@@ -1725,7 +1725,7 @@ class Invoice_comp_report extends CI_Controller {
             }
 
             $data1 = "<div class='col-md-12'><h4><b>Observation :</b></h4><span>" . $observation . "</span></div>";
-            $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+            $data1 .= "<div class='col-md-12'><h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5></div>";
             $response['data1'] = $data1;
         } else {
             $response['message'] = "";

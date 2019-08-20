@@ -165,8 +165,10 @@ if (is_array($session_data)) {
                         <b style="font-size:18px;color:#0e385e;">1. ABOUT <?php echo $client_details->company_name ?>:</b>
                         <br>  <?php echo $report_details->about_company ?><br>  
                     </div>
-
-<!--<div id="content_pdf" style="margin-top:440px;"><img src="https://premisafe.com/GST_image/LimitedUsage&Abbreviation.jpg" width="800px" height="700px" style="page-break-before:always;"></div>-->
+                        <div style="page-break-before:always;page-break-after:always;width:700px;margin-left: 5%;margin-right:  5%;margin-top:7%;text-align: justify;font-family: 'Futura BdCn BT';">
+                        <div id="content_pdf" style="margin-top:440px;"><img src="https://premisafe.com/GST_image/LimitedUsage&Abbreviation.jpg" width="800px" height="700px" style="page-break-before:always;"></div>
+                        </div>
+                        
                     <div id="container_image_components_overview" style="margin-top:7%"><img src="https://premisafe.com/GST_image/GSTComponents&Overview.jpg" width="800px" height="700px" style="page-break-before:always;"></div>
                     <div id="container_image_GST_framework" style="margin-top:7%;"><img src="https://premisafe.com/GST_image/GSTFramework.jpg" width="800px" height="900px" style="page-break-before:always;"></div>
                     <div id="container_image_approach" style="margin-top:7%;"><img src="https://premisafe.com/GST_image/Approach.jpg" width="800px" height="900px" style="page-break-before:always;"></div>
