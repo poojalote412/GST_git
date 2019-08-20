@@ -429,8 +429,7 @@ class Invoice_comp_report extends CI_Controller {
                     $mrgin = "margin-top:7%;";
                     $mrgin1 = "margin-bottom:30%;";
                 }
-                $data .= '
-                         <table id="not_in2a_data" class=" table-bordered table-striped" width="800" style="' . $mrgin . $mrgin1 . '">
+                $data .= '<table id="not_in2a_data" class=" table-bordered table-striped" width="800" style="' . $mrgin . $mrgin1 . '">
                                 <thead style="background-color: #0e385e;color:white">
                                     <tr>
                                         <th>Company Name</th>
@@ -475,17 +474,6 @@ class Invoice_comp_report extends CI_Controller {
                 $response['status'] = true;
                 $response['code'] = 200;
             }
-//            $data1 .= '<tr>' .
-//                    '<td>' . "<b>Total</b>" . '</td>' .
-//                    '<td>' . "" . '</td>' .
-//                    '<td>' . "" . '</td>' .
-//                    '<td>' . "" . '</td>' .
-//                    '<td>' . "" . '</td>' .
-//                    '<td>' . "" . '</td>' .
-//                    '<td>' . "<b>" . array_sum($invoice_value) . "</b>" . '</td>' .
-//                    '<td>' . "<b>" . array_sum($taxable_value) . "</b>" . '</td>' .
-//                    '<td>' . "<b>" . array_sum($tax) . "</b>" . '</td>' .
-//                    '</tr>';
             $data1 = "<h4><b>Observation:</b></h4>";
             $data1 .= "<span>Follow up from the above clients' needs to be done as the business is facing the risk of loss "
                     . "of input tax credit of Rs. " . array_sum($tax) . ". The situation of non-reconciliation may lead to interest liability or GST notices. </span>";
@@ -1697,10 +1685,6 @@ class Invoice_comp_report extends CI_Controller {
                                         <th>Name</th>
                                         <th>Inv.Value</th>
                                         <th>Taxable</th>
-                                        <th>IGST</th>
-                                        <th>CGST</th>
-                                        <th>SGST</th>
-                                        <th>CESS</th>
                                         <th>Total Tax</th>
                                     </tr>
                                 </thead>
@@ -1720,10 +1704,6 @@ class Invoice_comp_report extends CI_Controller {
                         <td>' . $row->name . '</td>
                         <td>' . $row->invoice_value . '</td>
                         <td>' . $row->taxable_value . '</td>
-                        <td>' . $row->igst . '</td>
-                        <td>' . $row->cgst . '</td>
-                        <td>' . $row->sgst . '</td>
-                        <td>' . $row->cess . '</td>
                         <td><b>' . ($row->igst + $row->cgst + $row->sgst + $row->cess) . '</b></td>
                         
                         </tr>';

@@ -54,14 +54,15 @@ if (is_array($session_data)) {
         }*/
 
     td{
-         /*text-align: left;*/
-         padding-left:  1%; 
-    }
-    th{
-        text-align: center;
-        
+        /*text-align: left;*/
+        /*padding-left:  1%;*/ 
     }
    
+    th{
+        text-align: center;
+
+    }
+
 </style>
 
 <div class="content-wrapper">
