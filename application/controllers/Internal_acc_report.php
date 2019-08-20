@@ -1571,7 +1571,7 @@ class Internal_acc_report extends CI_Controller {
             $data1 .= "<hr><h4><b>Observation of GST Payable vs Cash:</b></h4>";
             if ($avg > 35) {
                 $data1 .= "<span>GST paid in cash varies from <b>" . $min_percent . "%</b> to  <b>" . $max_percent . "%</b> for F.Y. " . $year
-                        . ".  Average percentage of liability paid by cash is <b>" . round($avg) . "%</b> for F.Y. " . $year . ".</span><br>"
+                        . ".  Average percentage of liability paid by cash is <b>" . round($avg) . "%</b> for F.Y. " . $year . ".</span>"
                         . "<span>So, analysis of huge payment by cash to be done & accordingly input tax credit planning should be done.</span>";
                 $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             } else {
