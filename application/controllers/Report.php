@@ -52,53 +52,15 @@ class Report extends CI_Controller {
         $this->load->view('admin/client_details', $data);
     }
     
-    //function for get client letter
-    
-     public function get_content_letter_pdf() {
-        $customer_id = $this->input->post("customer_id");
-        $insert_id = $this->input->post("insert_id");
-
-
-        $query_get_customer_name = $this->db->query("select customer_name,customer_address,company_name,managing_director_name from customer_header_all INNER JOIN report_header_all on customer_header_all.customer_id= report_header_all.customer_id");
-        if ($this->db->affected_rows() > 0) {
-            $res = $query_get_customer_name->row();
-            $customer_name = $res->customer_name;
-            $address = $res->customer_address;
-            $company_name = $res->company_name;
-            $managing_director_name = $res->managing_director_name;
-            $data ="";
-            
-              $data .= '<div style="float:left;margin-left: 30px">
-                      <b style="font-size:22px;color:#1d2f66;">LETTER TO CLIENT</b><br><br><br></div>';
-
-            $data .= '<b><div style="margin-top: 70px">19th August, 2019 <br><b>
-                    <b>Mr/Miss. ' . $customer_name . '</b><br>
-                    <b>Managing Director:'.$managing_director_name.' </b> <br>
-                    <b>Company Name:'.$company_name.'</b> <br>
-                   <b> Address :' . $address . '<br><b><br>
-                     </div>';
-           
-           
-            $respose['data'] = $data;
-            $respose['message'] = "success";
-        } else {
-            $respose['message'] = "";
-        }echo json_encode($respose);
-    }
-
     public function get_content_pdf1() {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
-
-        $query_get_company_header = $this->db->query("SELECT company_name from report_header_all where insert_id='$insert_id' and customer_id='$customer_id'");
-//        $query_get_customer_name = $this->db->query("select customer_name,customer_address from customer_header_all where customer_id='$customer_id'");
+        $query_get_company_header = $this->db->query("SELECT company_name from report_header_all where insert_id='$insert_id' and customer_id='$customer_id'");$query_get_customer_name = $this->db->query("select customer_name,customer_address from customer_header_all where customer_id='$customer_id'");
         if ($this->db->affected_rows() > 0) {
             $res = $query_get_company_header->row();
             $company_name = $res->company_name;
-//            $address = $res->customer_address;
-
             $data = '<div style="float:left;margin-left: 30px">
-                <b style="font-size:18px;color:#1d2f66;">2. EXECUTIVE SUMMARY</b><br><br><br>
+                <b style="font-size:18px;color:#1d2f66;">2. EXECUTIVE SUMMARY</b><br><br>
                      <p> Ecovis RKCA was provided with the data of the company  "'.$company_name.'" to evaluate this health check report.</p>    
                       <p>Ecovis RKCA  was also able to access all the information such as:</p>
                       <p>1. Sales data month wise.</p>

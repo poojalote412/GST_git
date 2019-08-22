@@ -899,11 +899,11 @@ class Invoice_comp_report extends CI_Controller {
                     $mrgin1 = "margin-bottom:20%;";
                     $pg_brk="page-break-after:always;";
                 } elseif ($i == ($table - 1)) {
-                    $mrgin = "margin-top:7%;";
+                    $mrgin = "margin-top:15%;";
                     $mrgin1 = "margin-bottom:5%;";
                     $pg_brk="page-break-after:avoid;";
                 } else {
-                    $mrgin = "margin-top:7%;";
+                    $mrgin = "margin-top:15%;";
                     $mrgin1 = "margin-bottom:20%;";
                     $pg_brk="page-break-after:always;";
                 }

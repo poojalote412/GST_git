@@ -126,13 +126,17 @@ if (is_array($session_data)) {
 
                         </div>
                     </div>
-                    <input type="text" id="first_div_value" name="first_div_value" value="0">
+                    <input type="hidden" id="first_div_value" name="first_div_value" value="0">
+                    <input type="hidden" id="second_div_value" name="second_div_value" value="0">
+                    <input type="hidden" id="third_div_value" name="third_div_value" value="0">
+                    <input type="hidden" id="fourth_div_value" name="fourth_div_value" value="0">
+                    <!--<input type="text" id="fifth_div_value" name="fifth_div_value" value="0">-->
                 </form> 
                 <div id="buttons"></div>
                 <hr/>
                 <div id="JSFiddle" class="page-break-before page-break" style="font-family: 'Futura BdCn BT';">
                     <!-- Insert your document here -->
-                    <div id="container_image_front" style="page-break-before:always;position: relative;color: white;">
+                    <div id="container_image_front" style="page-break-before:always;position: relative;color: white;margin-top:-22px;margin-left: -15px;margin-right: -25px;">
                         <!--<img src="https://premisafe.com/Logo.jpg" width="120px" height="30px">-->
                         <div style="position: absolute;bottom: -190px;font-size: 18;right: 200px;letter-spacing: 4px;color: white;background: #ed3c2c" class="centered"> 
                             <b><?php echo $client_details->company_name ?></b> <br>
@@ -141,7 +145,7 @@ if (is_array($session_data)) {
                         <div style="position: absolute;bottom: -255px;right: 400px;letter-spacing: 4px;color: white;" class="centered"> 
                             <b><?php echo $insert_header_details->year_id ?></b> <br>
                         </div>
-                        <img src="https://premisafe.com/GST_image/GSTReportCover.jpg" style="page-break-before:always" style="width:900px;"width="900px" height="700px">
+                        <img src="https://premisafe.com/GST_image/GSTReportCover.jpg" style="page-break-before:always" style="width:920px;"width="920px" height="720px">
                     </div>
 
 
@@ -177,17 +181,17 @@ if (is_array($session_data)) {
                     </div>
 
                     <div style="page-break-before:always;page-break-after:always;width:700px;margin-left: 5%;margin-right:  5%;margin-top:7%;text-align: justify;font-family: 'Futura BdCn BT';">
-                        <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br><br><br>
+                        <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p>
                         <b style="font-size:18px;color:#0e385e;">1. ABOUT <?php echo $client_details->company_name ?>:</b>
-                        <br>  <?php echo $report_details->about_company ?><br>  
+                        <br>  <?php echo $report_details->about_company ?> 
                     </div>
-                    <div style="page-break-before:always;page-break-after:always;width:700px;margin-left: 5%;margin-right:  5%;margin-top:7%;text-align: justify;">
-                        <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br><br><br>
-                        <div id="content_pdf" style="margin-top:440px;"></div>
+                    <div style="page-break-after:always;width:700px;margin-left: 5%;margin-right:  5%;margin-top:7%;text-align: justify;">
+                        <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p>
+                        <div id="content_pdf" style="margin-top:7%;"></div>
                     </div>
 
                     <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
-                    <div id="container_image_components_overview" style="margin-top:7%"><img src="https://premisafe.com/GST_image/GSTComponents&Overview.jpg" width="800px" height="700px" style="page-break-before:always;"></div>
+                    <div id="container_image_components_overview" style="margin-top:7%"><img src="https://premisafe.com/GST_image/GSTComponents&Overview.jpg" width="1000px" height="900px" style="page-break-before:always;"></div>
                     <div class="test" style="page-break-before:always;margin-top:7%">
                         <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
                         <div id="container_image_GST_framework" style="margin-top:7%;"><img src="https://premisafe.com/GST_image/GSTFramework.jpg" width="800px" height="900px"></div>
@@ -236,6 +240,7 @@ if (is_array($session_data)) {
 
                     </div>
                     <!--Comparison & Deviation Report-->
+                    <div class="test" id="second_div" style="display:block">
                     <div class="test" style="page-break-before:always;margin-top:7%">
                         <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
                         <h4 style="color:#0e385e;"><b>B.COMPARISON AND DEVIATION REPORT</b></h4>
@@ -252,8 +257,10 @@ if (is_array($session_data)) {
                         <div id="container_GSTR3b_vs_1" style="width:700px;margin-left:5%"></div>
                         <div id="compare_3b_vs1_data1" style="width:700px;margin-left:5%"></div>
                     </div>
+                </div>
 
                     <!--BAROMETER CFO DASHBOARD-->
+                    <div class="test" id="third_div" style="display:block">
                     <div class="test" style="page-break-before:always;">
                         <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
                         <p style="background:#cd273f; color:white;padding:4px;border:1px solid;margin-top:7%;width:700px;text-align:center"><b>BAROMETER-CFO DASHBOARD</b></p>
@@ -295,8 +302,10 @@ if (is_array($session_data)) {
                         <div id="container_eligible_credit"  style="width:700px;margin-left:5%"></div>
                         <div id="tax_iniligible_data1" style="width:700px;margin-left:5%"></div>
                     </div>
+                    </div>
 
                     <!--InFORMATION COMPARISON-->
+                    <div class="test" id="fourth_div" style="display:block">
                     <div class="test" style="page-break-before:always;">
                         <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
                         <p style="background:#516b22; color:white;width:700px;text-align:center;margin-top:7%"><b>INFORMATION COMPARISON</b></p>
@@ -318,7 +327,7 @@ if (is_array($session_data)) {
 
 
 
-                    <div class="test1" class="invoice_notinclude_gstr1_data_div" style="page-break-before:always;margin-top:7%">
+                    <div class="test1" id="invoice_notinclude_gstr1_data_div" style="page-break-before:always;margin-top:7%">
                         <p class="invoice_notinclude_logo_data_div" style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
 
                         <div id="invoice_notinclude_gstr1_data"  style=""></div>
@@ -358,7 +367,10 @@ if (is_array($session_data)) {
                         <div id="rating_card" style="margin-left: 5%"></div>
                         <!--<div id="container_heat_map" style="width:700px"></div>-->
                     </div>
-
+                        
+                    </div>
+                    
+                    <!--<div class="test" id="fifth_div" style="display:block">-->
                     <div class="test" style="page-break-before:always;margin-top:7%">
                         <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
                         <!--<div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="900px" height="900px" style=""></div><br><br>-->  
@@ -370,6 +382,7 @@ if (is_array($session_data)) {
                         </div>
                         <!--<div id="container_heat_map" style="width:700px"></div>-->
                     </div>
+                <!--</div>-->
 
                     <div class="test" style="page-break-before:always;margin-top:7%">
                         <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
@@ -415,12 +428,51 @@ if (is_array($session_data)) {
 <script>
     $(document).ready(function () {
 
+        //For DETAILS OF GST REPORTS AND INSIGHTS DIVS
         var first_div_value = document.getElementById("first_div_value").value;
-        if (first_div_value > 0)
+        if (first_div_value >= 0)
         {
+//            document.getElementById("first_div").style.display = "block";
         } else {
             document.getElementById("first_div").style.display = "none";
         }
+        
+        //COMPARISON AND DEVIATION REPORT DIVS
+        var second_div_value = document.getElementById("second_div_value").value;
+        if (second_div_value >= 0)
+        {
+//            document.getElementById("first_div").style.display = "block";
+        } else {
+            document.getElementById("second_div").style.display = "none";
+        }
+        
+        //BAROMETER-CFO DASHBOARD DIVS
+        var third_div_value = document.getElementById("third_div_value").value;
+        if (third_div_value >= 0)
+        {
+//            document.getElementById("first_div").style.display = "block";
+        } else {
+            document.getElementById("third_div").style.display = "none";
+        }
+        
+        //INFORMATION COMPARISON DIVS
+        var fourth_div_value = document.getElementById("fourth_div_value").value;
+        if (fourth_div_value >= 0)
+        {
+//            document.getElementById("first_div").style.display = "block";
+        } else {
+            document.getElementById("fourth_div").style.display = "none";
+        }
+        
+        //SUMMARY OBSERVATION & CONCLUSION  DIVS
+//        var fifth_div_value = document.getElementById("fifth_div_value").value;
+//        if (fifth_div_value >= 0)
+//        {
+////            document.getElementById("first_div").style.display = "block";
+//        } else {
+//            document.getElementById("fifth_div").style.display = "none";
+//        }
+        
         var customer_id = document.getElementById("customer_id").value;
         var insert_id = document.getElementById("insert_id").value;
 
@@ -445,30 +497,7 @@ if (is_array($session_data)) {
             },
         });
 
-        //function for client to letter PDF
-
-        $.ajax({
-            type: "post",
-            url: "<?= base_url("Report/get_content_letter_pdf") ?>",
-            dataType: "json",
-            data: {customer_id: customer_id, insert_id: insert_id},
-            success: function (result) {
-                //                 alert();
-                $('#content_letter_pdf').html("");
-                if (result.message === "success") {
-
-                    var data = result.data;
-                    $('#content_letter_pdf').html("");
-                    $('#content_letter_pdf').html(data);
-                    //                    $('#example2').DataTable();
-                } else {
-
-                }
-            },
-        });
-
-
-
+      
         $.ajax({
             type: "post",
             url: "<?= base_url("Cfo_dashboard/get_graph_Turnover_vs_liabality") ?>",
@@ -480,7 +509,7 @@ if (is_array($session_data)) {
                 //                 alert();
                 $('#cfo_data').html("");
                 if (result.message === "success") {
-
+                    document.getElementById("third_div_value").value++;
                     var data = result.data;
                     var data1 = result.data1;
                     var data2 = result.data2;
@@ -501,6 +530,7 @@ if (is_array($session_data)) {
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
                 if (result.message === "success") {
+                    document.getElementById("third_div_value").value++;
                     var data_a = result.data_turn_over;
                     var data_liability = result.data_liability;
                     var data_ratio = result.ratio;
@@ -1082,7 +1112,7 @@ if (is_array($session_data)) {
             data: {customer_id: customer_id, insert_id},
             success: function (result) {
                 if (result.message === "success") {
-
+                    document.getElementById("second_div_value").value++;
                     var data_a = result.gstr_tb;
                     var data_difference = result.difference;
                     var cumu_difference = result.cumu_difference;
@@ -1185,7 +1215,7 @@ if (is_array($session_data)) {
                 //                 alert();
                 $('#compare_3b1_data').html("");
                 if (result.message === "success") {
-
+                    document.getElementById("second_div_value").value++;
                     var data = result.data;
                     var data1 = result.data1;
                     var data2 = result.data2;
@@ -1210,7 +1240,7 @@ if (is_array($session_data)) {
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
                 if (result.message === "success") {
-
+                    document.getElementById("second_div_value").value++;
                     var data_a = result.data_gstr3b;
                     var data_gstr1_res = result.data_gstr1;
                     var data_difference = result.difference;
@@ -1297,7 +1327,7 @@ if (is_array($session_data)) {
                 //                 alert();
                 $('#compare_3b1_data').html("");
                 if (result.message === "success") {
-
+                    document.getElementById("second_div_value").value++;
                     var data = result.data;
                     var data1 = result.data1;
                     var data2 = result.data2;
@@ -1321,6 +1351,7 @@ if (is_array($session_data)) {
                 //                 alert();
                 $('#gstr3B_data').html("");
                 if (result.message === "success") {
+                    document.getElementById("fourth_div_value").value++;
                     var data = result.data;
                     var data1 = result.data1;
                     $('#gstr3B_data').html(data);
@@ -1342,6 +1373,7 @@ if (is_array($session_data)) {
                 //                 alert(data);
                 $('#gstr1_data').html("");
                 if (result.message === "success") {
+                    document.getElementById("fourth_div_value").value++;
                     var data = result.data;
                     var data1 = result.data1;
                     $('#gstr1_data').html(data);
@@ -1364,7 +1396,7 @@ if (is_array($session_data)) {
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
                 if (result.message === "success") {
-
+                    document.getElementById("third_div_value").value++;
                     var data_outwards = result.data_outward;
                     var data_rcbs = result.data_rcb;
                     var data_inelligibles = result.data_inelligible;
@@ -1506,7 +1538,7 @@ if (is_array($session_data)) {
                 $('#tax_liability_data').html("");
                 $('#tax_liability_data1').html("");
                 if (result.message === "success") {
-
+                    document.getElementById("third_div_value").value++;
                     var data = result.data;
                     var data1 = result.data1;
                     var data2 = result.data2;
@@ -1531,7 +1563,7 @@ if (is_array($session_data)) {
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
                 if (result.message === "success") {
-
+                    document.getElementById("third_div_value").value++;
                     var taxable_value = result.taxable_value;
                     var tax_value = result.tax_value;
                     var tax_ratio = result.tax_ratio;
@@ -1649,7 +1681,7 @@ if (is_array($session_data)) {
                 //                 alert();
                 $('#tax_turnover_data').html("");
                 if (result.message === "success") {
-
+                    document.getElementById("third_div_value").value++;
                     var data = result.data;
                     var data1 = result.data1;
                     var data2 = result.data2;
@@ -1675,7 +1707,7 @@ if (is_array($session_data)) {
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
                 if (result.message === "success") {
-
+                    document.getElementById("third_div_value").value++;
                     var liability = result.liability;
                     var net_itc = result.net_itc;
                     var paid_in_cash = result.paid_in_cash;
@@ -1773,7 +1805,7 @@ if (is_array($session_data)) {
                 //                 alert();
                 $('#cfo_data').html("");
                 if (result.message === "success") {
-
+                    document.getElementById("third_div_value").value++;
                     var data = result.data;
                     var data1 = result.data1;
                     var data2 = result.data2;
@@ -1802,7 +1834,7 @@ if (is_array($session_data)) {
                 //                 alert();
                 $('#heat_map_tbl').html("");
                 if (result.message === "success") {
-
+                    document.getElementById("fourth_div_value").value++;
                     var data = result.data;
                     //                    var data1 = result.data1;
                     $('#heat_map_tbl').html("");
@@ -1822,6 +1854,7 @@ if (is_array($session_data)) {
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
                 if (result.message === "success") {
+                    document.getElementById("fourth_div_value").value++;
                     var likelihood_impact = result.likelihood_impact;
                     var likelihood_risk = result.likelihood_risk;
                     Highcharts.chart('container_heat_map', {
@@ -1928,7 +1961,7 @@ if (is_array($session_data)) {
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
                 if (result.message === "success") {
-
+                    document.getElementById("third_div_value").value++;
                     var ineligible_itc = result.ineligible_itc;
                     var net_itc = result.net_itc;
                     var ineligible_ratio = result.ineligible_ratio;
@@ -2040,7 +2073,7 @@ if (is_array($session_data)) {
                 //                 alert();
                 $('#tax_iniligible_data').html("");
                 if (result.message === "success") {
-
+                    document.getElementById("third_div_value").value++;
                     var data = result.data;
                     var data1 = result.data1;
                     var data2 = result.data2;
@@ -2066,6 +2099,7 @@ if (is_array($session_data)) {
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
                 if (result.status === true) {
+                    document.getElementById("fourth_div_value").value++;
                     var data = result.data;
                     var data1 = result.data1;
 
@@ -2114,17 +2148,22 @@ if (is_array($session_data)) {
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
                 if (result.status === true) {
+                    document.getElementById("fourth_div_value").value++;
                     var data = result.data;
                     var data1 = result.data1;
 
                     $('#invoice_notinclude_gstr1_data').html(data);
                     $('#invoice_notinclude_gstr1_data1').html(data1);
-                    //                    $('#example2').DataTable();
-                    if ($('.invoice_notinclude_gstr1_data_div').is(":empty")) {
-                        $('.invoice_notinclude_logo_data_div').hide();
-                    }
+                    // $('#example2').DataTable();
+//                    if ($('.invoice_notinclude_gstr1_data_div').is(":empty")) {
+//                        $('.invoice_notinclude_logo_data_div').hide();
+//                    }
                 } else {
                     $('#invoice_notinclude_gstr1_data').html("");
+//                    $('#invoice_notinclude_logo_data_div').html("");
+//                    document.getElementById("invoice_notinclude_gstr1_data").style.display = "none";
+//                    document.getElementById("invoice_notinclude_gstr1_data1").style.display = "none";
+                    document.getElementById("invoice_notinclude_gstr1_data_div").style.display = "none";
                     //                    alert('no data availabale');
                 }
             }
@@ -2141,6 +2180,7 @@ if (is_array($session_data)) {
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
                 if (result.status === true) {
+                    document.getElementById("fourth_div_value").value++;
                     var data = result.data;
                     var data1 = result.data1;
 
@@ -2172,6 +2212,7 @@ if (is_array($session_data)) {
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
                 if (result.status === true) {
+                    document.getElementById("fourth_div_value").value++;
                     var data = result.data;
                     var data1 = result.data1;
 
@@ -2197,6 +2238,7 @@ if (is_array($session_data)) {
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
                 if (result.status === true) {
+                    document.getElementById("fourth_div_value").value++;
                     var data = result.data;
                     var data1 = result.data1;
 
