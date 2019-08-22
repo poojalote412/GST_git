@@ -412,7 +412,7 @@ class Invoice_comp_report extends CI_Controller {
             $data .= '<h4 style="color:#0e385e"><b>1.Not in GSTR-2A,but recorderd under purchasers book:</b></h4>';
 
             $records = count($query);
-            $show = $records / 50;
+            $show = $records / 24;
             $table = ceil($show);
             $min_value = 1;
 
@@ -421,15 +421,22 @@ class Invoice_comp_report extends CI_Controller {
 
                 if ($i == 0) {
                     $mrgin = "margin-top:5%;";
-                    $mrgin1 = "margin-bottom:10%;";
+                    $pg_brk = "page-break-after:always;";
+                    if ($table == 1) {
+                        $mrgin1 = "margin-bottom:5%;";
+                    } else { 
+                        $mrgin1 = "margin-bottom:10%;";
+                    }
                 } elseif ($i == ($table - 1)) {
+                    $pg_brk = "page-break-after:avoid;";
                     $mrgin = "margin-top:7%;";
                     $mrgin1 = "margin-bottom:4%;";
                 } else {
+                    $pg_brk = "page-break-after:always;";
                     $mrgin = "margin-top:7%;";
                     $mrgin1 = "margin-bottom:10%;";
                 }
-                $data .= '<table id="not_in2a_data" class=" table-bordered table-striped" width="800" style="' . $mrgin . $mrgin1 . '">
+                $data .= '<table id="not_in2a_data" class=" table-bordered table-striped" width="800" style="' . $mrgin . $mrgin1 . ';'.$pg_brk.'">
                                 <thead style="background-color: #0e385e;color:white">
                                     <tr>
                                         <th>Company Name</th>
@@ -447,7 +454,7 @@ class Invoice_comp_report extends CI_Controller {
                 $invoice_value = array();
                 $taxable_value = array();
                 $tax = array();
-                $query2 = $this->db->query("select * from gstr_2a_reconciliation_all where status='not_in_2a' and customer_id='$customer_id'and insert_id='$insert_id' LIMIT $min_value,50");
+                $query2 = $this->db->query("select * from gstr_2a_reconciliation_all where status='not_in_2a' and customer_id='$customer_id'and insert_id='$insert_id' LIMIT $min_value,24");
                 $result = $query2->result();
                 foreach ($result as $row) {
 
@@ -468,7 +475,7 @@ class Invoice_comp_report extends CI_Controller {
                     $k++;
                 }
                 $data .= '</tbody></table>';
-                $min_value = $min_value + 50;
+                $min_value = $min_value + 24;
                 $response['data'] = $data;
                 $response['message'] = "success";
                 $response['status'] = true;
@@ -665,19 +672,24 @@ class Invoice_comp_report extends CI_Controller {
                 //query logics
                 if ($i == 0) {
                     $mrgin = "margin-top:5%;";
-                    $mrgin1 = "margin-bottom:30%;";
-                    $pg_brk="page-break-after:always;";
+                    
+                    $pg_brk = "page-break-after:always;";
+                     if ($table == 1) {
+                        $mrgin1 = "margin-bottom:5%;";
+                    } else { 
+                        $mrgin1 = "margin-bottom:30%;";
+                    }
                 } elseif ($i == ($table - 1)) {
                     $mrgin = "margin-top:7%;";
                     $mrgin1 = "margin-bottom:5%;";
-                    $pg_brk="page-break-after:Avoid;";
+                    $pg_brk = "page-break-after:Avoid;";
                 } else {
                     $mrgin = "margin-top:7%;";
                     $mrgin1 = "margin-bottom:30%;";
-                    $pg_brk="page-break-after:always;";
+                    $pg_brk = "page-break-after:always;";
                 }
                 $data .= '
-                         <table id="not_record_data" class="table-bordered table-striped" width="800" style="' . $mrgin . $mrgin1 . ';'.$pg_brk.'">
+                         <table id="not_record_data" class="table-bordered table-striped" width="800" style="' . $mrgin . $mrgin1 . ';' . $pg_brk . '">
                                 <thead style="background-color: #0e385e;color:white">
                                     <tr>
                                         <th>Company Name</th>
@@ -899,18 +911,22 @@ class Invoice_comp_report extends CI_Controller {
             for ($i = 0, $k = 1; $i < $table; $i++) {
                 if ($i == 0) {
                     $mrgin = "margin-top:5%;";
-                    $mrgin1 = "margin-bottom:20%;";
-                    $pg_brk="page-break-after:always;";
+                    $pg_brk = "page-break-after:always;";
+                     if ($table == 1) {
+                        $mrgin1 = "margin-bottom:5%;";
+                    } else { 
+                        $mrgin1 = "margin-bottom:20%;";
+                    }
                 } elseif ($i == ($table - 1)) {
                     $mrgin = "margin-top:15%;";
                     $mrgin1 = "margin-bottom:5%;";
-                    $pg_brk="page-break-after:avoid;";
+                    $pg_brk = "page-break-after:avoid;";
                 } else {
                     $mrgin = "margin-top:15%;";
                     $mrgin1 = "margin-bottom:20%;";
-                    $pg_brk="page-break-after:always;";
+                    $pg_brk = "page-break-after:always;";
                 }
-                $data .= '<table id="example3" class=" table-bordered table-striped" width="800" style="' . $mrgin . $mrgin1 . ';'.$pg_brk.'" >
+                $data .= '<table id="example3" class=" table-bordered table-striped" width="800" style="' . $mrgin . $mrgin1 . ';' . $pg_brk . '" >
                                 <thead style="background-color: #0e385e;color:white">
                                     <tr>
                                         <th>Company</th>
@@ -1676,22 +1692,28 @@ class Invoice_comp_report extends CI_Controller {
             $min_value = 0;
             for ($i = 0; $i < $table; $i++) {
                 if ($i == 0) {
+                   
                     $mrgin = "margin-top:5%;";
-                    $mrgin1 = "margin-bottom:20%;";
-                    $pg_brk="page-break-after:always;";
+                    
+                    $pg_brk = "page-break-after:always;";
+                    if ($table == 1) {
+                        $mrgin1 = "margin-bottom:5%;";
+                    } else { 
+                        $mrgin1 = "margin-bottom:20%;";
+                    }
                 } elseif ($i == ($table - 1)) {
                     $mrgin = "margin-top:15%;";
                     $mrgin1 = "margin-bottom:5%;";
-                    $pg_brk="page-break-after:avoid;";
+                    $pg_brk = "page-break-after:avoid;";
                 } else {
                     $mrgin = "margin-top:15%;";
                     $mrgin1 = "margin-bottom:20%;";
-                    $pg_brk="page-break-after:always;";
+                    $pg_brk = "page-break-after:always;";
                 }
                 $data .= '<div class="row">
                     <div class="col-md-12">
                      <div class="">
-                         <table id="example2" class=" table-bordered table-striped" style=" width:800;' . $mrgin . $mrgin1 . ';'.$pg_brk.'">
+                         <table id="example2" class=" table-bordered table-striped" style=" width:800;' . $mrgin . $mrgin1 . ';' . $pg_brk . '">
                                 <thead style="background-color: #516b22;color:white">
                                     <tr style="width:2px">
                                         <th>Original Month</th>

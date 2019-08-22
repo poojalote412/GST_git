@@ -55,8 +55,8 @@ if (is_array($session_data)) {
         }*/
 
     td{
-        /*text-align: left;*/
-        /*padding-left:  1%;*/     
+        text-align: left;
+        padding-left:  1%;     
     }
     th{
         text-align: center;

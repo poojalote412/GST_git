@@ -57,7 +57,7 @@ class Account_report extends CI_Controller {
                                     <tr style="padding:3px">
                                         <th>No.</th>
                                         <th>Month</th>
-                                        <th>Return Filling Status</th>
+                                        <th>Status</th>
                                         <th>Late Fees</th>
                                         <th>Due Date</th>
                                         <th>Filling Date</th>
@@ -84,10 +84,12 @@ class Account_report extends CI_Controller {
                         '<td>' . $k . '</td>' .
                         '<td>' . $months . '</td>';
                 if (strtotime($filling_date1) > strtotime($due_date1)) {
-                    $data .= '<td ><label>Filed</label><button type="button" style="background-color:#84ab32 ;border: none;color: white;padding: 7px 25px 7px 25px;display: inline-block; border-radius:5px;">Filled</button></td>';
+                    $data .= '<td ><p style="background-color:#e31e25; color:#e31e25; border-radius:25px; width: 30px">Filed</p></td>';
+//                    $data .= '<td ><button type="button" style="background-color:#e31e25 ;border: none;color: white;padding: 7px 25px 7px 25px;display: inline-block; border-radius:5px;"></button></td>';
                     
                 } else {
-                    $data .= '<td ><label>Not Filed</label><button type="button" style="background-color: #e31e25;border: none;color: white;padding: 7px 25px 7px 25px;display: inline-block; border-radius:5px;">Not Filled</button></td>';
+                    $data .= '<td ><p style="background-color:#84ab32; color:#84ab32; border-radius:25px; width: 30px">Filed</p></td>';
+                    //$data .= '<td ><button type="button" style="background-color: #84ab32;border: none;color: white;padding: 7px 25px 7px 25px;display: inline-block; border-radius:5px;"></button></td>';
                 }
 
                 $data .= '<td>' . $late_fees . '</td>' .
@@ -148,9 +150,9 @@ class Account_report extends CI_Controller {
                         '<td>' . $k . '</td>' .
                         '<td>' . $period . '</td>';
                 if ($status == 'Filed') {
-                    $data .= '<td><button type="button" style="background: #84ab32;border: none;color: white;padding: 7px 25px 7px 25px;display: inline-block; border-radius:5px;">Filed</button></td>';
+                    $data .= '<td ><p style="background-color:#84ab32; color:#84ab32; border-radius:25px; width: 30px">Filed</p></td>';
                 } else {
-                    $data .= '<td><button type="button" style="background: #84ab32;border: none;color: white;padding: 7px 25px 7px 25px;display: inline-block; border-radius:5px;">Not Filed</button></td>';
+                    $data .= '<td ><p style="background-color:#e31e25; color:#84ab32; border-radius:25px; width: 30px">Filed</p></td>';
                 }
                 $data .= '<td>' . $filling_date . '</td>' .
                         '<td>' . $acknowledge_no . '</td>' .
