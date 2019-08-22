@@ -653,7 +653,7 @@ class Invoice_comp_report extends CI_Controller {
 
         if ($query != FALSE) {
             $records = count($query);
-            $show = $records / 46;
+            $show = $records / 24;
             $table = ceil($show);
             $min_value = 1;
             $data .= '<h4 style="color:#0e385e"><b>2.Not in records,but recorded under GSTR-2A:</b></h4>';
@@ -688,7 +688,7 @@ class Invoice_comp_report extends CI_Controller {
                                     </tr>
                                 </thead>
                                 <tbody>';
-                $query2 = $this->db->query("select * from gstr_2a_reconciliation_all where status='not_in_rec' and customer_id='$customer_id'and insert_id='$insert_id' LIMIT $min_value,46 ");
+                $query2 = $this->db->query("select * from gstr_2a_reconciliation_all where status='not_in_rec' and customer_id='$customer_id'and insert_id='$insert_id' LIMIT $min_value,24 ");
                 $result = $query2->result();
                 foreach ($result as $row) {
 //                    $invoice_value[] = $row->invoice_value;
@@ -714,7 +714,7 @@ class Invoice_comp_report extends CI_Controller {
                 $response['code'] = 200;
 
                 //query logics
-                $min_value = $min_value + 46;
+                $min_value = $min_value + 24;
 //                $max_value = ($max_value ) + 15;
             }
             $data1 = "<h4><b>Observation:</b></h4>"
@@ -890,21 +890,24 @@ class Invoice_comp_report extends CI_Controller {
         if ($query != FALSE) {
             $data .= '<h4 style="color:#0e385e"><b>3.Invoice no.,POS and Period mismatch:</b></h4>';
             $records = count($query);
-            $show = $records / 24;
+            $show = $records / 22;
             $table = ceil($show);
             $min_value = 1;
             for ($i = 0, $k = 1; $i < $table; $i++) {
                 if ($i == 0) {
                     $mrgin = "margin-top:5%;";
                     $mrgin1 = "margin-bottom:20%;";
+                    $pg_brk="page-break-after:always;";
                 } elseif ($i == ($table - 1)) {
                     $mrgin = "margin-top:7%;";
                     $mrgin1 = "margin-bottom:5%;";
+                    $pg_brk="page-break-after:avoid;";
                 } else {
                     $mrgin = "margin-top:7%;";
                     $mrgin1 = "margin-bottom:20%;";
+                    $pg_brk="page-break-after:always;";
                 }
-                $data .= '<table id="example3" class=" table-bordered table-striped" width="800" style="' . $mrgin . $mrgin1 . '" >
+                $data .= '<table id="example3" class=" table-bordered table-striped" width="800" style="' . $mrgin . $mrgin1 . ';'.$pg_brk.'" >
                                 <thead style="background-color: #0e385e;color:white">
                                     <tr>
                                         <th>Company</th>
@@ -929,7 +932,7 @@ class Invoice_comp_report extends CI_Controller {
                 $place_of_supply_2a = array();
                 $taxable_value = array();
                 $tax = array();
-                $query2 = $this->db->query("select * from gstr_2a_reconciliation_partially_match_summary where customer_id='$customer_id' and insert_id='$insert_id' and status='Partly_Mat' LIMIT $min_value,24 ");
+                $query2 = $this->db->query("select * from gstr_2a_reconciliation_partially_match_summary where customer_id='$customer_id' and insert_id='$insert_id' and status='Partly_Mat' LIMIT $min_value,22 ");
                 $result = $query2->result();
                 foreach ($result as $row) {
 
@@ -971,7 +974,7 @@ class Invoice_comp_report extends CI_Controller {
 //                    '</tr>';
 
 
-                $min_value = $min_value + 24;
+                $min_value = $min_value + 22;
                 $response['data'] = $data;
                 $response['message'] = "success";
                 $response['status'] = true;

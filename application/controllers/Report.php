@@ -113,7 +113,7 @@ class Report extends CI_Controller {
                       <p>6. CFO Dashboard</p>
                       <p>This will help the company immensely for their development.</p>
                       	<p>We also evaluated some areas of improvement.</p>
-                     </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
+                     </div>';
 
 
             $respose['data'] = $data;
