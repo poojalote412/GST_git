@@ -780,7 +780,7 @@ xepOnline.Formatter = {
 		options = options || {};
 		options.render = (options.render === undefined) ? 'newwin' : options.render;
 		options.mimeType = (options.mimeType === undefined) ? xepOnline.Formatter.mime_type.pdf : options.mimeType;
-		options.filename = (options.filename === undefined) ? 'document' : options.filename;
+		options.filename = (options.filename === undefined) ? 'GST Health Check Report' : options.filename;
 		options.resolution = (options.resolution === undefined) ? '120' : options.resolution;
 		options.processPseudoElem = (options.processPseudoElem === undefined) ? 'true' : options.processPseudoElem;
 		
