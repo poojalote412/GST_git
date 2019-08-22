@@ -203,12 +203,11 @@ if (is_array($session_data)) {
                     <!--Details of GST Reports & insights-->
 
                     <div class="test" id="first_div" style="page-break-before:always;margin-top:7%;display: block">
-
+                        <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
                         <h4 class="" style="color:#0e385e;"><b>6.DETAILS OF GST REPORTS AND INSIGHTS</b></h4>
                         <h4 class="" style="background:#0e385e; color:white;width:700px;text-align:center">DATA INSIGHTS</h4>
                         <h4 class="" style="color:#0e385e"><b>A.MANAGEMENT REPORT</b></h4><br>
 
-                        <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
 
                         <div id="sales_monthly_data2" style="margin-left:5%"></div>
                         <div id="container_sales_month_wise"  style="width:700px;margin-left:5%"></div>
