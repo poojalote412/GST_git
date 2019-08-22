@@ -666,15 +666,18 @@ class Invoice_comp_report extends CI_Controller {
                 if ($i == 0) {
                     $mrgin = "margin-top:5%;";
                     $mrgin1 = "margin-bottom:30%;";
+                    $pg_brk="page-break-after:always;";
                 } elseif ($i == ($table - 1)) {
                     $mrgin = "margin-top:7%;";
                     $mrgin1 = "margin-bottom:5%;";
+                    $pg_brk="page-break-after:Avoid;";
                 } else {
                     $mrgin = "margin-top:7%;";
                     $mrgin1 = "margin-bottom:30%;";
+                    $pg_brk="page-break-after:always;";
                 }
                 $data .= '
-                         <table id="not_record_data" class="table-bordered table-striped" width="800" style="' . $mrgin . $mrgin1 . '">
+                         <table id="not_record_data" class="table-bordered table-striped" width="800" style="' . $mrgin . $mrgin1 . ';'.$pg_brk.'">
                                 <thead style="background-color: #0e385e;color:white">
                                     <tr>
                                         <th>Company Name</th>
@@ -1672,10 +1675,23 @@ class Invoice_comp_report extends CI_Controller {
             $table = ceil($show);
             $min_value = 0;
             for ($i = 0; $i < $table; $i++) {
+                if ($i == 0) {
+                    $mrgin = "margin-top:5%;";
+                    $mrgin1 = "margin-bottom:20%;";
+                    $pg_brk="page-break-after:always;";
+                } elseif ($i == ($table - 1)) {
+                    $mrgin = "margin-top:15%;";
+                    $mrgin1 = "margin-bottom:5%;";
+                    $pg_brk="page-break-after:avoid;";
+                } else {
+                    $mrgin = "margin-top:15%;";
+                    $mrgin1 = "margin-bottom:20%;";
+                    $pg_brk="page-break-after:always;";
+                }
                 $data .= '<div class="row">
                     <div class="col-md-12">
                      <div class="">
-                         <table id="example2" class=" table-bordered table-striped" style="width:90 !important">
+                         <table id="example2" class=" table-bordered table-striped" style=" width:800;' . $mrgin . $mrgin1 . ';'.$pg_brk.'">
                                 <thead style="background-color: #516b22;color:white">
                                     <tr style="width:2px">
                                         <th>Original Month</th>
