@@ -424,7 +424,8 @@ class Invoice_comp_report extends CI_Controller {
                     $pg_brk = "page-break-after:always;";
                     if ($table == 1) {
                         $mrgin1 = "margin-bottom:5%;";
-                    } else { 
+                        $pg_brk = "page-break-after:avoid;";
+                    } else {
                         $mrgin1 = "margin-bottom:10%;";
                     }
                 } elseif ($i == ($table - 1)) {
@@ -436,7 +437,7 @@ class Invoice_comp_report extends CI_Controller {
                     $mrgin = "margin-top:7%;";
                     $mrgin1 = "margin-bottom:10%;";
                 }
-                $data .= '<table id="not_in2a_data" class=" table-bordered table-striped" width="800" style="' . $mrgin . $mrgin1 . ';'.$pg_brk.'">
+                $data .= '<table id="not_in2a_data" class=" table-bordered table-striped" width="800" style="' . $mrgin . $mrgin1 . ';' . $pg_brk . '">
                                 <thead style="background-color: #0e385e;color:white">
                                     <tr>
                                         <th>Company Name</th>
@@ -672,11 +673,12 @@ class Invoice_comp_report extends CI_Controller {
                 //query logics
                 if ($i == 0) {
                     $mrgin = "margin-top:5%;";
-                    
+
                     $pg_brk = "page-break-after:always;";
-                     if ($table == 1) {
+                    if ($table == 1) {
                         $mrgin1 = "margin-bottom:5%;";
-                    } else { 
+                        $pg_brk = "page-break-after:avoid;";
+                    } else {
                         $mrgin1 = "margin-bottom:30%;";
                     }
                 } elseif ($i == ($table - 1)) {
@@ -912,9 +914,10 @@ class Invoice_comp_report extends CI_Controller {
                 if ($i == 0) {
                     $mrgin = "margin-top:5%;";
                     $pg_brk = "page-break-after:always;";
-                     if ($table == 1) {
+                    if ($table == 1) {
                         $mrgin1 = "margin-bottom:5%;";
-                    } else { 
+                        $pg_brk = "page-break-after:avoid;";
+                    } else {
                         $mrgin1 = "margin-bottom:20%;";
                     }
                 } elseif ($i == ($table - 1)) {
@@ -1304,13 +1307,19 @@ class Invoice_comp_report extends CI_Controller {
         if ($query != FALSE) {
             $data1 .= '<h4 style="color:#0e385e"><b>2.Invoice not included in GSTR-1:</b></h4>';
             $records = count($query);
-            $show = $records / 50;
+            $show = $records / 20;
             $table = ceil($show);
             $min_value = 0;
             for ($i = 0; $i < $table; $i++) {
                 if ($i == 0) {
                     $mrgin = "margin-top:5%;";
                     $mrgin1 = "margin-bottom:20%;";
+                    if ($table == 1) {
+                        $mrgin1 = "margin-bottom:5%;";
+                        $pg_brk = "page-break-after:avoid;";
+                    } else {
+                        $mrgin1 = "margin-bottom:20%;";
+                    }
                 } elseif ($i == ($table - 1)) {
                     $mrgin = "margin-top:7%;";
                     $mrgin1 = "margin-bottom:5%;";
@@ -1338,7 +1347,7 @@ class Invoice_comp_report extends CI_Controller {
                                     </tr>
                                 </thead>
                                 <tbody>';
-                $query2 = $this->db->query("select * from invoice_not_included_gstr1 where customer_id='$customer_id' and insert_id='$insert_id' LIMIT $min_value,50 ");
+                $query2 = $this->db->query("select * from invoice_not_included_gstr1 where customer_id='$customer_id' and insert_id='$insert_id' LIMIT $min_value,20 ");
                 $result = $query2->result();
                 foreach ($result as $row) {
 
@@ -1357,7 +1366,7 @@ class Invoice_comp_report extends CI_Controller {
                         </tr>';
                 }
                 $data .= '</tbody></table></div></div></div>';
-                $min_value = $min_value + 50;
+                $min_value = $min_value + 20;
             }
             $get_observation = $this->db->query("select invoice_not_include_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
             if ($this->db->affected_rows() > 0) {
@@ -1692,13 +1701,13 @@ class Invoice_comp_report extends CI_Controller {
             $min_value = 0;
             for ($i = 0; $i < $table; $i++) {
                 if ($i == 0) {
-                   
+
                     $mrgin = "margin-top:5%;";
-                    
+
                     $pg_brk = "page-break-after:always;";
                     if ($table == 1) {
                         $mrgin1 = "margin-bottom:5%;";
-                    } else { 
+                    } else {
                         $mrgin1 = "margin-bottom:20%;";
                     }
                 } elseif ($i == ($table - 1)) {

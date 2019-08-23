@@ -132,15 +132,18 @@ class Report extends CI_Controller {
             $final_value = ($time_over_run3) * 10 + ($internal_control1) * 20 + ($transaction_mismatch3) * 20 + ($deviation_output3) * 20 + ($gst_payable3) * 10;
             if ($final_value > 100 && $final_value <= 500) {
                 $bg_clr1 = "#009746";
+                $color="white";
             } elseif ($final_value >= 501 && $final_value <= 1000) {
                 $bg_clr1 = "#feed00";
+                $color="black";
             } else {
                 $bg_clr1 = "#e31e25";
+                $color="white";
             }
 
             $get_bg_color = $this->get_bg_color_fun($time_over_run3, $internal_control3, $transaction_mismatch3, $deviation_itc3, $deviation_output3, $gst_payable3);
 //            $data1 .= '<h3><b>6.Issue Matrix</b></h3>';
-            $data .= '<table id="heat_map_tbl_id" class="table-bordered table-striped" width="800">
+            $data .= '<table id="heat_map_tbl_id" class=" table-bordered table-striped" width="800">
                                 <thead style="color:white">
                                     <tr>
                                         <th bgcolor="#C7273D" height="20">No.</th>
@@ -154,42 +157,42 @@ class Report extends CI_Controller {
                                 <tr>
                                 <td>1.</td>
                                 <td>Time over-run resulting into penalties.</td>
-                                <td bgcolor="' . $get_bg_color[0] . '">' . $time_over_run3 . '</td>
+                                <td bgcolor="' . $get_bg_color[0] . '"style="color:'.$get_bg_color[6].'">' . $time_over_run3 . '</td>
                                 <td>10</td>
                                 <td>' . ($time_over_run3) * 10 . '</td>
                                 </tr>
                                 <tr>
                                 <td>2.</td>
                                 <td>Lack of Internal control management leads to interest penalties GST Notices, inefficient working capital management.</td>
-                                <td bgcolor="' . $get_bg_color[1] . '">' . $internal_control1 . '</td>
+                                <td bgcolor="' . $get_bg_color[1] . '"style="color:'.$get_bg_color[7].'">' . $internal_control1 . '</td>
                                 <td>20</td>
                                 <td>' . ($internal_control1) * 20 . '</td>
                                 </tr>
                                 <tr>
                                 <td>3.</td>
                                 <td>Mismatches of transactions leads to loss of ITC, Interest, Liability or GST Notices</td>
-                                <td bgcolor="' . $get_bg_color[2] . '">' . $transaction_mismatch3 . '</td>
+                                <td bgcolor="' . $get_bg_color[2] . '"style="color:'.$get_bg_color[8].'"> ' . $transaction_mismatch3 . '</td>
                                 <td>20</td>
                                 <td>' . ($transaction_mismatch3) * 20 . '</td>
                                 </tr>
                                 <tr>
                                 <td>4.</td>
                                 <td>Deviation in ITC after comparing GSTR-3B vs 2A</td>
-                                <td bgcolor="' . $get_bg_color[3] . '">' . $deviation_itc3 . '</td>
+                                <td bgcolor="' . $get_bg_color[3] . '" style="color:'.$get_bg_color[9].'">' . $deviation_itc3 . '</td>
                                 <td>20</td>
                                 <td>' . ($deviation_itc3) * 20 . '</td>
                                 </tr>
                                 <tr>
                                 <td>5.</td>
                                 <td>Deviation in output liability after comparing GSTR-3B vs GSTR-1.</td>
-                                <td bgcolor="' . $get_bg_color[4] . '">' . $deviation_output3 . '</td>
+                                <td bgcolor="' . $get_bg_color[4] . '"style="color:'.$get_bg_color[10].'">' . $deviation_output3 . '</td>
                                 <td>20</td>
                                 <td>' . ($deviation_output3) * 20 . '</td>
                                 </tr>
                                 <tr>
                                 <td>6.</td>
                                 <td>GST Payable in cash</td>
-                                <td bgcolor="' . $get_bg_color[5] . '">' . $gst_payable3 . '</td>
+                                <td bgcolor="' . $get_bg_color[5] . '" style="color:'.$get_bg_color[11].'">' . $gst_payable3 . '</td>
                                 <td>10</td>
                                 <td>' . ($gst_payable3) * 10 . '</td>
                                 </tr>
@@ -198,7 +201,7 @@ class Report extends CI_Controller {
                                 <td></td>
                                 <td></td>
                                 <td>100</td>
-                                <td bgcolor="' . $bg_clr1 . '">' . $final_value . '</td>
+                                <td bgcolor="' . $bg_clr1 . '" style="color:'.$color.'">' . $final_value . '</td>
                                 </tr>
                                 </tbody></table>';
             $respose['data'] = $data;
@@ -282,6 +285,7 @@ class Report extends CI_Controller {
             $gst_payable3 = $gst_payable1 * $gst_payable2;
 
             $get_bg_color = $this->get_bg_color_fun($time_over_run3, $internal_control3, $transaction_mismatch3, $deviation_itc3, $deviation_output3, $gst_payable3);
+          
 //            $data1 .= '<h3><b>6.Issue Matrix</b></h3>';
             $data .= '<table id="heat_map_tbl_id" class="table-bordered table-striped" width="800">
                                 <thead style="color:white">
@@ -301,7 +305,7 @@ class Report extends CI_Controller {
                                 <td>File GSTR monthly before duedate to avoid any penalties.</td>
                                 <td>' . $time_over_run1 . '</td>
                                 <td>' . $time_over_run2 . '</td>
-                                <td bgcolor="' . $get_bg_color[0] . '">' . $time_over_run3 . '</td>
+                                <td bgcolor="' . $get_bg_color[0] . '" style="color:'.$get_bg_color[6].'">' . $time_over_run3 . '</td>
                                 </tr>
                                 <tr>
                                 <td>2.</td>
@@ -309,7 +313,7 @@ class Report extends CI_Controller {
                                 <td>Recording of invoices needs to be reviewed.</td>
                                 <td>' . $internal_control1 . '</td>
                                 <td>' . $internal_control2 . '</td>
-                                <td bgcolor="' . $get_bg_color[1] . '">' . $internal_control1 . '</td>
+                                <td bgcolor="' . $get_bg_color[1] . '" style="color:'.$get_bg_color[7].'">' . $internal_control1 . '</td>
                                 </tr>
                                 <tr>
                                 <td>3.</td>
@@ -317,7 +321,7 @@ class Report extends CI_Controller {
                                 <td>Follow-up with the clients with whom out transactions are mismatched. Also invoice processing for GST Claim & Reconciliation need to be reviewed.</td>
                                 <td>' . $transaction_mismatch1 . '</td>
                                 <td>' . $transaction_mismatch2 . '</td>
-                                <td bgcolor="' . $get_bg_color[2] . '">' . $transaction_mismatch3 . '</td>
+                                <td bgcolor="' . $get_bg_color[2] . '" style="color:'.$get_bg_color[8].'">' . $transaction_mismatch3 . '</td>
                                 </tr>
                                 <tr>
                                 <td>4.</td>
@@ -325,7 +329,7 @@ class Report extends CI_Controller {
                                 <td>Check the eligibility and ineligibility of credit reflecting in GSTR-2A and prepare reconciliation statement accordingly.</td>
                                 <td>' . $deviation_itc1 . '</td>
                                 <td>' . $deviation_itc2 . '</td>
-                                <td bgcolor="' . $get_bg_color[3] . '">' . $deviation_itc3 . '</td>
+                                <td bgcolor="' . $get_bg_color[3] . '" style="color:'.$get_bg_color[9].'">' . $deviation_itc3 . '</td>
                                 </tr>
                                 <tr>
                                 <td>5.</td>
@@ -333,7 +337,7 @@ class Report extends CI_Controller {
                                 <td>Regular follow-ups with the client.</td>
                                 <td>' . $deviation_output1 . '</td>
                                 <td>' . $deviation_output2 . '</td>
-                                <td bgcolor="' . $get_bg_color[4] . '">' . $deviation_output3 . '</td>
+                                <td bgcolor="' . $get_bg_color[4] . '" style="color:'.$get_bg_color[10].'">' . $deviation_output3 . '</td>
                                 </tr>
                                 <tr>
                                 <td>6.</td>
@@ -341,7 +345,7 @@ class Report extends CI_Controller {
                                 <td>Analysis of huge payment by cash to be done & accordingly ITC planning should be done.</td>
                                 <td>' . $gst_payable1 . '</td>
                                 <td>' . $gst_payable2 . '</td>
-                                <td bgcolor="' . $get_bg_color[5] . '">' . $gst_payable3 . '</td>
+                                <td bgcolor="' . $get_bg_color[5] . '" style="color:'.$get_bg_color[11].'">' . $gst_payable3 . '</td>
                                 </tr>
                                 </tbody></table>';
             $likelihood_impact = [[$time_over_run1, $time_over_run2], [$internal_control1, $internal_control2], [$transaction_mismatch1, $transaction_mismatch2],
@@ -364,48 +368,66 @@ class Report extends CI_Controller {
     public function get_bg_color_fun($time_over_run3, $internal_control3, $transaction_mismatch3, $deviation_itc3, $deviation_output3, $gst_payable3) {
         if ($time_over_run3 > 0 && $time_over_run3 <= 6) {
             $bg_clr1 = "#009746";
+            $color1="white";
         } elseif ($time_over_run3 > 6 && $time_over_run3 <= 11) {
             $bg_clr1 = "#feed00";
+            $color1="black";
         } else {
             $bg_clr1 = "#e31e25";
+            $color1="white";
         }
         if ($internal_control3 > 0 && $internal_control3 <= 6) {
             $bg_clr2 = "#009746";
+            $color2="white";
         } elseif ($internal_control3 > 6 && $internal_control3 <= 11) {
             $bg_clr2 = "#feed00";
+            $color2="black";
         } else {
             $bg_clr2 = "#e31e25";
+            $color2="white";
         }
         if ($transaction_mismatch3 > 0 && $transaction_mismatch3 <= 6) {
             $bg_clr3 = "#009746";
+            $color3="white";
         } elseif ($transaction_mismatch3 > 6 && $time_over_run3 <= 11) {
             $bg_clr3 = "#feed00";
+            $color3="black";
         } else {
             $bg_clr3 = "#e31e25";
+            $color3="white";
         }
         if ($deviation_itc3 > 0 && $deviation_itc3 <= 6) {
             $bg_clr4 = "#009746";
+            $color4="white";
         } elseif ($deviation_itc3 > 6 && $deviation_itc3 <= 11) {
             $bg_clr4 = "#feed00";
+            $color4="black";
         } else {
             $bg_clr4 = "#e31e25";
+            $color4="white";
         }
 //        echo $deviation_output3;
         if ($deviation_output3 > 0 && $deviation_output3 <= 6) {
             $bg_clr5 = "#009746";
+            $color5="white";
         } elseif ($deviation_output3 > 6 && $deviation_output3 <= 11) {
             $bg_clr5 = "#feed00";
+            $color5="black";
         } else {
             $bg_clr5 = "#e31e25";
+            $color5="white";
         }
         if ($gst_payable3 > 0 && $gst_payable3 <= 6) {
             $bg_clr6 = "#009746";
+            $color6="white";
         } elseif ($gst_payable3 > 6 && $gst_payable3 <= 11) {
             $bg_clr6 = "#feed00";
+            $color6="black";
         } else {
             $bg_clr6 = "#e31e25";
+            $color6="white";
         }
-        return array($bg_clr1, $bg_clr2, $bg_clr3, $bg_clr4, $bg_clr5, $bg_clr6);
+        return array($bg_clr1, $bg_clr2, $bg_clr3, $bg_clr4, $bg_clr5, $bg_clr6,$color1,$color2,$color3,$color4,$color5,$color6);
     }
 
 }
