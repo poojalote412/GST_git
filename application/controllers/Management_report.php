@@ -185,7 +185,7 @@ class Management_report extends CI_Controller {
 
         if ($query->num_rows() > 0) {
             $result = $query->result();
-            $data2 .='<h4><b>3.Sales State Wise</b></h4>';
+            $data2 .= '<h4><b>3.Sales State Wise</b></h4>';
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
@@ -449,12 +449,31 @@ class Management_report extends CI_Controller {
                 $sub_total_zero_ratedarr[] = $sub_total_zero_rated; // sub total exempt array
 
                 $grand_total = $taxable_supply + $sub_total_non_gst + $sub_total_exempt + $sub_total_nil_rated + $sub_total_zero_rated;
-
-                $ratio_taxable_supply[] = round(($taxable_supply * 100) / ($grand_total));
-                $ratio_subtotal_nongst[] = round(($sub_total_non_gst * 100) / ($grand_total));
-                $ratio_subtotal_exempt[] = round(($sub_total_exempt * 100) / ($grand_total));
-                $ratio_subtotal_nil_rated[] = round(($sub_total_nil_rated * 100) / ($grand_total));
-                $ratio_subtotal_zero_rated[] = round(($sub_total_zero_rated * 100) / ($grand_total));
+                if ($grand_total != 0) {
+                    $ratio_taxable_supply[] = round(($taxable_supply * 100) / ($grand_total));
+                    $ratio_subtotal_nongst[] = round(($sub_total_non_gst * 100) / ($grand_total));
+                    $ratio_subtotal_exempt[] = round(($sub_total_exempt * 100) / ($grand_total));
+                    $ratio_subtotal_nil_rated[] = round(($sub_total_nil_rated * 100) / ($grand_total));
+                    $ratio_subtotal_zero_rated[] = round(($sub_total_zero_rated * 100) / ($grand_total));
+                    
+                    
+                    $ratio1=(round(($taxable_supply * 100) / ($grand_total)));
+                    $ratio2=(round(($sub_total_non_gst * 100) / ($grand_total)));
+                    $ratio3=(round(($sub_total_exempt * 100) / ($grand_total)));
+                    $ratio4=(round(($sub_total_nil_rated * 100) / ($grand_total)));
+                    $ratio5=(round(($sub_total_zero_rated * 100) / ($grand_total)));
+                } else {
+                    $ratio_taxable_supply[] = 0;
+                    $ratio_subtotal_nongst[] = 0;
+                    $ratio_subtotal_exempt[] = 0;
+                    $ratio_subtotal_nil_rated[] = 0;
+                    $ratio_subtotal_zero_rated[] = 0;
+                    $ratio1=0;
+                    $ratio2=0;
+                    $ratio3=0;
+                    $ratio4=0;
+                    $ratio5=0;
+                }
                 $data .= '<tr>' .
 //                        '<td>' . $k . '</td>' .
                         '<td>' . $month . '</td>' .
@@ -463,11 +482,11 @@ class Management_report extends CI_Controller {
                         '<td>' . $sub_total_non_gst . '</td>' .
                         '<td>' . $sub_total_nil_rated . '</td>' .
                         '<td>' . $sub_total_zero_rated . '</td>' .
-                        '<td>' . (round(($taxable_supply * 100) / ($grand_total))) . "%" . '</td>' .
-                        '<td>' . (round(($sub_total_non_gst * 100) / ($grand_total))) . "%" . '</td>' .
-                        '<td>' . (round(($sub_total_exempt * 100) / ($grand_total))) . "%" . '</td>' .
-                        '<td>' . (round(($sub_total_nil_rated * 100) / ($grand_total))) . "%" . '</td>' .
-                        '<td>' . (round(($sub_total_zero_rated * 100) / ($grand_total))) . "%" . '</td>' .
+                        '<td>' . $ratio1 . "%" . '</td>' .
+                        '<td>' . $ratio2  . "%" . '</td>' .
+                        '<td>' . $ratio3 . "%" . '</td>' .
+                        '<td>' . $ratio4 . "%" . '</td>' .
+                        '<td>' . $ratio5 . "%" . '</td>' .
                         '</tr>';
 //                $k++;
             }
@@ -1069,8 +1088,8 @@ class Management_report extends CI_Controller {
         $insert_id = $this->input->post("insert_id");
         $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         $data = ""; //view observations
-        $data1 ="";
-        $data2 ="";
+        $data1 = "";
+        $data2 = "";
         if ($query->num_rows() > 0) {
             $result = $query->result();
             $taxable_supply_arr = array();

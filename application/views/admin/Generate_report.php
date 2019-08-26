@@ -68,7 +68,7 @@ if (is_array($session_data)) {
       content: attr(data-label);
     }*/
 
-    
+
 
 </style>
 
@@ -150,10 +150,10 @@ if (is_array($session_data)) {
                     </div>
 
 
-                    <!--                    <header id="header_id" class="header_id" style="display:none;margin-top:20px;">
+                                        <header id="header_id" class="header_id" style="display:none;margin-top:20px;">
                                             <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br><br><br>
                     
-                                        </header>-->
+                                        </header>
 
                     <footer style="display:none;margin-top:-30px;">
                         <div>
@@ -168,7 +168,7 @@ if (is_array($session_data)) {
 
 
                     <div style="page-break-before:always;" style="font-family: 'Futura BdCn BT';"><br><br>
-                        <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p>
+                        <!--<p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p>-->
                         <div style="margin-left: 35% ;margin-top: 5% ;">
                             <b style="font-size:22px;color:#0e385e;">LETTER TO CLIENT</b></div>
                         <div style="margin-top: 70px;margin-left: 7% ;" ><b>19th August, 2019</b> <br>
@@ -181,39 +181,64 @@ if (is_array($session_data)) {
 
                     </div>
 
-                    <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
+                    <!--<p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>-->
                     <div id="container_image_limited_usage" style="margin-top: 7% ;"><img src="https://premisafe.com/GST_image/LimitedUsage&Abbreviation.jpg" width="800px" height="700px"style="page-break-before:always;" >
 
                     </div>
                     <div style="margin-top: 7%;margin-left: 5%;page-break-after:always;page-break-before: always;">
-                        <img src="https://premisafe.com/GST_image/GSTContent.jpg" width="800px" height="700px"style="page-break-before:always;" >
+                        <!--<img src="https://premisafe.com/GST_image/GSTContent.jpg" width="800px" height="700px"style="page-break-before:always;" >-->
+                        <div class="row">
+                            <div class="col-md-4"><p style="border: 2px;padding:6px;background:#D3D3D3"><b>About Client&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pg.05</b></p></div>
+                            <div class="col-md-4"><p style="border: 2px;background:#002366;padding:6px;color:white"><b>Executive Summary</b></p></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4"><p style="border: 2px;background:#002366;padding:10px;color:white"><b>GST Components And Overview</b></p></div>
+                            <div class="col-md-4"><p style="border: 2px;padding:10px;background:#D3D3D3"><b>GST Framework&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pg.05</b></p></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4"><p style="border: 2px;padding:10px;background:#D3D3D3"><b>Details of GST Reports & Insightst&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pg.05</b></p></div>
+                            <div class="col-md-4"><p style="border: 2px;padding:10px;background:#D3D3D3"><b>Issue Matrix&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pg.05</b></p></div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4"><p style="border: 2px;background:#002366;padding:10px;color:white"><b>Rating Card</b></p></div>
+                            <div class="col-md-4"><p style="border: 2px;padding:10px;background:#D3D3D3"><b>Conclusion&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pg.05</b></p></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8"><p style="border: 2px;padding:4px;background:#D3D3D3"><b>Disclaimer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pg.05</b></p></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8"><p style="border: 2px;background:#002366;padding:4px;color:white"><b>About R Kabra & Co.</b></p></div>
+                        </div>
+                        <p id="abt"></p>
+                        <input type="text" id="abt1">
 
                     </div>
 
                     <div style="page-break-before:always;page-break-after:always;width:700px;margin-left: 5%;margin-right:  5%;margin-top:7%;text-align: justify;font-family: 'Futura BdCn BT';">
-                        <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p>
+                        <!--<p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p>-->
                         <b style="font-size:18px;color:#0e385e;">1. ABOUT <?php echo $client_details->company_name ?>:</b>
                         <br>  <?php echo $report_details->about_company ?> 
                     </div>
                     <div style="page-break-after:always;width:700px;margin-left: 5%;margin-right:  5%;margin-top:7%;text-align: justify;">
-                        <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p>
+                        <!--<p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p>-->
                         <div id="content_pdf" style="margin-top:7%;"></div>
                     </div>
 
-                    <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
+                    <!--<p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>-->
                     <div id="container_image_components_overview" style="margin-top:7%"><img src="https://premisafe.com/GST_image/GSTComponents&Overview.jpg" width="1000px" height="900px" style="page-break-before:always;"></div>
                     <div class="test" style="page-break-before:always;margin-top:7%">
-                        <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
+                        <!--<p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>-->
                         <div id="container_image_GST_framework" style="margin-top:7%;"><img src="https://premisafe.com/GST_image/GSTFramework.jpg" width="800px" height="900px"></div>
                     </div>
                     <div class="test" style="page-break-before:always;margin-top:7%">
-                        <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
+                        <!--<p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>-->
                         <div id="container_image_approach" style="margin-top:7%;"><img src="https://premisafe.com/GST_image/Approach.jpg" width="800px" height="900px" style="page-break-before:always;"></div>
                     </div>
                     <!--Details of GST Reports & insights-->
 
                     <div class="test" id="first_div" style="page-break-before:always;margin-top:7%;display: block">
-                        <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
+                        <!--<p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>-->
                         <h4 class="" style="color:#0e385e;"><b>6.DETAILS OF GST REPORTS AND INSIGHTS</b></h4>
                         <h4 class="" style="background:#0e385e; color:white;width:700px;text-align:center">DATA INSIGHTS</h4>
                         <h4 class="" style="color:#0e385e"><b>A.MANAGEMENT REPORT</b></h4><br>
@@ -224,7 +249,7 @@ if (is_array($session_data)) {
                         <div id="sales_monthly_data1" style="width:700px;margin-left:5% "></div>
 
                         <div class="test" style="margin-top:5%;page-break-before:always;">
-                            <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
+                            <!--<p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>-->
                             <div id="compare_sales_ratewise_data1" style="width:700px;margin-left:5%"></div>
                             <div id="compare_sales_ratewise_data" style="width:700px;margin-left:5%"></div><br><br><br>
                             <div id="sales_state_wise_data2"  style="width:700px;margin-left:5%"></div>
@@ -233,15 +258,15 @@ if (is_array($session_data)) {
                         </div>
 
 
-                        <div class="test" style="page-break-before:always;margin-top:7%">
-                            <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
+                        <div class="test_tax_ntax"  style="page-break-before:always;margin-top:7%;display: block;">
+                            <!--<p id="logo_ntx"style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>-->
                             <div id="tax_ntax_Exempt_data2" style="width:700px;margin-left:5%"></div>
                             <div id="container_nontax_exempt" style="width:700px;margin-left:5%"></div>
                             <div id="tax_ntax_Exempt_data1" style="width:700px;margin-left:5%"></div>
                         </div>
 
                         <div class="test" style="page-break-before:always;margin-top:7%">
-                            <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
+                            <!--<p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>-->
                             <div id="compare_b2b_data2" style="width:700px;margin-left:5%"></div>
                             <div id="container_sales_b2b_b2c" style="width:700px;margin-left:5%"></div>
                             <div id="compare_b2b_data1" style="width:700px;margin-left:5%"></div>
@@ -250,7 +275,7 @@ if (is_array($session_data)) {
                     </div>
                     <!--Comparison & Deviation Report-->
                     <div class="test" id="second_div" style="display:block">
-                        <div class="test" style="page-break-before:always;margin-top:7%">
+                        <!--<div class="test" style="page-break-before:always;margin-top:7%">-->
                             <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
                             <h4 style="color:#0e385e;"><b>B.COMPARISON AND DEVIATION REPORT</b></h4>
                             <div id="compare_GSTR3B_Vs2_data2" style="width:700px;margin-left:5%"></div>
@@ -260,7 +285,7 @@ if (is_array($session_data)) {
 
                         </div>
                         <div class="test" style="page-break-before:always;margin-top:7%">
-                            <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
+                            <!--<p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>-->
                             <div id="compare_3b_vs1_data2" style="width:700px;margin-left:5%"></div>
                             <div id="compare_3b_vs1_data" style="width:700px;margin-left:5%"></div><br><br>
                             <div id="container_GSTR3b_vs_1" style="width:700px;margin-left:5%"></div>
@@ -269,19 +294,19 @@ if (is_array($session_data)) {
                     </div>
 
                     <!--BAROMETER CFO DASHBOARD-->
-                    <div class="test" id="third_div" style="display:block">
-                        <div class="test" style="page-break-before:always;">
-                            <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
-                            <p style="background:#cd273f; color:white;padding:4px;border:1px solid;margin-top:7%;width:700px;text-align:center"><b>BAROMETER-CFO DASHBOARD</b></p>
-                            <h4 style="color:#0e385e;"><b>A. CFO DASHBOARD</b></h4>
-                            <div id="tax_turnover_data2" style="width:700px;margin-left:5%"></div>
-                            <div id="tax_turnover_data" style="width:700px;margin-left:5%"></div><br><br>
-                            <div id="container_tax_turnover"  style="width:700px;margin-left:5%"></div>
-                            <div id="tax_turnover_data1" style="width:700px;margin-left:5%"></div>
+                    <div class="test" id="third_div" style="display:block;">
+                        <!--<p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>-->
+                        <p style="background:#cd273f; color:white;padding:4px;border:1px solid;margin-top:7%;width:700px;text-align:center"><b>BAROMETER-CFO DASHBOARD</b></p>
+                        <h4 style="color:#0e385e;"><b>A. CFO DASHBOARD</b></h4>
+                        <div class="test_tax" style="display: block">
+                            <div id="tax_turnover_data2" style="width:700px;margin-left:5%;display: block"></div>
+                            <div id="tax_turnover_data" style="width:700px;margin-left:5%;display: block"></div><br><br>
+                            <div id="container_tax_turnover"  style="width:700px;margin-left:5%;display: block"></div>
+                            <div id="tax_turnover_data1" style="width:700px;margin-left:5%;display: block"></div>
                         </div>
 
                         <div class="test" style="page-break-before:always;margin-top:7%">
-                            <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
+                            <!--<p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>-->
                             <div id="cfo_data2" style="width:700px;margin-left:5%"></div>
                             <div id="cfo_data" style="width:700px;margin-left:5%"></div>
                             <div id="container_turnovervs_liability" style="width:700px;margin-left:5%"></div>
@@ -289,7 +314,7 @@ if (is_array($session_data)) {
                         </div>
 
                         <div class="test" style="page-break-before:always;margin-top:7%">
-                            <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
+                            <!--<p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>-->
                             <div id="tax_liability_data2" style="width:700px;margin-left:5%"></div>
                             <div id="tax_liability_data" style="width:700px;margin-left:5%"></div>
                             <div id="container_tax_liability" style="width:700px;margin-left:5%"></div>
@@ -297,7 +322,7 @@ if (is_array($session_data)) {
                         </div>
 
                         <div class="test" style="page-break-before:always;margin-top:7%">
-                            <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
+                            <!--<p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>-->
                             <div id="gst_payablevscash_data2" style="width:700px;margin-left:5%"></div>
                             <div id="gst_payablevscash_data" style="width:700px;margin-left:5%"></div>
                             <div id="container_gst_payablevscash"  style="width:700px;margin-left:5%"></div>
@@ -305,7 +330,7 @@ if (is_array($session_data)) {
                         </div>
 
                         <div class="test" style="page-break-before:always;margin-top:7%">
-                            <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
+                            <!--<p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>-->
                             <div id="tax_iniligible_data2" style="width:700px;margin-left:5%"></div>
                             <div id="tax_iniligible_data" style="width:700px;margin-left:5%"></div>
                             <div id="container_eligible_credit"  style="width:700px;margin-left:5%"></div>
@@ -316,7 +341,7 @@ if (is_array($session_data)) {
                     <!--InFORMATION COMPARISON-->
                     <div class="test" id="fourth_div" style="display:block">
                         <div class="test" style="page-break-before:always;">
-                            <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
+                            <!--<p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>-->
                             <p style="background:#516b22; color:white;width:700px;text-align:center;margin-top:7%"><b>INFORMATION COMPARISON</b></p>
                             <h4 style="color:#0e385e;"><b>A. COMPLIANCE REPORT</b></h4>
                             <div id="gstr3B_data1" style="width:700px;margin-left:5%"></div>
@@ -327,7 +352,7 @@ if (is_array($session_data)) {
 
 
                         <div class="test" style="page-break-before:always;margin-top:7%">
-                            <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
+                            <!--<p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>-->
                             <h4 style="color:#0e385e;"><b>B. INTERNAL CONTROL REPORT</b></h4>
 
                             <div id="invoice_ammend_original_data" style="margin-top:20px;"></div>
@@ -337,41 +362,41 @@ if (is_array($session_data)) {
 
 
                         <div class="test1" id="invoice_notinclude_gstr1_data_div" style="page-break-before:always;margin-top:7%">
-                            <p class="invoice_notinclude_logo_data_div" style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
+                            <!--<p class="invoice_notinclude_logo_data_div" style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>-->
 
                             <div id="invoice_notinclude_gstr1_data"  style=""></div>
                             <div id="invoice_notinclude_gstr1_data1" style=""></div>
                         </div>
 
                         <div class="test" style="page-break-before:always;margin-top:7%">
-                            <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
+                            <!--<p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>-->
                             <h4 style="color:#0e385e;"><b>C. INVOICE WISE COMPARISON OR MISMATCH REPORT</b></h4>
                             <div id="company_all_notin2a_data" style="margin-top:20px;margin-left: 5%"></div>
                             <div id="company_all_notin2a_data1" style="margin-left: 5%"></div>
                         </div>
 
                         <div class="test" style="page-break-before:always; ">
-                            <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
+                            <!--<p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>-->
                             <div id="company_all_notinrec_data" style=" margin-top:20px ;margin-left: 5%"></div>
                             <div id="company_all_notinrec_data1" style="margin-left: 5%"></div>
                         </div>
 
                         <div class="test" style="page-break-before:always;">
-                            <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
+                            <!--<p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>-->
                             <div id="company_all_partially_data" style=" margin-top:20px;margin-left: 5%"></div>
                             <div id="company_all_partially_data1" style="margin-left: 5%"></div>
                         </div>
 
 
                         <div class="test" style="page-break-before:always;margin-top:7%">
-                            <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
+                            <!--<p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>-->
                             <div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/IssueMatrix.jpg" style="width:700px" height="100px" style=""></div><br><br><br>  
                             <div id="heat_map_tbl" style="width:850px;margin-left: 5%"></div>
                             <div id="container_heat_map" style="width:700px"></div>
                         </div>
 
                         <div class="test" style="page-break-before:always;margin-top:7%">
-                            <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
+                            <!--<p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>-->
                             <div id="container_image_rating_card" style=""><img src="https://premisafe.com/GST_image/RatingCard.jpg" style="width:700px" height="100px" style=""></div><br><br><br>  
                             <div id="rating_card" style="margin-left: 5%"></div>
                             <!--<div id="container_heat_map" style="width:700px"></div>-->
@@ -381,7 +406,7 @@ if (is_array($session_data)) {
 
                     <!--<div class="test" id="fifth_div" style="display:block">-->
                     <div class="test" style="page-break-before:always;margin-top:7%">
-                        <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
+                        <!--<p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>-->
                         <!--<div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="900px" height="900px" style=""></div><br><br>-->  
                         <div id="" style="width:850px">
                             <b style="font-size:20px;color:#0e385e;margin-left: 5%;">8. SUMMARY OBSERVATION & CONCLUSION </b><br>
@@ -389,29 +414,50 @@ if (is_array($session_data)) {
                                 <?php echo $company_details->conclusion_summary ?>
                             </p>
                         </div>
+                        <?php
+                        echo $tmp1 = "<pagenum/>";
+                        ?>
+<!--                    <p id="matrix"><?php echo $tmp1; ?></p>-->
+                        <script>
+                            var div = document.getElementById('abt');
+                            var r = '<?php echo $tmp1; ?>';
+                            div.innerHTML += r;
+                        </script>
+
                         <!--<div id="container_heat_map" style="width:700px"></div>-->
                     </div>
+
+<!--                    <input type="text" id="matrix" value="<?php echo $tmp1; ?>">-->
                     <!--</div>-->
 
                     <div class="test" style="page-break-before:always;margin-top:7%">
-                        <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
+                        <!--<p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>-->
                         <div id="container_image_disclaimer" style=""><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="900px" height="900px" style=""></div><br><br>  
 
                     </div>
 
                     <div class="test" style="page-break-before:always;margin-top:7%">
-                        <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
+                        <!--<p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>-->
                         <div id="container_image_about" style=""><img src="https://premisafe.com/GST_image/about.jpg" width="900px" height="900px" style=""></div><br><br>  
 
                     </div>
 
                     <div class="test" style="page-break-before:always;margin-top:7%">
-                        <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>
+                        <!--<p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br>-->
                         <div id="container_image_services" style=""><img src="https://premisafe.com/GST_image/OurServicesPage.jpg" width="900px" height="900px" style=""></div><br><br>  
 
                     </div>
 
+<!--<script>
 
+var r=document.getElementById("matrix").textContent;
+//alert(r);
+//document.getElementById("abt").innerHTML=r;
+//document.getElementById("abt1").value=r;
+var div = document.getElementById('abt');
+
+div.innerHTML += r;
+</script>-->
 
                     <!--                    <div id="sales_monthly_data" style="width:700px"></div>
                     
@@ -438,7 +484,7 @@ if (is_array($session_data)) {
     $(document).ready(function () {
 
         //For DETAILS OF GST REPORTS AND INSIGHTS DIVS
-       
+
         var first_div_value = document.getElementById("first_div_value").value;
         if (first_div_value >= 0)
         {
@@ -952,9 +998,10 @@ if (is_array($session_data)) {
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
-                //                 alert();
-                $('#tax_ntax_Exempt_data').html("");
+
+
                 if (result.message === "success") {
+                    $('#tax_ntax_Exempt_data').html("");
                     document.getElementById("first_div_value").value++;
                     var data = result.data;
                     var data1 = result.data1;
@@ -965,6 +1012,9 @@ if (is_array($session_data)) {
                     $('#tax_ntax_Exempt_data2').html(data2);
                     //                    $('#example2').DataTable();
                 } else {
+
+                    document.getElementById("test_tax_ntax").style.display = "none";
+                    document.getElementById("logo_ntx").style.display = "none";
                     document.getElementById("tax_ntax_Exempt_data").style.display = "none";
                     document.getElementById("tax_ntax_Exempt_data1").style.display = "none";
                     document.getElementById("tax_ntax_Exempt_data2").style.display = "none";
@@ -1712,6 +1762,7 @@ if (is_array($session_data)) {
                     });
                 } else {
                     document.getElementById("container_tax_turnover").style.display = "none";
+                    document.getElementById("test_tax").style.display = "none";
                 }
             }
         });
@@ -1725,8 +1776,9 @@ if (is_array($session_data)) {
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
                 //                 alert();
-                $('#tax_turnover_data').html("");
+               
                 if (result.message === "success") {
+                     $('#tax_turnover_data').html("");
                     document.getElementById("third_div_value").value++;
                     var data = result.data;
                     var data1 = result.data1;
@@ -1740,6 +1792,7 @@ if (is_array($session_data)) {
                     document.getElementById("tax_turnover_data").style.display = "none";
                     document.getElementById("tax_turnover_data1").style.display = "none";
                     document.getElementById("tax_turnover_data2").style.display = "none";
+                    document.getElementById("test_tax").style.display = "none";
                 }
             },
 
@@ -2295,7 +2348,7 @@ if (is_array($session_data)) {
 
 
 
- 
+
     });
 
 
