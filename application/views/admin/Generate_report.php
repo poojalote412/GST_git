@@ -213,7 +213,9 @@ if (is_array($session_data)) {
                             <div id="container_sales_month_wise"  style="width:700px;margin-left:5%"></div>
                             <div id="sales_monthly_data1" style="width:700px;margin-left:5% "></div>
                         </div>
-                        <div class="test" style="margin-top:5%;page-break-after:always;">
+                        
+                        <input type="hidden" id="sales_ratewise_div" name="sales_ratewise_div" value="0">
+                        <div class="test" id="sales_rate_statewise_div" style="margin-top:5%;page-break-after:always;">
                             <div id="compare_sales_ratewise_data1" style="width:700px;margin-left:5%"></div>
                             <div id="compare_sales_ratewise_data" style="width:700px;margin-left:5%"></div><br><br><br>
                             <div id="sales_state_wise_data2"  style="width:700px;margin-left:5%"></div>
@@ -221,14 +223,14 @@ if (is_array($session_data)) {
                             <div id="sales_state_wise_data1"  style="width:700px;margin-left:5%"></div>
                         </div>
 
-
-                        <div class="test" style="page-break-after:always;margin-top:7%">
+                        
+                        <div class="test" id="tax_nontax_div" style="page-break-after:always;margin-top:7%">
                             <div id="tax_ntax_Exempt_data2" style="width:700px;margin-left:5%"></div>
                             <div id="container_nontax_exempt" style="width:700px;margin-left:5%"></div>
                             <div id="tax_ntax_Exempt_data1" style="width:700px;margin-left:5%"></div>
                         </div>
 
-                        <div class="test" style="page-break-after:always;margin-top:7%">
+                        <div class="test" id="compare_b2b_div" style="page-break-after:always;margin-top:7%">
                             <div id="compare_b2b_data2" style="width:700px;margin-left:5%"></div>
                             <div id="container_sales_b2b_b2c" style="width:700px;margin-left:5%"></div>
                             <div id="compare_b2b_data1" style="width:700px;margin-left:5%"></div>
@@ -298,6 +300,7 @@ if (is_array($session_data)) {
                         <p style="background:#516b22; color:white;width:700px;text-align:center;margin-top:5%"><b>INFORMATION COMPARISON</b></p>
                         <input type="hidden" id="complience_div" name="complience_div" value="0">
                         <input type="hidden" id="internal_control_div" name="internal_control_div" value="0">
+                        <input type="hidden" id="invoice_comparison_div" name="invoice_comparison_div" value="0">
                         <div class="test" id="complience_report_div" style="page-break-after:always;">
                             <h4 style="color:#0e385e;"><b>A. COMPLIANCE REPORT</b></h4>
                             <div id="gstr3B_data1" style="width:700px;margin-left:5%"></div>
@@ -321,7 +324,7 @@ if (is_array($session_data)) {
                         </div>
 
 
-                        <div class="test" style="margin-top:7%">
+                        <div class="test" id="invoice_wise_comparison" style="margin-top:7%">
                             <h4 style="color:#0e385e;"><b>C. INVOICE WISE COMPARISON OR MISMATCH REPORT</b></h4>
                             <div class="test_not_in_2a" id="test_not_in_2a" style="page-break-after:always;margin-top:7%">
                                 <div id="company_all_notin2a_data" style="margin-top:20px;margin-left: 5%"></div>
@@ -669,6 +672,7 @@ if (is_array($session_data)) {
             success: function (result) {
                 if (result.message === "success") {
                     document.getElementById("first_div_value").value++;
+                    document.getElementById("sales_ratewise_div").value++;
                     var data_a = result.taxable_value;
                     var max_range = result.data_liability;
                     var data_state = result.state;
@@ -721,6 +725,7 @@ if (is_array($session_data)) {
                 //                 alert();
                 if (result.message === "success") {
                     document.getElementById("first_div_value").value++;
+                    document.getElementById("sales_ratewise_div").value++;
                     var data = result.data;
                     var data1 = result.data1;
                     var data2 = result.data2;
@@ -867,6 +872,7 @@ if (is_array($session_data)) {
                     });
                 } else {
                     document.getElementById("container_nontax_exempt").style.display = "none";
+                    document.getElementById("tax_nontax_div").style.display = "none";
                 }
             }
         });
@@ -894,6 +900,7 @@ if (is_array($session_data)) {
                     document.getElementById("tax_ntax_Exempt_data").style.display = "none";
                     document.getElementById("tax_ntax_Exempt_data1").style.display = "none";
                     document.getElementById("tax_ntax_Exempt_data2").style.display = "none";
+                    document.getElementById("tax_nontax_div").style.display = "none";
                 }
             },
 
@@ -1005,6 +1012,7 @@ if (is_array($session_data)) {
                     });
                 } else {
                     document.getElementById("container_sales_b2b_b2c").style.display = "none";
+                    document.getElementById("compare_b2b_div").style.display = "none";
                 }
             }
         });
@@ -1033,6 +1041,7 @@ if (is_array($session_data)) {
                     document.getElementById("compare_b2b_data").style.display = "none";
                     document.getElementById("compare_b2b_data1").style.display = "none";
                     document.getElementById("compare_b2b_data2").style.display = "none";
+                    document.getElementById("compare_b2b_div").style.display = "none";
 
 
                 }
@@ -1050,6 +1059,7 @@ if (is_array($session_data)) {
             success: function (result) {
                 if (result.message === "success") {
                     document.getElementById("first_div_value").value++;
+                    document.getElementById("sales_ratewise_div").value++;
                     var data = result.data;
                     var data1 = result.data1;
                     $('#compare_sales_ratewise_data').html("");
@@ -2160,6 +2170,7 @@ if (is_array($session_data)) {
             success: function (result) {
                 if (result.status === true) {
                     document.getElementById("fourth_div_value").value++;
+                    document.getElementById("invoice_comparison_div").value++;
                     var data = result.data;
                     var data1 = result.data1;
 
@@ -2189,6 +2200,7 @@ if (is_array($session_data)) {
             success: function (result) {
                 if (result.status === true) {
                     document.getElementById("fourth_div_value").value++;
+                    document.getElementById("invoice_comparison_div").value++;
                     var data = result.data;
                     var data1 = result.data1;
 
@@ -2216,6 +2228,7 @@ if (is_array($session_data)) {
             success: function (result) {
                 if (result.status === true) {
                     document.getElementById("fourth_div_value").value++;
+                    document.getElementById("invoice_comparison_div").value++;
                     var data = result.data;
                     var data1 = result.data1;
 
@@ -2287,7 +2300,23 @@ if (is_array($session_data)) {
         } else {
             document.getElementById("internal_control").style.display = "none";
         }
-    }, 3000);
+        
+        var invoice_comparison_div = document.getElementById("invoice_comparison_div").value;
+        if (invoice_comparison_div > 0)
+        {
+            document.getElementById("invoice_wise_comparison").style.display = "block";
+        } else {
+            document.getElementById("invoice_wise_comparison").style.display = "none";
+        }
+        
+        var sales_ratewise_div = document.getElementById("sales_ratewise_div").value;
+        if (sales_ratewise_div > 0)
+        {
+            document.getElementById("sales_rate_statewise_div").style.display = "block";
+        } else {
+            document.getElementById("sales_rate_statewise_div").style.display = "none";
+        }
+    }, 5000);
 
 </script>
 <script>
