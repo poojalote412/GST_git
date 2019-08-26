@@ -63,6 +63,8 @@ if (is_array($session_data)) {
 
     }
 
+
+
     /*    #JSFiddle div:not(:empty):before {
       display: block;
       content: attr(data-label);
@@ -139,7 +141,7 @@ if (is_array($session_data)) {
                     <!-- Insert your document here -->
                     <div id="container_image_front" style="page-break-after:always;position: relative;color: white;margin-top:-22px;margin-left: -15px;margin-right: -25px;">
                         <!--<img src="https://premisafe.com/Logo.jpg" width="120px" height="30px">-->
-                        <div style="position: absolute;bottom: -190px;font-size: 18;right: 200px;letter-spacing: 4px;color: white;background: #ed3c2c" class="centered"> 
+                        <div style="position: absolute;bottom: -190px;margin-left: 300px;font-size: 18;right: 200px;letter-spacing: 4px;color: white;background: #ed3c2c;text-align: center" class="centered"> 
                             <b><?php echo $client_details->company_name ?></b> <br>
 
                         </div>
@@ -213,7 +215,7 @@ if (is_array($session_data)) {
                             <div id="container_sales_month_wise"  style="width:700px;margin-left:5%"></div>
                             <div id="sales_monthly_data1" style="width:700px;margin-left:5% "></div>
                         </div>
-                        
+
                         <input type="hidden" id="sales_ratewise_div" name="sales_ratewise_div" value="0">
                         <div class="test" id="sales_rate_statewise_div" style="margin-top:5%;page-break-after:always;">
                             <div id="compare_sales_ratewise_data1" style="width:700px;margin-left:5%"></div>
@@ -223,7 +225,7 @@ if (is_array($session_data)) {
                             <div id="sales_state_wise_data1"  style="width:700px;margin-left:5%"></div>
                         </div>
 
-                        
+
                         <div class="test" id="tax_nontax_div" style="page-break-after:always;margin-top:7%">
                             <div id="tax_ntax_Exempt_data2" style="width:700px;margin-left:5%"></div>
                             <div id="container_nontax_exempt" style="width:700px;margin-left:5%"></div>
@@ -2292,7 +2294,7 @@ if (is_array($session_data)) {
         } else {
             document.getElementById("complience_report_div").style.display = "none";
         }
-        
+
         var internal_control_div = document.getElementById("internal_control_div").value;
         if (internal_control_div > 0)
         {
@@ -2300,7 +2302,7 @@ if (is_array($session_data)) {
         } else {
             document.getElementById("internal_control").style.display = "none";
         }
-        
+
         var invoice_comparison_div = document.getElementById("invoice_comparison_div").value;
         if (invoice_comparison_div > 0)
         {
@@ -2308,7 +2310,7 @@ if (is_array($session_data)) {
         } else {
             document.getElementById("invoice_wise_comparison").style.display = "none";
         }
-        
+
         var sales_ratewise_div = document.getElementById("sales_ratewise_div").value;
         if (sales_ratewise_div > 0)
         {
@@ -2371,9 +2373,15 @@ if (is_array($session_data)) {
 
 
     var click = "return xepOnline.Formatter.Format('JSFiddle', {render:'download'})";
-    jQuery('#buttons').append('<div class=""><div id="btn_div" class="col-md-12"><button class="btn btn-block btn-success btn-lg" id="btn_pdf" onclick="' + click + '">Generate PDF</button></div></div>');
+    jQuery('#buttons').append('<div class=""><div id="btn_div" class="col-md-12"><button class="btn btn-block btn-success btn-lg" id="btn_pdf" onclick="clickme();' + click + '">Generate PDF</button></div></div>');
+    function clickme()
+    {
+//        alert();
+        window.location.href = '<?= base_url() ?>Report/insert_page_number';
+        return;
+        
 
-
+    }
 
 
 </script>

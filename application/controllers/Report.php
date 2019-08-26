@@ -9,6 +9,12 @@ class Report extends CI_Controller {
         parent::__construct();
         $this->load->helper('url');
     }
+    
+    public function insert_page_number()
+    {
+        
+     $this->load->view('admin/add_page_numbers');   
+    }
 
     public function index($customer_id = '', $insert_id = '', $cust_name = '') {
         $query_get_customer_name = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id'");
