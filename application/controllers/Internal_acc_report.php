@@ -510,7 +510,7 @@ class Internal_acc_report extends CI_Controller {
             for ($m = 0; $m < $count; $m++) {
                 $new_net_rtc[] = $net_rtc[$m] - $debit_tax[$m] . '<br>';
             }
-            $data2 .='<h4 style="color:#1d2f66"><b>3. Overview of Tax Liability:</b></h4>';
+            $data2 .= '<h4 style="color:#1d2f66"><b>3. Overview of Tax Liability:</b></h4>';
             $data .= '<table id="example2" class="table-bordered table-striped" width="800">
                                 <thead style="background-color: #cd273f;color:white">
                                     <tr>
@@ -874,7 +874,7 @@ class Internal_acc_report extends CI_Controller {
             $tax_ratio = array();
             $data = ""; //view observations
             $data1 = ""; //view observations
-            $data2= ""; //View table name
+            $data2 = ""; //View table name
             $data2 .= '<h4 style="color:#1d2f66"><b>1. Overview of Turnover</b></h4><br>';
             $data .= '<table id="example2" class="table-bordered table-striped" width="800">
                                 <thead style="background-color: #cd273f;color:white">
@@ -916,11 +916,15 @@ class Internal_acc_report extends CI_Controller {
                 $tax_val = ($tax_inter_state + $tax_intra_state + $tax_debit + $total_tax_advance_no_invoice + $total_tax_advance_invoice + $total_tax_data_gst_export) - ($tax_credit);
                 $tax_value[] = $tax_val; //tax array
 
-
-                $ratio = ($tax_val / $taxable_val) * 100;
-                $tax_ratio[] = round($ratio);
-                $tax_ratio1[] = ($ratio);
-
+                if ($taxable_val != 0) {
+                    $ratio = ($tax_val / $taxable_val) * 100;
+                    $tax_ratio[] = round($ratio);
+                    $tax_ratio1[] = ($ratio);
+                } else {
+                    $ratio = 0;
+                    $tax_ratio[] = 0;
+                    $tax_ratio1[] = 0;
+                }
                 $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
                         '<td>' . $month . '</td>' .
@@ -1218,8 +1222,8 @@ class Internal_acc_report extends CI_Controller {
             $data = ""; //view observations
             $data1 = ""; //view observations
             $data2 = ""; //view table name
-            
-           $data2 .= '<h4 style="color:#1d2f66"><b>5. Eligible and Inligible Credit:</b></h4><br>';
+
+            $data2 .= '<h4 style="color:#1d2f66"><b>5. Eligible and Inligible Credit:</b></h4><br>';
             $data .= '<table id="example2" class="table-bordered table-striped" width="800">
                                 <thead style="background-color: #cd273f;color:white">
                                     <tr>
@@ -1515,7 +1519,7 @@ class Internal_acc_report extends CI_Controller {
             $data1 = ""; //view observations
             $data2 = ""; //view table name
             $data2 .= '<h4 style="color:#1d2f66"><b>4. GST Payable V/s Cash:</b></h4><br>';
-            
+
             $data .= '<table id="example2" class="table-bordered table-striped" width="800">
                                 <thead style="background-color: #cd273f;color:white">
                                     <tr>
