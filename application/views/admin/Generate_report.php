@@ -189,8 +189,8 @@ if (is_array($session_data)) {
                                         </div>-->
 
                     <div style="page-break-before:always;page-break-after:always;width:700px;margin-left: 5%;margin-right:  5%;margin-top:7%;text-align: justify;font-family: 'Futura BdCn BT';">
-                        <b style="font-size:18px;color:#0e385e;">1. ABOUT <?php echo $client_details->company_name ?>:</b>
-                        <br>  <?php echo $report_details->about_company ?> 
+                        <b style="font-size:18px;color:#0e385e;font-family:Microsoft Sans Serif;font-size: 14px">1. ABOUT <?php echo $client_details->company_name ?>:</b>
+                        <br>  <p style="font-size: 13px"><?php echo $report_details->about_company ?> </p>
                     </div>
                     <div style="page-break-after:always;width:700px;margin-left: 5%;margin-right:  5%;margin-top:7%;text-align: justify;">
                         <div id="content_pdf" style="margin-top:7%;"></div>
@@ -364,8 +364,8 @@ if (is_array($session_data)) {
                     <div class="test" style="page-break-after:always;margin-top:7%">
                         <!--<div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="900px" height="900px" style=""></div><br><br>-->  
                         <div id="" style="width:850px">
-                            <b style="font-size:20px;color:#0e385e;margin-left: 5%;">8. SUMMARY OBSERVATION & CONCLUSION </b><br>
-                            <p align="justify" style="margin-left: 5%;margin-right:  5%;">
+                            <b style="font-size:16px;color:#0e385e;margin-left: 5%;">8. SUMMARY OBSERVATION & CONCLUSION </b><br>
+                            <p align="justify" style="margin-left: 5%;margin-right:  5%;font-family:Microsoft Sans Serif;font-size: 12px">
                                 <?php echo $company_details->conclusion_summary ?>
                             </p>
                         </div>

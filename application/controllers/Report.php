@@ -192,22 +192,22 @@ class Report extends CI_Controller {
         if ($this->db->affected_rows() > 0) {
             $res = $query_get_company_header->row();
             $company_name = $res->company_name;
-            $data = '<div style="float:left;margin-left: 30px">
-                <b style="font-size:18px;color:#1d2f66;">2. EXECUTIVE SUMMARY</b><br><br>
-                     <p> Ecovis RKCA was provided with the data of the company  "' . $company_name . '" to evaluate this health check report.</p>    
-                      <p>Ecovis RKCA  was also able to access all the information such as:</p>
-                      <p>1. Sales data month wise.</p>
-                      <p>2. GSTR-1 </p>
-                      <p>3. GSTR-3B.</p>
-                      <p>And  Ecovis RKCA. Uses this data to provide them with GST insights in form of:</p>
-                      <p>1. Management Report</p>
-                      <p>2. Compliance Report</p>
-                      <p>3. Internal control Reports</p>
-                      <p>4. Mismatch Reports</p>
-                      <p>5. Deviation Reports</p>
-                      <p>6. CFO Dashboard</p>
-                      <p>This will help the company immensely for their development.</p>
-                      	<p>We also evaluated some areas of improvement.</p>
+            $data = '<div style="float:left;margin-left: 30px;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;">
+                <b style="font-size:16px;color:#1d2f66;">2. EXECUTIVE SUMMARY</b><br><br>
+                     <p style="font-size:13px"> Ecovis RKCA was provided with the data of the company  "' . $company_name . '" to evaluate this health check report.</p>    
+                      <p style="font-size:13px">Ecovis RKCA  was also able to access all the information such as:</p>
+                      <p style="font-size:13px">1. Sales data month wise.</p>
+                      <p style="font-size:13px">2. GSTR-1 </p>
+                      <p style="font-size:13px">3. GSTR-3B.</p>
+                      <p style="font-size:13px">And  Ecovis RKCA. Uses this data to provide them with GST insights in form of:</p>
+                      <p style="font-size:13px">1. Management Report</p>
+                      <p style="font-size:13px">2. Compliance Report</p>
+                      <p style="font-size:13px">3. Internal control Reports</p>
+                      <p style="font-size:13px">4. Mismatch Reports</p>
+                      <p style="font-size:13px">5. Deviation Reports</p>
+                      <p style="font-size:13px">6. CFO Dashboard</p>
+                      <p style="font-size:13px">This will help the company immensely for their development.</p>
+                      	<p style="font-size:13px">We also evaluated some areas of improvement.</p>
                      </div>';
 
 
