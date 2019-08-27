@@ -41,7 +41,6 @@ if (is_array($session_data)) {
             <!-- Default box -->
             <div class="box">
                 <div class="box-body">
-
                     <input type="hidden" class="form-control" value="<?php echo $insert_id; ?>"name="insert_id"  id="insert_id"   aria-required="true" aria-describedby="input_group-error">
                     <input type="hidden" class="form-control" value="<?php echo $customer_id; ?>"name="customer_id"  id="customer_id"   aria-required="true" aria-describedby="input_group-error">
                     <div class="form-group"> 

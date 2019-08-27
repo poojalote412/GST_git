@@ -78,7 +78,7 @@ if (is_array($session_data)) {
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Reports
+            Reports With Page Numbers
             <!--<?php print_r($user_name) ?>-->
                 <!--<small>it all starts here</small>-->
         </h1>
@@ -92,7 +92,18 @@ if (is_array($session_data)) {
     <!-- Main content -->
     <section class="content">
 
-
+        <?php
+        $page_num = $company_details->page_numbers;
+        $exp = explode(",", $page_num);
+        $about_client_page_num = $exp[0];
+        $executive_summary_page_num = $exp[1];
+        $gst_compo_page_num = $exp[2];
+        $framework_page_num = $exp[3];
+        $details_rep_page_num = $exp[4];
+        $issue_matrix_page_num = $exp[5]; //repated first
+        $rating_card_page_num = $exp[6]; //repated second
+        $conclusion_page_num = $exp[7];
+        ?>
         <!-- Default box -->
         <div class="box">
             <div class="box-body">
@@ -141,7 +152,7 @@ if (is_array($session_data)) {
                     <!-- Insert your document here -->
                     <div id="container_image_front" style="page-break-after:always;position: relative;color: white;margin-top:-22px;margin-left: -15px;margin-right: -25px;">
                         <!--<img src="https://premisafe.com/Logo.jpg" width="120px" height="30px">-->
-                        <div style="position: absolute;bottom: -190px;margin-left: 20% !important;font-size: 18;letter-spacing: 4px;color: white;background: #ed3c2c;text-align: center"> 
+                        <div style="position: absolute;bottom: -190px;margin-left: 250px !important;font-size: 18;letter-spacing: 4px;color: white;background: #ed3c2c;text-align: center"> 
                             <b><?php echo $client_details->company_name ?></b> <br>
 
                         </div>
@@ -184,9 +195,20 @@ if (is_array($session_data)) {
                     <div id="container_image_limited_usage" style="margin-top: 7% ;page-break-after:always;">
                         <img src="https://premisafe.com/GST_image/LimitedUsage&Abbreviation.jpg" width="800px" height="700px">
                     </div>
-<!--                    <div style="margin-top: 7%;margin-left: 5%;page-break-after:always;page-break-after: always;">
+                    <div style="margin-top: 7%;margin-left: 5%;page-break-after:always;page-break-after: always;position: relative;">
+                        <p style="position: absolute;margin-top:12%;margin-left: 43%;color:#0e385e;font-size:22px"><b><?php echo $about_client_page_num;?></b></p>
+                        <p style="position: absolute;margin-top:12%;margin-left: 78%;color:white;font-size:22px"><b><?php echo $executive_summary_page_num;?></b></p>
+                        <p style="position: absolute;margin-top:21%;margin-left: 43%;color:white;font-size:22px"><b><?php echo $gst_compo_page_num;?></b></p>
+                        <p style="position: absolute;margin-top:21%;margin-left: 78%;color:#0e385e;font-size:22px"><b><?php echo $framework_page_num;?></b></p>
+                        <p style="position: absolute;margin-top:30%;margin-left: 43%;color:#0e385e;font-size:22px"><b><?php echo $details_rep_page_num;?></b></p>
+                        <p style="position: absolute;margin-top:30%;margin-left: 78%;color:white;font-size:22px"><b><?php echo $issue_matrix_page_num;?></b></p>
+                        <p style="position: absolute;margin-top:39%;margin-left: 43%;color:white;font-size:22px"><b><?php echo $rating_card_page_num;?></b></p>
+                        <p style="position: absolute;margin-top:39%;margin-left: 78%;color:#0e385e;font-size:22px"><b><?php echo $conclusion_page_num;?></b></p>
+                        <p style="position: absolute;margin-top:46%;margin-left: 78%;color:#0e385e;font-size:22px"><b><?php echo $issue_matrix_page_num;?></b></p>
+                        <p style="position: absolute;margin-top:52%;margin-left: 78%;color:white;font-size:22px"><b><?php echo $rating_card_page_num;?></b></p>
+                       
                         <img src="https://premisafe.com/GST_image/GSTContent.jpg" width="800px" height="700px"style="page-break-after:always;" >
-                    </div>-->
+                    </div>
 
                     <div style="page-break-before:always;page-break-after:always;width:700px;margin-left: 5%;margin-right:  5%;margin-top:7%;text-align: justify;font-family: 'Futura BdCn BT';">
                         <b style="font-size:18px;color:#0e385e;">1. ABOUT <?php echo $client_details->company_name ?>:</b>
@@ -2373,17 +2395,8 @@ if (is_array($session_data)) {
 
 
     var click = "return xepOnline.Formatter.Format('JSFiddle', {render:'download'})";
-    jQuery('#buttons').append('<div class=""><div id="btn_div" class="col-md-12"><button class="btn btn-block btn-success btn-lg" id="btn_pdf" onclick="clickme();' + click + '">Generate PDF</button></div></div>');
-    function clickme()
-    {
-        var customer_id = document.getElementById("customer_id").value;
-        var insert_id = document.getElementById("insert_id").value;
-//        alert();
-        window.location.href = '<?= base_url() ?>Report/insert_page_number/' + btoa(customer_id) + '/' + btoa(insert_id);
-        return;
-
-
-    }
+    jQuery('#buttons').append('<div class=""><div id="btn_div" class="col-md-12"><button class="btn btn-block btn-success btn-lg" id="btn_pdf" onclick="' + click + '">Generate PDF With Page Number</button></div></div>');
+ 
 
 
 </script>
