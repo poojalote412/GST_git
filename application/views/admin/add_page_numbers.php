@@ -87,7 +87,7 @@ $this->load->view('admin/navigation');
                         </div>
                     </div><br>
                     <div class="col-xs-2" style="float:right;">
-                        <button type="button" id="save_page_numbers" name="save_page_numbers" class="btn btn-block btn-success"  >Success</button>
+                        <button type="button" id="save_page_numbers" name="save_page_numbers" class="btn btn-block btn-success"  >Save</button>
                     </div>
                 </form>
             </div>

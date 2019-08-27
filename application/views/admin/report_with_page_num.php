@@ -321,7 +321,7 @@ if (is_array($session_data)) {
 
                     <!--InFORMATION COMPARISON-->
                     <div class="test" id="fourth_div" style="display:block">
-                        <p style="background:#516b22; color:white;width:700px;text-align:center;margin-top:5%"><b>INFORMATION COMPARISON</b></p>
+                        <p style="background:#516b22; color:white;width:700px;text-align:center;margin-top:8%"><b>INFORMATION COMPARISON</b></p>
                         <input type="hidden" id="complience_div" name="complience_div" value="0">
                         <input type="hidden" id="internal_control_div" name="internal_control_div" value="0">
                         <input type="hidden" id="invoice_comparison_div" name="invoice_comparison_div" value="0">
@@ -2395,7 +2395,7 @@ if (is_array($session_data)) {
 
 
     var click = "return xepOnline.Formatter.Format('JSFiddle', {render:'download'})";
-    jQuery('#buttons').append('<div class=""><div id="btn_div" class="col-md-12"><button class="btn btn-block btn-success btn-lg" id="btn_pdf" onclick="' + click + '">Generate PDF With Page Number</button></div></div>');
+    jQuery('#buttons').append('<div class=""><div id="btn_div" class="col-md-12"><button class="btn btn-block btn-success btn-lg" id="btn_pdf" onclick="' + click + '">Generate PDF With Index Page</button></div></div>');
  
 
 

@@ -184,9 +184,9 @@ if (is_array($session_data)) {
                     <div id="container_image_limited_usage" style="margin-top: 7% ;page-break-after:always;">
                         <img src="https://premisafe.com/GST_image/LimitedUsage&Abbreviation.jpg" width="800px" height="700px">
                     </div>
-<!--                    <div style="margin-top: 7%;margin-left: 5%;page-break-after:always;page-break-after: always;">
-                        <img src="https://premisafe.com/GST_image/GSTContent.jpg" width="800px" height="700px"style="page-break-after:always;" >
-                    </div>-->
+                    <!--                    <div style="margin-top: 7%;margin-left: 5%;page-break-after:always;page-break-after: always;">
+                                            <img src="https://premisafe.com/GST_image/GSTContent.jpg" width="800px" height="700px"style="page-break-after:always;" >
+                                        </div>-->
 
                     <div style="page-break-before:always;page-break-after:always;width:700px;margin-left: 5%;margin-right:  5%;margin-top:7%;text-align: justify;font-family: 'Futura BdCn BT';">
                         <b style="font-size:18px;color:#0e385e;">1. ABOUT <?php echo $client_details->company_name ?>:</b>
@@ -299,7 +299,7 @@ if (is_array($session_data)) {
 
                     <!--InFORMATION COMPARISON-->
                     <div class="test" id="fourth_div" style="display:block">
-                        <p style="background:#516b22; color:white;width:700px;text-align:center;margin-top:5%"><b>INFORMATION COMPARISON</b></p>
+                        <p style="background:#516b22; color:white;width:700px;text-align:center;margin-top:8%"><b>INFORMATION COMPARISON</b></p>
                         <input type="hidden" id="complience_div" name="complience_div" value="0">
                         <input type="hidden" id="internal_control_div" name="internal_control_div" value="0">
                         <input type="hidden" id="invoice_comparison_div" name="invoice_comparison_div" value="0">
@@ -2371,17 +2371,37 @@ if (is_array($session_data)) {
 
 
 
-    var click = "return xepOnline.Formatter.Format('JSFiddle', {render:'download'})";
-    jQuery('#buttons').append('<div class=""><div id="btn_div" class="col-md-12"><button class="btn btn-block btn-success btn-lg" id="btn_pdf" onclick="clickme();' + click + '">Generate PDF</button></div></div>');
+//    var click = "return xepOnline.Formatter.Format('JSFiddle', {render:'download'})";
+    jQuery('#buttons').append('<div class=""><div id="btn_div" class="col-md-12"><button class="btn btn-block btn-success btn-lg" id="btn_pdf" onclick="clickme();">Generate PDF</button></div></div>');
     function clickme()
     {
         var customer_id = document.getElementById("customer_id").value;
         var insert_id = document.getElementById("insert_id").value;
-//        alert();
-        window.location.href = '<?= base_url() ?>Report/insert_page_number/' + btoa(customer_id) + '/' + btoa(insert_id);
-        return;
+        $.ajax({
+            type: "POST",
+            url: "<?= base_url("Report/save_report_counter") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                if (result.status === true) {
 
-
+                    window.location.href = '<?= base_url() ?>Report/insert_page_number/' + btoa(customer_id) + '/' + btoa(insert_id);
+                    xepOnline.Formatter.Format('JSFiddle', {render:'download'});
+                } else {
+                    alert('somrthing went wrong.');
+                }
+            },
+            error: function (result) {
+                //console.log(result);
+                if (result.status === 500) {
+//                    document.getElementById('loaders1').style.display = "none";
+                    alert('Internal error: ' + result.responseText);
+                } else {
+//                    document.getElementById('loaders1').style.display = "none";
+                    alert('Unexpected error.');
+                }
+            }
+        });
     }
 
 

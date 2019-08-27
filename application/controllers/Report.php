@@ -36,7 +36,7 @@ class Report extends CI_Controller {
         $query_get_client_letter = $this->db->query("select customer_header_all.customer_name,customer_header_all.customer_address,report_header_all.company_name,report_header_all.managing_director_name from customer_header_all INNER JOIN report_header_all on customer_header_all.customer_id= report_header_all.customer_id where customer_header_all.customer_id ='$customer_id1' and report_header_all.insert_id ='$insert_id1'");
         $result4 = $query_get_client_letter->row();
 
-       
+
         $data['customer_details'] = $result;
         $data['insert_header_details'] = $result1;
         $data['company_details'] = $result2;
@@ -97,13 +97,16 @@ class Report extends CI_Controller {
             echo json_encode($response);
             exit;
         } else {
-
+            $get_observation = $this->db->query("select file_location,id from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+            $res = $get_observation->row();
+            $id = $res->id;
             $page_numbers = $about_client . "," . $exe_sum . "," . $gst_cmp_overview . ","
                     . $gst_framework . "," . $gst_report_insight . ","
                     . $issue_matrix . "," . $report_card . "," . $conclusion;
             $data = array('page_numbers' => $page_numbers);
             $this->db->where('insert_id', $insert_id);
             $this->db->where('customer_id', $customer_id);
+            $this->db->where('id', $id);
             $query = $this->db->update('observation_transaction_all', $data);
             if ($query == TRUE) {
                 $response['message'] = 'success';
@@ -115,6 +118,28 @@ class Report extends CI_Controller {
                 $response['status'] = false;
             }echo json_encode($response);
         }
+    }
+
+    public function save_report_counter() {
+        $customer_id = $this->input->post('customer_id');
+        $insert_id = $this->input->post('insert_id');
+        $get_observation = $this->db->query("select file_location,id from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+        $res = $get_observation->row();
+        $id = $res->id;
+        $data = array('file_location' => 1);
+        $this->db->where('insert_id', $insert_id);
+        $this->db->where('customer_id', $customer_id);
+        $this->db->where('id', $id);
+        $query = $this->db->update('observation_transaction_all', $data);
+        if ($query == TRUE) {
+            $response['message'] = 'success';
+            $response['code'] = 200;
+            $response['status'] = true;
+        } else {
+            $response['message'] = 'No data to display';
+            $response['code'] = 204;
+            $response['status'] = false;
+        }echo json_encode($response);
     }
 
     public function index($customer_id = '', $insert_id = '', $cust_name = '') {
@@ -454,9 +479,9 @@ class Report extends CI_Controller {
                                 </tr>
                                 </tbody></table>';
             $likelihood_impact = [[$time_over_run1, $time_over_run2], [$internal_control1, $internal_control2], [$transaction_mismatch1, $transaction_mismatch2],
-                    [$deviation_itc1, $deviation_itc2], [$deviation_output1, $deviation_output2], [$gst_payable1, $gst_payable2]];
+                [$deviation_itc1, $deviation_itc2], [$deviation_output1, $deviation_output2], [$gst_payable1, $gst_payable2]];
             $likelihood_risk = [[$time_over_run1, $time_over_run3], [$internal_control1, $internal_control3], [$transaction_mismatch1, $transaction_mismatch3],
-                    [$deviation_itc1, $deviation_itc3], [$deviation_output1, $deviation_output3], [$gst_payable1, $gst_payable3]];
+                [$deviation_itc1, $deviation_itc3], [$deviation_output1, $deviation_output3], [$gst_payable1, $gst_payable3]];
             $respose['likelihood_impact'] = $likelihood_impact;
             $respose['likelihood_risk'] = $likelihood_risk;
             $respose['data'] = $data;
