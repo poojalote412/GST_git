@@ -30,7 +30,7 @@ if (is_array($session_data)) {
         margin-right: 20% !important;
         margin-left: 20% !important;
         width: 60%;
-        border:1px solid black;
+        /*border:1px solid black;*/
         height:100px;
     }
 

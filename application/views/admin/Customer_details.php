@@ -66,6 +66,7 @@ if (is_array($session_data)) {
                             <th>No.</th>
                             <th>Customer</th>
                             <th>Email ID</th>
+                            <th>Year</th>
                             <th>Contact No</th>
                             <th>Created On</th>
                             <th>Action</th>
@@ -87,6 +88,7 @@ if (is_array($session_data)) {
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $row->customer_name; ?><input type="hidden" name="insert_id" id="insert_id" value="<?php echo $row->insert_id; ?>"></td>
                                     <td><?php echo $row->customer_email_id; ?></td>
+                                    <td><?php echo $row->year_id; ?></td>
                                     <td><?php echo $row->customer_contact_number; ?></td>
                                     <td><?php echo $row->created_on; ?></td>
                                     <td><button id="testing1" onclick="page_diversion('<?php echo $customer_id; ?>', '<?php echo $insert_id; ?>');" class="btn btn-primary">Generate Report</button></td>
