@@ -109,14 +109,14 @@
                 </ul>
             </li>
 
-            <li class="">
+<!--            <li class="">
                 <a href="<?php echo base_url(); ?>Word_to_database">
                     <i class="fa fa-dashboard" ></i> <span>Word to Databse</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
-            </li>
+            </li>-->
 
             <li class="">
                 <a href="<?php echo base_url(); ?>Gst_admin_login/admin_logout">
