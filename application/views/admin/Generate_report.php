@@ -411,7 +411,6 @@ if (is_array($session_data)) {
 
         //For DETAILS OF GST REPORTS AND INSIGHTS DIVS
 
-
         var customer_id = document.getElementById("customer_id").value;
         var insert_id = document.getElementById("insert_id").value;
 
