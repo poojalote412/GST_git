@@ -321,7 +321,7 @@ if (is_array($session_data)) {
 
                     <!--InFORMATION COMPARISON-->
                     <div class="test" id="fourth_div" style="display:block">
-                        <p style="background:#516b22; color:white;width:700px;text-align:center;margin-top:8%"><b>INFORMATION COMPARISON</b></p>
+                        <p style="background:#516b22; color:white;width:700px;text-align:center;margin-top:15%"><b>INFORMATION COMPARISON</b></p>
                         <input type="hidden" id="complience_div" name="complience_div" value="0">
                         <input type="hidden" id="internal_control_div" name="internal_control_div" value="0">
                         <input type="hidden" id="invoice_comparison_div" name="invoice_comparison_div" value="0">
