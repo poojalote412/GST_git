@@ -20,6 +20,7 @@
         <link rel="stylesheet" href="<?= base_url(); ?>dist/css/skins/_all-skins.min.css">
         <link rel="stylesheet" href="<?= base_url(); ?>/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
         <link rel="stylesheet" href="<?= base_url(); ?>bower_components/select2/dist/css/select2.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
      
 
 
