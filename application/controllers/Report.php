@@ -192,8 +192,8 @@ class Report extends CI_Controller {
         if ($this->db->affected_rows() > 0) {
             $res = $query_get_company_header->row();
             $company_name = $res->company_name;
-            $data = '<div style="float:left;margin-left: 30px;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;">
-                <b style="font-size:16px;color:#1d2f66;">2. EXECUTIVE SUMMARY</b><br><br>
+            $data = '<div style="float:left;margin-top:9%;margin-left: 30px;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;">
+                <b style="font-size:18px;color:#1d2f66;">2. EXECUTIVE SUMMARY</b><br><br>
                      <p style="font-size:13px"> Ecovis RKCA was provided with the data of the company  "' . $company_name . '" to evaluate this health check report.</p>    
                       <p style="font-size:13px">Ecovis RKCA  was also able to access all the information such as:</p>
                       <p style="font-size:13px">1. Sales data month wise.</p>
