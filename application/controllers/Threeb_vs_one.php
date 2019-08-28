@@ -8,6 +8,8 @@ class Threeb_vs_one extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('Threeb_vs_one_model');
+        $this->load->model('Customer_model');
+        $this->load->model('Cfo_model');
         $this->load->library('excel');
     }
 

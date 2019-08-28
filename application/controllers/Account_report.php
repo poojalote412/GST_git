@@ -10,6 +10,8 @@ class Account_report extends CI_Controller {
         $this->load->helper('url');
         $this->load->model('Account_model');
         $this->load->library('excel');
+        $this->load->model('Customer_model');
+        $this->load->model('Cfo_model');
     }
 
     function index_customer() { //to load the view page data

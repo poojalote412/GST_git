@@ -9,6 +9,8 @@ class Management_report extends CI_Controller {
         parent::__construct();
         $this->load->model('Cfo_model');
         $this->load->model('Management_report_model');
+        $this->load->model('Customer_model');
+       
     }
 
     function index() {

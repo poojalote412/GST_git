@@ -8,6 +8,7 @@ class Gst_admin_login extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('login_model');
+        
     }
 
     function index() {

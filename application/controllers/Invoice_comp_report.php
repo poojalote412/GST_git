@@ -9,6 +9,8 @@ class Invoice_comp_report extends CI_Controller {
         parent::__construct();
         $this->load->model('Invoice_comp_report_model');
         $this->load->model('Cfo_model');
+        $this->load->model('Customer_model');
+        
     }
 
     function index() {
@@ -788,7 +790,16 @@ class Invoice_comp_report extends CI_Controller {
 
     //function to load partial match data
     public function partial_match_index_admin() {
-        $query_get_data = $this->Cfo_model->get_data_cfo_admin();
+//        $query_get_data = $this->Cfo_model->get_data_cfo_admin();
+        $session_data = $this->session->userdata('login_session');
+        $email = ($session_data['customer_email_id']);
+        $get_firm_id = $this->Customer_model->get_firm_id($email);
+        if ($get_firm_id != FALSE) {
+            $firm_id = $get_firm_id;
+        } else {
+            $firm_id = "";
+        }
+        $query_get_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
         if ($query_get_data !== FALSE) {
             $data['partial_data'] = $query_get_data;
         } else {

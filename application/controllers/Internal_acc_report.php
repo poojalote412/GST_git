@@ -9,6 +9,8 @@ class Internal_acc_report extends CI_Controller {
         parent::__construct();
         $this->load->model('Internal_acc_report_model');
         $this->load->model('Cfo_model');
+        $this->load->model('Customer_model');
+       
     }
 
     function index() { //load the view page data

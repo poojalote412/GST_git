@@ -10,6 +10,7 @@ class Turnover_vs_liabality extends CI_Controller {
         parent::__construct();
         $this->load->model('excel_import_model');
         $this->load->library('excel');
+        
     }
 
     function index() {
