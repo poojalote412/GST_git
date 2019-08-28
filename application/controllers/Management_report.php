@@ -69,9 +69,19 @@ class Management_report extends CI_Controller {
     }
 
     public function sale_exports_fun() {
-        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
-        if ($query_get_cfo_data !== FALSE) {
-            $data['exports_data'] = $query_get_cfo_data;
+        
+//        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
+        $session_data = $this->session->userdata('login_session');
+        $email = ($session_data['customer_email_id']);
+        $get_firm_id = $this->Customer_model->get_firm_id($email);
+        if ($get_firm_id != FALSE) {
+            $firm_id = $get_firm_id;
+        } else {
+            $firm_id = "";
+        }
+        $query_get_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
+        if ($query_get_data !== FALSE) {
+            $data['exports_data'] = $query_get_data;
         } else {
             $data['exports_data'] = "";
         }
@@ -89,9 +99,18 @@ class Management_report extends CI_Controller {
     }
 
     public function sale_rate_wise_fun() {
-        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
-        if ($query_get_cfo_data !== FALSE) {
-            $data['rate_wise_data'] = $query_get_cfo_data;
+//        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
+        $session_data = $this->session->userdata('login_session');
+        $email = ($session_data['customer_email_id']);
+        $get_firm_id = $this->Customer_model->get_firm_id($email);
+        if ($get_firm_id != FALSE) {
+            $firm_id = $get_firm_id;
+        } else {
+            $firm_id = "";
+        }
+        $query_get_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
+        if ($query_get_data !== FALSE) {
+            $data['rate_wise_data'] = $query_get_data;
         } else {
             $data['rate_wise_data'] = "";
         }
