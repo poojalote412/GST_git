@@ -33,9 +33,11 @@ class Gst_admin_login extends CI_Controller {
                 $user_type = $result['user_type'];
                 if ($user_type == '1') {
                     $customer_id = $result['customer_id'];
+                    $customer_email_id = $result['customer_email_id'];
                     $activity_status = $result['activity_status'];
                     $session_data = array(
                         'customer_id' => $customer_id,
+                        'customer_email_id' => $customer_email_id,
                         'user_type' => $user_type,
                     );
                 } else {

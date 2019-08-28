@@ -26,9 +26,18 @@ class Threeb_vs_twoa extends CI_Controller {
     function index_admin() {
 //        $session_data = $this->session->userdata('login_session');
 //        $customer_id = ($session_data['customer_id']);
-        $query_res = $this->Threeb_vs_twoa_model->get_gstr1vs2A_data_admin();
-        if ($query_res !== FALSE) {
-            $data['gstr1_vs_2a_data'] = $query_res;
+//        $query_res = $this->Threeb_vs_twoa_model->get_gstr1vs2A_data_admin();
+        $session_data = $this->session->userdata('login_session');
+        $email = ($session_data['customer_email_id']);
+        $get_firm_id = $this->Customer_model->get_firm_id($email);
+        if ($get_firm_id != FALSE) {
+            $firm_id = $get_firm_id;
+        } else {
+            $firm_id = "";
+        }
+        $query_get_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
+        if ($query_get_data !== FALSE) {
+            $data['gstr1_vs_2a_data'] = $query_get_data;
         } else {
             $data['gstr1_vs_2a_data'] = "";
         }

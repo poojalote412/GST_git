@@ -17,9 +17,18 @@ class Invoice_comp_report extends CI_Controller {
     }
 
     public function invoice_not_included_index_admin() { //function to load view page
-        $query_get_cfo_data = $this->Invoice_comp_report_model->get_data_admin();
-        if ($query_get_cfo_data !== FALSE) {
-            $data['invoice_notinclu_data'] = $query_get_cfo_data;
+//        $query_get_cfo_data = $this->Invoice_comp_report_model->get_data_admin();
+        $session_data = $this->session->userdata('login_session');
+        $email = ($session_data['customer_email_id']);
+        $get_firm_id = $this->Customer_model->get_firm_id($email);
+        if ($get_firm_id != FALSE) {
+            $firm_id = $get_firm_id;
+        } else {
+            $firm_id = "";
+        }
+        $query_get_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
+        if ($query_get_data !== FALSE) {
+            $data['invoice_notinclu_data'] = $query_get_data;
         } else {
             $data['invoice_notinclu_data'] = "";
         }
@@ -39,9 +48,18 @@ class Invoice_comp_report extends CI_Controller {
     }
 
     function not_in_2a_index_admin() { //function to load page of not in 2a
-        $query_get_cfo_data = $this->Invoice_comp_report_model->get_data_admin();
-        if ($query_get_cfo_data !== FALSE) {
-            $data['not_in_2a_data'] = $query_get_cfo_data;
+//        $query_get_cfo_data = $this->Invoice_comp_report_model->get_data_admin();
+        $session_data = $this->session->userdata('login_session');
+        $email = ($session_data['customer_email_id']);
+        $get_firm_id = $this->Customer_model->get_firm_id($email);
+        if ($get_firm_id != FALSE) {
+            $firm_id = $get_firm_id;
+        } else {
+            $firm_id = "";
+        }
+        $query_get_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
+        if ($query_get_data !== FALSE) {
+            $data['not_in_2a_data'] = $query_get_data;
         } else {
             $data['not_in_2a_data'] = "";
         }
@@ -71,9 +89,18 @@ class Invoice_comp_report extends CI_Controller {
     }
 
     function not_in_record_index_admin() { //function to load page of not in records
-        $query_get_cfo_data = $this->Invoice_comp_report_model->get_data_admin();
-        if ($query_get_cfo_data !== FALSE) {
-            $data['not_in_rec_data'] = $query_get_cfo_data;
+//        $query_get_cfo_data = $this->Invoice_comp_report_model->get_data_admin();
+        $session_data = $this->session->userdata('login_session');
+        $email = ($session_data['customer_email_id']);
+        $get_firm_id = $this->Customer_model->get_firm_id($email);
+        if ($get_firm_id != FALSE) {
+            $firm_id = $get_firm_id;
+        } else {
+            $firm_id = "";
+        }
+        $query_get_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
+        if ($query_get_data !== FALSE) {
+            $data['not_in_rec_data'] = $query_get_data;
         } else {
             $data['not_in_rec_data'] = "";
         }

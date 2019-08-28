@@ -27,9 +27,18 @@ class Account_report extends CI_Controller {
 
     function index_admin() {//to load the view page data
 //        $data['result'] = $result;
-        $query_res = $this->Account_model->get_data_account_admin();
-        if ($query_res !== FALSE) {
-            $data['account_data'] = $query_res;
+//        $query_res = $this->Account_model->get_data_account_admin();
+        $session_data = $this->session->userdata('login_session');
+        $email = ($session_data['customer_email_id']);
+        $get_firm_id = $this->Customer_model->get_firm_id($email);
+        if ($get_firm_id != FALSE) {
+            $firm_id = $get_firm_id;
+        } else {
+            $firm_id = "";
+        }
+        $query_get_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
+        if ($query_get_data !== FALSE) {
+            $data['account_data'] = $query_get_data;
         } else {
             $data['account_data'] = "";
         }

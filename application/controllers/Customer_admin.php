@@ -14,9 +14,25 @@ class Customer_admin extends CI_Controller {
 
 //
     function index() {
+
+        $session_data = $this->session->userdata('login_session');
+        if (is_array($session_data)) {
+            $data['session_data'] = $session_data;
+            $email = ($session_data['customer_email_id']);
+        } else {
+            $username = $this->session->userdata('login_session');
+        }
+
+        $get_firm_id = $this->Customer_model->get_firm_id($email);
+        if ($get_firm_id != FALSE) {
+            $firm_id = $get_firm_id;
+        } else {
+            $firm_id = "";
+        }
         $query = $this->db->query("SELECT customer_header_all.customer_id,customer_header_all.created_on,customer_header_all.customer_contact_number,"
                 . "customer_header_all.customer_name,customer_header_all.customer_email_id,insert_header_all.insert_id,insert_header_all.year_id"
-                . " FROM customer_header_all INNER JOIN insert_header_all ON customer_header_all.customer_id=insert_header_all.customer_id");
+                . " FROM customer_header_all INNER JOIN insert_header_all ON customer_header_all.customer_id=insert_header_all.customer_id"
+                . " where customer_header_all.firm_id='$firm_id'");
         if ($query->num_rows() > 0) {
             $record = $query->result();
             $data['result'] = $record;
@@ -300,7 +316,7 @@ class Customer_admin extends CI_Controller {
             $data = $result->row();
             $customer_id = $data->customer_id;
 //generate user_id
-            $customer_id = str_pad(++$customer_id, 5, '0', STR_PAD_LEFT);
+            $customer_id = str_pad( ++$customer_id, 5, '0', STR_PAD_LEFT);
             return $customer_id;
         } else {
             $customer_id = 'Cust_1001';
@@ -520,7 +536,7 @@ class Customer_admin extends CI_Controller {
             $data = $result->row();
             $report_id = $data->report_id;
             //generate turn_id
-            $report_id = str_pad( ++$report_id, 5, '0', STR_PAD_LEFT);
+            $report_id = str_pad(++$report_id, 5, '0', STR_PAD_LEFT);
             return $report_id;
         } else {
             $report_id = 'report_1001';

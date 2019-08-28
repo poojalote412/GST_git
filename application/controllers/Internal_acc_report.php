@@ -26,7 +26,15 @@ class Internal_acc_report extends CI_Controller {
 
     function index_admin() { //load the view page data
 //        $data['result'] = $result;
-        $query_get_data = $this->Internal_acc_report_model->get_data_taxliability_admin();
+       $session_data = $this->session->userdata('login_session');
+        $email = ($session_data['customer_email_id']);
+        $get_firm_id = $this->Customer_model->get_firm_id($email);
+        if ($get_firm_id != FALSE) {
+            $firm_id = $get_firm_id;
+        } else {
+            $firm_id = "";
+        }
+        $query_get_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
         if ($query_get_data !== FALSE) {
             $data['tax_data'] = $query_get_data;
         } else {

@@ -26,9 +26,15 @@ class Cfo_dashboard extends CI_Controller {
     }
 
     function index_admin() { //function load data on page
-//        $session_data = $this->session->userdata('login_session');
-//        $customer_id = ($session_data['customer_id']);
-        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
+        $session_data = $this->session->userdata('login_session');
+        $email = ($session_data['customer_email_id']);
+        $get_firm_id = $this->Customer_model->get_firm_id($email);
+        if ($get_firm_id != FALSE) {
+            $firm_id = $get_firm_id;
+        } else {
+            $firm_id = "";
+        }
+        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
         if ($query_get_cfo_data !== FALSE) {
             $data['cfo_data'] = $query_get_cfo_data;
         } else {
@@ -61,7 +67,7 @@ class Cfo_dashboard extends CI_Controller {
             $data = $result->row();
             $turn_id = $data->uniq_id;
             //generate turn_id
-            $turn_id = str_pad( ++$turn_id, 5, '0', STR_PAD_LEFT);
+            $turn_id = str_pad(++$turn_id, 5, '0', STR_PAD_LEFT);
             return $turn_id;
         } else {
             $turn_id = 'turn_1001';
@@ -306,13 +312,11 @@ class Cfo_dashboard extends CI_Controller {
 
             $data1 .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
             $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
-            
+
 //            $data1 .= "<hr><h4><b>Observation of CFO:</b></h4>"
 //                    . "<span>Percentage of GST payable to turnover is not stable for F.Y. 2017-18 it varies from <b>" . min($ratio_val) . "% </b>to<b> " . max($ratio_val) . "%</b>.</span><br>"
 //                    . "<div class='col-md-4'>
 //                                    <label>About Company:</label><span class='required' aria-required='true'> </span>";
-
-
             // $data .= '<img src="' . base_url('images/samples/images122.png') . '" width="200px" height="200px"/>';
 //            var_dump($turnover1);
             // loop to get turnover value
