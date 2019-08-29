@@ -384,12 +384,12 @@ if (is_array($session_data)) {
                     </div>
 
                     <div class="test" style="page-break-after:always;margin-top:7%">
-                        <div id="container_image_about" style=""><img src="https://premisafe.com/GST_image/about.jpg" width="900px" height="900px" style=""></div><br><br>  
+                        <div id="container_image_about" style=""><img src="https://premisafe.com/GST_image/about.jpg" width="780px" height="800px" style=""></div><br><br>  
 
                     </div>
 
                     <div class="test" style="margin-top:7%">
-                        <div id="container_image_services" style=""><img src="https://premisafe.com/GST_image/OurServicesPage.jpg" width="900px" height="900px" style=""></div><br><br>  
+                        <div id="container_image_services" style=""><img src="https://premisafe.com/GST_image/OurServicesPage.jpg" width="780px" height="800px" style=""></div><br><br>  
 
                     </div>
 

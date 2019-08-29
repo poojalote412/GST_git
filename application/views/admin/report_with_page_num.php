@@ -121,7 +121,7 @@ if (is_array($session_data)) {
                                     </span>
                                     <input type="hidden" class="form-control" value="<?php echo $insert_id; ?>"disabled=""name="insert_id"  id="insert_id"   aria-required="true" aria-describedby="input_group-error">
                                     <input type="hidden" class="form-control" value="<?php echo $customer_id; ?>"disabled=""name="customer_id"  id="customer_id"   aria-required="true" aria-describedby="input_group-error">
-                                    <input type="text" class="form-control" value="<?php echo $client_details->company_name; ?>"disabled=""name="company_name"  id="company_name"   aria-required="true" aria-describedby="input_group-error">
+                                    <input type="hidden" class="form-control" value="<?php echo $client_details->company_name; ?>"disabled=""name="company_name"  id="company_name"   aria-required="true" aria-describedby="input_group-error">
                                     <input type="text" class="form-control" value="<?php echo $customer_details->customer_name ?>"  disabled=""name="cust_name"  id="cust_name" onkeyup="remove_error('customer_name')"   aria-required="true" aria-describedby="input_group-error">
 
                                 </div>
@@ -405,12 +405,12 @@ if (is_array($session_data)) {
                     </div>
 
                     <div class="test" style="page-break-after:always;margin-top:7%">
-                        <div id="container_image_about" style=""><img src="https://premisafe.com/GST_image/about.jpg" width="900px" height="900px" style=""></div><br><br>  
+                        <div id="container_image_about" style=""><img src="https://premisafe.com/GST_image/about.jpg" width="780px" height="800px" style=""></div><br><br>  
 
                     </div>
 
                     <div class="test" style="margin-top:7%">
-                        <div id="container_image_services" style=""><img src="https://premisafe.com/GST_image/OurServicesPage.jpg" width="900px" height="900px" style=""></div><br><br>  
+                        <div id="container_image_services" style=""><img src="https://premisafe.com/GST_image/OurServicesPage.jpg" width="780px" height="800px" style=""></div><br><br>  
 
                     </div>
 
