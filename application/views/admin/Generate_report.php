@@ -180,9 +180,10 @@ if (is_array($session_data)) {
                             <b><?php echo $client_details->customer_name ?></b><br>
                             <b>Managing Director:<?php echo $client_details->managing_director_name ?></b> <br>
                             <b>Company Name:<?php echo $client_details->company_name ?></b> <br>
-                            <b> Address :<?php echo $client_details->customer_address ?></b><br>
+                            <b> Address :<?php echo $client_details->customer_address ?></b>
+                            <div id="content_client_letterPDF" style=""></div>
                         </div>
-                        <div id="container_image_letter_client"  ><img src="https://premisafe.com/GST_image/LettertoClient.jpg" width="800px" height="800px"></div>
+                        <!--<div id="container_image_letter_client"  ><img src="https://premisafe.com/GST_image/LettertoClient.jpg" width="800px" height="800px"></div>-->
 
                     </div>
 
@@ -441,6 +442,28 @@ if (is_array($session_data)) {
             },
         });
 
+
+        //Ajax call for Letter to client PDF
+        
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Report/get_letter_to_clientPDF") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                //                 alert();
+                $('#content_client_letterPDF').html("");
+                if (result.message === "success") {
+
+                    var data = result.data;
+                    $('#content_client_letterPDF').html("");
+                    $('#content_client_letterPDF').html(data);
+                    //                    $('#example2').DataTable();
+                } else {
+
+                }
+            },
+        });
 
         $.ajax({
             type: "post",

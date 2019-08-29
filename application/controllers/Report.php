@@ -217,6 +217,44 @@ class Report extends CI_Controller {
             $respose['message'] = "";
         }echo json_encode($respose);
     }
+    
+    
+    public function get_letter_to_clientPDF() {
+        $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
+        $year_id = $this->input->post("year_id");
+//        $query_get_company_header = $this->db->query("SELECT company_name from report_header_all where insert_id='$insert_id' and customer_id='$customer_id'");
+        $query_get_insert_header = $this->db->query("SELECT year_id from insert_header_all where insert_id='$insert_id'");
+        if ($this->db->affected_rows() > 0) {
+            $res = $query_get_insert_header->row();
+            $year_id = $res->year_id;
+            $data = '<div style="float:left;margin-top:9%;margin-left: 30px;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;width:700px;height:700px">
+                <center><b style="font-size:18px;color:#1d2f66;"><u>Sub: GST Health Check Report</u></b><br><br></center>
+                     <p style="font-size:13px"> It has been an immense pleasure working for you and 
+                     thank you for choosing us to provide you GST insight report for the period  "' . $year_id . '".
+                     We are delighted to submit our report based on the data received from you. </br>
+                     As you are aware Ecovis RKCA have knowledge of accounting,taxation and ERPs;is
+                     striving to support organizations in transforming their finance and accounting
+                     processes.<br>
+                     Our observations and recommendations will help your professionals to unlock
+                     various areas of improvement and to overcome the inefficiencies which are making
+                     your businesses to bear loss and will help you to  improve your working capital
+                     position.<br>
+                     We look forward to receiving your feedback on the report and your time for
+                     discussing the same.<br>
+                     Thanking you in advance.<br>
+                     Yours faithfully<br><br><br>
+                     Authorized Signatory
+                     </p>
+                     </div>';
+
+
+            $respose['data'] = $data;
+            $respose['message'] = "success";
+        } else {
+            $respose['message'] = "";
+        }echo json_encode($respose);
+    }
 
     public function get_rating_card() {
         $customer_id = $this->input->post("customer_id");
