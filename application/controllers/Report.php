@@ -274,7 +274,7 @@ class Report extends CI_Controller {
 
             $get_bg_color = $this->get_bg_color_fun($time_over_run3, $internal_control3, $transaction_mismatch3, $deviation_itc3, $deviation_output3, $gst_payable3);
 //            $data1 .= '<h3><b>6.Issue Matrix</b></h3>';
-            $data .= '<table id="heat_map_tbl_id" class=" table-bordered table-striped" width="800">
+            $data .= '<table id="heat_map_tbl_id" class=" table-bordered table-striped" width="700">
                                 <thead style="color:white">
                                     <tr>
                                         <th bgcolor="#C7273D" height="20">No.</th>
@@ -417,7 +417,7 @@ class Report extends CI_Controller {
             $get_bg_color = $this->get_bg_color_fun($time_over_run3, $internal_control3, $transaction_mismatch3, $deviation_itc3, $deviation_output3, $gst_payable3);
 
 //            $data1 .= '<h3><b>6.Issue Matrix</b></h3>';
-            $data .= '<table id="heat_map_tbl_id" class="table-bordered table-striped" width="800">
+            $data .= '<table id="heat_map_tbl_id" class="table-bordered table-striped" width="700">
                                 <thead style="color:white">
                                     <tr>
                                         <th bgcolor="#C7273D" height="20">No.</th>

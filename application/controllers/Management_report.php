@@ -1446,7 +1446,7 @@ class Management_report extends CI_Controller {
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
-                         <table id="example2" class="table table-bordered table-striped">
+                         <table id="example2" class="table table-bordered table-striped" width="550">
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
                                         <th>#</th>
@@ -1536,7 +1536,7 @@ class Management_report extends CI_Controller {
         if ($query->num_rows() > 0) {
             $result = $query->result();
             $data .= "<h4><b>2.Sales Tax Rate Wise</b></h4>";
-            $data .= '<table id="example2" class="table-bordered table-striped" width="800">
+            $data .= '<table id="example2" class="table-bordered table-striped" width="600">
                                 <thead style="background-color: #0e385e;color:white">
                                     <tr>
                                         <th>#</th>

@@ -62,6 +62,9 @@ if (is_array($session_data)) {
         text-align: center;
 
     }
+    table{
+        font-size: 15px;
+    }
 
 
 
@@ -107,6 +110,7 @@ if (is_array($session_data)) {
                                     </span>
                                     <input type="hidden" class="form-control" value="<?php echo $insert_id; ?>"disabled=""name="insert_id"  id="insert_id"   aria-required="true" aria-describedby="input_group-error">
                                     <input type="hidden" class="form-control" value="<?php echo $customer_id; ?>"disabled=""name="customer_id"  id="customer_id"   aria-required="true" aria-describedby="input_group-error">
+                                    <input type="hidden" class="form-control" value="<?php echo $client_details->company_name; ?>"disabled=""name="company_name"  id="company_name"   aria-required="true" aria-describedby="input_group-error">
                                     <input type="text" class="form-control" value="<?php echo $customer_details->customer_name ?>"  disabled=""name="cust_name"  id="cust_name" onkeyup="remove_error('customer_name')"   aria-required="true" aria-describedby="input_group-error">
 
                                 </div>
@@ -148,7 +152,7 @@ if (is_array($session_data)) {
                         <div style="position: absolute;bottom: -255px;right: 400px;letter-spacing: 4px;color: white;" class="centered"> 
                             <b><?php echo $insert_header_details->year_id ?></b> <br>
                         </div>
-                        <img src="https://premisafe.com/GST_image/GSTReportCover.jpg" style="page-break-after: always" style="width:920px;"width="920px" height="720px">
+                        <img src="https://premisafe.com/GST_image/GSTReportCover.jpg" style="page-break-after: always" style="width:920px;"width="850px" height="720px">
                     </div>
 
 
@@ -177,7 +181,7 @@ if (is_array($session_data)) {
                             <b>Company Name:<?php echo $client_details->company_name ?></b> <br>
                             <b> Address :<?php echo $client_details->customer_address ?></b><br>
                         </div>
-                        <div id="container_image_letter_client"  ><img src="https://premisafe.com/GST_image/LettertoClient.jpg" width="900px" height="900px"></div>
+                        <div id="container_image_letter_client"  ><img src="https://premisafe.com/GST_image/LettertoClient.jpg" width="800px" height="800px"></div>
 
                     </div>
 
@@ -413,6 +417,7 @@ if (is_array($session_data)) {
 
         var customer_id = document.getElementById("customer_id").value;
         var insert_id = document.getElementById("insert_id").value;
+        var company_name = document.getElementById("company_name").value;
 
 
         $.ajax({
@@ -476,7 +481,7 @@ if (is_array($session_data)) {
                     var data_ratio = result.ratio;
                     var data_month = result.month_data;
                     var max_range = result.max_range;
-                    var customer_name = "Customer Name:" + result.customer_name;
+                    var customer_name = "Customer Name:" + company_name;
                     Highcharts.chart('container_turnovervs_liability', {
                         //                    var chart = Highcharts.chart('container_turnovervs_liability', {
                         chart: {
@@ -567,7 +572,7 @@ if (is_array($session_data)) {
                     var data_month = result.month_data;
                     var max_range = result.max_range;
                     var sales_percent_values = result.sales_percent_values;
-                    var customer_name = "Customer Name:" + result.customer_name;
+                    var customer_name = "Customer Name:" + company_name;
                     Highcharts.chart('container_sales_month_wise', {
                         chart: {
                             type: 'column'
