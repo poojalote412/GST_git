@@ -10,7 +10,6 @@ class Internal_acc_report extends CI_Controller {
         $this->load->model('Internal_acc_report_model');
         $this->load->model('Cfo_model');
         $this->load->model('Customer_model');
-       
     }
 
     function index() { //load the view page data
@@ -28,7 +27,7 @@ class Internal_acc_report extends CI_Controller {
 
     function index_admin() { //load the view page data
 //        $data['result'] = $result;
-       $session_data = $this->session->userdata('login_session');
+        $session_data = $this->session->userdata('login_session');
         $email = ($session_data['customer_email_id']);
         $get_firm_id = $this->Customer_model->get_firm_id($email);
         if ($get_firm_id != FALSE) {
@@ -462,7 +461,7 @@ class Internal_acc_report extends CI_Controller {
             $data = $result->row();
             $turn_id = $data->tax_libility_id;
             //generate user_id
-            $turn_id = str_pad(++$turn_id, 5, '0', STR_PAD_LEFT);
+            $turn_id = str_pad( ++$turn_id, 5, '0', STR_PAD_LEFT);
             return $turn_id;
         } else {
             $turn_id = 'tax_1001';
@@ -565,15 +564,15 @@ class Internal_acc_report extends CI_Controller {
                     '<td>' . '<b>' . array_sum($late_fee) . '</b> ' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table>';
-            $get_observation = $this->db->query("select tax_liability_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id'");
+            $get_observation = $this->db->query("select tax_liability_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
             if ($this->db->affected_rows() > 0) {
                 $res = $get_observation->row();
                 $observation = $res->tax_liability_observation;
             } else {
                 $observation = "";
             }
-            $data1 .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
-            $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+            $data1 .= "<hr><h4><b>Observation :</b></h4><span style='word-spacing: normal;'>" . $observation . "</span>";
+            $data1 .= "<h5><b>Note: </b>For details & consolidated summary.Please see section 8</h5>";
             $abc = array();
             $abc2 = array();
             $abc3 = array();

@@ -1231,7 +1231,7 @@ class Management_report extends CI_Controller {
                 $observation = "";
             }
 //            echo $variation=($max-$min)/($min*100);
-            $data1 .= "<hr><h4><b>Observation:</b></h4><span>" . $observation . "</span>";
+            $data1 .= "<hr><h4><b>Observation:</b></h4><span style='font-size:10px;'>" . $observation . "</span>";
             $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             // loop to get graph data as per graph script requirement
             $abc1 = array();
@@ -1536,7 +1536,7 @@ class Management_report extends CI_Controller {
         if ($query->num_rows() > 0) {
             $result = $query->result();
             $data .= "<h4><b>2.Sales Tax Rate Wise</b></h4>";
-            $data .= '<table id="example2" class="table-bordered table-striped" width="600">
+            $data .= '<table id="example2" class="table-bordered table-striped" width="700">
                                 <thead style="background-color: #0e385e;color:white">
                                     <tr>
                                         <th>#</th>
@@ -1580,7 +1580,7 @@ class Management_report extends CI_Controller {
                 $observation = "";
             }
 
-            $data .= "<hr><h4><b>Observation:</b></h4><span>" . $observation . "</span>";
+            $data .= "<hr><h4><b>Observation:</b></h4><span style='font-size:10px;'>" . $observation . "</span>";
             $data .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             $respnose['data'] = $data;
             $respnose['message'] = "success";
