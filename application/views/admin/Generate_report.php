@@ -683,7 +683,7 @@ if (is_array($session_data)) {
                     var data_a = result.taxable_value;
                     var max_range = result.data_liability;
                     var data_state = result.state;
-                    var customer_name = "Customer Name:" + result.customer_name;
+                    var customer_name = "Customer Name:" + company_name;
                     Highcharts.chart('container_state_wise', {
                         chart: {
                             type: 'column'
@@ -767,7 +767,7 @@ if (is_array($session_data)) {
                     var ratio_subtotal_exempt = result.ratio_subtotal_exempt;
                     var data_month = result.month_data;
                     var max_range = result.max_range;
-                    var customer_name = "Customer Name:" + result.customer_name;
+                    var customer_name = "Customer Name:" + company_name;
                     Highcharts.chart('container_nontax_exempt', {
                         chart: {
                             type: 'column'
@@ -927,7 +927,7 @@ if (is_array($session_data)) {
                     var array_b2b_ratio = result.array_b2b_ratio;
                     var array_b2c_ratio = result.array_b2c_ratio;
                     var max = result.max_range;
-                    var customer_name = "Customer Name:" + result.customer_name;
+                    var customer_name = "Customer Name:" + company_name;
                     //                    var max_ratio = result.max_ratio;
                     var data_month = result.month;
                     Highcharts.chart('container_sales_b2b_b2c', {
@@ -1096,6 +1096,7 @@ if (is_array($session_data)) {
                     var data_gstr2a = result.gstr2a;
                     var max = result.max;
                     var months = result.month_data;
+                    var customer_name = "Customer Name:" + company_name;
                     Highcharts.chart('container_GSTR3b_vs_2A', {
                         chart: {
                             type: 'Combination chart',
@@ -1225,7 +1226,7 @@ if (is_array($session_data)) {
                     var cumu_difference = result.cumu_difference;
                     var max = result.max;
                     var month = result.month_data;
-                    var customer_name = "Customer Name:" + result.customer_name;
+                    var customer_name = "Customer Name:" + company_name;
                     Highcharts.chart('container_GSTR3b_vs_1', {
                         chart: {
                             type: 'Combination chart'
@@ -1391,7 +1392,7 @@ if (is_array($session_data)) {
                     var data_paid_cash = result.data_paid_cash;
                     var data_late_fee = result.data_late_fee;
                     var data_month = result.month_data;
-                    var customer_name = "Customer Name:" + result.customer_name;
+                    var customer_name = "Customer Name:" + company_name;
                     Highcharts.chart('container_tax_liability', {
                         chart: {
                             type: 'column'
@@ -1560,7 +1561,7 @@ if (is_array($session_data)) {
                     var tax_ratio = result.tax_ratio;
                     var data_month = result.month_data;
                     var max_range = result.max_range;
-                    var customer_name = "Customer Name:" + result.customer_name;
+                    var customer_name = "Customer Name:" + company_name;
                     Highcharts.chart('container_tax_turnover', {
                         chart: {
                             type: 'Combination chart'
@@ -1712,7 +1713,7 @@ if (is_array($session_data)) {
                     var percent = result.percent;
                     var data_month = result.month_data;
                     var max_range = result.max_range;
-                    var customer_name = "Customer Name:" + result.customer_name;
+                    var customer_name = "Customer Name:" + company_name;
                     Highcharts.chart('container_gst_payablevscash', {
                         chart: {
                             type: 'column'
@@ -1970,7 +1971,7 @@ if (is_array($session_data)) {
                     var eligible_ratio = result.eligible_ratio;
                     var data_month = result.month_data;
                     var max_range = result.max_range;
-                    var customer_name = "Customer Name:" + result.customer_name;
+                    var customer_name = "Customer Name:" + company_name;
                     Highcharts.chart('container_eligible_credit', {
                         chart: {
                             type: 'column'

@@ -62,6 +62,9 @@ if (is_array($session_data)) {
         text-align: center;
 
     }
+    table{
+        font-size: 15px;
+    }
 
 
 
@@ -118,6 +121,7 @@ if (is_array($session_data)) {
                                     </span>
                                     <input type="hidden" class="form-control" value="<?php echo $insert_id; ?>"disabled=""name="insert_id"  id="insert_id"   aria-required="true" aria-describedby="input_group-error">
                                     <input type="hidden" class="form-control" value="<?php echo $customer_id; ?>"disabled=""name="customer_id"  id="customer_id"   aria-required="true" aria-describedby="input_group-error">
+                                    <input type="hidden" class="form-control" value="<?php echo $client_details->company_name; ?>"disabled=""name="company_name"  id="company_name"   aria-required="true" aria-describedby="input_group-error">
                                     <input type="text" class="form-control" value="<?php echo $customer_details->customer_name ?>"  disabled=""name="cust_name"  id="cust_name" onkeyup="remove_error('customer_name')"   aria-required="true" aria-describedby="input_group-error">
 
                                 </div>
@@ -152,11 +156,11 @@ if (is_array($session_data)) {
                     <!-- Insert your document here -->
                     <div id="container_image_front" style="page-break-after:always;position: relative;color: white;margin-top:-22px;margin-left: -15px;margin-right: -25px;">
                         <!--<img src="https://premisafe.com/Logo.jpg" width="120px" height="30px">-->
-                        <div style="position: absolute;bottom: -190px;margin-left: 250px !important;font-size: 18;letter-spacing: 2px;color: white;"> 
+                        <div style="position: absolute;bottom: -190px;margin-left: 250px !important;font-size: 18;letter-spacing: 4px;color: white;text-align: center"> 
                             <b><?php echo $client_details->company_name ?></b> <br>
 
                         </div>
-                        <div style="position: absolute;bottom: -255px;right: 400px;letter-spacing: 4px;color: white;" class="centered"> 
+                        <div style="position: absolute;bottom: -255px;right: 450px;letter-spacing: 4px;color: white;" class="centered"> 
                             <b><?php echo $insert_header_details->year_id ?></b> <br>
                         </div>
                         <img src="https://premisafe.com/GST_image/GSTReportCover.jpg" style="page-break-after: always" style="width:920px;"width="920px" height="720px">
@@ -188,7 +192,7 @@ if (is_array($session_data)) {
                             <b>Company Name:<?php echo $client_details->company_name ?></b> <br>
                             <b> Address :<?php echo $client_details->customer_address ?></b><br>
                         </div>
-                        <div id="container_image_letter_client"  ><img src="https://premisafe.com/GST_image/LettertoClient.jpg" width="900px" height="900px"></div>
+                        <div id="container_image_letter_client"  ><img src="https://premisafe.com/GST_image/LettertoClient.jpg" width="800px" height="800px"></div>
 
                     </div>
 
@@ -499,7 +503,7 @@ if (is_array($session_data)) {
                     var data_ratio = result.ratio;
                     var data_month = result.month_data;
                     var max_range = result.max_range;
-                    var customer_name = "Customer Name:" + result.customer_name;
+                    var customer_name = "Customer Name:" + company_name;
                     Highcharts.chart('container_turnovervs_liability', {
                         //                    var chart = Highcharts.chart('container_turnovervs_liability', {
                         chart: {
@@ -590,7 +594,7 @@ if (is_array($session_data)) {
                     var data_month = result.month_data;
                     var max_range = result.max_range;
                     var sales_percent_values = result.sales_percent_values;
-                    var customer_name = "Customer Name:" + result.customer_name;
+                    var customer_name = "Customer Name:" + company_name;
                     Highcharts.chart('container_sales_month_wise', {
                         chart: {
                             type: 'column'
@@ -700,7 +704,7 @@ if (is_array($session_data)) {
                     var data_a = result.taxable_value;
                     var max_range = result.data_liability;
                     var data_state = result.state;
-                    var customer_name = "Customer Name:" + result.customer_name;
+                    var customer_name = "Customer Name:" + company_name;
                     Highcharts.chart('container_state_wise', {
                         chart: {
                             type: 'column'
@@ -784,7 +788,7 @@ if (is_array($session_data)) {
                     var ratio_subtotal_exempt = result.ratio_subtotal_exempt;
                     var data_month = result.month_data;
                     var max_range = result.max_range;
-                    var customer_name = "Customer Name:" + result.customer_name;
+                    var customer_name = "Customer Name:" + company_name;
                     Highcharts.chart('container_nontax_exempt', {
                         chart: {
                             type: 'column'
@@ -944,7 +948,7 @@ if (is_array($session_data)) {
                     var array_b2b_ratio = result.array_b2b_ratio;
                     var array_b2c_ratio = result.array_b2c_ratio;
                     var max = result.max_range;
-                    var customer_name = "Customer Name:" + result.customer_name;
+                    var customer_name = "Customer Name:" + company_name;
                     //                    var max_ratio = result.max_ratio;
                     var data_month = result.month;
                     Highcharts.chart('container_sales_b2b_b2c', {
@@ -1242,7 +1246,7 @@ if (is_array($session_data)) {
                     var cumu_difference = result.cumu_difference;
                     var max = result.max;
                     var month = result.month_data;
-                    var customer_name = "Customer Name:" + result.customer_name;
+                    var customer_name = "Customer Name:" + company_name;
                     Highcharts.chart('container_GSTR3b_vs_1', {
                         chart: {
                             type: 'Combination chart'
@@ -1408,7 +1412,7 @@ if (is_array($session_data)) {
                     var data_paid_cash = result.data_paid_cash;
                     var data_late_fee = result.data_late_fee;
                     var data_month = result.month_data;
-                    var customer_name = "Customer Name:" + result.customer_name;
+                    var customer_name = "Customer Name:" + company_name;
                     Highcharts.chart('container_tax_liability', {
                         chart: {
                             type: 'column'
@@ -1577,7 +1581,7 @@ if (is_array($session_data)) {
                     var tax_ratio = result.tax_ratio;
                     var data_month = result.month_data;
                     var max_range = result.max_range;
-                    var customer_name = "Customer Name:" + result.customer_name;
+                    var customer_name = "Customer Name:" + company_name;
                     Highcharts.chart('container_tax_turnover', {
                         chart: {
                             type: 'Combination chart'
@@ -1729,7 +1733,7 @@ if (is_array($session_data)) {
                     var percent = result.percent;
                     var data_month = result.month_data;
                     var max_range = result.max_range;
-                    var customer_name = "Customer Name:" + result.customer_name;
+                    var customer_name = "Customer Name:" + company_name;
                     Highcharts.chart('container_gst_payablevscash', {
                         chart: {
                             type: 'column'
@@ -1987,7 +1991,7 @@ if (is_array($session_data)) {
                     var eligible_ratio = result.eligible_ratio;
                     var data_month = result.month_data;
                     var max_range = result.max_range;
-                    var customer_name = "Customer Name:" + result.customer_name;
+                    var customer_name = "Customer Name:" + company_name;
                     Highcharts.chart('container_eligible_credit', {
                         chart: {
                             type: 'column'
