@@ -65,7 +65,7 @@ if (is_array($session_data)) {
     table{
         font-size: 15px;
     }
-    
+
 
 
 
@@ -180,10 +180,9 @@ if (is_array($session_data)) {
                             <b><?php echo $client_details->customer_name ?></b><br>
                             <b>Managing Director:<?php echo $client_details->managing_director_name ?></b> <br>
                             <b>Company Name:<?php echo $client_details->company_name ?></b> <br>
-                            <b> Address :<?php echo $client_details->customer_address ?></b>
-                            <div id="content_client_letterPDF" style=""></div>
+                            <b> Address :<?php echo $client_details->customer_address ?></b><br>
                         </div>
-                        <!--<div id="container_image_letter_client"  ><img src="https://premisafe.com/GST_image/LettertoClient.jpg" width="800px" height="800px"></div>-->
+                        <div id="container_image_letter_client"  ><img src="https://premisafe.com/GST_image/LettertoClient.jpg" width="800px" height="800px"></div>
 
                     </div>
 
@@ -211,121 +210,122 @@ if (is_array($session_data)) {
                     </div>
                     <!--Details of GST Reports & insights-->
 
-                    <div class="test" id="first_div" style="margin-top:7%;display: block">
-                        <h4 class="" style="color:#0e385e;"><b>6.DETAILS OF GST REPORTS AND INSIGHTS</b></h4>
-                        <h4 class="" style="background:#0e385e; color:white;width:700px;text-align:center">DATA INSIGHTS</h4>
-                        <h4 class="" style="color:#0e385e"><b>A.MANAGEMENT REPORT</b></h4><br>
-
-                        <div class="test" id="monthly_div" style="page-break-after:always;">
-                            <div id="sales_monthly_data2" style="margin-left:5%"></div>
-                            <div id="container_sales_month_wise"  style="width:700px;margin-left:5%"></div>
-                            <div id="sales_monthly_data1" style="width:700px;margin-left:5% "></div>
+                    <div class="test" id="first_div" style="display: block">
+                        <div style="margin-top:12%;margin-left:5%;margin-right: 5%;">
+                            <h4 class="" style="color:#0e385e;"><b>6.DETAILS OF GST REPORTS AND INSIGHTS</b></h4>
+                            <h4 class="" style="background:#0e385e; color:white;width:700px;text-align:center">DATA INSIGHTS</h4>
+                            <h4 class="" style="color:#0e385e"><b>A.MANAGEMENT REPORT</b></h4><br>
                         </div>
-
+                        <div class="test" id="monthly_div" style="page-break-after:always;margin-left:5%;margin-right: 5%;">
+                            <div id="sales_monthly_data2" ></div>
+                            <div id="container_sales_month_wise"  style="width:700px;"></div>
+                            <div id="sales_monthly_data1" style="width:700px; "></div>
+                        </div>
                         <input type="hidden" id="sales_ratewise_div" name="sales_ratewise_div" value="0">
-                        <div class="test" id="sales_rate_statewise_div" style="margin-top:5%;page-break-after:always;">
-                            <div id="compare_sales_ratewise_data1" style="width:700px;margin-left:5%"></div>
-                            <div id="compare_sales_ratewise_data" style="width:700px;margin-left:5%"></div><br><br><br>
-                            <div id="sales_state_wise_data2"  style="width:700px;margin-left:5%"></div>
-                            <div id="container_state_wise" style="width:700px;margin-left:5%"></div>
-                            <div id="sales_state_wise_data1"  style="width:700px;margin-left:5%"></div>
+                        <div class="test" id="sales_rate_statewise_div" style="margin-top:12%;margin-left:5%;margin-right: 5%;page-break-after:always;">
+                            <div id="compare_sales_ratewise_data1" style="width:700px;"></div>
+                            <div id="compare_sales_ratewise_data" style="width:700px;"></div><br><br><br>
+                            <div id="sales_state_wise_data2"  style="width:700px;"></div>
+                            <div id="container_state_wise" style="width:700px;"></div>
+                            <div id="sales_state_wise_data1"  style="width:700px;"></div>
                         </div>
 
 
-                        <div class="test" id="tax_nontax_div" style="page-break-after:always;margin-top:7%">
-                            <div id="tax_ntax_Exempt_data2" style="width:700px;margin-left:5%"></div>
-                            <div id="container_nontax_exempt" style="width:700px;margin-left:5%"></div>
-                            <div id="tax_ntax_Exempt_data1" style="width:700px;margin-left:5%"></div>
+                        <div class="test" id="tax_nontax_div" style="page-break-after:always;margin-top:12%;margin-top:5%;margin-left:5%;">
+                            <div id="tax_ntax_Exempt_data2" style="width:700px;"></div>
+                            <div id="container_nontax_exempt" style="width:700px;"></div>
+                            <div id="tax_ntax_Exempt_data1" style="width:700px;"></div>
                         </div>
 
-                        <div class="test" id="compare_b2b_div" style="page-break-after:always;margin-top:7%">
-                            <div id="compare_b2b_data2" style="width:700px;margin-left:5%"></div>
-                            <div id="container_sales_b2b_b2c" style="width:700px;margin-left:5%"></div>
-                            <div id="compare_b2b_data1" style="width:700px;margin-left:5%"></div>
+                        <div class="test" id="compare_b2b_div" style="page-break-after:always;margin-top:12%;margin-top:5%;margin-left:5%;">
+                            <div id="compare_b2b_data2" style="width:700px;"></div>
+                            <div id="container_sales_b2b_b2c" style="width:700px;"></div>
+                            <div id="compare_b2b_data1" style="width:700px;"></div>
                         </div>
 
                     </div>
                     <!--Comparison & Deviation Report-->
                     <div class="test" id="second_div" style="display:block">
-                        <div class="test" style="page-break-after:always;margin-top:7%">
+                        <div class="test" style="page-break-after:always;margin-top:12%;margin-left:5%;margin-right: 5%;">
                             <h4 style="color:#0e385e;"><b>B.COMPARISON AND DEVIATION REPORT</b></h4>
-                            <div id="compare_GSTR3B_Vs2_data2" style="width:700px;margin-left:5%"></div>
-                            <div id="compare_GSTR3B_Vs2_data" style="width:700px;margin-left:5%"></div><br><br>
-                            <div id="container_GSTR3b_vs_2A"  style="width:700px;margin-left:5%"></div>
-                            <div id="compare_GSTR3B_Vs2_data1" style="width:700px;margin-left:5%"></div>
-
+                            <div id="compare_GSTR3B_Vs2_data2" style="width:700px;"></div>
+                            <div id="compare_GSTR3B_Vs2_data" style="width:700px;"></div><br><br>
+                            <div id="container_GSTR3b_vs_2A"  style="width:700px;"></div>
+                            <div id="compare_GSTR3B_Vs2_data1" style="width:700px;"></div>
                         </div>
-                        <div class="test" style="page-break-after:always;margin-top:7%">
-                            <div id="compare_3b_vs1_data2" style="width:700px;margin-left:5%"></div>
-                            <div id="compare_3b_vs1_data" style="width:700px;margin-left:5%"></div><br><br>
-                            <div id="container_GSTR3b_vs_1" style="width:700px;margin-left:5%"></div>
-                            <div id="compare_3b_vs1_data1" style="width:700px;margin-left:5%"></div>
+                        <div class="test" style="page-break-after:always;margin-top:12%;margin-left:5%;margin-right: 5%;">
+                            <div id="compare_3b_vs1_data2" style="width:700px;"></div>
+                            <div id="compare_3b_vs1_data" style="width:700px;"></div><br><br>
+                            <div id="container_GSTR3b_vs_1" style="width:700px;"></div>
+                            <div id="compare_3b_vs1_data1" style="width:700px;"></div>
                         </div>
                     </div>
 
                     <!--BAROMETER CFO DASHBOARD-->
                     <div class="test" id="third_div" style="display:block">
-                        <p style="background:#cd273f; color:white;padding:4px;border:1px solid;margin-top:13%;width:700px;text-align:center"><b>BAROMETER-CFO DASHBOARD</b></p>
-                        <h4 style="color:#0e385e;"><b>A. CFO DASHBOARD</b></h4>
-                        <div class="test_tax_turn"  style="page-break-after:always;display: block;">
-                            <div id="tax_turnover_data2" style="width:700px;margin-left:5%"></div>
-                            <div id="tax_turnover_data" style="width:700px;margin-left:5%"></div>
-                            <div id="container_tax_turnover"  style="width:700px;margin-left:5%;margin-top:2% !important"></div>
-                            <div id="tax_turnover_data1" style="width:700px;margin-left:5%"></div>
+                        <div style="margin-top:14%;margin-left:5%;margin-right: 5%;">
+                            <p style="background:#cd273f; color:white;padding:4px;border:1px solid;width:700px;text-align:center"><b>BAROMETER-CFO DASHBOARD</b></p>
+                            <h4 style="color:#0e385e;"><b>A. CFO DASHBOARD</b></h4>
+                        </div>
+                        <div class="test_tax_turn"  style="page-break-after:always;display: block;margin-left:5%;margin-right: 5%;">
+                            <div id="tax_turnover_data2" style="width:700px;"></div>
+                            <div id="tax_turnover_data" style="width:700px;"></div>
+                            <div id="container_tax_turnover"  style="width:700px;"></div>
+                            <div id="tax_turnover_data1" style="width:700px;"></div>
                         </div>
 
-                        <div class="test" style="page-break-after:always;margin-top:7%">
-                            <div id="cfo_data2" style="width:700px;margin-left:5%"></div>
-                            <div id="cfo_data" style="width:700px;margin-left:5%"></div>
-                            <div id="container_turnovervs_liability" style="width:700px;margin-left:5%"></div>
-                            <div id="cfo_data1" style="width:700px;margin-left:5%"></div>
+                        <div class="test" style="page-break-after:always;margin-top:12%;margin-left:5%;margin-right: 5%;">
+                            <div id="cfo_data2" style="width:700px;"></div>
+                            <div id="cfo_data" style="width:700px;"></div>
+                            <div id="container_turnovervs_liability" style="width:700px;"></div>
+                            <div id="cfo_data1" style="width:700px;"></div>
                         </div>
 
-                        <div class="test" style="page-break-after:always;margin-top:7%">
-                            <div id="tax_liability_data2" style="width:700px;margin-left:5%"></div>
-                            <div id="tax_liability_data" style="width:700px;margin-left:5%"></div>
-                            <div id="container_tax_liability" style="width:700px;margin-left:5%"></div>
-                            <div id="tax_liability_data1" style="width:700px;margin-left:5%"></div>
+                        <div class="test" style="page-break-after:always;margin-top:12%;margin-left:5%;margin-right: 5%;">
+                            <div id="tax_liability_data2" style="width:700px;"></div>
+                            <div id="tax_liability_data" style="width:700px;"></div>
+                            <div id="container_tax_liability" style="width:700px;"></div>
+                            <div id="tax_liability_data1" style="width:700px;"></div>
                         </div>
 
-                        <div class="test" style="page-break-after:always;margin-top:7%">
-                            <div id="gst_payablevscash_data2" style="width:700px;margin-left:5%"></div>
-                            <div id="gst_payablevscash_data" style="width:700px;margin-left:5%"></div>
-                            <div id="container_gst_payablevscash"  style="width:700px;margin-left:5%"></div>
-                            <div id="gst_payablevscash_data1" style="width:700px;margin-left:5%"></div>
+                        <div class="test" style="page-break-after:always;margin-top:12%;margin-left:5%;margin-right: 5%;">
+                            <div id="gst_payablevscash_data2" style="width:700px;"></div>
+                            <div id="gst_payablevscash_data" style="width:700px;"></div>
+                            <div id="container_gst_payablevscash"  style="width:700px;"></div>
+                            <div id="gst_payablevscash_data1" style="width:700px;"></div>
                         </div>
 
-                        <div class="test" style="page-break-after:always;margin-top:7%">
-                            <div id="tax_iniligible_data2" style="width:700px;margin-left:5%"></div>
-                            <div id="tax_iniligible_data" style="width:700px;margin-left:5%"></div>
-                            <div id="container_eligible_credit"  style="width:700px;margin-left:5%"></div>
-                            <div id="tax_iniligible_data1" style="width:700px;margin-left:5%"></div>
+                        <div class="test" style="page-break-after:always;margin-top:12%;margin-left:5%;margin-right: 5%;">
+                            <div id="tax_iniligible_data2" style="width:700px;"></div>
+                            <div id="tax_iniligible_data" style="width:700px;"></div>
+                            <div id="container_eligible_credit"  style="width:700px;"></div>
+                            <div id="tax_iniligible_data1" style="width:700px;"></div>
                         </div>
                     </div>
 
                     <!--InFORMATION COMPARISON-->
                     <div class="test" id="fourth_div" style="display:block">
-                        <p style="background:#516b22; color:white;width:700px;text-align:center;margin-top:15%"><b>INFORMATION COMPARISON</b></p>
+                        <p style="background:#516b22; color:white;width:700px;text-align:center;margin-top:15%;margin-left:5%;margin-right: 5%;"><b>INFORMATION COMPARISON</b></p>
                         <input type="hidden" id="complience_div" name="complience_div" value="0">
                         <input type="hidden" id="internal_control_div" name="internal_control_div" value="0">
                         <input type="hidden" id="invoice_comparison_div" name="invoice_comparison_div" value="0">
-                        <div class="test" id="complience_report_div" style="page-break-after:always;">
+                        <div class="test" id="complience_report_div" style="page-break-after:always;margin-left:5%;margin-right: 5%;">
                             <h4 style="color:#0e385e;"><b>A. COMPLIANCE REPORT</b></h4>
-                            <div id="gstr3B_data1" style="width:700px;margin-left:5%"></div>
-                            <div id="gstr3B_data" style="width:700px;padding: 0px;margin-left:5%"></div>
-                            <div id="gstr1_data1" style="width:700px;margin-left:5%"></div>
-                            <div id="gstr1_data" style="width:700px;padding: 0px;margin-left:5%"></div>
+                            <div id="gstr3B_data1" style="width:700px;"></div>
+                            <div id="gstr3B_data" style="width:700px;"></div>
+                            <div id="gstr1_data1" style="width:700px;"></div>
+                            <div id="gstr1_data" style="width:700px;"></div>
                         </div>
 
 
-                        <div class="test" id="internal_control" style="margin-top:7%">
-                            <h4 style="color:#0e385e;"><b>B. INTERNAL CONTROL REPORT</b></h4>
-                            <div class="test_amend" id="test_amend" style="page-break-after:always;margin-top:7%;display: block;">
-                                <div id="invoice_ammend_original_data" style="margin-top:20px;"></div>
-                                <div id="invoice_ammend_original_data1" style="margin-top:10px;"></div>
+                        <div class="test" id="internal_control" style="margin-top:10%;">
+                            <h4 style="color:#0e385e;margin-left:5%;margin-right: 5%;"><b>B. INTERNAL CONTROL REPORT</b></h4>
+                            <div class="test_amend" id="test_amend" style="page-break-after:always;margin-left:5%;margin-right: 5%;display: block;">
+                                <div id="invoice_ammend_original_data" style=""></div>
+                                <div id="invoice_ammend_original_data1" style=""></div>
                             </div>
 
-                            <div class="test1" id="invoice_notinclude_gstr1_data_div" style="page-break-after:always;margin-top:7%">
+                            <div class="test1" id="invoice_notinclude_gstr1_data_div" style="page-break-after:always;margin-top:10%;margin-left:5%;margin-right: 5%;">
                                 <div id="invoice_notinclude_gstr1_data"  style=""></div>
                                 <div id="invoice_notinclude_gstr1_data1" style=""></div>
                             </div>
@@ -333,20 +333,20 @@ if (is_array($session_data)) {
 
 
                         <div class="test" id="invoice_wise_comparison" style="margin-top:7%">
-                            <h4 style="color:#0e385e;"><b>C. INVOICE WISE COMPARISON OR MISMATCH REPORT</b></h4>
-                            <div class="test_not_in_2a" id="test_not_in_2a" style="page-break-after:always;margin-top:7%">
-                                <div id="company_all_notin2a_data" style="margin-top:20px;margin-left: 5%"></div>
-                                <div id="company_all_notin2a_data1" style="margin-left: 5%"></div>
+                            <h4 style="color:#0e385e;margin-left:5%;margin-right: 5%;"><b>C. INVOICE WISE COMPARISON OR MISMATCH REPORT</b></h4>
+                            <div class="test_not_in_2a" id="test_not_in_2a" style="page-break-after:always;margin-top:7%;margin-left:5%;margin-right: 5%;">
+                                <div id="company_all_notin2a_data" style=""></div>
+                                <div id="company_all_notin2a_data1" style=""></div>
                             </div>
 
-                            <div class="test" id="not_in_rec" style="page-break-after:always; ">
-                                <div id="company_all_notinrec_data" style=" margin-top:20px ;margin-left: 5%"></div>
-                                <div id="company_all_notinrec_data1" style="margin-left: 5%"></div>
+                            <div class="test" id="not_in_rec" style="page-break-after:always;margin-left:5%;margin-right: 5%; ">
+                                <div id="company_all_notinrec_data" style=" "></div>
+                                <div id="company_all_notinrec_data1" style=""></div>
                             </div>
 
-                            <div class="test" id="partially" style="page-break-after:always;">
-                                <div id="company_all_partially_data" style=" margin-top:20px;margin-left: 5%"></div>
-                                <div id="company_all_partially_data1" style="margin-left: 5%"></div>
+                            <div class="test" id="partially" style="page-break-after:always;margin-left:5%;margin-right: 5%;">
+                                <div id="company_all_partially_data" style=" "></div>
+                                <div id="company_all_partially_data1" style=""></div>
                             </div>
                         </div>
 
@@ -442,28 +442,6 @@ if (is_array($session_data)) {
             },
         });
 
-
-        //Ajax call for Letter to client PDF
-        
-        $.ajax({
-            type: "post",
-            url: "<?= base_url("Report/get_letter_to_clientPDF") ?>",
-            dataType: "json",
-            data: {customer_id: customer_id, insert_id: insert_id},
-            success: function (result) {
-                //                 alert();
-                $('#content_client_letterPDF').html("");
-                if (result.message === "success") {
-
-                    var data = result.data;
-                    $('#content_client_letterPDF').html("");
-                    $('#content_client_letterPDF').html(data);
-                    //                    $('#example2').DataTable();
-                } else {
-
-                }
-            },
-        });
 
         $.ajax({
             type: "post",
@@ -1221,7 +1199,7 @@ if (is_array($session_data)) {
                     $('#compare_GSTR3B_Vs2_data').html(data);
                     $('#compare_GSTR3B_Vs2_data1').html(data1);
                     $('#compare_GSTR3B_Vs2_data2').html(data2);
-                    
+
                     $("#container_GSTR3b_vs_2A").prepend("Deduct: In-Eligible Credit :<input type='text'><br>*To be ﬁlled manually so that the client will get the clear picture of eligible credit.");
                     //                    $('#example2').DataTable();
                 } else {
@@ -2418,7 +2396,7 @@ if (is_array($session_data)) {
                 if (result.status === true) {
 
                     window.location.href = '<?= base_url() ?>Report/insert_page_number/' + btoa(customer_id) + '/' + btoa(insert_id);
-                    xepOnline.Formatter.Format('JSFiddle', {render:'download'});
+                    xepOnline.Formatter.Format('JSFiddle', {render: 'download'});
                 } else {
                     alert('somrthing went wrong.');
                 }
