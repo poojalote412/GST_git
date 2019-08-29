@@ -192,22 +192,22 @@ class Report extends CI_Controller {
         if ($this->db->affected_rows() > 0) {
             $res = $query_get_company_header->row();
             $company_name = $res->company_name;
-            $data = '<div style="float:left;margin-top:9%;margin-left: 30px;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;">
-                <b style="font-size:18px;color:#1d2f66;">2. EXECUTIVE SUMMARY</b><br><br>
-                     <p style="font-size:13px"> Ecovis RKCA was provided with the data of the company  "' . $company_name . '" to evaluate this health check report.</p>    
-                      <p style="font-size:13px">Ecovis RKCA  was also able to access all the information such as:</p>
-                      <p style="font-size:13px">1. Sales data month wise.</p>
-                      <p style="font-size:13px">2. GSTR-1 </p>
-                      <p style="font-size:13px">3. GSTR-3B.</p>
-                      <p style="font-size:13px">And  Ecovis RKCA. Uses this data to provide them with GST insights in form of:</p>
-                      <p style="font-size:13px">1. Management Report</p>
-                      <p style="font-size:13px">2. Compliance Report</p>
-                      <p style="font-size:13px">3. Internal control Reports</p>
-                      <p style="font-size:13px">4. Mismatch Reports</p>
-                      <p style="font-size:13px">5. Deviation Reports</p>
-                      <p style="font-size:13px">6. CFO Dashboard</p>
-                      <p style="font-size:13px">This will help the company immensely for their development.</p>
-                      	<p style="font-size:13px">We also evaluated some areas of improvement.</p>
+            $data = '<div style="float:left;margin-top:7%;margin-left: 30px;letter-spacing: 0.5px;font-family:Arial Sans Serif;">
+                <p style="font-size:16;color:#1d2f66;"><b>2. EXECUTIVE SUMMARY</b></p><br>
+                     <p style="font-size:12"> Ecovis RKCA was provided with the data of the company  "' . $company_name . '" to evaluate this health check report. </p> 
+                      <p style="font-size:12">Ecovis RKCA  was also able to access all the information such as:</p>
+                      <p style="font-size:12">1. Sales data month wise.</p>
+                      <p style="font-size:12">2. GSTR-1 </p>
+                      <p style="font-size:12">3. GSTR-3B.</p>
+                      <p style="font-size:12">And  Ecovis RKCA. Uses this data to provide them with GST insights in form of:</p>
+                      <p style="font-size:12">1. Management Report</p>
+                      <p style="font-size:12">2. Compliance Report</p>
+                      <p style="font-size:12">3. Internal control Reports</p>
+                      <p style="font-size:12">4. Mismatch Reports</p>
+                      <p style="font-size:12">5. Deviation Reports</p>
+                      <p style="font-size:12">6. CFO Dashboard</p>
+                      <p style="font-size:12">This will help the company immensely for their development.</p>
+                      	<p style="font-size:12">We also evaluated some areas of improvement.</p>
                      </div>';
 
 
@@ -228,23 +228,23 @@ class Report extends CI_Controller {
         if ($this->db->affected_rows() > 0) {
             $res = $query_get_insert_header->row();
             $year_id = $res->year_id;
-            $data = '<div style="float:left;margin-top:9%;margin-left: 30px;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;width:700px;height:700px">
-                <center><b style="font-size:18px;color:#1d2f66;"><u>Sub: GST Health Check Report</u></b><br><br></center>
-                     <p style="font-size:13px"> It has been an immense pleasure working for you and 
-                     thank you for choosing us to provide you GST insight report for the period  "' . $year_id . '".
-                     We are delighted to submit our report based on the data received from you. </br>
-                     As you are aware Ecovis RKCA have knowledge of accounting,taxation and ERPs;is
+            $data = '<div style="float:left;margin-top:9%;margin-left: 7.5%;margin-right:7.5%;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;width:700px;height:700px">
+                    <center><b style="font-size:12px;color:#1d2f66;margin-top:2%;"><u>Sub: GST Health Check Report</u></b><br></center>
+                     <p style="font-size:12px"> It has been an immense pleasure working for you and 
+                     thank you for choosing us to provide you GST insight report for the period  "' . $year_id . '".</p>
+                     <p style="font-size:12px">We are delighted to submit our report based on the data received from you. </p>
+                     <p style="font-size:12px">As you are aware Ecovis RKCA have knowledge of accounting,taxation and ERPs;is
                      striving to support organizations in transforming their finance and accounting
-                     processes.<br>
-                     Our observations and recommendations will help your professionals to unlock
+                     processes.</p>
+                     <p style="font-size:12px">Our observations and recommendations will help your professionals to unlock
                      various areas of improvement and to overcome the inefficiencies which are making
                      your businesses to bear loss and will help you to  improve your working capital
-                     position.<br>
-                     We look forward to receiving your feedback on the report and your time for
-                     discussing the same.<br>
-                     Thanking you in advance.<br>
+                     position.</p>
+                     <p style="font-size:12px">We look forward to receiving your feedback on the report and your time for
+                     discussing the same.</p>
+                     <p style="font-size:12px">Thanking you in advance.</p>
                      Yours faithfully<br><br><br>
-                     Authorized Signatory
+                     <p style="font-size:12px">Authorized Signatory</p>
                      </p>
                      </div>';
 

@@ -438,7 +438,7 @@ class Invoice_comp_report extends CI_Controller {
         $data = "";
         $data1 = "";
         if ($query != FALSE) {
-            $data .= '<h4 style="color:#0e385e"><b>1.Not in GSTR-2A,but recorderd under purchasers book:</b></h4>';
+            $data .= '<h4 style="color:#0e385e;font-size:14px;font-family:Arial Sans Serif;"><b>1.Not in GSTR-2A,but recorderd under purchasers book:</b></h4>';
 
             $records = count($query);
             $show = $records / 15;
@@ -511,10 +511,10 @@ class Invoice_comp_report extends CI_Controller {
                 $response['status'] = true;
                 $response['code'] = 200;
             }
-            $data1 = "<h4><b>Observation:</b></h4>";
-            $data1 .= "<span>Follow up from the above clients' needs to be done as the business is facing the risk of loss "
+            $data1 = "<h4 style=font-size:14px;font-family:Arial Sans Serif;><b>Observation:</b></h4>";
+            $data1 .= "<span style=font-size:14px;font-family:Arial Sans Serif;>Follow up from the above clients' needs to be done as the business is facing the risk of loss "
                     . "of input tax credit of Rs. " . array_sum($tax) . ". The situation of non-reconciliation may lead to interest liability or GST notices. </span>";
-            $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+            $data1 .= "<h5 style=font-size:12px;font-family:Arial Sans Serif;><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             $response['data1'] = $data1;
         } else {
             $response['message'] = "";
@@ -693,7 +693,7 @@ class Invoice_comp_report extends CI_Controller {
             $show = $records / 15;
             $table = ceil($show);
             $min_value = 1;
-            $data .= '<h4 style="color:#0e385e"><b>2.Not in records,but recorded under GSTR-2A:</b></h4>';
+            $data .= '<h4 style="color:#0e385e;font-size:14px;font-family:Arial Sans Serif;"><b>2.Not in records,but recorded under GSTR-2A:</b></h4>';
             for ($i = 0, $k = 1; $i < $table; $i++) {
                 $invoice_value = array();
                 $taxable_value = array();
@@ -763,10 +763,10 @@ class Invoice_comp_report extends CI_Controller {
                 $min_value = $min_value + 15;
 //                $max_value = ($max_value ) + 15;
             }
-            $data1 = "<h4><b>Observation:</b></h4>"
-                    . "<span>Accounting system & Invoice processing for GST Claim and reconciliation need to be reviewed.
+            $data1 = "<h4 style=font-size:14px;font-family:Arial Sans Serif;><b>Observation:</b></h4>"
+                    . "<span style=font-size:14px;font-family:Arial Sans Serif;>Accounting system & Invoice processing for GST Claim and reconciliation need to be reviewed.
                         There is a risk of losing the credit if prompt action has not been taken.</span>";
-            $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+            $data1 .= "<h5 style=font-size:12px;font-family:Arial Sans Serif;><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             $response['data1'] = $data1;
         } else {
             $response['message'] = "";
@@ -943,7 +943,7 @@ class Invoice_comp_report extends CI_Controller {
         $data = "";
         $data1 = "";
         if ($query != FALSE) {
-            $data .= '<h4 style="color:#0e385e"><b>3.Invoice no.,POS and Period mismatch:</b></h4>';
+            $data .= '<h4 style="color:#0e385e;font-size:14px;font-family:Arial Sans Serif;"><b>3.Invoice no.,POS and Period mismatch:</b></h4>';
             $records = count($query);
             $show = $records / 15;
             $table = ceil($show);
@@ -1041,10 +1041,10 @@ class Invoice_comp_report extends CI_Controller {
                 $response['code'] = 200;
             }
 
-            $data1 .= "<h4><b>Observation:</b></h4>"
-                    . "<span>Cross check the mismatched invoice no., POS and Period with the client in order to prevent any confusion or else it will effect on your ITC."
+            $data1 .= "<h4 style=font-size:14px;font-family:Arial Sans Serif;><b>Observation:</b></h4>"
+                    . "<span style=font-size:12px;font-family:Arial Sans Serif;>Cross check the mismatched invoice no., POS and Period with the client in order to prevent any confusion or else it will effect on your ITC."
                     . " Data master review needs to be done and root-cause analysis will help to minimize this errors.</span>";
-            $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+            $data1 .= "<h5 style=font-size:12px;font-family:Arial Sans Serif;><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             $response['data1'] = $data1;
         } else {
             $response['message'] = "";
@@ -1343,7 +1343,7 @@ class Invoice_comp_report extends CI_Controller {
         $data = "";
         $data1 = "";
         if ($query != FALSE) {
-            $data1 .= '<h4 style="color:#0e385e"><b>2.Invoice not included in GSTR-1:</b></h4>';
+            $data1 .= '<h4 style="color:#0e385e;font-size:14px;font-family:Arial Sans Serif;"><b>2.Invoice not included in GSTR-1:</b></h4>';
             $records = count($query);
             $show = $records / 20;
             $table = ceil($show);
@@ -1414,8 +1414,8 @@ class Invoice_comp_report extends CI_Controller {
                 $observation = "";
             }
 
-            $data .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
-            $data .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+            $data .= "<hr><h4 style=font-size:14px;font-family:Arial Sans Serif;><b>Observation :</b></h4><span style=font-size:12px;font-family:Arial Sans Serif;>" . $observation . "</span>";
+            $data .= "<h5 style=font-size:12px;font-family:Arial Sans Serif;><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
 
             $response['data'] = $data;
             $response['data1'] = $data1;
@@ -1732,7 +1732,7 @@ class Invoice_comp_report extends CI_Controller {
         $data = "";
         $data1 = "";
         if ($query != FALSE) {
-            $data .= '<h4 style="color:#0e385e"><b>1.Invoice amends in other than original period Analysis:</b></h4>';
+            $data .= '<h4 style="color:#0e385e;font-size:14px;font-family:Arial Sans Serif;"><b>1.Invoice amends in other than original period Analysis:</b></h4>';
             $records = count($query);
             $show = $records / 15;
             $table = ceil($show);
@@ -1812,8 +1812,8 @@ class Invoice_comp_report extends CI_Controller {
                 $observation = "";
             }
 
-            $data1 = "<div class='col-md-12'><h4><b>Observation :</b></h4><span>" . $observation . "</span></div>";
-            $data1 .= "<div class='col-md-12'><h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5></div>";
+            $data1 = "<div class='col-md-12'><h4 style=font-size:14px;font-family:Arial Sans Serif;><b>Observation :</b></h4><span style=font-size:12px;font-family:Arial Sans Serif;>" . $observation . "</span></div>";
+            $data1 .= "<div class='col-md-12'><h5 style=font-size:12px;font-family:Arial Sans Serif;><b>Note:</b>For details & consolidated summary.Please see section 8</h5></div>";
             $response['data1'] = $data1;
         } else {
             $response['message'] = "";

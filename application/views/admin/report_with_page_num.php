@@ -191,6 +191,7 @@ if (is_array($session_data)) {
                             <b>Managing Director:<?php echo $client_details->managing_director_name ?></b> <br>
                             <b>Company Name:<?php echo $client_details->company_name ?></b> <br>
                             <b> Address :<?php echo $client_details->customer_address ?></b>
+                            <center><b style="font-size:12px;color:#1d2f66;margin-top:2%;width:700px;height:700px"><u>Sub: GST Health Check Report</u></b><br><br></center>
                             <div id="content_client_letterPDF" style=""></div>
                         </div>
                         

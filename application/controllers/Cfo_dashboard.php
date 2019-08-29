@@ -245,7 +245,7 @@ class Cfo_dashboard extends CI_Controller {
             $turnover1 = array();
             $tax_liabality1 = array();
             $ratio_val = array();
-            $data2 .= '<h4 style="color:#1d2f66"><b>2. Turnover vs Tax Liability:</b></h4><br>';
+            $data2 .= '<h4 style="color:#1d2f66;font-size:14px;font-family:Arial Sans Serif;"><b>2. Turnover vs Tax Liability:</b></h4><br>';
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
@@ -311,8 +311,8 @@ class Cfo_dashboard extends CI_Controller {
                 $observation = "";
             }
 
-            $data1 .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
-            $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+            $data1 .= "<hr><h4 style=font-size:12px;font-family:Arial Sans Serif;><b>Observation :</b></h4><span style=font-size:12px;font-family:Arial Sans Serif;>" . $observation . "</span>";
+            $data1 .= "<h5 style=font-size:14px;font-family:Arial Sans Serif;><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
 
 //            $data1 .= "<hr><h4><b>Observation of CFO:</b></h4>"
 //                    . "<span>Percentage of GST payable to turnover is not stable for F.Y. 2017-18 it varies from <b>" . min($ratio_val) . "% </b>to<b> " . max($ratio_val) . "%</b>.</span><br>"

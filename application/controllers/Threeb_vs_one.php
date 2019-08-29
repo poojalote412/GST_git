@@ -240,7 +240,7 @@ class Threeb_vs_one extends CI_Controller {
             $gstr_one_ammend3 = array();
             $difference4 = array();
             $cumu_difference5 = array();
-            $data2 .= '<h4><b>2.GSTR3B VS. GSTR1 - Output Liability Reconcillation</b></h4>';
+            $data2 .= '<h4 style=font-size:14px;font-family:Arial Sans Serif;><b>2.GSTR3B VS. GSTR1 - Output Liability Reconcillation</b></h4>';
             $data .= '<table id="example2" class="table-bordered table-striped" width="700">
                                 <thead style="background-color: #0e385e;color:white">
                                     <tr>
@@ -290,17 +290,17 @@ class Threeb_vs_one extends CI_Controller {
             $data .= '</tbody></table><br><br><br><br>';
 
             if ($ttl1 > $ttl2) {
-                $data1 .= "<br><br><h4><b>Observation of GSTR-3B vs GSTR-1:</b></h4>";
-                $data1 .= '<span><b>1.</b>Value of GSTR-3B is greater than GSTR-1 ,It may impact your vendor relationshion and they shall not get the input tax credit though you have correctly paid the tax on such sales.<br></div>';
-                $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+                $data1 .= "<br><br><h4 style=font-size:14px;font-family:Arial Sans Serif;><b>Observation:</b></h4>";
+                $data1 .= '<span style=font-size:12px;font-family:Arial Sans Serif;><b>1.</b>Value of GSTR-3B is greater than GSTR-1 ,It may impact your vendor relationshion and they shall not get the input tax credit though you have correctly paid the tax on such sales.<br></div>';
+                $data1 .= "<h5 style=font-size:12px;font-family:Arial Sans Serif;><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             } elseif ($ttl2 > $ttl1) {
-                $data1 .= "<hr><h4><b>Observation of GSTR-3B vs GSTR-1:</b></h4>";
-                $data1 .= '<span><b>1.</b> Value of GSTR-1 is greater than GSTR-3B ,Then it mean that output tax liability has not  been paid to govt. in full in comparision to the output tax liability reflected in sales return, this may lead to interest penalties,GST notices & also effect your gst rating leading to adverse GST scrutinies selection.<br></div>';
-                $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+                $data1 .= "<hr><h4 font-size:14px;font-family:Arial Sans Serif;><b>Observation of GSTR-3B vs GSTR-1:</b></h4>";
+                $data1 .= '<span style=font-size:12px;font-family:Arial Sans Serif;><b>1.</b> Value of GSTR-1 is greater than GSTR-3B ,Then it mean that output tax liability has not  been paid to govt. in full in comparision to the output tax liability reflected in sales return, this may lead to interest penalties,GST notices & also effect your gst rating leading to adverse GST scrutinies selection.<br></div>';
+                $data1 .= "<h5 style=font-size:12px;font-family:Arial Sans Serif;><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             } else {
-                $data1 .= "<hr><h4><b>Observation of GSTR-3B vs GSTR-1:</b></h4></div>";
+                $data1 .= "<hr><h4 style=font-size:14px;font-family:Arial Sans Serif><b>Observation:</b></h4></div>";
                 $data1 .= 'No difference.';
-                $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+                $data1 .= "<h5 style=font-size:12px;font-family:Arial Sans Serif><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             }
 
 

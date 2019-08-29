@@ -222,7 +222,7 @@ class Threeb_vs_twoa extends CI_Controller {
             $cumu_difference3 = array();
             $gstr2a4 = array();
             $months = array();
-            $data2 .= '<h4><b>1.GSTR3B VS. GSTR2A -Input Tax Credit Reconcillation</b></h4>';
+            $data2 .= '<h4 style=font-size:14px;font-family:Arial Sans Serif;><b>1.GSTR3B VS. GSTR2A -Input Tax Credit Reconcillation</b></h4>';
             $data .= '<table id="example2" class="table-bordered table-striped" width="700">
                                 <thead style="background-color: #0e385e;color:white">
                                     <tr>
@@ -271,19 +271,19 @@ class Threeb_vs_twoa extends CI_Controller {
                     '</tr>';
             $data .= '</tbody></table>';
 
-            $data1 .= "<br><br><h4><b>Observation:</b></h4>";
+            $data1 .= "<br><br><h4 style='font-size:14px;font-family:Arial Sans Serif;'><b>Observation:</b></h4>";
             
             if ($thb > $twa) {
-                $data1 .= '<span>GSTR-3B > 2A, ITC declared and ITC claimed is showing a huge difference as either the company has taken excess credit or vendor has not recorded our purchases in his GSTR 1. '
+                $data1 .= '<span style=font-size:12px;font-family:Arial Sans Serif;>GSTR-3B > 2A, ITC declared and ITC claimed is showing a huge difference as either the company has taken excess credit or vendor has not recorded our purchases in his GSTR 1. '
                         . 'This may lead to interest liability & penalties notices or permanent loss of credit if vendor is not informed and corrective action is not taken by such vendor.</span></div>';
-                $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+                $data1 .= "<h5 style=font-size:12px;font-family:Arial Sans Serif;><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             } elseif ($twa > $thb) {
-                $data1 .= '<span>GSTR-3B < 2A, company need to check the eligibility and ineligibility of credit reflecting in GSTR-2A & prepare a reconciliation statement accordingly. There may be the case where input tax credit has not been taken by the company on its genuine eligible input credit. '
+                $data1 .= '<span style=font-size:12px;font-family:Arial Sans Serif;>GSTR-3B < 2A, company need to check the eligibility and ineligibility of credit reflecting in GSTR-2A & prepare a reconciliation statement accordingly. There may be the case where input tax credit has not been taken by the company on its genuine eligible input credit. '
                         . 'This may lead to a huge loss of working Capital & also permanent loss of credit if corrective actions not taken immediately.</span></div>';
                 $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             } else {
-                $data1 .= '<span>No difference.</span>';
-                $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+                $data1 .= '<span style=font-size:12px;font-family:Arial Sans Serif;>No difference.</span>';
+                $data1 .= "<h5 style=font-size:12px;font-family:Arial Sans Serif;><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             }
             $abc = array();
             $abc3 = array();
