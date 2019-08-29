@@ -65,6 +65,7 @@ if (is_array($session_data)) {
     table{
         font-size: 15px;
     }
+    
 
 
 
