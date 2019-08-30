@@ -1738,21 +1738,22 @@ class Invoice_comp_report extends CI_Controller {
             $min_value = 0;
             for ($i = 0; $i < $table; $i++) {
                 if ($i == 0) {
-                    $mrgin = "margin-top:2%;";
+                    $mrgin = "margin-top:5%;";
                     $pg_brk = "page-break-after:always;";
                     if ($table == 1) {
-                        $mrgin1 = "margin-bottom:20%;";
+                        $mrgin1 = "margin-bottom:5%;";
+                        $pg_brk = "page-break-after:avoid;";
                     } else {
-                        $mrgin1 = "margin-bottom:40%;";
+                        $mrgin1 = "margin-bottom:10%;";
                     }
                 } elseif ($i == ($table - 1)) {
-                    $mrgin = "margin-top:15%;";
-                    $mrgin1 = "margin-bottom:5%;";
                     $pg_brk = "page-break-after:avoid;";
-                } else {
                     $mrgin = "margin-top:15%;";
-                    $mrgin1 = "margin-bottom:40%;";
+                    $mrgin1 = "margin-bottom:4%;";
+                } else {
                     $pg_brk = "page-break-after:always;";
+                    $mrgin = "margin-top:15%;";
+                    $mrgin1 = "margin-bottom:10%;";
                 }
                 $data .= '<table id="example2" class=" table-bordered table-striped" style=" ' . $mrgin . $mrgin1 . ';' . $pg_brk . ';font-size:13px;" width="400">
                                 <thead style="background-color: #516b22;color:white">
@@ -1790,7 +1791,7 @@ class Invoice_comp_report extends CI_Controller {
                         
                         </tr>';
                 }
-                $data .= '</tbody></table><br>';
+                $data .= '</tbody></table>';
                 $min_value = $min_value + 15;
 //                $response['data1'] = $data1;
                 $response['data'] = $data;
