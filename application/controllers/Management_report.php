@@ -274,6 +274,7 @@ class Management_report extends CI_Controller {
             $top_3_state = round(($top3 / $total) * 100, 2);
             $data1 .= '<h4><b>Observation:</b></h4>';
             $data1 .= "<span><b>" . $top_3_state . " </b> % of total sales comes from top 3 states.</span>";
+            $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
 
 
             $state = array();

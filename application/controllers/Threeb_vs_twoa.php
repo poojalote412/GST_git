@@ -275,11 +275,11 @@ class Threeb_vs_twoa extends CI_Controller {
             
             if ($thb > $twa) {
                 $data1 .= '<span>GSTR-3B > 2A, ITC declared and ITC claimed is showing a huge difference as either the company has taken excess credit or vendor has not recorded our purchases in his GSTR 1. '
-                        . 'This may lead to interest liability & penalties notices or permanent loss of credit if vendor is not informed and corrective action is not taken by such vendor.</span></div>';
+                        . 'This may lead to interest liability & penalties notices or permanent loss of credit if vendor is not informed and corrective action is not taken by such vendor.</span>';
                 $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             } elseif ($twa > $thb) {
                 $data1 .= '<span>GSTR-3B < 2A, company need to check the eligibility and ineligibility of credit reflecting in GSTR-2A & prepare a reconciliation statement accordingly. There may be the case where input tax credit has not been taken by the company on its genuine eligible input credit. '
-                        . 'This may lead to a huge loss of working Capital & also permanent loss of credit if corrective actions not taken immediately.</span></div>';
+                        . 'This may lead to a huge loss of working Capital & also permanent loss of credit if corrective actions not taken immediately.</span>';
                 $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             } else {
                 $data1 .= '<span>No difference.</span>';

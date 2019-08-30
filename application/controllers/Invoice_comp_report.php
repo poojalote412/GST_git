@@ -1809,8 +1809,8 @@ class Invoice_comp_report extends CI_Controller {
                 $observation = "";
             }
 
-            $data1 = "<div class='col-md-12'><h4><b>Observation :</b></h4><span>" . $observation . "</span></div>";
-            $data1 .= "<div class='col-md-12'><h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5></div>";
+            $data1 = "<h4><b>Observation :</b></h4><span>" . $observation . "</span>";
+            $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             $response['data1'] = $data1;
         } else {
             $response['message'] = "";
