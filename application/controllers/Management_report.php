@@ -224,7 +224,7 @@ class Management_report extends CI_Controller {
 
         if ($query->num_rows() > 0) {
             $result = $query->result();
-            $data2 .= '<h4 style=font-size:14px;font-family:Arial Sans Serif;><b>3.Sales State Wise</b></h4>';
+            $data2 .= '<h4><b>3.Sales State Wise</b></h4>';
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
@@ -272,8 +272,8 @@ class Management_report extends CI_Controller {
             $total = array_sum($taxble_val_arr);
             $top3 = array_sum($arr);
             $top_3_state = round(($top3 / $total) * 100, 2);
-            $data1 .= '<h4 style=font-size:14px;font-family:Arial Sans Serif;><b>Observation:</b></h4>';
-            $data1 .= "<h4 style=font-size:12px;font-family:Arial Sans Serif;><b>" . $top_3_state . " </b> % of total sales comes from top 3 states.</h4>";
+            $data1 .= '<h4><b>Observation:</b></h4>';
+            $data1 .= "<h4><b>" . $top_3_state . " </b> % of total sales comes from top 3 states.</h4>";
 
 
             $state = array();
@@ -451,7 +451,7 @@ class Management_report extends CI_Controller {
             $sub_total_zero_ratedarr = array();
             $ratio_subtotal_nil_rated = array();
             $ratio_subtotal_zero_rated = array();
-            $data2 .= '<h4 style=font-size:14px;font-family:Arial Sans Serif;><b>4.Sales Taxable,Non-taxable and Exempt</b></h4>';
+            $data2 .= '<h4><b>4.Sales Taxable,Non-taxable and Exempt</b></h4>';
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
@@ -561,8 +561,8 @@ class Management_report extends CI_Controller {
                 $observation = "";
             }
 
-            $data1 .= "<hr><h4 style=font-size:14px;font-family:Arial Sans Serif;><b>Observation :</b></h4><span>" . $observation . "</span>";
-            $data1 .= "<h5 style=font-size:12px;font-family:Arial Sans Serif;><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+            $data1 .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
+            $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             $abc1 = array();
             $abc2 = array();
             $abc3 = array();
@@ -1150,7 +1150,7 @@ class Management_report extends CI_Controller {
         if ($query->num_rows() > 0) {
             $result = $query->result();
             $taxable_supply_arr = array();
-            $data2 .= '<h4 style=font-size:14px;font-family:Arial Sans Serif;><b>1.Sales Month Wise</b></h4>';
+            $data2 .= '<h4><b>1.Sales Month Wise</b></h4>';
             $data .= '<div class="row"><br><br><br>
                     <div class="col-md-12">
                         <div class="">
@@ -1231,8 +1231,8 @@ class Management_report extends CI_Controller {
                 $observation = "";
             }
 //            echo $variation=($max-$min)/($min*100);
-            $data1 .= "<hr><h4><b>Observation:</b></h4><span style='font-size:12px;font-family:Arial Sans Serif;'>" . $observation . "</span>";
-            $data1 .= "<h5 style='font-size:12px;font-family:Arial Sans Serif;'><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+            $data1 .= "<hr><h4><b>Observation:</b></h4><span style='font-size:10px;'>" . $observation . "</span>";
+            $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             // loop to get graph data as per graph script requirement
             $abc1 = array();
             for ($o = 0; $o < sizeof($taxable_supply_arr); $o++) {
@@ -1535,7 +1535,7 @@ class Management_report extends CI_Controller {
         $data = ""; //view observations
         if ($query->num_rows() > 0) {
             $result = $query->result();
-            $data .= "<h4 style=font-size:14px;font-family:Arial Sans Serif;><b>2.Sales Tax Rate Wise</b></h4>";
+            $data .= "<h4><b>2.Sales Tax Rate Wise</b></h4>";
             $data .= '<table id="example2" class="table-bordered table-striped" width="700">
                                 <thead style="background-color: #0e385e;color:white">
                                     <tr>
@@ -2228,7 +2228,7 @@ class Management_report extends CI_Controller {
             $array_b2c = array();
             $array_b2b_ratio = array();
             $array_b2c_ratio = array();
-            $data2 .= '<h4 style=font-size:14px;font-family:Arial Sans Serif;><b>5.Sales B2B and B2C</b></h4>';
+            $data2 .= '<h4><b>5.Sales B2B and B2C</b></h4>';
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
@@ -2319,12 +2319,12 @@ class Management_report extends CI_Controller {
             $data .= '</tbody></table></div></div></div>';
             $total_turnover = array_sum($turnover);
             if ($total_turnover < 15000000 && $ttl_b2c_ratio >= 90) {
-                $data1 .= "<hr><h4 style=font-size:14px;font-family:Arial Sans Serif;><b>Observation:</b></h4>";
-                $data1 .= " <span style=font-size:12px;font-family:Arial Sans Serif;>Your the turnover is less then <b>150 Lacs </b>& B2C sales is grater than <b>90%</b> , Our advise to go form composition scheme.</span>";
+                $data1 .= "<hr><h4><b>Observation of Sales B2B and B2C:</b></h4>";
+                $data1 .= " <span>Your the turnover is less then <b>150 Lacs </b>& B2C sales is grater than <b>90%</b> , Our advise to go form composition scheme.</span>";
             } else {
-                $data1 .= "<hr><h4 style=font-size:14px;font-family:Arial Sans Serif;><b>Observation:</b></h4>";
-                $data1 .= " <span style=font-size:12px;font-family:Arial Sans Serif;>B2B supply is " . array_sum($array_b2b_ratio) . "% and B2C supply is " . array_sum($array_b2c_ratio) . "% of total supply.</span>";
-                $data1 .= "<h5 style=font-size:12px;font-family:Arial Sans Serif;><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+                $data1 .= "<hr><h4><b>Observation of Sales B2B and B2C:</b></h4>";
+                $data1 .= " <span>B2B supply is " . array_sum($array_b2b_ratio) . "% and B2C supply is " . array_sum($array_b2c_ratio) . "% of total supply.</span>";
+                $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             }
 
             $count = count($month);

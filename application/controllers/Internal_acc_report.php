@@ -519,7 +519,7 @@ class Internal_acc_report extends CI_Controller {
             for ($m = 0; $m < $count; $m++) {
                 $new_net_rtc[] = $net_rtc[$m] - $debit_tax[$m] . '<br>';
             }
-            $data2 .= '<h4 style="color:#1d2f66;font-size:14px;font-family:Arial Sans Serif;"><b>3. Overview of Tax Liability:</b></h4>';
+            $data2 .= '<h4 style="color:#1d2f66"><b>3. Overview of Tax Liability:</b></h4>';
             $data .= '<table id="example2" class="table-bordered table-striped" width="700">
                                 <thead style="background-color: #cd273f;color:white">
                                     <tr>
@@ -571,8 +571,8 @@ class Internal_acc_report extends CI_Controller {
             } else {
                 $observation = "";
             }
-            $data1 .= "<hr><h4 style=font-size:14px;font-family:Arial Sans Serif;><b>Observation :</b></h4><span style='font-size:12px;font-family:Arial Sans Serif;'>" . $observation . "</span>";
-            $data1 .= "<h5 style=font-size:12px;font-family:Arial Sans Serif;><b>Note: </b>For details & consolidated summary.Please see section 8</h5>";
+            $data1 .= "<hr><h4><b>Observation :</b></h4><span style='word-spacing: normal;'>" . $observation . "</span>";
+            $data1 .= "<h5><b>Note: </b>For details & consolidated summary.Please see section 8</h5>";
             $abc = array();
             $abc2 = array();
             $abc3 = array();
@@ -893,7 +893,7 @@ class Internal_acc_report extends CI_Controller {
             $data = ""; //view observations
             $data1 = ""; //view observations
             $data2 = ""; //View table name
-            $data2 .= '<h4 style="color:#1d2f66;font-size:14px;font-family:Arial Sans Serif;"><b>1. Overview of Turnover</b></h4><br>';
+            $data2 .= '<h4 style="color:#1d2f66"><b>1. Overview of Turnover</b></h4><br>';
             $data .= '<table id="example2" class="table-bordered table-striped" width="700">
                                 <thead style="background-color: #cd273f;color:white">
                                     <tr>
@@ -971,8 +971,8 @@ class Internal_acc_report extends CI_Controller {
                 $observation = "";
             }
 
-            $data1 .= "<br><h4 style=font-size:14px;font-family:Arial Sans Serif;><b>Observation :</b></h4><span style=font-size:12px;font-family:Arial Sans Serif;>" . $observation . "</span>";
-            $data1 .= "<h5 style=font-size:14px;font-family:Arial Sans Serif;><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+            $data1 .= "<br><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
+            $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             // loop to get graph data as per graph script requirement
             $abc1 = array();
             $abc2 = array();
@@ -1241,7 +1241,7 @@ class Internal_acc_report extends CI_Controller {
             $data1 = ""; //view observations
             $data2 = ""; //view table name
 
-            $data2 .= '<h4 style="color:#1d2f66;font-size:14px;font-family:Arial Sans Serif;"><b>5. Eligible and Inligible Credit:</b></h4><br>';
+            $data2 .= '<h4 style="color:#1d2f66"><b>5. Eligible and Inligible Credit:</b></h4><br>';
             $data .= '<table id="example2" class="table-bordered table-striped" width="700">
                                 <thead style="background-color: #cd273f;color:white">
                                     <tr>
@@ -1295,8 +1295,8 @@ class Internal_acc_report extends CI_Controller {
                 $observation = "";
             }
 
-            $data1 .= "<hr><h4 style=font-size:14px;font-family:Arial Sans Serif;><b>Observation :</b></h4><span style=font-size:12px;font-family:Arial Sans Serif;>" . $observation . "</span>";
-            $data1 .= "<h5 style=font-size:12px;font-family:Arial Sans Serif;><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+            $data1 .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
+            $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             // loop to get graph data as per graph script requirement
             $abc1 = array();
             $abc2 = array();
@@ -1536,7 +1536,7 @@ class Internal_acc_report extends CI_Controller {
             $data = ""; //view observations
             $data1 = ""; //view observations
             $data2 = ""; //view table name
-            $data2 .= '<h4 style="color:#1d2f66;font-size:14px;font-family:Arial Sans Serif;"><b>4. GST Payable V/s Cash:</b></h4><br>';
+            $data2 .= '<h4 style="color:#1d2f66"><b>4. GST Payable V/s Cash:</b></h4><br>';
 
             $data .= '<table id="example2" class="table-bordered table-striped" width="700">
                                 <thead style="background-color: #cd273f;color:white">
@@ -1590,15 +1590,15 @@ class Internal_acc_report extends CI_Controller {
             $max_percent = max($percent_arr);
             $min_percent = min($percent_arr);
             $avg = array_sum($percent_arr) / count($percent_arr);
-            $data1 .= "<hr><h4 style=font-size:14px;font-family:Arial Sans Serif;><b>Observation:</b></h4>";
+            $data1 .= "<hr><h4><b>Observation of GST Payable vs Cash:</b></h4>";
             if ($avg > 35) {
-                $data1 .= "<span style=font-size:12px;font-family:Arial Sans Serif;>GST paid in cash varies from <b>" . $min_percent . "%</b> to  <b>" . $max_percent . "%</b> for F.Y. " . $year
+                $data1 .= "<span>GST paid in cash varies from <b>" . $min_percent . "%</b> to  <b>" . $max_percent . "%</b> for F.Y. " . $year
                         . ".  Average percentage of liability paid by cash is <b>" . round($avg) . "%</b> for F.Y. " . $year . ".</span>"
-                        . "<span style=font-size:12px;font-family:Arial Sans Serif;>So, analysis of huge payment by cash to be done & accordingly input tax credit planning should be done.</span>";
-                $data1 .= "<h5 style=font-size:12px;font-family:Arial Sans Serif;><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+                        . "<span>So, analysis of huge payment by cash to be done & accordingly input tax credit planning should be done.</span>";
+                $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             } else {
                 $data1 .= "GST paid in cash has varied from <b>" . $min_percent . "%</b> to  <b>" . $max_percent . "% for FY –" . $year;
-                $data1 .= "<h5 style=font-size:12px;font-family:Arial Sans Serif;><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+                $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             }
             //graph work
             $abc1 = array();
