@@ -161,8 +161,8 @@ if (is_array($session_data)) {
                     <!-- Insert your document here -->
                     <div id="container_image_front" style="page-break-after:always;position: relative;color: white;margin-top:-22px;margin-left: -15px;margin-right: -25px;">
                         <!--<img src="https://premisafe.com/Logo.jpg" width="120px" height="30px">-->
-                        <div style="position: absolute;bottom: -50px;margin-left: 250px !important;font-size: 18;letter-spacing: 4px;color: white;text-align: center"> 
-                            <b style="font-size: 24px"><?php echo $client_details->company_name ?></b> <br>
+                        <div style="position: absolute;bottom: -35px;margin-left: 250px !important;font-size: 18;letter-spacing: 4px;color: white;text-align: center"> 
+                            <b style="font-size: 26px"><?php echo $client_details->company_name ?></b> <br>
 
                         </div>
                         <div style="position: absolute;bottom: -130px;right: 350px;letter-spacing: 4px;color: white;" class="centered"> 
@@ -228,13 +228,13 @@ if (is_array($session_data)) {
                     </div>
 
                     <div id="container_image_components_overview" style="margin-top:15%;">
-                        <img src="https://premisafe.com/GST_image/GSTComponents&Overview.jpg" width="900px" height="900px" style="page-break-after:always;">
+                        <img src="https://premisafe.com/GST_image/GSTComponents&Overview.jpg" width="1050px" height="900px" style="page-break-after:always;">
                     </div>
                     <div class="test" style="page-break-after:always;margin-top:15%;">
                         <div id="container_image_GST_framework"><img src="https://premisafe.com/GST_image/GSTFramework.jpg" width="800px" height="900px"></div>
                     </div>
                     <div class="test" style="page-break-after:always;margin-top:9%">
-                        <div id="container_image_approach" style="margin-top:9%;"><img src="https://premisafe.com/GST_image/Approach.jpg" width="800px" height="900px" style="page-break-after:always;"></div>
+                        <div id="container_image_approach" style="margin-top:9%;"><img src="https://premisafe.com/GST_image/Approach.jpg" width="750px" height="900px" style="page-break-after:always;"></div>
                     </div>
                     <!--Details of GST Reports & insights-->
 
