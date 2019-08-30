@@ -64,26 +64,44 @@ $this->load->view('admin/navigation');
                             <span class="required" style="color: red" id="gst_framework_error"></span>
                         </div>
                         <div class="col-xs-4">
+                            <label>Approach</label>
+                            <input type="number" id="gst_approach" name="gst_approach" onkeyup="remove_error(this.id)" class="form-control" placeholder="GST Framework Page Number">
+                            <span class="required" style="color: red" id="gst_approach_error"></span>
+                        </div>
+                        <div class="col-xs-4">
                             <label>Details Of GST Report & Insight</label>
                             <input type="number" id="gst_report_insight" name="gst_report_insight" onkeyup="remove_error(this.id)" class="form-control" placeholder="Details Of GST Report & Insight Page Number">
                             <span class="required" style="color: red" id="gst_report_insight_error"></span>
                         </div>
+                        
+                    </div><br>
+                    <div class="row">
                         <div class="col-xs-4">
                             <label>Issue Matrix</label>
                             <input type="number" id="issue_matrix" name="issue_matrix" class="form-control" onkeyup="remove_error(this.id)" placeholder="Issue Matrix Page Number">
                             <span class="required" style="color: red" id="issue_matrix_error"></span>
                         </div>
-                    </div><br>
-                    <div class="row">
                         <div class="col-xs-4">
                             <label>Rating Card</label>
                             <input type="number" id="report_card" name="report_card" class="form-control" onkeyup="remove_error(this.id)" placeholder="Rating Card Page Number">
                             <span class="required" style="color: red" id="report_card_error"></span>
                         </div>
                         <div class="col-xs-4">
-                            <label>Conclusion</label>
+                            <label>Summary Observation & Conclusion</label>
                             <input type="number" id="conclusion" name="conclusion" class="form-control" onkeyup="remove_error(this.id)" placeholder="Conclusion Page Number">
                             <span class="required" style="color: red" id="conclusion_error"></span>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <label>Disclaimer</label>
+                            <input type="number" id="disclaimer" name="disclaimer" class="form-control" onkeyup="remove_error(this.id)" placeholder="Issue Matrix Page Number">
+                            <span class="required" style="color: red" id="disclaimer_error"></span>
+                        </div>
+                        <div class="col-xs-4">
+                            <label>About Ecovis RKCA</label>
+                            <input type="number" id="about_ecovis" name="about_ecovis" class="form-control" onkeyup="remove_error(this.id)" placeholder="Rating Card Page Number">
+                            <span class="required" style="color: red" id="about_ecovis_error"></span>
                         </div>
                     </div><br>
                     <div class="col-xs-2" style="float:right;">

@@ -56,6 +56,9 @@ class Report extends CI_Controller {
         $issue_matrix = $this->input->post('issue_matrix');
         $report_card = $this->input->post('report_card');
         $conclusion = $this->input->post('conclusion');
+        $gst_approach = $this->input->post('gst_approach');
+        $disclaimer = $this->input->post('disclaimer');
+        $about_ecovis = $this->input->post('about_ecovis');
         if (empty($about_client)) {
             $response['id'] = 'about_client';
             $response['error'] = 'Enter Page Number';
@@ -73,6 +76,11 @@ class Report extends CI_Controller {
             exit;
         } elseif (empty($gst_framework)) {
             $response['id'] = 'gst_framework';
+            $response['error'] = 'Enter Page Number';
+            echo json_encode($response);
+            exit;
+        } elseif (empty($gst_approach)) {
+            $response['id'] = 'gst_approach';
             $response['error'] = 'Enter Page Number';
             echo json_encode($response);
             exit;
@@ -96,13 +104,23 @@ class Report extends CI_Controller {
             $response['error'] = 'Enter Page Number';
             echo json_encode($response);
             exit;
+        } elseif (empty($disclaimer)) {
+            $response['id'] = 'disclaimer';
+            $response['error'] = 'Enter Page Number';
+            echo json_encode($response);
+            exit;
+        } elseif (empty($about_ecovis)) {
+            $response['id'] = 'about_ecovis';
+            $response['error'] = 'Enter Page Number';
+            echo json_encode($response);
+            exit;
         } else {
             $get_observation = $this->db->query("select file_location,id from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
             $res = $get_observation->row();
             $id = $res->id;
             $page_numbers = $about_client . "," . $exe_sum . "," . $gst_cmp_overview . ","
-                    . $gst_framework . "," . $gst_report_insight . ","
-                    . $issue_matrix . "," . $report_card . "," . $conclusion;
+            . $gst_framework . "," . $gst_report_insight . "," . $gst_approach . "," .
+            . $issue_matrix . "," . $report_card . "," . $conclusion . "," . $disclaimer . "," . $about_ecovis;
             $data = array('page_numbers' => $page_numbers);
             $this->db->where('insert_id', $insert_id);
             $this->db->where('customer_id', $customer_id);
@@ -217,8 +235,7 @@ class Report extends CI_Controller {
             $respose['message'] = "";
         }echo json_encode($respose);
     }
-    
-    
+
     public function get_letter_to_clientPDF() {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
