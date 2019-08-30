@@ -119,7 +119,7 @@ class Report extends CI_Controller {
             $res = $get_observation->row();
             $id = $res->id;
             $page_numbers = $about_client . "," . $exe_sum . "," . $gst_cmp_overview . ","
-            . $gst_framework . "," . $gst_report_insight . "," . $gst_approach . "," .
+            . $gst_framework . "," . $gst_report_insight . "," . $gst_approach . "," 
             . $issue_matrix . "," . $report_card . "," . $conclusion . "," . $disclaimer . "," . $about_ecovis;
             $data = array('page_numbers' => $page_numbers);
             $this->db->where('insert_id', $insert_id);
