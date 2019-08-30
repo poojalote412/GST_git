@@ -149,7 +149,7 @@ if (is_array($session_data)) {
                     <!-- Insert your document here -->
                     <div id="container_image_front" style="page-break-after:always;position: relative;color: white;margin-top:-22px;margin-left: -15px;margin-right: -25px;">
                         <!--<img src="https://premisafe.com/Logo.jpg" width="120px" height="30px">-->
-                        <div style="position: absolute;bottom: -35px;margin-left: 250px !important;font-size: 18;letter-spacing: 4px;color: white;text-align: center"> 
+                        <div style="position: absolute;bottom: -35px;margin-left: 250px !important;font-size: 18;letter-spacing: 2px;color: white;text-align: center"> 
                             <b style="font-size: 26px"><?php echo $client_details->company_name ?></b> <br>
 
                         </div>

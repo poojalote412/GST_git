@@ -29,7 +29,7 @@ class Report extends CI_Controller {
         $result = $query_get_customer_name->row();
         $query_get_insert_header = $this->db->query("SELECT year_id from insert_header_all where insert_id='$insert_id1'");
         $result1 = $query_get_insert_header->row();
-        $query_get_company_header = $this->db->query("SELECT * from observation_transaction_all where insert_id='$insert_id1' and customer_id='$customer_id1'");
+        $query_get_company_header = $this->db->query("SELECT * from observation_transaction_all where insert_id='$insert_id1' and customer_id='$customer_id1' ORDER BY ID DESC LIMIT 1");
         $result2 = $query_get_company_header->row();
         $query_get_report_header = $this->db->query("SELECT * from report_header_all where insert_id='$insert_id1' and customer_id='$customer_id1'");
         $result3 = $query_get_report_header->row();
@@ -119,7 +119,7 @@ class Report extends CI_Controller {
             $res = $get_observation->row();
             $id = $res->id;
             $page_numbers = $about_client . "," . $exe_sum . "," . $gst_cmp_overview . ","
-            . $gst_framework . "," . $gst_report_insight . "," . $gst_approach . "," 
+            . $gst_framework . "," . $gst_approach . "," . $gst_report_insight . "," 
             . $issue_matrix . "," . $report_card . "," . $conclusion . "," . $disclaimer . "," . $about_ecovis;
             $data = array('page_numbers' => $page_numbers);
             $this->db->where('insert_id', $insert_id);

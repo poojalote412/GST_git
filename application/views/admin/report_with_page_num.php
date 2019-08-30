@@ -107,10 +107,13 @@ if (is_array($session_data)) {
         $executive_summary_page_num = $exp[1];
         $gst_compo_page_num = $exp[2];
         $framework_page_num = $exp[3];
-        $details_rep_page_num = $exp[4];
-        $issue_matrix_page_num = $exp[5]; //repated first
-        $rating_card_page_num = $exp[6]; //repated second
-        $conclusion_page_num = $exp[7];
+        $approach_page_num = $exp[4];
+        $details_rep_page_num = $exp[5];
+        $issue_matrix_page_num = $exp[6]; //repated first
+        $rating_card_page_num = $exp[7]; //repated second
+        $conclusion_page_num = $exp[8];
+        $disclaimer_page_num = $exp[9];
+        $about_ecovis_page_num = $exp[10];
         ?>
         <!-- Default box -->
         <div class="box">
@@ -161,7 +164,7 @@ if (is_array($session_data)) {
                     <!-- Insert your document here -->
                     <div id="container_image_front" style="page-break-after:always;position: relative;color: white;margin-top:-22px;margin-left: -15px;margin-right: -25px;">
                         <!--<img src="https://premisafe.com/Logo.jpg" width="120px" height="30px">-->
-                        <div style="position: absolute;bottom: -35px;margin-left: 250px !important;font-size: 18;letter-spacing: 4px;color: white;text-align: center"> 
+                        <div style="position: absolute;bottom: -35px;margin-left: 250px !important;font-size: 18;letter-spacing: 2px;color: white;text-align: center"> 
                             <b style="font-size: 26px"><?php echo $client_details->company_name ?></b> <br>
 
                         </div>
@@ -205,16 +208,17 @@ if (is_array($session_data)) {
                         <img src="https://premisafe.com/GST_image/LimitedUsage&Abbreviation.jpg" width="800px" height="900px">
                     </div>
                     <div style="margin-top: 15%;page-break-after: always;position: relative;">
-                        <p style="position: absolute;margin-top:14%;margin-left: 43%;color:#0e385e;font-size:22px"><b><?php echo $about_client_page_num;?></b></p>
-                        <p style="position: absolute;margin-top:14%;margin-left: 80%;color:white;font-size:22px"><b><?php echo $executive_summary_page_num;?></b></p>
-                        <p style="position: absolute;margin-top:23%;margin-left: 43%;color:white;font-size:22px"><b><?php echo $gst_compo_page_num;?></b></p>
-                        <p style="position: absolute;margin-top:23%;margin-left: 80%;color:#0e385e;font-size:22px"><b><?php echo $framework_page_num;?></b></p>
-                        <p style="position: absolute;margin-top:33%;margin-left: 43%;color:#0e385e;font-size:22px"><b><?php echo $details_rep_page_num;?></b></p>
-                        <p style="position: absolute;margin-top:33%;margin-left: 80%;color:white;font-size:22px"><b><?php echo $issue_matrix_page_num;?></b></p>
-                        <p style="position: absolute;margin-top:42%;margin-left: 43%;color:white;font-size:22px"><b><?php echo $rating_card_page_num;?></b></p>
-                        <p style="position: absolute;margin-top:42%;margin-left: 80%;color:#0e385e;font-size:22px"><b><?php echo $conclusion_page_num;?></b></p>
-                        <p style="position: absolute;margin-top:50%;margin-left: 80%;color:#0e385e;font-size:22px"><b><?php echo $issue_matrix_page_num;?></b></p>
-                        <p style="position: absolute;margin-top:56%;margin-left: 80%;color:white;font-size:22px"><b><?php echo $rating_card_page_num;?></b></p>
+                        <p style="position: absolute;margin-top:15%;margin-left: 40%;color:#0e385e;font-size:22px"><b><?php echo $about_client_page_num;?></b></p>
+                        <p style="position: absolute;margin-top:15%;margin-left: 80%;color:white;font-size:22px"><b><?php echo $executive_summary_page_num;?></b></p>
+                        <p style="position: absolute;margin-top:24%;margin-left: 40%;color:white;font-size:22px"><b><?php echo $gst_compo_page_num;?></b></p>
+                        <p style="position: absolute;margin-top:24%;margin-left: 80%;color:#0e385e;font-size:22px"><b><?php echo $framework_page_num;?></b></p>
+                        <p style="position: absolute;margin-top:34%;margin-left: 40%;color:#0e385e;font-size:22px"><b><?php echo $approach_page_num;?></b></p>
+                        <p style="position: absolute;margin-top:34%;margin-left: 80%;color:white;font-size:22px"><b><?php echo $details_rep_page_num;?></b></p>
+                        <p style="position: absolute;margin-top:44%;margin-left: 40%;color:white;font-size:22px"><b><?php echo $issue_matrix_page_num;?></b></p>
+                        <p style="position: absolute;margin-top:44%;margin-left: 79%;color:#0e385e;font-size:22px"><b><?php echo $rating_card_page_num;?></b></p>
+                        <p style="position: absolute;margin-top:55%;margin-left: 40%;color:#0e385e;font-size:22px"><b><?php echo $conclusion_page_num;?></b></p>
+                        <p style="position: absolute;margin-top:55%;margin-left: 79%;color:white;font-size:22px"><b><?php echo $disclaimer_page_num;?></b></p>
+                        <p style="position: absolute;margin-top:62%;margin-left: 79%;color:white;font-size:22px"><b><?php echo $about_ecovis_page_num;?></b></p>
                        
                         <img src="https://premisafe.com/GST_image/GSTContent.jpg" style="margin-left: -40px;" width="800px" height="700px"style="page-break-after:always;" >
                     </div>
