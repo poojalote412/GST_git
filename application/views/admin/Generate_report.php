@@ -149,11 +149,11 @@ if (is_array($session_data)) {
                     <!-- Insert your document here -->
                     <div id="container_image_front" style="page-break-after:always;position: relative;color: white;margin-top:-22px;margin-left: -15px;margin-right: -25px;">
                         <!--<img src="https://premisafe.com/Logo.jpg" width="120px" height="30px">-->
-                        <div style="position: absolute;bottom: -35px;margin-left: 250px !important;font-size: 18;letter-spacing: 2px;color: white;text-align: center"> 
+                        <div style="position: absolute;bottom: -4%;margin-left: 19% !important;color: white;text-align: center"> 
                             <b style="font-size: 26px"><?php echo $client_details->company_name ?></b> <br>
 
                         </div>
-                        <div style="position: absolute;bottom: -130px;right: 350px;letter-spacing: 4px;color: white;" class="centered"> 
+                        <div style="position: absolute;bottom: -10%;right: 45%;color: white;" class="centered"> 
                             <b style="font-size: 20px"><?php echo $insert_header_details->year_id ?></b> <br>
                         </div>
                         <img src="https://premisafe.com/GST_image/GSTReportCover.jpg" style="page-break-after: always" width="800px" height="800px">
