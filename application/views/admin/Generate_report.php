@@ -275,7 +275,7 @@ if (is_array($session_data)) {
 
                     <!--BAROMETER CFO DASHBOARD-->
                     <div class="test" id="third_div" style="display:block">
-                        <div style="margin-top:15%;margin-left:5%;margin-right: 5%;">
+                        <div style="margin-top:15%;margin-left:7.5%;margin-right: 7.5%;">
                             <p style="background:#cd273f; color:white;padding:4px;border:1px solid;width:700px;text-align:center;font-size:16px;font-family:Arial Sans Serif;"><b>BAROMETER-CFO DASHBOARD</b></p>
                             <h4 style="color:#0e385e;font-size:16px;font-family:Arial Sans Serif;"><b>A. CFO DASHBOARD</b></h4>
                         </div>
