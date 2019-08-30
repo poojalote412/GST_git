@@ -192,7 +192,7 @@ class Report extends CI_Controller {
         if ($this->db->affected_rows() > 0) {
             $res = $query_get_company_header->row();
             $company_name = $res->company_name;
-            $data = '<div style="float:left;margin-top:9%;margin-left: 30px;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;">
+            $data = '<div style="float:left;margin-top:15%;margin-left: 5%;margin-right:5%;letter-spacing: 0.5px;font-family:Arial Sans Serif;;">
                 <b style="font-size:18px;color:#1d2f66;">2. EXECUTIVE SUMMARY</b><br><br>
                      <p style="font-size:13px"> Ecovis RKCA was provided with the data of the company  "' . $company_name . '" to evaluate this health check report.</p>    
                       <p style="font-size:13px">Ecovis RKCA  was also able to access all the information such as:</p>
@@ -228,8 +228,8 @@ class Report extends CI_Controller {
         if ($this->db->affected_rows() > 0) {
             $res = $query_get_insert_header->row();
             $year_id = $res->year_id;
-            $data = '<div style="float:left;margin-top:9%;margin-left: 30px;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;width:700px;height:700px">
-                <center><b style="font-size:18px;color:#1d2f66;"><u>Sub: GST Health Check Report</u></b><br><br></center>
+            $data = '<div style="float:left;margin-top:9%;margin-left: 5%;margin-top:5%;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;width:700px;height:700px">
+                
                      <p style="font-size:13px"> It has been an immense pleasure working for you and 
                      thank you for choosing us to provide you GST insight report for the period  "' . $year_id . '".
                      We are delighted to submit our report based on the data received from you. </br>
