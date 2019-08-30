@@ -459,11 +459,11 @@ class Invoice_comp_report extends CI_Controller {
                     }
                 } elseif ($i == ($table - 1)) {
                     $pg_brk = "page-break-after:avoid;";
-                    $mrgin = "margin-top:10%;";
+                    $mrgin = "margin-top:15%;";
                     $mrgin1 = "margin-bottom:4%;";
                 } else {
                     $pg_brk = "page-break-after:always;";
-                    $mrgin = "margin-top:10%;";
+                    $mrgin = "margin-top:15%;";
                     $mrgin1 = "margin-bottom:10%;";
                 }
                 $data .= '<table id="not_in2a_data" class=" table-bordered table-striped" width="700" style="' . $mrgin . $mrgin1 . ';' . $pg_brk . '">
@@ -693,7 +693,7 @@ class Invoice_comp_report extends CI_Controller {
             $show = $records / 15;
             $table = ceil($show);
             $min_value = 1;
-            $data .= '<h4 style="color:#0e385emargin-top:6%;"><b>2.Not in records,but recorded under GSTR-2A:</b></h4>';
+            $data .= '<h4 style="color:#0e385e;margin-top:15%;"><b>2.Not in records,but recorded under GSTR-2A:</b></h4>';
             for ($i = 0, $k = 1; $i < $table; $i++) {
                 $invoice_value = array();
                 $taxable_value = array();
@@ -710,11 +710,11 @@ class Invoice_comp_report extends CI_Controller {
                         $mrgin1 = "margin-bottom:30%;";
                     }
                 } elseif ($i == ($table - 1)) {
-                    $mrgin = "margin-top:10%;";
+                    $mrgin = "margin-top:15%;";
                     $mrgin1 = "margin-bottom:5%;";
                     $pg_brk = "page-break-after:Avoid;";
                 } else {
-                    $mrgin = "margin-top:10%;";
+                    $mrgin = "margin-top:15%;";
                     $mrgin1 = "margin-bottom:30%;";
                     $pg_brk = "page-break-after:always;";
                 }
@@ -1741,7 +1741,7 @@ class Invoice_comp_report extends CI_Controller {
                     $mrgin = "margin-top:2%;";
                     $pg_brk = "page-break-after:always;";
                     if ($table == 1) {
-                        $mrgin1 = "margin-bottom:5%;";
+                        $mrgin1 = "margin-bottom:20%;";
                     } else {
                         $mrgin1 = "margin-bottom:40%;";
                     }
@@ -1754,10 +1754,7 @@ class Invoice_comp_report extends CI_Controller {
                     $mrgin1 = "margin-bottom:40%;";
                     $pg_brk = "page-break-after:always;";
                 }
-                $data .= '<div class="row">
-                    <div class="col-md-12">
-                     <div class="">
-                         <table id="example2" class=" table-bordered table-striped" style=" ' . $mrgin . $mrgin1 . ';' . $pg_brk . ';font-size:13px;" width="400">
+                $data .= '<table id="example2" class=" table-bordered table-striped" style=" ' . $mrgin . $mrgin1 . ';' . $pg_brk . ';font-size:13px;" width="400">
                                 <thead style="background-color: #516b22;color:white">
                                     <tr style="width:2px">
                                         <th>Original Month</th>
@@ -1793,7 +1790,7 @@ class Invoice_comp_report extends CI_Controller {
                         
                         </tr>';
                 }
-                $data .= '</tbody></table></div></div></div>';
+                $data .= '</tbody></table><br>';
                 $min_value = $min_value + 15;
 //                $response['data1'] = $data1;
                 $response['data'] = $data;

@@ -95,11 +95,11 @@ class Account_report extends CI_Controller {
                         '<td>' . $k . '</td>' .
                         '<td>' . $months . '</td>';
                 if (strtotime($filling_date1) > strtotime($due_date1)) {
-                    $data .= '<td ><p style="background-color:#e31e25; color:#e31e25; border-radius:25px; width: 30px">Filed</p></td>';
+                    $data .= '<td style="background-color:#e31e25; color:#e31e25;">Filed</td>';
 //                    $data .= '<td ><button type="button" style="background-color:#e31e25 ;border: none;color: white;padding: 7px 25px 7px 25px;display: inline-block; border-radius:5px;"></button></td>';
                     
                 } else {
-                    $data .= '<td ><p style="background-color:#84ab32; color:#84ab32; border-radius:25px; width: 30px">Filed</p></td>';
+                    $data .= '<td style="background-color:#84ab32; color:#84ab32;">Filed</td>';
                     //$data .= '<td ><button type="button" style="background-color: #84ab32;border: none;color: white;padding: 7px 25px 7px 25px;display: inline-block; border-radius:5px;"></button></td>';
                 }
 
@@ -161,9 +161,9 @@ class Account_report extends CI_Controller {
                         '<td>' . $k . '</td>' .
                         '<td>' . $period . '</td>';
                 if ($status == 'Filed') {
-                    $data .= '<td ><p style="background-color:#84ab32; color:#84ab32; border-radius:25px; width: 30px">Filed</p></td>';
+                    $data .= '<td style="background-color:#e31e25; color:#e31e25;">Filed</td>';
                 } else {
-                    $data .= '<td ><p style="background-color:#e31e25; color:#84ab32; border-radius:25px; width: 30px">Filed</p></td>';
+                    $data .= '<td style="background-color:#84ab32; color:#84ab32;">Filed</td>';
                 }
                 $data .= '<td>' . $filling_date . '</td>' .
                         '<td>' . $acknowledge_no . '</td>' .
