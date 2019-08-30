@@ -1590,7 +1590,7 @@ class Internal_acc_report extends CI_Controller {
             $max_percent = max($percent_arr);
             $min_percent = min($percent_arr);
             $avg = array_sum($percent_arr) / count($percent_arr);
-            $data1 .= "<hr><h4><b>Observation of GST Payable vs Cash:</b></h4>";
+            $data1 .= "<hr><h4><b>Observation :</b></h4>";
             if ($avg > 35) {
                 $data1 .= "<span>GST paid in cash varies from <b>" . $min_percent . "%</b> to  <b>" . $max_percent . "%</b> for F.Y. " . $year
                         . ".  Average percentage of liability paid by cash is <b>" . round($avg) . "%</b> for F.Y. " . $year . ".</span>"

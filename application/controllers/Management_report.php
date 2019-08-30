@@ -273,7 +273,7 @@ class Management_report extends CI_Controller {
             $top3 = array_sum($arr);
             $top_3_state = round(($top3 / $total) * 100, 2);
             $data1 .= '<h4><b>Observation:</b></h4>';
-            $data1 .= "<h4><b>" . $top_3_state . " </b> % of total sales comes from top 3 states.</h4>";
+            $data1 .= "<span><b>" . $top_3_state . " </b> % of total sales comes from top 3 states.</span>";
 
 
             $state = array();
@@ -1231,7 +1231,7 @@ class Management_report extends CI_Controller {
                 $observation = "";
             }
 //            echo $variation=($max-$min)/($min*100);
-            $data1 .= "<hr><h4><b>Observation:</b></h4><span style='font-size:10px;'>" . $observation . "</span>";
+            $data1 .= "<hr><h4><b>Observation:</b></h4><span >" . $observation . "</span>";
             $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             // loop to get graph data as per graph script requirement
             $abc1 = array();
@@ -1580,7 +1580,7 @@ class Management_report extends CI_Controller {
                 $observation = "";
             }
 
-            $data .= "<hr><h4><b>Observation:</b></h4><span style='font-size:10px;'>" . $observation . "</span>";
+            $data .= "<hr><h4><b>Observation:</b></h4><span >" . $observation . "</span>";
             $data .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             $respnose['data'] = $data;
             $respnose['message'] = "success";
@@ -2319,10 +2319,10 @@ class Management_report extends CI_Controller {
             $data .= '</tbody></table></div></div></div>';
             $total_turnover = array_sum($turnover);
             if ($total_turnover < 15000000 && $ttl_b2c_ratio >= 90) {
-                $data1 .= "<hr><h4><b>Observation of Sales B2B and B2C:</b></h4>";
+                $data1 .= "<hr><h4><b>Observation :</b></h4>";
                 $data1 .= " <span>Your the turnover is less then <b>150 Lacs </b>& B2C sales is grater than <b>90%</b> , Our advise to go form composition scheme.</span>";
             } else {
-                $data1 .= "<hr><h4><b>Observation of Sales B2B and B2C:</b></h4>";
+                $data1 .= "<hr><h4><b>Observation :</b></h4>";
                 $data1 .= " <span>B2B supply is " . array_sum($array_b2b_ratio) . "% and B2C supply is " . array_sum($array_b2c_ratio) . "% of total supply.</span>";
                 $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
             }
@@ -2501,10 +2501,10 @@ class Management_report extends CI_Controller {
             $data .= '</tbody></table></div></div></div>';
             $total_turnover = array_sum($turnover);
             if ($total_turnover < 15000000 && $ttl_b2c_ratio >= 90) {
-                $data .= "<hr><h4><b>Observation of Sales B2B and B2C:</b></h4>";
+                $data .= "<hr><h4><b>Observation :</b></h4>";
                 $data .= " <span>Your the turnover is less then <b>150 Lacs </b>& B2C sales is grater than <b>90%</b> , Our advise to go form composition scheme.</span>";
             } else {
-                $data .= "<hr><h4><b>Observation of Sales B2B and B2C:</b></h4>";
+                $data .= "<hr><h4><b>Observation :</b></h4>";
                 $data .= " <span>B2B supply is " . array_sum($array_b2b_ratio) . "% and B2C supply is " . array_sum($array_b2c_ratio) . "% of total supply.</span>";
             }
 
