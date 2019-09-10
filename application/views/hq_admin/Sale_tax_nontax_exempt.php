@@ -1,5 +1,3 @@
-//sale
-
 <?php
 $this->load->view('customer/header');
 $this->load->view('hq_admin/navigation');

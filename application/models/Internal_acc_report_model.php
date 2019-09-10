@@ -23,6 +23,8 @@ class Internal_acc_report_model extends CI_Model {
             return FALSE;
         }
     }
+    
+    
 
     public function get_year($customer_id, $insert_id) {
         $qr = $this->db->query("SELECT year_id  from insert_header_all where customer_id='$customer_id' and insert_id='$insert_id'");

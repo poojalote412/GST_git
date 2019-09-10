@@ -42,6 +42,8 @@ class Customer_admin extends CI_Controller {
         $this->load->view('admin/Customer_details', $data);
     }
 
+    
+    
     public function page_diversion() {
         $customer_id = $this->input->post('customer_id');
         $insert_id = $this->input->post('insert_id');

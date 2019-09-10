@@ -39,7 +39,7 @@ class Hq_admin extends CI_Controller {
         } else {
             $data['result'] = "";
         }
-        $this->load->view('hq_admin/Customer_details', $data);
+        $this->load->view('hq_admin/Customer_details_hq', $data);
     }
 
     public function page_diversion() {
@@ -325,7 +325,7 @@ class Hq_admin extends CI_Controller {
     }
 
     public function edit_customer_details_files() {
-        $this->load->view('admin/edit_customer_files');
+        $this->load->view('hq_admin/edit_customer_files');
     }
 
     public function save_observation() {

@@ -104,7 +104,7 @@
                     <li><a href="<?php echo base_url(); ?>not_in_2a_hq"><i class="fa fa-circle-o"></i>Not In 2A</a></li>
                     <li><a href="<?php echo base_url(); ?>not_in_record_hq"><i class="fa fa-circle-o"></i>Not In Records</a></li>
                     <li><a href="<?php echo base_url(); ?>partial_match_hq"><i class="fa fa-circle-o"></i>Partially Match</a></li>
-                    <li><a href="<?php echo base_url(); ?>invoice_amendment"><i class="fa fa-circle-o"></i>Invoices amended in other <br>than original period</a></li>
+                    <li><a href="<?php echo base_url(); ?>invoice_amendment_hq"><i class="fa fa-circle-o"></i>Invoices amended in other <br>than original period</a></li>
                     <li><a href="<?php echo base_url(); ?>invoice_not_included_hq"><i class="fa fa-circle-o"></i>Invoices not included in <br> original GSTR1 </a></li>
                 </ul>
             </li>

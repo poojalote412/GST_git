@@ -114,6 +114,16 @@ class Invoice_comp_report extends CI_Controller {
         }
         $this->load->view('admin/invoice_amendment', $data);
     }
+    
+    function invoice_amendment_index_hq() { //function to load page of invoice amendment
+        $query_get_cfo_data = $this->Invoice_comp_report_model->get_data_admin();
+        if ($query_get_cfo_data !== FALSE) {
+            $data['invoice_amend_data'] = $query_get_cfo_data;
+        } else {
+            $data['invoice_amend_data'] = "";
+        }
+        $this->load->view('hq_admin/invoice_amendment', $data);
+    }
 
     function not_in_record_index() { //function to load page of not in records
         $session_data = $this->session->userdata('login_session');

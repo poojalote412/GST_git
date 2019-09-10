@@ -53,10 +53,26 @@ class Gst_admin_login extends CI_Controller {
                     $this->session->set_userdata('login_session', $session_data);
                     redirect(base_url() . 'Customer_details');
                 } else {
-                    $this->session->set_userdata('login_session', $session_data);
-                    redirect(base_url() . 'Cust_dashboard');
+//                    $this->session->set_userdata('login_session', $session_data);
+//                    redirect(base_url() . 'Cust_dashboard');
                 }
-                
+                if ($user_type == '3') {
+                    $customer_id = $result['customer_id'];
+                    $customer_email_id = $result['customer_email_id'];
+                    $activity_status = $result['activity_status'];
+                    $session_data = array(
+                        'customer_id' => $customer_id,
+                        'customer_email_id' => $customer_email_id,
+                        'user_type' => $user_type,
+                    );
+                } else {
+                    $customer_id = $result['customer_id'];
+                    $activity_status = $result['activity_status'];
+                    $session_data = array(
+                        'customer_id' => $customer_id,
+                        'user_type' => $user_type,
+                    );
+                }
                 if ($user_type == '3') {  //hq admin
                     $this->session->set_userdata('login_session', $session_data);
                     redirect(base_url() . 'Customer_details_hq');
