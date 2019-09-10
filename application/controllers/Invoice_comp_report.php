@@ -36,6 +36,25 @@ class Invoice_comp_report extends CI_Controller {
         }
         $this->load->view('admin/Invoce_not_included', $data);
     }
+    
+    public function invoice_not_included_index_hq() { //function to load view page
+//        $query_get_cfo_data = $this->Invoice_comp_report_model->get_data_admin();
+        $session_data = $this->session->userdata('login_session');
+        $email = ($session_data['customer_email_id']);
+        $get_firm_id = $this->Customer_model->get_firm_id($email);
+        if ($get_firm_id != FALSE) {
+            $firm_id = $get_firm_id;
+        } else {
+            $firm_id = "";
+        }
+        $query_get_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
+        if ($query_get_data !== FALSE) {
+            $data['invoice_notinclu_data'] = $query_get_data;
+        } else {
+            $data['invoice_notinclu_data'] = "";
+        }
+        $this->load->view('hq_admin/Invoce_not_included', $data);
+    }
 
     function not_in_2a_index() { //function to load page of not in 2a
         $session_data = $this->session->userdata('login_session');
@@ -66,6 +85,25 @@ class Invoice_comp_report extends CI_Controller {
             $data['not_in_2a_data'] = "";
         }
         $this->load->view('admin/Not_in_2a', $data);
+    }
+    
+    function not_in_2a_index_hq() { //function to load page of not in 2a
+//        $query_get_cfo_data = $this->Invoice_comp_report_model->get_data_admin();
+        $session_data = $this->session->userdata('login_session');
+        $email = ($session_data['customer_email_id']);
+        $get_firm_id = $this->Customer_model->get_firm_id($email);
+        if ($get_firm_id != FALSE) {
+            $firm_id = $get_firm_id;
+        } else {
+            $firm_id = "";
+        }
+        $query_get_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
+        if ($query_get_data !== FALSE) {
+            $data['not_in_2a_data'] = $query_get_data;
+        } else {
+            $data['not_in_2a_data'] = "";
+        }
+        $this->load->view('hq_admin/Not_in_2a', $data);
     }
 
     function invoice_amendment_index() { //function to load page of invoice amendment
@@ -107,6 +145,25 @@ class Invoice_comp_report extends CI_Controller {
             $data['not_in_rec_data'] = "";
         }
         $this->load->view('admin/Not_in_records', $data);
+    }
+    
+    function not_in_record_index_hq() { //function to load page of not in records
+//        $query_get_cfo_data = $this->Invoice_comp_report_model->get_data_admin();
+        $session_data = $this->session->userdata('login_session');
+        $email = ($session_data['customer_email_id']);
+        $get_firm_id = $this->Customer_model->get_firm_id($email);
+        if ($get_firm_id != FALSE) {
+            $firm_id = $get_firm_id;
+        } else {
+            $firm_id = "";
+        }
+        $query_get_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
+        if ($query_get_data !== FALSE) {
+            $data['not_in_rec_data'] = $query_get_data;
+        } else {
+            $data['not_in_rec_data'] = "";
+        }
+        $this->load->view('hq_admin/Not_in_records', $data);
     }
 
     public function import_notin2a_excel() { //function to import and insert data of reconciliation file 
@@ -805,6 +862,25 @@ class Invoice_comp_report extends CI_Controller {
             $data['partial_data'] = "";
         }
         $this->load->view('admin/partially_match_records', $data);
+    }
+    
+     public function partial_match_index_hq() {
+//        $query_get_data = $this->Cfo_model->get_data_cfo_admin();
+        $session_data = $this->session->userdata('login_session');
+        $email = ($session_data['customer_email_id']);
+        $get_firm_id = $this->Customer_model->get_firm_id($email);
+        if ($get_firm_id != FALSE) {
+            $firm_id = $get_firm_id;
+        } else {
+            $firm_id = "";
+        }
+        $query_get_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
+        if ($query_get_data !== FALSE) {
+            $data['partial_data'] = $query_get_data;
+        } else {
+            $data['partial_data'] = "";
+        }
+        $this->load->view('hq_admin/partially_match_records', $data);
     }
 
 //get company data for partial match data

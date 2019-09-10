@@ -24,6 +24,13 @@ class login_model extends CI_Model {
                     'customer_id' => $customer_id,
                 );
                 return $data;
+            }elseif ($user_type == '3') {
+                $data = array(
+                    'customer_email_id' => $customer_email_id, //email-id
+                    'user_type' => $user_type,
+                    'customer_id' => $customer_id,
+                );
+                return $data;
             } else {
                 return FALSE;
             }

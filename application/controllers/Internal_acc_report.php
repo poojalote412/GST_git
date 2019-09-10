@@ -43,6 +43,25 @@ class Internal_acc_report extends CI_Controller {
         }
         $this->load->view('admin/Internal_acc_report', $data);
     }
+    
+    function index_hq() { //load the view page data
+//        $data['result'] = $result;
+        $session_data = $this->session->userdata('login_session');
+        $email = ($session_data['customer_email_id']);
+        $get_firm_id = $this->Customer_model->get_firm_id($email);
+        if ($get_firm_id != FALSE) {
+            $firm_id = $get_firm_id;
+        } else {
+            $firm_id = "";
+        }
+        $query_get_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
+        if ($query_get_data !== FALSE) {
+            $data['tax_data'] = $query_get_data;
+        } else {
+            $data['tax_data'] = "";
+        }
+        $this->load->view('hq_admin/Internal_acc_report', $data);
+    }
 
     public function import_excel() {
         if (isset($_FILES["file_ex1"]["name"]) && isset($_FILES["file_ex2"]["name"])) {
@@ -878,6 +897,26 @@ class Internal_acc_report extends CI_Controller {
         }
         $this->load->view('admin/Tax_turnover', $data);
     }
+    
+    public function tax_turnover_hq() { //load data of view page
+//        $data['result'] = $result;
+//        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
+        $session_data = $this->session->userdata('login_session');
+        $email = ($session_data['customer_email_id']);
+        $get_firm_id = $this->Customer_model->get_firm_id($email);
+        if ($get_firm_id != FALSE) {
+            $firm_id = $get_firm_id;
+        } else {
+            $firm_id = "";
+        }
+        $query_get_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
+        if ($query_get_data !== FALSE) {
+            $data['tax_turnover_data'] = $query_get_data;
+        } else {
+            $data['tax_turnover_data'] = "";
+        }
+        $this->load->view('hq_admin/Tax_turnover', $data);
+    }
 
     //get graph function for tax turnover
 
@@ -1225,6 +1264,16 @@ class Internal_acc_report extends CI_Controller {
         }
         $this->load->view('admin/eligible_ineligible_credit', $data);
     }
+    
+    public function eligible_ineligible_itc_index_hq() {
+        $query_get_data = $this->Internal_acc_report_model->get_data_taxliability_admin();
+        if ($query_get_data !== FALSE) {
+            $data['eligible_ineligible_data'] = $query_get_data;
+        } else {
+            $data['eligible_ineligible_data'] = "";
+        }
+        $this->load->view('hq_admin/eligible_ineligible_credit', $data);
+    }
 
     public function get_graph_eligible_ineligible() { //function to get graph and observation for eligible and ineligible itc credit
         $customer_id = $this->input->post("customer_id");
@@ -1518,6 +1567,16 @@ class Internal_acc_report extends CI_Controller {
             $data['gst_payable_data'] = "";
         }
         $this->load->view('admin/gst_payable_vs_cash', $data);
+    }
+    
+     public function gst_payable_vs_cash_index_hq() { //function load page gst payable vs cash
+        $query_get_data = $this->Internal_acc_report_model->get_data_taxliability_admin();
+        if ($query_get_data !== FALSE) {
+            $data['gst_payable_data'] = $query_get_data;
+        } else {
+            $data['gst_payable_data'] = "";
+        }
+        $this->load->view('hq_admin/gst_payable_vs_cash', $data);
     }
 
     public function get_graph_gst_payable_vs_cash() {

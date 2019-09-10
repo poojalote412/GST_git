@@ -46,7 +46,26 @@ class Management_report extends CI_Controller {
         } else {
             $data['b2b_data'] = "";
         }
-        $this->load->view('customer/B2b_b2c', $data);
+        $this->load->view('admin/B2b_b2c', $data);
+    }
+    
+    function Sale_b2b_b2c_hq() {
+//        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
+        $session_data = $this->session->userdata('login_session');
+        $email = ($session_data['customer_email_id']);
+        $get_firm_id = $this->Customer_model->get_firm_id($email);
+        if ($get_firm_id != FALSE) {
+            $firm_id = $get_firm_id;
+        } else {
+            $firm_id = "";
+        }
+        $query_get_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
+        if ($query_get_data !== FALSE) {
+            $data['b2b_data'] = $query_get_data;
+        } else {
+            $data['b2b_data'] = "";
+        }
+        $this->load->view('hq_admin/B2b_b2c', $data);
     }
 
     function state_wise_report_admin() {
@@ -66,6 +85,25 @@ class Management_report extends CI_Controller {
             $data['loc_data'] = "";
         }
         $this->load->view('admin/Sale_state_wise', $data);
+    }
+    
+    function state_wise_report_hq() {
+//        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
+        $session_data = $this->session->userdata('login_session');
+        $email = ($session_data['customer_email_id']);
+        $get_firm_id = $this->Customer_model->get_firm_id($email);
+        if ($get_firm_id != FALSE) {
+            $firm_id = $get_firm_id;
+        } else {
+            $firm_id = "";
+        }
+        $query_get_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
+        if ($query_get_data !== FALSE) {
+            $data['loc_data'] = $query_get_data;
+        } else {
+            $data['loc_data'] = "";
+        }
+        $this->load->view('hq_admin/Sale_state_wise', $data);
     }
 
     public function sale_exports_fun() {
@@ -431,6 +469,25 @@ class Management_report extends CI_Controller {
             $data['tax_exempt_data'] = "";
         }
         $this->load->view('admin/Sale_tax_nontax_exempt', $data);
+    }
+    
+    public function Sale_taxable_nontaxable_hq() {
+//        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
+        $session_data = $this->session->userdata('login_session');
+        $email = ($session_data['customer_email_id']);
+        $get_firm_id = $this->Customer_model->get_firm_id($email);
+        if ($get_firm_id != FALSE) {
+            $firm_id = $get_firm_id;
+        } else {
+            $firm_id = "";
+        }
+        $query_get_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
+        if ($query_get_data !== FALSE) {
+            $data['tax_exempt_data'] = $query_get_data;
+        } else {
+            $data['tax_exempt_data'] = "";
+        }
+        $this->load->view('hq_admin/Sale_tax_nontax_exempt', $data);
     }
 
     public function get_graph_taxable_nontx_exempt() { //get graph function of taxable nontaxable and exempt
@@ -1139,6 +1196,25 @@ class Management_report extends CI_Controller {
             $data['month_wise_data'] = "";
         }
         $this->load->view('admin/Sales_month_wise', $data);
+    }
+    
+    function sale_month_wise_hq() { //function to load data
+//        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
+        $session_data = $this->session->userdata('login_session');
+        $email = ($session_data['customer_email_id']);
+        $get_firm_id = $this->Customer_model->get_firm_id($email);
+        if ($get_firm_id != FALSE) {
+            $firm_id = $get_firm_id;
+        } else {
+            $firm_id = "";
+        }
+        $query_get_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
+        if ($query_get_data !== FALSE) {
+            $data['month_wise_data'] = $query_get_data;
+        } else {
+            $data['month_wise_data'] = "";
+        }
+        $this->load->view('hq_admin/Sales_month_wise', $data);
     }
 
     public function get_graph_sales_month_wise() { //get graph function of Sales month wise

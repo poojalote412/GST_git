@@ -110,8 +110,38 @@ $route['enter_detail/(:any)/(:any)'] = 'report/enter_detail_fun/$1/$2';
 $route['Generate_report/(:any)/(:any)'] = 'Report/index/$1/$2';
 $route['Generate_report_with_page_num/(:any)/(:any)'] = 'Report/report_with_page_num/$1/$2';
 $route['update_detail/(:any)/(:any)'] = 'Report/update_detail_fun/$1/$2';
-
 $route['Word_to_database'] = 'Word_database/index_admin';
-
-
 $route['generatepdf'] = "welcome/convertpdf";
+
+
+//Routes for HQ admin 
+
+$route['Hq_dashboard'] = 'Hq_dashboard/index';
+$route['Cfo_dashboard_hq'] = 'Cfo_dashboard/index_hq';
+$route['Customer_hq'] = 'Hq_customer/index';
+$route['add_customer_hq'] = 'Hq_customer/add_customer';
+$route['Customer_details_hq'] = 'Hq_customer/index';
+$route['Threeb_Vs_one_hq'] = 'Threeb_vs_one/index_hq';
+$route['Threeb_vs_twoa_hq'] = 'Threeb_vs_twoa/index_hq';
+$route['Sale_state_wise_hq'] = 'Management_report/state_wise_report_hq';
+$route['Sale_taxable_nontaxable_hq'] = 'Management_report/sale_taxable_nontaxable_hq'; //sale_taxable_nontaxable and exempt route
+$route['Sale_month_wise_hq'] = 'Management_report/sale_month_wise_hq';
+$route['Sale_b2b_b2c_hq'] = 'Management_report/Sale_b2b_b2c_hq';
+$route['Account_hq'] = 'Account_report/index_hq';
+$route['TurnoverVsTaxability_hq'] = 'Internal_acc_report/index_hq';
+$route['Tax_turnover_hq'] = 'Internal_acc_report/tax_turnover_hq';
+$route['eligible_ineligible_itc_hq'] = 'Internal_acc_report/eligible_ineligible_itc_index_hq';
+$route['gst_payable_vs_cash_hq'] = 'Internal_acc_report/gst_payable_vs_cash_index_hq';
+$route['not_in_2a_hq'] = 'Invoice_comp_report/not_in_2a_index_hq';
+$route['not_in_record_hq'] = 'Invoice_comp_report/not_in_record_index_hq';
+$route['partial_match_hq'] = 'Invoice_comp_report/partial_match_index_hq';
+$route['invoice_amendment'] = 'Invoice_comp_report/invoice_amendment_index';
+$route['invoice_not_included_hq'] = 'Invoice_comp_report/invoice_not_included_index_hq';
+$route['GST_Logout_admin'] = 'Gst_dashboard/index_hq';
+$route['sale_export'] = 'Management_report/sale_exports_fun';
+$route['sale_nil_zero_rated'] = 'Management_report/sale_nil_zero_rated_fun';
+$route['sale_rate_wise'] = 'Management_report/sale_rate_wise_fun';
+$route['enter_detail/(:any)/(:any)'] = 'report/enter_detail_fun/$1/$2';
+$route['Generate_report/(:any)/(:any)'] = 'Report/index/$1/$2';
+$route['Generate_report_with_page_num/(:any)/(:any)'] = 'Report/report_with_page_num/$1/$2';
+$route['update_detail/(:any)/(:any)'] = 'Report/update_detail_fun/$1/$2';

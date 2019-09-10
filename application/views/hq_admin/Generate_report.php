@@ -1,6 +1,6 @@
 <?php
 $this->load->view('customer/header');
-$this->load->view('admin/navigation');
+$this->load->view('hq_admin/navigation');
 
 //Check user login or not using session
 
@@ -19,11 +19,9 @@ if (is_array($session_data)) {
 }
 ?>
 <style>
-
     #JSFiddle{
         font-family:Arial Sans Serif;
     }
-    
     #btn_pdf {
         width: 60%;
         margin-right: 20% !important;
@@ -67,9 +65,10 @@ if (is_array($session_data)) {
 
     }
     table{
-        font-family:Arial narrow;
         font-size: 15px;
+        font-family:Arial narrow;
     }
+
 
 
 
@@ -86,7 +85,7 @@ if (is_array($session_data)) {
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Reports With Page Numbers
+            Reports
             <!--<?php print_r($user_name) ?>-->
                 <!--<small>it all starts here</small>-->
         </h1>
@@ -100,21 +99,7 @@ if (is_array($session_data)) {
     <!-- Main content -->
     <section class="content">
 
-        <?php
-        $page_num = $company_details->page_numbers;
-        $exp = explode(",", $page_num);
-        $about_client_page_num = $exp[0];
-        $executive_summary_page_num = $exp[1];
-        $gst_compo_page_num = $exp[2];
-        $framework_page_num = $exp[3];
-        $approach_page_num = $exp[4];
-        $details_rep_page_num = $exp[5];
-        $issue_matrix_page_num = $exp[6]; //repated first
-        $rating_card_page_num = $exp[7]; //repated second
-        $conclusion_page_num = $exp[8];
-        $disclaimer_page_num = $exp[9];
-        $about_ecovis_page_num = $exp[10];
-        ?>
+
         <!-- Default box -->
         <div class="box">
             <div class="box-body">
@@ -164,7 +149,7 @@ if (is_array($session_data)) {
                     <!-- Insert your document here -->
                     <div id="container_image_front" style="page-break-after:always;position: relative;color: white;margin-top:-22px;margin-left: -15px;margin-right: -25px;">
                         <!--<img src="https://premisafe.com/Logo.jpg" width="120px" height="30px">-->
-                        <div style="position: absolute;bottom: -4%;margin-left:19% !important;color: white;text-align: center"> 
+                        <div style="position: absolute;bottom: -4%;margin-left:19% !important;color: red;text-align: center"> 
                             <b style="font-size: 26px"><?php echo $client_details->company_name ?></b> <br>
 
                         </div>
@@ -200,28 +185,16 @@ if (is_array($session_data)) {
                             <div style="margin-left: 5%;margin-right: 5%;"><b>Company Name:<?php echo $client_details->company_name ?></b></div>
                             <div style="margin-left: 5%;margin-right: 5%;"><b> Address :<?php echo $client_details->customer_address ?></b></div>
                             <div style="margin-left: 36%;margin-top:20%;"> <b style="font-size:18px;color:#1d2f66;"><u>Sub: GST Health Check Report</u></b></div>
-                            <div id="content_client_letterPDF"  width="800" height="900"></div>
+                            <div id="content_client_letterPDF" style=""></div>
                         
                     </div>
 
                     <div id="container_image_limited_usage" style="margin-top:15%;page-break-after:always;">
                         <img src="https://premisafe.com/GST_image/LimitedUsage&Abbreviation.jpg" width="800px" height="900px">
                     </div>
-                    <div style="margin-top: 15%;page-break-after: always;position: relative;">
-                        <p style="position: absolute;margin-top:15%;margin-left: 44%;color:#0e385e;font-size:22px"><b><?php echo $about_client_page_num;?></b></p>
-                        <p style="position: absolute;margin-top:15%;margin-left: 84%;color:white;font-size:22px"><b><?php echo $executive_summary_page_num;?></b></p>
-                        <p style="position: absolute;margin-top:24%;margin-left: 44%;color:white;font-size:22px"><b><?php echo $gst_compo_page_num;?></b></p>
-                        <p style="position: absolute;margin-top:24%;margin-left: 84%;color:#0e385e;font-size:22px"><b><?php echo $framework_page_num;?></b></p>
-                        <p style="position: absolute;margin-top:34%;margin-left: 44%;color:#0e385e;font-size:22px"><b><?php echo $approach_page_num;?></b></p>
-                        <p style="position: absolute;margin-top:34%;margin-left: 84%;color:white;font-size:22px"><b><?php echo $details_rep_page_num;?></b></p>
-                        <p style="position: absolute;margin-top:44%;margin-left: 44%;color:white;font-size:22px"><b><?php echo $issue_matrix_page_num;?></b></p>
-                        <p style="position: absolute;margin-top:44%;margin-left: 83%;color:#0e385e;font-size:22px"><b><?php echo $rating_card_page_num;?></b></p>
-                        <p style="position: absolute;margin-top:55%;margin-left: 44%;color:#0e385e;font-size:22px"><b><?php echo $conclusion_page_num;?></b></p>
-                        <p style="position: absolute;margin-top:55%;margin-left: 83%;color:white;font-size:22px"><b><?php echo $disclaimer_page_num;?></b></p>
-                        <p style="position: absolute;margin-top:62%;margin-left: 83%;color:white;font-size:22px"><b><?php echo $about_ecovis_page_num;?></b></p>
-                       
-                        <img src="https://premisafe.com/GST_image/GSTContent.jpg" style="margin-left: -5px;" width="800px" height="700px"style="page-break-after:always;" >
-                    </div>
+                    <!--                    <div style="margin-top: 7%;margin-left: 5%;page-break-after:always;page-break-after: always;">
+                                            <img src="https://premisafe.com/GST_image/GSTContent.jpg" width="800px" height="700px"style="page-break-after:always;" >
+                                        </div>-->
 
                     <div style="page-break-after:always;width:700px;margin-left: 5%;margin-right:5%;margin-top:15%;text-align: justify;text-justify: inter-word;">
                     <b style="color:#0e385e;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;font-size: 18px;text-transform: uppercase;">1. ABOUT <?php echo $client_details->company_name ?>:</b>
@@ -399,7 +372,7 @@ if (is_array($session_data)) {
                     </div>
 
                     <!--<div class="test" id="fifth_div" style="display:block">-->
-                    <div class="test" style="page-break-after:always;margin-top: 15%">
+                     <div class="test" style="page-break-after:always;margin-top: 15%">
                         <!--<div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="900px" height="900px" style=""></div><br><br>-->  
                         <div id="" style="width:850px">
                             <b style="font-size:18px;color:#0e385e;margin-left: 5%;">8. SUMMARY OBSERVATION & CONCLUSION </b><br>
@@ -427,10 +400,6 @@ if (is_array($session_data)) {
                     </div>
 
 
-
-
-
-
                 </div>
             </div>
 
@@ -449,10 +418,10 @@ if (is_array($session_data)) {
 
         //For DETAILS OF GST REPORTS AND INSIGHTS DIVS
 
-
         var customer_id = document.getElementById("customer_id").value;
         var insert_id = document.getElementById("insert_id").value;
         var company_name = document.getElementById("company_name").value;
+
 
         $.ajax({
             type: "post",
@@ -495,7 +464,6 @@ if (is_array($session_data)) {
                 }
             },
         });
-
 
         $.ajax({
             type: "post",
@@ -1151,6 +1119,7 @@ if (is_array($session_data)) {
                     var data_gstr2a = result.gstr2a;
                     var max = result.max;
                     var months = result.month_data;
+                    var customer_name = "Customer Name:" + company_name;
                     Highcharts.chart('container_GSTR3b_vs_2A', {
                         chart: {
                             type: 'Combination chart',
@@ -1252,7 +1221,7 @@ if (is_array($session_data)) {
                     $('#compare_GSTR3B_Vs2_data').html(data);
                     $('#compare_GSTR3B_Vs2_data1').html(data1);
                     $('#compare_GSTR3B_Vs2_data2').html(data2);
-                    
+
                     $("#container_GSTR3b_vs_2A").prepend("Deduct: In-Eligible Credit :<input type='text'><br>*To be ﬁlled manually so that the client will get the clear picture of eligible credit.");
                     //                    $('#example2').DataTable();
                 } else {
@@ -2434,9 +2403,38 @@ if (is_array($session_data)) {
 
 
 
-    var click = "return xepOnline.Formatter.Format('JSFiddle', {render:'download'})";
-    jQuery('#buttons').append('<div class=""><div id="btn_div" class="col-md-12"><button class="btn btn-block btn-success btn-lg" id="btn_pdf" onclick="' + click + '">Generate PDF With Index Page</button></div></div>');
- 
+//    var click = "return xepOnline.Formatter.Format('JSFiddle', {render:'download'})";
+    jQuery('#buttons').append('<div class=""><div id="btn_div" class="col-md-12"><button class="btn btn-block btn-success btn-lg" id="btn_pdf" onclick="clickme();">Generate PDF</button></div></div>');
+    function clickme()
+    {
+        var customer_id = document.getElementById("customer_id").value;
+        var insert_id = document.getElementById("insert_id").value;
+        $.ajax({
+            type: "POST",
+            url: "<?= base_url("Report/save_report_counter") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                if (result.status === true) {
+
+                    window.location.href = '<?= base_url() ?>Report/insert_page_number/' + btoa(customer_id) + '/' + btoa(insert_id);
+                    xepOnline.Formatter.Format('JSFiddle', {render: 'download'});
+                } else {
+                    alert('somrthing went wrong.');
+                }
+            },
+            error: function (result) {
+                //console.log(result);
+                if (result.status === 500) {
+//                    document.getElementById('loaders1').style.display = "none";
+                    alert('Internal error: ' + result.responseText);
+                } else {
+//                    document.getElementById('loaders1').style.display = "none";
+                    alert('Unexpected error.');
+                }
+            }
+        });
+    }
 
 
 </script>

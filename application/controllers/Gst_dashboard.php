@@ -15,8 +15,11 @@ class Gst_dashboard extends CI_Controller {
         $this->load->view('customer/Cust_dashboard');
     }
     
-      public function index_admin() {
+      public function index_hq() {
         $this->load->view('admin/Admin_dashboard');
+    }
+    public function index_admin() {
+        $this->load->view('hq_admin/hq_dashboard');
     }
 
 }
