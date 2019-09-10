@@ -51,7 +51,7 @@ class Account_report extends CI_Controller {
         $customer_id = $this->input->post("customer_id");
 //        $insert_id = $this->input->post("insert_id");
 
-        $query = $this->db->query("SELECT month,late_fees,due_date,filling_date FROM 3b_offset_summary_all WHERE customer_id='$customer_id' order by id desc");
+        $query = $this->db->query("SELECT month,late_fees,due_date,filling_date FROM 3b_offset_summary_all WHERE customer_id='$customer_id'");
         $data = ""; //view observations
         $data1 = ""; //view Table name
         if ($query->num_rows() > 0) {
@@ -71,7 +71,7 @@ class Account_report extends CI_Controller {
                                         <th>Status</th>
                                         <th>Late Fees</th>
                                         <th>Due Date</th>
-                                        <th>Filling Date</th>
+                                        <th>Filing Date</th>
                                         
                                     </tr>
                                 </thead>
@@ -129,7 +129,7 @@ class Account_report extends CI_Controller {
         $customer_id = $this->input->post("customer_id");
 //        $insert_id = $this->input->post("insert_id");
 
-        $query = $this->db->query("SELECT period,status,filling_date,acknowledge_no FROM return_filled_gstr1_summary WHERE customer_id='$customer_id' order by id desc");
+        $query = $this->db->query("SELECT period,status,filling_date,acknowledge_no FROM return_filled_gstr1_summary WHERE customer_id='$customer_id' ");
         $data = ""; //view observations
         $data1 = ""; //view observations
         if ($query->num_rows() > 0) {
@@ -143,7 +143,7 @@ class Account_report extends CI_Controller {
                                         <th>No.</th>
                                         <th>Period</th>
                                         <th>Status</th>
-                                        <th>Filling Date</th>
+                                        <th>Filing Date</th>
                                         <th>Acknowledge No</th>
                                         
                                     </tr>

@@ -274,7 +274,7 @@ class Management_report extends CI_Controller {
             $top_3_state = round(($top3 / $total) * 100, 2);
             $data1 .= '<h4><b>Observation:</b></h4>';
             $data1 .= "<span><b>" . $top_3_state . " </b> % of total sales comes from top 3 states.</span>";
-            $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
 
 
             $state = array();
@@ -368,7 +368,7 @@ class Management_report extends CI_Controller {
             $top3 = array_sum($arr);
             $top_3_state = round(($top3 / $total) * 100, 2);
             $data .= "<h4><b>" . $top_3_state . " </b> % of total sales comes from top 3 states.</h4>";
-            $data .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+            $data .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
             $state = array();
             $taxable_value = array();
             for ($o = 0; $o < sizeof($taxble_val_arr); $o++) {
@@ -452,7 +452,7 @@ class Management_report extends CI_Controller {
             $sub_total_zero_ratedarr = array();
             $ratio_subtotal_nil_rated = array();
             $ratio_subtotal_zero_rated = array();
-            $data2 .= '<h4><b>4.Sales Taxable,Non-taxable and Exempt</b></h4>';
+            $data2 .= '<h4><b>4.Sales Taxable,Non-taxable & Exempt</b></h4>';
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
@@ -563,7 +563,7 @@ class Management_report extends CI_Controller {
             }
 
             $data1 .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
-            $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
             $abc1 = array();
             $abc2 = array();
             $abc3 = array();
@@ -1233,7 +1233,7 @@ class Management_report extends CI_Controller {
             }
 //            echo $variation=($max-$min)/($min*100);
             $data1 .= "<hr><h4><b>Observation:</b></h4><span >" . $observation . "</span>";
-            $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
             // loop to get graph data as per graph script requirement
             $abc1 = array();
             for ($o = 0; $o < sizeof($taxable_supply_arr); $o++) {
@@ -1450,7 +1450,7 @@ class Management_report extends CI_Controller {
                          <table id="example2" class="table table-bordered table-striped" width="550">
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
-                                        <th>#</th>
+                                        <th>Particulars</th>
                                         <th>0%</th>
                                         <th>5%</th>
                                         <th>12%</th>
@@ -1463,7 +1463,7 @@ class Management_report extends CI_Controller {
                                 <tbody>';
             foreach ($result as $row) {
                 $data .= '<tr>' .
-                        '<td>' . '1.' . '</td>' .
+                        '<td>' . 'Sales' . '</td>' .
                         '<td>' . $row->rate_0 . '</td>' .
                         '<td>' . $row->rate_5 . '</td>' .
                         '<td>' . $row->rate_12 . '</td>' .
@@ -1540,7 +1540,7 @@ class Management_report extends CI_Controller {
             $data .= '<table id="example2" class="table-bordered table-striped" width="700">
                                 <thead style="background-color: #0e385e;color:white">
                                     <tr>
-                                        <th>#</th>
+                                        <th>Particulars</th>
                                         <th>0%</th>
                                         <th>5%</th>
                                         <th>12%</th>
@@ -1553,7 +1553,7 @@ class Management_report extends CI_Controller {
                                 <tbody>';
             foreach ($result as $row) {
                 $data .= '<tr>' .
-                        '<td>' . '1.' . '</td>' .
+                        '<td>' . 'Sales' . '</td>' .
                         '<td>' . $row->rate_0 . '</td>' .
                         '<td>' . $row->rate_5 . '</td>' .
                         '<td>' . $row->rate_12 . '</td>' .
@@ -1582,7 +1582,7 @@ class Management_report extends CI_Controller {
             }
 
             $data .= "<hr><h4><b>Observation:</b></h4><span >" . $observation . "</span>";
-            $data .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+            $data .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
             $respnose['data'] = $data;
             $respnose['message'] = "success";
         } else {
@@ -2325,7 +2325,7 @@ class Management_report extends CI_Controller {
             } else {
                 $data1 .= "<hr><h4><b>Observation :</b></h4>";
                 $data1 .= " <span>B2B supply is " . array_sum($array_b2b_ratio) . "% and B2C supply is " . array_sum($array_b2c_ratio) . "% of total supply.</span>";
-                $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+                $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
             }
 
             $count = count($month);

@@ -226,12 +226,12 @@ class Threeb_vs_twoa extends CI_Controller {
             $data .= '<table id="example2" class="table-bordered table-striped" width="700">
                                 <thead style="background-color: #0e385e;color:white">
                                     <tr>
-                                        <th>No.</th>
+                                       
                                         <th>Month</th>
                                         <th>GSTR-3B</th>
                                         <th>GSTR-2A</th>
                                         <th>Difference</th>
-                                        <th>Cummulative Difference</th>
+                                        <th>Cumulative Difference</th>
                                     </tr>
                                 </thead>
                                 <tbody>';
@@ -251,19 +251,16 @@ class Threeb_vs_twoa extends CI_Controller {
                 $months[] = $row->month;
 
                 $data .= '<tr>' .
-                        '<td>' . $k . '</td>' .
                         '<td>' . $month . '</td>' .
                         '<td>' . $gstr_tb . '</td>' .
                         '<td>' . $gstr2a . '</td>' .
                         '<td>' . $difference . '</td>' .
                         '<td>' . $cumu_difference . '</td>' .
                         '</tr>';
-                $k++;
             }
             //to get total values
             $data .= '<tr>' .
                     '<td>' . '<b>Total</b>' . '</td>' .
-                    '<td>' . '' . '</td>' .
                     '<td>' . '<b>' . $thb = array_sum($gstr_tb1) . '</b> ' . '</td>' .
                     '<td>' . '<b>' . $twa = array_sum($gstr2a4) . '</b>' . '</td>' .
                     '<td>' . '<b>' . array_sum($difference2) . '</b>' . '</td>' .
@@ -276,14 +273,14 @@ class Threeb_vs_twoa extends CI_Controller {
             if ($thb > $twa) {
                 $data1 .= '<span>GSTR-3B > 2A, ITC declared and ITC claimed is showing a huge difference as either the company has taken excess credit or vendor has not recorded our purchases in his GSTR 1. '
                         . 'This may lead to interest liability & penalties notices or permanent loss of credit if vendor is not informed and corrective action is not taken by such vendor.</span>';
-                $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+                $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
             } elseif ($twa > $thb) {
                 $data1 .= '<span>GSTR-3B < 2A, company need to check the eligibility and ineligibility of credit reflecting in GSTR-2A & prepare a reconciliation statement accordingly. There may be the case where input tax credit has not been taken by the company on its genuine eligible input credit. '
                         . 'This may lead to a huge loss of working Capital & also permanent loss of credit if corrective actions not taken immediately.</span>';
-                $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+                $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
             } else {
                 $data1 .= '<span>No difference.</span>';
-                $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+                $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
             }
             $abc = array();
             $abc3 = array();

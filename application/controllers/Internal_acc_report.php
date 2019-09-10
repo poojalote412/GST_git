@@ -461,7 +461,7 @@ class Internal_acc_report extends CI_Controller {
             $data = $result->row();
             $turn_id = $data->tax_libility_id;
             //generate user_id
-            $turn_id = str_pad( ++$turn_id, 5, '0', STR_PAD_LEFT);
+            $turn_id = str_pad(++$turn_id, 5, '0', STR_PAD_LEFT);
             return $turn_id;
         } else {
             $turn_id = 'tax_1001';
@@ -517,9 +517,9 @@ class Internal_acc_report extends CI_Controller {
             $count = count($debit_tax);
             $new_net_rtc = array();
             for ($m = 0; $m < $count; $m++) {
-                $new_net_rtc[] = $net_rtc[$m] - $debit_tax[$m] . '<br>';
+                $new_net_rtc[] = $net_rtc[$m] - $debit_tax[$m];
             }
-            $data2 .= '<h4 style="color:#1d2f66"><b>3. Overview of Tax Liability:</b></h4>';
+            $data2 .= '<h4 style="color:#1d2f66"><b>3. Overview of Tax Liability:</b></h4><br>';
             $data .= '<table id="example2" class="table-bordered table-striped" width="700">
                                 <thead style="background-color: #cd273f;color:white">
                                     <tr>
@@ -532,7 +532,6 @@ class Internal_acc_report extends CI_Controller {
                                         <th>Paid in Credit</th>
                                         <th>Paid in Cash</th>
                                         <th>Interest Late Fee</th>
-                                        
                                     </tr>
                                 </thead>
                                 <tbody>';
@@ -572,7 +571,7 @@ class Internal_acc_report extends CI_Controller {
                 $observation = "";
             }
             $data1 .= "<hr><h4><b>Observation :</b></h4><span style='word-spacing: normal;'>" . $observation . "</span>";
-            $data1 .= "<h5><b>Note: </b>For details & consolidated summary.Please see section 8</h5>";
+            $data1 .= "<h5><b>Note: </b>For detailed and consolidated summary refer section-8.</h5>";
             $abc = array();
             $abc2 = array();
             $abc3 = array();
@@ -678,7 +677,7 @@ class Internal_acc_report extends CI_Controller {
                 $new_net_rtc[] = $net_rtc[$m] - $debit_tax[$m] . '<br>';
             }
             $months = "";
-            $get_month_observation = $this->db->query("SELECT month from 3b_offset_summary_all where paid_in_cash !='0'");
+            $get_month_observation = $this->db->query("SELECT month from 3b_offset_summary_all where paid_in_cash !='0' and customer_id='$customer_id' and insert_id='$insert_id'");
             if ($this->db->affected_rows() > 0) {
                 $res1 = $get_month_observation->result();
                 foreach ($res1 as $value) {
@@ -972,7 +971,7 @@ class Internal_acc_report extends CI_Controller {
             }
 
             $data1 .= "<br><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
-            $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
             // loop to get graph data as per graph script requirement
             $abc1 = array();
             $abc2 = array();
@@ -1263,11 +1262,18 @@ class Internal_acc_report extends CI_Controller {
                 $month = $row->month;
                 $ineligible_itc_arr[] = $ineligible_itc;
                 $net_itc_arr[] = $net_itc;
-
-                $ratio_ineligible = ($ineligible_itc * 100 / ($ineligible_itc + $net_itc));
-                $ineligible_ratio_arr[] = ($ineligible_itc * 100 / ($ineligible_itc + $net_itc));
-                $ratio_eligible = ($net_itc * 100 / ($ineligible_itc + $net_itc));
-                $eligible_ratio_arr[] = ($net_itc * 100 / ($ineligible_itc + $net_itc));
+                $total_g = $ineligible_itc + $net_itc;
+                if ($total_g != 0) {
+                    $ratio_ineligible = ($ineligible_itc * 100 / ($total_g));
+                    $ineligible_ratio_arr[] = ($ineligible_itc * 100 / ($total_g));
+                    $ratio_eligible = ($net_itc * 100 / ($total_g));
+                    $eligible_ratio_arr[] = ($net_itc * 100 / ($total_g));
+                } else {
+                    $ratio_ineligible = 0;
+                    $ineligible_ratio_arr[] = 0;
+                    $ratio_eligible = 0;
+                    $eligible_ratio_arr[] = 0;
+                }
                 $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
                         '<td>' . $month . '</td>' .
@@ -1296,7 +1302,7 @@ class Internal_acc_report extends CI_Controller {
             }
 
             $data1 .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
-            $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
             // loop to get graph data as per graph script requirement
             $abc1 = array();
             $abc2 = array();
@@ -1538,15 +1544,15 @@ class Internal_acc_report extends CI_Controller {
             $data2 = ""; //view table name
             $data2 .= '<h4 style="color:#1d2f66"><b>4. GST Payable V/s Cash:</b></h4><br>';
 
-            $data .= '<table id="example2" class="table-bordered table-striped" width="700">
+            $data .= '<table id="example_payable" class="table-bordered table-striped" width="700">
                                 <thead style="background-color: #cd273f;color:white">
                                     <tr>
                                         <th>No.</th>
                                         <th>Month</th>
-                                        <th>Total Ineligible ITC</th>
-                                        <th>Total Eligible ITC</th>
-                                        <th>Ratio Of Ineligible ITC to total ITC</th>
-                                        <th>Ratio of Eligible ITC to Total ITC</th>
+                                        <th>Tax Liability</th>
+                                        <th>ITC</th>
+                                        <th>Paid in Cash</th>
+                                        <th>Ratio</th>
                                     </tr>
                                 </thead>
                                 <tbody>';
@@ -1560,7 +1566,11 @@ class Internal_acc_report extends CI_Controller {
                 $months[] = $row->month;
                 $month = $row->month;
                 $liability = ($outward_liability + $rcb_liablity);
-                $percent = ($paid_in_cash / $liability);
+                if ($liability != 0) {
+                    $percent = ($paid_in_cash / $liability);
+                } else {
+                    $percent = 0;
+                }
 
                 $liability_arr[] = $liability;
                 $net_itc_arr[] = $net_itc;
@@ -1589,16 +1599,20 @@ class Internal_acc_report extends CI_Controller {
 
             $max_percent = max($percent_arr);
             $min_percent = min($percent_arr);
-            $avg = array_sum($percent_arr) / count($percent_arr);
+            if (count($percent_arr) != 0) {
+                $avg = array_sum($percent_arr) / count($percent_arr);
+            } else {
+                $avg = 0;
+            }
             $data1 .= "<hr><h4><b>Observation :</b></h4>";
             if ($avg > 35) {
                 $data1 .= "<span>GST paid in cash varies from <b>" . $min_percent . "%</b> to  <b>" . $max_percent . "%</b> for F.Y. " . $year
                         . ".  Average percentage of liability paid by cash is <b>" . round($avg) . "%</b> for F.Y. " . $year . ".</span>"
                         . "<span>So, analysis of huge payment by cash to be done & accordingly input tax credit planning should be done.</span>";
-                $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+                $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
             } else {
                 $data1 .= "GST paid in cash has varied from <b>" . $min_percent . "%</b> to  <b>" . $max_percent . "% for FY –" . $year;
-                $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+                $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
             }
             //graph work
             $abc1 = array();
@@ -1674,12 +1688,12 @@ class Internal_acc_report extends CI_Controller {
                          <table id="example2" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>No.</th>
+                                         <th>No.</th>
                                         <th>Month</th>
-                                        <th>Total Ineligible ITC</th>
-                                        <th>Total Eligible ITC</th>
-                                        <th>Ratio Of Ineligible ITC to total ITC</th>
-                                        <th>Ratio of Eligible ITC to Total ITC</th>
+                                        <th>Tax Liability</th>
+                                        <th>ITC</th>
+                                        <th>Paid in Cash</th>
+                                        <th>Ratio</th>
                                     </tr>
                                 </thead>
                                 <tbody>';
@@ -1693,7 +1707,11 @@ class Internal_acc_report extends CI_Controller {
                 $months[] = $row->month;
                 $month = $row->month;
                 $liability = ($outward_liability + $rcb_liablity);
-                $percent = ($paid_in_cash / $liability);
+                if ($liability != 0) {
+                    $percent = ($paid_in_cash / $liability);
+                } else {
+                    $percent = 0;
+                }
 
                 $liability_arr[] = $liability;
                 $net_itc_arr[] = $net_itc;

@@ -23,7 +23,7 @@ if (is_array($session_data)) {
     #JSFiddle{
         font-family:Arial Sans Serif;
     }
-    
+
     #btn_pdf {
         width: 60%;
         margin-right: 20% !important;
@@ -164,12 +164,11 @@ if (is_array($session_data)) {
                     <!-- Insert your document here -->
                     <div id="container_image_front" style="page-break-after:always;position: relative;color: white;margin-top:-22px;margin-left: -15px;margin-right: -25px;">
                         <!--<img src="https://premisafe.com/Logo.jpg" width="120px" height="30px">-->
-                        <div style="position: absolute;bottom: -4%;margin-left: 19% !important;color: white;text-align: center"> 
+                        <div style="position: absolute;bottom: -4%;margin-left:5% !important;color: white;text-align: center;width: 700px;"> 
                             <b style="font-size: 26px"><?php echo $client_details->company_name ?></b> <br>
-
                         </div>
-                        <div style="position: absolute;bottom: -10%;right: 45%;color: white;" class="centered"> 
-                            <b style="font-size: 20px"><?php echo $insert_header_details->year_id ?></b> <br>
+                        <div style="position: absolute;bottom: -14%;color: white;width: 700px;text-align: center;margin-left:5% !important;" class="centered"> 
+                            <br>  <b style="font-size: 20px"><?php echo $insert_header_details->year_id ?></b> <br>
                         </div>
                         <img src="https://premisafe.com/GST_image/GSTReportCover.jpg" style="page-break-after: always" width="800px" height="800px">
                     </div>
@@ -180,11 +179,9 @@ if (is_array($session_data)) {
                     </header>
 
                     <footer style="display:none;margin-top:-30px;">
-                        <div>
-                            <div style="text-align: left;">
-                                <p>Strictly Private and Confidential</p>
-                            </div>
-                            <div style="text-align: right;"><p class="foot">Page <pagenum/> of <totpages/></p></div>
+                        <div class="col-md-12">
+                            <p style="text-align: left;margin-left: 45px;">Strictly Private and Confidential</p>
+                            <p  style="text-align: right; margin-right:  45px;">Page <pagenum/> of <totpages/></p>
                         </div>
                     </footer>
 
@@ -195,37 +192,37 @@ if (is_array($session_data)) {
                         <div style="margin-left: 36% ;">
                             <b style="font-size:22px;color:#0e385e;text-align: center">LETTER TO CLIENT</b></div>
                         <div style="margin-left: 5%;margin-right: 5%;margin-top:10%;" ><b>19th August, 2019</b></div>
-                            <div style="margin-left: 5%;margin-right: 5%;"><b><?php echo $client_details->customer_name ?></b></div>
-                            <div style="margin-left: 5%;margin-right: 5%;"><b>Managing Director:<?php echo $client_details->managing_director_name ?></b></div>
-                            <div style="margin-left: 5%;margin-right: 5%;"><b>Company Name:<?php echo $client_details->company_name ?></b></div>
-                            <div style="margin-left: 5%;margin-right: 5%;"><b> Address :<?php echo $client_details->customer_address ?></b></div>
-                            <div style="margin-left: 36%;margin-top:20%;"> <b style="font-size:18px;color:#1d2f66;"><u>Sub: GST Health Check Report</u></b></div>
-                            <div id="content_client_letterPDF"  width="800" height="900"></div>
-                        
+                        <div style="margin-left: 5%;margin-right: 5%;"><b><?php echo $client_details->customer_name ?></b></div>
+                        <div style="margin-left: 5%;margin-right: 5%;"><b>Managing Director:<?php echo $client_details->managing_director_name ?></b></div>
+                        <div style="margin-left: 5%;margin-right: 5%;"><b>Company Name:<?php echo $client_details->company_name ?></b></div>
+                        <div style="margin-left: 5%;margin-right: 5%;"><b> Address :<?php echo $client_details->customer_address ?></b></div>
+                        <div style="margin-left: 36%;margin-top:20%;"> <b style="font-size:18px;color:#1d2f66;"><u>Sub: GST Health Check Report</u></b></div>
+                        <div id="content_client_letterPDF"  width="800" height="900"></div>
+
                     </div>
 
                     <div id="container_image_limited_usage" style="margin-top:15%;page-break-after:always;">
                         <img src="https://premisafe.com/GST_image/LimitedUsage&Abbreviation.jpg" width="800px" height="900px">
                     </div>
                     <div style="margin-top: 15%;page-break-after: always;position: relative;">
-                        <p style="position: absolute;margin-top:15%;margin-left: 44%;color:#0e385e;font-size:22px"><b><?php echo $about_client_page_num;?></b></p>
-                        <p style="position: absolute;margin-top:15%;margin-left: 84%;color:white;font-size:22px"><b><?php echo $executive_summary_page_num;?></b></p>
-                        <p style="position: absolute;margin-top:24%;margin-left: 44%;color:white;font-size:22px"><b><?php echo $gst_compo_page_num;?></b></p>
-                        <p style="position: absolute;margin-top:24%;margin-left: 84%;color:#0e385e;font-size:22px"><b><?php echo $framework_page_num;?></b></p>
-                        <p style="position: absolute;margin-top:34%;margin-left: 44%;color:#0e385e;font-size:22px"><b><?php echo $approach_page_num;?></b></p>
-                        <p style="position: absolute;margin-top:34%;margin-left: 84%;color:white;font-size:22px"><b><?php echo $details_rep_page_num;?></b></p>
-                        <p style="position: absolute;margin-top:44%;margin-left: 44%;color:white;font-size:22px"><b><?php echo $issue_matrix_page_num;?></b></p>
-                        <p style="position: absolute;margin-top:44%;margin-left: 83%;color:#0e385e;font-size:22px"><b><?php echo $rating_card_page_num;?></b></p>
-                        <p style="position: absolute;margin-top:55%;margin-left: 44%;color:#0e385e;font-size:22px"><b><?php echo $conclusion_page_num;?></b></p>
-                        <p style="position: absolute;margin-top:55%;margin-left: 83%;color:white;font-size:22px"><b><?php echo $disclaimer_page_num;?></b></p>
-                        <p style="position: absolute;margin-top:62%;margin-left: 83%;color:white;font-size:22px"><b><?php echo $about_ecovis_page_num;?></b></p>
-                       
+                        <p style="position: absolute;margin-top:15%;margin-left: 44%;color:#0e385e;font-size:22px"><b><?php echo $about_client_page_num; ?></b></p>
+                        <p style="position: absolute;margin-top:15%;margin-left: 84%;color:white;font-size:22px"><b><?php echo $executive_summary_page_num; ?></b></p>
+                        <p style="position: absolute;margin-top:24%;margin-left: 44%;color:white;font-size:22px"><b><?php echo $gst_compo_page_num; ?></b></p>
+                        <p style="position: absolute;margin-top:24%;margin-left: 84%;color:#0e385e;font-size:22px"><b><?php echo $framework_page_num; ?></b></p>
+                        <p style="position: absolute;margin-top:34%;margin-left: 44%;color:#0e385e;font-size:22px"><b><?php echo $approach_page_num; ?></b></p>
+                        <p style="position: absolute;margin-top:34%;margin-left: 84%;color:white;font-size:22px"><b><?php echo $details_rep_page_num; ?></b></p>
+                        <p style="position: absolute;margin-top:44%;margin-left: 44%;color:white;font-size:22px"><b><?php echo $issue_matrix_page_num; ?></b></p>
+                        <p style="position: absolute;margin-top:44%;margin-left: 83%;color:#0e385e;font-size:22px"><b><?php echo $rating_card_page_num; ?></b></p>
+                        <p style="position: absolute;margin-top:55%;margin-left: 44%;color:#0e385e;font-size:22px"><b><?php echo $conclusion_page_num; ?></b></p>
+                        <p style="position: absolute;margin-top:55%;margin-left: 83%;color:white;font-size:22px"><b><?php echo $disclaimer_page_num; ?></b></p>
+                        <p style="position: absolute;margin-top:62%;margin-left: 83%;color:white;font-size:22px"><b><?php echo $about_ecovis_page_num; ?></b></p>
+
                         <img src="https://premisafe.com/GST_image/GSTContent.jpg" style="margin-left: -5px;" width="800px" height="700px"style="page-break-after:always;" >
                     </div>
 
                     <div style="page-break-after:always;width:700px;margin-left: 5%;margin-right:5%;margin-top:15%;text-align: justify;text-justify: inter-word;">
-                    <b style="color:#0e385e;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;font-size: 18px;text-transform: uppercase;">1. ABOUT <?php echo $client_details->company_name ?>:</b>
-                    <br>  <p style="font-size: 15px"><?php echo $report_details->about_company ?> </p>
+                        <b style="color:#0e385e;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;font-size: 18px;text-transform: uppercase;">1. ABOUT <?php echo $client_details->company_name ?>:</b>
+                        <br>  <p style="font-size: 14px;letter-spacing: 0.5px;"><?php echo $report_details->about_company ?> </p>
                     </div>
                     <div style="page-break-after:always;width:700px;margin-left: 5%;margin-right:  5%;margin-top:9%;text-align: justify;">
                         <div id="content_pdf" style=""></div>
@@ -278,14 +275,16 @@ if (is_array($session_data)) {
                     </div>
                     <!--Comparison & Deviation Report-->
                     <div class="test" id="second_div" style="display:block">
-                        <div class="test" style="page-break-after:always;margin-top:14%;margin-left:5%;margin-right: 5%;">
+                        <div style="margin-top:14%;margin-left:5%;margin-right: 5%;">
                             <h4 style="color:#0e385e;"><b>B.COMPARISON AND DEVIATION REPORT</b></h4>
+                        </div>
+                        <div class="test" id="comp_3b_2" style="page-break-after:always;margin-left:5%;margin-right: 5%;">
                             <div id="compare_GSTR3B_Vs2_data2" style="width:700px;"></div>
                             <div id="compare_GSTR3B_Vs2_data" style="width:700px;"></div><br><br>
                             <div id="container_GSTR3b_vs_2A"  style="width:700px;"></div>
                             <div id="compare_GSTR3B_Vs2_data1" style="width:700px;"></div>
                         </div>
-                        <div class="test" style="page-break-after:always;margin-top:14%;margin-left:5%;margin-right: 5%;">
+                        <div class="test" id="comp_3b_1" style="page-break-after:always;margin-top:14%;margin-left:5%;margin-right: 5%;">
                             <div id="compare_3b_vs1_data2" style="width:700px;"></div>
                             <div id="compare_3b_vs1_data" style="width:700px;"></div><br><br>
                             <div id="container_GSTR3b_vs_1" style="width:700px;"></div>
@@ -299,35 +298,35 @@ if (is_array($session_data)) {
                             <p style="background:#cd273f; color:white;padding:4px;border:1px solid;width:700px;text-align:center"><b>BAROMETER-CFO DASHBOARD</b></p>
                             <h4 style="color:#0e385e;"><b>A. CFO DASHBOARD</b></h4>
                         </div>
-                        <div class="test_tax_turn"  style="page-break-after:always;display: block;margin-left:5%;margin-right: 5%;">
+                        <div class="test_tax_turn" id="test_tax_turn"  style="page-break-after:always;display: block;margin-left:5%;margin-right: 5%;display:block">
                             <div id="tax_turnover_data2" style="width:700px;"></div>
                             <div id="tax_turnover_data" style="width:700px;"></div>
                             <div id="container_tax_turnover"  style="width:700px;"></div>
                             <div id="tax_turnover_data1" style="width:700px;"></div>
                         </div>
 
-                        <div class="test" style="page-break-after:always;margin-top:14%;margin-left:5%;margin-right: 5%;">
-                            <div id="cfo_data2" style="width:700px;"></div>
-                            <div id="cfo_data" style="width:700px;"></div>
-                            <div id="container_turnovervs_liability" style="width:700px;"></div>
-                            <div id="cfo_data1" style="width:700px;"></div>
+                        <div class="test" id="cfodata" style="page-break-after:always;margin-top:14%;display:block">
+                            <div id="cfo_data2"  style="width:700px;margin-left:5%;margin-right: 5%;"></div>
+                            <div id="cfo_data" style="width:700px;margin-left:5%;margin-right: 5%;"></div>
+                            <div id="container_turnovervs_liability" style="width:700px;margin-left:5%;margin-right: 5%;display:block"></div>
+                            <div id="cfo_data1" style="width:700px;margin-left:5%;margin-right: 5%;"></div>
                         </div>
 
-                        <div class="test" style="page-break-after:always;margin-top:14%;margin-left:5%;margin-right: 5%;">
+                        <div class="test" id="tax_liabilitydiv" style="page-break-after:always;margin-top:14%;margin-left:5%;margin-right: 5%;display:block">
                             <div id="tax_liability_data2" style="width:700px;"></div>
                             <div id="tax_liability_data" style="width:700px;"></div>
                             <div id="container_tax_liability" style="width:700px;"></div>
                             <div id="tax_liability_data1" style="width:700px;"></div>
                         </div>
 
-                        <div class="test" style="page-break-after:always;margin-top:14%;margin-left:5%;margin-right: 5%;">
+                        <div class="test" id="payable_cash"style="page-break-after:always;margin-top:14%;margin-left:5%;margin-right: 5%;display:block">
                             <div id="gst_payablevscash_data2" style="width:700px;"></div>
                             <div id="gst_payablevscash_data" style="width:700px;"></div>
                             <div id="container_gst_payablevscash"  style="width:700px;"></div>
                             <div id="gst_payablevscash_data1" style="width:700px;"></div>
                         </div>
 
-                        <div class="test" style="page-break-after:always;margin-top:14%;margin-left:5%;margin-right: 5%;">
+                        <div class="test" id="tax_eli_ineli" style="page-break-after:always;margin-top:14%;margin-left:5%;margin-right: 5%;display:block">
                             <div id="tax_iniligible_data2" style="width:700px;"></div>
                             <div id="tax_iniligible_data" style="width:700px;"></div>
                             <div id="container_eligible_credit"  style="width:700px;"></div>
@@ -337,7 +336,9 @@ if (is_array($session_data)) {
 
                     <!--InFORMATION COMPARISON-->
                     <div class="test" id="fourth_div" style="display:block">
-                        <p style="background:#516b22; color:white;width:700px;text-align:center;margin-top:13%;margin-left:5%;margin-right: 5%;"><b>INFORMATION COMPARISON</b></p>
+                        <div style="margin-top:15%;margin-left:5%;margin-right: 5%;">
+                            <p style="background:#516b22; color:white;width:700px;text-align:center;"><b>INFORMATION COMPARISON</b></p>
+                        </div>
                         <input type="hidden" id="complience_div" name="complience_div" value="0">
                         <input type="hidden" id="internal_control_div" name="internal_control_div" value="0">
                         <input type="hidden" id="invoice_comparison_div" name="invoice_comparison_div" value="0">
@@ -350,8 +351,10 @@ if (is_array($session_data)) {
                         </div>
 
 
-                        <div class="test" id="internal_control" style="margin-top:13%;">
-                            <h4 style="color:#0e385e;margin-left:5%;margin-right: 5%;"><b>B. INTERNAL CONTROL REPORT</b></h4>
+                        <div class="test" id="internal_control" >
+                            <div style="margin-top:15%;margin-left:5%;margin-right: 5%;">
+                                <h4 style="color:#0e385e;"><b>B. INTERNAL CONTROL REPORT</b></h4>
+                            </div>
                             <div class="test_amend" id="test_amend" style="page-break-after:always;margin-left:5%;margin-right: 5%;display: block;">
                                 <div id="invoice_ammend_original_data" style=""></div>
                                 <div id="invoice_ammend_original_data1" style=""></div>
@@ -364,15 +367,17 @@ if (is_array($session_data)) {
                         </div>
 
 
-                        <div class="test" id="invoice_wise_comparison" style="margin-top:7%">
-                            <h4 style="color:#0e385e;margin-left:5%;margin-right: 5%;"><b>C. INVOICE WISE COMPARISON OR MISMATCH REPORT</b></h4>
-                            <div class="test_not_in_2a" id="test_not_in_2a" style="page-break-after:always;margin-top:7%;margin-left:5%;margin-right: 5%;">
+                        <div class="test" id="invoice_wise_comparison" >
+                            <div style="margin-top:15%;margin-left:5%;margin-right: 5%;">
+                                <h4 style="color:#0e385e;"><b>C. INVOICE WISE COMPARISON OR MISMATCH REPORT</b></h4>
+                            </div>
+                            <div class="test_not_in_2a" id="test_not_in_2a" style="page-break-after:always;margin-left:5%;margin-right: 5%;">
                                 <div id="company_all_notin2a_data" style=""></div>
                                 <div id="company_all_notin2a_data1" style=""></div>
                             </div>
 
                             <div class="test" id="not_in_rec" style="page-break-after:always;margin-left:5%;margin-right: 5%; ">
-                                <div id="company_all_notinrec_data" style=" "></div>
+                                <div id="company_all_notinrec_data" style=""></div>
                                 <div id="company_all_notinrec_data1" style=""></div>
                             </div>
 
@@ -387,7 +392,7 @@ if (is_array($session_data)) {
                         <div class="test" style="page-break-after:always;margin-top:7%">
                             <div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/IssueMatrix.jpg" style="width:700px" height="100px" style=""></div><br><br><br>  
                             <div id="heat_map_tbl" style="width:850px;margin-left: 5%"></div>
-                            <div id="container_heat_map" style="width:700px"></div>
+                            <div id="container_heat_map" style="width:700px;outline: 2px dashed blue;"></div>
                         </div>
 
                         <div class="test" style="page-break-after:always;margin-top:9%">
@@ -403,7 +408,7 @@ if (is_array($session_data)) {
                         <!--<div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="900px" height="900px" style=""></div><br><br>-->  
                         <div id="" style="width:850px">
                             <b style="font-size:18px;color:#0e385e;margin-left: 5%;">8. SUMMARY OBSERVATION & CONCLUSION </b><br>
-                            <p align="justify" style="margin-left: 5%;margin-right:  5%;font-size: 15px">
+                            <p align="justify" style="margin-left: 5%;margin-right:  5%;font-size: 14px;letter-spacing: 0.5px;">
                                 <?php echo $company_details->conclusion_summary ?>
                             </p>
                         </div>
@@ -436,6 +441,7 @@ if (is_array($session_data)) {
 
 
         </div>
+        <div id="yourID" style="display: none;"></div>
 
     </section>
 
@@ -475,7 +481,7 @@ if (is_array($session_data)) {
         });
 
         //Ajax call for Letter to client PDF
-        
+
         $.ajax({
             type: "post",
             url: "<?= base_url("Report/get_letter_to_clientPDF") ?>",
@@ -506,7 +512,7 @@ if (is_array($session_data)) {
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
                 //                 alert();
-                $('#cfo_data').html("");
+                //$('#cfo_data').html("");
                 if (result.message === "success") {
                     document.getElementById("third_div_value").value++;
                     var data = result.data;
@@ -518,9 +524,11 @@ if (is_array($session_data)) {
                     $('#cfo_data2').html(data2);
                     //                    $('#example2').DataTable();
                 } else {
+                    alert('else');
                     document.getElementById("cfo_data").style.display = "none";
                     document.getElementById("cfo_data1").style.display = "none";
                     document.getElementById("cfo_data2").style.display = "none";
+                    document.getElementById("cfodata").style.display = "none";
                 }
             },
         });
@@ -537,7 +545,7 @@ if (is_array($session_data)) {
                     var data_ratio = result.ratio;
                     var data_month = result.month_data;
                     var max_range = result.max_range;
-                    var customer_name = "Customer Name:" + company_name;
+                    var customer_name = company_name;
                     Highcharts.chart('container_turnovervs_liability', {
                         //                    var chart = Highcharts.chart('container_turnovervs_liability', {
                         chart: {
@@ -628,7 +636,7 @@ if (is_array($session_data)) {
                     var data_month = result.month_data;
                     var max_range = result.max_range;
                     var sales_percent_values = result.sales_percent_values;
-                    var customer_name = "Customer Name:" + company_name;
+                    var customer_name = company_name;
                     Highcharts.chart('container_sales_month_wise', {
                         chart: {
                             type: 'column'
@@ -738,7 +746,7 @@ if (is_array($session_data)) {
                     var data_a = result.taxable_value;
                     var max_range = result.data_liability;
                     var data_state = result.state;
-                    var customer_name = "Customer Name:" + company_name;
+                    var customer_name = company_name;
                     Highcharts.chart('container_state_wise', {
                         chart: {
                             type: 'column'
@@ -822,7 +830,7 @@ if (is_array($session_data)) {
                     var ratio_subtotal_exempt = result.ratio_subtotal_exempt;
                     var data_month = result.month_data;
                     var max_range = result.max_range;
-                    var customer_name = "Customer Name:" + company_name;
+                    var customer_name = company_name;
                     Highcharts.chart('container_nontax_exempt', {
                         chart: {
                             type: 'column'
@@ -982,7 +990,7 @@ if (is_array($session_data)) {
                     var array_b2b_ratio = result.array_b2b_ratio;
                     var array_b2c_ratio = result.array_b2c_ratio;
                     var max = result.max_range;
-                    var customer_name = "Customer Name:" + company_name;
+                    var customer_name = company_name;
                     //                    var max_ratio = result.max_ratio;
                     var data_month = result.month;
                     Highcharts.chart('container_sales_b2b_b2c', {
@@ -1151,6 +1159,7 @@ if (is_array($session_data)) {
                     var data_gstr2a = result.gstr2a;
                     var max = result.max;
                     var months = result.month_data;
+                    var customer_name = company_name;
                     Highcharts.chart('container_GSTR3b_vs_2A', {
                         chart: {
                             type: 'Combination chart',
@@ -1160,7 +1169,7 @@ if (is_array($session_data)) {
                             text: 'Comparison Between GSTR-3B & GSTR-2A'
                         },
                         subtitle: {
-                            text: 'Customer Name: ANAND RATHI GLOBAL FINANCE LIMITED 2017-18'
+                            text: customer_name
                         },
                         xAxis: {
                             categories: months,
@@ -1252,13 +1261,14 @@ if (is_array($session_data)) {
                     $('#compare_GSTR3B_Vs2_data').html(data);
                     $('#compare_GSTR3B_Vs2_data1').html(data1);
                     $('#compare_GSTR3B_Vs2_data2').html(data2);
-                    
+
                     $("#container_GSTR3b_vs_2A").prepend("Deduct: In-Eligible Credit :<input type='text'><br>*To be ﬁlled manually so that the client will get the clear picture of eligible credit.");
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("compare_GSTR3B_Vs2_data").style.display = "none";
                     document.getElementById("compare_GSTR3B_Vs2_data1").style.display = "none";
                     document.getElementById("compare_GSTR3B_Vs2_data2").style.display = "none";
+                    document.getElementById("comp_3b_2").style.display = "none";
                 }
             },
 
@@ -1280,7 +1290,7 @@ if (is_array($session_data)) {
                     var cumu_difference = result.cumu_difference;
                     var max = result.max;
                     var month = result.month_data;
-                    var customer_name = "Customer Name:" + company_name;
+                    var customer_name = company_name;
                     Highcharts.chart('container_GSTR3b_vs_1', {
                         chart: {
                             type: 'Combination chart'
@@ -1375,6 +1385,7 @@ if (is_array($session_data)) {
                     document.getElementById("compare_3b_vs1_data").style.display = "none";
                     document.getElementById("compare_3b_vs1_data1").style.display = "none";
                     document.getElementById("compare_3b_vs1_data2").style.display = "none";
+                    document.getElementById("comp_3b_1").style.display = "none";
                 }
             },
 
@@ -1446,7 +1457,7 @@ if (is_array($session_data)) {
                     var data_paid_cash = result.data_paid_cash;
                     var data_late_fee = result.data_late_fee;
                     var data_month = result.month_data;
-                    var customer_name = "Customer Name:" + company_name;
+                    var customer_name = company_name;
                     Highcharts.chart('container_tax_liability', {
                         chart: {
                             type: 'column'
@@ -1516,7 +1527,7 @@ if (is_array($session_data)) {
 
                             }, {
                                 type: 'column',
-                                name: 'RCB Liability',
+                                name: 'RCM Liability',
                                 data: data_rcbs,
                                 stack: data_outwards,
                                 lineColor: '#000000',
@@ -1533,7 +1544,7 @@ if (is_array($session_data)) {
 
                             }, {
                                 type: 'column',
-                                name: 'NET ITC',
+                                name: 'Net ITC',
                                 stack: data_inelligibles,
                                 data: data_rtcs,
                                 lineColor: '#FF8300',
@@ -1594,6 +1605,7 @@ if (is_array($session_data)) {
                     document.getElementById("tax_liability_data").style.display = "none";
                     document.getElementById("tax_liability_data1").style.display = "none";
                     document.getElementById("tax_liability_data2").style.display = "none";
+                    document.getElementById("tax_liabilitydiv").style.display = "none";
 
                 }
             },
@@ -1615,7 +1627,7 @@ if (is_array($session_data)) {
                     var tax_ratio = result.tax_ratio;
                     var data_month = result.month_data;
                     var max_range = result.max_range;
-                    var customer_name = "Customer Name:" + company_name;
+                    var customer_name = company_name;
                     Highcharts.chart('container_tax_turnover', {
                         chart: {
                             type: 'Combination chart'
@@ -1767,7 +1779,7 @@ if (is_array($session_data)) {
                     var percent = result.percent;
                     var data_month = result.month_data;
                     var max_range = result.max_range;
-                    var customer_name = "Customer Name:" + company_name;
+                    var customer_name = company_name;
                     Highcharts.chart('container_gst_payablevscash', {
                         chart: {
                             type: 'column'
@@ -1857,8 +1869,6 @@ if (is_array($session_data)) {
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
-                //                 alert();
-                $('#cfo_data').html("");
                 if (result.message === "success") {
                     document.getElementById("third_div_value").value++;
                     var data = result.data;
@@ -1873,6 +1883,7 @@ if (is_array($session_data)) {
                     document.getElementById("gst_payablevscash_data").style.display = "none";
                     document.getElementById("gst_payablevscash_data1").style.display = "none";
                     document.getElementById("gst_payablevscash_data2").style.display = "none";
+                    document.getElementById("payable_cash").style.display = "none";
                 }
             },
 
@@ -2025,7 +2036,7 @@ if (is_array($session_data)) {
                     var eligible_ratio = result.eligible_ratio;
                     var data_month = result.month_data;
                     var max_range = result.max_range;
-                    var customer_name = "Customer Name:" + company_name;
+                    var customer_name = company_name;
                     Highcharts.chart('container_eligible_credit', {
                         chart: {
                             type: 'column'
@@ -2143,6 +2154,7 @@ if (is_array($session_data)) {
                     document.getElementById("tax_iniligible_data").style.display = "none";
                     document.getElementById("tax_iniligible_data1").style.display = "none";
                     document.getElementById("tax_iniligible_data2").style.display = "none";
+                    document.getElementById("tax_eli_ineli").style.display = "none";
                 }
             },
 
@@ -2251,10 +2263,6 @@ if (is_array($session_data)) {
         });
 
 
-
-
-
-
         //Get all Not in records
         $.ajax({
             type: "post",
@@ -2280,10 +2288,7 @@ if (is_array($session_data)) {
 
         });
 
-
         //Get all company details for partially match summary
-
-
         $.ajax({
             type: "post",
             url: "<?= base_url("Invoice_comp_report/get_all_partial_records") ?>",
@@ -2306,9 +2311,6 @@ if (is_array($session_data)) {
             }
 
         });
-
-
-
 
 
     });
@@ -2380,7 +2382,21 @@ if (is_array($session_data)) {
         } else {
             document.getElementById("sales_rate_statewise_div").style.display = "none";
         }
-    }, 5000);
+
+        if ($('#test_not_in_2a').css('display') === 'none')
+        {
+            document.getElementById("not_inrec_head").style.marginTop = "4%";
+        } else {
+
+        }
+        if ($('#test_not_in_2a').css('display') === 'none' && $('#not_in_rec').css('display') === 'none')
+        {
+            document.getElementById("pos_period").style.marginTop = "4%";
+        } else {
+
+        }
+
+    }, 6000);
 
 </script>
 <script>
@@ -2436,7 +2452,7 @@ if (is_array($session_data)) {
 
     var click = "return xepOnline.Formatter.Format('JSFiddle', {render:'download'})";
     jQuery('#buttons').append('<div class=""><div id="btn_div" class="col-md-12"><button class="btn btn-block btn-success btn-lg" id="btn_pdf" onclick="' + click + '">Generate PDF With Index Page</button></div></div>');
- 
+
 
 
 </script>

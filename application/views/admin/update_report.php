@@ -2446,7 +2446,7 @@ if (is_array($session_data)) {
 //not in records
         $.ajax({
             type: "post",
-            url: "<?= base_url("Invoice_comp_report/get_not_inrec_records_all") ?>",
+            url: "<?= base_url("Invoice_comp_report/get_not_inrec_records_all1") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
@@ -2456,7 +2456,7 @@ if (is_array($session_data)) {
 
                     $('#company_all_notinrec_data').html(data);
                     $('#company_all_notinrec_data_obs').html(data1);
-                    $('#example_not_in_rec').DataTable();
+                    $('#not_record_data').DataTable();
                 } else {
                     $('#company_all_notinrec_data').html("");
                     $('#company_all_notinrec_data').html("<b>Please insert files to see result.</b>");
