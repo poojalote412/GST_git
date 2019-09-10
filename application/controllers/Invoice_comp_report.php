@@ -10,7 +10,6 @@ class Invoice_comp_report extends CI_Controller {
         $this->load->model('Invoice_comp_report_model');
         $this->load->model('Cfo_model');
         $this->load->model('Customer_model');
-        
     }
 
     function index() {
@@ -502,9 +501,18 @@ class Invoice_comp_report extends CI_Controller {
             $table = ceil($show);
             $min_value = 1;
 
+            $invoice_value1 = array();
+            $taxable_value1 = array();
+            $tax1 = array();
+            $query3 = $this->db->query("select * from gstr_2a_reconciliation_all where status='not_in_2a' and customer_id='$customer_id'and insert_id='$insert_id'");
+
+            foreach ($query3->result() as $row1) {
+                $invoice_value1[] = $row1->invoice_value;
+                $taxable_value1[] = $row1->taxable_value;
+                $tax1[] = $row1->tax;
+            }
 
             for ($i = 0, $k = 1; $i < $table; $i++) {
-
                 if ($i == 0) {
                     $mrgin = "margin-top:5%;";
                     $pg_brk = "page-break-after:always;";
@@ -516,11 +524,11 @@ class Invoice_comp_report extends CI_Controller {
                     }
                 } elseif ($i == ($table - 1)) {
                     $pg_brk = "page-break-after:avoid;";
-                    $mrgin = "margin-top:15%;";
+                    $mrgin = "margin-top:18%;";
                     $mrgin1 = "margin-bottom:4%;";
                 } else {
                     $pg_brk = "page-break-after:always;";
-                    $mrgin = "margin-top:15%;";
+                    $mrgin = "margin-top:18%;";
                     $mrgin1 = "margin-bottom:10%;";
                 }
                 $data .= '<table id="not_in2a_data" class=" table-bordered table-striped" width="700" style="' . $mrgin . $mrgin1 . ';' . $pg_brk . '">
@@ -561,6 +569,18 @@ class Invoice_comp_report extends CI_Controller {
                             '</tr>';
                     $k++;
                 }
+                if ($i == ($table - 1)) {
+                    $data .= '<tr>' .
+                            '<td>' . "<b>Total</b>" . '</td>' .
+                            '<td>' . "" . '</td>' .
+                            '<td>' . "" . '</td>' .
+                            '<td>' . "" . '</td>' .
+                            '<td>' . "" . '</td>' .
+                            '<td><b>' . array_sum($invoice_value1) . '</b></td>' .
+                            '<td><b>' . array_sum($taxable_value1) . '</b></td>' .
+                            '<td><b>' . array_sum($tax1) . '</b></td>' .
+                            '</tr>';
+                }
                 $data .= '</tbody></table>';
                 $min_value = $min_value + 15;
                 $response['data'] = $data;
@@ -571,7 +591,7 @@ class Invoice_comp_report extends CI_Controller {
             $data1 = "<h4><b>Observation:</b></h4>";
             $data1 .= "<span>Follow up from the above clients' needs to be done as the business is facing the risk of loss "
                     . "of input tax credit of Rs. " . array_sum($tax) . ". The situation of non-reconciliation may lead to interest liability or GST notices. </span>";
-            $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
             $response['data1'] = $data1;
         } else {
             $response['message'] = "";
@@ -743,14 +763,23 @@ class Invoice_comp_report extends CI_Controller {
         $query = $this->Invoice_comp_report_model->get_notinrec_records_all($customer_id, $insert_id);
         $data = "";
         $data1 = "";
-//        $i = 1;
-
         if ($query != FALSE) {
             $records = count($query);
             $show = $records / 15;
             $table = ceil($show);
             $min_value = 1;
-            $data .= '<h4 style="color:#0e385e;margin-top:15%;"><b>2.Not in records,but recorded under GSTR-2A:</b></h4>';
+            $invoice_value1 = array();
+            $taxable_value1 = array();
+            $tax1 = array();
+
+            $query3 = $this->db->query("select * from gstr_2a_reconciliation_all where status='not_in_rec' and customer_id='$customer_id'and insert_id='$insert_id'");
+
+            foreach ($query3->result() as $row1) {
+                $invoice_value1[] = $row1->invoice_value;
+                $taxable_value1[] = $row1->taxable_value;
+                $tax1[] = $row1->tax;
+            }
+            $data .= '<h4 id="not_inrec_head" style="color:#0e385e;margin-top:15%;"><b>2.Not in records,but recorded under GSTR-2A:</b></h4>';
             for ($i = 0, $k = 1; $i < $table; $i++) {
                 $invoice_value = array();
                 $taxable_value = array();
@@ -767,11 +796,11 @@ class Invoice_comp_report extends CI_Controller {
                         $mrgin1 = "margin-bottom:30%;";
                     }
                 } elseif ($i == ($table - 1)) {
-                    $mrgin = "margin-top:15%;";
+                    $mrgin = "margin-top:20%;";
                     $mrgin1 = "margin-bottom:5%;";
                     $pg_brk = "page-break-after:Avoid;";
                 } else {
-                    $mrgin = "margin-top:15%;";
+                    $mrgin = "margin-top:18%;";
                     $mrgin1 = "margin-bottom:30%;";
                     $pg_brk = "page-break-after:always;";
                 }
@@ -808,6 +837,18 @@ class Invoice_comp_report extends CI_Controller {
                             '</tr>';
                     $k++;
                 }
+                if ($i == ($table - 1)) {
+                    $data .= '<tr>' .
+                            '<td>' . "<b>Total</b>" . '</td>' .
+                            '<td>' . "" . '</td>' .
+                            '<td>' . "" . '</td>' .
+                            '<td>' . "" . '</td>' .
+                            '<td>' . "" . '</td>' .
+                            '<td><b>' . array_sum($invoice_value1) . '</b></td>' .
+                            '<td><b>' . array_sum($taxable_value1) . '</b></td>' .
+                            '<td><b>' . array_sum($tax1) . '</b></td>' .
+                            '</tr>';
+                }
                 $data .= '</table>';
                 $response['data'] = $data;
 //                $response['data1'] = $data1;
@@ -819,6 +860,72 @@ class Invoice_comp_report extends CI_Controller {
                 $min_value = $min_value + 15;
 //                $max_value = ($max_value ) + 15;
             }
+            $data1 = "<h4><b>Observation:</b></h4>"
+                    . "<span>Accounting system & Invoice processing for GST Claim and reconciliation need to be reviewed.
+                        There is a risk of losing the credit if prompt action has not been taken.</span>";
+            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
+            $response['data1'] = $data1;
+        } else {
+            $response['message'] = "";
+            $response['status'] = FALSE;
+            $response['code'] = 204;
+        }echo json_encode($response);
+    }
+
+    public function get_not_inrec_records_all1() { //get not in records data of perticular company wise
+        $company_name = $this->input->post("company_name");
+        $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
+        $query = $this->Invoice_comp_report_model->get_notinrec_records_all($customer_id, $insert_id);
+        $data = "";
+        $data1 = "";
+//        $i = 1;
+
+        if ($query != FALSE) {
+//            $result = $query->result();
+            $invoice_value = array();
+            $taxable_value = array();
+            $tax = array();
+//            $TotalNoOfRecords = count($data);
+            //query logics
+
+            $data .= '
+                         <table id="not_record_data" class="table table-bordered table-striped"  >
+                                <thead style="background-color: #0e385e;color:white">
+                                    <tr>
+                                        <th>Company Name</th>
+                                        <th>Period</th>
+                                        <th>Invoice No</th>
+                                        <th>Place Of Supply</th>
+                                        <th>Invoice Date</th>
+                                        <th>Invoice Value</th>
+                                        <th>Taxable Value</th>
+                                        <th>Tax</th>
+                                    </tr>
+                                </thead>
+                                <tbody>';
+
+            foreach ($query as $row) {
+//                    $invoice_value[] = $row->invoice_value;
+//                    $taxable_value[] = $row->taxable_value;
+//                    $tax[] = $row->tax;
+                $data .= '<tr>' .
+                        '<td>' . $row->company_name . '</td>' .
+                        '<td>' . $row->period . '</td>' .
+                        '<td>' . $row->invoice_no . '</td>' .
+                        '<td>' . $row->place_of_supply . '</td>' .
+                        '<td>' . $row->invoice_date . '</td>' .
+                        '<td>' . $row->invoice_value . '</td>' .
+                        '<td>' . $row->taxable_value . '</td>' .
+                        '<td>' . $row->tax . '</td>' .
+                        '</tr>';
+            }
+            $data .= '</table>';
+            $response['data'] = $data;
+//                $response['data1'] = $data1;
+            $response['message'] = "success";
+            $response['status'] = true;
+            $response['code'] = 200;
             $data1 = "<h4><b>Observation:</b></h4>"
                     . "<span>Accounting system & Invoice processing for GST Claim and reconciliation need to be reviewed.
                         There is a risk of losing the credit if prompt action has not been taken.</span>";
@@ -1018,7 +1125,14 @@ class Invoice_comp_report extends CI_Controller {
         $data = "";
         $data1 = "";
         if ($query != FALSE) {
-            $data .= '<h4 style="color:#0e385e;margin-top:6%;"><b>3.Invoice no.,POS and Period mismatch:</b></h4>';
+
+            $query3 = $this->db->query("select * from gstr_2a_reconciliation_partially_match_summary where customer_id='$customer_id' and insert_id='$insert_id'");
+
+            foreach ($query3->result() as $row1) {
+                $taxable_value1[] = $row1->taxable_value;
+                $tax1[] = $row1->tax;
+            }
+            $data .= '<h4 id="pos_period" style="color:#0e385e;margin-top:15%;"><b>3.Invoice no.,POS and Period mismatch:</b></h4>';
             $records = count($query);
             $show = $records / 15;
             $table = ceil($show);
@@ -1034,11 +1148,11 @@ class Invoice_comp_report extends CI_Controller {
                         $mrgin1 = "margin-bottom:20%;";
                     }
                 } elseif ($i == ($table - 1)) {
-                    $mrgin = "margin-top:15%;";
+                    $mrgin = "margin-top:20%;";
                     $mrgin1 = "margin-bottom:5%;";
                     $pg_brk = "page-break-after:avoid;";
                 } else {
-                    $mrgin = "margin-top:15%;";
+                    $mrgin = "margin-top:18%;";
                     $mrgin1 = "margin-bottom:20%;";
                     $pg_brk = "page-break-after:always;";
                 }
@@ -1094,6 +1208,19 @@ class Invoice_comp_report extends CI_Controller {
                             '</tr>';
                     $k++;
                 }
+                if ($i == ($table - 1)) {
+                    $data .= '<tr>' .
+                            '<td>' . "<b>Total</b>" . '</td>' .
+                            '<td>' . "" . '</td>' .
+                            '<td>' . "" . '</td>' .
+                            '<td>' . "" . '</td>' .
+                            '<td>' . "" . '</td>' .
+                            '<td>' . "" . '</td>' .
+                            '<td>' . "" . '</td>' .
+                            '<td><b>' . array_sum($taxable_value1) . '</b></td>' .
+                            '<td><b>' . array_sum($tax1) . '</b></td>' .
+                            '</tr>';
+                }
                 $data .= '</tbody></table>';
 //            $data .= '<tr>' .
 //                    '<td>' . "<b>Total</b>" . '</td>' .
@@ -1119,7 +1246,7 @@ class Invoice_comp_report extends CI_Controller {
             $data1 .= "<h4><b>Observation:</b></h4>"
                     . "<span>Cross check the mismatched invoice no., POS and Period with the client in order to prevent any confusion or else it will effect on your ITC."
                     . " Data master review needs to be done and root-cause analysis will help to minimize this errors.</span>";
-            $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
             $response['data1'] = $data1;
         } else {
             $response['message'] = "";
@@ -1145,7 +1272,7 @@ class Invoice_comp_report extends CI_Controller {
                 <div class="row">
                     <div class="col-md-12">
                         <div class="">
-                         <table id="example3" class="table table-bordered table-striped">
+                         <table id="example_partial" class="table table-bordered table-striped">
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
                                         <th>No.</th>
@@ -1490,7 +1617,7 @@ class Invoice_comp_report extends CI_Controller {
             }
 
             $data .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
-            $data .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+            $data .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
 
             $response['data'] = $data;
             $response['data1'] = $data1;
@@ -1824,7 +1951,7 @@ class Invoice_comp_report extends CI_Controller {
                     }
                 } elseif ($i == ($table - 1)) {
                     $pg_brk = "page-break-after:avoid;";
-                    $mrgin = "margin-top:15%;";
+                    $mrgin = "margin-top:20%;";
                     $mrgin1 = "margin-bottom:4%;";
                 } else {
                     $pg_brk = "page-break-after:always;";
@@ -1884,7 +2011,7 @@ class Invoice_comp_report extends CI_Controller {
             }
 
             $data1 = "<h4><b>Observation :</b></h4><span>" . $observation . "</span>";
-            $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
             $response['data1'] = $data1;
         } else {
             $response['message'] = "";
