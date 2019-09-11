@@ -42,8 +42,6 @@ class Customer_admin extends CI_Controller {
         $this->load->view('admin/Customer_details', $data);
     }
 
-    
-    
     public function page_diversion() {
         $customer_id = $this->input->post('customer_id');
         $insert_id = $this->input->post('insert_id');
@@ -318,7 +316,7 @@ class Customer_admin extends CI_Controller {
             $data = $result->row();
             $customer_id = $data->customer_id;
 //generate user_id
-            $customer_id = str_pad( ++$customer_id, 5, '0', STR_PAD_LEFT);
+            $customer_id = str_pad(++$customer_id, 5, '0', STR_PAD_LEFT);
             return $customer_id;
         } else {
             $customer_id = 'Cust_1001';
@@ -538,7 +536,7 @@ class Customer_admin extends CI_Controller {
             $data = $result->row();
             $report_id = $data->report_id;
             //generate turn_id
-            $report_id = str_pad(++$report_id, 5, '0', STR_PAD_LEFT);
+            $report_id = str_pad( ++$report_id, 5, '0', STR_PAD_LEFT);
             return $report_id;
         } else {
             $report_id = 'report_1001';
@@ -772,6 +770,61 @@ class Customer_admin extends CI_Controller {
             }
         }echo json_encode($response);
     }
+
+    public function get_ddl_firm_name() {
+        $this->db2 = $this->load->database('db2', TRUE);
+        $session_data = $this->session->userdata('login_session');
+        if (is_array($session_data)) {
+            $data['session_data'] = $session_data;
+            $username = ($session_data['customer_email_id']);
+        } else {
+            $username = $this->session->userdata('login_session');
+        }
+        $response = array('code' => -1, 'status' => false, 'message' => '');
+        $query_get_firm = $this->db->query("select firm_id from customer_header_all where customer_email_id='$username'");
+        $result_get_firm = $query_get_firm->row();
+        $hq_firm_id = $result_get_firm->firm_id;
+
+        $query_get_boss_id = $this->db2->query("select boss_id from partner_header_all where firm_id='$hq_firm_id'");
+        $result_boss_id = $query_get_boss_id->row();
+        $hq_boss_id = $result_boss_id->boss_id;
+
+        $query_get_hq_firms = $this->db2->query("SELECT firm_name,firm_id from partner_header_all where reporting_to='$hq_boss_id' && firm_type='associate'");
+        $data = array('firm_name' => array(), 'firm_id' => array());
+        if ($query_get_hq_firms->num_rows() > 0) {
+//            $result_firms = $query_get_firm->result();
+//            var_dump($query_get_hq_firms->result());
+
+            foreach ($query_get_hq_firms->result() as $row) {
+                $data['firm_name'] = $row->firm_name;
+                $data['firm_id'] = $row->firm_id;
+                $response['firm_data'][] = ['firm_name' => $row->firm_name, 'firm_id' => $row->firm_id];
+            }
+            $response['message'] = 'success';
+            $response['code'] = 200;
+            $response['status'] = true;
+        } else {
+            $response['message'] = 'No data to display';
+            $response['code'] = 204;
+            $response['status'] = false;
+        }
+
+
+        echo json_encode($response);
+    }
+    
+     public function hq_view_task($firm_id = '') {
+    $this->db2 = $this->load->database('db2', TRUE);
+        $result_firm_name_dd = $this->db2->query("SELECT `firm_name`,`firm_id` FROM `partner_header_all` WHERE `firm_id`='$firm_id'");
+        if ($result_firm_name_dd->num_rows() > 0) {
+            $firm_result_dd = $result_firm_name_dd->row();
+            $firm_name_dd = $firm_result_dd->firm_name;
+            $firm_id_dd = $firm_result_dd->firm_id;
+        } else {
+            $firm_name_dd = "";
+            $firm_id_dd = "";
+        }
+     }
 
 }
 

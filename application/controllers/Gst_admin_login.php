@@ -36,10 +36,12 @@ class Gst_admin_login extends CI_Controller {
                     $customer_id = $result['customer_id'];
                     $customer_email_id = $result['customer_email_id'];
                     $activity_status = $result['activity_status'];
+                    $firm_id = $result['firm_id'];
                     $session_data = array(
                         'customer_id' => $customer_id,
                         'customer_email_id' => $customer_email_id,
                         'user_type' => $user_type,
+                        'firm_id' => $firm_id,
                     );
                 } else {
                     $customer_id = $result['customer_id'];
@@ -47,6 +49,7 @@ class Gst_admin_login extends CI_Controller {
                     $session_data = array(
                         'customer_id' => $customer_id,
                         'user_type' => $user_type,
+                        'firm_id' => $firm_id,
                     );
                 }
                 if ($user_type == '1') {  //superadmin
@@ -56,14 +59,16 @@ class Gst_admin_login extends CI_Controller {
 //                    $this->session->set_userdata('login_session', $session_data);
 //                    redirect(base_url() . 'Cust_dashboard');
                 }
-                if ($user_type == '3') {
+                if ($user_type == '3') { //Hq admin
                     $customer_id = $result['customer_id'];
                     $customer_email_id = $result['customer_email_id'];
                     $activity_status = $result['activity_status'];
+                    $firm_id = $result['firm_id'];
                     $session_data = array(
                         'customer_id' => $customer_id,
                         'customer_email_id' => $customer_email_id,
                         'user_type' => $user_type,
+                        'firm_id' => $firm_id,
                     );
                 } else {
                     $customer_id = $result['customer_id'];
@@ -71,6 +76,7 @@ class Gst_admin_login extends CI_Controller {
                     $session_data = array(
                         'customer_id' => $customer_id,
                         'user_type' => $user_type,
+                        'firm_id' => $firm_id,
                     );
                 }
                 if ($user_type == '3') {  //hq admin

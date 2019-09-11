@@ -46,19 +46,22 @@ if (is_array($session_data)) {
                         <i class="fa fa-minus"></i></button>
                     <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
                         <i class="fa fa-times"></i></button>
+                </div><br>
+                <div class="col-md-4" style="margin-top: 1.5%">
+                    <!--                        <label>Branch Name
+                                            </label>-->
+
+                    <select class="form-control m-select2 m-select2-general" id="ddl_firm_name_fetch" name="ddl_firm_name_fetch" onchange="get_sorted_data()">
+                        <option value="">Select Office</option>
+                        <!--<option value="1">All</option>-->
+                    </select>
+                    <span class="required" id="ddl_firm_name_fetch_error"></span>
                 </div>
             </div><br>
-            <!--            <div class="actions" style="float: right;">
-                            <div class="btn-group">
-                                <a href="add_customer"><button id="" class="btn btn-primary"> 
-                                        <i class="fa fa-plus"></i>
-                                        Add New Customer
-                                    </button>
-                                </a>
-                            </div>
-                        </div><br><br>-->
-            <div class="box-body">
 
+            
+            <div class="box-body">
+                
 
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
@@ -257,6 +260,29 @@ if (is_array($session_data)) {
     }
 
 
+    //AJAX for get firm name
+    $.ajax({
+        url: "<?= base_url("Customer_admin/get_ddl_firm_name") ?>",
+        dataType: "json",
+        success: function (result) {
+            if (result['message'] === 'success') {
+                var data = result.firm_data;
+                var ele3 = document.getElementById('ddl_firm_name_fetch');
+                for (i = 0; i < data.length; i++)
+                {
+                    // POPULATE SELECT ELEMENT WITH JSON.
+                    ele3.innerHTML = ele3.innerHTML + '<option value="' + data[i]['firm_id'] + '">' + data[i]['firm_name'] + '</option>';
+                }
+            }
+        }
+    });
+
+    function get_sorted_data() {
+
+        var firm_id_fetch = document.getElementById('ddl_firm_name_fetch').value;
+        window.location.href = "<?= base_url("/Customer_admin/hq_view_task/") ?>" + firm_id_fetch;
+
+    }
 
     function testing1() {
         alert("hujhj");
@@ -292,7 +318,7 @@ if (is_array($session_data)) {
         alert(insert_id);
 //        var akshay=$('#insert_id').val();
 //        alert(akshay);
-        console.log(akshay);
+//        console.log(akshay);
         console.log(insert_id);
 //      
         $.ajax({
