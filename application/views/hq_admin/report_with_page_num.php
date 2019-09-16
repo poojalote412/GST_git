@@ -181,10 +181,10 @@ if (is_array($session_data)) {
                         <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif;margin-right: 12px"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br><br><br>
                     </header>
 
-                    <footer style="display:none;margin-top:-30px;">
-                        <div class="col-md-12">
+                     <footer style="display:none;margin-top:-30px;">
+                        <div>
                             <p style="text-align: left;margin-left: 45px;">Strictly Private and Confidential</p>
-                            <p  style="text-align: right; margin-right:  45px;">Page <pagenum/> of <totpages/></p>
+                            <p style="text-align: right; margin-right:  45px;">Page <pagenum/> of <totpages/></p>
                         </div>
                     </footer>
 
@@ -444,7 +444,7 @@ if (is_array($session_data)) {
 
 
         </div>
-        <div id="yourID" style="display: none;"></div>
+        <!--<div id="yourID" style="display: none;"></div>-->
 
     </section>
 

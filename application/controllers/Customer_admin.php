@@ -814,16 +814,67 @@ class Customer_admin extends CI_Controller {
     }
     
      public function hq_view_task($firm_id = '') {
-    $this->db2 = $this->load->database('db2', TRUE);
-        $result_firm_name_dd = $this->db2->query("SELECT `firm_name`,`firm_id` FROM `partner_header_all` WHERE `firm_id`='$firm_id'");
-        if ($result_firm_name_dd->num_rows() > 0) {
-            $firm_result_dd = $result_firm_name_dd->row();
-            $firm_name_dd = $firm_result_dd->firm_name;
-            $firm_id_dd = $firm_result_dd->firm_id;
+         
+//         $firm_id= $this->input->post("firm_id");
+//         $result_firm_name_dd = $this->db->query("SELECT customer_name,customer_email_id,customer_contact_number,created_on FROM customer_header_all WHERE `firm_id`='$firm_id'");
+//         if ($result_firm_name_dd->num_rows() > 0) {
+//             $firm_result_dd = $result_firm_name_dd->row();
+//            $customer_name = $firm_result_dd->customer_name;
+//            $customer_email_id = $firm_result_dd->customer_email_id;
+//            $customer_contact_number = $firm_result_dd->customer_contact_number;
+//            $created_on = $firm_result_dd->created_on;
+//            $data = '';
+//            $data .= '<table id="example2" class="table-bordered table-striped" width="700">
+//                                <thead style="background-color: #cd273f;color:white">
+//                                    <tr>
+//                                       <td>'.$customer_name.'</td>
+//                                       <td>'.$customer_email_id.'</td>
+//                                       <td>'.$customer_contact_number.'</td>
+//                                       <td>'.$created_on.'</td>
+//                                       <td>Read More</td>
+//                                    </tr>
+//                                </thead>
+//                                <tbody>';
+//                    
+//                 $response['message'] = 'success';
+//            $response['code'] = 200;
+//            $response['data_tbl'] = $data;
+//            $response['status'] = true;
+//        } else {
+//            $response['message'] = 'No data to display';
+//            $response['code'] = 204;
+//            $response['status'] = false;
+//        }   echo json_encode($response);
+//               
+//         
+         
+        $session_data = $this->session->userdata('login_session');
+        if (is_array($session_data)) {
+            $data['session_data'] = $session_data;
+            $email = ($session_data['customer_email_id']);
         } else {
-            $firm_name_dd = "";
-            $firm_id_dd = "";
+            $username = $this->session->userdata('login_session');
         }
+
+//        $get_firm_id = $this->Customer_model->get_firm_id($email);
+//        if ($get_firm_id != FALSE) {
+//            $firm_id = $get_firm_id;
+//        } else {
+//            $firm_id = "";
+//        }
+        $query = $this->db->query("SELECT customer_header_all.customer_id,customer_header_all.created_on,customer_header_all.customer_contact_number,"
+                . "customer_header_all.customer_name,customer_header_all.customer_email_id,insert_header_all.insert_id,insert_header_all.year_id"
+                . " FROM customer_header_all INNER JOIN insert_header_all ON customer_header_all.customer_id=insert_header_all.customer_id"
+                . " where customer_header_all.firm_id='$firm_id'");
+//        echo $this->db->last_query();
+        if ($query->num_rows() > 0) {
+            $record = $query->result();
+            $data['result'] = $record;
+        } else {
+            $data['result'] = "";
+        }
+        $this->load->view('hq_admin/Customer_details_hq', $data);
+      
      }
 
 }

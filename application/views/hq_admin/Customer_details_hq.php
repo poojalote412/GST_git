@@ -51,7 +51,7 @@ if (is_array($session_data)) {
                     <!--                        <label>Branch Name
                                             </label>-->
 
-                    <select class="form-control m-select2 m-select2-general" id="ddl_firm_name_fetch" name="ddl_firm_name_fetch" onchange="get_sorted_data()">
+                    <select class="form-control m-select2 m-select2-general" id="ddl_firm_name_fetch" name="ddl_firm_name_fetch" onchange="get_sorted_data(this.value)">
                         <option value="">Select Office</option>
                         <!--<option value="1">All</option>-->
                     </select>
@@ -277,15 +277,31 @@ if (is_array($session_data)) {
         }
     });
 
-    function get_sorted_data() {
-
+    function get_sorted_data(firm_id) {
+//        alert(firm_id);
+//        $.ajax({
+//         type: "post",
+//        url: "<?= base_url("Customer_admin/hq_view_task") ?>",
+//        dataType: "json",
+//        data: {firm_id: firm_id},
+//        success: function (result) {
+//            if (result['message'] === 'success') {
+////                document.getElementById("example1").ele();
+//                console.log(data);
+//                 var data= result.data_tbl;
+//                $("#example1").html(data);
+//                alert(data);
+//                
+//            }
+//        }
+//    });
         var firm_id_fetch = document.getElementById('ddl_firm_name_fetch').value;
-        window.location.href = "<?= base_url("/Customer_admin/hq_view_task/") ?>" + firm_id_fetch;
+        window.location.href = "<?= base_url("Customer_admin/hq_view_task/") ?>" + firm_id_fetch;
 
     }
 
     function testing1() {
-        alert("hujhj");
+//        alert("hujhj");
         var insert_id = document.getElementById('insert_id').value;
         $.ajax({
             type: "post",

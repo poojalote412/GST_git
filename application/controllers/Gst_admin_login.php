@@ -84,7 +84,7 @@ class Gst_admin_login extends CI_Controller {
                     redirect(base_url() . 'Customer_details_hq');
                 } else {
                     $this->session->set_userdata('login_session', $session_data);
-                    redirect(base_url() . 'Hq_dashboard');
+                    redirect(base_url() . 'Cust_dashboard');
                 }
                 
                 
