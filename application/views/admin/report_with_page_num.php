@@ -182,7 +182,7 @@ if (is_array($session_data)) {
                     </header>
 
                     <footer style="display:none;margin-top:-30px;">
-                        <div class="col-md-12">
+                        <div>
                             <p style="text-align: left;margin-left: 45px;">Strictly Private and Confidential</p>
                             <p  style="text-align: right; margin-right:  45px;">Page <pagenum/> of <totpages/></p>
                         </div>
