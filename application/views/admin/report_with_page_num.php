@@ -147,9 +147,9 @@ if (is_array($session_data)) {
                                 </div>
                                 <span class="required" style="color: red" id="customer_name_error"></span>
                             </div>
-                           
+                           <input type="button" class="btn btn-primary" value="Convert PDF Into word" style="float:right;margin-top: 1.8% !important;margin-right: 5%;" onclick="window.open('https://smallpdf.com/pdf-to-word')" />
                         </div>
-                         <input type="button" class="btn btn-primary" value="Convert PDF Into word" style="float:right;margin-top: 2.5% !important;margin-right: 5%;" onclick="window.open('https://smallpdf.com/pdf-to-word')" />
+                         
                             
                     </div>
                     <input type="hidden" id="first_div_value" name="first_div_value" value="0">
