@@ -10,6 +10,22 @@ class Report extends CI_Controller {
         $this->load->helper('url');
     }
 
+    public function insert_page_location(){
+        //create array to load to database
+              $image_data = $this->upload->data();
+                $insert_data = array(
+                    'name' => $image_data['file_name'],
+                    'path' => $image_data['full_path'],
+                    'thumb_path'=> $image_data['file_path'] . 'thumbs/'. $image_data['file_name'],
+                    'tag' => $tag
+                     );
+
+          $this->db->insert('photos', $insert_data);//load array to database
+    }
+    
+    
+    
+    
     public function insert_page_number($customer_id = '', $insert_id = '') {
 
         $customer_id1 = base64_decode($customer_id);

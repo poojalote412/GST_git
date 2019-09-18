@@ -495,6 +495,26 @@ class Threeb_vs_twoa extends CI_Controller {
             return $comp_id;
         }
     }
+    
+     public function hq_view_customer($firm_id = '') {
+
+       $session_data = $this->session->userdata('login_session');
+        $email = ($session_data['customer_email_id']);
+//        $get_firm_id = $this->Customer_model->get_firm_id($email);
+//        if ($get_firm_id != FALSE) {
+//            $firm_id = $get_firm_id;
+//        } else {
+//            $firm_id = "";
+//        }
+        $query_get_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
+        if ($query_get_data !== FALSE) {
+            $data['gstr1_vs_3b_data'] = $query_get_data;
+        } else {
+            $data['gstr1_vs_3b_data'] = "";
+        }
+        $this->load->view('hq_admin/Threeb_vs_one', $data);
+      
+     }
 
 }
 

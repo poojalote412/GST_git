@@ -47,6 +47,14 @@ if (is_array($session_data)) {
                     <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
                         <i class="fa fa-times"></i></button>
                 </div>
+                <div class="col-md-4" style="margin-top: 1.5%">
+                    <select class="form-control m-select2 m-select2-general" id="ddl_firm_name_fetch" name="ddl_firm_name_fetch" onchange="get_sorted_data(this.value)">
+                        <option value="">Select Office</option>
+                        <!--<option value="1">All</option>-->
+                    </select>
+                    <span class="required" id="ddl_firm_name_fetch_error"></span>
+                </div>
+                
             </div>
             <div class="box-body">
 
@@ -160,6 +168,32 @@ if (is_array($session_data)) {
     });
 </script>
 <script>
+    
+    //AJAX for get firm name
+    $.ajax({
+        url: "<?= base_url("Customer_admin/get_ddl_firm_name") ?>",
+        dataType: "json",
+        success: function (result) {
+            if (result['message'] === 'success') {
+                var data = result.firm_data;
+                var ele3 = document.getElementById('ddl_firm_name_fetch');
+                for (i = 0; i < data.length; i++)
+                {
+                    // POPULATE SELECT ELEMENT WITH JSON.
+                    ele3.innerHTML = ele3.innerHTML + '<option value="' + data[i]['firm_id'] + '">' + data[i]['firm_name'] + '</option>';
+                }
+            }
+        }
+    });
+    
+    //get data of customer firm wise
+    
+     function get_sorted_data() {
+        var firm_id_fetch = document.getElementById('ddl_firm_name_fetch').value;
+        window.location.href = "<?= base_url("Threeb_vs_one/hq_view_customer/") ?>" + firm_id_fetch;
+
+    }
+    
     //view observation modal
     $('#view_value_modal').on('show.bs.modal', function (e) {
         var customerid = $(e.relatedTarget).data('customer_id');

@@ -48,9 +48,6 @@ if (is_array($session_data)) {
                         <i class="fa fa-times"></i></button>
                 </div><br>
                 <div class="col-md-4" style="margin-top: 1.5%">
-                    <!--                        <label>Branch Name
-                                            </label>-->
-
                     <select class="form-control m-select2 m-select2-general" id="ddl_firm_name_fetch" name="ddl_firm_name_fetch" onchange="get_sorted_data(this.value)">
                         <option value="">Select Office</option>
                         <!--<option value="1">All</option>-->
@@ -281,7 +278,7 @@ if (is_array($session_data)) {
 //        alert(firm_id);
 //        $.ajax({
 //         type: "post",
-//        url: "<?= base_url("Customer_admin/hq_view_task") ?>",
+//        url: "<?= base_url("Customer_admin/hq_view_customer") ?>",
 //        dataType: "json",
 //        data: {firm_id: firm_id},
 //        success: function (result) {
@@ -296,7 +293,7 @@ if (is_array($session_data)) {
 //        }
 //    });
         var firm_id_fetch = document.getElementById('ddl_firm_name_fetch').value;
-        window.location.href = "<?= base_url("Customer_admin/hq_view_task/") ?>" + firm_id_fetch;
+        window.location.href = "<?= base_url("Customer_admin/hq_view_customer/") ?>" + firm_id_fetch;
 
     }
 

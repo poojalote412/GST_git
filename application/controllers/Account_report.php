@@ -276,6 +276,20 @@ class Account_report extends CI_Controller {
         }
     }
 
+    
+     public function hq_view_customer($firm_id = '') {
+
+       $session_data = $this->session->userdata('login_session');
+        $email = ($session_data['customer_email_id']);
+        $query_get_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
+        if ($query_get_data !== FALSE) {
+            $data['account_data'] = $query_get_data;
+        } else {
+            $data['account_data'] = "";
+        }
+        $this->load->view('hq_admin/Account', $data);
+      
+     }
 }
 
 ?>

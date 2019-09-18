@@ -2653,6 +2653,79 @@ class Management_report extends CI_Controller {
         }echo json_encode($response);
     }
 
+    //function for display customers firm wise for b2b and b2c
+    function hq_view_customer($firm_id = '') {
+//        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
+        $session_data = $this->session->userdata('login_session');
+        $email = ($session_data['customer_email_id']);
+//        $get_firm_id = $this->Customer_model->get_firm_id($email);
+//        if ($get_firm_id != FALSE) {
+//            $firm_id = $get_firm_id;
+//        } else {
+//            $firm_id = "";
+//        }
+        $query_get_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
+        if ($query_get_data !== FALSE) {
+            $data['b2b_data'] = $query_get_data;
+        } else {
+            $data['b2b_data'] = "";
+        }
+        $this->load->view('hq_admin/B2b_b2c', $data);
+    }
+    
+    //function for display customers firm wise for state wise
+    function hq_view_customers($firm_id = '') {
+//        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
+        $session_data = $this->session->userdata('login_session');
+        $email = ($session_data['customer_email_id']);
+//        $get_firm_id = $this->Customer_model->get_firm_id($email);
+//        if ($get_firm_id != FALSE) {
+//            $firm_id = $get_firm_id;
+//        } else {
+//            $firm_id = "";
+//        }
+        $query_get_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
+        if ($query_get_data !== FALSE) {
+            $data['loc_data'] = $query_get_data;
+        } else {
+            $data['loc_data'] = "";
+        }
+        $this->load->view('hq_admin/Sale_state_wise', $data);
+    }
+    
+    //function for display customers firm wise for sales tax and non tax
+     public function hq_view_customers_tax($firm_id='') {
+//        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
+        $session_data = $this->session->userdata('login_session');
+        $email = ($session_data['customer_email_id']);
+//        $get_firm_id = $this->Customer_model->get_firm_id($email);
+//        if ($get_firm_id != FALSE) {
+//            $firm_id = $get_firm_id;
+//        } else {
+//            $firm_id = "";
+//        }
+        $query_get_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
+        if ($query_get_data !== FALSE) {
+            $data['tax_exempt_data'] = $query_get_data;
+        } else {
+            $data['tax_exempt_data'] = "";
+        }
+        $this->load->view('hq_admin/Sale_tax_nontax_exempt', $data);
+    }
+    
+    //function for display customers firm wise for month wise
+    function hq_view_customerss($firm_id='') { //function to load data
+//        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
+        $session_data = $this->session->userdata('login_session');
+        $email = ($session_data['customer_email_id']);
+        $query_get_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
+        if ($query_get_data !== FALSE) {
+            $data['month_wise_data'] = $query_get_data;
+        } else {
+            $data['month_wise_data'] = "";
+        }
+        $this->load->view('hq_admin/Sales_month_wise', $data);
+    }
 }
 
 ?>

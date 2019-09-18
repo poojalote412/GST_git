@@ -813,7 +813,7 @@ class Customer_admin extends CI_Controller {
         echo json_encode($response);
     }
     
-     public function hq_view_task($firm_id = '') {
+     public function hq_view_customer($firm_id = '') {
          
 //         $firm_id= $this->input->post("firm_id");
 //         $result_firm_name_dd = $this->db->query("SELECT customer_name,customer_email_id,customer_contact_number,created_on FROM customer_header_all WHERE `firm_id`='$firm_id'");

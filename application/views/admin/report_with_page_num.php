@@ -147,10 +147,11 @@ if (is_array($session_data)) {
                                 </div>
                                 <span class="required" style="color: red" id="customer_name_error"></span>
                             </div>
-                           <input type="button" class="btn btn-primary" value="Convert PDF Into word" style="float:right;margin-top: 1.8% !important;margin-right: 5%;" onclick="window.open('https://smallpdf.com/pdf-to-word')" />
+                            <input type="button" class="btn btn-primary" id="file_location_database"  data-target="#exampleModal-4" data-toggle="modal" value="Save file location" style="float:right;margin-top: 1.8% !important;margin-right: 20%;" onclick="" />
+                            <input type="button" class="btn btn-primary" value="Convert PDF Into word" style="float:right;margin-top: -2.5% !important;margin-right: 5%;" onclick="window.open('https://smallpdf.com/pdf-to-word')" />
                         </div>
-                         
-                            
+
+
                     </div>
                     <input type="hidden" id="first_div_value" name="first_div_value" value="0">
                     <input type="hidden" id="second_div_value" name="second_div_value" value="0">
@@ -158,7 +159,7 @@ if (is_array($session_data)) {
                     <input type="hidden" id="fourth_div_value" name="fourth_div_value" value="0">
                     <!--<input type="text" id="fifth_div_value" name="fifth_div_value" value="0">-->
                     <!--<div class="btn btn-success"><a href="https://smallpdf.com/pdf-to-word">Convert Downloaded PDF Into word</a></div>-->
-                    
+
                 </form> 
                 <div id="buttons"></div>
                 <hr/>
@@ -446,6 +447,33 @@ if (is_array($session_data)) {
         </div>
         <div id="yourID" style="display: none;"></div>
 
+        <div class="modal fade" id="exampleModal-4" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalLabel"><b>Upload downloaded file to save the location:</b></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="forms-sample" id="location_form" method="post" name="location_form" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label>File upload</label>
+                                <div class="input-group col-xs-6">
+                                    <input type="file" class="form-control file-upload" name="file_loc" id="file_loc" required accept=".xls, .xlsx"  placeholder="Upload File1">
+                                </div><br>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" name="file_location" id="file_location" class="btn btn-success">Submit</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </section>
 
 
@@ -457,6 +485,49 @@ if (is_array($session_data)) {
     $(document).ready(function () {
 
         //For DETAILS OF GST REPORTS AND INSIGHTS DIVS
+
+        $("#file_location").click(function () {
+//              alert(insert_page_location);
+            var formid = document.getElementById("location_form");
+
+            $.ajax({
+                type: "post",
+                url: "<?= base_url("Report/insert_page_location") ?>",
+                dataType: "json",
+                data: new FormData(formid), //form data
+                processData: false,
+                contentType: false,
+                cache: false,
+                async: false,
+//            data: $("#Add_UniversityStudent").serialize(),
+                success: function (result) {
+                    // alert(result.error);
+                    if (result.status === true) {
+                        alert('Data Submitted Successfully');
+                        // return;
+                        location.reload();
+                    } else if (result.status === false) {
+                        alert('something went wrong');
+
+                    } else {
+                        $('#' + result.id + '_error').html(result.error);
+                        $('#message').html(result.error);
+                        alert(data);
+//                      $('.excel-data').html(data);
+                    }
+
+                },
+                error: function (result) {
+                    console.log(result);
+                    if (result.status === 500) {
+                        alert('Internal error: ' + result.responseText);
+                    } else {
+                        alert('Unexpected error.');
+                    }
+                }
+            });
+
+        });
 
 
         var customer_id = document.getElementById("customer_id").value;

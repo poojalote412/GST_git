@@ -395,6 +395,26 @@ class Cfo_dashboard extends CI_Controller {
             $respose['ratio'] = "";
         } echo json_encode($respose);
     }
+    
+    public function hq_view_customer($firm_id = '') {
+
+      $session_data = $this->session->userdata('login_session');
+        $email = ($session_data['customer_email_id']);
+//        $get_firm_id = $this->Customer_model->get_firm_id($email);
+//        if ($get_firm_id != FALSE) {
+//            $firm_id = $get_firm_id;
+//        } else {
+//            $firm_id = "";
+//        }
+        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
+        if ($query_get_cfo_data !== FALSE) {
+            $data['cfo_data'] = $query_get_cfo_data;
+        } else {
+            $data['cfo_data'] = "";
+        }
+        $this->load->view('hq_admin/Cfo_dashboard', $data);
+      
+     }
 
 }
 
