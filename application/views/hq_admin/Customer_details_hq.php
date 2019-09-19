@@ -70,6 +70,7 @@ if (is_array($session_data)) {
                             <th>Contact No</th>
                             <th>Created On</th>
                             <th>Action</th>
+                            <th>Previous Files</th>
                             <!--<th>Upload</th>-->
 
                         </tr>
@@ -92,6 +93,7 @@ if (is_array($session_data)) {
                                     <td><?php echo $row->customer_contact_number; ?></td>
                                     <td><?php echo $row->created_on; ?></td>
                                     <td><button id="testing1" onclick="page_diversion('<?php echo $customer_id; ?>', '<?php echo $insert_id; ?>');" class="btn btn-primary">Generate Report</button></td>
+                                    <td><button id="files_view" onclick="" data-target="#exampleModal-4" data-toggle="modal" class="btn btn-primary">View</button></td>
                                     <?php
                                     $i++;
                                 }
@@ -110,11 +112,109 @@ if (is_array($session_data)) {
 
 </div>
 
+<div class="modal fade" id="exampleModal-4" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalLabel"><b>You can download here your previous files:</b></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="forms-sample" id="download_prev_form" method="post" name="download_prev_form" enctype="multipart/form-data">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                            <div class="form-group">
+                                <label>File Download</label>
+                                <div class="input-group col-xs-6">
+                                    <input type="hidden" class="form-control" value="<?php echo $insert_id; ?>"  name="insert_id123"  id="insert_id123"   aria-required="true" aria-describedby="input_group-error">
+                                    <input type="hidden" class="form-control" value="<?php echo $customer_id; ?>" name="customer_id123"  id="customer_id123"   aria-required="true" aria-describedby="input_group-error">
+                                    <!--<i class="fa fa-download" href="" aria-hidden="true"></i>-->
+                                    <br>
+                                    <button class="btn" id="download_prev_file" name="download_prev_file" style="background-color: DodgerBlue;color: white;padding: 10px 12px;"><i class="fa fa-download"></i></button>
+                                    <!--<input type="text" class="form-control" value="<?php echo $company_details->report_id; ?>" name="report_id"  id="report_id"   aria-required="true" aria-describedby="input_group-error">-->
+                                    
+                                    <!--<input type="file" class="form-control file-upload" name="file_upload" id="file_upload"  placeholder="file_upload">-->
+                                </div><br>
+                            </div>
+                            </div>
+                                <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Date</label>
+                                <div class="input-group col-xs-6">
+                                    
+                                    <!--<input type="file" class="form-control file-upload" name="file_upload" id="file_upload"  placeholder="file_upload">-->
+                                </div><br>
+                            </div>
+                            </div>
+                    </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <!--<button type="button" name="file_location" id="file_location" class="btn btn-success">Submit</button>-->
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
 <?php $this->load->view('customer/footer'); ?>
 
 
 <script>
+    
+    $("#download_prev_file").click(function () {
+              alert("hi");
+            var formid = document.getElementById("location_form");
+            var customer_id = document.getElementById("customer_id123").value;
+            var insert_id = document.getElementById("insert_id123").value;
+            var report_id = document.getElementById("report_id").value;
+            alert(customer_id);
+//            alert(insert_id);
+                console.log(customer_id);
+                console.log(insert_id);
+            $.ajax({
+                type: "post",
+                url: "<?= base_url("Customer_admin/file_location_upload") ?>",
+                dataType: "json",
+                data: new FormData(formid), //form data
+//                 data: {customer_id: customer_id, insert_id: insert_id,report_id:report_id},
+                processData: false,
+                contentType: false,
+                cache: false,
+                async: false,
+//            data: $("#Add_UniversityStudent").serialize(),
+                success: function (result) {
+                    // alert(result.error);
+                    if (result.status === true) {
+                        alert('File location added Successfully');
+                        // return;
+                        location.reload();
+                    } else if (result.status === false) {
+                        alert('something went wrong');
+
+                    } else {
+                        $('#' + result.id + '_error').html(result.error);
+                        $('#message').html(result.error);
+                        alert(data);
+//                      $('.excel-data').html(data);
+                    }
+
+                },
+                error: function (result) {
+                    console.log(result);
+                    if (result.status === 500) {
+                        alert('Internal error: ' + result.responseText);
+                    } else {
+                        alert('Unexpected error.');
+                    }
+                }
+            });
+
+        });
+    
     function page_diversion(customer_id, insert_id)
     {
 

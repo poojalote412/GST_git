@@ -885,6 +885,8 @@ class Customer_admin extends CI_Controller {
         $this->load->view('hq_admin/Customer_details_hq', $data);
       
      }
+     
+     
 
 }
 
