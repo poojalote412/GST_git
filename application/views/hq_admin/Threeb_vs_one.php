@@ -54,7 +54,7 @@ if (is_array($session_data)) {
                     </select>
                     <span class="required" id="ddl_firm_name_fetch_error"></span>
                 </div>
-                
+
             </div>
             <div class="box-body">
 
@@ -168,7 +168,7 @@ if (is_array($session_data)) {
     });
 </script>
 <script>
-    
+
     //AJAX for get firm name
     $.ajax({
         url: "<?= base_url("Customer_admin/get_ddl_firm_name") ?>",
@@ -185,15 +185,15 @@ if (is_array($session_data)) {
             }
         }
     });
-    
+
     //get data of customer firm wise
-    
-     function get_sorted_data() {
+
+    function get_sorted_data() {
         var firm_id_fetch = document.getElementById('ddl_firm_name_fetch').value;
         window.location.href = "<?= base_url("Threeb_vs_one/hq_view_customer/") ?>" + firm_id_fetch;
 
     }
-    
+
     //view observation modal
     $('#view_value_modal').on('show.bs.modal', function (e) {
         var customerid = $(e.relatedTarget).data('customer_id');
@@ -320,7 +320,10 @@ if (is_array($session_data)) {
                                 pointPadding: 0.2,
                                 borderWidth: 0
                             }
+                        }, credits: {
+                            enabled: false
                         },
+
                         series: [{
                                 type: 'column',
                                 name: 'GSTR-3B',

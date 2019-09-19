@@ -175,7 +175,7 @@ if (is_array($session_data)) {
     });
 </script>
 <script>
-    
+
 //    //AJAX for get firm name
     $.ajax({
         url: "<?= base_url("Customer_admin/get_ddl_firm_name") ?>",
@@ -194,13 +194,13 @@ if (is_array($session_data)) {
     });
 ////    
     //get data of customer firm wise
-    
-     function get_sorted_data() {
+
+    function get_sorted_data() {
         var firm_id_fetch = document.getElementById('ddl_firm_name_fetch').value;
         window.location.href = "<?= base_url("Cfo_dashboard/hq_view_customer/") ?>" + firm_id_fetch;
 
     }
-    
+
     $('#view_value_modal').on('show.bs.modal', function (e) {
         var customerid = $(e.relatedTarget).data('customer_id');
         var customer_id = document.getElementById('customer_id').value = customerid;
@@ -306,7 +306,10 @@ if (is_array($session_data)) {
                         },
                         tooltip: {
                             shared: true
+                        }, credits: {
+                            enabled: false
                         },
+
                         series: [{
                                 name: 'TurnOver',
                                 data: data_a,

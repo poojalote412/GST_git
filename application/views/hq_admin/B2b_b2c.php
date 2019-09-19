@@ -46,7 +46,7 @@ if (is_array($session_data)) {
                     <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
                         <i class="fa fa-times"></i></button>
                 </div>
-                
+
                 <div class="col-md-4" style="margin-top: 1.5%">
                     <select class="form-control m-select2 m-select2-general" id="ddl_firm_name_fetch" name="ddl_firm_name_fetch" onchange="get_sorted_data(this.value)">
                         <option value="">Select Office</option>
@@ -79,7 +79,7 @@ if (is_array($session_data)) {
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $row->customer_name; ?></td>
                                     <td><button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->customer_id; ?>');"class="btn btn-outline-primary" >View</button></td>
-                                     <td><button type="button" name="get_records" id="get_records" data-customer_id="<?php echo $row->customer_id; ?>" data-toggle="modal" data-target="#view_value_modal"class="btn bg-maroon-gradient" ><i class="fa fa-fw fa-eye"></i></button></td>
+                                    <td><button type="button" name="get_records" id="get_records" data-customer_id="<?php echo $row->customer_id; ?>" data-toggle="modal" data-target="#view_value_modal"class="btn bg-maroon-gradient" ><i class="fa fa-fw fa-eye"></i></button></td>
                                 </tr> 
                                 <?php
                                 $i++;
@@ -166,7 +166,7 @@ if (is_array($session_data)) {
     });
 </script>
 <script>
-    
+
     //AJAX for get firm name
     $.ajax({
         url: "<?= base_url("Customer_admin/get_ddl_firm_name") ?>",
@@ -183,15 +183,15 @@ if (is_array($session_data)) {
             }
         }
     });
-    
+
     //get data of customer firm wise
-    
-     function get_sorted_data() {
+
+    function get_sorted_data() {
         var firm_id_fetch = document.getElementById('ddl_firm_name_fetch').value;
         window.location.href = "<?= base_url("Management_report/hq_view_customer/") ?>" + firm_id_fetch;
 
     }
-    
+
 //view observation modal
     $('#view_value_modal').on('show.bs.modal', function (e) {
         var customerid = $(e.relatedTarget).data('customer_id');
@@ -309,7 +309,10 @@ if (is_array($session_data)) {
                         },
                         tooltip: {
                             shared: true
+                        }, credits: {
+                            enabled: false
                         },
+
                         series: [{
                                 type: 'column',
                                 name: 'Sale B2B',

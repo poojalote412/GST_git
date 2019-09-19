@@ -71,7 +71,7 @@ if (is_array($session_data)) {
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $row->customer_name; ?></td>
                                     <td><button type="button" name="get_graph" id="get_graph" onclick="get_graph_fun('<?php echo $row->customer_id; ?>');"class="btn btn-outline-primary" >View</button></td>
-                                     <td><button type="button" name="get_records" id="get_records" data-customer_id="<?php echo $row->customer_id; ?>" data-toggle="modal" data-target="#view_value_modal"class="btn bg-maroon-gradient" ><i class="fa fa-fw fa-eye"></i></button></td>
+                                    <td><button type="button" name="get_records" id="get_records" data-customer_id="<?php echo $row->customer_id; ?>" data-toggle="modal" data-target="#view_value_modal"class="btn bg-maroon-gradient" ><i class="fa fa-fw fa-eye"></i></button></td>
                                 </tr> 
                                 <?php
                                 $i++;
@@ -275,7 +275,10 @@ if (is_array($session_data)) {
                         },
                         tooltip: {
                             shared: true
+                        }, credits: {
+                            enabled: false
                         },
+
                         series: [{
                                 type: 'column',
                                 name: 'Sale B2B',

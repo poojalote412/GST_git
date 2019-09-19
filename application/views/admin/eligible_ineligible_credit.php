@@ -208,6 +208,8 @@ if (is_array($session_data)) {
                         },
                         tooltip: {
                             shared: true
+                        },credits: {
+                            enabled: false
                         },
                         series: [{
                                 type: 'column',

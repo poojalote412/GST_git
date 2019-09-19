@@ -1,6 +1,6 @@
 <?php
 $this->load->view('customer/header');
-$this->load->view('hq_admin/navigation');
+$this->load->view('admin/navigation');
 
 //Check user login or not using session
 
@@ -103,6 +103,37 @@ if (is_array($session_data)) {
                                     <span class="required" style="color: red" id="about_company_error"></span>
                                 </div>
                             </div>
+
+                        </div>
+                        <div class="col-md-12"><br>
+                             <h5><b>Do you want to this customer details on report?</b></h5>
+                            <div class="mt-checkbox-inline">
+                                                    <label class="mt-radio">
+                                                        <input type="radio" id="radio_check" name="radio_check" value="1" checked=""> Yes
+                                                        <span></span>
+                                                    </label>
+                                                    <label class="mt-radio">
+                                                        <input type="radio" id="radio_check" name="radio_check" value="0"> No
+                                                        <span></span>
+                                                    </label>
+                                                </div> 
+<!--                            <div class="col-md-12"><br>
+                            <h5><b>Do you want to this customer details on report?</b></h5>
+                            <input type="radio" name="radio_check" id="radio_check" value="1"> Yes
+                            <input type="radio" name="radio_check" id= "radio_check" value="0"> No<br>
+                            
+                              <span class="required" style="color: red" id="radio_check_error"></span>
+                        </div>-->
+<!--                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="defaultUnchecked" name="defaultExampleRadios">
+                                <label class="custom-control-label" for="defaultUnchecked">Yes</label>
+                            </div>
+
+                             Default checked 
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="defaultChecked" name="defaultExampleRadios" checked>
+                                <label class="custom-control-label" for="defaultChecked">No</label>
+                            </div>-->
                         </div>
                     </div>
 
@@ -805,6 +836,8 @@ if (is_array($session_data)) {
     $("#update_info").click(function () {
         var customer_id = document.getElementById("customer_id").value;
         var insert_id = document.getElementById("insert_id").value;
+      
+//        alert(radio_check);
         $.ajax({
             type: "POST",
             url: "<?= base_url("Customer_admin/update_observation") ?>",
@@ -2446,7 +2479,7 @@ if (is_array($session_data)) {
 //not in records
         $.ajax({
             type: "post",
-            url: "<?= base_url("Invoice_comp_report/get_not_inrec_records_all") ?>",
+            url: "<?= base_url("Invoice_comp_report/get_not_inrec_records_all1") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
@@ -2456,7 +2489,7 @@ if (is_array($session_data)) {
 
                     $('#company_all_notinrec_data').html(data);
                     $('#company_all_notinrec_data_obs').html(data1);
-                    $('#example_not_in_rec').DataTable();
+                    $('#not_record_data').DataTable();
                 } else {
                     $('#company_all_notinrec_data').html("");
                     $('#company_all_notinrec_data').html("<b>Please insert files to see result.</b>");

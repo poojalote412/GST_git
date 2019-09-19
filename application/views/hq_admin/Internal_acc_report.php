@@ -336,6 +336,8 @@ if (is_array($session_data)) {
                                     lineColor: '#FFFF00'
                                 }
                             }
+                        },credits: {
+                            enabled: false
                         },
                         series: [{
 

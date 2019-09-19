@@ -1,6 +1,6 @@
 <?php
 $this->load->view('customer/header');
-$this->load->view('admin/navigation');
+$this->load->view('hq_admin/navigation');
 
 //Check user login or not using session
 
@@ -150,7 +150,13 @@ if (is_array($session_data)) {
                     <div id="container_image_front" style="page-break-after:always;position: relative;color: white;margin-top:-22px;margin-left: -15px;margin-right: -25px;">
                          <!--<img src="https://premisafe.com/Logo.jpg" width="120px" height="30px">-->
                         <div style="position: absolute;bottom: -4%;margin-left:5% !important;color: white;text-align: center;width: 700px;"> 
-                            <b style="font-size: 26px"><?php echo $client_details->company_name ?></b> <br>
+                            <b style="font-size: 26px"><?php
+                                if ($company_details->visible_customer_detail == 1) {
+                                    echo $company_details->company_name;
+                                } else {
+                                    echo "XXX";
+                                }
+                                ?></b> <br>
                         </div>
                         <div style="position: absolute;bottom: -14%;color: white;width: 700px;text-align: center;margin-left:5% !important;" class="centered"> 
                             <br>  <b style="font-size: 20px"><?php echo $insert_header_details->year_id ?></b> <br>
@@ -173,14 +179,58 @@ if (is_array($session_data)) {
                     <!--<div style="page-break-before:always;">-->
 
 
-                    <div style="page-break-after:always;margin-top:15%;">
+                                <div style="page-break-after:always;margin-top:15%;">
                         <div style="margin-left: 36% ;">
                             <b style="font-size:22px;color:#0e385e;text-align: center">LETTER TO CLIENT</b></div>
                         <div style="margin-left: 5%;margin-right: 5%;margin-top:10%;" ><b>19th August, 2019</b></div>
-                        <div style="margin-left: 5%;margin-right: 5%;"><b><?php echo $client_details->customer_name ?></b></div>
-                        <div style="margin-left: 5%;margin-right: 5%;"><b>Managing Director:<?php echo $client_details->managing_director_name ?></b></div>
-                        <div style="margin-left: 5%;margin-right: 5%;"><b>Company Name:<?php echo $client_details->company_name ?></b></div>
-                        <div style="margin-left: 5%;margin-right: 5%;"><b> Address :<?php echo $client_details->customer_address ?></b></div>
+                        <div style="margin-left: 5%;margin-right: 5%;"><b>
+                                <?php
+                                if ($company_details->visible_customer_detail == 1) {
+                                    echo $client_details->customer_name;
+                                } else {
+                                    echo "XXX";
+                                }
+                                ?></b>
+                            <?php // echo $client_details->customer_name ?></b>
+
+
+                        </div>
+                        <div style="margin-left: 5%;margin-right: 5%;">
+                            <b>Managing Director:
+                                <?php
+                                if ($company_details->visible_customer_detail == 1) {
+                                    echo $client_details->managing_director_name;
+                                } else {
+                                    echo "XXX";
+                                }
+
+//                                echo $client_details->managing_director_name
+                                ?>
+                            </b>
+                        </div>
+                        <div style="margin-left: 5%;margin-right: 5%;"><b>
+                                Company Name:
+                                <?php
+                                if ($company_details->visible_customer_detail == 1) {
+                                    echo $client_details->company_name;
+                                } else {
+                                    echo "XXX";
+                                }
+//                                echo $client_details->company_name
+                                ?>
+                            </b></div>
+                        <div style="margin-left: 5%;margin-right: 5%;"><b> 
+                                Address :
+                                <?php
+                                if ($company_details->visible_customer_detail == 1) {
+                                    echo $client_details->customer_address;
+                                } else {
+                                    echo "XXX";
+                                }
+//                                echo $client_details->customer_address
+                                ?>
+                            </b>
+                        </div>
                         <div style="margin-left: 36%;margin-top:20%;"> <b style="font-size:18px;color:#1d2f66;"><u>Sub: GST Health Check Report</u></b></div>
                         <div id="content_client_letterPDF" style=""></div>
 
@@ -194,8 +244,25 @@ if (is_array($session_data)) {
                                         </div>-->
 
                     <div style="page-break-after:always;width:700px;margin-left: 5%;margin-right:5%;margin-top:15%;text-align: justify;text-justify: inter-word;">
-                        <b style="color:#0e385e;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;font-size: 18px;text-transform: uppercase;">1. ABOUT <?php echo $client_details->company_name ?>:</b>
-                        <br>  <p style="font-size: 14px;letter-spacing: 0.5px;"><?php echo $report_details->about_company ?> </p>
+                        <b style="color:#0e385e;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;font-size: 18px;text-transform: uppercase;">1. ABOUT 
+                            <?php
+                            if ($company_details->visible_customer_detail == 1) {
+                                echo $client_details->company_name;
+                            } else {
+                                echo "XXX";
+                            }
+//                            echo $client_details->company_name
+                            ?>:
+                        </b>
+                        <br>  <p style="font-size: 14px;letter-spacing: 0.5px;">
+                            <?php
+                            if ($company_details->visible_customer_detail == 1) {
+                                echo $report_details->about_company;
+                            } else {
+                                echo "XXX";
+                            }
+//                            echo $report_details->about_company
+                            ?> </p>
                     </div>
                     <div style="page-break-after:always;width:700px;margin-left: 5%;margin-right:  5%;margin-top:9%;text-align: justify;">
                         <div id="content_pdf" style=""></div>
@@ -375,7 +442,14 @@ if (is_array($session_data)) {
                         <div id="" style="width:850px">
                             <b style="font-size:18px;color:#0e385e;margin-left: 5%;">8. SUMMARY OBSERVATION & CONCLUSION </b><br>
                             <p align="justify" style="margin-left: 5%;margin-right:  5%;font-size: 14px;letter-spacing: 0.5px;">
-                                <?php echo $company_details->conclusion_summary ?>
+                                <?php
+                                if ($company_details->visible_customer_detail == 1) {
+                                    echo $company_details->conclusion_summary;
+                                } else {
+                                    echo "XXX";
+                                }
+//                                echo $company_details->conclusion_summary
+                                ?>
                             </p>
                         </div>
                         <!--<div id="container_heat_map" style="width:700px"></div>-->

@@ -551,6 +551,7 @@ class Customer_admin extends CI_Controller {
         $company_name = $this->input->post('company_name');
         $m_d_name = $this->input->post('m_d_name');
         $about_company = $this->input->post('about_company');
+        $radio_check = $this->input->post('radio_check');
         $cfo_observation = nl2br($this->input->post('cfo_observation'));
         $rate_wise_observation = nl2br($this->input->post('rate_wise_observation'));
         $monthwise_sale_observation = nl2br($this->input->post('monthwise_sale_observation'));
@@ -700,10 +701,18 @@ class Customer_admin extends CI_Controller {
             $deviation_itc = $deviation_itc1 . "," . $deviation_itc2;
             $deviation_output = $deviation_output1 . "," . $deviation_output2;
             $gst_payable = $gst_payable1 . "," . $gst_payable2;
+            
+//            if ($radio_check) {
+//                        $radio_check = '1';
+//                    } else {
+//                        $radio_check = '2';
+//                    }
+            
             $data = array(
                 'insert_id' => $insert_id,
                 'customer_id' => $customer_id,
                 'report_id' => $report_id,
+                'visible_customer_detail' => $radio_check,
                 'cfo_observation' => $cfo_observation,
                 'rate_wise_observation' => $rate_wise_observation,
                 'month_wise_observation' => $monthwise_sale_observation,

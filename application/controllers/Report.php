@@ -10,22 +10,127 @@ class Report extends CI_Controller {
         $this->load->helper('url');
     }
 
-    public function insert_page_location(){
-        //create array to load to database
-              $image_data = $this->upload->data();
-                $insert_data = array(
-                    'name' => $image_data['file_name'],
-                    'path' => $image_data['full_path'],
-                    'thumb_path'=> $image_data['file_path'] . 'thumbs/'. $image_data['file_name'],
-                    'tag' => $tag
-                     );
+    public function file_location_upload() {
+//        var_dump($_POST);
+//        var_dump($_FILES);
+//        exit();
+        $customer_id = $this->input->post('customer_id');
+        $insert_id = $this->input->post('insert_id');
+        $report_id = $this->input->post('report_id');
+        $file_upload1 = $this->upload_file();
+//           echo $file_upload1;
+//           exit;
 
-          $this->db->insert('photos', $insert_data);//load array to database
+        $get_observation = $this->db->query("select report_id from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' and report_id='$report_id' ORDER BY ID DESC LIMIT 1");
+        $res = $get_observation->row();
+//            $id = $res->id;
+        $page_numbers = $file_upload1;
+        // var_dump($page_numbers);
+        $data = array('file_location' => $page_numbers);
+
+//        $this->db->where('insert_id', $insert_id);
+//        $this->db->where('customer_id', $customer_id);
+        $this->db->where('report_id', $report_id);
+//            $this->db->where('id', $id);
+        $query = $this->db->update('observation_transaction_all', $data);
+
+
+        if ($query == TRUE) {
+            $response['message'] = 'success';
+            $response['code'] = 200;
+            $response['status'] = true;
+        } else {
+            $response['message'] = 'No data to display';
+            $response['code'] = 204;
+            $response['status'] = false;
+        }echo json_encode($response);
     }
-    
-    
-    
-    
+
+    public function upload_file() {
+
+
+        $response = array();
+//        $user_id = $due_date_id; // session or user_id   
+        if (isset($_FILES['file_upload'])) :
+
+            $files = $_FILES;
+//            $count = count($_FILES['file_upload']['name']); // count element 
+//            for ($i = 0; $i < $count; $i++):
+            $_FILES['file_upload']['name'] = $files['file_upload']['name'];
+            $_FILES['file_upload']['type'] = $files['file_upload']['type'];
+            $_FILES['file_upload']['tmp_name'] = $files['file_upload']['tmp_name'];
+            $_FILES['file_upload']['error'] = $files['file_upload']['error'];
+            $_FILES['file_upload']['size'] = $files['file_upload']['size'];
+            $config['upload_path'] = 'images/';
+            $target_path = 'images/';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xlsx|ppt|pptx';
+//                $config['allowed_types'] = 'pdf';
+            $config['max_size'] = '500000';    //limit 10000=1 mb
+            $config['remove_spaces'] = true;
+            $config['overwrite'] = false;
+//                $config['max_width'] = '1024'; // image max width 
+//                $config['max_height'] = '768';
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+            $fileName = $_FILES['file_upload']['name'];
+            $fileName = str_replace(' ', '_', $fileName);
+            $fileName = preg_replace('/\s+/', '_', $fileName);
+            $data = array('upload_data' => $this->upload->data());
+
+            if (empty($fileName)) {
+                return false;
+            } else {
+                $file = $this->upload->do_upload('file_upload');
+                if (!$file) {
+                    $error = array('upload_error' => $this->upload->display_errors());
+                    $response['error'] = $files['file_upload']['name'] . ' ' . $error['upload_error'];
+                    $response = "invalid";
+                    return $response;
+                } else {
+                    // echo $target_path;
+                    $base_url = base_url();
+                    return $base_url . $target_path . $fileName;
+// resize code
+                    $path = $data['upload_data']['full_path'];
+                    $q['name'] = $data['upload_data']['file_name'];
+                    $configi['image_library'] = 'gd2';
+                    $configi['source_image'] = $path;
+                    $configi['new_image'] = $target_path;
+                    $configi['create_thumb'] = TRUE;
+                    $configi['maintain_ratio'] = TRUE;
+                    $configi['width'] = 75; // new size
+                    $configi['height'] = 50;
+                    $this->load->library('image_lib');
+                    $this->image_lib->clear();
+                    $this->image_lib->initialize($configi);
+                    $this->image_lib->resize();
+                    $images[] = $fileName;
+                }
+            }
+//            endfor;
+        endif;
+    }
+
+    public function do_upload() {
+        $config['upload_path'] = './images/';
+        $config['allowed_types'] = 'gif|jpg|png|pdf';
+        $config['max_size'] = 10000;
+        $config['max_width'] = 1024;
+        $config['max_height'] = 768;
+
+        $this->load->library('upload', $config);
+
+        if (!$this->upload->do_upload('file_upload')) {
+            $error = array('error' => $this->upload->display_errors());
+
+            $this->load->view('hq_admin/report_with_page_num', $error);
+        } else {
+            $data = array('upload_data' => $this->upload->data());
+
+            $this->load->view('hq_admin/report_with_page_num', $error);
+        }
+    }
+
     public function insert_page_number($customer_id = '', $insert_id = '') {
 
         $customer_id1 = base64_decode($customer_id);
@@ -135,8 +240,8 @@ class Report extends CI_Controller {
             $res = $get_observation->row();
             $id = $res->id;
             $page_numbers = $about_client . "," . $exe_sum . "," . $gst_cmp_overview . ","
-            . $gst_framework . "," . $gst_approach . "," . $gst_report_insight . "," 
-            . $issue_matrix . "," . $report_card . "," . $conclusion . "," . $disclaimer . "," . $about_ecovis;
+                    . $gst_framework . "," . $gst_approach . "," . $gst_report_insight . ","
+                    . $issue_matrix . "," . $report_card . "," . $conclusion . "," . $disclaimer . "," . $about_ecovis;
             $data = array('page_numbers' => $page_numbers);
             $this->db->where('insert_id', $insert_id);
             $this->db->where('customer_id', $customer_id);
@@ -221,14 +326,25 @@ class Report extends CI_Controller {
     public function get_content_pdf1() {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
+        $data = '';
         $query_get_company_header = $this->db->query("SELECT company_name from report_header_all where insert_id='$insert_id' and customer_id='$customer_id'");
         $query_get_customer_name = $this->db->query("select customer_name,customer_address from customer_header_all where customer_id='$customer_id'");
+        $visible_customer_detail = $this->db->query("select visible_customer_detail from observation_transaction_all where insert_id='$insert_id' and customer_id='$customer_id'");
         if ($this->db->affected_rows() > 0) {
             $res = $query_get_company_header->row();
+            $res1 = $visible_customer_detail->row();
             $company_name = $res->company_name;
+            $visible_detail = $res1->visible_customer_detail;
+            if ($visible_detail == 1) {
+                $company_name = $company_name;
+            } else {
+                $company_name = "XXX";
+            }
             $data = '<div style="float:left;margin-top:15%;margin-left: 5%;margin-right:5%;letter-spacing: 0.5px;font-family:Arial Sans Serif;;">
                 <b style="font-size:18px;color:#1d2f66;">2. EXECUTIVE SUMMARY</b><br>
-                     <p style="font-size:13px"> Ecovis RKCA was provided with the data of the company  "' . $company_name . '" to evaluate this health check report.</p>    
+                     <p style="font-size:13px"> Ecovis RKCA was provided with the data of the company 
+                     "' . $company_name . '" 
+                     to evaluate this health check report.</p>    
                       <p style="font-size:13px">Ecovis RKCA  was also able to access all the information such as:</p>
                       <p style="font-size:13px">1. Sales data month wise.</p>
                       <p style="font-size:13px">2. GSTR-1 </p>
@@ -550,9 +666,9 @@ class Report extends CI_Controller {
                                 </tr>
                                 </tbody></table>';
             $likelihood_impact = [[$time_over_run1, $time_over_run2], [$internal_control1, $internal_control2], [$transaction_mismatch1, $transaction_mismatch2],
-                [$deviation_itc1, $deviation_itc2], [$deviation_output1, $deviation_output2], [$gst_payable1, $gst_payable2]];
+                    [$deviation_itc1, $deviation_itc2], [$deviation_output1, $deviation_output2], [$gst_payable1, $gst_payable2]];
             $likelihood_risk = [[$time_over_run1, $time_over_run3], [$internal_control1, $internal_control3], [$transaction_mismatch1, $transaction_mismatch3],
-                [$deviation_itc1, $deviation_itc3], [$deviation_output1, $deviation_output3], [$gst_payable1, $gst_payable3]];
+                    [$deviation_itc1, $deviation_itc3], [$deviation_output1, $deviation_output3], [$gst_payable1, $gst_payable3]];
             $respose['likelihood_impact'] = $likelihood_impact;
             $respose['likelihood_risk'] = $likelihood_risk;
             $respose['data'] = $data;
