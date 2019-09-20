@@ -42,6 +42,90 @@ class Customer_admin extends CI_Controller {
         $this->load->view('admin/Customer_details', $data);
     }
 
+    
+
+    public function get_file_loacation1() {
+        $customer_id = $this->input->post('customer_id');
+        $insert_id = $this->input->post('insert_id');
+//        $result_firm_name_dd = $this->db->query("SELECT customer_name,customer_email_id,customer_contact_number,created_on FROM customer_header_all WHERE `firm_id`='$firm_id'");
+        $get_observation = $this->db->query("select file_location,created_on,report_id from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+        if ($get_observation->num_rows() > 0) {
+            $file_location = $get_observation->row();
+            $created_on = $file_location->created_on;
+            $file_location = $file_location->file_location;
+//            echo $created_on;
+//            echo $file_location;
+            $data = '';
+            $data .= '<table id="example3" class="table-bordered table-striped" width="700">
+                                <thead style="background-color: #cd273f;color:white">
+                                
+                                    <tr>
+                                       <td>' . $file_location . '</td>
+                                       <td>' . $created_on . '</td>
+                                      
+                                    </tr>
+                                </thead>
+                                <tbody>';
+//            echo $data;
+            $response['message'] = 'success';
+            $response['data_tbl'] = $data;
+            $response['code'] = 200;
+            $response['status'] = true;
+        } else {
+            $response['message'] = 'No data to display';
+            $response['code'] = 204;
+            $response['status'] = false;
+        }echo json_encode($response);
+    }
+    
+    public function get_file_loacation() {
+        $customer_id = $this->input->post('customer_id');
+        $insert_id = $this->input->post('insert_id');
+        $data = "";
+//        $result_firm_name_dd = $this->db->query("SELECT customer_name,customer_email_id,customer_contact_number,created_on FROM customer_header_all WHERE `firm_id`='$firm_id'");
+        $query = $this->db->query("select file_location,created_on from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id'");
+         if ($query->num_rows() > 0) {
+            $result = $query->result();
+           
+            $data .= '<table id="example3" class="table-bordered table-striped dataTable no-footer" >
+                                <thead style="background-color: #0e385e;color:white">
+                                    <tr style="padding:3px">
+                                        <th>No.</th>
+                                        <th style="text-align:center">File Name</th>
+                                        <th>Created Date</th>
+                                        <th>Download</th>
+                                        
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>';
+            $k = 1;
+            foreach ($result as $row) {
+                $file_location = $row->file_location;
+              $created_on = $row->created_on;
+               $file_new_name=substr($file_location,32);
+                
+                $data .= '<tr>
+                        <td>  '.$k.'  </td> 
+                        <td style="width:10px">  '.$file_new_name.'  </td>
+                        <td>  '.$created_on.' </td>
+                        <td><a href="'.$file_location.'">Download</a></td>
+                         </tr>';
+                $k++;
+               
+            }
+            $response['message'] = "success";
+            $response['data_tbl'] = $data;
+            $response['code'] = 200;
+            $response['status'] = true;
+        } else {
+            $response['message'] = 'No data to display';
+            $response['code'] = 204;
+            $response['status'] = false;
+        }echo json_encode($response);
+    }
+    
+
     public function page_diversion() {
         $customer_id = $this->input->post('customer_id');
         $insert_id = $this->input->post('insert_id');
@@ -316,7 +400,7 @@ class Customer_admin extends CI_Controller {
             $data = $result->row();
             $customer_id = $data->customer_id;
 //generate user_id
-            $customer_id = str_pad(++$customer_id, 5, '0', STR_PAD_LEFT);
+            $customer_id = str_pad( ++$customer_id, 5, '0', STR_PAD_LEFT);
             return $customer_id;
         } else {
             $customer_id = 'Cust_1001';
@@ -536,7 +620,7 @@ class Customer_admin extends CI_Controller {
             $data = $result->row();
             $report_id = $data->report_id;
             //generate turn_id
-            $report_id = str_pad( ++$report_id, 5, '0', STR_PAD_LEFT);
+            $report_id = str_pad(++$report_id, 5, '0', STR_PAD_LEFT);
             return $report_id;
         } else {
             $report_id = 'report_1001';
@@ -701,13 +785,13 @@ class Customer_admin extends CI_Controller {
             $deviation_itc = $deviation_itc1 . "," . $deviation_itc2;
             $deviation_output = $deviation_output1 . "," . $deviation_output2;
             $gst_payable = $gst_payable1 . "," . $gst_payable2;
-            
+
 //            if ($radio_check) {
 //                        $radio_check = '1';
 //                    } else {
 //                        $radio_check = '2';
 //                    }
-            
+
             $data = array(
                 'insert_id' => $insert_id,
                 'customer_id' => $customer_id,
@@ -821,9 +905,9 @@ class Customer_admin extends CI_Controller {
 
         echo json_encode($response);
     }
-    
-     public function hq_view_customer($firm_id = '') {
-         
+
+    public function hq_view_customer($firm_id = '') {
+
 //         $firm_id= $this->input->post("firm_id");
 //         $result_firm_name_dd = $this->db->query("SELECT customer_name,customer_email_id,customer_contact_number,created_on FROM customer_header_all WHERE `firm_id`='$firm_id'");
 //         if ($result_firm_name_dd->num_rows() > 0) {
@@ -856,7 +940,7 @@ class Customer_admin extends CI_Controller {
 //        }   echo json_encode($response);
 //               
 //         
-         
+
         $session_data = $this->session->userdata('login_session');
         if (is_array($session_data)) {
             $data['session_data'] = $session_data;
@@ -883,10 +967,7 @@ class Customer_admin extends CI_Controller {
             $data['result'] = "";
         }
         $this->load->view('hq_admin/Customer_details_hq', $data);
-      
-     }
-     
-     
+    }
 
 }
 

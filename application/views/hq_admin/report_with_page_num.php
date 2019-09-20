@@ -1,6 +1,6 @@
 <?php
 $this->load->view('customer/header');
-$this->load->view('admin/navigation');
+$this->load->view('hq_admin/navigation');
 
 //Check user login or not using session
 
@@ -96,7 +96,7 @@ if (is_array($session_data)) {
             <li class="active">Reports</li>
         </ol>
     </section>
-
+   
     <!-- Main content -->
     <section class="content">
 
@@ -157,6 +157,7 @@ if (is_array($session_data)) {
                     <input type="hidden" id="second_div_value" name="second_div_value" value="0">
                     <input type="hidden" id="third_div_value" name="third_div_value" value="0">
                     <input type="hidden" id="fourth_div_value" name="fourth_div_value" value="0">
+                    <input type="hidden" id="visible_customer_detail" name="visible_customer_detail" value="<?php $company_details->visible_customer_detail?>">
                     <!--<input type="text" id="fifth_div_value" name="fifth_div_value" value="0">-->
                     <!--<div class="btn btn-success"><a href="https://smallpdf.com/pdf-to-word">Convert Downloaded PDF Into word</a></div>-->
 
@@ -536,8 +537,8 @@ if (is_array($session_data)) {
                             <div class="form-group">
                                 <label>File upload</label>
                                 <div class="input-group col-xs-6">
-                                    <input type="hidden" class="form-control" value="<?php echo $insert_id; ?>"  name="insert_id123"  id="insert_id123"   aria-required="true" aria-describedby="input_group-error">
-                                    <input type="hidden" class="form-control" value="<?php echo $customer_id; ?>" name="customer_id123"  id="customer_id123"   aria-required="true" aria-describedby="input_group-error">
+                                    <input type="hidden" class="form-control" value="<?php echo $insert_id; ?>"  name="insert_id"  id="insert_id"   aria-required="true" aria-describedby="input_group-error">
+                                    <input type="hidden" class="form-control" value="<?php echo $customer_id; ?>" name="customer_id"  id="customer_id"   aria-required="true" aria-describedby="input_group-error">
                                     <input type="hidden" class="form-control" value="<?php echo $company_details->report_id; ?>" name="report_id"  id="report_id"   aria-required="true" aria-describedby="input_group-error">
                                     
                                     <input type="file" class="form-control file-upload" name="file_upload" id="file_upload"  placeholder="file_upload">
@@ -564,8 +565,8 @@ if (is_array($session_data)) {
     $("#file_location").click(function () {
 //              alert(insert_page_location);
             var formid = document.getElementById("location_form");
-            var customer_id = document.getElementById("customer_id123").value;
-            var insert_id = document.getElementById("insert_id123").value;
+            var customer_id = document.getElementById("customer_id").value;
+            var insert_id = document.getElementById("insert_id").value;
             var report_id = document.getElementById("report_id").value;
             alert(customer_id);
 //            alert(insert_id);
@@ -618,10 +619,9 @@ if (is_array($session_data)) {
         var customer_id = document.getElementById("customer_id").value;
         var insert_id = document.getElementById("insert_id").value;
         var company_name = document.getElementById("company_name").value;
-        
-        
-         
+        var visible_customer_detail = document.getElementById("visible_customer_detail").value;
 
+        
         $.ajax({
             type: "post",
             url: "<?= base_url("Report/get_content_pdf1") ?>",
@@ -708,6 +708,11 @@ if (is_array($session_data)) {
                     var data_month = result.month_data;
                     var max_range = result.max_range;
                     var customer_name = company_name;
+                    if (visible_customer_detail == 1) {
+                        var customer_name = company_name;
+                    } else {
+                         var customer_name = "XXX";
+                    }
                     Highcharts.chart('container_turnovervs_liability', {
                         //                    var chart = Highcharts.chart('container_turnovervs_liability', {
                         chart: {
@@ -799,6 +804,11 @@ if (is_array($session_data)) {
                     var max_range = result.max_range;
                     var sales_percent_values = result.sales_percent_values;
                     var customer_name = company_name;
+                    if (visible_customer_detail == 1) {
+                        var customer_name = company_name;
+                    } else {
+                         var customer_name = "XXX";
+                    }
                     Highcharts.chart('container_sales_month_wise', {
                         chart: {
                             type: 'column'
@@ -909,6 +919,11 @@ if (is_array($session_data)) {
                     var max_range = result.data_liability;
                     var data_state = result.state;
                     var customer_name = company_name;
+                    if (visible_customer_detail == 1) {
+                        var customer_name = company_name;
+                    } else {
+                         var customer_name = "XXX";
+                    }
                     Highcharts.chart('container_state_wise', {
                         chart: {
                             type: 'column'
@@ -993,6 +1008,11 @@ if (is_array($session_data)) {
                     var data_month = result.month_data;
                     var max_range = result.max_range;
                     var customer_name = company_name;
+                    if (visible_customer_detail == 1) {
+                        var customer_name = company_name;
+                    } else {
+                         var customer_name = "XXX";
+                    }
                     Highcharts.chart('container_nontax_exempt', {
                         chart: {
                             type: 'column'
@@ -1153,6 +1173,11 @@ if (is_array($session_data)) {
                     var array_b2c_ratio = result.array_b2c_ratio;
                     var max = result.max_range;
                     var customer_name = company_name;
+                    if (visible_customer_detail == 1) {
+                        var customer_name = company_name;
+                    } else {
+                         var customer_name = "XXX";
+                    }
                     //                    var max_ratio = result.max_ratio;
                     var data_month = result.month;
                     Highcharts.chart('container_sales_b2b_b2c', {
@@ -1322,6 +1347,11 @@ if (is_array($session_data)) {
                     var max = result.max;
                     var months = result.month_data;
                     var customer_name = company_name;
+                    if (visible_customer_detail == 1) {
+                        var customer_name = company_name;
+                    } else {
+                         var customer_name = "XXX";
+                    }
                     Highcharts.chart('container_GSTR3b_vs_2A', {
                         chart: {
                             type: 'Combination chart',
@@ -1453,6 +1483,11 @@ if (is_array($session_data)) {
                     var max = result.max;
                     var month = result.month_data;
                     var customer_name = company_name;
+                    if (visible_customer_detail == 1) {
+                        var customer_name = company_name;
+                    } else {
+                         var customer_name = "XXX";
+                    }
                     Highcharts.chart('container_GSTR3b_vs_1', {
                         chart: {
                             type: 'Combination chart'
@@ -1620,6 +1655,11 @@ if (is_array($session_data)) {
                     var data_late_fee = result.data_late_fee;
                     var data_month = result.month_data;
                     var customer_name = company_name;
+                    if (visible_customer_detail == 1) {
+                        var customer_name = company_name;
+                    } else {
+                         var customer_name = "XXX";
+                    }
                     Highcharts.chart('container_tax_liability', {
                         chart: {
                             type: 'column'
@@ -1790,6 +1830,11 @@ if (is_array($session_data)) {
                     var data_month = result.month_data;
                     var max_range = result.max_range;
                     var customer_name = company_name;
+                    if (visible_customer_detail == 1) {
+                        var customer_name = company_name;
+                    } else {
+                         var customer_name = "XXX";
+                    }
                     Highcharts.chart('container_tax_turnover', {
                         chart: {
                             type: 'Combination chart'
@@ -1942,6 +1987,11 @@ if (is_array($session_data)) {
                     var data_month = result.month_data;
                     var max_range = result.max_range;
                     var customer_name = company_name;
+                    if (visible_customer_detail == 1) {
+                        var customer_name = company_name;
+                    } else {
+                         var customer_name = "XXX";
+                    }
                     Highcharts.chart('container_gst_payablevscash', {
                         chart: {
                             type: 'column'
@@ -2199,6 +2249,11 @@ if (is_array($session_data)) {
                     var data_month = result.month_data;
                     var max_range = result.max_range;
                     var customer_name = company_name;
+                    if (visible_customer_detail == 1) {
+                        var customer_name = company_name;
+                    } else {
+                         var customer_name = "XXX";
+                    }
                     Highcharts.chart('container_eligible_credit', {
                         chart: {
                             type: 'column'

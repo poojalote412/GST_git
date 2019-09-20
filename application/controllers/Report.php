@@ -21,24 +21,26 @@ class Report extends CI_Controller {
 //           echo $file_upload1;
 //           exit;
 
-        $get_observation = $this->db->query("select report_id from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' and report_id='$report_id' ORDER BY ID DESC LIMIT 1");
+//        $get_observation = $this->db->query("select file_location,id from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' and report_id='$report_id' ORDER BY ID DESC LIMIT 1");
+        $get_observation = $this->db->query("select file_location,id from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
         $res = $get_observation->row();
-//            $id = $res->id;
+          $id = $res->id;
+          
         $page_numbers = $file_upload1;
         // var_dump($page_numbers);
         $data = array('file_location' => $page_numbers);
 
-//        $this->db->where('insert_id', $insert_id);
-//        $this->db->where('customer_id', $customer_id);
-        $this->db->where('report_id', $report_id);
-//            $this->db->where('id', $id);
+        $this->db->where('insert_id', $insert_id);
+            $this->db->where('customer_id', $customer_id);
+            $this->db->where('id', $id);
         $query = $this->db->update('observation_transaction_all', $data);
 
-
+      
         if ($query == TRUE) {
             $response['message'] = 'success';
             $response['code'] = 200;
             $response['status'] = true;
+            
         } else {
             $response['message'] = 'No data to display';
             $response['code'] = 204;
@@ -164,6 +166,32 @@ class Report extends CI_Controller {
         $data['report_details'] = $result3;
         $data['client_details'] = $result4;
         $this->load->view('admin/report_with_page_num', $data);
+    }
+    
+     public function report_with_page_num_hq($customer_id = '', $insert_id = '') {
+        $customer_id1 = base64_decode($customer_id);
+        $insert_id1 = base64_decode($insert_id);
+        $data['insert_id'] = $insert_id1;
+        $data['customer_id'] = $customer_id1;
+
+        $query_get_customer_name = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id1'");
+        $result = $query_get_customer_name->row();
+        $query_get_insert_header = $this->db->query("SELECT year_id from insert_header_all where insert_id='$insert_id1'");
+        $result1 = $query_get_insert_header->row();
+        $query_get_company_header = $this->db->query("SELECT * from observation_transaction_all where insert_id='$insert_id1' and customer_id='$customer_id1' ORDER BY ID DESC LIMIT 1");
+        $result2 = $query_get_company_header->row();
+        $query_get_report_header = $this->db->query("SELECT * from report_header_all where insert_id='$insert_id1' and customer_id='$customer_id1'");
+        $result3 = $query_get_report_header->row();
+        $query_get_client_letter = $this->db->query("select customer_header_all.customer_name,customer_header_all.customer_address,report_header_all.company_name,report_header_all.managing_director_name from customer_header_all INNER JOIN report_header_all on customer_header_all.customer_id= report_header_all.customer_id where customer_header_all.customer_id ='$customer_id1' and report_header_all.insert_id ='$insert_id1'");
+        $result4 = $query_get_client_letter->row();
+
+
+        $data['customer_details'] = $result;
+        $data['insert_header_details'] = $result1;
+        $data['company_details'] = $result2;
+        $data['report_details'] = $result3;
+        $data['client_details'] = $result4;
+        $this->load->view('hq_admin/report_with_page_num', $data);
     }
 
     public function save_page_numbers() {
@@ -303,6 +331,29 @@ class Report extends CI_Controller {
         $data['cust_name'] = $cust_name;
         $this->load->view('admin/Generate_report', $data);
     }
+    
+    public function index_hq($customer_id = '', $insert_id = '', $cust_name = '') {
+        $query_get_customer_name = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id'");
+        $result = $query_get_customer_name->row();
+        $query_get_insert_header = $this->db->query("SELECT year_id from insert_header_all where insert_id='$insert_id'");
+        $result1 = $query_get_insert_header->row();
+        $query_get_company_header = $this->db->query("SELECT * from observation_transaction_all where insert_id='$insert_id' and customer_id='$customer_id'");
+        $result2 = $query_get_company_header->row();
+        $query_get_report_header = $this->db->query("SELECT * from report_header_all where insert_id='$insert_id' and customer_id='$customer_id'");
+        $result3 = $query_get_report_header->row();
+        $query_get_client_letter = $this->db->query("select customer_header_all.customer_name,customer_header_all.customer_address,report_header_all.company_name,report_header_all.managing_director_name from customer_header_all INNER JOIN report_header_all on customer_header_all.customer_id= report_header_all.customer_id where customer_header_all.customer_id ='$customer_id' and report_header_all.insert_id ='$insert_id'");
+        $result4 = $query_get_client_letter->row();
+
+        $data['customer_id'] = $customer_id;
+        $data['customer_details'] = $result;
+        $data['insert_header_details'] = $result1;
+        $data['company_details'] = $result2;
+        $data['report_details'] = $result3;
+        $data['client_details'] = $result4;
+        $data['insert_id'] = $insert_id;
+        $data['cust_name'] = $cust_name;
+        $this->load->view('hq_admin/Generate_report', $data);
+    }
 
     public function load_pg() {
         $this->load->view('admin/dummy_report');
@@ -316,11 +367,18 @@ class Report extends CI_Controller {
         $query = $this->db->query("select * from customer_header_all where customer_id='$customer_id1'");
         $result = $query->row();
         $data['cust_result'] = $result;
-
-
-
-
         $this->load->view('admin/client_details', $data);
+    }
+    
+    public function enter_detail_fun_hq($customer_id = '', $insert_id = '') {
+        $customer_id1 = base64_decode($customer_id);
+        $insert_id1 = base64_decode($insert_id);
+        $data['customer_id'] = base64_decode($customer_id);
+        $data['insert_id'] = base64_decode($insert_id);
+        $query = $this->db->query("select * from customer_header_all where customer_id='$customer_id1'");
+        $result = $query->row();
+        $data['cust_result'] = $result;
+        $this->load->view('hq_admin/client_details', $data);
     }
 
     public function get_content_pdf1() {
@@ -558,6 +616,33 @@ class Report extends CI_Controller {
         $data['result_observation'] = $result_observation;
         $data['result_observation1'] = $result_observation1;
         $this->load->view('admin/update_report', $data);
+    }
+    
+    public function update_detail_fun_hq($customer_id = '', $insert_id = '') { //function to load update page
+        $customer_id1 = base64_decode($customer_id);
+        $insert_id1 = base64_decode($insert_id);
+        $data['customer_id'] = base64_decode($customer_id);
+        $data['insert_id'] = base64_decode($insert_id);
+        $query = $this->db->query("select * from customer_header_all where customer_id='$customer_id1'");
+        $result = $query->row();
+        $data['cust_result'] = $result;
+
+        $query1 = $this->db->query("select * from report_header_all where customer_id='$customer_id1' and insert_id='$insert_id1'");
+        if ($this->db->affected_rows() > 0) {
+            $result_observation = $query1->row();
+        } else {
+            $result_observation = '';
+        }
+
+        $query2 = $this->db->query("select * from observation_transaction_all where customer_id='$customer_id1' and insert_id='$insert_id1' ORDER BY ID DESC LIMIT 1");
+        if ($this->db->affected_rows() > 0) {
+            $result_observation1 = $query2->row();
+        } else {
+            $result_observation1 = '';
+        }
+        $data['result_observation'] = $result_observation;
+        $data['result_observation1'] = $result_observation1;
+        $this->load->view('hq_admin/update_report', $data);
     }
 
     public function get_heat_map() {

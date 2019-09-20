@@ -48,15 +48,7 @@ if (is_array($session_data)) {
                         <i class="fa fa-times"></i></button>
                 </div>
             </div><br>
-            <!--            <div class="actions" style="float: right;">
-                            <div class="btn-group">
-                                <a href="add_customer"><button id="" class="btn btn-primary"> 
-                                        <i class="fa fa-plus"></i>
-                                        Add New Customer
-                                    </button>
-                                </a>
-                            </div>
-                        </div><br><br>-->
+            
             <div class="box-body">
 
 
@@ -70,6 +62,7 @@ if (is_array($session_data)) {
                             <th>Contact No</th>
                             <th>Created On</th>
                             <th>Action</th>
+                            <th>Previous Files</th>
                             <!--<th>Upload</th>-->
 
                         </tr>
@@ -92,6 +85,7 @@ if (is_array($session_data)) {
                                     <td><?php echo $row->customer_contact_number; ?></td>
                                     <td><?php echo $row->created_on; ?></td>
                                     <td><button id="testing1" onclick="page_diversion('<?php echo $customer_id; ?>', '<?php echo $insert_id; ?>');" class="btn btn-primary">Generate Report</button></td>
+                                    <td><button id="files_view" onclick="" data-target="#exampleModal-4" data-toggle="modal" data-customer_id="<?php echo $customer_id ?>" data-insert_id="<?php echo $insert_id ?>"class="btn btn-primary">View</button></td>
                                     <?php
                                     $i++;
                                 }
@@ -110,11 +104,93 @@ if (is_array($session_data)) {
 
 </div>
 
+<div class="modal fade"  id="exampleModal-4" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="margin: auto;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLabel"><b>You can download here your previous files:</b></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="forms-sample" id="download_prev_form" method="post" name="download_prev_form" enctype="multipart/form-data">
+                    <div class="col-md-12">
+                         <div class="col-md-4">
+                        <div id="example2"  style="width: 850px;margin: auto;" name="example2"></div>
+                         </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+<!--                                <label>File Download</label>-->
+                                <div class="input-group col-xs-6">
+                                    <input type="hidden" class="form-control" value="<?php echo $insert_id; ?>"  name="insert_id"  id="insert_id"   aria-required="true" aria-describedby="input_group-error">
+                                    <input type="hidden" class="form-control" value="<?php echo $customer_id; ?>" name="customer_id"  id="customer_id"   aria-required="true" aria-describedby="input_group-error">
+                                    <br>
+
+                                    <!--<button class="btn" id="download_prev_file" name="download_prev_file"  style="background-color: DodgerBlue;color: white;padding: 10px 12px;"><i class="fa fa-download"></i></button>-->
+                                    <!--<input type="text" class="form-control" value="<?php echo $company_details->report_id; ?>" name="report_id"  id="report_id"   aria-required="true" aria-describedby="input_group-error">-->
+
+
+                                </div><br>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+<!--                                <label>Date</label>-->
+                                <div class="input-group col-xs-6">
+                                   
+                                </div><br>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" name="file_location" id="file_location" class="btn btn-success">Submit</button>-->
+                <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <?php $this->load->view('customer/footer'); ?>
 
 
 <script>
+    
+    
+    $('#exampleModal-4').on('show.bs.modal', function (e) {
+
+        var customerid = $(e.relatedTarget).data('customer_id');
+        var customer_id = document.getElementById('customer_id').value = customerid;
+        var insertid = $(e.relatedTarget).data('insert_id');
+        var insert_id = document.getElementById('insert_id').value = insertid;
+//forcefully complete button validation
+        $.ajax({
+            type: "POST",
+            url: "<?= base_url("Customer_admin/get_file_loacation") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+//                if (result.message === 'success') {
+                if (result['message'] === 'success') {
+                    
+//                    document.getElementById("example2").ele();
+                console.log(data);
+                 var data= result.data_tbl;
+                $("#example2").html(data);
+//                alert(data);
+
+                } else {
+                }
+            }
+        });
+
+
+
+
+    });
+    
     function page_diversion(customer_id, insert_id)
     {
 

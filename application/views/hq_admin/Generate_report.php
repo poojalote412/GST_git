@@ -140,6 +140,7 @@ if (is_array($session_data)) {
                     <input type="hidden" id="second_div_value" name="second_div_value" value="0">
                     <input type="hidden" id="third_div_value" name="third_div_value" value="0">
                     <input type="hidden" id="fourth_div_value" name="fourth_div_value" value="0">
+                    <input type="hidden" id="visible_customer_detail" name="visible_customer_detail" value="<?php echo $company_details->visible_customer_detail ?>">
                     <!--<input type="text" id="fifth_div_value" name="fifth_div_value" value="0">-->
                 </form> 
                 <div id="buttons"></div>
@@ -152,7 +153,7 @@ if (is_array($session_data)) {
                         <div style="position: absolute;bottom: -4%;margin-left:5% !important;color: white;text-align: center;width: 700px;"> 
                             <b style="font-size: 26px"><?php
                                 if ($company_details->visible_customer_detail == 1) {
-                                    echo $company_details->company_name;
+                                    echo $report_details->company_name;
                                 } else {
                                     echo "XXX";
                                 }
@@ -179,7 +180,7 @@ if (is_array($session_data)) {
                     <!--<div style="page-break-before:always;">-->
 
 
-                                <div style="page-break-after:always;margin-top:15%;">
+                    <div style="page-break-after:always;margin-top:15%;">
                         <div style="margin-left: 36% ;">
                             <b style="font-size:22px;color:#0e385e;text-align: center">LETTER TO CLIENT</b></div>
                         <div style="margin-left: 5%;margin-right: 5%;margin-top:10%;" ><b>19th August, 2019</b></div>
@@ -493,7 +494,9 @@ if (is_array($session_data)) {
         var customer_id = document.getElementById("customer_id").value;
         var insert_id = document.getElementById("insert_id").value;
         var company_name = document.getElementById("company_name").value;
+        var visible_customer_detail = document.getElementById("visible_customer_detail").value;
 
+        
 
         $.ajax({
             type: "post",
@@ -579,6 +582,11 @@ if (is_array($session_data)) {
                     var data_month = result.month_data;
                     var max_range = result.max_range;
                     var customer_name = company_name;
+                    if (visible_customer_detail == 1) {
+                        var customer_name = company_name;
+                    } else {
+                         var customer_name = "XXX";
+                    }
                     Highcharts.chart('container_turnovervs_liability', {
                         //                    var chart = Highcharts.chart('container_turnovervs_liability', {
                         chart: {
@@ -670,6 +678,11 @@ if (is_array($session_data)) {
                     var max_range = result.max_range;
                     var sales_percent_values = result.sales_percent_values;
                     var customer_name = company_name;
+                    if (visible_customer_detail == 1) {
+                        var customer_name = company_name;
+                    } else {
+                         var customer_name = "XXX";
+                    }
                     Highcharts.chart('container_sales_month_wise', {
                         chart: {
                             type: 'column'
@@ -780,6 +793,11 @@ if (is_array($session_data)) {
                     var max_range = result.data_liability;
                     var data_state = result.state;
                     var customer_name = company_name;
+                    if (visible_customer_detail == 1) {
+                        var customer_name = company_name;
+                    } else {
+                         var customer_name = "XXX";
+                    }
                     Highcharts.chart('container_state_wise', {
                         chart: {
                             type: 'column'
@@ -864,6 +882,11 @@ if (is_array($session_data)) {
                     var data_month = result.month_data;
                     var max_range = result.max_range;
                     var customer_name = company_name;
+                    if (visible_customer_detail == 1) {
+                        var customer_name = company_name;
+                    } else {
+                         var customer_name = "XXX";
+                    }
                     Highcharts.chart('container_nontax_exempt', {
                         chart: {
                             type: 'column'
@@ -1024,6 +1047,11 @@ if (is_array($session_data)) {
                     var array_b2c_ratio = result.array_b2c_ratio;
                     var max = result.max_range;
                     var customer_name = company_name;
+                    if (visible_customer_detail == 1) {
+                        var customer_name = company_name;
+                    } else {
+                         var customer_name = "XXX";
+                    }
                     //                    var max_ratio = result.max_ratio;
                     var data_month = result.month;
                     Highcharts.chart('container_sales_b2b_b2c', {
@@ -1193,6 +1221,11 @@ if (is_array($session_data)) {
                     var max = result.max;
                     var months = result.month_data;
                     var customer_name = company_name;
+                    if (visible_customer_detail == 1) {
+                        var customer_name = company_name;
+                    } else {
+                         var customer_name = "XXX";
+                    }
                     Highcharts.chart('container_GSTR3b_vs_2A', {
                         chart: {
                             type: 'Combination chart',
@@ -1323,6 +1356,11 @@ if (is_array($session_data)) {
                     var max = result.max;
                     var month = result.month_data;
                     var customer_name = company_name;
+                    if (visible_customer_detail == 1) {
+                        var customer_name = company_name;
+                    } else {
+                         var customer_name = "XXX";
+                    }
                     Highcharts.chart('container_GSTR3b_vs_1', {
                         chart: {
                             type: 'Combination chart'
@@ -1489,6 +1527,11 @@ if (is_array($session_data)) {
                     var data_late_fee = result.data_late_fee;
                     var data_month = result.month_data;
                     var customer_name = company_name;
+                    if (visible_customer_detail == 1) {
+                        var customer_name = company_name;
+                    } else {
+                         var customer_name = "XXX";
+                    }
                     Highcharts.chart('container_tax_liability', {
                         chart: {
                             type: 'column'
@@ -1659,6 +1702,11 @@ if (is_array($session_data)) {
                     var data_month = result.month_data;
                     var max_range = result.max_range;
                     var customer_name = company_name;
+                    if (visible_customer_detail == 1) {
+                        var customer_name = company_name;
+                    } else {
+                         var customer_name = "XXX";
+                    }
                     Highcharts.chart('container_tax_turnover', {
                         chart: {
                             type: 'Combination chart'
@@ -1811,6 +1859,11 @@ if (is_array($session_data)) {
                     var data_month = result.month_data;
                     var max_range = result.max_range;
                     var customer_name = company_name;
+                    if (visible_customer_detail == 1) {
+                        var customer_name = company_name;
+                    } else {
+                         var customer_name = "XXX";
+                    }
                     Highcharts.chart('container_gst_payablevscash', {
                         chart: {
                             type: 'column'
@@ -2068,6 +2121,11 @@ if (is_array($session_data)) {
                     var data_month = result.month_data;
                     var max_range = result.max_range;
                     var customer_name = company_name;
+                    if (visible_customer_detail == 1) {
+                        var customer_name = company_name;
+                    } else {
+                         var customer_name = "XXX";
+                    }
                     Highcharts.chart('container_eligible_credit', {
                         chart: {
                             type: 'column'

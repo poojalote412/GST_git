@@ -1,4 +1,3 @@
-//sale
 
 <?php
 $this->load->view('customer/header');

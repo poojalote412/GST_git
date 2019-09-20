@@ -77,10 +77,6 @@ class Account_report extends CI_Controller {
         if ($query->num_rows() > 0) {
 
             $result = $query->result();
-//            $late_fees = array();
-//            $due_date = array();
-//            $filling_date = array();
-
             $months = array();
             $data .= ' <h4 style="color:#1d2f66"><b>1. GSTR-3B:</b></h4>';
             $data .= '<table id="" class="table-bordered table-striped" width="700">
