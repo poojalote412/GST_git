@@ -849,7 +849,7 @@ if (is_array($session_data)) {
 //                    document.getElementById('loaders1').style.display = "none";
                     alert('Information Updated successfully');
 
-                    window.location.href = "<?= base_url() ?>Generate_report/" + customer_id + "/" + insert_id;
+                    window.location.href = "<?= base_url() ?>Generate_report_hq/" + customer_id + "/" + insert_id;
                 } else {
 //                    document.getElementById('loaders1').style.display = "none";
                     $('#message').html(result.error);

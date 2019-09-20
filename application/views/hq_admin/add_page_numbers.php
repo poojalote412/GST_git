@@ -138,7 +138,7 @@ $this->load->view('hq_admin/navigation');
 //                    document.getElementById('loaders1').style.display = "none";
                     alert('Page Numbers Added successfully');
 
-                    window.location.href = "<?= base_url() ?>Generate_report_with_page_num/" + btoa(customer_id) + "/" + btoa(insert_id);
+                    window.location.href = "<?= base_url() ?>Generate_report_with_page_num_hq/" + btoa(customer_id) + "/" + btoa(insert_id);
                 } else {
 //                    document.getElementById('loaders1').style.display = "none";
 //                    $('#message').html(result.error);

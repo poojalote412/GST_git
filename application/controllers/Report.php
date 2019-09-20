@@ -141,6 +141,15 @@ class Report extends CI_Controller {
         $data['customer_id'] = $customer_id1;
         $this->load->view('admin/add_page_numbers', $data);
     }
+    
+    public function insert_page_number_hq($customer_id = '', $insert_id = '') {
+
+        $customer_id1 = base64_decode($customer_id);
+        $insert_id1 = base64_decode($insert_id);
+        $data['insert_id'] = $insert_id1;
+        $data['customer_id'] = $customer_id1;
+        $this->load->view('hq_admin/add_page_numbers', $data);
+    }
 
     public function report_with_page_num($customer_id = '', $insert_id = '') {
         $customer_id1 = base64_decode($customer_id);

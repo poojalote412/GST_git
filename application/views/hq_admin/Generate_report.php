@@ -2561,7 +2561,7 @@ if (is_array($session_data)) {
             success: function (result) {
                 if (result.status === true) {
 
-                    window.location.href = '<?= base_url() ?>Report/insert_page_number/' + btoa(customer_id) + '/' + btoa(insert_id);
+                    window.location.href = '<?= base_url() ?>Report/insert_page_number_hq/' + btoa(customer_id) + '/' + btoa(insert_id);
                     xepOnline.Formatter.Format('JSFiddle', {render: 'download'});
                 } else {
                     alert('somrthing went wrong.');
