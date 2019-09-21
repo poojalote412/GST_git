@@ -786,12 +786,6 @@ class Customer_admin extends CI_Controller {
             $deviation_output = $deviation_output1 . "," . $deviation_output2;
             $gst_payable = $gst_payable1 . "," . $gst_payable2;
 
-//            if ($radio_check) {
-//                        $radio_check = '1';
-//                    } else {
-//                        $radio_check = '2';
-//                    }
-
             $data = array(
                 'insert_id' => $insert_id,
                 'customer_id' => $customer_id,

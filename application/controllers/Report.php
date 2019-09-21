@@ -11,16 +11,10 @@ class Report extends CI_Controller {
     }
 
     public function file_location_upload() {
-//        var_dump($_POST);
-//        var_dump($_FILES);
-//        exit();
         $customer_id = $this->input->post('customer_id');
         $insert_id = $this->input->post('insert_id');
         $report_id = $this->input->post('report_id');
         $file_upload1 = $this->upload_file();
-//           echo $file_upload1;
-//           exit;
-
 //        $get_observation = $this->db->query("select file_location,id from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' and report_id='$report_id' ORDER BY ID DESC LIMIT 1");
         $get_observation = $this->db->query("select file_location,id from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
         $res = $get_observation->row();
@@ -49,12 +43,9 @@ class Report extends CI_Controller {
     }
 
     public function upload_file() {
-
-
         $response = array();
 //        $user_id = $due_date_id; // session or user_id   
         if (isset($_FILES['file_upload'])) :
-
             $files = $_FILES;
 //            $count = count($_FILES['file_upload']['name']); // count element 
 //            for ($i = 0; $i < $count; $i++):
@@ -66,7 +57,6 @@ class Report extends CI_Controller {
             $config['upload_path'] = 'images/';
             $target_path = 'images/';
             $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf|xlsx|ppt|pptx';
-//                $config['allowed_types'] = 'pdf';
             $config['max_size'] = '500000';    //limit 10000=1 mb
             $config['remove_spaces'] = true;
             $config['overwrite'] = false;
@@ -323,7 +313,7 @@ class Report extends CI_Controller {
         $result = $query_get_customer_name->row();
         $query_get_insert_header = $this->db->query("SELECT year_id from insert_header_all where insert_id='$insert_id'");
         $result1 = $query_get_insert_header->row();
-        $query_get_company_header = $this->db->query("SELECT * from observation_transaction_all where insert_id='$insert_id' and customer_id='$customer_id'");
+        $query_get_company_header = $this->db->query("SELECT * from observation_transaction_all where insert_id='$insert_id' and customer_id='$customer_id' ORDER BY ID DESC LIMIT 1");
         $result2 = $query_get_company_header->row();
         $query_get_report_header = $this->db->query("SELECT * from report_header_all where insert_id='$insert_id' and customer_id='$customer_id'");
         $result3 = $query_get_report_header->row();
@@ -346,7 +336,7 @@ class Report extends CI_Controller {
         $result = $query_get_customer_name->row();
         $query_get_insert_header = $this->db->query("SELECT year_id from insert_header_all where insert_id='$insert_id'");
         $result1 = $query_get_insert_header->row();
-        $query_get_company_header = $this->db->query("SELECT * from observation_transaction_all where insert_id='$insert_id' and customer_id='$customer_id'");
+        $query_get_company_header = $this->db->query("SELECT * from observation_transaction_all where insert_id='$insert_id' and customer_id='$customer_id' ORDER BY ID DESC LIMIT 1");
         $result2 = $query_get_company_header->row();
         $query_get_report_header = $this->db->query("SELECT * from report_header_all where insert_id='$insert_id' and customer_id='$customer_id'");
         $result3 = $query_get_report_header->row();
@@ -396,7 +386,7 @@ class Report extends CI_Controller {
         $data = '';
         $query_get_company_header = $this->db->query("SELECT company_name from report_header_all where insert_id='$insert_id' and customer_id='$customer_id'");
         $query_get_customer_name = $this->db->query("select customer_name,customer_address from customer_header_all where customer_id='$customer_id'");
-        $visible_customer_detail = $this->db->query("select visible_customer_detail from observation_transaction_all where insert_id='$insert_id' and customer_id='$customer_id'");
+        $visible_customer_detail = $this->db->query("select visible_customer_detail from observation_transaction_all where insert_id='$insert_id' and customer_id='$customer_id' ORDER BY ID DESC LIMIT 1");
         if ($this->db->affected_rows() > 0) {
             $res = $query_get_company_header->row();
             $res1 = $visible_customer_detail->row();

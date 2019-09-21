@@ -105,8 +105,8 @@ class Invoice_comp_report extends CI_Controller {
         $this->load->view('hq_admin/Not_in_2a', $data);
     }
 
-    function invoice_amendment_index() { //function to load page of invoice amendment
-        $query_get_cfo_data = $this->Invoice_comp_report_model->get_data_admin();
+    function invoice_amendment_index($firm_id='') { //function to load page of invoice amendment
+        $query_get_cfo_data = $this->Invoice_comp_report_model->get_data_admin($firm_id='');
         if ($query_get_cfo_data !== FALSE) {
             $data['invoice_amend_data'] = $query_get_cfo_data;
         } else {

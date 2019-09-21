@@ -117,23 +117,6 @@ if (is_array($session_data)) {
                                                         <span></span>
                                                     </label>
                                                 </div> 
-<!--                            <div class="col-md-12"><br>
-                            <h5><b>Do you want to this customer details on report?</b></h5>
-                            <input type="radio" name="radio_check" id="radio_check" value="1"> Yes
-                            <input type="radio" name="radio_check" id= "radio_check" value="0"> No<br>
-                            
-                              <span class="required" style="color: red" id="radio_check_error"></span>
-                        </div>-->
-<!--                            <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="defaultUnchecked" name="defaultExampleRadios">
-                                <label class="custom-control-label" for="defaultUnchecked">Yes</label>
-                            </div>
-
-                             Default checked 
-                            <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="defaultChecked" name="defaultExampleRadios" checked>
-                                <label class="custom-control-label" for="defaultChecked">No</label>
-                            </div>-->
                         </div>
                     </div>
 

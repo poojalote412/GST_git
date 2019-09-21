@@ -22,13 +22,13 @@ if (is_array($session_data)) {
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Not in 2A Records
+           Invoice not included GSTR-1
             <!--<small>it all starts here</small>-->
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
             <!--            <li><a href="#">Examples</a></li>-->
-            <li class="active">Not in 2A Records</li>
+            <li class="active">Invoice not included GSTR-1</li>
         </ol>
     </section>
 

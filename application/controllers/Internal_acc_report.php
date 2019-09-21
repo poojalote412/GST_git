@@ -1254,8 +1254,8 @@ class Internal_acc_report extends CI_Controller {
         $this->load->view('customer/eligible_ineligible_credit', $data);
     }
 
-    public function eligible_ineligible_itc_index_admin() {
-        $query_get_data = $this->Internal_acc_report_model->get_data_taxliability_admin();
+    public function eligible_ineligible_itc_index_admin($firm_id='') {
+        $query_get_data = $this->Internal_acc_report_model->get_data_taxliability_admin($firm_id);
         if ($query_get_data !== FALSE) {
             $data['eligible_ineligible_data'] = $query_get_data;
         } else {
@@ -1574,8 +1574,8 @@ class Internal_acc_report extends CI_Controller {
         $this->load->view('customer/gst_payable_vs_cash', $data);
     }
 
-    public function gst_payable_vs_cash_index_admin() { //function load page gst payable vs cash
-        $query_get_data = $this->Internal_acc_report_model->get_data_taxliability_admin();
+    public function gst_payable_vs_cash_index_admin($firm_id='') { //function load page gst payable vs cash
+        $query_get_data = $this->Internal_acc_report_model->get_data_taxliability_admin($firm_id);
         if ($query_get_data !== FALSE) {
             $data['gst_payable_data'] = $query_get_data;
         } else {
