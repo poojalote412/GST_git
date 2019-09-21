@@ -83,7 +83,7 @@ class Customer_admin extends CI_Controller {
         $insert_id = $this->input->post('insert_id');
         $data = "";
 //        $result_firm_name_dd = $this->db->query("SELECT customer_name,customer_email_id,customer_contact_number,created_on FROM customer_header_all WHERE `firm_id`='$firm_id'");
-        $query = $this->db->query("select file_location,created_on from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id'");
+        $query = $this->db->query("select id,file_location,created_on from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' and file_location is not null and file_location !='1'");
          if ($query->num_rows() > 0) {
             $result = $query->result();
            
