@@ -119,8 +119,8 @@ class Account_report extends CI_Controller {
                     //$data .= '<td ><button type="button" style="background-color: #84ab32;border: none;color: white;padding: 7px 25px 7px 25px;display: inline-block; border-radius:5px;"></button></td>';
                 }
 
-                $data .= '<td>' . $late_fees . '</td>' .
-                        '<td>' . $due_date1 . '</td>' .
+                $data .= '<td>' . round($late_fees) . '</td>' .
+                        '<td>' . round($due_date1) . '</td>' .
                         '<td>' . $filling_date1 . '</td>' .
                         '</tr>';
                 $k++;

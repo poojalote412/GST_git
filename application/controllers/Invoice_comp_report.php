@@ -574,8 +574,8 @@ class Invoice_comp_report extends CI_Controller {
                             '<td>' . $row->place_of_supply . '</td>' .
                             '<td>' . $row->invoice_date . '</td>' .
                             '<td>' . $row->invoice_value . '</td>' .
-                            '<td>' . $row->taxable_value . '</td>' .
-                            '<td>' . $row->tax . '</td>' .
+                            '<td>' . number_format(round($row->taxable_value)) . '</td>' .
+                            '<td>' . number_format(round($row->tax)) . '</td>' .
                             '</tr>';
                     $k++;
                 }
@@ -586,9 +586,9 @@ class Invoice_comp_report extends CI_Controller {
                             '<td>' . "" . '</td>' .
                             '<td>' . "" . '</td>' .
                             '<td>' . "" . '</td>' .
-                            '<td><b>' . array_sum($invoice_value1) . '</b></td>' .
-                            '<td><b>' . array_sum($taxable_value1) . '</b></td>' .
-                            '<td><b>' . array_sum($tax1) . '</b></td>' .
+                            '<td><b>' . number_format(round(array_sum($invoice_value1))) . '</b></td>' .
+                            '<td><b>' . number_format(round(array_sum($taxable_value1))) . '</b></td>' .
+                            '<td><b>' . number_format(round(array_sum($tax1))) . '</b></td>' .
                             '</tr>';
                 }
                 $data .= '</tbody></table>';
@@ -841,9 +841,9 @@ class Invoice_comp_report extends CI_Controller {
                             '<td>' . $row->invoice_no . '</td>' .
                             '<td>' . $row->place_of_supply . '</td>' .
                             '<td>' . $row->invoice_date . '</td>' .
-                            '<td>' . $row->invoice_value . '</td>' .
-                            '<td>' . $row->taxable_value . '</td>' .
-                            '<td>' . $row->tax . '</td>' .
+                            '<td>' . number_format(round($row->invoice_value)) . '</td>' .
+                            '<td>' . number_format(round($row->taxable_value)) . '</td>' .
+                            '<td>' . number_format(round($row->tax)) . '</td>' .
                             '</tr>';
                     $k++;
                 }
@@ -854,9 +854,9 @@ class Invoice_comp_report extends CI_Controller {
                             '<td>' . "" . '</td>' .
                             '<td>' . "" . '</td>' .
                             '<td>' . "" . '</td>' .
-                            '<td><b>' . array_sum($invoice_value1) . '</b></td>' .
-                            '<td><b>' . array_sum($taxable_value1) . '</b></td>' .
-                            '<td><b>' . array_sum($tax1) . '</b></td>' .
+                            '<td><b>' . number_format(round(array_sum($invoice_value1))) . '</b></td>' .
+                            '<td><b>' . number_format(round(array_sum($taxable_value1))) . '</b></td>' .
+                            '<td><b>' . number_format(round(array_sum($tax1))) . '</b></td>' .
                             '</tr>';
                 }
                 $data .= '</table>';
@@ -1213,8 +1213,8 @@ class Invoice_comp_report extends CI_Controller {
                             '<td>' . $row->period_2a . '</td>' .
                             '<td>' . $row->invoice_no_2a . '</td>' .
                             '<td>' . $row->place_of_supply_2a . '</td>' .
-                            '<td>' . $row->taxable_value . '</td>' .
-                            '<td>' . $row->tax . '</td>' .
+                            '<td>' . number_format(round($row->taxable_value)) . '</td>' .
+                            '<td>' . number_format(round($row->tax)) . '</td>' .
                             '</tr>';
                     $k++;
                 }
@@ -1227,8 +1227,8 @@ class Invoice_comp_report extends CI_Controller {
                             '<td>' . "" . '</td>' .
                             '<td>' . "" . '</td>' .
                             '<td>' . "" . '</td>' .
-                            '<td><b>' . array_sum($taxable_value1) . '</b></td>' .
-                            '<td><b>' . array_sum($tax1) . '</b></td>' .
+                            '<td><b>' . number_format(round(array_sum($taxable_value1))) . '</b></td>' .
+                            '<td><b>' . number_format(round(array_sum($tax1))) . '</b></td>' .
                             '</tr>';
                 }
                 $data .= '</tbody></table>';
@@ -1609,9 +1609,9 @@ class Invoice_comp_report extends CI_Controller {
                         <td>' . $row->invoice_date . '</td>
                         <td>' . $row->invoice_no . '</td>
                         <td>' . $row->name . '</td>
-                        <td>' . $row->invoice_value . '</td>
-                        <td>' . $row->taxable_value . '</td>
-                        <td><b>' . ($row->igst + $row->cgst + $row->sgst + $row->cess) . '</b></td>
+                        <td>' . number_format(round($row->invoice_value)) . '</td>
+                        <td>' . number_format(round($row->taxable_value)) . '</td>
+                        <td><b>' . number_format(round(($row->igst + $row->cgst + $row->sgst + $row->cess))) . '</b></td>
                         
                         </tr>';
                 }
@@ -1998,9 +1998,9 @@ class Invoice_comp_report extends CI_Controller {
                         <td>' . $row->invoice_date . '</td>
                         <td>' . $row->invoice_no . '</td>
                         <td>' . $row->name . '</td>
-                        <td>' . $row->invoice_value . '</td>
-                        <td>' . $row->taxable_value . '</td>
-                        <td><b>' . ($row->igst + $row->cgst + $row->sgst + $row->cess) . '</b></td>
+                        <td>' . number_format(round($row->invoice_value)) . '</td>
+                        <td>' . number_format(round($row->taxable_value)) . '</td>
+                        <td><b>' . number_format(round(($row->igst + $row->cgst + $row->sgst + $row->cess))) . '</b></td>
                         
                         </tr>';
                 }

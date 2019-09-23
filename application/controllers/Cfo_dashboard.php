@@ -303,18 +303,18 @@ class Cfo_dashboard extends CI_Controller {
                 $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
                         '<td>' . $month . '</td>' .
-                        '<td>' . $turnover . '</td>' .
-                        '<td>' . $tax_liabality . '</td>' .
-                        '<td>' . round($ratio) . "%" . '</td>' .
+                        '<td>' . number_format(round($turnover)) . '</td>' .
+                        '<td>' . number_format(round($tax_liabality)) . '</td>' .
+                        '<td>' . number_format(round($ratio)) . "%" . '</td>' .
                         '</tr>';
                 $k++;
             }
             $data .= '<tr>' .
                     '<td>' . '<b>Total</b>' . '</td>' .
                     '<td>' . '' . '</td>' .
-                    '<td>' . '<b>' . array_sum($turnover1) . '</b> ' . '</td>' .
-                    '<td>' . '<b>' . array_sum($tax_liabality1) . '</b>' . '</td>' .
-                    '<td>' . '<b>' . array_sum($ratio_val) . "%" . '</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($turnover1))) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($tax_liabality1))) . '</b>' . '</td>' .
+                    '<td>' . '<b>' .number_format(round(array_sum($ratio_val))) . "%" . '</b>' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table><br><br>';
 //         echo   max($ratio_val);

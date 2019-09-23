@@ -397,7 +397,7 @@ class Report extends CI_Controller {
             } else {
                 $company_name = "XXX";
             }
-            $data = '<div style="float:left;margin-top:15%;margin-left: 5%;margin-right:5%;letter-spacing: 0.5px;font-family:Arial Sans Serif;;">
+            $data = '<div style="margin-top:15%;margin-left: 5%;margin-right:5%;letter-spacing: 0.5px;font-family:Arial Sans Serif;;">
                 <b style="font-size:18px;color:#1d2f66;">2. EXECUTIVE SUMMARY</b><br>
                      <p style="font-size:13px"> Ecovis RKCA was provided with the data of the company 
                      "' . $company_name . '" 
@@ -434,24 +434,96 @@ class Report extends CI_Controller {
         if ($this->db->affected_rows() > 0) {
             $res = $query_get_insert_header->row();
             $year_id = $res->year_id;
-            $data = '<div style="float:left;margin-top:9%;margin-left: 5%;margin-top:5%;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;width:700px;height:700px">
+            $data = '<div style="margin-top:9%;margin-left: 5%;margin-top:5%;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;width:700px;height:700px">
                 
-                     <p style="font-size:13px"> It has been an immense pleasure working for you and 
-                     thank you for choosing us to provide you GST insight report for the period  "' . $year_id . '".
-                     We are delighted to submit our report based on the data received from you. </br>
-                     As you are aware Ecovis RKCA have knowledge of accounting,taxation and ERPs;is
-                     striving to support organizations in transforming their finance and accounting
-                     processes.<br>
-                     Our observations and recommendations will help your professionals to unlock
-                     various areas of improvement and to overcome the inefficiencies which are making
-                     your businesses to bear loss and will help you to  improve your working capital
-                     position.<br>
-                     We look forward to receiving your feedback on the report and your time for
-                     discussing the same.<br>
-                     Thanking you in advance.<br>
-                     Yours faithfully<br><br><br>
-                     Authorized Signatory
+                     <p style="font-size:13px"> Dear Sir,<br><br>
+                     We would like to thank you for giving us an opportunity to work for your company. 
+                     We refer to our ongoing discussion on assisting (“Company”) in India for GST Health Check Report.<br><br>
+                     In this report we have covered the overall perspective of the following:
+                     <ul style="margin-left: -0.10%;">
+                     <li>Identifying the errors in advance so the risk of levy of Interests and penalties can be mitigated.</li>
+                     <li>Analyzing Sales data which will facilitate the area and product wise profitability of business. </li>
+                     <li>Identifying the deviation in the GST data through Comparison of GSTR-3B with GSTR-1 & GSTR-2A.</li>
+                     <li>Helps in filing GST Annual Returns.</li>
+                     <li>Providing Internal control report and Mismatch reports of the company so that the company can improve operations to avoid any working capital loss, interest penalties and future litigations.</li>
+                     <li>The CFO dashboard which enables faster, more precise decision making, allowing financial managers to assess, understand, influence, optimize financial & operational performance and identifying accounting mismatches.</li>
+                     <li>Providing risk rating card which will reflect the status of the company and enable in determining if it is good going or needs improvement.</li>
+                     </ul><br>
+                     Moreover, GST Health Check may result in cost savings by identifying tax leakages as well as developing vendor relationship.<br><br>
+                     Hope this GST Health Check report will help your company for the better and timely compliances.<br><br>
+                     Yours faithfully 
+                     
                      </p>
+                     </div>';
+
+
+            $respose['data'] = $data;
+            $respose['message'] = "success";
+        } else {
+            $respose['message'] = "";
+        }echo json_encode($respose);
+    }
+    public function get_content_limited_usage() {
+        $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
+        $year_id = $this->input->post("year_id");
+//        $query_get_company_header = $this->db->query("SELECT company_name from report_header_all where insert_id='$insert_id' and customer_id='$customer_id'");
+        $query_get_insert_header = $this->db->query("SELECT year_id from insert_header_all where insert_id='$insert_id'");
+        if ($this->db->affected_rows() > 0) {
+            $res = $query_get_insert_header->row();
+            $year_id = $res->year_id;
+            $data = '<div style="float:left;margin-left: 5%;margin-top:2%;margin-top:5%;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;width:700px;">
+                    <p>This Report is intended solely for the information and internal use of Client and is not intended to be and should not
+                    be used by any other person or entity. In case this report has been accessed by any party other than those intended 
+                    to, such person/entity shall send it back to the intended party or Ecovis RKCA or destroy the same so as to protect
+                    the confidentiality of the contents.  Ecovis RKCA shall submit this report only to the Client and any forward
+                    transmission shall not be the responsibility of Ecovis RKCA.
+                    This report was prepared on the specific instructions of company solely for the purposes of the internal usage and 
+                    should not be used or relied for any other purpose. If unauthorized persons choose to rely on any of the contents of 
+                    this report, they may do so at their own risk. This report includes information not available to the public, accordingly, 
+                    this report is strictly confidential, and no part thereof may be reproduced or used by any other party other than the 
+                    client for its intended use.
+                    </p>
+                    
+                     
+                     </div>';
+
+
+            $respose['data'] = $data;
+            $respose['message'] = "success";
+        } else {
+            $respose['message'] = "";
+        }echo json_encode($respose);
+    }
+    
+     public function get_content_disclaimer() {
+        $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
+        $year_id = $this->input->post("year_id");
+//        $query_get_company_header = $this->db->query("SELECT company_name from report_header_all where insert_id='$insert_id' and customer_id='$customer_id'");
+        $query_get_insert_header = $this->db->query("SELECT year_id from insert_header_all where insert_id='$insert_id'");
+        if ($this->db->affected_rows() > 0) {
+            $res = $query_get_insert_header->row();
+            $year_id = $res->year_id;
+            $data = '<div style="float:left;margin-top:9%;margin-top:5%;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;width:700px;height:700px">
+                    <ul>
+                    <li>The report is generated purely based on the data provided by the client. </li>
+                    <li>We are not recommending or suggesting the data to be used in your business decisions nor for use with GST Portal, we are just making an assumption that is generated through the AI and as per expert’s knowledge.</li>
+                    </ul><br>
+                    <b style="margin-left: 5%">Conditions and major assumptions:</b><br>
+                    <ul>
+                    <li>We state that this is not a attestation or certification of data. We have no responsibility to modify this report for events and circumstances occurring subsequent to the date of this report.</li>
+                    <li>The results by reason of performing this GST Health Check report, is not to be used to give expert testimony nor to be in attendance in court or at any government hearing or any other forum</li>
+                    <li>The opinion given in this GST Health Check report is based on information provided in part by the management of the company, other sources as listed in the report. This information is assumed to be accurate and complete; we have not audited or attempted to confirm this information for accuracy or completeness.</li>
+                    <li>Now withstanding anything contained in this report, the client agrees that Ecovis RKCA shall not have any liability towards the client or to any other third party (in contract or tort or under statute or otherwise) for any economic loss, financial loss or damage suffered by the client.</li>
+                    </ul><br>
+                    <b style="margin-left: 5%">Source of Data:</b><br>
+                    <ul>
+                    <li>Received from company</li>
+                    <li>GST Portal</li>
+                    </ul>
+                    
+                     
                      </div>';
 
 

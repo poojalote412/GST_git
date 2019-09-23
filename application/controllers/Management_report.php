@@ -1630,11 +1630,11 @@ class Management_report extends CI_Controller {
             foreach ($result as $row) {
                 $data .= '<tr>' .
                         '<td>' . 'Sales' . '</td>' .
-                        '<td>' . $row->rate_0 . '</td>' .
-                        '<td>' . $row->rate_5 . '</td>' .
-                        '<td>' . $row->rate_12 . '</td>' .
-                        '<td>' . $row->rate_18 . '</td>' .
-                        '<td>' . $row->rate_28 . '</td>' .
+                        '<td>' . number_format(round($row->rate_0)) . '</td>' .
+                        '<td>' . number_format(round($row->rate_5)) . '</td>' .
+                        '<td>' . number_format(round($row->rate_12)) . '</td>' .
+                        '<td>' . number_format(round($row->rate_18)) . '</td>' .
+                        '<td>' . number_format(round($row->rate_28)) . '</td>' .
                         '</tr>';
             }
 

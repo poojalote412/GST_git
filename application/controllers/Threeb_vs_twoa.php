@@ -273,19 +273,19 @@ class Threeb_vs_twoa extends CI_Controller {
 
                 $data .= '<tr>' .
                         '<td>' . $month . '</td>' .
-                        '<td>' . $gstr_tb . '</td>' .
-                        '<td>' . $gstr2a . '</td>' .
-                        '<td>' . $difference . '</td>' .
-                        '<td>' . $cumu_difference . '</td>' .
+                        '<td>' . number_format(round($gstr_tb)) . '</td>' .
+                        '<td>' . number_format(round($gstr2a)) . '</td>' .
+                        '<td>' . number_format(round($difference)) . '</td>' .
+                        '<td>' . number_format(round($cumu_difference)) . '</td>' .
                         '</tr>';
             }
             //to get total values
             $data .= '<tr>' .
                     '<td>' . '<b>Total</b>' . '</td>' .
-                    '<td>' . '<b>' . $thb = array_sum($gstr_tb1) . '</b> ' . '</td>' .
-                    '<td>' . '<b>' . $twa = array_sum($gstr2a4) . '</b>' . '</td>' .
-                    '<td>' . '<b>' . array_sum($difference2) . '</b>' . '</td>' .
-                    '<td>' . '<b>' . array_sum($cumu_difference3) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round($thb = array_sum($gstr_tb1))) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round($twa = array_sum($gstr2a4))) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($difference2))) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($cumu_difference3))) . '</b>' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table>';
 

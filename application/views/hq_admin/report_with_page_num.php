@@ -170,7 +170,7 @@ if (is_array($session_data)) {
                     <div id="container_image_front" style="page-break-after:always;position: relative;color: white;margin-top:-22px;margin-left: -15px;margin-right: -25px;">
                          <!--<img src="https://premisafe.com/Logo.jpg" width="120px" height="30px">-->
                         <div style="position: absolute;bottom: -4%;margin-left:5% !important;color: white;text-align: center;width: 700px;"> 
-                            <b style="font-size: 26px"><?php
+                            <b style="font-size: 26px;text-transform: uppercase"><?php
                                 if ($company_details->visible_customer_detail == 1) {
                                     echo $report_details->company_name;
                                 } else {
@@ -179,7 +179,7 @@ if (is_array($session_data)) {
                                 ?></b> <br>
                         </div>
                         <div style="position: absolute;bottom: -14%;color: white;width: 700px;text-align: center;margin-left:5% !important;" class="centered"> 
-                            <br>  <b style="font-size: 20px"><?php echo $insert_header_details->year_id ?></b> <br>
+                            <br>  <b style="font-size: 20px">Financial Year: &nbsp;<?php echo $insert_header_details->year_id ?></b> <br>
                         </div>
                         <img src="https://premisafe.com/GST_image/GSTReportCover.jpg" style="page-break-after: always" width="800px" height="800px">
                     </div>
@@ -229,7 +229,7 @@ if (is_array($session_data)) {
                             </b>
                         </div>
                         <div style="margin-left: 5%;margin-right: 5%;"><b>
-                                Company Name:
+                               
                                 <?php
                                 if ($company_details->visible_customer_detail == 1) {
                                     echo $client_details->company_name;
@@ -240,7 +240,7 @@ if (is_array($session_data)) {
                                 ?>
                             </b></div>
                         <div style="margin-left: 5%;margin-right: 5%;"><b> 
-                                Address :
+                                
                                 <?php
                                 if ($company_details->visible_customer_detail == 1) {
                                     echo $client_details->customer_address;

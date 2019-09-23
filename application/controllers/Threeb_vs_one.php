@@ -289,18 +289,18 @@ class Threeb_vs_one extends CI_Controller {
 
                 $data .= '<tr>' .
                         '<td>' . $month . '</td>' .
-                        '<td>' . $gstr_tb . '</td>' .
-                        '<td>' . $gstr_one . '</td>' .
-                        '<td>' . $difference . '</td>' .
-                        '<td>' . $cumu_difference . '</td>' .
+                        '<td>' . number_format(round($gstr_tb)) . '</td>' .
+                        '<td>' . number_format(round($gstr_one)) . '</td>' .
+                        '<td>' . number_format(round($difference)) . '</td>' .
+                        '<td>' . number_format(round($cumu_difference)) . '</td>' .
                         '</tr>';
             }
             $data .= '<tr>' .
                     '<td>' . '<b>Total</b>' . '</td>' .
-                    '<td>' . '<b>' . $ttl1 = array_sum($gstr_tb1) . '</b> ' . '</td>' .
-                    '<td>' . '<b>' . $ttl2 = array_sum($gstr_one2) . '</b>' . '</td>' .
-                    '<td>' . '<b>' . array_sum($difference4) . '</b>' . '</td>' .
-                    '<td>' . '<b>' . array_sum($cumu_difference5) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round($ttl1 = array_sum($gstr_tb1))) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round($ttl2 = array_sum($gstr_one2))) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($difference4))) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($cumu_difference5))) . '</b>' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table><br>';
 

@@ -151,7 +151,7 @@ if (is_array($session_data)) {
                     <div id="container_image_front" style="page-break-after:always;position: relative;color: white;margin-top:-22px;margin-left: -15px;margin-right: -25px;">
                          <!--<img src="https://premisafe.com/Logo.jpg" width="120px" height="30px">-->
                         <div style="position: absolute;bottom: -4%;margin-left:5% !important;color: white;text-align: center;width: 700px;"> 
-                            <b style="font-size: 26px"><?php
+                            <b style="font-size: 26px;text-transform: uppercase"><?php
                                 if ($company_details->visible_customer_detail == 1) {
                                     echo $report_details->company_name;
                                 } else {
@@ -160,7 +160,7 @@ if (is_array($session_data)) {
                                 ?></b> <br>
                         </div>
                         <div style="position: absolute;bottom: -14%;color: white;width: 700px;text-align: center;margin-left:5% !important;" class="centered"> 
-                            <br>  <b style="font-size: 20px"><?php echo $insert_header_details->year_id ?></b> <br>
+                            <br>  <b style="font-size: 20px">Financial Year: &nbsp;<?php echo $insert_header_details->year_id ?></b> <br>
                         </div>
                         <img src="https://premisafe.com/GST_image/GSTReportCover.jpg" style="page-break-after: always" width="800px" height="800px">
                     </div>
@@ -182,7 +182,7 @@ if (is_array($session_data)) {
 
                     <div style="page-break-after:always;margin-top:15%;">
                         <div style="margin-left: 36% ;">
-                            <b style="font-size:22px;color:#0e385e;text-align: center">LETTER TO CLIENT</b></div>
+                            <b style="font-size:22px;color:#0e385e;text-align: center"></b></div>
                         <div style="margin-left: 5%;margin-right: 5%;margin-top:10%;" ><b>19th August, 2019</b></div>
                         <div style="margin-left: 5%;margin-right: 5%;"><b>
                                 <?php
@@ -209,8 +209,9 @@ if (is_array($session_data)) {
                                 ?>
                             </b>
                         </div>
-                        <div style="margin-left: 5%;margin-right: 5%;"><b>
-                                Company Name:
+                        <div style="margin-left: 5%;margin-right: 5%;">
+                            <b>    
+                                
                                 <?php
                                 if ($company_details->visible_customer_detail == 1) {
                                     echo $client_details->company_name;
@@ -221,7 +222,7 @@ if (is_array($session_data)) {
                                 ?>
                             </b></div>
                         <div style="margin-left: 5%;margin-right: 5%;"><b> 
-                                Address :
+                               
                                 <?php
                                 if ($company_details->visible_customer_detail == 1) {
                                     echo $client_details->customer_address;
@@ -237,15 +238,16 @@ if (is_array($session_data)) {
 
                     </div>
 
-                    <div id="container_image_limited_usage" style="margin-top:15%;page-break-after:always;">
+<!--                    <div id="container_image_limited_usage" style="margin-top:15%;page-break-after:always;">
                         <img src="https://premisafe.com/GST_image/LimitedUsage&Abbreviation.jpg" width="800px" height="900px">
-                    </div>
+                    </div>-->
                     <!--                    <div style="margin-top: 7%;margin-left: 5%;page-break-after:always;page-break-after: always;">
                                             <img src="https://premisafe.com/GST_image/GSTContent.jpg" width="800px" height="700px"style="page-break-after:always;" >
                                         </div>-->
 
-                    <div style="page-break-after:always;width:700px;margin-left: 5%;margin-right:5%;margin-top:15%;text-align: justify;text-justify: inter-word;">
-                        <b style="color:#0e385e;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;font-size: 18px;text-transform: uppercase;">1. ABOUT 
+                    <div style="page-break-after:always;background:#0e385e;width:700px;margin-left: 5%;margin-right:5%;margin-top:15%;text-align: justify;text-justify: inter-word;">
+                        <p style="font-size:18px; color:white;padding:4px;width:700px;text-align:center"><b>1. ABOUT CLIENT </b></p><br> 
+                        <b style="color:white;background:#0e385e;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;font-size: 18px;text-transform: uppercase;padding:4px;width:700px;text-align:center">
                             <?php
                             if ($company_details->visible_customer_detail == 1) {
                                 echo $client_details->company_name;
@@ -254,8 +256,8 @@ if (is_array($session_data)) {
                             }
 //                            echo $client_details->company_name
                             ?>:
-                        </b>
-                        <br>  <p style="font-size: 14px;letter-spacing: 0.5px;">
+                        </b><br><br><br>
+                         <p style="font-size: 14px;letter-spacing: 0.5px;margin-left: 5%;color:white;background:#0e385e;">
                             <?php
                             if ($company_details->visible_customer_detail == 1) {
                                 echo $report_details->about_company;
@@ -265,6 +267,9 @@ if (is_array($session_data)) {
 //                            echo $report_details->about_company
                             ?> </p>
                     </div>
+                    
+                    
+                    
                     <div style="page-break-after:always;width:700px;margin-left: 5%;margin-right:  5%;margin-top:9%;text-align: justify;">
                         <div id="content_pdf" style=""></div>
                     </div>
@@ -456,10 +461,17 @@ if (is_array($session_data)) {
                         <!--<div id="container_heat_map" style="width:700px"></div>-->
                     </div>
                     <!--</div>-->
-
-                    <div class="test" style="page-break-after:always;margin-top:8%">
-                        <div id="container_image_disclaimer" style=""><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="700px" height="900px" style=""></div><br><br>  
-
+                    <div class="test" style="page-break-after:always;margin-top:11%">
+                        <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center"><b>11. LIMITED USAGE AND NON-DISCLOSURE </b></p><br> 
+                        <div id="container_image_limited_usage" style=""></div><br><br>  
+                    </div><br><br>
+                    
+                    <div class="test" style="page-break-after:always;margin-top:19%">
+                        <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center"><b>12. Disclaimer </b></p><br>
+                        
+                        <!--<div id="container_image_disclaimer" style=""><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="700px" height="900px" style=""></div><br><br>-->  
+                        <div id="container_image_disclaimer" style=""></div><br><br>  
+                       
                     </div>
 
                     <div class="test" style="page-break-after:always;margin-top:9%">
@@ -533,6 +545,49 @@ if (is_array($session_data)) {
                     var data = result.data;
                     $('#content_client_letterPDF').html("");
                     $('#content_client_letterPDF').html(data);
+                    //                    $('#example2').DataTable();
+                } else {
+
+                }
+            },
+        });
+
+        //Ajax call for disclaimer
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Report/get_content_disclaimer") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                //                 alert();
+                $('#container_image_disclaimer').html("");
+                if (result.message === "success") {
+
+                    var data = result.data;
+                    $('#container_image_disclaimer').html("");
+                    $('#container_image_disclaimer').html(data);
+                    //                    $('#example2').DataTable();
+                } else {
+
+                }
+            },
+        });
+
+        //Ajax call for limited usage and disclosure
+        
+         $.ajax({
+            type: "post",
+            url: "<?= base_url("Report/get_content_limited_usage") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                //                 alert();
+                $('#container_image_limited_usage').html("");
+                if (result.message === "success") {
+
+                    var data = result.data;
+                    $('#container_image_limited_usage').html("");
+                    $('#container_image_limited_usage').html(data);
                     //                    $('#example2').DataTable();
                 } else {
 

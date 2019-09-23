@@ -559,13 +559,13 @@ class Internal_acc_report extends CI_Controller {
                 $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
                         '<td>' . $month[$i] . '</td>' .
-                        '<td>' . $liabilityoutward[$i] . '</td>' .
-                        '<td>' . $rcm_liability[$i] . '</td>' .
-                        '<td>' . $itc_ineligible[$i] . '</td>' .
-                        '<td>' . $net_rtc[$i] . '</td>' .
-                        '<td>' . $paid_credit[$i] . '</td>' .
-                        '<td>' . $paid_cash[$i] . '</td>' .
-                        '<td>' . $late_fee[$i] . '</td>' .
+                        '<td>' . number_format(round($liabilityoutward[$i])) . '</td>' .
+                        '<td>' . number_format(round($rcm_liability[$i])) . '</td>' .
+                        '<td>' . number_format(round($itc_ineligible[$i])) . '</td>' .
+                        '<td>' . number_format(round($net_rtc[$i])) . '</td>' .
+                        '<td>' . number_format(round($paid_credit[$i])) . '</td>' .
+                        '<td>' . number_format(round($paid_cash[$i])) . '</td>' .
+                        '<td>' . number_format(round($late_fee[$i])) . '</td>' .
                         '</tr>';
 
                 $k++;
@@ -573,13 +573,13 @@ class Internal_acc_report extends CI_Controller {
             $data .= '<tr>' .
                     '<td>' . '<b>Total</b>' . '</td>' .
                     '<td>' . '' . '</td>' .
-                    '<td>' . '<b>' . array_sum($liabilityoutward) . '</b> ' . '</td>' .
-                    '<td>' . '<b>' . array_sum($rcm_liability) . '</b> ' . '</td>' .
-                    '<td>' . '<b>' . array_sum($itc_ineligible) . '</b> ' . '</td>' .
-                    '<td>' . '<b>' . array_sum($net_rtc) . '</b> ' . '</td>' .
-                    '<td>' . '<b>' . array_sum($paid_credit) . '</b> ' . '</td>' .
-                    '<td>' . '<b>' . array_sum($paid_cash) . '</b> ' . '</td>' .
-                    '<td>' . '<b>' . array_sum($late_fee) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($liabilityoutward))) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($rcm_liability))) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($itc_ineligible))) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($net_rtc))) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($paid_credit))) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($paid_cash))) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($late_fee))) . '</b> ' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table>';
             $get_observation = $this->db->query("select tax_liability_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
@@ -984,18 +984,18 @@ class Internal_acc_report extends CI_Controller {
                 $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
                         '<td>' . $month . '</td>' .
-                        '<td>' . $tax_val . '</td>' .
-                        '<td>' . $taxable_val . '</td>' .
-                        '<td>' . round($ratio) . "%" . '</td>' .
+                        '<td>' . number_format(round($tax_val)) . '</td>' .
+                        '<td>' . number_format(round($taxable_val)) . '</td>' .
+                        '<td>' . number_format(round($ratio)) . "%" . '</td>' .
                         '</tr>';
                 $k++;
             }
             $data .= '<tr>' .
                     '<td>' . '<b>Total</b>' . '</td>' .
                     '<td>' . '' . '</td>' .
-                    '<td>' . '<b>' . array_sum($tax_value) . '</b> ' . '</td>' .
-                    '<td>' . '<b>' . array_sum($taxable_value) . '</b>' . '</td>' .
-                    '<td>' . '<b>' . array_sum($tax_ratio) . "%" . '</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($tax_value))) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($taxable_value))) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($tax_ratio))) . "%" . '</b>' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table>';
             $max_ratio = max($tax_ratio);
@@ -1335,18 +1335,18 @@ class Internal_acc_report extends CI_Controller {
                 $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
                         '<td>' . $month . '</td>' .
-                        '<td>' . $ineligible_itc . '</td>' .
-                        '<td>' . $net_itc . '</td>' .
-                        '<td>' . round($ratio_ineligible) . "%" . '</td>' .
-                        '<td>' . round($ratio_eligible) . "%" . '</td>' .
+                        '<td>' . number_format(round($ineligible_itc)) . '</td>' .
+                        '<td>' . number_format(round($net_itc)) . '</td>' .
+                        '<td>' . number_format(round($ratio_ineligible)) . "%" . '</td>' .
+                        '<td>' . number_format(round($ratio_eligible)) . "%" . '</td>' .
                         '</tr>';
                 $k++;
             }
             $data .= '<tr>' .
                     '<td>' . '<b>Total</b>' . '</td>' .
                     '<td>' . '' . '</td>' .
-                    '<td>' . '<b>' . array_sum($ineligible_itc_arr) . '</b> ' . '</td>' .
-                    '<td>' . '<b>' . array_sum($net_itc_arr) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($ineligible_itc_arr))) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($net_itc_arr))) . '</b>' . '</td>' .
                     '<td>' . '<b>' . "" . '</b>' . '</td>' .
                     '<td>' . '<b>' . "" . '</b>' . '</td>' .
                     '</tr>';
@@ -1648,19 +1648,19 @@ class Internal_acc_report extends CI_Controller {
                 $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
                         '<td>' . $month . '</td>' .
-                        '<td>' . $liability . '</td>' .
-                        '<td>' . $net_itc . '</td>' .
-                        '<td>' . $paid_in_cash . '</td>' .
-                        '<td>' . round($percent * 100) . "%" . '</td>' .
+                        '<td>' . number_format(round($liability)) . '</td>' .
+                        '<td>' . number_format(round($net_itc)) . '</td>' .
+                        '<td>' . number_format(round($paid_in_cash)) . '</td>' .
+                        '<td>' . number_format(round($percent * 100)) . "%" . '</td>' .
                         '</tr>';
                 $k++;
             }
             $data .= '<tr>' .
                     '<td>' . '<b>Total</b>' . '</td>' .
                     '<td>' . '' . '</td>' .
-                    '<td>' . '<b>' . array_sum($liability_arr) . '</b> ' . '</td>' .
-                    '<td>' . '<b>' . array_sum($net_itc_arr) . '</b>' . '</td>' .
-                    '<td>' . '<b>' . array_sum($paid_in_cash_arr) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($liability_arr))) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($net_itc_arr))) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($paid_in_cash_arr))) . '</b>' . '</td>' .
                     '<td>' . '<b>' . "" . '</b>' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table>';
