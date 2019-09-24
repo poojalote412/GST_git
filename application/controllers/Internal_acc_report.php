@@ -1805,19 +1805,33 @@ class Internal_acc_report extends CI_Controller {
                     '<td>' . '<b>' . "" . '</b>' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
-
+            $max_percent = max($percent_arr);
+            $min_percent = min($percent_arr);
+            if (count($percent_arr) != 0) {
+                $avg = array_sum($percent_arr) / count($percent_arr);
+            } else {
+                $avg = 0;
+            }
             $data .= "<div class='col-md-12'>
                                     <label><h4><b>Observation </b></h4></label><span class='required' aria-required='true'> </span>
                                     <div class='input-group'>
                                         <span class='input-group-addon'>
                                             <i class='fa fa-eye'></i>
-                                        </span>
-                                        <textarea class='form-control' rows='5' id='gst_payable_observation' name='gst_payable_observation'>
-                                      
-                                        </textarea>
-                                    </div>
+                                        </span>";
+                                        if ($avg > 35) {
+                                       $data .=" <textarea class='form-control' rows='5' id='gst_payable_observation' name='gst_payable_observation'>GST paid in cash varies from __ to ____ for F.Y. ___. Average percentage of liability paid by cash is ____ for F.Y.___. So, analysis of huge payment by cash to be done & accordingly input tax credit planning should be done.</textarea>";
+                                          
+                                    $data .="</div>
                                     <span class='required' style='color: red' id='gst_payable_observation_error'></span>
                                 </div>";
+                                        }else{
+                                            $data .= "<textarea class='form-control' rows='5' id='gst_payable_observation' name='gst_payable_observation'>GST paid in cash has varied from __ to ____ for F.Y. ___. </textarea>";
+                                        }
+                                       
+            
+            
+            
+            
             //graph work
             $abc1 = array();
             $abc2 = array();

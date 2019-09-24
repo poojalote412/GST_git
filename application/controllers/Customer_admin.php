@@ -420,15 +420,24 @@ class Customer_admin extends CI_Controller {
         $m_d_name = $this->input->post('m_d_name');
         $about_company = $this->input->post('about_company');
         $cfo_observation = nl2br($this->input->post('cfo_observation'));
+        $cfo_remarks = nl2br($this->input->post('editor_turover_vs_tax'));
         $rate_wise_observation = nl2br($this->input->post('rate_wise_observation'));
+        $rate_wise_remarks = nl2br($this->input->post('editor_rate_wise_data'));
         $monthwise_sale_observation = nl2br($this->input->post('monthwise_sale_observation'));
+        $monthwise_sale_remarks = nl2br($this->input->post('editor_sales_monthly_data'));
         $tax_liability_observation = nl2br($this->input->post('tax_liability_observation'));
+        $tax_liability_remarks = nl2br($this->input->post('editor_tax_liability_data'));
         $tax_exempt_observation = nl2br($this->input->post('tax_exempt_observation'));
+        $tax_exempt_remarks = nl2br($this->input->post('editor_tax_ntax_Exempt_data'));
         $tax_turnover_observation = nl2br($this->input->post('tax_turnover_observation'));
+        $tax_turnover_remarks = nl2br($this->input->post('editor_tax_turnover_data'));
         $eligible_ineligible_observation = nl2br($this->input->post('eligible_ineligible_observation'));
+        $eligible_ineligible_remarks = nl2br($this->input->post('editor_eligible_data'));
         $invoice_not_observation = nl2br($this->input->post('invoice_not_observation'));
         $amend_observation = nl2br($this->input->post('amend_observation'));
         $conclusion_summary = ($this->input->post('editor12'));
+        $serious_summary = ($this->input->post('editor13'));
+        $improvement_summary = ($this->input->post('editor14'));
         $time_over_run1 = ($this->input->post('range_issue_matrix1'));
         $internal_control1 = ($this->input->post('range_issue_matrix2'));
         $transaction_mismatch1 = ($this->input->post('range_issue_matrix3'));
@@ -458,7 +467,17 @@ class Customer_admin extends CI_Controller {
             exit;
         } elseif (empty($conclusion_summary)) {
             $response['id'] = 'editor12';
-            $response['error'] = 'Enter Details Conclusion Summary';
+            $response['error'] = 'Enter Details of compliments facts';
+            echo json_encode($response);
+            exit;
+        } elseif (empty($serious_summary)) {
+            $response['id'] = 'editor13';
+            $response['error'] = 'Enter Details of serious summary';
+            echo json_encode($response);
+            exit;
+        } elseif (empty($improvement_summary)) {
+            $response['id'] = 'editor14';
+            $response['error'] = 'Enter Details of improvement';
             echo json_encode($response);
             exit;
         } elseif (($time_over_run1) == 0) {
@@ -571,15 +590,24 @@ class Customer_admin extends CI_Controller {
                 'customer_id' => $customer_id,
                 'report_id' => $report_id,
                 'cfo_observation' => $cfo_observation,
+                'cfo_remarks' => $cfo_remarks,
                 'rate_wise_observation' => $rate_wise_observation,
+                'rate_wise_remarks' => $rate_wise_remarks,
                 'month_wise_observation' => $monthwise_sale_observation,
+                'month_wise_remarks' => $monthwise_sale_remarks,
                 'tax_liability_observation' => $tax_liability_observation,
+                'tax_liability_remarks' => $tax_liability_remarks,
                 'tax_nontax_observation' => $tax_exempt_observation,
+                'tax_nontax_remarks' => $tax_exempt_remarks,
                 'tax_turnover_observation' => $tax_turnover_observation,
+                'tax_turnover_remarks' => $tax_turnover_remarks,
                 'eligible_ineligible_observation' => $eligible_ineligible_observation,
+                'eligible_ineligible_remarks' => $eligible_ineligible_remarks,
                 'invoice_not_include_observation' => $invoice_not_observation,
                 'amendment_records_observation' => $amend_observation,
-                'conclusion_summary' => $conclusion_summary,
+                'compliments_conclusion_summary' => $conclusion_summary,
+                'serious_conclusion_summary' => $serious_summary,
+                'improvement_conclusion_summary' => $improvement_summary,
                 'time_over_run' => $time_over_run,
                 'internal_control' => $internal_control,
                 'transaction_mismatch' => $transaction_mismatch,
@@ -637,15 +665,22 @@ class Customer_admin extends CI_Controller {
         $about_company = $this->input->post('about_company');
         $radio_check = $this->input->post('radio_check');
         $cfo_observation = nl2br($this->input->post('cfo_observation'));
+        $cfo_remarks = nl2br($this->input->post('editor_turover_vs_tax'));
         $rate_wise_observation = nl2br($this->input->post('rate_wise_observation'));
+        $rate_wise_remarks = nl2br($this->input->post('editor_rate_wise_data'));
         $monthwise_sale_observation = nl2br($this->input->post('monthwise_sale_observation'));
+        $monthwise_sale_remarks = nl2br($this->input->post('editor_sales_monthly_data'));
         $tax_liability_observation = nl2br($this->input->post('tax_liability_observation'));
+        $tax_liability_remarks = nl2br($this->input->post('editor_tax_liability_data'));
         $tax_exempt_observation = nl2br($this->input->post('tax_exempt_observation'));
+        $tax_exempt_remarks = nl2br($this->input->post('editor_tax_ntax_Exempt_data'));
         $tax_turnover_observation = nl2br($this->input->post('tax_turnover_observation'));
         $eligible_ineligible_observation = nl2br($this->input->post('eligible_ineligible_observation'));
         $invoice_not_observation = nl2br($this->input->post('invoice_not_observation'));
         $amend_observation = nl2br($this->input->post('amend_observation'));
         $conclusion_summary = ($this->input->post('editor12'));
+        $serious_summary = ($this->input->post('editor13'));
+        $improvement_summary = ($this->input->post('editor14'));
         $time_over_run1 = ($this->input->post('range_issue_matrix1'));
         $internal_control1 = ($this->input->post('range_issue_matrix2'));
         $transaction_mismatch1 = ($this->input->post('range_issue_matrix3'));
@@ -675,7 +710,17 @@ class Customer_admin extends CI_Controller {
             exit;
         } elseif (empty($conclusion_summary)) {
             $response['id'] = 'editor12';
-            $response['error'] = 'Enter Details Conclusion Summary';
+            $response['error'] = 'Enter Details of Compliments/facts';
+            echo json_encode($response);
+            exit;
+        }elseif (empty($serious_summary)) {
+            $response['id'] = 'editor13';
+            $response['error'] = 'Enter Details of serious problems';
+            echo json_encode($response);
+            exit;
+        }elseif (empty($improvement_summary)) {
+            $response['id'] = 'editor14';
+            $response['error'] = 'Enter Details of improvement';
             echo json_encode($response);
             exit;
         } elseif (($time_over_run1) == 0) {
@@ -792,15 +837,22 @@ class Customer_admin extends CI_Controller {
                 'report_id' => $report_id,
                 'visible_customer_detail' => $radio_check,
                 'cfo_observation' => $cfo_observation,
+                'cfo_remarks' => $cfo_remarks,
                 'rate_wise_observation' => $rate_wise_observation,
+                'rate_wise_remarks' => $rate_wise_remarks,
                 'month_wise_observation' => $monthwise_sale_observation,
+                'month_wise_remarks' => $monthwise_sale_remarks,
                 'tax_liability_observation' => $tax_liability_observation,
+                'tax_liability_remarks' => $tax_liability_remarks,
                 'tax_nontax_observation' => $tax_exempt_observation,
+                'tax_nontax_remarks' => $tax_exempt_remarks,
                 'tax_turnover_observation' => $tax_turnover_observation,
                 'eligible_ineligible_observation' => $eligible_ineligible_observation,
                 'invoice_not_include_observation' => $invoice_not_observation,
                 'amendment_records_observation' => $amend_observation,
-                'conclusion_summary' => $conclusion_summary,
+                'compliments_conclusion_summary' => $conclusion_summary,
+                'serious_conclusion_summary' => $serious_summary,
+                'improvement_conclusion_summary' => $improvement_summary,
                 'time_over_run' => $time_over_run,
                 'internal_control' => $internal_control,
                 'transaction_mismatch' => $transaction_mismatch,
@@ -828,6 +880,9 @@ class Customer_admin extends CI_Controller {
                     $this->db->where('id', $id);
                     $record = $this->db->update('observation_transaction_all', $data);
                     $this->db->where('report_id', $report_id);
+//                    
+//                    echo $this->db->last_query();
+//                    exit;
                     $record1 = $this->db->update('report_header_all', $data1);
                     if ($record == TRUE && $record1 == TRUE) {
                         $response['message'] = 'success';

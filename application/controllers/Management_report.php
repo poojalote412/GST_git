@@ -251,6 +251,7 @@ class Management_report extends CI_Controller {
 
     //functio to get graph state wise
     public function get_graph_state_wise1() {
+        $curr_url = $this->input->post("curr_url");
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
         $query = $this->db->query("SELECT * from state_wise_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
@@ -295,6 +296,8 @@ class Management_report extends CI_Controller {
                     '<td>' . '<b>' . array_sum($taxble_val_arr) . '</b> ' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
+            
+            
 
             //            get highest 3 records
             $qrr = $this->db->query("SELECT * FROM state_wise_summary_all where customer_id='$customer_id' ORDER BY `taxable_value` DESC LIMIT 3 ");
@@ -310,9 +313,41 @@ class Management_report extends CI_Controller {
             $total = array_sum($taxble_val_arr);
             $top3 = array_sum($arr);
             $top_3_state = round(($top3 / $total) * 100, 2);
-            $data1 .= '<h4><b>Observation:</b></h4>';
-            $data1 .= "<span><b>" . $top_3_state . " </b> % of total sales comes from top 3 states.</span>";
-            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
+            
+            $url = base_url() . "update_detail/" . base64_encode($customer_id) . "/" . base64_encode($insert_id);
+            if ($curr_url == $url) {
+                $get_observation = $this->db->query("select state_wise_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+                if ($this->db->affected_rows() > 0) {
+                    $res = $get_observation->row();
+                    $observation = $res->state_wise_observation;
+                } else {
+                    $observation = "";
+                }
+                $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation of Sales State wise:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                        <textarea class="form-control" rows="5" id="statewise_sale_observation" name="statewise_sale_observation" onkeyup="countWords(this.id);" >' . $observation . ' % of total sales comes from top 3 states.</textarea>
+                                    </div>
+                                    <span class="required" style="color: red" id="statewise_sale_observation_error"></span> 
+                                </div><br>';
+            } else {
+                $data .= "<div class='col-md-12'>
+                                    <label><h4><b>Observation :</b></h4></label><span class='required' aria-required='true'> </span>
+                                    <div class='input-group'>
+                                        <span class='input-group-addon'>
+                                            <i class='fa fa-eye'></i>
+                                        </span>
+                                        <textarea class='form-control' rows='5' id='statewise_sale_observation' name='statewise_sale_observation' onkeyup='countWords(this.id);'>" . $observation . "  % of total sales comes from top 3 states.</textarea>
+                                    </div>
+                                    <span class='required' style='color: red' id='statewise_sale_observation_error'></span>
+                                </div>";
+            }
+//            $data1 .= '<h4><b>Observation:</b></h4>';
+//            $data1 .= "<span><b>" . $top_3_state . " </b> % of total sales comes from top 3 states.</span>";
+//            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
 
 
             $state = array();
@@ -2476,6 +2511,7 @@ class Management_report extends CI_Controller {
     public function get_graph_b2b1() {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
+         $curr_url = $this->input->post("curr_url");
         $query = $this->db->query("SELECT *  from monthly_summary_all where customer_id='$customer_id' and insert_id='$insert_id'");
 
 //        $query_get_graph = $this->Management_report_model->get_graph_query($customer_id, $insert_id);
@@ -2577,13 +2613,44 @@ class Management_report extends CI_Controller {
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
             $total_turnover = array_sum($turnover);
-            if ($total_turnover < 15000000 && $ttl_b2c_ratio >= 90) {
-                $data .= "<hr><h4><b>Observation :</b></h4>";
-                $data .= " <span>Your the turnover is less then <b>150 Lacs </b>& B2C sales is grater than <b>90%</b> , Our advise to go form composition scheme.</span>";
+            $url = base_url() . "update_detail/" . base64_encode($customer_id) . "/" . base64_encode($insert_id);
+            if ($curr_url == $url) {
+                $get_observation = $this->db->query("select b2b_b2c_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+                if ($this->db->affected_rows() > 0) {
+                    $res = $get_observation->row();
+                    $observation = $res->b2b_b2c_observation;
+                } else {
+                    $observation = "";
+                }
+                $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation of B2B & B2C:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                        <textarea class="form-control" rows="5" id="b2bb2c_sale_observation" name="b2bb2c_sale_observation" onkeyup="countWords(this.id);" >B2B supply is_____' . $observation . ' and % and B2C supply is____ '.$observation.'% of total supply.</textarea>
+                                    </div>
+                                    <span class="required" style="color: red" id="b2bb2c_sale_observation_error"></span> 
+                                </div><br>';
             } else {
-                $data .= "<hr><h4><b>Observation :</b></h4>";
-                $data .= " <span>B2B supply is " . array_sum($array_b2b_ratio) . "% and B2C supply is " . array_sum($array_b2c_ratio) . "% of total supply.</span>";
+                $data .= "<div class='col-md-12'>
+                                    <label><h4><b>Observation :</b></h4></label><span class='required' aria-required='true'> </span>
+                                    <div class='input-group'>
+                                        <span class='input-group-addon'>
+                                            <i class='fa fa-eye'></i>
+                                        </span>
+                                        <textarea class='form-control' rows='5' id='b2bb2c_sale_observation' name='b2bb2c_sale_observation' onkeyup='countWords(this.id);'>" . $variation . " B2B supply is " . array_sum($array_b2b_ratio) . "% and B2C supply is " . array_sum($array_b2c_ratio) . "% of total supply.</textarea>
+                                    </div>
+                                    <span class='required' style='color: red' id='b2bb2c_sale_observation'></span>
+                                </div>";
             }
+//            if ($total_turnover < 15000000 && $ttl_b2c_ratio >= 90) {
+//                $data .= "<hr><h4><b>Observation :</b></h4>";
+//                $data .= " <span>Your the turnover is less then <b>150 Lacs </b>& B2C sales is grater than <b>90%</b> , Our advise to go form composition scheme.</span>";
+//            } else {
+//                $data .= "<hr><h4><b>Observation :</b></h4>";
+//                $data .= " <span>B2B supply is " . array_sum($array_b2b_ratio) . "% and B2C supply is " . array_sum($array_b2c_ratio) . "% of total supply.</span>";
+//            }
 
 
             $count = count($month);

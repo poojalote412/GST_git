@@ -353,6 +353,177 @@ class Threeb_vs_twoa extends CI_Controller {
         echo json_encode($respose);
     }
     
+    //editable observation for GSTR 3B vs 2A
+    
+    
+    public function get_graph1() { //function to get graph
+        $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
+        $curr_url = $this->input->post("curr_url");
+        
+        $query = $this->db->query("SELECT month,gstr2A_3B,gstr2A_difference,gstr2A_cummulative,gstr2A FROM comparison_summary_all WHERE customer_id='$customer_id' AND insert_id='$insert_id' order by id desc");
+        $data = ""; //view observations
+        $data1 = ""; //view observations
+        $data2 = ""; //view observations
+        if ($query->num_rows() > 0) {
+
+            $result = $query->result();
+            $gstr_tb1 = array();
+            $difference2 = array();
+            $cumu_difference3 = array();
+            $gstr2a4 = array();
+            $months = array();
+            $data2 .= '<h4><b>1.GSTR3B VS. GSTR2A -Input Tax Credit Reconcillation</b></h4>';
+            $data .= '<table id="example2" class="table-bordered table-striped" width="700">
+                                <thead style="background-color: #0e385e;color:white">
+                                    <tr>
+                                       
+                                        <th>Month</th>
+                                        <th>GSTR-3B</th>
+                                        <th>GSTR-2A</th>
+                                        <th>Difference</th>
+                                        <th>Cumulative Difference</th>
+                                    </tr>
+                                </thead>
+                                <tbody>';
+            $k = 1;
+            foreach ($result as $row) { //to get values
+                $gstr_tb = $row->gstr2A_3B;
+                $difference = $row->gstr2A_difference;
+                $cumu_difference = $row->gstr2A_cummulative;
+                $gstr2a = $row->gstr2A;
+                $month = $row->month;
+
+                //arrays
+                $gstr_tb1[] = $gstr_tb;
+                $difference2[] = $difference;
+                $cumu_difference3[] = $cumu_difference;
+                $gstr2a4[] = $gstr2a;
+                $months[] = $row->month;
+
+                $data .= '<tr>' .
+                        '<td>' . $month . '</td>' .
+                        '<td>' . number_format(round($gstr_tb)) . '</td>' .
+                        '<td>' . number_format(round($gstr2a)) . '</td>' .
+                        '<td>' . number_format(round($difference)) . '</td>' .
+                        '<td>' . number_format(round($cumu_difference)) . '</td>' .
+                        '</tr>';
+            }
+            //to get total values
+            $data .= '<tr>' .
+                    '<td>' . '<b>Total</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round($thb = array_sum($gstr_tb1))) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round($twa = array_sum($gstr2a4))) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($difference2))) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($cumu_difference3))) . '</b>' . '</td>' .
+                    '</tr>';
+            $data .= '</tbody></table>';
+
+            $url = base_url() . "update_detail/" . base64_encode($customer_id) . "/" . base64_encode($insert_id);
+            
+            if ($curr_url == $url) {
+                $get_observation = $this->db->query("select gstr3bvs2a_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+                if ($this->db->affected_rows() > 0) {
+                    $res = $get_observation->row();
+                    $observation = $res->gstr3bvs2a_observation;
+                } else {
+                    $observation = "";
+                }
+                $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation of GSTR-3B vs 2A:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>';
+//                                        if ($thb > $twa) {
+                                      $data.='  <textarea class="form-control" rows="5" id="monthwise_sale_observation" name="monthwise_sale_observation" onkeyup="countWords(this.id);" >GSTR-3B > 2A, ITC declared and ITC claimed is showing a huge difference as either the company has taken excess credit or vendor has not recorded our purchases in his GSTR 1.This may lead to interest liability & penalties notices or permanent loss of credit if vendor is not informed and corrective action is not taken by such vendor.</textarea>';
+                                        
+                                    $data .='</div>
+                                    <span class="required" style="color: red" id="monthwise_sale_observation_error"></span> 
+                                        </div><br>';
+                                    
+//                                        }
+//                                        elseif ($twa > $thb) {
+//                                            
+//                                        }
+                                        
+            } else {
+                $data .= "<div class='col-md-12'>
+                                    <label><h4><b>Observation :</b></h4></label><span class='required' aria-required='true'> </span>
+                                    <div class='input-group'>
+                                        <span class='input-group-addon'>
+                                            <i class='fa fa-eye'></i>
+                                        </span>
+                                        <textarea class='form-control' rows='5' id='monthwise_sale_observation' name='monthwise_sale_observation' onkeyup='countWords(this.id);'>" . $variation . " is the % variation of maximum & minimum sales per month requiring careful working capital planning in case receivable delay.</textarea>
+                                    </div>
+                                    <span class='required' style='color: red' id='monthwise_sale_observation_error'></span>
+                                </div>";
+            }
+            
+            $data1 .= "<br><br><h4><b>Observation:</b></h4>";
+            
+            if ($thb > $twa) {
+                $data1 .= '<span>GSTR-3B > 2A, ITC declared and ITC claimed is showing a huge difference as either the company has taken excess credit or vendor has not recorded our purchases in his GSTR 1. '
+                        . 'This may lead to interest liability & penalties notices or permanent loss of credit if vendor is not informed and corrective action is not taken by such vendor.</span>';
+                $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
+            } elseif ($twa > $thb) {
+                $data1 .= '<span>GSTR-3B < 2A, company need to check the eligibility and ineligibility of credit reflecting in GSTR-2A & prepare a reconciliation statement accordingly. There may be the case where input tax credit has not been taken by the company on its genuine eligible input credit. '
+                        . 'This may lead to a huge loss of working Capital & also permanent loss of credit if corrective actions not taken immediately.</span>';
+                $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
+            } else {
+                $data1 .= '<span>No difference.</span>';
+                $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
+            }
+            $abc = array();
+            $abc3 = array();
+            $abc4 = array();
+            $abc5 = array();
+
+            for ($o = 0; $o < sizeof($gstr_tb1); $o++) { //loop to convert string data into integer
+                $abc[] = $gstr_tb1[$o];
+                $aa1 = settype($abc[$o], "float");
+
+                $abc3[] = $difference2[$o];
+                $aa2 = settype($abc3[$o], "float");
+
+                $abc4[] = $cumu_difference3[$o];
+                $aa3 = settype($abc4[$o], "float");
+
+                $abc5[] = $gstr2a4[$o];
+                $aa4 = settype($abc5[$o], "float");
+            }
+
+
+            $quer_range = $this->db->query("SELECT MAX(gstr2A_3B) as gstrtb_max FROM comparison_summary_all WHERE customer_id='$customer_id' and insert_id='$insert_id' order by id desc");
+            $gstr3b_max = $quer_range->row();
+            $gstrtbmax = $gstr3b_max->gstrtb_max;
+            $quer_range1 = $this->db->query("SELECT MAX(gstr2A) as gstr2a_max FROM comparison_summary_all WHERE customer_id='$customer_id' and insert_id='$insert_id' order by id desc");
+            $gstr1_max = $quer_range1->row();
+            $gstr1max = $gstr1_max->gstr2a_max;
+            $max_value = (max($gstrtbmax, $gstr1max));
+
+            $respose['data'] = $data; //data of observation
+            $respose['data1'] = $data1; //data of observation
+            $respose['data2'] = $data2; //data of observation
+            $respose['message'] = "success";
+            $respose['gstr_tb'] = $abc; //data of gstr 3b
+            $respose['max'] = $max_value; //max values
+            $respose['difference'] = $abc3; //difference of 3b and 2a
+            $respose['cumu_difference'] = $abc4; //cummulative difference of 3b and 2a
+            $respose['gstr2a'] = $abc5; //data of gstr2a
+            $respose['month_data'] = $months; //months
+        } else {
+            $respose['data'] = "";
+            $respose['data1'] = "";
+            $respose['message'] = "fail";
+            $respose['gstr_tb'] = "";
+            $respose['difference'] = "";
+            $respose['cumu_difference'] = "";
+            $respose['gstr2a'] = "";
+        }
+        echo json_encode($respose);
+    }
+    
     public function get_graph_with_observation()
     {
         $customer_id = $this->input->post("customer_id");

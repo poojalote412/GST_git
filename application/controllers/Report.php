@@ -440,7 +440,7 @@ class Report extends CI_Controller {
                      We would like to thank you for giving us an opportunity to work for your company. 
                      We refer to our ongoing discussion on assisting (“Company”) in India for GST Health Check Report.<br><br>
                      In this report we have covered the overall perspective of the following:
-                     <ul style="margin-left: -0.10%;">
+                     <ul style="margin-left: -5.1%;;margin-right: 14%;">
                      <li>Identifying the errors in advance so the risk of levy of Interests and penalties can be mitigated.</li>
                      <li>Analyzing Sales data which will facilitate the area and product wise profitability of business. </li>
                      <li>Identifying the deviation in the GST data through Comparison of GSTR-3B with GSTR-1 & GSTR-2A.</li>
@@ -505,7 +505,7 @@ class Report extends CI_Controller {
         if ($this->db->affected_rows() > 0) {
             $res = $query_get_insert_header->row();
             $year_id = $res->year_id;
-            $data = '<div style="float:left;margin-top:9%;margin-top:5%;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;width:700px;height:700px">
+            $data = '<div style="margin-top:9%;margin-top:5%;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;width:700px;height:700px">
                     <ul>
                     <li>The report is generated purely based on the data provided by the client. </li>
                     <li>We are not recommending or suggesting the data to be used in your business decisions nor for use with GST Portal, we are just making an assumption that is generated through the AI and as per expert’s knowledge.</li>
@@ -534,6 +534,38 @@ class Report extends CI_Controller {
         }echo json_encode($respose);
     }
 
+    // get cotent of about ECOVIS RKCA
+    
+     public function get_content_about_ecovis() {
+        $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
+        $year_id = $this->input->post("year_id");
+//        $query_get_company_header = $this->db->query("SELECT company_name from report_header_all where insert_id='$insert_id' and customer_id='$customer_id'");
+        $query_get_insert_header = $this->db->query("SELECT year_id from insert_header_all where insert_id='$insert_id'");
+        if ($this->db->affected_rows() > 0) {
+            $res = $query_get_insert_header->row();
+            $year_id = $res->year_id;
+            $data = '<div style="background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;height:900px;margin-top:9%;margin-top:5%;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;">
+                    <p style="font-size:18px;text-align:center;width:700px;margin-top: 9%;"><strong><u>13. ABOUT ECOVIS RKCA</u></strong></p><br>
+                    <p style="margin-top: 7%;text-align: justify;margin-left: 5%;margin-right: 5%;text-align: center;">
+                    Ecovis is an internationally active consulting firm, which has its origin in Germany. In world-wide over 70 countries work more than 6,500 people. The core competencies are audit, tax and legal advice as well as management consultation.<br><br>
+                    At ECOVIS RKCA, we’re not here to just provide advice to help you through the labyrinth of various corporate issues but we’re here to work with you to ensure that you move beyond winning and dictate the way business is done in your domain. As corporate advisor we very well understand our role as a catalyst to fuel the growth of your dreams, but more than that it is our passion and dedication to help our clients augmented with rich resource, experience and knowledge base which has worked wonders for our customers.</br><br>
+                    It’s true we are a financial and management consulting firm but as a part of our vision we believe we are much more than that. We’re in the business of creating opportunities for you. With India moving towards the growth path and is heading towards the one of the top three economies of the world with in a decade, understanding of this market, laws, people, culture, tax structure in short the “window of growth” for future becomes a very important part of any corporate or business plan. As an expert on these matters we identify ourselves as able partner of any national or international business organization, ready to add another dimension to their business. Our best work is the result of being a member of your team.<br><br>
+                    RKCA was established in 1974 and has over 4 decades of history serving in Indian Sub-Continent. The advisory group caters to clients across industry sectors. We have immense experience in dealing with client segments we call MIG (Medium Enterprises, Inception Businesses & Government Organizations).<br><br>
+                    </p>
+                    
+                     
+                     </div>';
+
+
+            $respose['data'] = $data;
+            $respose['message'] = "success";
+        } else {
+            $respose['message'] = "";
+        }echo json_encode($respose);
+    }
+
+    
     public function get_rating_card() {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
