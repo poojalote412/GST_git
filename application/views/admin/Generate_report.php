@@ -322,7 +322,7 @@ if (is_array($session_data)) {
                     </div>-->
 
                     <div id="container_image_components_overview" style="margin-top:15%;">
-                        <img src="https://premisafe.com/GST_image/GSTComponents&Overview.jpg" width="1050px" height="900px" style="page-break-after:always;">
+                        <img src="https://premisafe.com/GST_image/GSTComponents&Overview.jpg" width="800px" height="900px" style="page-break-after:always;">
                     </div>
                     <div class="test" style="page-break-after:always;margin-top:15%;">
                         <div id="container_image_GST_framework"><img src="https://premisafe.com/GST_image/GSTFramework.jpg" width="800px" height="900px"></div>
@@ -478,7 +478,22 @@ if (is_array($session_data)) {
                         <div class="test" style="page-break-after:always;margin-top: 15%">
                        <!--<div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="900px" height="900px" style=""></div><br><br>-->  
                         <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center;">7. Executive Summary </p><br><br>
-                        <div id="container_executive_summary" style=""></div><br><br> 
+                        <div id="container_executive_summary1" style=""></div><br><br> 
+                        <table id="example2" class="table-bordered table-striped" width="700px" style="margin-left: 5%;margin-right: 5%;margin-top: -12%;">
+                                <thead style="background-color: #0e385e;color:white">
+                                    <tr>
+
+                                        <th style="text-align: center;">Reports</th>
+                                        <th style="text-align: center;">Observation</th>
+                                        <th style="text-align: center;">Remarks</th>
+                                    </tr>
+                                    </thead>
+                                    
+                                    <tbody id="reports_observation_table" name="reports_observation_table" style="font-size:12px;">
+                                        
+                                    </tbody>
+              
+                        </table>
                         </div>
                         
                         <div class="test" style="page-break-after:always;margin-top:7%">
@@ -681,6 +696,29 @@ if (is_array($session_data)) {
             },
         });
 
+        
+        //Ajax call for Executive Summary
+        
+         $.ajax({
+            type: "post",
+            url: "<?= base_url("Report/get_content_executive_summary") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                //                 alert();
+                $('#container_executive_summary').html("");
+                if (result.message === "success") {
+
+                    var data = result.data;
+                    $('#container_executive_summary').html("");
+                    $('#container_executive_summary').html(data);
+                    //                    $('#example2').DataTable();
+                } else {
+
+                }
+            },
+        });
+
 
 
         $.ajax({
@@ -698,10 +736,14 @@ if (is_array($session_data)) {
                     var data = result.data;
                     var data1 = result.data1;
                     var data2 = result.data2;
+                    var data_turnover_vsliability_name = result.data_turnover_vsliability_name;
+                    var data_turnover_vsliability_observation = result.data_turnover_vsliability_observation;
+                    var data_turnover_vsliability_remarks = result.data_turnover_vsliability_remarks;
                     //                    $('#cfo_data').html("");
                     $('#cfo_data').html(data);
                     $('#cfo_data1').html(data1);
                     $('#cfo_data2').html(data2);
+                    $("#reports_observation_table").append('<tr><td>'+data_turnover_vsliability_name+'</td><td>'+data_turnover_vsliability_observation+'</td><td>'+data_turnover_vsliability_remarks+'</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("cfo_data").style.display = "none";
@@ -909,11 +951,15 @@ if (is_array($session_data)) {
                     var data = result.data;
                     var data1 = result.data1;
                     var data2 = result.data2;
+                    var data_monthwise_name = result.data_monthwise_name;
+                    var data_month_observation = result.data_month_observation;
+                    var data_month_remarks = result.data_month_remarks;
 
                     $('#sales_monthly_data').html(data);
                     $('#sales_monthly_data1').html(data1);
                     $('#sales_monthly_data2').html(data2);
-                    //                    $('#example2').DataTable();
+                    $("#reports_observation_table").append('<tr><td>'+data_monthwise_name+'</td><td>'+data_month_observation+'</td><td>'+data_month_remarks+'</td></tr>');
+//                   
                 } else {
                     document.getElementById("sales_monthly_data").style.display = "none";
                     document.getElementById("sales_monthly_data1").style.display = "none";
@@ -993,10 +1039,14 @@ if (is_array($session_data)) {
                     var data = result.data;
                     var data1 = result.data1;
                     var data2 = result.data2;
+                    var data_statewise_name = result.data_statewise_name;
+                    var data_statewise_observation = result.data_statewise_observation;
+                    var data_statewise_remarks = result.data_statewise_remarks;
                     //                    $('#location_data').html("");
                     $('#sales_state_wise_data').html(data);
                     $('#sales_state_wise_data1').html(data1);
                     $('#sales_state_wise_data2').html(data2);
+                    $("#reports_observation_table").append('<tr><td>'+data_statewise_name+'</td><td>'+data_statewise_observation+'</td><td>'+data_statewise_remarks+'</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("sales_state_wise_data").style.display = "none";
@@ -1160,10 +1210,14 @@ if (is_array($session_data)) {
                     var data = result.data;
                     var data1 = result.data1;
                     var data2 = result.data2;
+                    var data_tax_nontax_name = result.data_tax_nontax_name;
+                    var data_tax_nontax_observation = result.data_tax_nontax_observation;
+                    var data_tax_nontax_remarks = result.data_tax_nontax_remarks;
 
                     $('#tax_ntax_Exempt_data').html(data);
                     $('#tax_ntax_Exempt_data1').html(data1);
                     $('#tax_ntax_Exempt_data2').html(data2);
+                    $("#reports_observation_table").append('<tr><td>'+data_tax_nontax_name+'</td><td>'+data_tax_nontax_observation+'</td><td>'+data_tax_nontax_remarks+'</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("tax_ntax_Exempt_data").style.display = "none";
@@ -1306,10 +1360,14 @@ if (is_array($session_data)) {
                     var data = result.data;
                     var data1 = result.data1;
                     var data2 = result.data2;
+                    var data_salesb2b_b2c_name = result.data_salesb2b_b2c_name;
+                    var data_salesb2b_b2c_observation = result.data_salesb2b_b2c_observation;
+                    var data_salesb2b_b2c_remarks = result.data_salesb2b_b2c_remarks;
                     $('#compare_b2b_data').html("");
                     $('#compare_b2b_data').html(data);
                     $('#compare_b2b_data1').html(data1);
                     $('#compare_b2b_data2').html(data2);
+                    $("#reports_observation_table").append('<tr><td>'+data_salesb2b_b2c_name+'</td><td>'+data_salesb2b_b2c_observation+'</td><td>'+data_salesb2b_b2c_remarks+'</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("compare_b2b_data").style.display = "none";
@@ -1336,9 +1394,13 @@ if (is_array($session_data)) {
                     document.getElementById("sales_ratewise_div").value++;
                     var data = result.data;
                     var data1 = result.data1;
+                    var data_ratewise_name = result.data_ratewise_name;
+                    var data_rate_observation = result.data_rate_observation;
+                    var data_rate_remarks = result.data_rate_remarks;
                     $('#compare_sales_ratewise_data').html("");
                     $('#compare_sales_ratewise_data').html(data);
                     $('#compare_sales_ratewise_data1').html(data1);
+                    $("#reports_observation_table").append('<tr><td>'+data_ratewise_name+'</td><td>'+data_rate_observation+'</td><td>'+data_rate_remarks+'</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("compare_sales_ratewise_data").style.display = "none";
@@ -1466,10 +1528,14 @@ if (is_array($session_data)) {
                     var data = result.data;
                     var data1 = result.data1;
                     var data2 = result.data2;
+                    var data_threeb_vs2A_name = result.data_threeb_vs2A_name;
+                    var data_threeb_vs2A_observation = result.data_threeb_vs2A_observation;
+                    var data_threeb_vs2A_remarks = result.data_threeb_vs2A_remarks;
                     $('#compare_GSTR3B_Vs2_data').html("");
                     $('#compare_GSTR3B_Vs2_data').html(data);
                     $('#compare_GSTR3B_Vs2_data1').html(data1);
                     $('#compare_GSTR3B_Vs2_data2').html(data2);
+                    $("#reports_observation_table").append('<tr><td>'+data_threeb_vs2A_name+'</td><td>'+data_threeb_vs2A_observation+'</td><td>'+data_threeb_vs2A_remarks+'</td></tr>');
 
                     $("#container_GSTR3b_vs_2A").prepend("Deduct: In-Eligible Credit :<input type='text'><br>*To be ﬁlled manually so that the client will get the clear picture of eligible credit.");
                     //                    $('#example2').DataTable();
@@ -1589,10 +1655,14 @@ if (is_array($session_data)) {
                     var data = result.data;
                     var data1 = result.data1;
                     var data2 = result.data2;
+                    var data_threeb_vs1_name = result.data_threeb_vs1_name;
+                    var data_threeb_vs1_observation = result.data_threeb_vs1_observation;
+                    var data_threeb_vs1_remarks = result.data_threeb_vs1_remarks;
                     $('#compare_3b_vs1_data').html("");
                     $('#compare_3b_vs1_data').html(data);
                     $('#compare_3b_vs1_data1').html(data1);
                     $('#compare_3b_vs1_data2').html(data2);
+                    $("#reports_observation_table").append('<tr><td>'+data_threeb_vs1_name+'</td><td>'+data_threeb_vs1_observation+'</td><td>'+data_threeb_vs1_remarks+'</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("compare_3b_vs1_data").style.display = "none";
@@ -1813,10 +1883,14 @@ if (is_array($session_data)) {
                     var data = result.data;
                     var data1 = result.data1;
                     var data2 = result.data2;
+                    var data_tax_liability_name = result.data_tax_liability_name;
+                    var data_tax_liability_observation = result.data_tax_liability_observation;
+                    var data_tax_liability_remarks = result.data_tax_liability_remarks;
 
                     $('#tax_liability_data').html(data);
                     $('#tax_liability_data1').html(data1);
                     $('#tax_liability_data2').html(data2);
+                    $("#reports_observation_table").append('<tr><td>'+data_tax_liability_name+'</td><td>'+data_tax_liability_observation+'</td><td>'+data_tax_liability_remarks+'</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("tax_liability_data").style.display = "none";
@@ -1969,10 +2043,14 @@ if (is_array($session_data)) {
                     var data = result.data;
                     var data1 = result.data1;
                     var data2 = result.data2;
+                    var data_tax_turnover_name = result.data_tax_turnover_name;
+                    var data_tax_turnover_observation = result.data_tax_turnover_observation;
+                    var data_tax_turnover_remarks = result.data_tax_turnover_remarks;
 
                     $('#tax_turnover_data').html(data);
                     $('#tax_turnover_data1').html(data1);
                     $('#tax_turnover_data2').html(data2);
+                    $("#reports_observation_table").append('<tr><td>'+data_tax_turnover_name+'</td><td>'+data_tax_turnover_observation+'</td><td>'+data_tax_turnover_remarks+'</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("tax_turnover_data").style.display = "none";
@@ -2101,10 +2179,14 @@ if (is_array($session_data)) {
                     var data = result.data;
                     var data1 = result.data1;
                     var data2 = result.data2;
+                    var data_payable_vs_cash_name = result.data_payable_vs_cash_name;
+                    var data_payable_vs_cash_observation = result.data_payable_vs_cash_observation;
+                    var data_payable_vs_cash_remarks = result.data_payable_vs_cash_remarks;
                     $('#gst_payablevscash_data').html("");
                     $('#gst_payablevscash_data').html(data);
                     $('#gst_payablevscash_data1').html(data1);
                     $('#gst_payablevscash_data2').html(data2);
+                    $("#reports_observation_table").append('<tr><td>'+data_payable_vs_cash_name+'</td><td>'+data_payable_vs_cash_observation+'</td><td>'+data_payable_vs_cash_remarks+'</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("gst_payablevscash_data").style.display = "none";
@@ -2377,10 +2459,14 @@ if (is_array($session_data)) {
                     var data = result.data;
                     var data1 = result.data1;
                     var data2 = result.data2;
+                    var data_eligible_name = result.data_eligible_name;
+                    var data_eligible_observation = result.data_eligible_observation;
+                    var data_eligible_remarks = result.data_eligible_remarks;
 
                     $('#tax_iniligible_data').html(data);
                     $('#tax_iniligible_data1').html(data1);
                     $('#tax_iniligible_data2').html(data2);
+                    $("#reports_observation_table").append('<tr><td>'+data_eligible_name+'</td><td>'+data_eligible_observation+'</td><td>'+data_eligible_remarks+'</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("tax_iniligible_data").style.display = "none";

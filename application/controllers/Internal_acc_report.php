@@ -43,7 +43,7 @@ class Internal_acc_report extends CI_Controller {
         }
         $this->load->view('admin/Internal_acc_report', $data);
     }
-    
+
     function index_hq() { //load the view page data
 //        $data['result'] = $result;
         $session_data = $this->session->userdata('login_session');
@@ -480,7 +480,7 @@ class Internal_acc_report extends CI_Controller {
             $data = $result->row();
             $turn_id = $data->tax_libility_id;
             //generate user_id
-            $turn_id = str_pad(++$turn_id, 5, '0', STR_PAD_LEFT);
+            $turn_id = str_pad( ++$turn_id, 5, '0', STR_PAD_LEFT);
             return $turn_id;
         } else {
             $turn_id = 'tax_1001';
@@ -513,12 +513,24 @@ class Internal_acc_report extends CI_Controller {
         $insert_id = $this->input->post("insert_id");
         $query = $this->db->query("SELECT * FROM 3b_offset_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         $query1 = $this->db->query("SELECT tax_debit FROM monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
+        $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
         $data = ""; //view observations
         $data1 = ""; //view observations
         $data2 = ""; //view observations
-        if ($query->num_rows() > 0 && $query1->num_rows() > 0) {
+        $data_tax_liability_name = "";
+        $data_tax_liability_observation = "";
+        $data_tax_liability_remarks = "";
+        if ($query->num_rows() > 0 && $query1->num_rows() > 0 && $query_get_observation->num_rows() > 0) {
             $result_outward = $query->result();
             $ress = $query1->result();
+            $result1 = $query_get_observation->row();
+            $tax_liability_observation = $result1->tax_liability_observation;
+
+            $tax_liability_remarks = $result1->tax_liability_remarks;
+
+            $data_tax_liability_name = "Overview of Tax Liability";
+            $data_tax_liability_observation = $tax_liability_observation;
+            $data_tax_liability_remarks = $tax_liability_remarks;
 
             foreach ($ress as $row1) {
                 $debit_tax[] = $row1->tax_debit;
@@ -652,6 +664,9 @@ class Internal_acc_report extends CI_Controller {
             $respose['data_late_fee'] = $abc7;
             $respose['customer_name'] = $customer_name; //customer
             $respose['month_data'] = $months; //months 
+            $respose['data_tax_liability_name'] = $data_tax_liability_name; //months 
+            $respose['data_tax_liability_observation'] = $data_tax_liability_observation; //months 
+            $respose['data_tax_liability_remarks'] = $data_tax_liability_remarks; //months 
         } else {
             $respose['message'] = "fail";
             $respose['data_outward'] = "";
@@ -896,7 +911,7 @@ class Internal_acc_report extends CI_Controller {
         }
         $this->load->view('admin/Tax_turnover', $data);
     }
-    
+
     public function tax_turnover_hq() { //load data of view page
 //        $data['result'] = $result;
 //        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
@@ -923,8 +938,20 @@ class Internal_acc_report extends CI_Controller {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
         $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
-        if ($query->num_rows() > 0) {
+        $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+//        if ($query->num_rows() > 0) {
+        $data_tax_turnover_name = "";
+        $data_tax_turnover_observation = "";
+        $data_tax_turnover_remarks = "";
+        if ($this->db->affected_rows() > 0) {
             $result = $query->result();
+            $result1 = $query_get_observation->row();
+            $tax_turnover_observation = $result1->tax_turnover_observation;
+            $tax_turnover_remarks = $result1->tax_turnover_remarks;
+
+            $data_tax_turnover_name = "Overview of Turnover";
+            $data_tax_turnover_observation = $tax_turnover_observation;
+            $data_tax_turnover_remarks = $tax_turnover_remarks;
             $taxable_value = array();
             $tax_value = array();
             $tax_ratio = array();
@@ -1065,6 +1092,9 @@ class Internal_acc_report extends CI_Controller {
             $respnose['month_data'] = $months; //months 
             $respnose['max_range'] = $max_range; //maximum range for graph
             $respnose['customer_name'] = $customer_name; //customer
+            $respnose['data_tax_turnover_name'] = $data_tax_turnover_name; //customer
+            $respnose['data_tax_turnover_observation'] = $data_tax_turnover_observation; //customer
+            $respnose['data_tax_turnover_remarks'] = $data_tax_turnover_remarks; //customer
         } else {
             $respnose['data'] = "";
             $respnose['data1'] = "";
@@ -1254,7 +1284,7 @@ class Internal_acc_report extends CI_Controller {
         $this->load->view('customer/eligible_ineligible_credit', $data);
     }
 
-    public function eligible_ineligible_itc_index_admin($firm_id='') {
+    public function eligible_ineligible_itc_index_admin($firm_id = '') {
         $query_get_data = $this->Internal_acc_report_model->get_data_taxliability_admin($firm_id);
         if ($query_get_data !== FALSE) {
             $data['eligible_ineligible_data'] = $query_get_data;
@@ -1263,9 +1293,9 @@ class Internal_acc_report extends CI_Controller {
         }
         $this->load->view('admin/eligible_ineligible_credit', $data);
     }
-    
-    public function eligible_ineligible_itc_index_hq($firm_id='') {
-         $session_data = $this->session->userdata('login_session');
+
+    public function eligible_ineligible_itc_index_hq($firm_id = '') {
+        $session_data = $this->session->userdata('login_session');
         $email = ($session_data['customer_email_id']);
 //        $get_firm_id = $this->Customer_model->get_firm_id($email);
 //        if ($get_firm_id != FALSE) {
@@ -1287,8 +1317,19 @@ class Internal_acc_report extends CI_Controller {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
         $query = $this->db->query("SELECT * from 3b_offset_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
-        if ($query->num_rows() > 0) {
+        $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+        $data_eligible_name = "";
+        $data_eligible_observation = "";
+        $data_eligible_remarks = "";
+        if ($this->db->affected_rows() > 0) {
             $result = $query->result();
+            $result1 = $query_get_observation->row();
+            $eligible_observation = $result1->eligible_ineligible_observation;
+            $eligible_remarks = $result1->eligible_ineligible_remarks;
+
+            $data_eligible_name = "Eligible and In-eligible Credit";
+            $data_eligible_observation = $eligible_observation;
+            $data_eligible_remarks = $eligible_remarks;
             $net_itc_arr = array();
             $ineligible_itc_arr = array();
             $eligible_ratio_arr = array();
@@ -1409,6 +1450,10 @@ class Internal_acc_report extends CI_Controller {
             $respnose['month_data'] = $months; //months 
             $respnose['max_range'] = $max_range; //maximum range for graph
             $respnose['customer_name'] = $customer_name; //customer
+            $respnose['data_eligible_name'] = $data_eligible_name; //customer
+            $respnose['data_eligible_observation'] = $data_eligible_observation; //customer
+            $respnose['data_eligible_remarks'] = $data_eligible_remarks; //customer
+           
         } else {
             $respnose['data'] = "";
             $respnose['data1'] = "";
@@ -1574,7 +1619,7 @@ class Internal_acc_report extends CI_Controller {
         $this->load->view('customer/gst_payable_vs_cash', $data);
     }
 
-    public function gst_payable_vs_cash_index_admin($firm_id='') { //function load page gst payable vs cash
+    public function gst_payable_vs_cash_index_admin($firm_id = '') { //function load page gst payable vs cash
         $query_get_data = $this->Internal_acc_report_model->get_data_taxliability_admin($firm_id);
         if ($query_get_data !== FALSE) {
             $data['gst_payable_data'] = $query_get_data;
@@ -1583,8 +1628,8 @@ class Internal_acc_report extends CI_Controller {
         }
         $this->load->view('admin/gst_payable_vs_cash', $data);
     }
-    
-     public function gst_payable_vs_cash_index_hq($firm_id='') { //function load page gst payable vs cash
+
+    public function gst_payable_vs_cash_index_hq($firm_id = '') { //function load page gst payable vs cash
         $query_get_data = $this->Internal_acc_report_model->get_data_taxliability_admin($firm_id);
         if ($query_get_data !== FALSE) {
             $data['gst_payable_data'] = $query_get_data;
@@ -1600,8 +1645,18 @@ class Internal_acc_report extends CI_Controller {
 
         $year = $this->Internal_acc_report_model->get_year($customer_id, $insert_id);
         $query = $this->db->query("SELECT * from 3b_offset_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
-        if ($query->num_rows() > 0) {
+        $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+        $data_payable_vs_cash_name = "";
+        $data_payable_vs_cash_observation = "";
+        $data_payable_vs_cash_remarks = "";
+        if ($this->db->affected_rows() > 0) {
             $result = $query->result();
+            $result1 = $query_get_observation->row();
+            $payable_vs_cash_observation = $result1->gst_payable_cash_obaservation;
+            $payable_vs_cash_remarks = $result1->gst_payable_cash_remarks;
+            $data_payable_vs_cash_name = "GST Payable vs Cash";
+            $data_payable_vs_cash_observation = $payable_vs_cash_observation;
+            $data_payable_vs_cash_remarks = $payable_vs_cash_observation;
             $net_itc_arr = array();
             $liability_arr = array();
             $paid_in_cash_arr = array();
@@ -1730,6 +1785,9 @@ class Internal_acc_report extends CI_Controller {
             $respnose['month_data'] = $months; //months 
             $respnose['max_range'] = $max_range; //maximum range for graph
             $respnose['customer_name'] = $customer_name; //customer
+            $respnose['data_payable_vs_cash_name'] = $data_payable_vs_cash_name; //customer
+            $respnose['data_payable_vs_cash_observation'] = $data_payable_vs_cash_observation; //customer
+            $respnose['data_payable_vs_cash_remarks'] = $data_payable_vs_cash_remarks; //customer
         } else {
             $respnose['data'] = "";
             $respnose['data1'] = "";
@@ -1818,20 +1876,20 @@ class Internal_acc_report extends CI_Controller {
                                         <span class='input-group-addon'>
                                             <i class='fa fa-eye'></i>
                                         </span>";
-                                        if ($avg > 35) {
-                                       $data .=" <textarea class='form-control' rows='5' id='gst_payable_observation' name='gst_payable_observation'>GST paid in cash varies from __ to ____ for F.Y. ___. Average percentage of liability paid by cash is ____ for F.Y.___. So, analysis of huge payment by cash to be done & accordingly input tax credit planning should be done.</textarea>";
-                                          
-                                    $data .="</div>
+            if ($avg > 35) {
+                $data .= " <textarea class='form-control' rows='5' id='gst_payable_observation' name='gst_payable_observation'>GST paid in cash varies from __ to ____ for F.Y. ___. Average percentage of liability paid by cash is ____ for F.Y.___. So, analysis of huge payment by cash to be done & accordingly input tax credit planning should be done.</textarea>";
+
+                $data .= "</div>
                                     <span class='required' style='color: red' id='gst_payable_observation_error'></span>
                                 </div>";
-                                        }else{
-                                            $data .= "<textarea class='form-control' rows='5' id='gst_payable_observation' name='gst_payable_observation'>GST paid in cash has varied from __ to ____ for F.Y. ___. </textarea>";
-                                        }
-                                       
-            
-            
-            
-            
+            } else {
+                $data .= "<textarea class='form-control' rows='5' id='gst_payable_observation' name='gst_payable_observation'>GST paid in cash has varied from __ to ____ for F.Y. ___. </textarea>";
+            }
+
+
+
+
+
             //graph work
             $abc1 = array();
             $abc2 = array();
@@ -1890,7 +1948,7 @@ class Internal_acc_report extends CI_Controller {
 //        $data['result'] = $result;
         $session_data = $this->session->userdata('login_session');
         $email = ($session_data['customer_email_id']);
-        
+
         $query_get_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
         if ($query_get_data !== FALSE) {
             $data['tax_data'] = $query_get_data;
@@ -1899,9 +1957,9 @@ class Internal_acc_report extends CI_Controller {
         }
         $this->load->view('hq_admin/Internal_acc_report', $data);
     }
-    
+
     //load firm wise customers for tax turnover
-     function hq_view_customers($firm_id = '') { //load data of view page
+    function hq_view_customers($firm_id = '') { //load data of view page
 //        $data['result'] = $result;
 //        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
         $session_data = $this->session->userdata('login_session');
@@ -1914,7 +1972,7 @@ class Internal_acc_report extends CI_Controller {
         }
         $this->load->view('hq_admin/Tax_turnover', $data);
     }
-    
+
     //load firm wise customers for eligible
     public function hq_view_customer1($firm_id = '') {
         $session_data = $this->session->userdata('login_session');
@@ -1926,10 +1984,10 @@ class Internal_acc_report extends CI_Controller {
         }
         $this->load->view('hq_admin/eligible_ineligible_credit', $data);
     }
-    
-     //load firm wise customers for gst payable vs cash
-     public function hq_view_customer_cash($firm_id = '') { //function load page gst payable vs cash
-         $session_data = $this->session->userdata('login_session');
+
+    //load firm wise customers for gst payable vs cash
+    public function hq_view_customer_cash($firm_id = '') { //function load page gst payable vs cash
+        $session_data = $this->session->userdata('login_session');
         $query_get_data = $this->Internal_acc_report_model->get_data_taxliability_admin($firm_id);
         if ($query_get_data !== FALSE) {
             $data['gst_payable_data'] = $query_get_data;
@@ -1938,6 +1996,7 @@ class Internal_acc_report extends CI_Controller {
         }
         $this->load->view('hq_admin/gst_payable_vs_cash', $data);
     }
+
 }
 
 ?>

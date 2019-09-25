@@ -582,7 +582,7 @@ if (is_array($session_data)) {
                         </div>
                     </div>
                 </div>
-                <div class="box box-info">
+                                <div class="box box-info">
 
                     <div class="box-header">
                         <h3 class="box-title"><b>Summary Observation and conclusion</b>
@@ -598,11 +598,40 @@ if (is_array($session_data)) {
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body pad">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <div class="box-header">
+                                        <h3 class="box-title"><b>1.Compliments/Facts:</b>
+                                        </h3>  
+                                    </div>
 
-                        <textarea id="editor12" name="editor12" rows="10" style="width: 100%" onkeyup="final_word_count(this.id);remove_error('editor12')"><?php echo $result_observation1->conclusion_summary; ?></textarea>
-                        <span class="required" style="color: red" id="editor12_error"></span>
+                                    <textarea id="editor12" name="editor12" rows="10" style="width: 100%" onkeyup="final_word_count(this.id);remove_error('editor12')"><?php echo $result_observation1->compliments_conclusion_summary; ?></textarea>
+                                    <span class="required" style="color: red" id="editor12_error"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="box-header">
+                                        <h3 class="box-title"><b>2. Serious Problems:</b>
+                                        </h3>  
+                                    </div>
+
+                                    <textarea id="editor13" name="editor13" rows="10" style="width: 100%" onkeyup="final_word_count(this.id);remove_error('editor13')"><?php echo $result_observation1->serious_conclusion_summary; ?></textarea>
+                                    <span class="required" style="color: red" id="editor13_error"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="box-header">
+                                        <h3 class="box-title"><b>3. Improvement::</b>
+                                        </h3>  
+                                    </div>
+
+                                    <textarea id="editor14" name="editor14" rows="10" style="width: 100%" onkeyup="final_word_count(this.id);remove_error('editor14')"><?php echo $result_observation1->improvement_conclusion_summary; ?></textarea>
+                                    <span class="required" style="color: red" id="editor14_error"></span>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
+
                 </div>
                 <div class="box box-success">
                     <div class="box-header">
@@ -1127,18 +1156,19 @@ if (is_array($session_data)) {
                 }
             },
         });
-        $.ajax({
+         $.ajax({
             type: "post",
             url: "<?= base_url("Management_report/get_graph_state_wise1") ?>",
             dataType: "json",
-            data: {customer_id: customer_id, insert_id: insert_id},
+            data: {customer_id: customer_id, insert_id: insert_id, curr_url: curr_url},
             success: function (result) {
 //                 alert();
+                $('#location_data').html("");
                 if (result.message === "success") {
 
                     var data = result.data;
-//                    $('#location_data').html("");
-                    $('#sales_state_wise_data').html(data);
+                    $('#location_data').html("");
+                    $('#location_data').html(data);
 //                    $('#example2').DataTable();
                 } else {
 
@@ -1815,22 +1845,47 @@ if (is_array($session_data)) {
                 }
             }
         });
+//        $.ajax({
+//            type: "post",
+//            url: "<?= base_url("Threeb_vs_one/get_graph") ?>",
+//            dataType: "json",
+//            data: {customer_id: customer_id, insert_id: insert_id},
+//            success: function (result) {
+////                 alert();
+//                $('#compare_3b1_data').html("");
+//                if (result.message === "success") {
+//
+//                    var data = result.data;
+//                    var data1 = result.data1;
+//                    $('#compare_3b1_data').html("");
+//                    $('#compare_3b1_data1').html("");
+//                    $('#compare_3b1_data').html(data);
+//                    $('#compare_3b1_data1').html(data1);
+//                    $('#example2').DataTable();
+//                } else {
+//
+//                }
+//            },
+//
+//        });
+        
+            //observation editable for GSTR-3B vs GSTR-1
         $.ajax({
             type: "post",
-            url: "<?= base_url("Threeb_vs_one/get_graph") ?>",
+            url: "<?= base_url("Threeb_vs_one/get_graph1") ?>",
             dataType: "json",
-            data: {customer_id: customer_id, insert_id: insert_id},
+            data: {customer_id: customer_id, insert_id: insert_id, curr_url: curr_url},
             success: function (result) {
 //                 alert();
                 $('#compare_3b1_data').html("");
                 if (result.message === "success") {
 
                     var data = result.data;
-                    var data1 = result.data1;
+//                    var data1 = result.data1;
                     $('#compare_3b1_data').html("");
-                    $('#compare_3b1_data1').html("");
+//                    $('#compare_3b1_data1').html("");
                     $('#compare_3b1_data').html(data);
-                    $('#compare_3b1_data1').html(data1);
+//                    $('#compare_3b1_data1').html(data1);
                     $('#example2').DataTable();
                 } else {
 
@@ -1838,6 +1893,7 @@ if (is_array($session_data)) {
             },
 
         });
+        
 //GSTR-1 vs GSTR-2A
         $.ajax({
             type: "POST",
@@ -1935,22 +1991,48 @@ if (is_array($session_data)) {
                 }
             }
         });
+//        $.ajax({
+//            type: "post",
+//            url: "<?= base_url("Threeb_vs_twoa/get_graph") ?>",
+//            dataType: "json",
+//            data: {customer_id: customer_id, insert_id: insert_id},
+//            success: function (result) {
+////                 alert();
+//                $('#compare_3b2a_data').html("");
+//                if (result.message === "success") {
+//
+//                    var data = result.data;
+//                    var data1 = result.data1;
+//                    $('#compare_3b2a_data').html("");
+//                    $('#compare_3b2a_data1').html("");
+//                    $('#compare_3b2a_data').html(data);
+//                    $('#compare_3b2a_data1').html(data1);
+//                    $('#example2').DataTable();
+//                } else {
+//
+//                }
+//            },
+//
+//        });
+
+         //ajax for editable observation
+
         $.ajax({
             type: "post",
-            url: "<?= base_url("Threeb_vs_twoa/get_graph") ?>",
+            url: "<?= base_url("Threeb_vs_twoa/get_graph1") ?>",
             dataType: "json",
-            data: {customer_id: customer_id, insert_id: insert_id},
+            data: {customer_id: customer_id, insert_id: insert_id, curr_url: curr_url},
             success: function (result) {
 //                 alert();
                 $('#compare_3b2a_data').html("");
                 if (result.message === "success") {
 
                     var data = result.data;
-                    var data1 = result.data1;
+//                    var data1 = result.data1;
                     $('#compare_3b2a_data').html("");
-                    $('#compare_3b2a_data1').html("");
+//                    $('#compare_3b2a_data1').html("");
                     $('#compare_3b2a_data').html(data);
-                    $('#compare_3b2a_data1').html(data1);
+//                    $('#compare_3b2a_data1').html(data1);
                     $('#example2').DataTable();
                 } else {
 
@@ -2068,21 +2150,45 @@ if (is_array($session_data)) {
                 }
             }
         });
+//        $.ajax({
+//            type: "post",
+//            url: "<?= base_url("Management_report/get_graph_b2b") ?>",
+//            dataType: "json",
+//            data: {customer_id: customer_id, insert_id: insert_id},
+//            success: function (result) {
+////                 alert();
+//                if (result.message === "success") {
+//
+//                    var data = result.data;
+//                    var data1 = result.data1;
+//                    $('#b2b_b2c_sale').html("");
+//                    $('#b2b_b2c_sale1').html("");
+//                    $('#b2b_b2c_sale').html(data);
+//                    $('#b2b_b2c_sale1').html(data1);
+//                    $('#example2').DataTable();
+//                } else {
+//
+//                }
+//            },
+//
+//        });
+
+        //B2b b2c sale
         $.ajax({
             type: "post",
-            url: "<?= base_url("Management_report/get_graph_b2b") ?>",
+            url: "<?= base_url("Management_report/get_graph_b2b1") ?>",
             dataType: "json",
-            data: {customer_id: customer_id, insert_id: insert_id},
+            data: {customer_id: customer_id, insert_id: insert_id, curr_url: curr_url},
             success: function (result) {
 //                 alert();
                 if (result.message === "success") {
 
                     var data = result.data;
-                    var data1 = result.data1;
+//                    var data1 = result.data1;
                     $('#b2b_b2c_sale').html("");
-                    $('#b2b_b2c_sale1').html("");
+//                    $('#b2b_b2c_sale1').html("");
                     $('#b2b_b2c_sale').html(data);
-                    $('#b2b_b2c_sale1').html(data1);
+//                    $('#b2b_b2c_sale1').html(data1);
                     $('#example2').DataTable();
                 } else {
 
@@ -2145,7 +2251,7 @@ if (is_array($session_data)) {
         });
         $.ajax({
             type: "post",
-            url: "<?= base_url("Management_report/get_graph_state_wise") ?>",
+            url: "<?= base_url("Management_report/get_graph_state_wise1") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
@@ -2395,9 +2501,34 @@ if (is_array($session_data)) {
                 }
             }
         });
+//        $.ajax({
+//            type: "post",
+//            url: "<?= base_url("Internal_acc_report/get_graph_gst_payable_vs_cash") ?>",
+//            dataType: "json",
+//            data: {customer_id: customer_id, insert_id: insert_id},
+//            success: function (result) {
+////                 alert();
+//                $('#gst_payable_vs_cash_data').html("");
+//                if (result.message === "success") {
+//
+//                    var data = result.data;
+//                    var data1 = result.data1;
+//                    $('#gst_payable_vs_cash_data').html("");
+//                    $('#gst_payable_vs_cash_data1').html("");
+//                    $('#gst_payable_vs_cash_data').html(data);
+//                    $('#gst_payable_vs_cash_data1').html(data1);
+//                    $('#example2').DataTable();
+//                } else {
+//
+//                }
+//            },
+//
+//        });
+
+        //editable observation for GST Payable vs cash
         $.ajax({
             type: "post",
-            url: "<?= base_url("Internal_acc_report/get_graph_gst_payable_vs_cash") ?>",
+            url: "<?= base_url("Internal_acc_report/get_graph_gst_payable_vs_cash1") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
@@ -2406,11 +2537,11 @@ if (is_array($session_data)) {
                 if (result.message === "success") {
 
                     var data = result.data;
-                    var data1 = result.data1;
+//                    var data1 = result.data1;
                     $('#gst_payable_vs_cash_data').html("");
-                    $('#gst_payable_vs_cash_data1').html("");
+//                    $('#gst_payable_vs_cash_data1').html("");
                     $('#gst_payable_vs_cash_data').html(data);
-                    $('#gst_payable_vs_cash_data1').html(data1);
+//                    $('#gst_payable_vs_cash_data1').html(data1);
                     $('#example2').DataTable();
                 } else {
 

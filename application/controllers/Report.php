@@ -18,23 +18,22 @@ class Report extends CI_Controller {
 //        $get_observation = $this->db->query("select file_location,id from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' and report_id='$report_id' ORDER BY ID DESC LIMIT 1");
         $get_observation = $this->db->query("select file_location,id from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
         $res = $get_observation->row();
-          $id = $res->id;
-          
+        $id = $res->id;
+
         $page_numbers = $file_upload1;
         // var_dump($page_numbers);
         $data = array('file_location' => $page_numbers);
 
         $this->db->where('insert_id', $insert_id);
-            $this->db->where('customer_id', $customer_id);
-            $this->db->where('id', $id);
+        $this->db->where('customer_id', $customer_id);
+        $this->db->where('id', $id);
         $query = $this->db->update('observation_transaction_all', $data);
 
-      
+
         if ($query == TRUE) {
             $response['message'] = 'success';
             $response['code'] = 200;
             $response['status'] = true;
-            
         } else {
             $response['message'] = 'No data to display';
             $response['code'] = 204;
@@ -131,7 +130,7 @@ class Report extends CI_Controller {
         $data['customer_id'] = $customer_id1;
         $this->load->view('admin/add_page_numbers', $data);
     }
-    
+
     public function insert_page_number_hq($customer_id = '', $insert_id = '') {
 
         $customer_id1 = base64_decode($customer_id);
@@ -166,8 +165,8 @@ class Report extends CI_Controller {
         $data['client_details'] = $result4;
         $this->load->view('admin/report_with_page_num', $data);
     }
-    
-     public function report_with_page_num_hq($customer_id = '', $insert_id = '') {
+
+    public function report_with_page_num_hq($customer_id = '', $insert_id = '') {
         $customer_id1 = base64_decode($customer_id);
         $insert_id1 = base64_decode($insert_id);
         $data['insert_id'] = $insert_id1;
@@ -330,7 +329,7 @@ class Report extends CI_Controller {
         $data['cust_name'] = $cust_name;
         $this->load->view('admin/Generate_report', $data);
     }
-    
+
     public function index_hq($customer_id = '', $insert_id = '', $cust_name = '') {
         $query_get_customer_name = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id'");
         $result = $query_get_customer_name->row();
@@ -368,7 +367,7 @@ class Report extends CI_Controller {
         $data['cust_result'] = $result;
         $this->load->view('admin/client_details', $data);
     }
-    
+
     public function enter_detail_fun_hq($customer_id = '', $insert_id = '') {
         $customer_id1 = base64_decode($customer_id);
         $insert_id1 = base64_decode($insert_id);
@@ -463,6 +462,7 @@ class Report extends CI_Controller {
             $respose['message'] = "";
         }echo json_encode($respose);
     }
+
     public function get_content_limited_usage() {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
@@ -495,8 +495,8 @@ class Report extends CI_Controller {
             $respose['message'] = "";
         }echo json_encode($respose);
     }
-    
-     public function get_content_disclaimer() {
+
+    public function get_content_disclaimer() {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
         $year_id = $this->input->post("year_id");
@@ -535,8 +535,8 @@ class Report extends CI_Controller {
     }
 
     // get cotent of about ECOVIS RKCA
-    
-     public function get_content_about_ecovis() {
+
+    public function get_content_about_ecovis() {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
         $year_id = $this->input->post("year_id");
@@ -565,7 +565,83 @@ class Report extends CI_Controller {
         }echo json_encode($respose);
     }
 
-    
+    // get cotent of about ECOVIS RKCA
+
+    public function get_content_executive_summary() {
+        $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
+//        $year_id = $this->input->post("year_id");
+//        $query_get_company_header = $this->db->query("SELECT company_name from report_header_all where insert_id='$insert_id' and customer_id='$customer_id'");
+        $month_wise_observation =array();
+        $count = count($month_wise_observation);
+        $query_get_insert_header = $this->db->query("SELECT * from observation_transaction_all where insert_id='$insert_id' and customer_id = '$customer_id' ORDER BY ID DESC LIMIT 1");
+        if ($query_get_insert_header->num_rows() > 0) {
+            $result = $query_get_insert_header->result();
+            if ($query_get_insert_header == true) {
+                for ($k = 0; $k < $count; $k++) {
+                  if ($month_wise_observation[$k] == "") {
+                        $month_wise_observation[$k] = "0";
+                    }  
+                }
+            }exit;
+            $month_wise_remarks = array();
+            $sales_tax_rate_observation = array();
+            $sales_tax_rate_remarks = array();
+            $observation = array();
+            $remarks = array();
+            $data = "";
+            $data .= '<div class="col-md-12">
+                <table id="example2" class="table-bordered table-striped" width="700">
+                 <thead>
+                                    <tr>
+                                         <th>Sr No.</th>
+                                        <th>Reports</th>
+                                        <th>Observation</th>
+                                        <th>Remarks</th>
+                                       
+                                    </tr>
+                                </thead>
+                                <tbody>';
+
+            $k = 1;
+            $sales_month_wise = 'Sales Month Wise';
+            $sales_tax_rate_wise = 'Sales Tax Rate Wise';
+            
+            foreach ($result as $row) {
+                $month_wise_observation[] = $row->month_wise_observation;
+                $sales_tax_rate_observation[] = $row->rate_wise_observation;
+                $sales_tax_rate_remarks[] = $row->rate_wise_remarks;
+            }
+            
+            
+            for($i=0;$i<=sizeof($sales_tax_rate_observation);$i++) {
+                $data .= '<tr>' .
+                    '<td>' . $i . '</td>' .
+                    '<td>' . $sales_month_wise . '</td>' .
+                    '<td>' . $month_wise_observation[$i] . '</td>' .
+                    '<td>' . $sales_tax_rate_wise . '</td>' .
+                    '<td>' . $sales_tax_rate_observation[$i] . '</td>' .
+                    '<td>' . $sales_tax_rate_remarks[$i] . '</td>' .
+                    '</tr>';
+            }
+//                $month_wise_remarks = $row->rcb_liablity;
+//                $months[] = $row->month;
+//                $month = $row->month;
+
+           
+//            $k++;
+        
+        $data .= '</tbody></table></div>';
+
+
+
+        $respose['data'] = $data;
+        $respose['message'] = "success";
+        } else {
+            $respose['message'] = "";
+        }echo json_encode($respose);
+    }
+
     public function get_rating_card() {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
@@ -720,7 +796,7 @@ class Report extends CI_Controller {
         $data['result_observation1'] = $result_observation1;
         $this->load->view('admin/update_report', $data);
     }
-    
+
     public function update_detail_fun_hq($customer_id = '', $insert_id = '') { //function to load update page
         $customer_id1 = base64_decode($customer_id);
         $insert_id1 = base64_decode($insert_id);

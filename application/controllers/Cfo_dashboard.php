@@ -43,7 +43,7 @@ class Cfo_dashboard extends CI_Controller {
         }
         $this->load->view('admin/Cfo_dashboard', $data);
     }
-    
+
     function index_hq() { //function load data on page
         $session_data = $this->session->userdata('login_session');
         $email = ($session_data['customer_email_id']);
@@ -255,11 +255,23 @@ class Cfo_dashboard extends CI_Controller {
                 . "`3b_offset_summary_all`.`rcb_liablity` FROM `monthly_summary_all` INNER JOIN `3b_offset_summary_all` "
                 . "ON `monthly_summary_all`.`month`=`3b_offset_summary_all`.`month` where `monthly_summary_all`.`customer_id`='$customer_id' "
                 . "AND `3b_offset_summary_all`.`customer_id`='$customer_id' AND `monthly_summary_all`.`insert_id`='$insert_id'AND `3b_offset_summary_all`.`insert_id`='$insert_id'");
+        $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
         $data = ""; //view observations
         $data1 = ""; //view observations
         $data2 = ""; //view observations
-        if ($quer1->num_rows() > 0) {
+        $data_turnover_vsliability_name = "";
+        $data_turnover_vsliability_observation = "";
+        $data_turnover_vsliability_remarks = "";
+//        if ($quer1->num_rows() > 0) {
+        if ($this->db->affected_rows() > 0) {
             $res = $quer1->result();
+            $result1 = $query_get_observation->row();
+            $turnover_vsliability_observation = $result1->month_wise_observation;
+            $turnover_vsliability_remarks = $result1->month_wise_remarks;
+            $data_turnover_vsliability_name = "Turnover vs Tax Liability";
+            $data_turnover_vsliability_observation = $turnover_vsliability_observation;
+            $data_turnover_vsliability_remarks = $turnover_vsliability_remarks;
+
             $turnover1 = array();
             $tax_liabality1 = array();
             $ratio_val = array();
@@ -314,7 +326,7 @@ class Cfo_dashboard extends CI_Controller {
                     '<td>' . '' . '</td>' .
                     '<td>' . '<b>' . number_format(round(array_sum($turnover1))) . '</b> ' . '</td>' .
                     '<td>' . '<b>' . number_format(round(array_sum($tax_liabality1))) . '</b>' . '</td>' .
-                    '<td>' . '<b>' .number_format(round(array_sum($ratio_val))) . "%" . '</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($ratio_val))) . "%" . '</b>' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table><br><br>';
 //         echo   max($ratio_val);
@@ -388,6 +400,10 @@ class Cfo_dashboard extends CI_Controller {
             $respose['customer_name'] = $customer_name; //customer
             $respose['month_data'] = $months; //months 
             $respose['max_range'] = $max_range; //maximum range for graph
+            $respose['data_turnover_vsliability_name'] = $data_turnover_vsliability_name; //maximum range for graph
+            $respose['data_turnover_vsliability_observation'] = $data_turnover_vsliability_observation; //maximum range for graph
+            $respose['data_turnover_vsliability_remarks'] = $data_turnover_vsliability_remarks; //maximum range for graph
+           
         } else {
             $respose['message'] = "";
             $respose['data_turn_over'] = "";
@@ -395,10 +411,10 @@ class Cfo_dashboard extends CI_Controller {
             $respose['ratio'] = "";
         } echo json_encode($respose);
     }
-    
+
     public function hq_view_customer($firm_id = '') {
 
-      $session_data = $this->session->userdata('login_session');
+        $session_data = $this->session->userdata('login_session');
         $email = ($session_data['customer_email_id']);
 //        $get_firm_id = $this->Customer_model->get_firm_id($email);
 //        if ($get_firm_id != FALSE) {
@@ -413,8 +429,7 @@ class Cfo_dashboard extends CI_Controller {
             $data['cfo_data'] = "";
         }
         $this->load->view('hq_admin/Cfo_dashboard', $data);
-      
-     }
+    }
 
 }
 

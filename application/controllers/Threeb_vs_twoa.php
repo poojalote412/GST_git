@@ -45,7 +45,7 @@ class Threeb_vs_twoa extends CI_Controller {
         }
         $this->load->view('admin/Threeb_vs_twoa', $data);
     }
-    
+
     function index_hq() {
 //        $session_data = $this->session->userdata('login_session');
 //        $customer_id = ($session_data['customer_id']);
@@ -232,12 +232,23 @@ class Threeb_vs_twoa extends CI_Controller {
         $insert_id = $this->input->post("insert_id");
 
         $query = $this->db->query("SELECT month,gstr2A_3B,gstr2A_difference,gstr2A_cummulative,gstr2A FROM comparison_summary_all WHERE customer_id='$customer_id' AND insert_id='$insert_id' order by id desc");
+        $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
         $data = ""; //view observations
         $data1 = ""; //view observations
         $data2 = ""; //view observations
-        if ($query->num_rows() > 0) {
-
+        $data_threeb_vs2A_name = "";
+        $data_threeb_vs2A_observation = "";
+        $data_threeb_vs2A_remarks = "";
+//        if ($query->num_rows() > 0) {
+        if ($this->db->affected_rows() > 0) {
             $result = $query->result();
+            $result1 = $query_get_observation->row();
+            $threeb_vs2A_observation = $result1->gstr3bvs2a_observation;
+            $threeb_vs2A_remarks = $result1->gstr3bvs2a_remarks;
+
+            $data_threeb_vs2A_name = "GSTR-3B vs GSTR-2A";
+            $data_threeb_vs2A_observation = $threeb_vs2A_observation;
+            $data_threeb_vs2A_remarks = $threeb_vs2A_remarks;
             $gstr_tb1 = array();
             $difference2 = array();
             $cumu_difference3 = array();
@@ -290,7 +301,7 @@ class Threeb_vs_twoa extends CI_Controller {
             $data .= '</tbody></table>';
 
             $data1 .= "<br><br><h4><b>Observation:</b></h4>";
-            
+
             if ($thb > $twa) {
                 $data1 .= '<span>GSTR-3B > 2A, ITC declared and ITC claimed is showing a huge difference as either the company has taken excess credit or vendor has not recorded our purchases in his GSTR 1. '
                         . 'This may lead to interest liability & penalties notices or permanent loss of credit if vendor is not informed and corrective action is not taken by such vendor.</span>';
@@ -341,6 +352,10 @@ class Threeb_vs_twoa extends CI_Controller {
             $respose['cumu_difference'] = $abc4; //cummulative difference of 3b and 2a
             $respose['gstr2a'] = $abc5; //data of gstr2a
             $respose['month_data'] = $months; //months
+            $respose['data_threeb_vs2A_name'] = $data_threeb_vs2A_name; //months
+            $respose['data_threeb_vs2A_observation'] = $data_threeb_vs2A_observation; //months
+            $respose['data_threeb_vs2A_remarks'] = $data_threeb_vs2A_remarks; //months
+          
         } else {
             $respose['data'] = "";
             $respose['data1'] = "";
@@ -352,15 +367,15 @@ class Threeb_vs_twoa extends CI_Controller {
         }
         echo json_encode($respose);
     }
-    
+
     //editable observation for GSTR 3B vs 2A
-    
-    
+
+
     public function get_graph1() { //function to get graph
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
         $curr_url = $this->input->post("curr_url");
-        
+
         $query = $this->db->query("SELECT month,gstr2A_3B,gstr2A_difference,gstr2A_cummulative,gstr2A FROM comparison_summary_all WHERE customer_id='$customer_id' AND insert_id='$insert_id' order by id desc");
         $data = ""; //view observations
         $data1 = ""; //view observations
@@ -420,7 +435,7 @@ class Threeb_vs_twoa extends CI_Controller {
             $data .= '</tbody></table>';
 
             $url = base_url() . "update_detail/" . base64_encode($customer_id) . "/" . base64_encode($insert_id);
-            
+
             if ($curr_url == $url) {
                 $get_observation = $this->db->query("select gstr3bvs2a_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
                 if ($this->db->affected_rows() > 0) {
@@ -436,17 +451,16 @@ class Threeb_vs_twoa extends CI_Controller {
                                             <i class="fa fa-eye"></i>
                                         </span>';
 //                                        if ($thb > $twa) {
-                                      $data.='  <textarea class="form-control" rows="5" id="monthwise_sale_observation" name="monthwise_sale_observation" onkeyup="countWords(this.id);" >GSTR-3B > 2A, ITC declared and ITC claimed is showing a huge difference as either the company has taken excess credit or vendor has not recorded our purchases in his GSTR 1.This may lead to interest liability & penalties notices or permanent loss of credit if vendor is not informed and corrective action is not taken by such vendor.</textarea>';
-                                        
-                                    $data .='</div>
-                                    <span class="required" style="color: red" id="monthwise_sale_observation_error"></span> 
+                $data .= '  <textarea class="form-control" rows="5" id="threeb_vstwoa_observation" name="threeb_vstwoa_observation" onkeyup="countWords(this.id);" >GSTR-3B > 2A, ITC declared and ITC claimed is showing a huge difference as either the company has taken excess credit or vendor has not recorded our purchases in his GSTR 1.This may lead to interest liability & penalties notices or permanent loss of credit if vendor is not informed and corrective action is not taken by such vendor.</textarea>';
+
+                $data .= '</div>
+                                    <span class="required" style="color: red" id="threeb_vstwoa_observation_error"></span> 
                                         </div><br>';
-                                    
+
 //                                        }
 //                                        elseif ($twa > $thb) {
 //                                            
 //                                        }
-                                        
             } else {
                 $data .= "<div class='col-md-12'>
                                     <label><h4><b>Observation :</b></h4></label><span class='required' aria-required='true'> </span>
@@ -454,14 +468,14 @@ class Threeb_vs_twoa extends CI_Controller {
                                         <span class='input-group-addon'>
                                             <i class='fa fa-eye'></i>
                                         </span>
-                                        <textarea class='form-control' rows='5' id='monthwise_sale_observation' name='monthwise_sale_observation' onkeyup='countWords(this.id);'>" . $variation . " is the % variation of maximum & minimum sales per month requiring careful working capital planning in case receivable delay.</textarea>
+                                        <textarea class='form-control' rows='5' id='threeb_vstwoa_observation' name='threeb_vstwoa_observation' onkeyup='countWords(this.id);'>" . $variation . " is the % variation of maximum & minimum sales per month requiring careful working capital planning in case receivable delay.</textarea>
                                     </div>
-                                    <span class='required' style='color: red' id='monthwise_sale_observation_error'></span>
+                                    <span class='required' style='color: red' id='threeb_vstwoa_observation'></span>
                                 </div>";
             }
-            
+
             $data1 .= "<br><br><h4><b>Observation:</b></h4>";
-            
+
             if ($thb > $twa) {
                 $data1 .= '<span>GSTR-3B > 2A, ITC declared and ITC claimed is showing a huge difference as either the company has taken excess credit or vendor has not recorded our purchases in his GSTR 1. '
                         . 'This may lead to interest liability & penalties notices or permanent loss of credit if vendor is not informed and corrective action is not taken by such vendor.</span>';
@@ -523,9 +537,8 @@ class Threeb_vs_twoa extends CI_Controller {
         }
         echo json_encode($respose);
     }
-    
-    public function get_graph_with_observation()
-    {
+
+    public function get_graph_with_observation() {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
 
@@ -592,7 +605,7 @@ class Threeb_vs_twoa extends CI_Controller {
                     '<td>' . '<b>' . array_sum($cumu_difference3) . '</b>' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
-            
+
             $data1 .= "<div class='col-md-12'><br><br><h4><b>Observation of GSTR-3B vs GSTR-2A:</b></h4>";
             if ($thb > $twa) {
                 $data1 .= '<span>GSTR-3B > 2A, ITC declared and ITC claimed is showing a huge difference as either the company has taken excess credit or vendor has not recorded our purchases in his GSTR 1. '
@@ -666,10 +679,10 @@ class Threeb_vs_twoa extends CI_Controller {
             return $comp_id;
         }
     }
-    
-     public function hq_view_customer($firm_id = '') {
 
-       $session_data = $this->session->userdata('login_session');
+    public function hq_view_customer($firm_id = '') {
+
+        $session_data = $this->session->userdata('login_session');
         $email = ($session_data['customer_email_id']);
 //        $get_firm_id = $this->Customer_model->get_firm_id($email);
 //        if ($get_firm_id != FALSE) {
@@ -684,8 +697,7 @@ class Threeb_vs_twoa extends CI_Controller {
             $data['gstr1_vs_3b_data'] = "";
         }
         $this->load->view('hq_admin/Threeb_vs_one', $data);
-      
-     }
+    }
 
 }
 

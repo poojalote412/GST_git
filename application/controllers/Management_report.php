@@ -10,7 +10,6 @@ class Management_report extends CI_Controller {
         $this->load->model('Cfo_model');
         $this->load->model('Management_report_model');
         $this->load->model('Customer_model');
-       
     }
 
     function index() {
@@ -48,7 +47,7 @@ class Management_report extends CI_Controller {
         }
         $this->load->view('admin/B2b_b2c', $data);
     }
-    
+
     function Sale_b2b_b2c_hq() {
 //        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
         $session_data = $this->session->userdata('login_session');
@@ -86,7 +85,7 @@ class Management_report extends CI_Controller {
         }
         $this->load->view('admin/Sale_state_wise', $data);
     }
-    
+
     function state_wise_report_hq() {
 //        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
         $session_data = $this->session->userdata('login_session');
@@ -107,7 +106,7 @@ class Management_report extends CI_Controller {
     }
 
     public function sale_exports_fun() {
-        
+
 //        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
         $session_data = $this->session->userdata('login_session');
         $email = ($session_data['customer_email_id']);
@@ -255,14 +254,29 @@ class Management_report extends CI_Controller {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
         $query = $this->db->query("SELECT * from state_wise_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
+        $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
         $data = ""; //view observations
         $data1 = ""; //view observations
         $data2 = ""; //view observations
         $state_arr = array();
         $taxble_val_arr = array();
 
-        if ($query->num_rows() > 0) {
+        $data_statewise_name = "";
+        $data_statewise_observation = "";
+        $data_statewise_remarks = "";
+
+//        if ($query->num_rows() > 0) {
+        if ($this->db->affected_rows() > 0) {
             $result = $query->result();
+            $result1 = $query_get_observation->row();
+            $statewise_wise_observation = $result1->state_wise_observation;
+            $statewise_wise_remarks = $result1->state_wise_remarks;
+
+
+            $data_statewise_name = "Sales State Wise";
+            $data_statewise_observation = $statewise_wise_observation;
+            $data_statewise_remarks = $statewise_wise_remarks;
+
             $data2 .= '<h4><b>3.Sales State Wise</b></h4>';
             $data .= '<div class="row">
                     <div class="col-md-12">
@@ -296,8 +310,8 @@ class Management_report extends CI_Controller {
                     '<td>' . '<b>' . array_sum($taxble_val_arr) . '</b> ' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
-            
-            
+
+
 
             //            get highest 3 records
             $qrr = $this->db->query("SELECT * FROM state_wise_summary_all where customer_id='$customer_id' ORDER BY `taxable_value` DESC LIMIT 3 ");
@@ -313,7 +327,7 @@ class Management_report extends CI_Controller {
             $total = array_sum($taxble_val_arr);
             $top3 = array_sum($arr);
             $top_3_state = round(($top3 / $total) * 100, 2);
-            
+
             $url = base_url() . "update_detail/" . base64_encode($customer_id) . "/" . base64_encode($insert_id);
             if ($curr_url == $url) {
                 $get_observation = $this->db->query("select state_wise_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
@@ -329,7 +343,7 @@ class Management_report extends CI_Controller {
                                         <span class="input-group-addon">
                                             <i class="fa fa-eye"></i>
                                         </span>
-                                        <textarea class="form-control" rows="5" id="statewise_sale_observation" name="statewise_sale_observation" onkeyup="countWords(this.id);" >' . $observation . ' % of total sales comes from top 3 states.</textarea>
+                                        <textarea class="form-control" rows="5" id="statewise_sale_observation" name="statewise_sale_observation" onkeyup="countWords(this.id);" >' . $top_3_state . ' % of total sales comes from top 3 states.</textarea>
                                     </div>
                                     <span class="required" style="color: red" id="statewise_sale_observation_error"></span> 
                                 </div><br>';
@@ -340,7 +354,7 @@ class Management_report extends CI_Controller {
                                         <span class='input-group-addon'>
                                             <i class='fa fa-eye'></i>
                                         </span>
-                                        <textarea class='form-control' rows='5' id='statewise_sale_observation' name='statewise_sale_observation' onkeyup='countWords(this.id);'>" . $observation . "  % of total sales comes from top 3 states.</textarea>
+                                        <textarea class='form-control' rows='5' id='statewise_sale_observation' name='statewise_sale_observation' onkeyup='countWords(this.id);'>" . $top_3_state . "  % of total sales comes from top 3 states.</textarea>
                                     </div>
                                     <span class='required' style='color: red' id='statewise_sale_observation_error'></span>
                                 </div>";
@@ -375,6 +389,10 @@ class Management_report extends CI_Controller {
             $respnose['data'] = $data; //table view data
             $respnose['data1'] = $data1; //table view data
             $respnose['data2'] = $data2; //table view data
+            $respnose['data_statewise_name'] = $data_statewise_name; //table view data
+            $respnose['data_statewise_observation'] = $data_statewise_observation; //table view data
+            $respnose['data_statewise_remarks'] = $data_statewise_remarks; //table view data
+        
         } else {
             $respnose['message'] = "";
             $respnose['taxable_value'] = "";  //taxable value data
@@ -505,7 +523,7 @@ class Management_report extends CI_Controller {
         }
         $this->load->view('admin/Sale_tax_nontax_exempt', $data);
     }
-    
+
     public function Sale_taxable_nontaxable_hq() {
 //        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
         $session_data = $this->session->userdata('login_session');
@@ -529,11 +547,24 @@ class Management_report extends CI_Controller {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
         $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' and insert_id='$insert_id'");
+        $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
         $data = ""; //view observations
         $data1 = ""; //view observations
         $data2 = ""; //view observations
-        if ($query->num_rows() > 0) {
+        $data_tax_nontax_name = "";
+        $data_tax_nontax_observation = "";
+        $data_tax_nontax_remarks = "";
+//        if ($query->num_rows() > 0) {
+        if ($this->db->affected_rows() > 0) {
             $result = $query->result();
+             $result1 = $query_get_observation->row();
+             $tax_nontax_observation = $result1->month_wise_observation;
+             $tax_nontax_remarks = $result1->month_wise_remarks;
+             
+             $data_tax_nontax_name='Sales Taxable, Non-taxable & Exempt';
+             $data_tax_nontax_observation=$tax_nontax_observation;
+             $data_tax_nontax_remarks=$tax_nontax_remarks;
+             
             $taxable_supply_arr = array();
             $sub_total_non_gst_arr = array();
             $sub_total_exempt_arr = array();
@@ -596,24 +627,24 @@ class Management_report extends CI_Controller {
                     $ratio_subtotal_exempt[] = round(($sub_total_exempt * 100) / ($grand_total));
                     $ratio_subtotal_nil_rated[] = round(($sub_total_nil_rated * 100) / ($grand_total));
                     $ratio_subtotal_zero_rated[] = round(($sub_total_zero_rated * 100) / ($grand_total));
-                    
-                    
-                    $ratio1=(round(($taxable_supply * 100) / ($grand_total)));
-                    $ratio2=(round(($sub_total_non_gst * 100) / ($grand_total)));
-                    $ratio3=(round(($sub_total_exempt * 100) / ($grand_total)));
-                    $ratio4=(round(($sub_total_nil_rated * 100) / ($grand_total)));
-                    $ratio5=(round(($sub_total_zero_rated * 100) / ($grand_total)));
+
+
+                    $ratio1 = (round(($taxable_supply * 100) / ($grand_total)));
+                    $ratio2 = (round(($sub_total_non_gst * 100) / ($grand_total)));
+                    $ratio3 = (round(($sub_total_exempt * 100) / ($grand_total)));
+                    $ratio4 = (round(($sub_total_nil_rated * 100) / ($grand_total)));
+                    $ratio5 = (round(($sub_total_zero_rated * 100) / ($grand_total)));
                 } else {
                     $ratio_taxable_supply[] = 0;
                     $ratio_subtotal_nongst[] = 0;
                     $ratio_subtotal_exempt[] = 0;
                     $ratio_subtotal_nil_rated[] = 0;
                     $ratio_subtotal_zero_rated[] = 0;
-                    $ratio1=0;
-                    $ratio2=0;
-                    $ratio3=0;
-                    $ratio4=0;
-                    $ratio5=0;
+                    $ratio1 = 0;
+                    $ratio2 = 0;
+                    $ratio3 = 0;
+                    $ratio4 = 0;
+                    $ratio5 = 0;
                 }
                 $data .= '<tr>' .
 //                        '<td>' . $k . '</td>' .
@@ -624,7 +655,7 @@ class Management_report extends CI_Controller {
                         '<td>' . $sub_total_nil_rated . '</td>' .
                         '<td>' . $sub_total_zero_rated . '</td>' .
                         '<td>' . $ratio1 . "%" . '</td>' .
-                        '<td>' . $ratio2  . "%" . '</td>' .
+                        '<td>' . $ratio2 . "%" . '</td>' .
                         '<td>' . $ratio3 . "%" . '</td>' .
                         '<td>' . $ratio4 . "%" . '</td>' .
                         '<td>' . $ratio5 . "%" . '</td>' .
@@ -744,6 +775,10 @@ class Management_report extends CI_Controller {
             $respnose['month_data'] = $months; //months 
             $respnose['customer_name'] = $customer_name; //customer
             $respnose['max_range'] = $max_range; //maximum range for graph
+            $respnose['data_tax_nontax_name'] = $data_tax_nontax_name; //maximum range for graph
+            $respnose['data_tax_nontax_observation'] = $data_tax_nontax_observation; //maximum range for graph
+            $respnose['data_tax_nontax_remarks'] = $data_tax_nontax_remarks; //maximum range for graph
+            
         } else {
             $respnose['data'] = "";
             $respnose['message'] = "";
@@ -1232,7 +1267,7 @@ class Management_report extends CI_Controller {
         }
         $this->load->view('admin/Sales_month_wise', $data);
     }
-    
+
     function sale_month_wise_hq() { //function to load data
 //        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
         $session_data = $this->session->userdata('login_session');
@@ -1256,12 +1291,25 @@ class Management_report extends CI_Controller {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
         $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
+        $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
         $data = ""; //view observations
         $data1 = "";
         $data2 = "";
-        if ($query->num_rows() > 0) {
+        $data_monthwise_name = "";
+        $data_month_observation = "";
+        $data_month_remarks = "";
+        if ($this->db->affected_rows() > 0) {
             $result = $query->result();
+            $result1 = $query_get_observation->row();
+            $month_wise_observation = $result1->month_wise_observation;
+            $month_wise_remarks = $result1->month_wise_remarks;
+
+//        if ($query->num_rows() > 0) {
+//            $result = $query->result();
             $taxable_supply_arr = array();
+            $data_monthwise_name = 'Sales Month Wise';
+            $data_month_observation = $month_wise_observation;
+            $data_month_remarks = $month_wise_remarks;
             $data2 .= '<h4><b>1.Sales Month Wise</b></h4>';
             $data .= '<div class="row"><br><br><br>
                     <div class="col-md-12">
@@ -1345,6 +1393,8 @@ class Management_report extends CI_Controller {
 //            echo $variation=($max-$min)/($min*100);
             $data1 .= "<hr><h4><b>Observation:</b></h4><span >" . $observation . "</span>";
             $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
+
+
             // loop to get graph data as per graph script requirement
             $abc1 = array();
             for ($o = 0; $o < sizeof($taxable_supply_arr); $o++) {
@@ -1375,6 +1425,9 @@ class Management_report extends CI_Controller {
             $respnose['data'] = $data;
             $respnose['data2'] = $data2;
             $respnose['data1'] = $data1;
+            $respnose['data_monthwise_name'] = $data_monthwise_name;
+            $respnose['data_month_observation'] = $data_month_observation;
+            $respnose['data_month_remarks'] = $data_month_remarks;
             $respnose['message'] = "success";
             $respnose['taxable_supply_arr'] = $abc1;  //taxable_supply data
             $respnose['month_data'] = $months; //months 
@@ -1644,9 +1697,22 @@ class Management_report extends CI_Controller {
 
         //to get total supply
         $query = $this->db->query("SELECT * from rate_wise_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
+        $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
         $data = ""; //view observations
-        if ($query->num_rows() > 0) {
+        $data_ratewise_name = "";
+        $data_rate_observation = "";
+        $data_rate_remarks = "";
+//        if ($query->num_rows() > 0) {
+        if ($this->db->affected_rows() > 0) {
             $result = $query->result();
+            $result1 = $query_get_observation->result();
+            echo $rate_wise_observation = $result1->rate_wise_observation;
+            exit;
+            $rate_wise_remarks = $result1->rate_wise_remarks;
+
+            $data_ratewise_name = 'Sales Tax Rate Wise';
+            $data_rate_observation = $rate_wise_observation;
+            $data_rate_remarks = $rate_wise_remarks;
             $data .= "<h4><b>2.Sales Tax Rate Wise</b></h4>";
             $data .= '<table id="example2" class="table-bordered table-striped" width="700">
                                 <thead style="background-color: #0e385e;color:white">
@@ -1695,6 +1761,9 @@ class Management_report extends CI_Controller {
             $data .= "<hr><h4><b>Observation:</b></h4><span >" . $observation . "</span>";
             $data .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
             $respnose['data'] = $data;
+            $respnose['data_ratewise_name'] = $data_ratewise_name;
+            $respnose['data_rate_observation'] = $data_rate_observation;
+            $respnose['data_rate_remarks'] = $data_rate_remarks;
             $respnose['message'] = "success";
         } else {
             $respnose['data'] = "";
@@ -2316,7 +2385,7 @@ class Management_report extends CI_Controller {
             $data = $result->row();
             $uniq_id = $data->unique_id;
             //generate turn_id
-            $uniq_id = str_pad( ++$uniq_id, 5, '0', STR_PAD_LEFT);
+            $uniq_id = str_pad(++$uniq_id, 5, '0', STR_PAD_LEFT);
             return $uniq_id;
         } else {
             $uniq_id = 'btb_1001';
@@ -2329,12 +2398,23 @@ class Management_report extends CI_Controller {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
         $query = $this->db->query("SELECT *  from monthly_summary_all where customer_id='$customer_id' and insert_id='$insert_id'");
+         $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
 //        $query_get_graph = $this->Management_report_model->get_graph_query($customer_id, $insert_id);
         $data = ""; //view observations
         $data1 = ""; //view observations
         $data2 = ""; //view observations
-        if ($query->num_rows() > 0) {
+        $data_salesb2b_b2c_name = "";
+        $data_salesb2b_b2c_observation = "";
+        $data_salesb2b_b2c_remarks = "";
+        if ($this->db->affected_rows() > 0) {
             $result = $query->result();
+            $result1 = $query_get_observation->row();
+             $salesb2b_b2c_observation = $result1->b2b_b2c_observation;
+             $salesb2b_b2c_remarks = $result1->b2b_b2c_remarks;
+             
+             $data_salesb2b_b2c_name='Sales B2B & B2C';
+             $data_salesb2b_b2c_observation=$salesb2b_b2c_observation;
+             $data_salesb2b_b2c_remarks=$salesb2b_b2c_remarks;
             $month = array();
             $array_b2b = array();
             $array_b2c = array();
@@ -2498,6 +2578,10 @@ class Management_report extends CI_Controller {
             $response['max_range'] = $max_range;  // Max Range
             $response['max_ratio'] = $max_ratio;  // Max Ratio
             $response['customer_name'] = $customer_name;  // Customer
+            $response['data_salesb2b_b2c_name'] = $data_salesb2b_b2c_name;  // Customer
+            $response['data_salesb2b_b2c_observation'] = $data_salesb2b_b2c_observation;  // Customer
+            $response['data_salesb2b_b2c_remarks'] = $data_salesb2b_b2c_remarks;  // Customer
+            
         } else {
             $response['data'] = "";
             $response['message'] = "";
@@ -2511,14 +2595,15 @@ class Management_report extends CI_Controller {
     public function get_graph_b2b1() {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
-         $curr_url = $this->input->post("curr_url");
+        $curr_url = $this->input->post("curr_url");
         $query = $this->db->query("SELECT *  from monthly_summary_all where customer_id='$customer_id' and insert_id='$insert_id'");
-
+       
 //        $query_get_graph = $this->Management_report_model->get_graph_query($customer_id, $insert_id);
         $data = ""; //view observations
-//        if (count($query_get_graph) > 0) {
+        
         if ($query->num_rows() > 0) {
-            $result = $query->result();
+           $result = $query->result();
+            
             $month = array();
             $array_b2b = array();
             $array_b2c = array();
@@ -2628,7 +2713,7 @@ class Management_report extends CI_Controller {
                                         <span class="input-group-addon">
                                             <i class="fa fa-eye"></i>
                                         </span>
-                                        <textarea class="form-control" rows="5" id="b2bb2c_sale_observation" name="b2bb2c_sale_observation" onkeyup="countWords(this.id);" >B2B supply is_____' . $observation . ' and % and B2C supply is____ '.$observation.'% of total supply.</textarea>
+                                        <textarea class="form-control" rows="5" id="b2bb2c_sale_observation" name="b2bb2c_sale_observation" onkeyup="countWords(this.id);" >B2B supply is_____' . $observation . ' and % and B2C supply is____ ' . $observation . '% of total supply.</textarea>
                                     </div>
                                     <span class="required" style="color: red" id="b2bb2c_sale_observation_error"></span> 
                                 </div><br>';
@@ -2710,6 +2795,8 @@ class Management_report extends CI_Controller {
             $response['max_range'] = $max_range;  // Max Range
             $response['max_ratio'] = $max_ratio;  // Max Ratio
             $response['customer_name'] = $customer_name;  // Customer
+            
+          
         } else {
             $response['data'] = "";
             $response['message'] = "";
@@ -2739,7 +2826,7 @@ class Management_report extends CI_Controller {
         }
         $this->load->view('hq_admin/B2b_b2c', $data);
     }
-    
+
     //function for display customers firm wise for state wise
     function hq_view_customers($firm_id = '') {
 //        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
@@ -2759,9 +2846,9 @@ class Management_report extends CI_Controller {
         }
         $this->load->view('hq_admin/Sale_state_wise', $data);
     }
-    
+
     //function for display customers firm wise for sales tax and non tax
-     public function hq_view_customers_tax($firm_id='') {
+    public function hq_view_customers_tax($firm_id = '') {
 //        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
         $session_data = $this->session->userdata('login_session');
         $email = ($session_data['customer_email_id']);
@@ -2779,9 +2866,9 @@ class Management_report extends CI_Controller {
         }
         $this->load->view('hq_admin/Sale_tax_nontax_exempt', $data);
     }
-    
+
     //function for display customers firm wise for month wise
-    function hq_view_customerss($firm_id='') { //function to load data
+    function hq_view_customerss($firm_id = '') { //function to load data
 //        $query_get_cfo_data = $this->Cfo_model->get_data_cfo_admin();
         $session_data = $this->session->userdata('login_session');
         $email = ($session_data['customer_email_id']);
@@ -2793,6 +2880,7 @@ class Management_report extends CI_Controller {
         }
         $this->load->view('hq_admin/Sales_month_wise', $data);
     }
+
 }
 
 ?>

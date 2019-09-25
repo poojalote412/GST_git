@@ -248,12 +248,22 @@ class Threeb_vs_one extends CI_Controller {
         $insert_id = $this->input->post("insert_id");
         $query = $this->db->query("SELECT month,gstr1_3B,gstr1,gstr1_ammend,gstr1_difference,gstr1_cummulative from comparison_summary_all where customer_id='$customer_id' "
                 . "and insert_id='$insert_id' order by id desc ");
+        $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
         $data = ""; //view observations
         $data1 = ""; //view observations
         $data2 = ""; //view observations
-        if ($query->num_rows() > 0) {
-
+        $data_threeb_vs1_name = "";
+        $data_threeb_vs1_observation = "";
+        $data_threeb_vs1_remarks = "";
+        if ($this->db->affected_rows() > 0) {
             $result = $query->result();
+            $result1 = $query_get_observation->row();
+            $threeb_vs1_observation = $result1->month_wise_observation;
+            $threeb_vs1_remarks = $result1->month_wise_remarks;
+
+            $data_threeb_vs1_name = "GSTR-3B vs GSTR-1";
+            $data_threeb_vs1_observation = $threeb_vs1_observation;
+            $data_threeb_vs1_remarks = $threeb_vs1_remarks;
             $gstr_tb1 = array();
             $gstr_one2 = array();
             $gstr_one_ammend3 = array();
@@ -369,6 +379,11 @@ class Threeb_vs_one extends CI_Controller {
             $respose['month_data'] = $months; //months 
             $respose['difference'] = $abc4;
             $respose['cumu_difference'] = $abc5;
+            $respose['data_threeb_vs1_name'] = $data_threeb_vs1_name;
+            $respose['data_threeb_vs1_observation'] = $data_threeb_vs1_observation;
+            $respose['data_threeb_vs1_remarks'] = $data_threeb_vs1_remarks;
+
+            
         } else {
             $respose['data'] = "";
             $respose['data1'] = "";
@@ -461,24 +476,24 @@ class Threeb_vs_one extends CI_Controller {
                                             <i class="fa fa-eye"></i>
                                         </span>';
                 if ($ttl1 > $ttl2) {
-                    $data .= '<textarea class="form-control" rows="5" id="monthwise_sale_observation" name="monthwise_sale_observation" onkeyup="countWords(this.id);" >1.Value of GSTR-3B is greater than GSTR-1 ,It may impact your vendor relationshion and they shall not get the input tax credit though you have correctly paid the tax on such sales.</textarea>';
-                
-                $data .= '  </div>
-                                    <span class="required" style="color: red" id="monthwise_sale_observation_error"></span> 
+                    $data .= '<textarea class="form-control" rows="5" id="threeb_vsone_observation" name="threeb_vsone_observation" onkeyup="countWords(this.id);" >1.Value of GSTR-3B is greater than GSTR-1 ,It may impact your vendor relationshion and they shall not get the input tax credit though you have correctly paid the tax on such sales.</textarea>';
+
+                    $data .= '  </div>
+                                    <span class="required" style="color: red" id="threeb_vsone_observation_error"></span> 
                                 </div><br>';
                 }
-            }elseif ($ttl2 > $ttl1) {
-                    $data .= '<textarea class="form-control" rows="5" id="monthwise_sale_observation" name="monthwise_sale_observation" onkeyup="countWords(this.id);" >Value of GSTR-1 is greater than GSTR-3B ,Then it mean that output tax liability has not  been paid to govt. in full in comparision to the output tax liability reflected in sales return, this may lead to interest penalties,GST notices & also effect your gst rating leading to adverse GST scrutinies selection.</textarea>';
-                } else {
+            } elseif ($ttl2 > $ttl1) {
+                $data .= '<textarea class="form-control" rows="5" id="threeb_vsone_observation" name="threeb_vsone_observation" onkeyup="countWords(this.id);" >Value of GSTR-1 is greater than GSTR-3B ,Then it mean that output tax liability has not  been paid to govt. in full in comparision to the output tax liability reflected in sales return, this may lead to interest penalties,GST notices & also effect your gst rating leading to adverse GST scrutinies selection.</textarea>';
+            } else {
                 $data .= "<div class='col-md-12'>
                                     <label><h4><b>Observation :</b></h4></label><span class='required' aria-required='true'> </span>
                                     <div class='input-group'>
                                         <span class='input-group-addon'>
                                             <i class='fa fa-eye'></i>
                                         </span>
-                                        <textarea class='form-control' rows='5' id='monthwise_sale_observation' name='monthwise_sale_observation' onkeyup='countWords(this.id);'>No Difference</textarea>
+                                        <textarea class='form-control' rows='5' id='threeb_vsone_observation' name='threeb_vsone_observation' onkeyup='countWords(this.id);'>No Difference</textarea>
                                     </div>
-                                    <span class='required' style='color: red' id='monthwise_sale_observation_error'></span>
+                                    <span class='required' style='color: red' id='threeb_vsone_observation_error'></span>
                                 </div>";
             }
 //            if ($ttl1 > $ttl2) {
