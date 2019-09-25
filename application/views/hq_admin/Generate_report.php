@@ -237,25 +237,22 @@ if (is_array($session_data)) {
 
                     </div>
 
-                    <div id="container_image_limited_usage" style="margin-top:15%;page-break-after:always;">
-                        <img src="https://premisafe.com/GST_image/LimitedUsage&Abbreviation.jpg" width="800px" height="900px">
-                    </div>
-                    <!--                    <div style="margin-top: 7%;margin-left: 5%;page-break-after:always;page-break-after: always;">
-                                            <img src="https://premisafe.com/GST_image/GSTContent.jpg" width="800px" height="700px"style="page-break-after:always;" >
-                                        </div>-->
+                    
 
-                    <div style="page-break-after:always;width:700px;margin-left: 5%;margin-right:5%;margin-top:15%;text-align: justify;text-justify: inter-word;">
-                        <b style="color:#0e385e;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;font-size: 18px;text-transform: uppercase;">1. ABOUT 
+                     <div style="page-break-after:always;width:700px;margin-left: 5%;margin-right:5%;margin-top:15%;text-align: justify;text-justify: inter-word;height:800px">
+                        <h4 style="font-size:18px;background:#0e385e; color:white;padding:4px;width:700px;text-align:center"><b>1. ABOUT CLIENT </b></h4><br> 
+                    <div style="color:white;width:700px;height:550px;background:#0e385e;">
+                        <p style="height: 14%;margin-top: 2%;padding-top: 5%;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;font-size: 18px;text-transform: uppercase;padding:4px;width:700px;text-align:center">
                             <?php
                             if ($company_details->visible_customer_detail == 1) {
-                                echo $client_details->company_name;
+                                echo  $client_details->company_name;
                             } else {
                                 echo "XXX";
                             }
 //                            echo $client_details->company_name
-                            ?>:
-                        </b>
-                        <br>  <p style="font-size: 14px;letter-spacing: 0.5px;">
+                            ?>
+                        </p>
+                         <p style="font-size: 14px;margin-left: 5%;margin-right: 5%;letter-spacing: 0.5px;">
                             <?php
                             if ($company_details->visible_customer_detail == 1) {
                                 echo $report_details->about_company;
@@ -265,13 +262,64 @@ if (is_array($session_data)) {
 //                            echo $report_details->about_company
                             ?> </p>
                     </div>
-                    <div style="page-break-after:always;width:700px;margin-left: 5%;margin-right:  5%;margin-top:9%;text-align: justify;">
+                    </div>
+                    
+                    
+                    <div style="page-break-after:always;width:700px;margin-left: 5%;margin-right:5%;margin-top:15%;text-align: justify;text-justify: inter-word;height:800px">
+                        <h4 style="font-size:18px;background:#0e385e; color:white;padding:4px;width:700px;text-align:center;text-transform: uppercase;"><b>2. Abbreviation/glossary of terms </b></h4><br> 
+                        <table id="example2" class="table-bordered table-striped" width="700">
+                                <thead style="background-color: #0e385e;color:white">
+                                    <tr>
+                                        <th style="text-align: left;">S No.</th>
+                                        <th style="text-align: left;">Abbreviation</th>
+                                        <th style="text-align: left;">Full form</th>
+                                    </tr>
+                                    </thead>
+                                    <tr><td>1</td>
+                                        <td>GST</td>
+                                        <td>Goods and Service Tax</td></tr>
+                                    <tr><td>2</td>
+                                        <td>GSTR</td>
+                                        <td> Goods and Services Tax Return.</td></tr>
+                                    <tr><td>3</td>
+                                        <td> ITC</td>
+                                        <td>Input Tax Credit.</td></tr>
+                                    <tr><td>4</td>
+                                        <td>GSTIN</td>
+                                        <td>Goods and Services Tax Identification Number.</td></tr>
+                                    <tr><td>5</td>
+                                        <td> IGST</td>
+                                        <td> Integrated Goods and Services Tax.</td></tr>
+                                    <tr><td>6</td>
+                                        <td>CGST</td>
+                                        <td>Centre Goods and Services Tax.</td></tr>
+                                    <tr><td>7</td>
+                                        <td>SGST/UTGST</td>
+                                        <td> State Goods and Services Tax/Union Territory Goods and Services Tax.</td></tr>
+                                    <tr><td>8</td>
+                                        <td>B2B Supply</td>
+                                        <td>Supply made to registered person.</td></tr>
+                                    <tr><td>9</td>
+                                        <td>B2C Supply</td>
+                                        <td>Supply made to unregistered person.</td></tr>
+                                    <tr><td>10</td>
+                                        <td>POS</td>
+                                        <td>Place Of Supply</td></tr>
+                                    <tr><td>11</td>
+                                        <td> RCM</td>
+                                        <td> Reverse Charge Mechanism</td></tr>
+                                
+                        </table>
+                    </div>
+                    
+<!--                    <div style="page-break-after:always;width:700px;margin-left: 5%;margin-right:  5%;margin-top:9%;text-align: justify;">
                         <div id="content_pdf" style=""></div>
+                    </div>-->
+                    <div id="container_image_components_overview" style="margin-top:15%;">
+                        <img src="https://premisafe.com/GST_image/GSTComponents&Overview.jpg" width="800px" height="900px" style="page-break-after:always;">
                     </div>
 
-                    <div id="container_image_components_overview" style="margin-top:15%;">
-                        <img src="https://premisafe.com/GST_image/GSTComponents&Overview.jpg" width="1050px" height="900px" style="page-break-after:always;">
-                    </div>
+
                     <div class="test" style="page-break-after:always;margin-top:15%;">
                         <div id="container_image_GST_framework"><img src="https://premisafe.com/GST_image/GSTFramework.jpg" width="800px" height="900px"></div>
                     </div>
@@ -441,36 +489,55 @@ if (is_array($session_data)) {
                     <div class="test" style="page-break-after:always;margin-top: 15%">
                        <!--<div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="900px" height="900px" style=""></div><br><br>-->  
                         <div id="" style="width:850px">
-                            <b style="font-size:18px;color:#0e385e;margin-left: 5%;">8. SUMMARY OBSERVATION & CONCLUSION </b><br>
+                            <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center;">10. SUMMARY OBSERVATION & CONCLUSION </p><br><br>
+                            
+                            <p style="margin-left: 5%">Following are the conclusions drawn after doing the analysis:</p>
                             <p align="justify" style="margin-left: 5%;margin-right:  5%;font-size: 14px;letter-spacing: 0.5px;">
                                 <?php
                                 if ($company_details->visible_customer_detail == 1) {
-                                    echo $company_details->conclusion_summary;
+                                    echo '<h5 style="margin-left: 5%"><b>Compliemnts/facts:</b></h5>';
+                                    echo'<p style="margin-left: 7%;margin-right:  5%;font-size: 14px;">' .$company_details->compliments_conclusion_summary.'</p>';
+                                    echo '<br>';
+                                    echo '<h5 style="margin-left: 5%"><b>Serious Problems:</b></h5>';
+                                    echo '<p style="margin-left: 7%;margin-right:  5%;font-size: 14px;">' .$company_details->serious_conclusion_summary.'</p>';
+                                    echo '<br>';
+                                    echo '<h5 style="margin-left: 5%"><b>Improvement:</b></h5>';
+                                    echo '<p style="margin-left: 7%;margin-right:  5%;font-size: 14px;">' .$company_details->improvement_conclusion_summary.'</p>';
                                 } else {
                                     echo "XXX";
                                 }
 //                                echo $company_details->conclusion_summary
                                 ?>
                             </p>
+                            <p align="justify" style="margin-left: 5%;margin-right:  5%;font-size: 14px;letter-spacing: 0.5px;" value="<?php echo $company_details->serious_conclusion_summary?>"></p>
                         </div>
                         <!--<div id="container_heat_map" style="width:700px"></div>-->
                     </div>
                     <!--</div>-->
 
-                    <div class="test" style="page-break-after:always;margin-top:8%">
-                        <div id="container_image_disclaimer" style=""><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="700px" height="900px" style=""></div><br><br>  
-
+                    <div class="test" style="page-break-after:always;margin-top:11%">
+                        <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center"><b>11. LIMITED USAGE AND NON-DISCLOSURE </b></p><br> 
+                        <div id="container_image_limited_usage" style=""></div><br><br>  
+                    </div><br><br>
+                    
+                    <div class="test" style="page-break-after:always;margin-top:19%">
+                        <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center"><b>12. Disclaimer </b></p><br>
+                        
+                        <!--<div id="container_image_disclaimer" style=""><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="700px" height="900px" style=""></div><br><br>-->  
+                        <div id="container_image_disclaimer" style=""></div><br><br>  
+                       
                     </div>
 
                     <div class="test" style="page-break-after:always;margin-top:9%">
-                        <div id="container_image_about" style=""><img src="https://premisafe.com/GST_image/about.jpg" width="780px" height="800px" style=""></div><br><br>  
+                        <!--<div id="container_image_about" style=""><img src="https://premisafe.com/GST_image/about.jpg" width="780px" height="800px" style=""></div><br><br>-->  
+                        <div id="container_ecovis_about" style=""></div><br><br>  
 
                     </div>
 
-                    <div class="test" style="margin-top:9%">
+<!--                    <div class="test" style="margin-top:9%">
                         <div id="container_image_services" style=""><img src="https://premisafe.com/GST_image/OurServicesPage.jpg" width="780px" height="800px" style=""></div><br><br>  
 
-                    </div>
+                    </div>-->
 
 
                 </div>
@@ -533,6 +600,71 @@ if (is_array($session_data)) {
                     var data = result.data;
                     $('#content_client_letterPDF').html("");
                     $('#content_client_letterPDF').html(data);
+                    //                    $('#example2').DataTable();
+                } else {
+
+                }
+            },
+        });
+
+        //Ajax call for limited usage and disclosure
+        
+         $.ajax({
+            type: "post",
+            url: "<?= base_url("Report/get_content_limited_usage") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                //                 alert();
+                $('#container_image_limited_usage').html("");
+                if (result.message === "success") {
+
+                    var data = result.data;
+                    $('#container_image_limited_usage').html("");
+                    $('#container_image_limited_usage').html(data);
+                    //                    $('#example2').DataTable();
+                } else {
+
+                }
+            },
+        });
+
+         //Ajax call for disclaimer
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Report/get_content_disclaimer") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                //                 alert();
+                $('#container_image_disclaimer').html("");
+                if (result.message === "success") {
+
+                    var data = result.data;
+                    $('#container_image_disclaimer').html("");
+                    $('#container_image_disclaimer').html(data);
+                    //                    $('#example2').DataTable();
+                } else {
+
+                }
+            },
+        });
+
+         //Ajax call for about Ecovis RKCA
+        
+         $.ajax({
+            type: "post",
+            url: "<?= base_url("Report/get_content_about_ecovis") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+                //                 alert();
+                $('#container_ecovis_about').html("");
+                if (result.message === "success") {
+
+                    var data = result.data;
+                    $('#container_ecovis_about').html("");
+                    $('#container_ecovis_about').html(data);
                     //                    $('#example2').DataTable();
                 } else {
 
