@@ -520,6 +520,7 @@ class Internal_acc_report extends CI_Controller {
         $data_tax_liability_name = "";
         $data_tax_liability_observation = "";
         $data_tax_liability_remarks = "";
+        $a = "";
         if ($query->num_rows() > 0 && $query1->num_rows() > 0 && $query_get_observation->num_rows() > 0) {
             $result_outward = $query->result();
             $ress = $query1->result();
@@ -530,7 +531,13 @@ class Internal_acc_report extends CI_Controller {
 
             $data_tax_liability_name = "Overview of Tax Liability";
             $data_tax_liability_observation = $tax_liability_observation;
-            $data_tax_liability_remarks = $tax_liability_remarks;
+//            $data_tax_liability_remarks = $tax_liability_remarks;
+            $a = $tax_liability_remarks;
+            if ($a == '') {
+                $data_tax_liability_remarks = 'not given';
+            } else {
+                $data_tax_liability_remarks = $tax_liability_remarks;
+            }
 
             foreach ($ress as $row1) {
                 $debit_tax[] = $row1->tax_debit;
@@ -943,6 +950,7 @@ class Internal_acc_report extends CI_Controller {
         $data_tax_turnover_name = "";
         $data_tax_turnover_observation = "";
         $data_tax_turnover_remarks = "";
+        $a = "";
         if ($this->db->affected_rows() > 0) {
             $result = $query->result();
             $result1 = $query_get_observation->row();
@@ -951,7 +959,15 @@ class Internal_acc_report extends CI_Controller {
 
             $data_tax_turnover_name = "Overview of Turnover";
             $data_tax_turnover_observation = $tax_turnover_observation;
-            $data_tax_turnover_remarks = $tax_turnover_remarks;
+            $a = $tax_turnover_remarks;
+
+            if ($a == '') {
+                $data_tax_turnover_remarks = "not given";
+            } else {
+                $data_tax_turnover_remarks = $tax_turnover_remarks;
+            }
+
+
             $taxable_value = array();
             $tax_value = array();
             $tax_ratio = array();
@@ -1321,6 +1337,7 @@ class Internal_acc_report extends CI_Controller {
         $data_eligible_name = "";
         $data_eligible_observation = "";
         $data_eligible_remarks = "";
+        $a = "";
         if ($this->db->affected_rows() > 0) {
             $result = $query->result();
             $result1 = $query_get_observation->row();
@@ -1329,7 +1346,13 @@ class Internal_acc_report extends CI_Controller {
 
             $data_eligible_name = "Eligible and In-eligible Credit";
             $data_eligible_observation = $eligible_observation;
-            $data_eligible_remarks = $eligible_remarks;
+//            $data_eligible_remarks = $eligible_remarks;
+            $a = $eligible_remarks;
+            if ($a == '') {
+                $data_eligible_remarks='not given';
+            } else {
+                $data_eligible_remarks=$eligible_remarks;
+            }
             $net_itc_arr = array();
             $ineligible_itc_arr = array();
             $eligible_ratio_arr = array();
@@ -1453,7 +1476,6 @@ class Internal_acc_report extends CI_Controller {
             $respnose['data_eligible_name'] = $data_eligible_name; //customer
             $respnose['data_eligible_observation'] = $data_eligible_observation; //customer
             $respnose['data_eligible_remarks'] = $data_eligible_remarks; //customer
-           
         } else {
             $respnose['data'] = "";
             $respnose['data1'] = "";
@@ -1649,6 +1671,7 @@ class Internal_acc_report extends CI_Controller {
         $data_payable_vs_cash_name = "";
         $data_payable_vs_cash_observation = "";
         $data_payable_vs_cash_remarks = "";
+        $a = "";
         if ($this->db->affected_rows() > 0) {
             $result = $query->result();
             $result1 = $query_get_observation->row();
@@ -1656,7 +1679,13 @@ class Internal_acc_report extends CI_Controller {
             $payable_vs_cash_remarks = $result1->gst_payable_cash_remarks;
             $data_payable_vs_cash_name = "GST Payable vs Cash";
             $data_payable_vs_cash_observation = $payable_vs_cash_observation;
-            $data_payable_vs_cash_remarks = $payable_vs_cash_observation;
+//            $data_payable_vs_cash_remarks = $payable_vs_cash_observation;
+            $a = $payable_vs_cash_remarks;
+            if ($a == '') {
+                $data_payable_vs_cash_remarks = 'not given';
+            } else {
+                $data_payable_vs_cash_remarks = $payable_vs_cash_remarks;
+            }
             $net_itc_arr = array();
             $liability_arr = array();
             $paid_in_cash_arr = array();

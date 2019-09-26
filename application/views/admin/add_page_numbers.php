@@ -3,8 +3,10 @@ $this->load->view('customer/header');
 $this->load->view('admin/navigation');
 ?>
 <!--<script src="http://code.highcharts.com/highcharts.js"></script>-->
-<script src="<?php base_url() . "/" ?>js/pdf_conversion.js"></script>
-<script src="<?php base_url() . "/" ?>js/pdf_conversion2.js"></script>
+<!--<script src="<?php base_url() . "/" ?>js/pdf_conversion.js"></script>
+<script src="<?php base_url() . "/" ?>js/pdf_conversion2.js"></script>-->
+<script src="<?= base_url(); ?>js/pdf_conversion.js"></script>
+<script src="<?= base_url(); ?>js/pdf_conversion2.js"></script>
 <style>
     .info {
         background-color: #e7f3fe;
@@ -41,7 +43,7 @@ $this->load->view('admin/navigation');
                     <input type="hidden" id="customer_id" name="customer_id" value="<?php echo $customer_id ?>">
                     <input type="hidden" id="insert_id" name="insert_id" value="<?php echo $insert_id ?>">
                     <div class="row">
-                        <div class="col-xs-4">
+                           <div class="col-xs-4">
                             <label>About Client</label>
                             <input type="number" id="about_client" name="about_client" onkeyup="remove_error(this.id)"class="form-control" placeholder="About Client Page Number">
                             <span class="required" style="color: red" id="about_client_error"></span>

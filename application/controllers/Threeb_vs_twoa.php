@@ -239,6 +239,7 @@ class Threeb_vs_twoa extends CI_Controller {
         $data_threeb_vs2A_name = "";
         $data_threeb_vs2A_observation = "";
         $data_threeb_vs2A_remarks = "";
+        $a = "";
 //        if ($query->num_rows() > 0) {
         if ($this->db->affected_rows() > 0) {
             $result = $query->result();
@@ -248,7 +249,13 @@ class Threeb_vs_twoa extends CI_Controller {
 
             $data_threeb_vs2A_name = "GSTR-3B vs GSTR-2A";
             $data_threeb_vs2A_observation = $threeb_vs2A_observation;
-            $data_threeb_vs2A_remarks = $threeb_vs2A_remarks;
+//            $data_threeb_vs2A_remarks = $threeb_vs2A_remarks;
+            $a = $threeb_vs2A_remarks;
+            if ($a == '') {
+                $data_threeb_vs2A_remarks='not given';
+            } else {
+                $data_threeb_vs2A_remarks=$threeb_vs2A_remarks;
+            }
             $gstr_tb1 = array();
             $difference2 = array();
             $cumu_difference3 = array();
@@ -355,7 +362,6 @@ class Threeb_vs_twoa extends CI_Controller {
             $respose['data_threeb_vs2A_name'] = $data_threeb_vs2A_name; //months
             $respose['data_threeb_vs2A_observation'] = $data_threeb_vs2A_observation; //months
             $respose['data_threeb_vs2A_remarks'] = $data_threeb_vs2A_remarks; //months
-          
         } else {
             $respose['data'] = "";
             $respose['data1'] = "";
@@ -672,7 +678,7 @@ class Threeb_vs_twoa extends CI_Controller {
             $data = $result->row();
             $comp_id = $data->compare_id;
             //generate user_id
-            $comp_id = str_pad(++$comp_id, 5, '0', STR_PAD_LEFT);
+            $comp_id = str_pad( ++$comp_id, 5, '0', STR_PAD_LEFT);
             return $comp_id;
         } else {
             $comp_id = 'cmpr_1001';

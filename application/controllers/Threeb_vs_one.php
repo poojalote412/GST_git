@@ -255,6 +255,7 @@ class Threeb_vs_one extends CI_Controller {
         $data_threeb_vs1_name = "";
         $data_threeb_vs1_observation = "";
         $data_threeb_vs1_remarks = "";
+        $a="";
         if ($this->db->affected_rows() > 0) {
             $result = $query->result();
             $result1 = $query_get_observation->row();
@@ -263,7 +264,13 @@ class Threeb_vs_one extends CI_Controller {
 
             $data_threeb_vs1_name = "GSTR-3B vs GSTR-1";
             $data_threeb_vs1_observation = $threeb_vs1_observation;
-            $data_threeb_vs1_remarks = $threeb_vs1_remarks;
+//            $data_threeb_vs1_remarks = $threeb_vs1_remarks;
+            $a=$threeb_vs1_remarks;
+            if($a==''){
+                $data_threeb_vs1_remarks='not given';
+            }else{
+                $data_threeb_vs1_remarks=$threeb_vs1_remarks;
+            }
             $gstr_tb1 = array();
             $gstr_one2 = array();
             $gstr_one_ammend3 = array();

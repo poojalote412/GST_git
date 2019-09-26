@@ -2568,7 +2568,8 @@ if (is_array($session_data)) {
                     document.getElementById("third_div_value").value++;
                     var data = result.data;
                     var data1 = result.data1;
-                    var data2 = result.data2;var data_eligible_name = result.data_eligible_name;
+                    var data2 = result.data2;
+                    var data_eligible_name = result.data_eligible_name;
                     var data_eligible_observation = result.data_eligible_observation;
                     var data_eligible_remarks = result.data_eligible_remarks;
                     

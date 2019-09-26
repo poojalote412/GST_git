@@ -264,6 +264,7 @@ class Management_report extends CI_Controller {
         $data_statewise_name = "";
         $data_statewise_observation = "";
         $data_statewise_remarks = "";
+        $a = "";
 
 //        if ($query->num_rows() > 0) {
         if ($this->db->affected_rows() > 0) {
@@ -275,7 +276,13 @@ class Management_report extends CI_Controller {
 
             $data_statewise_name = "Sales State Wise";
             $data_statewise_observation = $statewise_wise_observation;
-            $data_statewise_remarks = $statewise_wise_remarks;
+//            $data_statewise_remarks = $statewise_wise_remarks;
+            $a = $statewise_wise_remarks;
+            if ($a == '') {
+                $data_statewise_remarks = 'not given';
+            } else {
+                $data_statewise_remarks = $statewise_wise_remarks;
+            }
 
             $data2 .= '<h4><b>3.Sales State Wise</b></h4>';
             $data .= '<div class="row">
@@ -392,7 +399,6 @@ class Management_report extends CI_Controller {
             $respnose['data_statewise_name'] = $data_statewise_name; //table view data
             $respnose['data_statewise_observation'] = $data_statewise_observation; //table view data
             $respnose['data_statewise_remarks'] = $data_statewise_remarks; //table view data
-        
         } else {
             $respnose['message'] = "";
             $respnose['taxable_value'] = "";  //taxable value data
@@ -554,17 +560,25 @@ class Management_report extends CI_Controller {
         $data_tax_nontax_name = "";
         $data_tax_nontax_observation = "";
         $data_tax_nontax_remarks = "";
+        $a = "";
 //        if ($query->num_rows() > 0) {
         if ($this->db->affected_rows() > 0) {
             $result = $query->result();
-             $result1 = $query_get_observation->row();
-             $tax_nontax_observation = $result1->month_wise_observation;
-             $tax_nontax_remarks = $result1->month_wise_remarks;
-             
-             $data_tax_nontax_name='Sales Taxable, Non-taxable & Exempt';
-             $data_tax_nontax_observation=$tax_nontax_observation;
-             $data_tax_nontax_remarks=$tax_nontax_remarks;
-             
+            $result1 = $query_get_observation->row();
+            $tax_nontax_observation = $result1->month_wise_observation;
+            $tax_nontax_remarks = $result1->month_wise_remarks;
+
+            $data_tax_nontax_name = 'Sales Taxable, Non-taxable & Exempt';
+            $data_tax_nontax_observation = $tax_nontax_observation;
+//             $data_tax_nontax_remarks=$tax_nontax_remarks;
+            $a = $tax_nontax_remarks;
+            if ($a == '') {
+                $data_tax_nontax_remarks = 'not given';
+            } else {
+                $data_tax_nontax_remarks = $tax_nontax_remarks;
+            }
+
+
             $taxable_supply_arr = array();
             $sub_total_non_gst_arr = array();
             $sub_total_exempt_arr = array();
@@ -778,7 +792,6 @@ class Management_report extends CI_Controller {
             $respnose['data_tax_nontax_name'] = $data_tax_nontax_name; //maximum range for graph
             $respnose['data_tax_nontax_observation'] = $data_tax_nontax_observation; //maximum range for graph
             $respnose['data_tax_nontax_remarks'] = $data_tax_nontax_remarks; //maximum range for graph
-            
         } else {
             $respnose['data'] = "";
             $respnose['message'] = "";
@@ -1298,6 +1311,7 @@ class Management_report extends CI_Controller {
         $data_monthwise_name = "";
         $data_month_observation = "";
         $data_month_remarks = "";
+        $a = '';
         if ($this->db->affected_rows() > 0) {
             $result = $query->result();
             $result1 = $query_get_observation->row();
@@ -1309,7 +1323,13 @@ class Management_report extends CI_Controller {
             $taxable_supply_arr = array();
             $data_monthwise_name = 'Sales Month Wise';
             $data_month_observation = $month_wise_observation;
-            $data_month_remarks = $month_wise_remarks;
+//            $data_month_remarks = $month_wise_remarks;
+            $a = $month_wise_remarks;
+            if ($a == '') {
+                $data_month_remarks = 'not given';
+            } else {
+                $data_month_remarks = $month_wise_remarks;
+            }
             $data2 .= '<h4><b>1.Sales Month Wise</b></h4>';
             $data .= '<div class="row"><br><br><br>
                     <div class="col-md-12">
@@ -1702,6 +1722,7 @@ class Management_report extends CI_Controller {
         $data_ratewise_name = "";
         $data_rate_observation = "";
         $data_rate_remarks = "";
+        $a="";
 //        if ($query->num_rows() > 0) {
         if ($this->db->affected_rows() > 0) {
             $result = $query->result();
@@ -1712,7 +1733,14 @@ class Management_report extends CI_Controller {
 
             $data_ratewise_name = 'Sales Tax Rate Wise';
             $data_rate_observation = $rate_wise_observation;
-            $data_rate_remarks = $rate_wise_remarks;
+//            $data_rate_remarks = $rate_wise_remarks;
+           $a= $rate_wise_remarks;
+           if($a==""){
+               $data_rate_remarks='not given';
+           }else{
+               $data_rate_remarks=$rate_wise_remarks;
+           }
+            
             $data .= "<h4><b>2.Sales Tax Rate Wise</b></h4>";
             $data .= '<table id="example2" class="table-bordered table-striped" width="700">
                                 <thead style="background-color: #0e385e;color:white">
@@ -2385,7 +2413,7 @@ class Management_report extends CI_Controller {
             $data = $result->row();
             $uniq_id = $data->unique_id;
             //generate turn_id
-            $uniq_id = str_pad(++$uniq_id, 5, '0', STR_PAD_LEFT);
+            $uniq_id = str_pad( ++$uniq_id, 5, '0', STR_PAD_LEFT);
             return $uniq_id;
         } else {
             $uniq_id = 'btb_1001';
@@ -2398,7 +2426,7 @@ class Management_report extends CI_Controller {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
         $query = $this->db->query("SELECT *  from monthly_summary_all where customer_id='$customer_id' and insert_id='$insert_id'");
-         $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+        $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
 //        $query_get_graph = $this->Management_report_model->get_graph_query($customer_id, $insert_id);
         $data = ""; //view observations
         $data1 = ""; //view observations
@@ -2406,15 +2434,22 @@ class Management_report extends CI_Controller {
         $data_salesb2b_b2c_name = "";
         $data_salesb2b_b2c_observation = "";
         $data_salesb2b_b2c_remarks = "";
+        $a = "";
         if ($this->db->affected_rows() > 0) {
             $result = $query->result();
             $result1 = $query_get_observation->row();
-             $salesb2b_b2c_observation = $result1->b2b_b2c_observation;
-             $salesb2b_b2c_remarks = $result1->b2b_b2c_remarks;
-             
-             $data_salesb2b_b2c_name='Sales B2B & B2C';
-             $data_salesb2b_b2c_observation=$salesb2b_b2c_observation;
-             $data_salesb2b_b2c_remarks=$salesb2b_b2c_remarks;
+            $salesb2b_b2c_observation = $result1->b2b_b2c_observation;
+            $salesb2b_b2c_remarks = $result1->b2b_b2c_remarks;
+
+            $data_salesb2b_b2c_name = 'Sales B2B & B2C';
+            $data_salesb2b_b2c_observation = $salesb2b_b2c_observation;
+//             $data_salesb2b_b2c_remarks=$salesb2b_b2c_remarks;
+            $a = $salesb2b_b2c_remarks;
+            if ($a == '') {
+                $data_salesb2b_b2c_remarks='not given';
+            } else {
+                $data_salesb2b_b2c_remarks=$salesb2b_b2c_remarks;
+            }
             $month = array();
             $array_b2b = array();
             $array_b2c = array();
@@ -2581,7 +2616,6 @@ class Management_report extends CI_Controller {
             $response['data_salesb2b_b2c_name'] = $data_salesb2b_b2c_name;  // Customer
             $response['data_salesb2b_b2c_observation'] = $data_salesb2b_b2c_observation;  // Customer
             $response['data_salesb2b_b2c_remarks'] = $data_salesb2b_b2c_remarks;  // Customer
-            
         } else {
             $response['data'] = "";
             $response['message'] = "";
@@ -2597,13 +2631,29 @@ class Management_report extends CI_Controller {
         $insert_id = $this->input->post("insert_id");
         $curr_url = $this->input->post("curr_url");
         $query = $this->db->query("SELECT *  from monthly_summary_all where customer_id='$customer_id' and insert_id='$insert_id'");
-       
+        $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
 //        $query_get_graph = $this->Management_report_model->get_graph_query($customer_id, $insert_id);
         $data = ""; //view observations
-        
-        if ($query->num_rows() > 0) {
-           $result = $query->result();
-            
+        $data_salesb2b_b2c_name = "";
+        $data_salesb2b_b2c_observation = "";
+        $data_salesb2b_b2c_remarks = "";
+        $a = "";
+        if ($this->db->affected_rows() > 0) {
+            $result = $query->result();
+            $result1 = $query_get_observation->row();
+            $salesb2b_b2c_observation = $result1->b2b_b2c_observation;
+            $salesb2b_b2c_remarks = $result1->b2b_b2c_remarks;
+
+            $data_salesb2b_b2c_name = 'Sales B2B & B2C';
+            $data_salesb2b_b2c_observation = $salesb2b_b2c_observation;
+//             $data_salesb2b_b2c_remarks=$salesb2b_b2c_remarks;
+            $a = $salesb2b_b2c_remarks;
+            if ($a == '') {
+                $data_salesb2b_b2c_remarks='not given';
+            } else {
+                $data_salesb2b_b2c_remarks=$salesb2b_b2c_remarks;
+            }
+
             $month = array();
             $array_b2b = array();
             $array_b2c = array();
@@ -2724,7 +2774,7 @@ class Management_report extends CI_Controller {
                                         <span class='input-group-addon'>
                                             <i class='fa fa-eye'></i>
                                         </span>
-                                        <textarea class='form-control' rows='5' id='b2bb2c_sale_observation' name='b2bb2c_sale_observation' onkeyup='countWords(this.id);'>" . $variation . " B2B supply is " . array_sum($array_b2b_ratio) . "% and B2C supply is " . array_sum($array_b2c_ratio) . "% of total supply.</textarea>
+                                        <textarea class='form-control' rows='5' id='b2bb2c_sale_observation' name='b2bb2c_sale_observation' onkeyup='countWords(this.id);'>" . $observation . " B2B supply is " . array_sum($array_b2b_ratio) . "% and B2C supply is " . array_sum($array_b2c_ratio) . "% of total supply.</textarea>
                                     </div>
                                     <span class='required' style='color: red' id='b2bb2c_sale_observation'></span>
                                 </div>";
@@ -2795,8 +2845,9 @@ class Management_report extends CI_Controller {
             $response['max_range'] = $max_range;  // Max Range
             $response['max_ratio'] = $max_ratio;  // Max Ratio
             $response['customer_name'] = $customer_name;  // Customer
-            
-          
+            $response['data_salesb2b_b2c_name'] = $data_salesb2b_b2c_name;  // Customer
+            $response['data_salesb2b_b2c_observation'] = $data_salesb2b_b2c_observation;  // Customer
+            $response['data_salesb2b_b2c_remarks'] = $data_salesb2b_b2c_remarks; 
         } else {
             $response['data'] = "";
             $response['message'] = "";

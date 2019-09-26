@@ -262,6 +262,7 @@ class Cfo_dashboard extends CI_Controller {
         $data_turnover_vsliability_name = "";
         $data_turnover_vsliability_observation = "";
         $data_turnover_vsliability_remarks = "";
+        $a="";
 //        if ($quer1->num_rows() > 0) {
         if ($this->db->affected_rows() > 0) {
             $res = $quer1->result();
@@ -270,8 +271,15 @@ class Cfo_dashboard extends CI_Controller {
             $turnover_vsliability_remarks = $result1->month_wise_remarks;
             $data_turnover_vsliability_name = "Turnover vs Tax Liability";
             $data_turnover_vsliability_observation = $turnover_vsliability_observation;
-            $data_turnover_vsliability_remarks = $turnover_vsliability_remarks;
+//            $data_turnover_vsliability_remarks = $turnover_vsliability_remarks;
 
+            $a = $turnover_vsliability_remarks;
+            if ($a == '') {
+                $data_turnover_vsliability_remarks="not given";
+            } else {
+               $data_turnover_vsliability_remarks = $turnover_vsliability_remarks;
+            }
+            
             $turnover1 = array();
             $tax_liabality1 = array();
             $ratio_val = array();

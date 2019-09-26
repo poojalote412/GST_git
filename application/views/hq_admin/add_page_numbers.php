@@ -3,8 +3,8 @@ $this->load->view('customer/header');
 $this->load->view('hq_admin/navigation');
 ?>
 <!--<script src="http://code.highcharts.com/highcharts.js"></script>-->
-<script src="<?php base_url() . "/" ?>js/pdf_conversion.js"></script>
-<script src="<?php base_url() . "/" ?>js/pdf_conversion2.js"></script>
+<!--<script src="<?php base_url() . "/" ?>js/pdf_conversion.js"></script>-->
+<!--<script src="<?php base_url() . "/" ?>js/pdf_conversion2.js"></script>-->
 <style>
     .info {
         background-color: #e7f3fe;

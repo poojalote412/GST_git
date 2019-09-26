@@ -115,7 +115,7 @@ if (is_array($session_data)) {
                                     <input type="hidden" class="form-control" value="<?php echo $insert_id; ?>"disabled=""name="insert_id"  id="insert_id"   aria-required="true" aria-describedby="input_group-error">
                                     <input type="hidden" class="form-control" value="<?php echo $customer_id; ?>"disabled=""name="customer_id"  id="customer_id"   aria-required="true" aria-describedby="input_group-error">
                                     <input type="hidden" class="form-control" value="<?php echo $client_details->company_name; ?>"disabled=""name="company_name"  id="company_name"   aria-required="true" aria-describedby="input_group-error">
-                                    <input type="text" class="form-control" value="<?php echo $customer_details->customer_name ?>"  disabled=""name="cust_name"  id="cust_name" onkeyup="remove_error('customer_name')"   aria-required="true" aria-describedby="input_group-error">
+                                    <input type="text" class="form-control" value="<?php echo $customer_details->customer_name; ?>"  disabled=""name="cust_name"  id="cust_name" onkeyup="remove_error('customer_name')"   aria-required="true" aria-describedby="input_group-error">
 
                                 </div>
                                 <span class="required" style="color: red" id="customer_name_error"></span>
@@ -211,7 +211,7 @@ if (is_array($session_data)) {
                         </div>
                         <div style="margin-left: 5%;margin-right: 5%;">
                             <b>    
-                                
+
                                 <?php
                                 if ($company_details->visible_customer_detail == 1) {
                                     echo $client_details->company_name;
@@ -222,7 +222,7 @@ if (is_array($session_data)) {
                                 ?>
                             </b></div>
                         <div style="margin-left: 5%;margin-right: 5%;"><b> 
-                               
+
                                 <?php
                                 if ($company_details->visible_customer_detail == 1) {
                                     echo $client_details->customer_address;
@@ -238,88 +238,80 @@ if (is_array($session_data)) {
 
                     </div>
 
-<!--                    <div id="container_image_limited_usage" style="margin-top:15%;page-break-after:always;">
-                        <img src="https://premisafe.com/GST_image/LimitedUsage&Abbreviation.jpg" width="800px" height="900px">
-                    </div>-->
-                    <!--                    <div style="margin-top: 7%;margin-left: 5%;page-break-after:always;page-break-after: always;">
-                                            <img src="https://premisafe.com/GST_image/GSTContent.jpg" width="800px" height="700px"style="page-break-after:always;" >
-                                        </div>-->
+
 
                     <div style="page-break-after:always;width:700px;margin-left: 5%;margin-right:5%;margin-top:15%;text-align: justify;text-justify: inter-word;height:800px">
                         <h4 style="font-size:18px;background:#0e385e; color:white;padding:4px;width:700px;text-align:center"><b>1. ABOUT CLIENT </b></h4><br> 
-                    <div style="color:white;width:700px;height:550px;background:#0e385e;">
-                        <p style="height: 14%;margin-top: 2%;padding-top: 5%;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;font-size: 18px;text-transform: uppercase;padding:4px;width:700px;text-align:center">
-                            <?php
-                            if ($company_details->visible_customer_detail == 1) {
-                                echo  $client_details->company_name;
-                            } else {
-                                echo "XXX";
-                            }
+                        <div style="color:white;width:700px;height:550px;background:#0e385e;">
+                            <p style="height: 14%;margin-top: 2%;padding-top: 5%;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;font-size: 18px;text-transform: uppercase;padding:4px;width:700px;text-align:center">
+                                <?php
+                                if ($company_details->visible_customer_detail == 1) {
+                                    echo $client_details->company_name;
+                                } else {
+                                    echo "XXX";
+                                }
 //                            echo $client_details->company_name
-                            ?>
-                        </p>
-                         <p style="font-size: 14px;margin-left: 5%;margin-right: 5%;letter-spacing: 0.5px;">
-                            <?php
-                            if ($company_details->visible_customer_detail == 1) {
-                                echo $report_details->about_company;
-                            } else {
-                                echo "XXX";
-                            }
+                                ?>
+                            </p>
+                            <p style="font-size: 14px;margin-left: 5%;margin-right: 5%;letter-spacing: 0.5px;">
+                                <?php
+                                if ($company_details->visible_customer_detail == 1) {
+                                    echo $report_details->about_company;
+                                } else {
+                                    echo "XXX";
+                                }
 //                            echo $report_details->about_company
-                            ?> </p>
+                                ?> </p>
+                        </div>
                     </div>
-                    </div>
-                    
+
                     <div style="page-break-after:always;width:700px;margin-left: 5%;margin-right:5%;margin-top:15%;text-align: justify;text-justify: inter-word;height:800px">
                         <h4 style="font-size:18px;background:#0e385e; color:white;padding:4px;width:700px;text-align:center;text-transform: uppercase;"><b>2. Abbreviation/glossary of terms </b></h4><br> 
                         <table id="example2" class="table-bordered table-striped" width="700">
-                                <thead style="background-color: #0e385e;color:white">
-                                    <tr>
-                                        <th style="text-align: left;">S No.</th>
-                                        <th style="text-align: left;">Abbreviation</th>
-                                        <th style="text-align: left;">Full form</th>
-                                    </tr>
-                                    </thead>
-                                    <tr><td>1</td>
-                                        <td>GST</td>
-                                        <td>Goods and Service Tax</td></tr>
-                                    <tr><td>2</td>
-                                        <td>GSTR</td>
-                                        <td> Goods and Services Tax Return.</td></tr>
-                                    <tr><td>3</td>
-                                        <td> ITC</td>
-                                        <td>Input Tax Credit.</td></tr>
-                                    <tr><td>4</td>
-                                        <td>GSTIN</td>
-                                        <td>Goods and Services Tax Identification Number.</td></tr>
-                                    <tr><td>5</td>
-                                        <td> IGST</td>
-                                        <td> Integrated Goods and Services Tax.</td></tr>
-                                    <tr><td>6</td>
-                                        <td>CGST</td>
-                                        <td>Centre Goods and Services Tax.</td></tr>
-                                    <tr><td>7</td>
-                                        <td>SGST/UTGST</td>
-                                        <td> State Goods and Services Tax/Union Territory Goods and Services Tax.</td></tr>
-                                    <tr><td>8</td>
-                                        <td>B2B Supply</td>
-                                        <td>Supply made to registered person.</td></tr>
-                                    <tr><td>9</td>
-                                        <td>B2C Supply</td>
-                                        <td>Supply made to unregistered person.</td></tr>
-                                    <tr><td>10</td>
-                                        <td>POS</td>
-                                        <td>Place Of Supply</td></tr>
-                                    <tr><td>11</td>
-                                        <td> RCM</td>
-                                        <td> Reverse Charge Mechanism</td></tr>
-                                
+                            <thead style="background-color: #0e385e;color:white">
+                                <tr>
+                                    <th style="text-align: left;">S No.</th>
+                                    <th style="text-align: left;">Abbreviation</th>
+                                    <th style="text-align: left;">Full form</th>
+                                </tr>
+                            </thead>
+                            <tr><td>1</td>
+                                <td>GST</td>
+                                <td>Goods and Service Tax</td></tr>
+                            <tr><td>2</td>
+                                <td>GSTR</td>
+                                <td> Goods and Services Tax Return.</td></tr>
+                            <tr><td>3</td>
+                                <td> ITC</td>
+                                <td>Input Tax Credit.</td></tr>
+                            <tr><td>4</td>
+                                <td>GSTIN</td>
+                                <td>Goods and Services Tax Identification Number.</td></tr>
+                            <tr><td>5</td>
+                                <td> IGST</td>
+                                <td> Integrated Goods and Services Tax.</td></tr>
+                            <tr><td>6</td>
+                                <td>CGST</td>
+                                <td>Centre Goods and Services Tax.</td></tr>
+                            <tr><td>7</td>
+                                <td>SGST/UTGST</td>
+                                <td> State Goods and Services Tax/Union Territory Goods and Services Tax.</td></tr>
+                            <tr><td>8</td>
+                                <td>B2B Supply</td>
+                                <td>Supply made to registered person.</td></tr>
+                            <tr><td>9</td>
+                                <td>B2C Supply</td>
+                                <td>Supply made to unregistered person.</td></tr>
+                            <tr><td>10</td>
+                                <td>POS</td>
+                                <td>Place Of Supply</td></tr>
+                            <tr><td>11</td>
+                                <td> RCM</td>
+                                <td> Reverse Charge Mechanism</td></tr>
+
                         </table>
                     </div>
-                    
-<!--                    <div style="page-break-after:always;width:700px;margin-left: 5%;margin-right:  5%;margin-top:9%;text-align: justify;">
-                        <div id="content_pdf" style=""></div>
-                    </div>-->
+
 
                     <div id="container_image_components_overview" style="margin-top:15%;">
                         <img src="https://premisafe.com/GST_image/GSTComponents&Overview.jpg" width="800px" height="900px" style="page-break-after:always;">
@@ -474,12 +466,12 @@ if (is_array($session_data)) {
                                 <div id="company_all_partially_data1" style=""></div>
                             </div>
                         </div>
-                        
+
                         <div class="test" style="page-break-after:always;margin-top: 15%">
                        <!--<div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="900px" height="900px" style=""></div><br><br>-->  
-                        <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center;">7. Executive Summary </p><br><br>
-                        <div id="container_executive_summary1" style=""></div><br><br> 
-                        <table id="example2" class="table-bordered table-striped" width="700px" style="margin-left: 5%;margin-right: 5%;margin-top: -12%;">
+                            <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center;">7. Executive Summary </p><br><br>
+                            <div id="container_executive_summary1" style=""></div><br><br> 
+                            <table id="example2" class="table-bordered table-striped" width="700px" style="margin-left: 5%;margin-right: 5%;margin-top: -12%;">
                                 <thead style="background-color: #0e385e;color:white">
                                     <tr>
 
@@ -487,15 +479,15 @@ if (is_array($session_data)) {
                                         <th style="text-align: center;">Observation</th>
                                         <th style="text-align: center;">Remarks</th>
                                     </tr>
-                                    </thead>
-                                    
-                                    <tbody id="reports_observation_table" name="reports_observation_table" style="font-size:12px;">
-                                        
-                                    </tbody>
-              
-                        </table>
+                                </thead>
+
+                                <tbody id="reports_observation_table" name="reports_observation_table" style="font-size:12px;">
+
+                                </tbody>
+
+                            </table>
                         </div>
-                        
+
                         <div class="test" style="page-break-after:always;margin-top:7%">
                             <div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/IssueMatrix.jpg" style="width:700px" height="100px" ></div><br><br><br>  
                             <div id="heat_map_tbl" style="width:850px;margin-left: 6%;margin-right:5%;"></div><br>
@@ -515,26 +507,26 @@ if (is_array($session_data)) {
                        <!--<div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="900px" height="900px" style=""></div><br><br>-->  
                         <div id="" style="width:850px">
                             <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center;">10. SUMMARY OBSERVATION & CONCLUSION </p><br><br>
-                            
+
                             <p style="margin-left: 5%">Following are the conclusions drawn after doing the analysis:</p>
                             <p align="justify" style="margin-left: 5%;margin-right:  5%;font-size: 14px;letter-spacing: 0.5px;">
                                 <?php
                                 if ($company_details->visible_customer_detail == 1) {
                                     echo '<h5 style="margin-left: 5%"><b>Compliemnts/facts:</b></h5>';
-                                    echo'<p style="margin-left: 7%;margin-right:  5%;font-size: 14px;">' .$company_details->compliments_conclusion_summary.'</p>';
+                                    echo'<p style="margin-left: 7%;margin-right:  5%;font-size: 14px;">' . $company_details->compliments_conclusion_summary . '</p>';
                                     echo '<br>';
                                     echo '<h5 style="margin-left: 5%"><b>Serious Problems:</b></h5>';
-                                    echo '<p style="margin-left: 7%;margin-right:  5%;font-size: 14px;">' .$company_details->serious_conclusion_summary.'</p>';
+                                    echo '<p style="margin-left: 7%;margin-right:  5%;font-size: 14px;">' . $company_details->serious_conclusion_summary . '</p>';
                                     echo '<br>';
                                     echo '<h5 style="margin-left: 5%"><b>Improvement:</b></h5>';
-                                    echo '<p style="margin-left: 7%;margin-right:  5%;font-size: 14px;">' .$company_details->improvement_conclusion_summary.'</p>';
+                                    echo '<p style="margin-left: 7%;margin-right:  5%;font-size: 14px;">' . $company_details->improvement_conclusion_summary . '</p>';
                                 } else {
                                     echo "XXX";
                                 }
 //                                echo $company_details->conclusion_summary
                                 ?>
                             </p>
-                            <p align="justify" style="margin-left: 5%;margin-right:  5%;font-size: 14px;letter-spacing: 0.5px;" value="<?php echo $company_details->serious_conclusion_summary?>"></p>
+                            <p align="justify" style="margin-left: 5%;margin-right:  5%;font-size: 14px;letter-spacing: 0.5px;" value="<?php echo $company_details->serious_conclusion_summary ?>"></p>
                         </div>
                         <!--<div id="container_heat_map" style="width:700px"></div>-->
                     </div>
@@ -543,13 +535,13 @@ if (is_array($session_data)) {
                         <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center"><b>11. LIMITED USAGE AND NON-DISCLOSURE </b></p><br> 
                         <div id="container_image_limited_usage" style=""></div><br><br>  
                     </div><br><br>
-                    
+
                     <div class="test" style="page-break-after:always;margin-top:19%">
                         <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center"><b>12. Disclaimer </b></p><br>
-                        
-                        <!--<div id="container_image_disclaimer" style=""><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="700px" height="900px" style=""></div><br><br>-->  
+
+<!--<div id="container_image_disclaimer" style=""><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="700px" height="900px" style=""></div><br><br>-->  
                         <div id="container_image_disclaimer" style=""></div><br><br>  
-                       
+
                     </div>
 
                     <div class="test" style="page-break-after:always;margin-top:9%">
@@ -558,10 +550,10 @@ if (is_array($session_data)) {
 
                     </div>
 
-<!--                    <div class="test" style="margin-top:9%">
-                        <div id="container_image_services" style=""><img src="https://premisafe.com/GST_image/OurServicesPage.jpg" width="780px" height="800px" style=""></div><br><br>  
-
-                    </div>-->
+                    <!--                    <div class="test" style="margin-top:9%">
+                                            <div id="container_image_services" style=""><img src="https://premisafe.com/GST_image/OurServicesPage.jpg" width="780px" height="800px" style=""></div><br><br>  
+                    
+                                        </div>-->
 
 
                 </div>
@@ -587,7 +579,7 @@ if (is_array($session_data)) {
         var company_name = document.getElementById("company_name").value;
         var visible_customer_detail = document.getElementById("visible_customer_detail").value;
 
-        
+
 
         $.ajax({
             type: "post",
@@ -606,7 +598,7 @@ if (is_array($session_data)) {
                 } else {
 
                 }
-            },
+            }
         });
 
         //Ajax call for Letter to client PDF
@@ -628,7 +620,7 @@ if (is_array($session_data)) {
                 } else {
 
                 }
-            },
+            }
         });
 
         //Ajax call for disclaimer
@@ -649,12 +641,12 @@ if (is_array($session_data)) {
                 } else {
 
                 }
-            },
+            }
         });
 
         //Ajax call for limited usage and disclosure
-        
-         $.ajax({
+
+        $.ajax({
             type: "post",
             url: "<?= base_url("Report/get_content_limited_usage") ?>",
             dataType: "json",
@@ -671,12 +663,12 @@ if (is_array($session_data)) {
                 } else {
 
                 }
-            },
+            }
         });
 
-         //Ajax call for about Ecovis RKCA
-        
-         $.ajax({
+        //Ajax call for about Ecovis RKCA
+
+        $.ajax({
             type: "post",
             url: "<?= base_url("Report/get_content_about_ecovis") ?>",
             dataType: "json",
@@ -693,13 +685,13 @@ if (is_array($session_data)) {
                 } else {
 
                 }
-            },
+            }
         });
 
-        
+
         //Ajax call for Executive Summary
-        
-         $.ajax({
+
+        $.ajax({
             type: "post",
             url: "<?= base_url("Report/get_content_executive_summary") ?>",
             dataType: "json",
@@ -716,7 +708,7 @@ if (is_array($session_data)) {
                 } else {
 
                 }
-            },
+            }
         });
 
 
@@ -743,7 +735,7 @@ if (is_array($session_data)) {
                     $('#cfo_data').html(data);
                     $('#cfo_data1').html(data1);
                     $('#cfo_data2').html(data2);
-                    $("#reports_observation_table").append('<tr><td>'+data_turnover_vsliability_name+'</td><td>'+data_turnover_vsliability_observation+'</td><td>'+data_turnover_vsliability_remarks+'</td></tr>');
+                    $("#reports_observation_table").append('<tr><td>' + data_turnover_vsliability_name + '</td><td>' + data_turnover_vsliability_observation + '</td><td>' + data_turnover_vsliability_remarks + '</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("cfo_data").style.display = "none";
@@ -751,7 +743,7 @@ if (is_array($session_data)) {
                     document.getElementById("cfo_data2").style.display = "none";
                     document.getElementById("cfodata").style.display = "none";
                 }
-            },
+            }
         });
         $.ajax({
             type: "POST",
@@ -770,7 +762,7 @@ if (is_array($session_data)) {
                     if (visible_customer_detail == 1) {
                         var customer_name = company_name;
                     } else {
-                         var customer_name = "XXX";
+                        var customer_name = "XXX";
                     }
                     Highcharts.chart('container_turnovervs_liability', {
                         //                    var chart = Highcharts.chart('container_turnovervs_liability', {
@@ -866,7 +858,7 @@ if (is_array($session_data)) {
                     if (visible_customer_detail == 1) {
                         var customer_name = company_name;
                     } else {
-                         var customer_name = "XXX";
+                        var customer_name = "XXX";
                     }
                     Highcharts.chart('container_sales_month_wise', {
                         chart: {
@@ -958,7 +950,7 @@ if (is_array($session_data)) {
                     $('#sales_monthly_data').html(data);
                     $('#sales_monthly_data1').html(data1);
                     $('#sales_monthly_data2').html(data2);
-                    $("#reports_observation_table").append('<tr><td>'+data_monthwise_name+'</td><td>'+data_month_observation+'</td><td>'+data_month_remarks+'</td></tr>');
+                    $("#reports_observation_table").append('<tr><td>' + data_monthwise_name + '</td><td>' + data_month_observation + '</td><td>' + data_month_remarks + '</td></tr>');
 //                   
                 } else {
                     document.getElementById("sales_monthly_data").style.display = "none";
@@ -966,7 +958,7 @@ if (is_array($session_data)) {
                     document.getElementById("sales_monthly_data2").style.display = "none";
                     document.getElementById("monthly_div").style.display = "none";
                 }
-            },
+            }
 
         });
         $.ajax({
@@ -985,7 +977,7 @@ if (is_array($session_data)) {
                     if (visible_customer_detail == 1) {
                         var customer_name = company_name;
                     } else {
-                         var customer_name = "XXX";
+                        var customer_name = "XXX";
                     }
                     Highcharts.chart('container_state_wise', {
                         chart: {
@@ -1046,14 +1038,14 @@ if (is_array($session_data)) {
                     $('#sales_state_wise_data').html(data);
                     $('#sales_state_wise_data1').html(data1);
                     $('#sales_state_wise_data2').html(data2);
-                    $("#reports_observation_table").append('<tr><td>'+data_statewise_name+'</td><td>'+data_statewise_observation+'</td><td>'+data_statewise_remarks+'</td></tr>');
+                    $("#reports_observation_table").append('<tr><td>' + data_statewise_name + '</td><td>' + data_statewise_observation + '</td><td>' + data_statewise_remarks + '</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("sales_state_wise_data").style.display = "none";
                     document.getElementById("sales_state_wise_data1").style.display = "none";
                     document.getElementById("sales_state_wise_data2").style.display = "none";
                 }
-            },
+            }
 
         });
 
@@ -1078,7 +1070,7 @@ if (is_array($session_data)) {
                     if (visible_customer_detail == 1) {
                         var customer_name = company_name;
                     } else {
-                         var customer_name = "XXX";
+                        var customer_name = "XXX";
                     }
                     Highcharts.chart('container_nontax_exempt', {
                         chart: {
@@ -1217,7 +1209,7 @@ if (is_array($session_data)) {
                     $('#tax_ntax_Exempt_data').html(data);
                     $('#tax_ntax_Exempt_data1').html(data1);
                     $('#tax_ntax_Exempt_data2').html(data2);
-                    $("#reports_observation_table").append('<tr><td>'+data_tax_nontax_name+'</td><td>'+data_tax_nontax_observation+'</td><td>'+data_tax_nontax_remarks+'</td></tr>');
+                    $("#reports_observation_table").append('<tr><td>' + data_tax_nontax_name + '</td><td>' + data_tax_nontax_observation + '</td><td>' + data_tax_nontax_remarks + '</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("tax_ntax_Exempt_data").style.display = "none";
@@ -1225,7 +1217,7 @@ if (is_array($session_data)) {
                     document.getElementById("tax_ntax_Exempt_data2").style.display = "none";
                     document.getElementById("tax_nontax_div").style.display = "none";
                 }
-            },
+            }
 
         });
 
@@ -1247,7 +1239,7 @@ if (is_array($session_data)) {
                     if (visible_customer_detail == 1) {
                         var customer_name = company_name;
                     } else {
-                         var customer_name = "XXX";
+                        var customer_name = "XXX";
                     }
                     //                    var max_ratio = result.max_ratio;
                     var data_month = result.month;
@@ -1367,7 +1359,7 @@ if (is_array($session_data)) {
                     $('#compare_b2b_data').html(data);
                     $('#compare_b2b_data1').html(data1);
                     $('#compare_b2b_data2').html(data2);
-                    $("#reports_observation_table").append('<tr><td>'+data_salesb2b_b2c_name+'</td><td>'+data_salesb2b_b2c_observation+'</td><td>'+data_salesb2b_b2c_remarks+'</td></tr>');
+                    $("#reports_observation_table").append('<tr><td>' + data_salesb2b_b2c_name + '</td><td>' + data_salesb2b_b2c_observation + '</td><td>' + data_salesb2b_b2c_remarks + '</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("compare_b2b_data").style.display = "none";
@@ -1377,7 +1369,7 @@ if (is_array($session_data)) {
 
 
                 }
-            },
+            }
 
         });
 
@@ -1400,13 +1392,13 @@ if (is_array($session_data)) {
                     $('#compare_sales_ratewise_data').html("");
                     $('#compare_sales_ratewise_data').html(data);
                     $('#compare_sales_ratewise_data1').html(data1);
-                    $("#reports_observation_table").append('<tr><td>'+data_ratewise_name+'</td><td>'+data_rate_observation+'</td><td>'+data_rate_remarks+'</td></tr>');
+                    $("#reports_observation_table").append('<tr><td>' + data_ratewise_name + '</td><td>' + data_rate_observation + '</td><td>' + data_rate_remarks + '</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("compare_sales_ratewise_data").style.display = "none";
                     document.getElementById("compare_sales_ratewise_data1").style.display = "none";
                 }
-            },
+            }
 
         });
 
@@ -1429,7 +1421,7 @@ if (is_array($session_data)) {
                     if (visible_customer_detail == 1) {
                         var customer_name = company_name;
                     } else {
-                         var customer_name = "XXX";
+                        var customer_name = "XXX";
                     }
                     Highcharts.chart('container_GSTR3b_vs_2A', {
                         chart: {
@@ -1535,7 +1527,7 @@ if (is_array($session_data)) {
                     $('#compare_GSTR3B_Vs2_data').html(data);
                     $('#compare_GSTR3B_Vs2_data1').html(data1);
                     $('#compare_GSTR3B_Vs2_data2').html(data2);
-                    $("#reports_observation_table").append('<tr><td>'+data_threeb_vs2A_name+'</td><td>'+data_threeb_vs2A_observation+'</td><td>'+data_threeb_vs2A_remarks+'</td></tr>');
+                    $("#reports_observation_table").append('<tr><td>' + data_threeb_vs2A_name + '</td><td>' + data_threeb_vs2A_observation + '</td><td>' + data_threeb_vs2A_remarks + '</td></tr>');
 
                     $("#container_GSTR3b_vs_2A").prepend("Deduct: In-Eligible Credit :<input type='text'><br>*To be ﬁlled manually so that the client will get the clear picture of eligible credit.");
                     //                    $('#example2').DataTable();
@@ -1544,7 +1536,7 @@ if (is_array($session_data)) {
                     document.getElementById("compare_GSTR3B_Vs2_data1").style.display = "none";
                     document.getElementById("compare_GSTR3B_Vs2_data2").style.display = "none";
                 }
-            },
+            }
 
         });
 
@@ -1568,7 +1560,7 @@ if (is_array($session_data)) {
                     if (visible_customer_detail == 1) {
                         var customer_name = company_name;
                     } else {
-                         var customer_name = "XXX";
+                        var customer_name = "XXX";
                     }
                     Highcharts.chart('container_GSTR3b_vs_1', {
                         chart: {
@@ -1662,14 +1654,14 @@ if (is_array($session_data)) {
                     $('#compare_3b_vs1_data').html(data);
                     $('#compare_3b_vs1_data1').html(data1);
                     $('#compare_3b_vs1_data2').html(data2);
-                    $("#reports_observation_table").append('<tr><td>'+data_threeb_vs1_name+'</td><td>'+data_threeb_vs1_observation+'</td><td>'+data_threeb_vs1_remarks+'</td></tr>');
+                    $("#reports_observation_table").append('<tr><td>' + data_threeb_vs1_name + '</td><td>' + data_threeb_vs1_observation + '</td><td>' + data_threeb_vs1_remarks + '</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("compare_3b_vs1_data").style.display = "none";
                     document.getElementById("compare_3b_vs1_data1").style.display = "none";
                     document.getElementById("compare_3b_vs1_data2").style.display = "none";
                 }
-            },
+            }
 
         });
         $.ajax({
@@ -1692,7 +1684,7 @@ if (is_array($session_data)) {
                     document.getElementById("gstr3B_data").style.display = "none";
                     document.getElementById("gstr3B_data1").style.display = "none";
                 }
-            },
+            }
 
         });
 
@@ -1743,7 +1735,7 @@ if (is_array($session_data)) {
                     if (visible_customer_detail == 1) {
                         var customer_name = company_name;
                     } else {
-                         var customer_name = "XXX";
+                        var customer_name = "XXX";
                     }
                     Highcharts.chart('container_tax_liability', {
                         chart: {
@@ -1890,7 +1882,7 @@ if (is_array($session_data)) {
                     $('#tax_liability_data').html(data);
                     $('#tax_liability_data1').html(data1);
                     $('#tax_liability_data2').html(data2);
-                    $("#reports_observation_table").append('<tr><td>'+data_tax_liability_name+'</td><td>'+data_tax_liability_observation+'</td><td>'+data_tax_liability_remarks+'</td></tr>');
+                    $("#reports_observation_table").append('<tr><td>' + data_tax_liability_name + '</td><td>' + data_tax_liability_observation + '</td><td>' + data_tax_liability_remarks + '</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("tax_liability_data").style.display = "none";
@@ -1899,7 +1891,7 @@ if (is_array($session_data)) {
                     document.getElementById("tax_liabilitydiv").style.display = "none";
 
                 }
-            },
+            }
 
         });
 
@@ -1922,7 +1914,7 @@ if (is_array($session_data)) {
                     if (visible_customer_detail == 1) {
                         var customer_name = company_name;
                     } else {
-                         var customer_name = "XXX";
+                        var customer_name = "XXX";
                     }
                     Highcharts.chart('container_tax_turnover', {
                         chart: {
@@ -2050,7 +2042,7 @@ if (is_array($session_data)) {
                     $('#tax_turnover_data').html(data);
                     $('#tax_turnover_data1').html(data1);
                     $('#tax_turnover_data2').html(data2);
-                    $("#reports_observation_table").append('<tr><td>'+data_tax_turnover_name+'</td><td>'+data_tax_turnover_observation+'</td><td>'+data_tax_turnover_remarks+'</td></tr>');
+                    $("#reports_observation_table").append('<tr><td>' + data_tax_turnover_name + '</td><td>' + data_tax_turnover_observation + '</td><td>' + data_tax_turnover_remarks + '</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("tax_turnover_data").style.display = "none";
@@ -2058,7 +2050,7 @@ if (is_array($session_data)) {
                     document.getElementById("tax_turnover_data2").style.display = "none";
                     document.getElementById("test_tax_turn").style.display = "none";
                 }
-            },
+            }
 
         });
 
@@ -2083,7 +2075,7 @@ if (is_array($session_data)) {
                     if (visible_customer_detail == 1) {
                         var customer_name = company_name;
                     } else {
-                         var customer_name = "XXX";
+                        var customer_name = "XXX";
                     }
                     Highcharts.chart('container_gst_payablevscash', {
                         chart: {
@@ -2186,7 +2178,7 @@ if (is_array($session_data)) {
                     $('#gst_payablevscash_data').html(data);
                     $('#gst_payablevscash_data1').html(data1);
                     $('#gst_payablevscash_data2').html(data2);
-                    $("#reports_observation_table").append('<tr><td>'+data_payable_vs_cash_name+'</td><td>'+data_payable_vs_cash_observation+'</td><td>'+data_payable_vs_cash_remarks+'</td></tr>');
+                    $("#reports_observation_table").append('<tr><td>' + data_payable_vs_cash_name + '</td><td>' + data_payable_vs_cash_observation + '</td><td>' + data_payable_vs_cash_remarks + '</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("gst_payablevscash_data").style.display = "none";
@@ -2194,7 +2186,7 @@ if (is_array($session_data)) {
                     document.getElementById("gst_payablevscash_data2").style.display = "none";
                     document.getElementById("payable_cash").style.display = "none";
                 }
-            },
+            }
 
         });
 
@@ -2221,7 +2213,7 @@ if (is_array($session_data)) {
                 } else {
                     document.getElementById("heat_map_tbl").style.display = "none";
                 }
-            },
+            }
 
         });
         $.ajax({
@@ -2349,7 +2341,7 @@ if (is_array($session_data)) {
                     if (visible_customer_detail == 1) {
                         var customer_name = company_name;
                     } else {
-                         var customer_name = "XXX";
+                        var customer_name = "XXX";
                     }
                     Highcharts.chart('container_eligible_credit', {
                         chart: {
@@ -2466,7 +2458,7 @@ if (is_array($session_data)) {
                     $('#tax_iniligible_data').html(data);
                     $('#tax_iniligible_data1').html(data1);
                     $('#tax_iniligible_data2').html(data2);
-                    $("#reports_observation_table").append('<tr><td>'+data_eligible_name+'</td><td>'+data_eligible_observation+'</td><td>'+data_eligible_remarks+'</td></tr>');
+                    $("#reports_observation_table").append('<tr><td>' + data_eligible_name + '</td><td>' + data_eligible_observation + '</td><td>' + data_eligible_remarks + '</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("tax_iniligible_data").style.display = "none";
@@ -2474,7 +2466,7 @@ if (is_array($session_data)) {
                     document.getElementById("tax_iniligible_data2").style.display = "none";
                     document.getElementById("tax_eli_ineli").style.display = "none";
                 }
-            },
+            }
 
         });
 
@@ -2523,7 +2515,7 @@ if (is_array($session_data)) {
                 } else {
                     document.getElementById("rating_card").style.display = "none";
                 }
-            },
+            }
 
         });
 
@@ -2776,10 +2768,13 @@ if (is_array($session_data)) {
 
 
 
+
 //    var click = "return xepOnline.Formatter.Format('JSFiddle', {render:'download'})";
     jQuery('#buttons').append('<div class=""><div id="btn_div" class="col-md-12"><button class="btn btn-block btn-success btn-lg" id="btn_pdf" onclick="clickme();">Generate PDF</button></div></div>');
+    
     function clickme()
     {
+
         var customer_id = document.getElementById("customer_id").value;
         var insert_id = document.getElementById("insert_id").value;
         $.ajax({
@@ -2789,20 +2784,18 @@ if (is_array($session_data)) {
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
                 if (result.status === true) {
-
-                    window.location.href = '<?= base_url() ?>Report/insert_page_number/' + btoa(customer_id) + '/' + btoa(insert_id);
                     xepOnline.Formatter.Format('JSFiddle', {render: 'download'});
-                } else {
+                    window.location.href = '<?= base_url() ?>Report/insert_page_number/' + btoa(customer_id) + '/' + btoa(insert_id);
+                }
+               else {
                     alert('somrthing went wrong.');
                 }
             },
             error: function (result) {
                 //console.log(result);
                 if (result.status === 500) {
-//                    document.getElementById('loaders1').style.display = "none";
                     alert('Internal error: ' + result.responseText);
                 } else {
-//                    document.getElementById('loaders1').style.display = "none";
                     alert('Unexpected error.');
                 }
             }
