@@ -47,14 +47,7 @@ if (is_array($session_data)) {
         page-break-inside: avoid;
         clear:both;
     }
-    /*    #JSFiddle{
-            position: absolute; 
-            left: 20px; 
-            top: 50px; 
-            bottom: 0; 
-            overflow: auto; 
-            width: 600px;
-        }*/
+
 
     td{
         text-align: left;
@@ -133,7 +126,7 @@ if (is_array($session_data)) {
                                 <span class="required" style="color: red" id="customer_name_error"></span>
                             </div>
 
-
+                            <input type="button" class="btn btn-primary" id="add_page_numbers" value="Add Page numbers" style="float:right;margin-top: 1.8% !important;margin-right: 5%;" onclick="page_num_function()" />
                         </div>
                     </div>
                     <input type="hidden" id="first_div_value" name="first_div_value" value="0">
@@ -570,6 +563,17 @@ if (is_array($session_data)) {
 
 <?php $this->load->view('customer/footer'); ?>
 <script>
+    function page_num_function() {
+        //alert("ghgb");
+        var customer_id = document.getElementById("customer_id").value;
+        var insert_id = document.getElementById("insert_id").value;
+        var ask = window.confirm("Are you download the pdf?");
+        if (ask) {
+            window.location.href = '<?= base_url() ?>Report/insert_page_number/' + btoa(customer_id) + '/' + btoa(insert_id);
+        } else {
+            //window.location.href = "<?= base_url() ?>Generate_report/" + customer_id + "/" + insert_id;
+        }
+    }
     $(document).ready(function () {
 
         //For DETAILS OF GST REPORTS AND INSIGHTS DIVS
@@ -2769,9 +2773,9 @@ if (is_array($session_data)) {
 
 
 
-//    var click = "return xepOnline.Formatter.Format('JSFiddle', {render:'download'})";
-    jQuery('#buttons').append('<div class=""><div id="btn_div" class="col-md-12"><button class="btn btn-block btn-success btn-lg" id="btn_pdf" onclick="clickme();">Generate PDF</button></div></div>');
-    
+    var click = "return xepOnline.Formatter.Format('JSFiddle', {render:'download'})";
+    jQuery('#buttons').append('<div class=""><div id="btn_div" class="col-md-12"><button class="btn btn-block btn-success btn-lg" id="btn_pdf" onclick="' + click + '">Generate PDF</button></div></div>');
+
     function clickme()
     {
 
@@ -2786,8 +2790,8 @@ if (is_array($session_data)) {
                 if (result.status === true) {
                     xepOnline.Formatter.Format('JSFiddle', {render: 'download'});
                     window.location.href = '<?= base_url() ?>Report/insert_page_number/' + btoa(customer_id) + '/' + btoa(insert_id);
-                }
-               else {
+                    return;
+                } else {
                     alert('somrthing went wrong.');
                 }
             },

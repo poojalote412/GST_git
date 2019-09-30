@@ -474,7 +474,7 @@ class Threeb_vs_twoa extends CI_Controller {
                                         <span class='input-group-addon'>
                                             <i class='fa fa-eye'></i>
                                         </span>
-                                        <textarea class='form-control' rows='5' id='threeb_vstwoa_observation' name='threeb_vstwoa_observation' onkeyup='countWords(this.id);'>" . $variation . " is the % variation of maximum & minimum sales per month requiring careful working capital planning in case receivable delay.</textarea>
+                                        <textarea class='form-control' rows='5' id='threeb_vstwoa_observation' name='threeb_vstwoa_observation' onkeyup='countWords(this.id);'>__ is the % variation of maximum & minimum sales per month requiring careful working capital planning in case receivable delay.</textarea>
                                     </div>
                                     <span class='required' style='color: red' id='threeb_vstwoa_observation'></span>
                                 </div>";

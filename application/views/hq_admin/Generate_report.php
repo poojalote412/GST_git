@@ -133,7 +133,7 @@ if (is_array($session_data)) {
                                 <span class="required" style="color: red" id="customer_name_error"></span>
                             </div>
 
-
+                            <input type="button" class="btn btn-primary" id="add_page_numbers" value="Add Page numbers" style="float:right;margin-top: 1.8% !important;margin-right: 5%;" onclick="page_num_function()" />
                         </div>
                     </div>
                     <input type="hidden" id="first_div_value" name="first_div_value" value="0">
@@ -575,6 +575,18 @@ if (is_array($session_data)) {
 
 <?php $this->load->view('customer/footer'); ?>
 <script>
+
+    function page_num_function() {
+        //alert("ghgb");
+        var customer_id = document.getElementById("customer_id").value;
+        var insert_id = document.getElementById("insert_id").value;
+        var ask = window.confirm("Are you download the pdf?");
+        if (ask) {
+            window.location.href = '<?= base_url() ?>Report/insert_page_number_hq/' + btoa(customer_id) + '/' + btoa(insert_id);
+        } else {
+            //window.location.href = "<?= base_url() ?>Generate_report/" + customer_id + "/" + insert_id;
+        }
+    }
     $(document).ready(function () {
 
         //For DETAILS OF GST REPORTS AND INSIGHTS DIVS
@@ -1019,7 +1031,7 @@ if (is_array($session_data)) {
                     $('#sales_state_wise_data').html(data);
                     $('#sales_state_wise_data1').html(data1);
                     $('#sales_state_wise_data2').html(data2);
-                    $("#reports_observation_table").append('<tr><td>'+data_statewise_name+'</td><td>'+data_statewise_observation+'</td><td>'+data_statewise_remarks+'</td></tr>');
+                    $("#reports_observation_table").append('<tr><td>' + data_statewise_name + '</td><td>' + data_statewise_observation + '</td><td>' + data_statewise_remarks + '</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("sales_state_wise_data").style.display = "none";
@@ -1191,7 +1203,7 @@ if (is_array($session_data)) {
                     $('#tax_ntax_Exempt_data').html(data);
                     $('#tax_ntax_Exempt_data1').html(data1);
                     $('#tax_ntax_Exempt_data2').html(data2);
-                    $("#reports_observation_table").append('<tr><td>'+data_tax_nontax_name+'</td><td>'+data_tax_nontax_observation+'</td><td>'+data_tax_nontax_remarks+'</td></tr>');
+                    $("#reports_observation_table").append('<tr><td>' + data_tax_nontax_name + '</td><td>' + data_tax_nontax_observation + '</td><td>' + data_tax_nontax_remarks + '</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("tax_ntax_Exempt_data").style.display = "none";
@@ -1341,7 +1353,7 @@ if (is_array($session_data)) {
                     $('#compare_b2b_data').html(data);
                     $('#compare_b2b_data1').html(data1);
                     $('#compare_b2b_data2').html(data2);
-                    $("#reports_observation_table").append('<tr><td>'+data_salesb2b_b2c_name+'</td><td>'+data_salesb2b_b2c_observation+'</td><td>'+data_salesb2b_b2c_remarks+'</td></tr>');
+                    $("#reports_observation_table").append('<tr><td>' + data_salesb2b_b2c_name + '</td><td>' + data_salesb2b_b2c_observation + '</td><td>' + data_salesb2b_b2c_remarks + '</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("compare_b2b_data").style.display = "none";
@@ -1374,7 +1386,7 @@ if (is_array($session_data)) {
                     $('#compare_sales_ratewise_data').html("");
                     $('#compare_sales_ratewise_data').html(data);
                     $('#compare_sales_ratewise_data1').html(data1);
-                    $("#reports_observation_table").append('<tr><td>'+data_ratewise_name+'</td><td>'+data_rate_observation+'</td><td>'+data_rate_remarks+'</td></tr>');
+                    $("#reports_observation_table").append('<tr><td>' + data_ratewise_name + '</td><td>' + data_rate_observation + '</td><td>' + data_rate_remarks + '</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("compare_sales_ratewise_data").style.display = "none";
@@ -1505,12 +1517,12 @@ if (is_array($session_data)) {
                     var data_threeb_vs2A_name = result.data_threeb_vs2A_name;
                     var data_threeb_vs2A_observation = result.data_threeb_vs2A_observation;
                     var data_threeb_vs2A_remarks = result.data_threeb_vs2A_remarks;
-                    
+
                     $('#compare_GSTR3B_Vs2_data').html("");
                     $('#compare_GSTR3B_Vs2_data').html(data);
                     $('#compare_GSTR3B_Vs2_data1').html(data1);
                     $('#compare_GSTR3B_Vs2_data2').html(data2);
-                    $("#reports_observation_table").append('<tr><td>'+data_threeb_vs2A_name+'</td><td>'+data_threeb_vs2A_observation+'</td><td>'+data_threeb_vs2A_remarks+'</td></tr>');
+                    $("#reports_observation_table").append('<tr><td>' + data_threeb_vs2A_name + '</td><td>' + data_threeb_vs2A_observation + '</td><td>' + data_threeb_vs2A_remarks + '</td></tr>');
 
                     $("#container_GSTR3b_vs_2A").prepend("Deduct: In-Eligible Credit :<input type='text'><br>*To be ﬁlled manually so that the client will get the clear picture of eligible credit.");
                     //                    $('#example2').DataTable();
@@ -1630,14 +1642,14 @@ if (is_array($session_data)) {
                     var data = result.data;
                     var data1 = result.data1;
                     var data2 = result.data2;
-                     var data_threeb_vs1_name = result.data_threeb_vs1_name;
+                    var data_threeb_vs1_name = result.data_threeb_vs1_name;
                     var data_threeb_vs1_observation = result.data_threeb_vs1_observation;
                     var data_threeb_vs1_remarks = result.data_threeb_vs1_remarks;
                     $('#compare_3b_vs1_data').html("");
                     $('#compare_3b_vs1_data').html(data);
                     $('#compare_3b_vs1_data1').html(data1);
                     $('#compare_3b_vs1_data2').html(data2);
-                    $("#reports_observation_table").append('<tr><td>'+data_threeb_vs1_name+'</td><td>'+data_threeb_vs1_observation+'</td><td>'+data_threeb_vs1_remarks+'</td></tr>');
+                    $("#reports_observation_table").append('<tr><td>' + data_threeb_vs1_name + '</td><td>' + data_threeb_vs1_observation + '</td><td>' + data_threeb_vs1_remarks + '</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("compare_3b_vs1_data").style.display = "none";
@@ -1866,7 +1878,7 @@ if (is_array($session_data)) {
                     $('#tax_liability_data').html(data);
                     $('#tax_liability_data1').html(data1);
                     $('#tax_liability_data2').html(data2);
-                    $("#reports_observation_table").append('<tr><td>'+data_tax_liability_name+'</td><td>'+data_tax_liability_observation+'</td><td>'+data_tax_liability_remarks+'</td></tr>');
+                    $("#reports_observation_table").append('<tr><td>' + data_tax_liability_name + '</td><td>' + data_tax_liability_observation + '</td><td>' + data_tax_liability_remarks + '</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("tax_liability_data").style.display = "none";
@@ -2027,7 +2039,7 @@ if (is_array($session_data)) {
                     $('#tax_turnover_data').html(data);
                     $('#tax_turnover_data1').html(data1);
                     $('#tax_turnover_data2').html(data2);
-                    $("#reports_observation_table").append('<tr><td>'+data_tax_turnover_name+'</td><td>'+data_tax_turnover_observation+'</td><td>'+data_tax_turnover_remarks+'</td></tr>');
+                    $("#reports_observation_table").append('<tr><td>' + data_tax_turnover_name + '</td><td>' + data_tax_turnover_observation + '</td><td>' + data_tax_turnover_remarks + '</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("tax_turnover_data").style.display = "none";
@@ -2159,12 +2171,12 @@ if (is_array($session_data)) {
                     var data_payable_vs_cash_name = result.data_payable_vs_cash_name;
                     var data_payable_vs_cash_observation = result.data_payable_vs_cash_observation;
                     var data_payable_vs_cash_remarks = result.data_payable_vs_cash_remarks;
-                   
+
                     $('#gst_payablevscash_data').html("");
                     $('#gst_payablevscash_data').html(data);
                     $('#gst_payablevscash_data1').html(data1);
                     $('#gst_payablevscash_data2').html(data2);
-                    $("#reports_observation_table").append('<tr><td>'+data_payable_vs_cash_name+'</td><td>'+data_payable_vs_cash_observation+'</td><td>'+data_payable_vs_cash_remarks+'</td></tr>');
+                    $("#reports_observation_table").append('<tr><td>' + data_payable_vs_cash_name + '</td><td>' + data_payable_vs_cash_observation + '</td><td>' + data_payable_vs_cash_remarks + '</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("gst_payablevscash_data").style.display = "none";
@@ -2444,7 +2456,7 @@ if (is_array($session_data)) {
                     $('#tax_iniligible_data').html(data);
                     $('#tax_iniligible_data1').html(data1);
                     $('#tax_iniligible_data2').html(data2);
-                    $("#reports_observation_table").append('<tr><td>'+data_eligible_name+'</td><td>'+data_eligible_observation+'</td><td>'+data_eligible_remarks+'</td></tr>');
+                    $("#reports_observation_table").append('<tr><td>' + data_eligible_name + '</td><td>' + data_eligible_observation + '</td><td>' + data_eligible_remarks + '</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("tax_iniligible_data").style.display = "none";
@@ -2754,8 +2766,8 @@ if (is_array($session_data)) {
 
 
 
-//    var click = "return xepOnline.Formatter.Format('JSFiddle', {render:'download'})";
-    jQuery('#buttons').append('<div class=""><div id="btn_div" class="col-md-12"><button class="btn btn-block btn-success btn-lg" id="btn_pdf" onclick="clickme();">Generate PDF</button></div></div>');
+    var click = "return xepOnline.Formatter.Format('JSFiddle', {render:'download'})";
+    jQuery('#buttons').append('<div class=""><div id="btn_div" class="col-md-12"><button class="btn btn-block btn-success btn-lg" id="btn_pdf" onclick="' + click + '">Generate PDF</button></div></div>');
     function clickme()
     {
         var customer_id = document.getElementById("customer_id").value;

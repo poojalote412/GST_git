@@ -335,7 +335,7 @@ class Management_report extends CI_Controller {
             $top3 = array_sum($arr);
             $top_3_state = round(($top3 / $total) * 100, 2);
 
-            $url = base_url() . "update_detail/" . base64_encode($customer_id) . "/" . base64_encode($insert_id);
+            $url = base_url() . "enter_detail/" . base64_encode($customer_id) . "/" . base64_encode($insert_id);
             if ($curr_url == $url) {
                 $get_observation = $this->db->query("select state_wise_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
                 if ($this->db->affected_rows() > 0) {
@@ -868,11 +868,30 @@ class Management_report extends CI_Controller {
 
                 $grand_total = $taxable_supply + $sub_total_non_gst + $sub_total_exempt + $sub_total_nil_rated + $sub_total_zero_rated;
 
-                $ratio_taxable_supply[] = round(($taxable_supply * 100) / ($grand_total));
-                $ratio_subtotal_nongst[] = round(($sub_total_non_gst * 100) / ($grand_total));
-                $ratio_subtotal_exempt[] = round(($sub_total_exempt * 100) / ($grand_total));
-                $ratio_subtotal_nil_rated[] = round(($sub_total_nil_rated * 100) / ($grand_total));
-                $ratio_subtotal_zero_rated[] = round(($sub_total_zero_rated * 100) / ($grand_total));
+                if ($grand_total != 0) {
+                    $ratio_taxable_supply[] = round(($taxable_supply * 100) / ($grand_total));
+                    $ratio_subtotal_nongst[] = round(($sub_total_non_gst * 100) / ($grand_total));
+                    $ratio_subtotal_exempt[] = round(($sub_total_exempt * 100) / ($grand_total));
+                    $ratio_subtotal_nil_rated[] = round(($sub_total_nil_rated * 100) / ($grand_total));
+                    $ratio_subtotal_zero_rated[] = round(($sub_total_zero_rated * 100) / ($grand_total));
+                    
+                     $ratio1 = (round(($taxable_supply * 100) / ($grand_total)));
+                    $ratio2 = (round(($sub_total_non_gst * 100) / ($grand_total)));
+                    $ratio3 = (round(($sub_total_exempt * 100) / ($grand_total)));
+                    $ratio4 = (round(($sub_total_nil_rated * 100) / ($grand_total)));
+                    $ratio5 = (round(($sub_total_zero_rated * 100) / ($grand_total)));
+                } else {
+                    $ratio_taxable_supply[]=0;
+                    $ratio_subtotal_nongst[]=0;
+                    $ratio_subtotal_exempt[]=0;
+                    $ratio_subtotal_nil_rated[]=0;
+                    $ratio_subtotal_zero_rated[]=0;
+                    $ratio1 = 0;
+                    $ratio2 = 0;
+                    $ratio3 = 0;
+                    $ratio4 = 0;
+                    $ratio5 = 0;
+                }
                 $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
                         '<td>' . $month . '</td>' .
@@ -881,11 +900,11 @@ class Management_report extends CI_Controller {
                         '<td>' . $sub_total_non_gst . '</td>' .
                         '<td>' . $sub_total_nil_rated . '</td>' .
                         '<td>' . $sub_total_zero_rated . '</td>' .
-                        '<td>' . (round(($taxable_supply * 100) / ($grand_total))) . "%" . '</td>' .
-                        '<td>' . (round(($sub_total_non_gst * 100) / ($grand_total))) . "%" . '</td>' .
-                        '<td>' . (round(($sub_total_exempt * 100) / ($grand_total))) . "%" . '</td>' .
-                        '<td>' . (round(($sub_total_nil_rated * 100) / ($grand_total))) . "%" . '</td>' .
-                        '<td>' . (round(($sub_total_zero_rated * 100) / ($grand_total))) . "%" . '</td>' .
+                        '<td>' . $ratio1 . "%" . '</td>' .
+                        '<td>' . $ratio2 . "%" . '</td>' .
+                        '<td>' . $ratio3 . "%" . '</td>' .
+                        '<td>' . $ratio4 . "%" . '</td>' .
+                        '<td>' . $ratio5 . "%" . '</td>' .
                         '</tr>';
                 $k++;
             }
@@ -1542,7 +1561,9 @@ class Management_report extends CI_Controller {
 
             $max = max($sales_percent_values2);
             $min = min($sales_percent_values2);
-            $variation = round(((($max - $min) / ($min))) * 100, 2);
+//            $variation = round(((($max - $min) / ($min))) * 100, 2);
+//            $variation = round(((($max - $min) / ($min))) * 100);
+            
             $url = base_url() . "update_detail/" . base64_encode($customer_id) . "/" . base64_encode($insert_id);
             if ($curr_url == $url) {
                 $get_observation = $this->db->query("select month_wise_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
@@ -1569,7 +1590,7 @@ class Management_report extends CI_Controller {
                                         <span class='input-group-addon'>
                                             <i class='fa fa-eye'></i>
                                         </span>
-                                        <textarea class='form-control' rows='5' id='monthwise_sale_observation' name='monthwise_sale_observation' onkeyup='countWords(this.id);'>" . $variation . " is the % variation of maximum & minimum sales per month requiring careful working capital planning in case receivable delay.</textarea>
+                                        <textarea class='form-control' rows='5' id='monthwise_sale_observation' name='monthwise_sale_observation' onkeyup='countWords(this.id);'> is the % variation of maximum & minimum sales per month requiring careful working capital planning in case receivable delay.</textarea>
                                     </div>
                                     <span class='required' style='color: red' id='monthwise_sale_observation_error'></span>
                                 </div>";
@@ -1680,7 +1701,7 @@ class Management_report extends CI_Controller {
                     $observation = "";
                 }
                 $data .= '<div class="col-md-12">
-                                    <label><h4><b>Observation of CFO:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <label><h4><b>Observation</b></h4></label><span class="required" aria-required="true"> </span>
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="fa fa-eye"></i>
@@ -1722,7 +1743,7 @@ class Management_report extends CI_Controller {
         $data_ratewise_name = "";
         $data_rate_observation = "";
         $data_rate_remarks = "";
-        $a="";
+        $a = "";
 //        if ($query->num_rows() > 0) {
         if ($this->db->affected_rows() > 0) {
             $result = $query->result();
@@ -1734,13 +1755,13 @@ class Management_report extends CI_Controller {
             $data_ratewise_name = 'Sales Tax Rate Wise';
             $data_rate_observation = $rate_wise_observation;
 //            $data_rate_remarks = $rate_wise_remarks;
-           $a= $rate_wise_remarks;
-           if($a==""){
-               $data_rate_remarks='not given';
-           }else{
-               $data_rate_remarks=$rate_wise_remarks;
-           }
-            
+            $a = $rate_wise_remarks;
+            if ($a == "") {
+                $data_rate_remarks = 'not given';
+            } else {
+                $data_rate_remarks = $rate_wise_remarks;
+            }
+
             $data .= "<h4><b>2.Sales Tax Rate Wise</b></h4>";
             $data .= '<table id="example2" class="table-bordered table-striped" width="700">
                                 <thead style="background-color: #0e385e;color:white">
@@ -2413,7 +2434,7 @@ class Management_report extends CI_Controller {
             $data = $result->row();
             $uniq_id = $data->unique_id;
             //generate turn_id
-            $uniq_id = str_pad( ++$uniq_id, 5, '0', STR_PAD_LEFT);
+            $uniq_id = str_pad(++$uniq_id, 5, '0', STR_PAD_LEFT);
             return $uniq_id;
         } else {
             $uniq_id = 'btb_1001';
@@ -2446,9 +2467,9 @@ class Management_report extends CI_Controller {
 //             $data_salesb2b_b2c_remarks=$salesb2b_b2c_remarks;
             $a = $salesb2b_b2c_remarks;
             if ($a == '') {
-                $data_salesb2b_b2c_remarks='not given';
+                $data_salesb2b_b2c_remarks = 'not given';
             } else {
-                $data_salesb2b_b2c_remarks=$salesb2b_b2c_remarks;
+                $data_salesb2b_b2c_remarks = $salesb2b_b2c_remarks;
             }
             $month = array();
             $array_b2b = array();
@@ -2649,9 +2670,9 @@ class Management_report extends CI_Controller {
 //             $data_salesb2b_b2c_remarks=$salesb2b_b2c_remarks;
             $a = $salesb2b_b2c_remarks;
             if ($a == '') {
-                $data_salesb2b_b2c_remarks='not given';
+                $data_salesb2b_b2c_remarks = 'not given';
             } else {
-                $data_salesb2b_b2c_remarks=$salesb2b_b2c_remarks;
+                $data_salesb2b_b2c_remarks = $salesb2b_b2c_remarks;
             }
 
             $month = array();
@@ -2774,7 +2795,7 @@ class Management_report extends CI_Controller {
                                         <span class='input-group-addon'>
                                             <i class='fa fa-eye'></i>
                                         </span>
-                                        <textarea class='form-control' rows='5' id='b2bb2c_sale_observation' name='b2bb2c_sale_observation' onkeyup='countWords(this.id);'>" . $observation . " B2B supply is " . array_sum($array_b2b_ratio) . "% and B2C supply is " . array_sum($array_b2c_ratio) . "% of total supply.</textarea>
+                                        <textarea class='form-control' rows='5' id='b2bb2c_sale_observation' name='b2bb2c_sale_observation' onkeyup='countWords(this.id);'> B2B supply is " . array_sum($array_b2b_ratio) . "% and B2C supply is " . array_sum($array_b2c_ratio) . "% of total supply.</textarea>
                                     </div>
                                     <span class='required' style='color: red' id='b2bb2c_sale_observation'></span>
                                 </div>";
@@ -2847,7 +2868,7 @@ class Management_report extends CI_Controller {
             $response['customer_name'] = $customer_name;  // Customer
             $response['data_salesb2b_b2c_name'] = $data_salesb2b_b2c_name;  // Customer
             $response['data_salesb2b_b2c_observation'] = $data_salesb2b_b2c_observation;  // Customer
-            $response['data_salesb2b_b2c_remarks'] = $data_salesb2b_b2c_remarks; 
+            $response['data_salesb2b_b2c_remarks'] = $data_salesb2b_b2c_remarks;
         } else {
             $response['data'] = "";
             $response['message'] = "";

@@ -148,7 +148,7 @@ if (is_array($session_data)) {
                                 <span class="required" style="color: red" id="customer_name_error"></span>
                             </div>
                             <input type="button" class="btn btn-primary" id="file_location_database"  data-target="#exampleModal-4" data-toggle="modal" value="Save file location" style="float:right;margin-top: 1.8% !important;margin-right: 20%;" onclick="" />
-                            <input type="button" class="btn btn-primary" value="Convert PDF Into word" style="float:right;margin-top: -2.5% !important;margin-right: 5%;" onclick="window.open('https://smallpdf.com/pdf-to-word')" />
+                            <input type="button" class="btn btn-primary" value="Convert PDF Into word" style="float:right;margin-top: -3.5% !important;margin-right: 2%;" onclick="window.open('https://smallpdf.com/pdf-to-word')" />
                         </div>
 
 
@@ -574,12 +574,12 @@ if (is_array($session_data)) {
                         <!--<div id="container_heat_map" style="width:700px"></div>-->
                     </div>
                     
-                    <div class="test" style="page-break-after:always;margin-top:11%">
+                    <div class="test" style="page-break-after:always;margin-top:16%">
                         <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center"><b>11. LIMITED USAGE AND NON-DISCLOSURE </b></p><br> 
                         <div id="container_image_limited_usage" style=""></div><br><br>  
                     </div><br><br>
                     
-                     <div class="test" style="page-break-after:always;margin-top:19%">
+                     <div class="test" style="page-break-after:always;margin-top:16%">
                         <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center"><b>12. Disclaimer </b></p><br>
                         
                         <!--<div id="container_image_disclaimer" style=""><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="700px" height="900px" style=""></div><br><br>-->  

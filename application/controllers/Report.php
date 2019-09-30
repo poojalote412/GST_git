@@ -262,6 +262,7 @@ class Report extends CI_Controller {
             echo json_encode($response);
             exit;
         } else {
+            
             $get_observation = $this->db->query("select file_location,id from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
             $res = $get_observation->row();
             $id = $res->id;
@@ -365,6 +366,21 @@ class Report extends CI_Controller {
         $query = $this->db->query("select * from customer_header_all where customer_id='$customer_id1'");
         $result = $query->row();
         $data['cust_result'] = $result;
+        $query1 = $this->db->query("select * from report_header_all where customer_id='$customer_id1' and insert_id='$insert_id1'");
+        if ($this->db->affected_rows() > 0) {
+            $result_observation = $query1->row();
+        } else {
+            $result_observation = '';
+        }
+
+        $query2 = $this->db->query("select * from observation_transaction_all where customer_id='$customer_id1' and insert_id='$insert_id1' ORDER BY ID DESC LIMIT 1");
+        if ($this->db->affected_rows() > 0) {
+            $result_observation1 = $query2->row();
+        } else {
+            $result_observation1 = '';
+        }
+        $data['result_observation'] = $result_observation;
+        $data['result_observation1'] = $result_observation1;
         $this->load->view('admin/client_details', $data);
     }
 
@@ -376,6 +392,21 @@ class Report extends CI_Controller {
         $query = $this->db->query("select * from customer_header_all where customer_id='$customer_id1'");
         $result = $query->row();
         $data['cust_result'] = $result;
+         $query1 = $this->db->query("select * from report_header_all where customer_id='$customer_id1' and insert_id='$insert_id1'");
+        if ($this->db->affected_rows() > 0) {
+            $result_observation = $query1->row();
+        } else {
+            $result_observation = '';
+        }
+
+        $query2 = $this->db->query("select * from observation_transaction_all where customer_id='$customer_id1' and insert_id='$insert_id1' ORDER BY ID DESC LIMIT 1");
+        if ($this->db->affected_rows() > 0) {
+            $result_observation1 = $query2->row();
+        } else {
+            $result_observation1 = '';
+        }
+        $data['result_observation'] = $result_observation;
+        $data['result_observation1'] = $result_observation1;
         $this->load->view('hq_admin/client_details', $data);
     }
 
@@ -396,7 +427,7 @@ class Report extends CI_Controller {
             } else {
                 $company_name = "XXX";
             }
-            $data = '<div style="margin-top:15%;margin-left: 5%;margin-right:5%;letter-spacing: 0.5px;font-family:Arial Sans Serif;;">
+            $data = '<div style="margin-top:15%;margin-left: 5%;margin-right:5%;letter-spacing: 0.5px;font-family:Arial Sans Serif;">
                 <b style="font-size:18px;color:#1d2f66;">2. EXECUTIVE SUMMARY</b><br>
                      <p style="font-size:13px"> Ecovis RKCA was provided with the data of the company 
                      "' . $company_name . '" 
@@ -433,13 +464,13 @@ class Report extends CI_Controller {
         if ($this->db->affected_rows() > 0) {
             $res = $query_get_insert_header->row();
             $year_id = $res->year_id;
-            $data = '<div style="margin-top:9%;margin-left: 5%;margin-top:5%;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;width:700px;height:700px">
+            $data = '<div style="margin-top:9%;margin-left: 6%;margin-right: 6%;margin-top:5%;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;width:700px;height:700px">
                 
                      <p style="font-size:13px"> Dear Sir,<br><br>
                      We would like to thank you for giving us an opportunity to work for your company. 
                      We refer to our ongoing discussion on assisting (“Company”) in India for GST Health Check Report.<br><br>
                      In this report we have covered the overall perspective of the following:
-                     <ul style="margin-left: -5.1%;;margin-right: 14%;">
+                     <ul style="margin-left: -5.1%;margin-right: 14%;">
                      <li>Identifying the errors in advance so the risk of levy of Interests and penalties can be mitigated.</li>
                      <li>Analyzing Sales data which will facilitate the area and product wise profitability of business. </li>
                      <li>Identifying the deviation in the GST data through Comparison of GSTR-3B with GSTR-1 & GSTR-2A.</li>
@@ -484,8 +515,6 @@ class Report extends CI_Controller {
                     this report is strictly confidential, and no part thereof may be reproduced or used by any other party other than the 
                     client for its intended use.
                     </p>
-                    
-                     
                      </div>';
 
 
@@ -545,7 +574,7 @@ class Report extends CI_Controller {
         if ($this->db->affected_rows() > 0) {
             $res = $query_get_insert_header->row();
             $year_id = $res->year_id;
-            $data = '<div style="background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;height:900px;margin-top:9%;margin-top:5%;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;">
+            $data = '<div style="background:#0e385e; color:white;margin-left: 5%;margin-right: 5%;padding:4px;border:1px solid;width:700px;height:900px;margin-top:9%;margin-top:5%;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;">
                     <p style="font-size:18px;text-align:center;width:700px;margin-top: 9%;"><strong><u>13. ABOUT ECOVIS RKCA</u></strong></p><br>
                     <p style="margin-top: 7%;text-align: justify;margin-left: 5%;margin-right: 5%;text-align: center;">
                     Ecovis is an internationally active consulting firm, which has its origin in Germany. In world-wide over 70 countries work more than 6,500 people. The core competencies are audit, tax and legal advice as well as management consultation.<br><br>

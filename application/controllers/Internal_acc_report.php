@@ -1175,16 +1175,22 @@ class Internal_acc_report extends CI_Controller {
                 $tax_value[] = $tax_val; //tax array
 
 
-                $ratio = ($tax_val / $taxable_val) * 100;
-                $tax_ratio[] = round($ratio);
-                $tax_ratio1[] = ($ratio);
+                if ($taxable_val != 0) {
+                    $ratio = ($tax_val / $taxable_val) * 100;
+                    $tax_ratio[] = round($ratio);
+                    $tax_ratio1[] = ($ratio);
+                } else {
+                    $ratio = 0;
+                    $tax_ratio[] = 0;
+                    $tax_ratio1[] = 0;
+                }
 
-                $data .= '<tr>' .
+               $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
                         '<td>' . $month . '</td>' .
-                        '<td>' . $tax_val . '</td>' .
-                        '<td>' . $taxable_val . '</td>' .
-                        '<td>' . round($ratio) . "%" . '</td>' .
+                        '<td>' . number_format(round($tax_val)) . '</td>' .
+                        '<td>' . number_format(round($taxable_val)) . '</td>' .
+                        '<td>' . number_format(round($ratio)) . "%" . '</td>' .
                         '</tr>';
                 $k++;
             }
@@ -1521,18 +1527,25 @@ class Internal_acc_report extends CI_Controller {
                 $month = $row->month;
                 $ineligible_itc_arr[] = $ineligible_itc;
                 $net_itc_arr[] = $net_itc;
-
-                $ratio_ineligible = ($ineligible_itc * 100 / ($ineligible_itc + $net_itc));
-                $ineligible_ratio_arr[] = ($ineligible_itc * 100 / ($ineligible_itc + $net_itc));
-                $ratio_eligible = ($net_itc * 100 / ($ineligible_itc + $net_itc));
-                $eligible_ratio_arr[] = ($net_itc * 100 / ($ineligible_itc + $net_itc));
+                $total_g = $ineligible_itc + $net_itc;
+                if ($total_g != 0) {
+                    $ratio_ineligible = ($ineligible_itc * 100 / ($total_g));
+                    $ineligible_ratio_arr[] = ($ineligible_itc * 100 / ($total_g));
+                    $ratio_eligible = ($net_itc * 100 / ($total_g));
+                    $eligible_ratio_arr[] = ($net_itc * 100 / ($total_g));
+                } else {
+                    $ratio_ineligible = 0;
+                    $ineligible_ratio_arr[] = 0;
+                    $ratio_eligible = 0;
+                    $eligible_ratio_arr[] = 0;
+                }
                 $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
                         '<td>' . $month . '</td>' .
-                        '<td>' . $ineligible_itc . '</td>' .
-                        '<td>' . $net_itc . '</td>' .
-                        '<td>' . round($ratio_ineligible) . "%" . '</td>' .
-                        '<td>' . round($ratio_eligible) . "%" . '</td>' .
+                        '<td>' . number_format(round($ineligible_itc)) . '</td>' .
+                        '<td>' . number_format(round($net_itc)) . '</td>' .
+                        '<td>' . number_format(round($ratio_ineligible)) . "%" . '</td>' .
+                        '<td>' . number_format(round($ratio_eligible)) . "%" . '</td>' .
                         '</tr>';
                 $k++;
             }
