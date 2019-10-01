@@ -809,6 +809,18 @@ class Internal_acc_report extends CI_Controller {
                                     <span class='required' style='color: red' id='tax_liability_observation_error'></span>
                                 </div>";
             }
+            $get_observation1 = $this->db->query("select tax_liability_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+                if ($this->db->affected_rows() > 0) {
+                    $res = $get_observation1->row();
+                    $tax_liability_remarks = $res->tax_liability_remarks;
+                } else {
+                    $tax_liability_remarks = "";
+                }
+            $data .="<div class='col-md-12'>
+                <h5 class='box-title' style='margin-left: 1%;'><b>Remarks:</b></h5>
+                    <textarea id='editor_tax_liability_data' name='editor_tax_liability_data' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_tax_liability_data')'>".$tax_liability_remarks."</textarea>
+                    </div>";
+            
 //            $data .= "<hr><h4><b>Observation of Tax Liability:</b></h4>";
             $abc = array();
             $abc2 = array();
@@ -1235,6 +1247,18 @@ class Internal_acc_report extends CI_Controller {
                                     <span class='required' style='color: red' id='tax_turnover_observation_error'></span>
                                 </div>";
             }
+            $get_observation1 = $this->db->query("select tax_turnover_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+                if ($this->db->affected_rows() > 0) {
+                    $res = $get_observation1->row();
+                    $tax_turnover_remarks = $res->tax_turnover_remarks;
+                } else {
+                    $tax_turnover_remarks = "";
+                }
+            $data .="<div class='col-md-12'>
+                <h5 class='box-title' style='margin-left: 1%;'><b>Remarks:</b></h5>
+                    <textarea id='editor_tax_turnover_data' name='editor_tax_turnover_data' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_tax_turnover_data')'>".$tax_turnover_remarks."</textarea>
+                    </div>";
+            
             // loop to get graph data as per graph script requirement
             $abc1 = array();
             $abc2 = array();
@@ -1589,6 +1613,18 @@ class Internal_acc_report extends CI_Controller {
                                     <span class='required' style='color: red' id='eligible_ineligible_observation_error'></span>
                                 </div>";
             }
+             $get_observation1 = $this->db->query("select eligible_ineligible_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+                if ($this->db->affected_rows() > 0) {
+                    $res = $get_observation1->row();
+                    $eligible_ineligible_remarks = $res->eligible_ineligible_remarks;
+                } else {
+                    $eligible_ineligible_remarks = "";
+                }
+            $data .="<div class='col-md-12'>
+                <h5 class='box-title' style='margin-left: 1%;'><b>Remarks:</b></h5>
+                    <textarea id='editor_eligible_data' name='editor_eligible_data' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_eligible_data')'>".$eligible_ineligible_remarks."</textarea>
+                    </div>";
+            
             // loop to get graph data as per graph script requirement
             $abc1 = array();
             $abc2 = array();
@@ -1927,7 +1963,18 @@ class Internal_acc_report extends CI_Controller {
             } else {
                 $data .= "<textarea class='form-control' rows='5' id='gst_payable_observation' name='gst_payable_observation'>GST paid in cash has varied from __ to ____ for F.Y. ___. </textarea>";
             }
-
+            
+            $get_observation1 = $this->db->query("select gst_payable_cash_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+                if ($this->db->affected_rows() > 0) {
+                    $res = $get_observation1->row();
+                    $gst_payable_cash_remarks = $res->gst_payable_cash_remarks;
+                } else {
+                    $gst_payable_cash_remarks = "";
+                }
+            $data .="<div class='col-md-12'>
+                    <h5 class='box-title' style='margin-left: 1%;'><b>Remarks:</b></h5>
+                    <textarea id='editor_gst_payable_vs_cash_data' name='editor_gst_payable_vs_cash_data' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_gst_payable_vs_cash_data')'>".$gst_payable_cash_remarks."</textarea>
+                    </div>";
 
 
 

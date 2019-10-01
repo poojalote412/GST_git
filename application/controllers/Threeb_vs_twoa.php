@@ -479,6 +479,18 @@ class Threeb_vs_twoa extends CI_Controller {
                                     <span class='required' style='color: red' id='threeb_vstwoa_observation'></span>
                                 </div>";
             }
+            $get_observation1 = $this->db->query("select gstr3bvs2a_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+                if ($this->db->affected_rows() > 0) {
+                    $res = $get_observation1->row();
+                    $gstr3bvs2a_remarks = $res->gstr3bvs2a_remarks;
+                } else {
+                    $gstr3bvs2a_remarks = "";
+                }
+            $data .="<div class='col-md-12'>
+                    <h5 class='box-title' style='margin-left: 1%;'><b>Remarks:</b></h5>
+                    <textarea id='editor_compare_3b2a_data' name='editor_compare_3b2a_data' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_compare_3b2a_data')'>".$gstr3bvs2a_remarks."</textarea>
+                    </div>";
+            
 
             $data1 .= "<br><br><h4><b>Observation:</b></h4>";
 
@@ -494,6 +506,8 @@ class Threeb_vs_twoa extends CI_Controller {
                 $data1 .= '<span>No difference.</span>';
                 $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
             }
+            
+            
             $abc = array();
             $abc3 = array();
             $abc4 = array();

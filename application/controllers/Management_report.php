@@ -366,6 +366,17 @@ class Management_report extends CI_Controller {
                                     <span class='required' style='color: red' id='statewise_sale_observation_error'></span>
                                 </div>";
             }
+            $get_observation1 = $this->db->query("select state_wise_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+                if ($this->db->affected_rows() > 0) {
+                    $res = $get_observation1->row();
+                    $state_wise_remarks = $res->state_wise_remarks;
+                } else {
+                    $state_wise_remarks = "";
+                }
+            $data .="<div class='col-md-12'>
+                    <h5 class='box-title' style='margin-left: 1%;'><b>Remarks:</b></h5>
+                    <textarea id='editor_location_data' name='editor_location_data' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_location_data')'>".$state_wise_remarks."</textarea>
+                    </div>";
 //            $data1 .= '<h4><b>Observation:</b></h4>';
 //            $data1 .= "<span><b>" . $top_3_state . " </b> % of total sales comes from top 3 states.</span>";
 //            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
@@ -1015,6 +1026,17 @@ class Management_report extends CI_Controller {
                                     <span class='required' style='color: red' id='tax_exempt_observation_error'></span>
                                 </div>";
             }
+            $get_observation1 = $this->db->query("select tax_nontax_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+                if ($this->db->affected_rows() > 0) {
+                    $res = $get_observation1->row();
+                    $tax_nontax_remarks = $res->tax_nontax_remarks;
+                } else {
+                    $tax_nontax_remarks = "";
+                }
+            $data .="<div class='col-md-12'>
+                <h5 class='box-title' style='margin-left: 1%;'><b>Remarks:</b></h5>
+                    <textarea id='editor_tax_ntax_Exempt_data' name='editor_tax_ntax_Exempt_data' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_tax_ntax_Exempt_data')'>".$tax_nontax_remarks."</textarea>
+                    </div>";
             $abc1 = array();
             $abc2 = array();
             $abc3 = array();
@@ -1595,6 +1617,17 @@ class Management_report extends CI_Controller {
                                     <span class='required' style='color: red' id='monthwise_sale_observation_error'></span>
                                 </div>";
             }
+            $get_observation1 = $this->db->query("select month_wise_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+                if ($this->db->affected_rows() > 0) {
+                    $res = $get_observation1->row();
+                    $month_wise_remarks = $res->month_wise_remarks;
+                } else {
+                    $month_wise_remarks = "";
+                }
+            $data .="<div class='col-md-12'>
+                    <h5 class='box-title' style='margin-left: 1%;'><b>Remarks:</b></h5>
+                    <textarea id='editor_sales_monthly_data' name='editor_sales_monthly_data' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_sales_monthly_data')'>".$month_wise_remarks."</textarea>
+                    </div>";
 
 
 //            $data .= "<hr><h4><b>Observation of  Sales month wise:</b></h4>";
@@ -1722,6 +1755,16 @@ class Management_report extends CI_Controller {
                                     <span class='required' style='color: red' id='rate_wise_observation_error'></span>
                                 </div>";
             }
+            $get_observation1 = $this->db->query("select rate_wise_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+                if ($this->db->affected_rows() > 0) {
+                    $res = $get_observation1->row();
+                    $rate_wise_remarks = $res->rate_wise_remarks;
+                } else {
+                    $rate_wise_remarks = "";
+                }
+            $data .= "<div class='col-md-12'>
+                        <b>Remarks:</b></h5><textarea id='editor_rate_wise_data' name='editor_rate_wise_data' rows='10' style='width: 100%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_rate_wise_data')'>".$rate_wise_remarks."</textarea>
+                      </div>";
 
             $respnose['data'] = $data;
             $respnose['message'] = "success";
@@ -1748,8 +1791,8 @@ class Management_report extends CI_Controller {
         if ($this->db->affected_rows() > 0) {
             $result = $query->result();
             $result1 = $query_get_observation->result();
-            echo $rate_wise_observation = $result1->rate_wise_observation;
-            exit;
+            $rate_wise_observation = $result1->rate_wise_observation;
+            
             $rate_wise_remarks = $result1->rate_wise_remarks;
 
             $data_ratewise_name = 'Sales Tax Rate Wise';
@@ -2800,6 +2843,17 @@ class Management_report extends CI_Controller {
                                     <span class='required' style='color: red' id='b2bb2c_sale_observation'></span>
                                 </div>";
             }
+            $get_observation1 = $this->db->query("select b2b_b2c_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+                if ($this->db->affected_rows() > 0) {
+                    $res = $get_observation1->row();
+                    $b2b_b2c_remarks = $res->b2b_b2c_remarks;
+                } else {
+                    $b2b_b2c_remarks = "";
+                }
+            $data .="<div class='col-md-12'>
+                    <h5 class='box-title' style='margin-left: 1%;'><b>Remarks:</b></h5>
+                    <textarea id='editor_b2b_b2c_sale' name='editor_b2b_b2c_sale' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_b2b_b2c_sale')'>".$b2b_b2c_remarks."</textarea>
+                    </div>";
 //            if ($total_turnover < 15000000 && $ttl_b2c_ratio >= 90) {
 //                $data .= "<hr><h4><b>Observation :</b></h4>";
 //                $data .= " <span>Your the turnover is less then <b>150 Lacs </b>& B2C sales is grater than <b>90%</b> , Our advise to go form composition scheme.</span>";

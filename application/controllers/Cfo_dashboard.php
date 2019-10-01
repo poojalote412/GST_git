@@ -184,6 +184,17 @@ class Cfo_dashboard extends CI_Controller {
                                     <span class="required" style="color: red" id="cfo_observation_error"></span> 
                                 <br>';
             }
+            $get_observation1 = $this->db->query("select cfo_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+            if ($this->db->affected_rows() > 0) {
+                $res = $get_observation1->row();
+                $cfo_remarks = $res->cfo_remarks;
+            } else {
+                $cfo_remarks = "";
+            }
+            $data .="<div class='col-md-12'>
+                    <h5 class='box-title' style='margin-left: -3%;'><b>Remarks:</b></h5>
+                    <textarea id='editor_turover_vs_tax' name='editor_turover_vs_tax' rows='10' style='width: 106%;margin-left: -3%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_turover_vs_tax')'>".$cfo_remarks."</textarea>
+                    </div>";
 
 
 

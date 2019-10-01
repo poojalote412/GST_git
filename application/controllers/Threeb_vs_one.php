@@ -503,6 +503,17 @@ class Threeb_vs_one extends CI_Controller {
                                     <span class='required' style='color: red' id='threeb_vsone_observation_error'></span>
                                 </div>";
             }
+            $get_observation1 = $this->db->query("select gstr3bvs1_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+                if ($this->db->affected_rows() > 0) {
+                    $res = $get_observation1->row();
+                    $gstr3bvs1_remarks = $res->gstr3bvs1_remarks;
+                } else {
+                    $gstr3bvs1_remarks = "";
+                }
+            $data .="<div class='col-md-12'>
+                    <h5 class='box-title' style='margin-left: 1%;'><b>Remarks:</b></h5>
+                    <textarea id='editor_compare_3b1_data' name='editor_compare_3b1_data' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_compare_3b1_data')'>".$gstr3bvs1_remarks."</textarea>
+                    </div>";
 //            if ($ttl1 > $ttl2) {
 //                $data1 .= "<br><br><h4><b>Observation :</b></h4>";
 //                $data1 .= '<span><b>1.</b>Value of GSTR-3B is greater than GSTR-1 ,It may impact your vendor relationshion and they shall not get the input tax credit though you have correctly paid the tax on such sales.</div>';

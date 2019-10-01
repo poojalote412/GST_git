@@ -44,40 +44,6 @@ class Customer_admin extends CI_Controller {
 
     
 
-    public function get_file_loacation1() {
-        $customer_id = $this->input->post('customer_id');
-        $insert_id = $this->input->post('insert_id');
-//        $result_firm_name_dd = $this->db->query("SELECT customer_name,customer_email_id,customer_contact_number,created_on FROM customer_header_all WHERE `firm_id`='$firm_id'");
-        $get_observation = $this->db->query("select file_location,created_on,report_id from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
-        if ($get_observation->num_rows() > 0) {
-            $file_location = $get_observation->row();
-            $created_on = $file_location->created_on;
-            $file_location = $file_location->file_location;
-//            echo $created_on;
-//            echo $file_location;
-            $data = '';
-            $data .= '<table id="example3" class="table-bordered table-striped" width="700">
-                                <thead style="background-color: #cd273f;color:white">
-                                
-                                    <tr>
-                                       <td>' . $file_location . '</td>
-                                       <td>' . $created_on . '</td>
-                                      
-                                    </tr>
-                                </thead>
-                                <tbody>';
-//            echo $data;
-            $response['message'] = 'success';
-            $response['data_tbl'] = $data;
-            $response['code'] = 200;
-            $response['status'] = true;
-        } else {
-            $response['message'] = 'No data to display';
-            $response['code'] = 204;
-            $response['status'] = false;
-        }echo json_encode($response);
-    }
-    
     public function get_file_loacation() {
         $customer_id = $this->input->post('customer_id');
         $insert_id = $this->input->post('insert_id');
