@@ -278,8 +278,8 @@ class Cfo_dashboard extends CI_Controller {
         if ($this->db->affected_rows() > 0) {
             $res = $quer1->result();
             $result1 = $query_get_observation->row();
-            $turnover_vsliability_observation = $result1->month_wise_observation;
-            $turnover_vsliability_remarks = $result1->month_wise_remarks;
+            $turnover_vsliability_observation = $result1->cfo_observation;
+            $turnover_vsliability_remarks = $result1->cfo_remarks;
             $data_turnover_vsliability_name = "Turnover vs Tax Liability";
             $data_turnover_vsliability_observation = $turnover_vsliability_observation;
 //            $data_turnover_vsliability_remarks = $turnover_vsliability_remarks;

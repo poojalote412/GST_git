@@ -259,8 +259,8 @@ class Threeb_vs_one extends CI_Controller {
         if ($this->db->affected_rows() > 0) {
             $result = $query->result();
             $result1 = $query_get_observation->row();
-            $threeb_vs1_observation = $result1->month_wise_observation;
-            $threeb_vs1_remarks = $result1->month_wise_remarks;
+            $threeb_vs1_observation = $result1->gstr3bvs1_observation;
+            $threeb_vs1_remarks = $result1->gstr3bvs1_remarks;
 
             $data_threeb_vs1_name = "GSTR-3B vs GSTR-1";
             $data_threeb_vs1_observation = $threeb_vs1_observation;

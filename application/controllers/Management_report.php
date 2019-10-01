@@ -576,8 +576,8 @@ class Management_report extends CI_Controller {
         if ($this->db->affected_rows() > 0) {
             $result = $query->result();
             $result1 = $query_get_observation->row();
-            $tax_nontax_observation = $result1->month_wise_observation;
-            $tax_nontax_remarks = $result1->month_wise_remarks;
+            $tax_nontax_observation = $result1->tax_nontax_observation;
+            $tax_nontax_remarks = $result1->tax_nontax_remarks;
 
             $data_tax_nontax_name = 'Sales Taxable, Non-taxable & Exempt';
             $data_tax_nontax_observation = $tax_nontax_observation;

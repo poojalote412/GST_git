@@ -473,7 +473,7 @@ if (is_array($session_data)) {
 
                         <div class="test" style="page-break-after:always;margin-top: 15%">
                        <!--<div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="900px" height="900px" style=""></div><br><br>-->  
-                            <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center;">7. Executive Summary </p><br><br>
+                            <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center;margin-left: 5%;margin-right: 5%">7. Executive Summary </p><br><br>
                             <div id="container_executive_summary1" style=""></div><br><br> 
                             <table id="example2" class="table-bordered table-striped" width="700px" style="margin-left: 5%;margin-right: 5%;margin-top: -12%;">
                                 <thead style="background-color: #0e385e;color:white">
@@ -510,7 +510,7 @@ if (is_array($session_data)) {
                     <div class="test" style="page-break-after:always;margin-top: 15%">
                        <!--<div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="900px" height="900px" style=""></div><br><br>-->  
                         <div id="" style="width:850px">
-                            <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center;">10. SUMMARY OBSERVATION & CONCLUSION </p><br><br>
+                            <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center;margin-left: 5%;margin-right: 5%">10. SUMMARY OBSERVATION & CONCLUSION </p><br><br>
 
                             <p style="margin-left: 5%">Following are the conclusions drawn after doing the analysis:</p>
                             <p align="justify" style="margin-left: 5%;margin-right:  5%;font-size: 14px;letter-spacing: 0.5px;">
@@ -537,19 +537,19 @@ if (is_array($session_data)) {
                     <!--</div>-->
 
                     <div class="test" style="page-break-after:always;margin-top:11%">
-                        <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center"><b>11. LIMITED USAGE AND NON-DISCLOSURE </b></p><br> 
+                        <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center;margin-left: 5%;margin-right: 5%"><b>11. LIMITED USAGE AND NON-DISCLOSURE </b></p><br> 
                         <div id="container_image_limited_usage" style=""></div><br><br>  
                     </div><br><br>
 
                     <div class="test" style="page-break-after:always;margin-top:19%">
-                        <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center"><b>12. Disclaimer </b></p><br>
+                        <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center;margin-left: 5%;margin-right: 5%"><b>12. Disclaimer </b></p><br>
 
 <!--<div id="container_image_disclaimer" style=""><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="700px" height="900px" style=""></div><br><br>-->  
                         <div id="container_image_disclaimer" style=""></div><br><br>  
 
                     </div>
 
-                    <div class="test" style="page-break-after:always;margin-top:9%">
+                    <div class="test" style="page-break-after:always;margin-top:15%">
                         <!--<div id="container_image_about" style=""><img src="https://premisafe.com/GST_image/about.jpg" width="780px" height="800px" style=""></div><br><br>-->  
                         <div id="container_ecovis_about" style=""></div><br><br>  
 

@@ -503,7 +503,7 @@ class Report extends CI_Controller {
         if ($this->db->affected_rows() > 0) {
             $res = $query_get_insert_header->row();
             $year_id = $res->year_id;
-            $data = '<div style="float:left;margin-left: 5%;margin-top:2%;margin-top:5%;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;width:700px;">
+            $data = '<div style="float:left;margin-left: 5%;margin-top:2%;margin-top:5%;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;width:700px;text-align: justify;">
                     <p>This Report is intended solely for the information and internal use of Client and is not intended to be and should not
                     be used by any other person or entity. In case this report has been accessed by any party other than those intended 
                     to, such person/entity shall send it back to the intended party or Ecovis RKCA or destroy the same so as to protect
@@ -534,20 +534,20 @@ class Report extends CI_Controller {
         if ($this->db->affected_rows() > 0) {
             $res = $query_get_insert_header->row();
             $year_id = $res->year_id;
-            $data = '<div style="margin-top:9%;margin-top:5%;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;width:700px;height:700px">
-                    <ul>
+            $data = '<div style="text-align:justify;font-size:14px;margin-top:9%;margin-top:5%;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;width:700px;height:700px">
+                    <ul style="margin-right:5%;margin-left: -2%;text-align:justify;">
                     <li>The report is generated purely based on the data provided by the client. </li>
                     <li>We are not recommending or suggesting the data to be used in your business decisions nor for use with GST Portal, we are just making an assumption that is generated through the AI and as per expert’s knowledge.</li>
                     </ul><br>
                     <b style="margin-left: 5%">Conditions and major assumptions:</b><br>
-                    <ul>
+                    <ul style="margin-right:5%;margin-left: -2%;text-align:justify;">
                     <li>We state that this is not a attestation or certification of data. We have no responsibility to modify this report for events and circumstances occurring subsequent to the date of this report.</li>
                     <li>The results by reason of performing this GST Health Check report, is not to be used to give expert testimony nor to be in attendance in court or at any government hearing or any other forum</li>
                     <li>The opinion given in this GST Health Check report is based on information provided in part by the management of the company, other sources as listed in the report. This information is assumed to be accurate and complete; we have not audited or attempted to confirm this information for accuracy or completeness.</li>
                     <li>Now withstanding anything contained in this report, the client agrees that Ecovis RKCA shall not have any liability towards the client or to any other third party (in contract or tort or under statute or otherwise) for any economic loss, financial loss or damage suffered by the client.</li>
                     </ul><br>
-                    <b style="margin-left: 5%">Source of Data:</b><br>
-                    <ul>
+                    <b style="margin-left: 5%;">Source of Data:</b><br>
+                    <ul style="margin-right:5%;margin-left: -2%;text-align:justify;">
                     <li>Received from company</li>
                     <li>GST Portal</li>
                     </ul>
