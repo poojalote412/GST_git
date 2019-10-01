@@ -2821,27 +2821,34 @@ class Management_report extends CI_Controller {
                 } else {
                     $observation = "";
                 }
+                   
+                if ($total_turnover < 15000000 && $ttl_b2c_ratio >= 90) {
                 $data .= '<div class="col-md-12">
                                     <label><h4><b>Observation of B2B & B2C:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="fa fa-eye"></i>
                                         </span>
-                                        <textarea class="form-control" rows="5" id="b2bb2c_sale_observation" name="b2bb2c_sale_observation" onkeyup="countWords(this.id);" >B2B supply is_____' . $observation . ' and % and B2C supply is____ ' . $observation . '% of total supply.</textarea>
+                                        <textarea class="form-control" rows="5" id="b2bb2c_sale_observation" name="b2bb2c_sale_observation" onkeyup="countWords(this.id);" >Your the turnover is less then 150 Lacs & B2C sales is grater than 90% , Our advise to go form composition scheme.</textarea>
                                     </div>
                                     <span class="required" style="color: red" id="b2bb2c_sale_observation_error"></span> 
                                 </div><br>';
-            } else {
-                $data .= "<div class='col-md-12'>
-                                    <label><h4><b>Observation :</b></h4></label><span class='required' aria-required='true'> </span>
-                                    <div class='input-group'>
-                                        <span class='input-group-addon'>
-                                            <i class='fa fa-eye'></i>
+                }else{
+                    $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation of B2B & B2C:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
                                         </span>
-                                        <textarea class='form-control' rows='5' id='b2bb2c_sale_observation' name='b2bb2c_sale_observation' onkeyup='countWords(this.id);'> B2B supply is " . array_sum($array_b2b_ratio) . "% and B2C supply is " . array_sum($array_b2c_ratio) . "% of total supply.</textarea>
+                                        <textarea class="form-control" rows="5" id="b2bb2c_sale_observation" name="b2bb2c_sale_observation" onkeyup="countWords(this.id);" >B2B supply is '. array_sum($array_b2b_ratio) . '% and B2C supply is ' . array_sum($array_b2c_ratio) . '% of total supply.</textarea>
                                     </div>
-                                    <span class='required' style='color: red' id='b2bb2c_sale_observation'></span>
-                                </div>";
+                                    <span class="required" style="color: red" id="b2bb2c_sale_observation_error"></span> 
+                                </div><br>';
+                }
+            } else {
+               
             }
             $get_observation1 = $this->db->query("select b2b_b2c_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
                 if ($this->db->affected_rows() > 0) {
