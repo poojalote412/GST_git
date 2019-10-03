@@ -255,7 +255,7 @@ class Threeb_vs_one extends CI_Controller {
         $data_threeb_vs1_name = "";
         $data_threeb_vs1_observation = "";
         $data_threeb_vs1_remarks = "";
-        $a="";
+        $a = "";
         if ($this->db->affected_rows() > 0) {
             $result = $query->result();
             $result1 = $query_get_observation->row();
@@ -265,11 +265,11 @@ class Threeb_vs_one extends CI_Controller {
             $data_threeb_vs1_name = "GSTR-3B vs GSTR-1";
             $data_threeb_vs1_observation = $threeb_vs1_observation;
 //            $data_threeb_vs1_remarks = $threeb_vs1_remarks;
-            $a=$threeb_vs1_remarks;
-            if($a==''){
-                $data_threeb_vs1_remarks='not given';
-            }else{
-                $data_threeb_vs1_remarks=$threeb_vs1_remarks;
+            $a = $threeb_vs1_remarks;
+            if ($a == '') {
+                $data_threeb_vs1_remarks = 'not given';
+            } else {
+                $data_threeb_vs1_remarks = $threeb_vs1_remarks;
             }
             $gstr_tb1 = array();
             $gstr_one2 = array();
@@ -389,8 +389,6 @@ class Threeb_vs_one extends CI_Controller {
             $respose['data_threeb_vs1_name'] = $data_threeb_vs1_name;
             $respose['data_threeb_vs1_observation'] = $data_threeb_vs1_observation;
             $respose['data_threeb_vs1_remarks'] = $data_threeb_vs1_remarks;
-
-            
         } else {
             $respose['data'] = "";
             $respose['data1'] = "";
@@ -476,43 +474,100 @@ class Threeb_vs_one extends CI_Controller {
                 } else {
                     $observation = "";
                 }
+                if ($ttl1 > $ttl2) {
+                    $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation of GSTR3B vs GSTR1:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                
+                    <textarea class="form-control" rows="5" id="threeb_vsone_observation" name="threeb_vsone_observation" onkeyup="countWords(this.id);" >Value of GSTR-3B is greater than GSTR-1 ,It may impact your vendor relationshion and they shall not get the input tax credit though you have correctly paid the tax on such sales.</textarea>
+
+                     </div>
+                                    <span class="required" style="color: red" id="threeb_vsone_observation_error"></span> 
+                                </div><br>';
+                }
+             elseif ($ttl2 > $ttl1) {
                 $data .= '<div class="col-md-12">
                                     <label><h4><b>Observation of GSTR3B vs GSTR1:</b></h4></label><span class="required" aria-required="true"> </span>
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="fa fa-eye"></i>
-                                        </span>';
-                if ($ttl1 > $ttl2) {
-                    $data .= '<textarea class="form-control" rows="5" id="threeb_vsone_observation" name="threeb_vsone_observation" onkeyup="countWords(this.id);" >1.Value of GSTR-3B is greater than GSTR-1 ,It may impact your vendor relationshion and they shall not get the input tax credit though you have correctly paid the tax on such sales.</textarea>';
+                                        </span>
+                
+                    <textarea class="form-control" rows="5" id="threeb_vsone_observation" name="threeb_vsone_observation" onkeyup="countWords(this.id);" > Value of GSTR-1 is greater than GSTR-3B ,Then it mean that output tax liability has not  been paid to govt. in full in comparision to the output tax liability reflected in sales return, this may lead to interest penalties,GST notices & also effect your gst rating leading to adverse GST scrutinies selection.</textarea>
 
-                    $data .= '  </div>
+                     </div>
+                                    <span class="required" style="color: red" id="threeb_vsone_observation_error"></span> 
+                                </div><br>';
+            } else {
+                $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation of GSTR3B vs GSTR1:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                
+                    <textarea class="form-control" rows="5" id="threeb_vsone_observation" name="threeb_vsone_observation" onkeyup="countWords(this.id);" > No difference.</textarea>
+
+                     </div>
+                                    <span class="required" style="color: red" id="threeb_vsone_observation_error"></span> 
+                                </div><br>';
+            }
+        } else {
+             if ($ttl1 > $ttl2) {
+                    $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation of GSTR3B vs GSTR1:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                
+                    <textarea class="form-control" rows="5" id="threeb_vsone_observation" name="threeb_vsone_observation" onkeyup="countWords(this.id);" >Value of GSTR-3B is greater than GSTR-1 ,It may impact your vendor relationshion and they shall not get the input tax credit though you have correctly paid the tax on such sales.</textarea>
+
+                     </div>
                                     <span class="required" style="color: red" id="threeb_vsone_observation_error"></span> 
                                 </div><br>';
                 }
-            } elseif ($ttl2 > $ttl1) {
-                $data .= '<textarea class="form-control" rows="5" id="threeb_vsone_observation" name="threeb_vsone_observation" onkeyup="countWords(this.id);" >Value of GSTR-1 is greater than GSTR-3B ,Then it mean that output tax liability has not  been paid to govt. in full in comparision to the output tax liability reflected in sales return, this may lead to interest penalties,GST notices & also effect your gst rating leading to adverse GST scrutinies selection.</textarea>';
-            } else {
-                $data .= "<div class='col-md-12'>
-                                    <label><h4><b>Observation :</b></h4></label><span class='required' aria-required='true'> </span>
-                                    <div class='input-group'>
-                                        <span class='input-group-addon'>
-                                            <i class='fa fa-eye'></i>
+             elseif ($ttl2 > $ttl1) {
+                $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation of GSTR3B vs GSTR1:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
                                         </span>
-                                        <textarea class='form-control' rows='5' id='threeb_vsone_observation' name='threeb_vsone_observation' onkeyup='countWords(this.id);'>No Difference</textarea>
-                                    </div>
-                                    <span class='required' style='color: red' id='threeb_vsone_observation_error'></span>
-                                </div>";
+                
+                    <textarea class="form-control" rows="5" id="threeb_vsone_observation" name="threeb_vsone_observation" onkeyup="countWords(this.id);" > Value of GSTR-1 is greater than GSTR-3B ,Then it mean that output tax liability has not  been paid to govt. in full in comparision to the output tax liability reflected in sales return, this may lead to interest penalties,GST notices & also effect your gst rating leading to adverse GST scrutinies selection.</textarea>
+
+                     </div>
+                                    <span class="required" style="color: red" id="threeb_vsone_observation_error"></span> 
+                                </div><br>';
+            } else {
+                $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation of GSTR3B vs GSTR1:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                
+                    <textarea class="form-control" rows="5" id="threeb_vsone_observation" name="threeb_vsone_observation" onkeyup="countWords(this.id);" > No difference.</textarea>
+
+                     </div>
+                                    <span class="required" style="color: red" id="threeb_vsone_observation_error"></span> 
+                                </div><br>';
             }
-            $get_observation1 = $this->db->query("select gstr3bvs1_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
-                if ($this->db->affected_rows() > 0) {
-                    $res = $get_observation1->row();
-                    $gstr3bvs1_remarks = $res->gstr3bvs1_remarks;
-                } else {
-                    $gstr3bvs1_remarks = "";
-                }
-            $data .="<div class='col-md-12'>
+        }
+        $get_observation1 = $this->db->query("select gstr3bvs1_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+        if ($this->db->affected_rows() > 0) {
+            $res = $get_observation1->row();
+            $gstr3bvs1_remarks = $res->gstr3bvs1_remarks;
+        } else {
+            $gstr3bvs1_remarks = "";
+        }
+        $data .= "<div class='col-md-12'>
                     <h5 class='box-title' style='margin-left: 1%;'><b>Remarks:</b></h5>
-                    <textarea id='editor_compare_3b1_data' name='editor_compare_3b1_data' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_compare_3b1_data')'>".$gstr3bvs1_remarks."</textarea>
+                    <textarea id='editor_compare_3b1_data' name='editor_compare_3b1_data' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_compare_3b1_data')'>" . $gstr3bvs1_remarks . "</textarea>
                     </div>";
 //            if ($ttl1 > $ttl2) {
 //                $data1 .= "<br><br><h4><b>Observation :</b></h4>";
@@ -529,56 +584,56 @@ class Threeb_vs_one extends CI_Controller {
 //            }
 
 
-            $abc1 = array();
-            $abc2 = array();
-            $abc3 = array();
-            $abc4 = array();
-            $abc5 = array();
+        $abc1 = array();
+        $abc2 = array();
+        $abc3 = array();
+        $abc4 = array();
+        $abc5 = array();
 
-            for ($o = 0; $o < sizeof($gstr_tb1); $o++) {
-                $abc1[] = $gstr_tb1[$o];
-                $aa1 = settype($abc1[$o], "float");
+        for ($o = 0; $o < sizeof($gstr_tb1); $o++) {
+            $abc1[] = $gstr_tb1[$o];
+            $aa1 = settype($abc1[$o], "float");
 
-                $abc2[] = $gstr_one2[$o];
-                $aa2 = settype($abc2[$o], "float");
+            $abc2[] = $gstr_one2[$o];
+            $aa2 = settype($abc2[$o], "float");
 
-                $abc3[] = $gstr_one_ammend3[$o];
-                $aa3 = settype($abc3[$o], "float");
+            $abc3[] = $gstr_one_ammend3[$o];
+            $aa3 = settype($abc3[$o], "float");
 
-                $abc4[] = $difference4[$o];
-                $aa4 = settype($abc4[$o], "float");
+            $abc4[] = $difference4[$o];
+            $aa4 = settype($abc4[$o], "float");
 
-                $abc5[] = $cumu_difference5[$o];
-                $aa5 = settype($abc5[$o], "float");
-            }
-            //function to get customer name
-            $quer2 = $this->db->query("SELECT customer_name from customer_header_all WHERE customer_id='$customer_id'");
+            $abc5[] = $cumu_difference5[$o];
+            $aa5 = settype($abc5[$o], "float");
+        }
+        //function to get customer name
+        $quer2 = $this->db->query("SELECT customer_name from customer_header_all WHERE customer_id='$customer_id'");
 
-            if ($quer2->num_rows() > 0) {
-                $res2 = $quer2->row();
-                $customer_name = $res2->customer_name;
-            }
+        if ($quer2->num_rows() > 0) {
+            $res2 = $quer2->row();
+            $customer_name = $res2->customer_name;
+        }
 
-            $quer_range = $this->db->query("SELECT MAX(gstr1_3B) as gstrtb_max FROM comparison_summary_all WHERE customer_id='$customer_id' and insert_id='$insert_id' order by id desc");
-            $gstr3b_max = $quer_range->row();
-            $gstrtbmax = $gstr3b_max->gstrtb_max;
-            $quer_range1 = $this->db->query("SELECT MAX(gstr1) as gstr1_max FROM comparison_summary_all WHERE customer_id='$customer_id' and insert_id='$insert_id'  order by id desc");
-            $gstr1_max = $quer_range1->row();
-            $gstr1max = $gstr1_max->gstr1_max;
-            $max_value = (max($gstrtbmax, $gstr1max));
+        $quer_range = $this->db->query("SELECT MAX(gstr1_3B) as gstrtb_max FROM comparison_summary_all WHERE customer_id='$customer_id' and insert_id='$insert_id' order by id desc");
+        $gstr3b_max = $quer_range->row();
+        $gstrtbmax = $gstr3b_max->gstrtb_max;
+        $quer_range1 = $this->db->query("SELECT MAX(gstr1) as gstr1_max FROM comparison_summary_all WHERE customer_id='$customer_id' and insert_id='$insert_id'  order by id desc");
+        $gstr1_max = $quer_range1->row();
+        $gstr1max = $gstr1_max->gstr1_max;
+        $max_value = (max($gstrtbmax, $gstr1max));
 
-            $respose['data'] = $data;
-            $respose['data1'] = $data1;
-            $respose['data2'] = $data2;
-            $respose['message'] = "success";
-            $respose['data_gstr3b'] = $abc1;
-            $respose['data_gstr1'] = $abc2;
-            $respose['max'] = $max_value;
-            $respose['data_gstr_one_ammend'] = $abc3;
-            $respose['customer_name'] = $customer_name;
-            $respose['month_data'] = $months; //months 
-            $respose['difference'] = $abc4;
-            $respose['cumu_difference'] = $abc5;
+        $respose['data'] = $data;
+        $respose['data1'] = $data1;
+        $respose['data2'] = $data2;
+        $respose['message'] = "success";
+        $respose['data_gstr3b'] = $abc1;
+        $respose['data_gstr1'] = $abc2;
+        $respose['max'] = $max_value;
+        $respose['data_gstr_one_ammend'] = $abc3;
+        $respose['customer_name'] = $customer_name;
+        $respose['month_data'] = $months; //months 
+        $respose['difference'] = $abc4;
+        $respose['cumu_difference'] = $abc5;
         } else {
             $respose['data'] = "";
             $respose['data1'] = "";
@@ -599,7 +654,7 @@ class Threeb_vs_one extends CI_Controller {
             $data = $result->row();
             $comp_id = $data->compare_id;
             //generate user_id
-            $comp_id = str_pad( ++$comp_id, 5, '0', STR_PAD_LEFT);
+            $comp_id = str_pad(++$comp_id, 5, '0', STR_PAD_LEFT);
             return $comp_id;
         } else {
             $comp_id = 'cmpr_1001';

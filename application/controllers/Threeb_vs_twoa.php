@@ -252,9 +252,9 @@ class Threeb_vs_twoa extends CI_Controller {
 //            $data_threeb_vs2A_remarks = $threeb_vs2A_remarks;
             $a = $threeb_vs2A_remarks;
             if ($a == '') {
-                $data_threeb_vs2A_remarks='not given';
+                $data_threeb_vs2A_remarks = 'not given';
             } else {
-                $data_threeb_vs2A_remarks=$threeb_vs2A_remarks;
+                $data_threeb_vs2A_remarks = $threeb_vs2A_remarks;
             }
             $gstr_tb1 = array();
             $difference2 = array();
@@ -450,64 +450,113 @@ class Threeb_vs_twoa extends CI_Controller {
                 } else {
                     $observation = "";
                 }
-                $data .= '<div class="col-md-12">
+                if ($thb > $twa) {
+                    $data .= '<div class="col-md-12">
                                     <label><h4><b>Observation of GSTR-3B vs 2A:</b></h4></label><span class="required" aria-required="true"> </span>
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="fa fa-eye"></i>
-                                        </span>';
-//                                        if ($thb > $twa) {
-                $data .= '  <textarea class="form-control" rows="5" id="threeb_vstwoa_observation" name="threeb_vstwoa_observation" onkeyup="countWords(this.id);" >GSTR-3B > 2A, ITC declared and ITC claimed is showing a huge difference as either the company has taken excess credit or vendor has not recorded our purchases in his GSTR 1.This may lead to interest liability & penalties notices or permanent loss of credit if vendor is not informed and corrective action is not taken by such vendor.</textarea>';
+                                        </span>
+                                        
+                 <textarea class="form-control" rows="5" id="threeb_vstwoa_observation" name="threeb_vstwoa_observation" onkeyup="countWords(this.id);" >GSTR-3B > 2A, ITC declared and ITC claimed is showing a huge difference as either the company has taken excess credit or vendor has not recorded our purchases in his GSTR 1.This may lead to interest liability & penalties notices or permanent loss of credit if vendor is not informed and corrective action is not taken by such vendor.</textarea>
 
-                $data .= '</div>
+                </div>
                                     <span class="required" style="color: red" id="threeb_vstwoa_observation_error"></span> 
                                         </div><br>';
+                } elseif ($twa > $thb) {
+                    $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation of GSTR-3B vs 2A:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                        
+                 <textarea class="form-control" rows="5" id="threeb_vstwoa_observation" name="threeb_vstwoa_observation" onkeyup="countWords(this.id);" >ITC of GSTR-3B < GSTR-2A, company need to check the eligibility and ineligibility of credit reflecting in GSTR-2A & prepare a reconciliation statement accordingly. There may be the case where input tax credit has not been taken by the company on its genuine eligible input credit.This may lead to a huge loss of working Capital & also permanent loss of credit if corrective actions not taken immediately. </textarea>
 
-//                                        }
-//                                        elseif ($twa > $thb) {
-//                                            
-//                                        }
-            } else {
-                $data .= "<div class='col-md-12'>
+                </div>
+                                    <span class="required" style="color: red" id="threeb_vstwoa_observation_error"></span> 
+                                        </div><br>';
+                }else{
+                     $data .= "<div class='col-md-12'>
                                     <label><h4><b>Observation :</b></h4></label><span class='required' aria-required='true'> </span>
                                     <div class='input-group'>
                                         <span class='input-group-addon'>
                                             <i class='fa fa-eye'></i>
                                         </span>
-                                        <textarea class='form-control' rows='5' id='threeb_vstwoa_observation' name='threeb_vstwoa_observation' onkeyup='countWords(this.id);'>__ is the % variation of maximum & minimum sales per month requiring careful working capital planning in case receivable delay.</textarea>
+                                        <textarea class='form-control' rows='5' id='threeb_vstwoa_observation' name='threeb_vstwoa_observation' onkeyup='countWords(this.id);'>No difference.</textarea>
                                     </div>
                                     <span class='required' style='color: red' id='threeb_vstwoa_observation'></span>
                                 </div>";
+                }
+            } else {
+               if ($thb > $twa) {
+                    $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation of GSTR-3B vs 2A:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                        
+                 <textarea class="form-control" rows="5" id="threeb_vstwoa_observation" name="threeb_vstwoa_observation" onkeyup="countWords(this.id);" >GSTR-3B > 2A, ITC declared and ITC claimed is showing a huge difference as either the company has taken excess credit or vendor has not recorded our purchases in his GSTR 1.This may lead to interest liability & penalties notices or permanent loss of credit if vendor is not informed and corrective action is not taken by such vendor.</textarea>
+
+                </div>
+                                    <span class="required" style="color: red" id="threeb_vstwoa_observation_error"></span> 
+                                        </div><br>';
+                } elseif ($twa > $thb) {
+                    $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation of GSTR-3B vs 2A:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                        
+                 <textarea class="form-control" rows="5" id="threeb_vstwoa_observation" name="threeb_vstwoa_observation" onkeyup="countWords(this.id);" >ITC of GSTR-3B < GSTR-2A, company need to check the eligibility and ineligibility of credit reflecting in GSTR-2A & prepare a reconciliation statement accordingly. There may be the case where input tax credit has not been taken by the company on its genuine eligible input credit.This may lead to a huge loss of working Capital & also permanent loss of credit if corrective actions not taken immediately. </textarea>
+
+                </div>
+                                    <span class="required" style="color: red" id="threeb_vstwoa_observation_error"></span> 
+                                        </div><br>';
+                }else{
+                     $data .= "<div class='col-md-12'>
+                                    <label><h4><b>Observation :</b></h4></label><span class='required' aria-required='true'> </span>
+                                    <div class='input-group'>
+                                        <span class='input-group-addon'>
+                                            <i class='fa fa-eye'></i>
+                                        </span>
+                                        <textarea class='form-control' rows='5' id='threeb_vstwoa_observation' name='threeb_vstwoa_observation' onkeyup='countWords(this.id);'>No difference.</textarea>
+                                    </div>
+                                    <span class='required' style='color: red' id='threeb_vstwoa_observation'></span>
+                                </div>";
+                }
             }
             $get_observation1 = $this->db->query("select gstr3bvs2a_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
-                if ($this->db->affected_rows() > 0) {
-                    $res = $get_observation1->row();
-                    $gstr3bvs2a_remarks = $res->gstr3bvs2a_remarks;
-                } else {
-                    $gstr3bvs2a_remarks = "";
-                }
-            $data .="<div class='col-md-12'>
+            if ($this->db->affected_rows() > 0) {
+                $res = $get_observation1->row();
+                $gstr3bvs2a_remarks = $res->gstr3bvs2a_remarks;
+            } else {
+                $gstr3bvs2a_remarks = "";
+            }
+            $data .= "<div class='col-md-12'>
                     <h5 class='box-title' style='margin-left: 1%;'><b>Remarks:</b></h5>
-                    <textarea id='editor_compare_3b2a_data' name='editor_compare_3b2a_data' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_compare_3b2a_data')'>".$gstr3bvs2a_remarks."</textarea>
+                    <textarea id='editor_compare_3b2a_data' name='editor_compare_3b2a_data' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_compare_3b2a_data')'>" . $gstr3bvs2a_remarks . "</textarea>
                     </div>";
-            
+
 
             $data1 .= "<br><br><h4><b>Observation:</b></h4>";
+//
+//            if ($thb > $twa) {
+//                $data1 .= '<span>GSTR-3B > 2A, ITC declared and ITC claimed is showing a huge difference as either the company has taken excess credit or vendor has not recorded our purchases in his GSTR 1. '
+//                        . 'This may lead to interest liability & penalties notices or permanent loss of credit if vendor is not informed and corrective action is not taken by such vendor.</span>';
+//                $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
+//            } elseif ($twa > $thb) {
+//                $data1 .= '<span>GSTR-3B < 2A, company need to check the eligibility and ineligibility of credit reflecting in GSTR-2A & prepare a reconciliation statement accordingly. There may be the case where input tax credit has not been taken by the company on its genuine eligible input credit. '
+//                        . 'This may lead to a huge loss of working Capital & also permanent loss of credit if corrective actions not taken immediately.</span>';
+//                $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
+//            } else {
+//                $data1 .= '<span>No difference.</span>';
+//                $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
+//            }
 
-            if ($thb > $twa) {
-                $data1 .= '<span>GSTR-3B > 2A, ITC declared and ITC claimed is showing a huge difference as either the company has taken excess credit or vendor has not recorded our purchases in his GSTR 1. '
-                        . 'This may lead to interest liability & penalties notices or permanent loss of credit if vendor is not informed and corrective action is not taken by such vendor.</span>';
-                $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
-            } elseif ($twa > $thb) {
-                $data1 .= '<span>GSTR-3B < 2A, company need to check the eligibility and ineligibility of credit reflecting in GSTR-2A & prepare a reconciliation statement accordingly. There may be the case where input tax credit has not been taken by the company on its genuine eligible input credit. '
-                        . 'This may lead to a huge loss of working Capital & also permanent loss of credit if corrective actions not taken immediately.</span>';
-                $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
-            } else {
-                $data1 .= '<span>No difference.</span>';
-                $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
-            }
-            
-            
+
             $abc = array();
             $abc3 = array();
             $abc4 = array();
@@ -692,7 +741,7 @@ class Threeb_vs_twoa extends CI_Controller {
             $data = $result->row();
             $comp_id = $data->compare_id;
             //generate user_id
-            $comp_id = str_pad( ++$comp_id, 5, '0', STR_PAD_LEFT);
+            $comp_id = str_pad(++$comp_id, 5, '0', STR_PAD_LEFT);
             return $comp_id;
         } else {
             $comp_id = 'cmpr_1001';

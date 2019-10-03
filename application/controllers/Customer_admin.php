@@ -401,7 +401,7 @@ class Customer_admin extends CI_Controller {
         $eligible_ineligible_remarks = nl2br($this->input->post('editor_eligible_data'));
         $threeb_vs_one_observation = nl2br($this->input->post('threeb_vsone_observation'));
         $threeb_vs_one_remarks = nl2br($this->input->post('editor_compare_3b1_data'));
-        $threeb_vs_twoa_observation = nl2br($this->input->post('editor_compare_3b2a_data'));
+        $threeb_vs_twoa_observation = nl2br($this->input->post('threeb_vstwoa_observation'));
         $threeb_vs_twoa_remarks = nl2br($this->input->post('editor_compare_3b2a_data'));
         $b2b_b2c_observation = nl2br($this->input->post('b2bb2c_sale_observation'));
         $b2b_b2c__remarks = nl2br($this->input->post('editor_b2b_b2c_sale'));
@@ -666,7 +666,7 @@ class Customer_admin extends CI_Controller {
         $eligible_ineligible_remarks = nl2br($this->input->post('editor_eligible_data'));
         $threeb_vs_one_observation = nl2br($this->input->post('threeb_vsone_observation'));
         $threeb_vs_one_remarks = nl2br($this->input->post('editor_compare_3b1_data'));
-        $threeb_vs_twoa_observation = nl2br($this->input->post('editor_compare_3b2a_data'));
+        $threeb_vs_twoa_observation = nl2br($this->input->post('threeb_vstwoa_observation'));
         $threeb_vs_twoa_remarks = nl2br($this->input->post('editor_compare_3b2a_data'));
         $b2b_b2c_observation = nl2br($this->input->post('b2bb2c_sale_observation'));
         $b2b_b2c__remarks = nl2br($this->input->post('editor_b2b_b2c_sale'));

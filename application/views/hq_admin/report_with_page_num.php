@@ -580,7 +580,7 @@ if (is_array($session_data)) {
                         <div id="container_image_limited_usage" style=""></div><br><br>  
                     </div><br><br>
 
-                    <div class="test" style="page-break-after:always;margin-top:16%">
+                    <div class="test" style="page-break-after:always;margin-top:10%">
                         <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center;margin-left: 5%;margin-right: 5%"><b>12. Disclaimer </b></p><br>
 
 <!--<div id="container_image_disclaimer" style=""><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="700px" height="900px" style=""></div><br><br>-->  
