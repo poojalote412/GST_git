@@ -71,7 +71,7 @@ class Report extends CI_Controller {
             if (empty($fileName)) {
                 return false;
             } else {
-                $file = $this->upload->do_upload('file_upload');
+                $file = $this->upload->do_upload('file_upload')."1";
                 if (!$file) {
                     $error = array('upload_error' => $this->upload->display_errors());
                     $response['error'] = $files['file_upload']['name'] . ' ' . $error['upload_error'];
@@ -103,6 +103,7 @@ class Report extends CI_Controller {
     }
 
     public function do_upload() {
+        
         $config['upload_path'] = './images/';
         $config['allowed_types'] = 'gif|jpg|png|pdf';
         $config['max_size'] = 10000;
