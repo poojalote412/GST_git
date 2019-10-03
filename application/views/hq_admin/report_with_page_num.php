@@ -647,7 +647,7 @@ if (is_array($session_data)) {
         var customer_id = document.getElementById("customer_id").value;
         var insert_id = document.getElementById("insert_id").value;
         var report_id = document.getElementById("report_id").value;
-        alert(customer_id);
+//        alert(customer_id);
 //            alert(insert_id);
         console.log(customer_id);
         console.log(insert_id);
