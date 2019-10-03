@@ -147,8 +147,12 @@ if (is_array($session_data)) {
                                 </div>
                                 <span class="required" style="color: red" id="customer_name_error"></span>
                             </div>
-                            <input type="button" class="btn btn-primary" id="file_location_database"  data-target="#exampleModal-4" data-toggle="modal" value="Save file location" style="float:right;margin-top: 1.8% !important;margin-right: 20%;" onclick="" />
-                            <input type="button" class="btn btn-primary" value="Convert PDF Into word" style="float:right;margin-top: -3.5% !important;margin-right: 2%;" onclick="window.open('https://smallpdf.com/pdf-to-word')" />
+                            <div class="row" style="float:right;margin-top: 2.5%">
+                             <div class="col-md-12" >
+                            <input type="button" class="btn btn-primary" id="file_location_database"  data-target="#exampleModal-4" data-toggle="modal" value="Save file location" style="" onclick="" />
+                            <input type="button" class="btn btn-primary" value="Convert PDF Into word" onclick="window.open('https://smallpdf.com/pdf-to-word')" />
+                            </div>
+                            </div>
                         </div>
 
 
