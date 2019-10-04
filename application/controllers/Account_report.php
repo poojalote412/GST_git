@@ -79,7 +79,7 @@ class Account_report extends CI_Controller {
             $result = $query->result();
             $months = array();
             $data .= ' <h4 style="color:#1d2f66"><b>1. GSTR-3B:</b></h4>';
-            $data .= '<table id="" class="table-bordered table-striped" width="700">
+            $data .= '<table id="" class="table-bordered table-striped">
                                 <thead style="background-color: #516b22;padding:3px;color:white">
                                     <tr style="padding:3px">
                                         <th>No.</th>
@@ -153,7 +153,7 @@ class Account_report extends CI_Controller {
             $result = $query->result();
             $period = array();
             $data1 .= '<br><br><h4 style="color:#1d2f66"><b>2. GSTR-1:</b></h4>';
-            $data .= '<table id="example2" class="table-bordered table-striped" width="700">
+            $data .= '<table id="example2" class="table-bordered table-striped">
                                 <thead style="background-color: #516b22 ;color:white">
                                     <tr>
                                         <th>No.</th>

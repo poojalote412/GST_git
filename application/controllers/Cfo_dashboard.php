@@ -111,7 +111,10 @@ class Cfo_dashboard extends CI_Controller {
             $turnover1 = array();
             $tax_liabality1 = array();
             $ratio_val = array();
-            $data .= '<table id="example2" class="table-bordered table-striped" width="800">
+            $data .= '<div class="row">
+                    <div class="col-md-12">
+                    <div class="">
+                    <table id="example2" class="table-bordered table-striped">
                                 <thead style="background-color: #FE6666;color:white">
                                     <tr>
                                         <th>No.</th>
@@ -152,7 +155,7 @@ class Cfo_dashboard extends CI_Controller {
                     '<td>' . '<b>' . array_sum($tax_liabality1) . '</b>' . '</td>' .
                     '<td>' . '<b>' . array_sum($ratio_val) . "%" . '</b>' . '</td>' .
                     '</tr>';
-            $data .= '</tbody></table>';
+            $data .= '</tbody></table></div></div></div>';
 //         echo   max($ratio_val);
 //         echo   min($ratio_val);
             $url = base_url() . "update_detail/" . base64_encode($customer_id) . "/" . base64_encode($insert_id);
