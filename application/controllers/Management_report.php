@@ -1612,7 +1612,7 @@ class Management_report extends CI_Controller {
                                         <span class='input-group-addon'>
                                             <i class='fa fa-eye'></i>
                                         </span>
-                                        <textarea class='form-control' rows='5' id='monthwise_sale_observation' name='monthwise_sale_observation' onkeyup='countWords(this.id);'> is the % variation of maximum & minimum sales per month requiring careful working capital planning in case receivable delay.</textarea>
+                                        <textarea class='form-control' rows='5' id='monthwise_sale_observation' name='monthwise_sale_observation' onkeyup='countWords(this.id);'> __is the % variation of maximum & minimum sales per month requiring careful working capital planning in case receivable delay.</textarea>
                                     </div>
                                     <span class='required' style='color: red' id='monthwise_sale_observation_error'></span>
                                 </div>";
