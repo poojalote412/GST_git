@@ -2433,7 +2433,7 @@ if (is_array($session_data)) {
                     $('#example1').DataTable();
                 } else {
                     $('#account_monthly_data').html("");
-                    $('#account_monthly_data').html("<b>Please insert files to see result.</b>");
+                    $('#account_monthly_data').html("<b>Please insert files to see result of GSTR-3B.</b>");
 
                 }
             },
@@ -2453,7 +2453,7 @@ if (is_array($session_data)) {
                     $('#example2').DataTable();
                 } else {
                     $('#gstr1_data').html("");
-                    $('#gstr1_data').html("<b>Please insert files to see result.</b>");
+                    $('#gstr1_data').html("<b>Please insert files to see result of GSTR-1.</b>");
                 }
             },
 

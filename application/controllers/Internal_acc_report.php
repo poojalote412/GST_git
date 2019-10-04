@@ -794,7 +794,10 @@ class Internal_acc_report extends CI_Controller {
                 $data .= '
                                     <label><h4><b>Observation of CFO:</b></h4></label><span class="required" aria-required="true"> </span>
                                     
-                                        <div class="col-md-12">
+                                        <div class="input-group">
+                                         <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
                                         <textarea class="form-control" rows="5"  id="tax_liability_observation" name="tax_liability_observation" onkeyup="countWords(this.id);">' . $observation1 . '</textarea>
                                     </div>
                                     <span class="required" style="color: red" id="tax_liability_observation_error"></span> 
@@ -803,7 +806,10 @@ class Internal_acc_report extends CI_Controller {
                 $data .= "
                                     <label><h4><b>Observation </b></h4></label><span class='required' aria-required='true'> </span>
                                     
-                                         <div class='col-md-12'>
+                                        <div class='input-group'>
+                                          <span class='input-group-addon'>
+                                            <i class='fa fa-eye'></i>
+                                        </span>
                                         <textarea class='form-control' rows='5'  id='tax_liability_observation' name='tax_liability_observation' onkeyup='countWords(this.id);'>" . $observation . "</textarea>
                                     </div>
                                     <span class='required' style='color: red' id='tax_liability_observation_error'></span>
