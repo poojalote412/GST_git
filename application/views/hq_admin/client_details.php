@@ -1785,7 +1785,7 @@ if (is_array($session_data)) {
 //GSTR-3B vs GSTR-1
         $.ajax({
             type: "POST",
-            url: "<?= base_url("Threeb_vs_one/get_graph") ?>",
+            url: "<?= base_url("Threeb_vs_one/get_graph1") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
@@ -1894,7 +1894,7 @@ if (is_array($session_data)) {
 //GSTR-1 vs GSTR-2A
         $.ajax({
             type: "POST",
-            url: "<?= base_url("Threeb_vs_twoa/get_graph") ?>",
+            url: "<?= base_url("Threeb_vs_twoa/get_graph1") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id},
             success: function (result) {
