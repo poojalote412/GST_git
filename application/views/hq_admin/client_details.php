@@ -655,7 +655,7 @@ if (is_array($session_data)) {
                                         </h3>  
                                     </div>
 
-                                    <textarea id="editor12" name="editor12" rows="10" style="width: 100%" onkeyup="final_word_count(this.id);remove_error('editor12')"><?php echo $result_observation1->compliments_conclusion_summary; ?></textarea>
+                                    <textarea id="editor12" name="editor12" rows="10" style="width: 100%" onkeyup="final_word_count(this.id);remove_error('editor12')"></textarea>
                                     <span class="required" style="color: red" id="editor12_error"></span>
                                 </div>
                                 <div class="col-md-4">
@@ -664,7 +664,7 @@ if (is_array($session_data)) {
                                         </h3>  
                                     </div>
 
-                                    <textarea id="editor13" name="editor13" rows="10" style="width: 100%" onkeyup="final_word_count(this.id);remove_error('editor13')"><?php echo $result_observation1->serious_conclusion_summary; ?></textarea>
+                                    <textarea id="editor13" name="editor13" rows="10" style="width: 100%" onkeyup="final_word_count(this.id);remove_error('editor13')"></textarea>
                                     <span class="required" style="color: red" id="editor13_error"></span>
                                 </div>
                                 <div class="col-md-4">
@@ -673,7 +673,7 @@ if (is_array($session_data)) {
                                         </h3>  
                                     </div>
 
-                                    <textarea id="editor14" name="editor14" rows="10" style="width: 100%" onkeyup="final_word_count(this.id);remove_error('editor14')"><?php echo $result_observation1->improvement_conclusion_summary; ?></textarea>
+                                    <textarea id="editor14" name="editor14" rows="10" style="width: 100%" onkeyup="final_word_count(this.id);remove_error('editor14')"></textarea>
                                     <span class="required" style="color: red" id="editor14_error"></span>
                                 </div>
                             </div>
