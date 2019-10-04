@@ -1771,7 +1771,7 @@ if (is_array($session_data)) {
         });
         $.ajax({
             type: "post",
-            url: "<?= base_url("Account_report/get_graph") ?>",
+            url: "<?= base_url("Account_report/get_graph1") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
@@ -1795,7 +1795,7 @@ if (is_array($session_data)) {
 
         $.ajax({
             type: "post",
-            url: "<?= base_url("Account_report/get_gstr1_details") ?>",
+            url: "<?= base_url("Account_report/get_gstr1_details1") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {

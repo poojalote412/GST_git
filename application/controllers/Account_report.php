@@ -79,6 +79,77 @@ class Account_report extends CI_Controller {
             $result = $query->result();
             $months = array();
             $data .= ' <h4 style="color:#1d2f66"><b>1. GSTR-3B:</b></h4>';
+            $data .= '<table id="" class="table-bordered table-striped" >
+                                <thead style="background-color: #516b22;padding:3px;color:white">
+                                    <tr style="padding:3px">
+                                        <th>No.</th>
+                                        <th>Month</th>
+                                        <th>Status</th>
+                                        <th>Late Fees</th>
+                                        <th>Due Date</th>
+                                        <th>Filing Date</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>';
+            $k = 1;
+            foreach ($result as $row) {
+                $months = $row->month;
+                $late_fees = $row->late_fees;
+                $due_date = $row->due_date;
+                $filling_date = $row->filling_date;
+
+                $originalDate = $filling_date;
+                $filling_date1 = date("d-m-Y", strtotime($originalDate));
+
+                $originalDate1 = $due_date;
+                $due_date1 = date("d-m-Y", strtotime($originalDate1));
+
+
+                $status = '';
+                $data .= '<tr>' .
+                        '<td>' . $k . '</td>' .
+                        '<td>' . $months . '</td>';
+                if (strtotime($filling_date1) > strtotime($due_date1)) {
+                    $data .= '<td style="background-color:#e31e25; color:#e31e25;">Filed</td>';
+//                    $data .= '<td ><button type="button" style="background-color:#e31e25 ;border: none;color: white;padding: 7px 25px 7px 25px;display: inline-block; border-radius:5px;"></button></td>';
+                    
+                } else {
+                    $data .= '<td style="background-color:#84ab32; color:#84ab32;">Filed</td>';
+                    //$data .= '<td ><button type="button" style="background-color: #84ab32;border: none;color: white;padding: 7px 25px 7px 25px;display: inline-block; border-radius:5px;"></button></td>';
+                }
+
+                $data .= '<td>' . round($late_fees) . '</td>' .
+                        '<td>' . round($due_date1) . '</td>' .
+                        '<td>' . $filling_date1 . '</td>' .
+                        '</tr>';
+                $k++;
+            }
+
+
+            $respose['data'] = $data;
+            $respose['data1'] = $data1;
+            $respose['message'] = "success";
+        } else {
+            $respose['data'] = "";
+            $respose['message'] = "fail";
+        }
+        echo json_encode($respose);
+    }
+    
+    
+    public function get_graph1() {
+        $customer_id = $this->input->post("customer_id");
+//        $insert_id = $this->input->post("insert_id");
+
+        $query = $this->db->query("SELECT month,late_fees,due_date,filling_date FROM 3b_offset_summary_all WHERE customer_id='$customer_id'");
+        $data = ""; //view observations
+        $data1 = ""; //view Table name
+        if ($query->num_rows() > 0) {
+
+            $result = $query->result();
+            $months = array();
+            $data .= ' <h4 style="color:#1d2f66"><b>1. GSTR-3B:</b></h4>';
             $data .= '<table id="" class="table-bordered table-striped" width="700">
                                 <thead style="background-color: #516b22;padding:3px;color:white">
                                     <tr style="padding:3px">
@@ -152,7 +223,63 @@ class Account_report extends CI_Controller {
 
             $result = $query->result();
             $period = array();
-            $data1 .= '<br><br><h4 style="color:#1d2f66"><b>2. GSTR-1:</b></h4>';
+            $data .= '<h4 style="color:#1d2f66"><b>2. GSTR-1:</b></h4>';
+            $data .= '<table id="example2" class="table-bordered table-striped">
+                                <thead style="background-color: #516b22 ;color:white">
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Period</th>
+                                        <th>Status</th>
+                                        <th>Filing Date</th>
+                                        <th>Acknowledge No</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>';
+            $k = 1;
+
+
+            foreach ($result as $row) {
+                $period = $row->period;
+                $status = $row->status;
+                $filling_date = $row->filling_date;
+                $acknowledge_no = $row->acknowledge_no;
+                $data .= '<tr>' .
+                        '<td>' . $k . '</td>' .
+                        '<td>' . $period . '</td>';
+                if ($status == 'Filed') {
+                    $data .= '<td style="background-color:#e31e25; color:#e31e25;">Filed</td>';
+                } else {
+                    $data .= '<td style="background-color:#84ab32; color:#84ab32;">Filed</td>';
+                }
+                $data .= '<td>' . $filling_date . '</td>' .
+                        '<td>' . $acknowledge_no . '</td>' .
+                        '</tr>';
+                $k++;
+            }
+
+            $respose['data'] = $data;
+            $respose['data1'] = $data1;
+            $respose['message'] = "success";
+        } else {
+            $respose['data'] = "";
+            $respose['message'] = "fail";
+        }
+        echo json_encode($respose);
+    }
+    
+    public function get_gstr1_details1() {
+        $customer_id = $this->input->post("customer_id");
+//        $insert_id = $this->input->post("insert_id");
+
+        $query = $this->db->query("SELECT period,status,filling_date,acknowledge_no FROM return_filled_gstr1_summary WHERE customer_id='$customer_id' ");
+        $data = ""; //view observations
+        $data1 = ""; //view observations
+        if ($query->num_rows() > 0) {
+
+            $result = $query->result();
+            $period = array();
+            $data .= '<br><br><h4 style="color:#1d2f66"><b>2. GSTR-1:</b></h4>';
             $data .= '<table id="example2" class="table-bordered table-striped" width="700">
                                 <thead style="background-color: #516b22 ;color:white">
                                     <tr>

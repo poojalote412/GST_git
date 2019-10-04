@@ -430,10 +430,15 @@ if (is_array($session_data)) {
                         <input type="hidden" id="invoice_comparison_div" name="invoice_comparison_div" value="0">
                         <div class="test" id="complience_report_div" style="page-break-after:always;margin-left:5%;margin-right: 5%;">
                             <h4 style="color:#0e385e;"><b>A. COMPLIANCE REPORT</b></h4>
-                            <div id="gstr3B_data1" style="width:700px;"></div>
-                            <div id="gstr3B_data" style="width:700px;"></div>
-                            <div id="gstr1_data1" style="width:700px;"></div>
-                            <div id="gstr1_data" style="width:700px;"></div>
+                               
+                                    <div id="gstr3B_data1" style=""></div>
+                                    <div id="gstr3B_data" style="width:700px;"></div>
+                            
+                                   <div id="gstr1_data1" style="width:700px;"></div>
+                                    <div id="gstr1_data" style="width:700px;"></div>
+                               
+                            
+
                         </div>
 
 
@@ -1661,7 +1666,7 @@ if (is_array($session_data)) {
         });
         $.ajax({
             type: "post",
-            url: "<?= base_url("Account_report/get_graph") ?>",
+            url: "<?= base_url("Account_report/get_graph1") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
@@ -1685,7 +1690,7 @@ if (is_array($session_data)) {
 
         $.ajax({
             type: "post",
-            url: "<?= base_url("Account_report/get_gstr1_details") ?>",
+            url: "<?= base_url("Account_report/get_gstr1_details1") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
