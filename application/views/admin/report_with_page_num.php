@@ -161,7 +161,7 @@ if (is_array($session_data)) {
                     <input type="hidden" id="second_div_value" name="second_div_value" value="0">
                     <input type="hidden" id="third_div_value" name="third_div_value" value="0">
                     <input type="hidden" id="fourth_div_value" name="fourth_div_value" value="0">
-                    <input type="hidden" id="visible_customer_detail" name="visible_customer_detail" value="<?php $company_details->visible_customer_detail?>">
+                    <input type="hidden" id="visible_customer_detail" name="visible_customer_detail" value="<?php echo $company_details->visible_customer_detail?>">
                     <!--<input type="text" id="fifth_div_value" name="fifth_div_value" value="0">-->
                     <!--<div class="btn btn-success"><a href="https://smallpdf.com/pdf-to-word">Convert Downloaded PDF Into word</a></div>-->
 
@@ -714,7 +714,6 @@ if (is_array($session_data)) {
         var insert_id = document.getElementById("insert_id").value;
         var company_name = document.getElementById("company_name").value;
         var visible_customer_detail = document.getElementById("visible_customer_detail").value;
-
         
         $.ajax({
             type: "post",
