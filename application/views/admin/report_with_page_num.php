@@ -190,13 +190,13 @@ if (is_array($session_data)) {
 
 
                     <header id="header_id" class="header_id" style="display:none;margin-top:20px;">
-                        <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif;margin-right: 12px"> <img src="https://premisafe.com/Logo.jpg" style="float: right;width:160px;height:40px"></p><br><br><br>
+                        <p style=" text-align: right;font-size:21px;font-family: Comic Sans MS, Times, serif;margin-right: 12px"> <img src="https://premisafe.com/Logo.jpg" style="float: right;margin-right:5%;width:160px;height:40px"></p><br><br><br>
                     </header>
 
                     <footer style="display:none;margin-top:-30px;">
                         <div>
                             <p style="text-align: left;margin-left: 45px;">Strictly Private and Confidential</p>
-                            <p  style="text-align: right; margin-right:  45px;">Page <pagenum/> of <totpages/></p>
+                            <p  style="text-align: right; margin-right:  45px;margin-top: -40px">Page <pagenum/> of <totpages/></p>
                         </div>
                     </footer>
 
@@ -371,7 +371,7 @@ if (is_array($session_data)) {
                         <div style="margin-top:15%;margin-left:5%;margin-right: 5%;">
                             <h4 class="" style="color:#0e385e;"><b>6.DETAILS OF GST REPORTS AND INSIGHTS</b></h4>
                             <h4 class="" style="background:#0e385e; color:white;width:700px;text-align:center">DATA INSIGHTS</h4>
-                            <h4 class="" style="color:#0e385e"><b>A.MANAGEMENT REPORT</b></h4><br>
+                            <h4 class="" style="color:#0e385e"><b>A.SALES REPORT</b></h4><br>
                         </div>
                         <div class="test" id="monthly_div" style="page-break-after:always;margin-left:5%;margin-right: 5%;">
                             <div id="sales_monthly_data2" ></div>
