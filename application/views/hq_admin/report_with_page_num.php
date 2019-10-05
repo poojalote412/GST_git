@@ -63,7 +63,8 @@ if (is_array($session_data)) {
         padding-left:  1%;     
     }
     th{
-        text-align: center;
+        text-align: left;
+        padding-left:  1%; 
 
     }
     table{

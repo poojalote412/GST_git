@@ -54,7 +54,8 @@ if (is_array($session_data)) {
         padding-left:  1%;     
     }
     th{
-        text-align: center;
+        text-align: left;
+        padding-left:  1%; 
 
     }
     table{
@@ -165,7 +166,7 @@ if (is_array($session_data)) {
 
                     <footer style="display:none;margin-top:-30px;">
                         <div>
-                            
+
                             <p style="text-align: left;margin-left: 45px;">Strictly Private and Confidential</p>
                             <p  style="text-align: right; margin-right:  45px;margin-top: -40px">Page <pagenum/> of <totpages/></p>
                         </div>
@@ -532,10 +533,10 @@ if (is_array($session_data)) {
 
                     <div class="test" style="page-break-after:always;margin-top:10%">
                         <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center;margin-left: 5%;margin-right: 5%"><b>12. Disclaimer </b></p><br>
-                        
-                        <!--<div id="container_image_disclaimer" style=""><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="700px" height="900px" style=""></div><br><br>-->  
+
+<!--<div id="container_image_disclaimer" style=""><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="700px" height="900px" style=""></div><br><br>-->  
                         <div id="container_image_disclaimer" style=""></div><br><br>  
-                       
+
                     </div>
 
                     <div class="test" style="page-break-after:always;margin-top:15%">
