@@ -2415,9 +2415,9 @@ if (is_array($session_data)) {
         });
         $.ajax({
             type: "post",
-            url: "<?= base_url("Management_report/get_graph_exports") ?>",
+            url: "<?= base_url("Management_report/get_graph_exports1") ?>",
             dataType: "json",
-            data: {customer_id: customer_id, insert_id: insert_id},
+            data: {customer_id: customer_id, insert_id: insert_id,curr_url: curr_url},
             success: function (result) {
 //                 alert();
                 if (result.message === "success") {
@@ -2661,7 +2661,7 @@ if (is_array($session_data)) {
             type: "post",
             url: "<?= base_url("Invoice_comp_report/get_not_in2a_records_details1") ?>",
             dataType: "json",
-            data: {customer_id: customer_id, insert_id: insert_id},
+            data: {customer_id: customer_id, insert_id: insert_id, curr_url: curr_url},
             success: function (result) {
                 if (result.status === true) {
                     var data = result.data;
@@ -2680,7 +2680,7 @@ if (is_array($session_data)) {
             type: "post",
             url: "<?= base_url("Invoice_comp_report/get_not_inrec_records_all1") ?>",
             dataType: "json",
-            data: {customer_id: customer_id, insert_id: insert_id},
+            data: {customer_id: customer_id, insert_id: insert_id, curr_url: curr_url},
             success: function (result) {
                 if (result.status === true) {
                     var data = result.data;
@@ -2702,7 +2702,7 @@ if (is_array($session_data)) {
             type: "post",
             url: "<?= base_url("Invoice_comp_report/get_all_partial_records1") ?>",
             dataType: "json",
-            data: {customer_id: customer_id, insert_id: insert_id},
+            data: {customer_id: customer_id, insert_id: insert_id, curr_url: curr_url},
             success: function (result) {
                 if (result.status === true) {
                     var data = result.data;

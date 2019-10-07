@@ -1683,8 +1683,14 @@ if (is_array($session_data)) {
                     document.getElementById("complience_div").value++;
                     var data = result.data;
                     var data1 = result.data1;
+                    var data_gstr3b_name = result.data_gstr3b_name;
+                    var data_gstr3b_observation = result.data_gstr3b_observation;
+                    var data_gstr3b_remarks = result.data_gstr3b_remarks;
                     $('#gstr3B_data').html(data);
                     $('#gstr3B_data1').html(data1);
+                    $("#reports_observation_table").append('<tr><td>' + data_gstr3b_name + '</td><td>' + data_gstr3b_observation + '</td><td>' + data_gstr3b_remarks + '</td></tr>');
+                   
+                    
                     //                    $('#example1').DataTable();
                 } else {
                     document.getElementById("gstr3B_data").style.display = "none";
@@ -2197,6 +2203,34 @@ if (is_array($session_data)) {
         });
 
 
+        //summaary for export sales
+        
+        $.ajax({
+            type: "post",
+            url: "<?= base_url("Management_report/get_graph_exports") ?>",
+            dataType: "json",
+            data: {customer_id: customer_id, insert_id: insert_id},
+            success: function (result) {
+//                 alert();
+                if (result.message === "success") {
+
+                    var data = result.data;
+                    var data_export_sales_name = result.data_export_sales_name;
+                    var data_export_sales_observation = result.data_export_sales_observation;
+                    var data_export_sales_remarks = result.data_export_sales_remarks;
+                   
+                    $('#export_sales').html("");
+                    $('#export_sales').html(data);
+                    $('#example2').DataTable();
+                    $("#reports_observation_table").append('<tr><td>' + data_export_sales_name + '</td><td>' + data_export_sales_observation + '</td><td>' + data_export_sales_remarks + '</td></tr>');
+                    
+                } else {
+
+                }
+            },
+
+        });
+
         //Graph for heat map
 
 
@@ -2490,9 +2524,13 @@ if (is_array($session_data)) {
                     document.getElementById("internal_control_div").value++;
                     var data = result.data;
                     var data1 = result.data1;
-
+                    var data_invoice_ammend_name = result.data_invoice_ammend_name;
+                    var data_invoice_ammend_observation = result.data_invoice_ammend_observation;
+                    var data_invoice_ammend_remarks = result.data_invoice_ammend_remarks;
+                    
                     $('#invoice_ammend_original_data').html(data);
                     $('#invoice_ammend_original_data1').html(data1);
+                    $("#reports_observation_table").append('<tr><td>' + data_invoice_ammend_name + '</td><td>' + data_invoice_ammend_observation + '</td><td>' + data_invoice_ammend_remarks + '</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("invoice_ammend_original_data").style.display = "none";
@@ -2540,9 +2578,14 @@ if (is_array($session_data)) {
                     document.getElementById("internal_control_div").value++;
                     var data = result.data;
                     var data1 = result.data1;
-
+                    var data_invoice_not_include_name = result.data_invoice_not_include_name;
+                    var data_invoice_not_include_observation = result.data_invoice_not_include_observation;
+                    var data_invoice_not_include_remarks = result.data_invoice_not_include_remarks;
+                     
                     $('#invoice_notinclude_gstr1_data').html(data);
                     $('#invoice_notinclude_gstr1_data1').html(data1);
+                    $("#reports_observation_table").append('<tr><td>' + data_invoice_not_include_name + '</td><td>' + data_invoice_not_include_observation + '</td><td>' + data_invoice_not_include_remarks + '</td></tr>');
+                    
                 } else {
                     document.getElementById("invoice_notinclude_gstr1_data1").style.display = "none";
                     document.getElementById("invoice_notinclude_gstr1_data").style.display = "none";
@@ -2565,9 +2608,15 @@ if (is_array($session_data)) {
                     document.getElementById("invoice_comparison_div").value++;
                     var data = result.data;
                     var data1 = result.data1;
-
+                    var data_not_in_2a_name = result.data_not_in_2a_name;
+                    var data_not_in_2a_observation = result.data_not_in_2a_observation;
+                    var data_not_in_2a_remarks = result.data_not_in_2a_remarks;
+                    
+                    
                     $('#company_all_notin2a_data').html(data);
                     $('#company_all_notin2a_data1').html(data1);
+                    $("#reports_observation_table").append('<tr><td>' + data_not_in_2a_name + '</td><td>' + data_not_in_2a_observation + '</td><td>' + data_not_in_2a_remarks + '</td></tr>');
+                    
 
                 } else {
                     document.getElementById("company_all_notin2a_data").style.display = "none";
@@ -2595,9 +2644,14 @@ if (is_array($session_data)) {
                     document.getElementById("invoice_comparison_div").value++;
                     var data = result.data;
                     var data1 = result.data1;
-
+                    var data_not_in_rec_name = result.data_not_in_rec_name;
+                    var data_not_in_rec_observation = result.data_not_in_rec_observation;
+                    var data_not_in_rec_remarks = result.data_not_in_rec_remarks;
+                     
                     $('#company_all_notinrec_data').html(data);
                     $('#company_all_notinrec_data1').html(data1);
+                    $("#reports_observation_table").append('<tr><td>' + data_not_in_rec_name + '</td><td>' + data_not_in_rec_observation + '</td><td>' + data_not_in_rec_remarks + '</td></tr>');
+                    
 
                 } else {
                     document.getElementById("company_all_notinrec_data").style.display = "none";
@@ -2623,9 +2677,14 @@ if (is_array($session_data)) {
                     document.getElementById("invoice_comparison_div").value++;
                     var data = result.data;
                     var data1 = result.data1;
-
+                    var data_partial_match_name = result.data_partial_match_name;
+                    var data_partial_match_observation = result.data_partial_match_observation;
+                    var data_partial_match_remarks = result.data_partial_match_remarks;
+                     
                     $('#company_all_partially_data').html(data);
                     $('#company_all_partially_data1').html(data1);
+                    $("#reports_observation_table").append('<tr><td>' + data_partial_match_name + '</td><td>' + data_partial_match_observation + '</td><td>' + data_partial_match_remarks + '</td></tr>');
+                    
                 } else {
                     document.getElementById("company_all_partially_data1").style.display = "none";
                     document.getElementById("company_all_partially_data").style.display = "none";

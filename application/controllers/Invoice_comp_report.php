@@ -35,7 +35,7 @@ class Invoice_comp_report extends CI_Controller {
         }
         $this->load->view('admin/Invoce_not_included', $data);
     }
-    
+
     public function invoice_not_included_index_hq() { //function to load view page
 //        $query_get_cfo_data = $this->Invoice_comp_report_model->get_data_admin();
         $session_data = $this->session->userdata('login_session');
@@ -85,7 +85,7 @@ class Invoice_comp_report extends CI_Controller {
         }
         $this->load->view('admin/Not_in_2a', $data);
     }
-    
+
     function not_in_2a_index_hq() { //function to load page of not in 2a
 //        $query_get_cfo_data = $this->Invoice_comp_report_model->get_data_admin();
         $session_data = $this->session->userdata('login_session');
@@ -105,8 +105,8 @@ class Invoice_comp_report extends CI_Controller {
         $this->load->view('hq_admin/Not_in_2a', $data);
     }
 
-    function invoice_amendment_index($firm_id='') { //function to load page of invoice amendment
-        $query_get_cfo_data = $this->Invoice_comp_report_model->get_data_admin($firm_id='');
+    function invoice_amendment_index($firm_id = '') { //function to load page of invoice amendment
+        $query_get_cfo_data = $this->Invoice_comp_report_model->get_data_admin($firm_id = '');
         if ($query_get_cfo_data !== FALSE) {
             $data['invoice_amend_data'] = $query_get_cfo_data;
         } else {
@@ -114,8 +114,8 @@ class Invoice_comp_report extends CI_Controller {
         }
         $this->load->view('admin/invoice_amendment', $data);
     }
-    
-    function invoice_amendment_index_hq($firm_id='') { //function to load page of invoice amendment
+
+    function invoice_amendment_index_hq($firm_id = '') { //function to load page of invoice amendment
         $query_get_cfo_data = $this->Invoice_comp_report_model->get_data_admin($firm_id);
         if ($query_get_cfo_data !== FALSE) {
             $data['invoice_amend_data'] = $query_get_cfo_data;
@@ -155,7 +155,7 @@ class Invoice_comp_report extends CI_Controller {
         }
         $this->load->view('admin/Not_in_records', $data);
     }
-    
+
     function not_in_record_index_hq() { //function to load page of not in records
 //        $query_get_cfo_data = $this->Invoice_comp_report_model->get_data_admin();
         $session_data = $this->session->userdata('login_session');
@@ -503,6 +503,30 @@ class Invoice_comp_report extends CI_Controller {
         $query = $this->Invoice_comp_report_model->get_notin2a_records_all($customer_id, $insert_id);
         $data = "";
         $data1 = "";
+        $data_not_in_2a_name = "";
+        $data_not_in_2a_observation = "";
+        $data_not_in_2a_remarks = "";
+        $a = "";
+        $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+        if ($this->db->affected_rows() > 0) {
+            
+            $result1 = $query_get_observation->row();
+            $not_in_2a_observation = $result1->not_in_2a_observation;
+            $not_in_2a_remarks = $result1->not_in_2a_remarks;
+
+            $data_not_in_2a_name = "Not in GSTR-2A, but recorded under purchaser's book ";
+            $data_not_in_2a_observation = $not_in_2a_observation;
+//            $data_threeb_vs1_remarks = $threeb_vs1_remarks;
+            $a = $not_in_2a_remarks;
+            if ($a == '') {
+                $data_not_in_2a_remarks = 'not given';
+            } else {
+                $data_not_in_2a_remarks = $not_in_2a_remarks;
+            }
+        } else {
+            
+        }
+        
         if ($query != FALSE) {
             $data .= '<h4 style="color:#0e385e"><b>1.Not in GSTR-2A,but recorderd under purchasers book:</b></h4>';
 
@@ -601,8 +625,12 @@ class Invoice_comp_report extends CI_Controller {
             $data1 = "<h4><b>Observation:</b></h4>";
             $data1 .= "<span>Follow up from the above clients' needs to be done as the business is facing the risk of loss "
                     . "of input tax credit of Rs. " . array_sum($tax) . ". The situation of non-reconciliation may lead to interest liability or GST notices. </span>";
-            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
+            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
             $response['data1'] = $data1;
+            $response['data_not_in_2a_name'] = $data_not_in_2a_name;
+            $response['data_not_in_2a_observation'] = $data_not_in_2a_observation;
+            $response['data_not_in_2a_remarks'] = $data_not_in_2a_remarks;
+            
         } else {
             $response['message'] = "";
             $response['status'] = FALSE;
@@ -674,9 +702,51 @@ class Invoice_comp_report extends CI_Controller {
                     '</tr>';
 
             $data .= '</tbody></table></div></div></div>';
-            $data .= "<hr><h4><b>Observation:</b></h4>";
-            $data .= "<span>Follow up from the above clients' needs to be done as the business is facing the risk of loss "
-                    . "of input tax credit of Rs. " . array_sum($tax) . ". The situation of non-reconciliation may lead to interest liability or GST notices. </span>";
+
+            $curr_url = $this->input->post("curr_url");
+            $url = base_url() . "update_detail/" . base64_encode($customer_id) . "/" . base64_encode($insert_id);
+            if ($curr_url == $url) {
+                $get_observation = $this->db->query("select not_in_2a_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+                if ($this->db->affected_rows() > 0) {
+                    $res = $get_observation->row();
+                    $observation = $res->not_in_2a_observation;
+                } else {
+                    $observation = "";
+                }
+                $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                        <textarea class="form-control" rows="5" id="not_in_2a_observation" name="not_in_2a_observation" onkeyup="countWords(this.id);" >Follow up from the above clients needs to be done as the business is facing the risk of loss.of input tax credit of Rs. ' . array_sum($tax) . '. The situation of non-reconciliation may lead to interest liability or GST notices.  </textarea>
+                                    </div>
+                                    <span class="required" style="color: red" id="not_in_2a_observation_error"></span> 
+                                     </div><br>';
+            } else {
+                $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                        <textarea class="form-control" rows="5" id="not_in_2a_observation" name="not_in_2a_observation" onkeyup="countWords(this.id);" >Follow up from the above clients needs to be done as the business is facing the risk of loss.of input tax credit of Rs. ' . array_sum($tax) . '. The situation of non-reconciliation may lead to interest liability or GST notices.  </textarea>
+                                    </div>
+                                    <span class="required" style="color: red" id="not_in_2a_observation_error"></span> 
+                                     </div><br>';
+            }
+            $get_observation1 = $this->db->query("select not_in_2a_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+            if ($this->db->affected_rows() > 0) {
+                $res = $get_observation1->row();
+                $not_in_2a_remarks = $res->not_in_2a_remarks;
+            } else {
+                $not_in_2a_remarks = "";
+            }
+            $data .= "<div class='col-md-12'>
+                    <h5 class='box-title' style='margin-left: 1%;'><b>Remarks:</b></h5>
+                    <textarea id='editor_not_in_2a' name='editor_not_in_2a' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_not_in_2a')'>" . $not_in_2a_remarks . "</textarea>
+                    </div>";
+
             $response['data'] = $data;
             $response['message'] = "success";
             $response['status'] = true;
@@ -773,6 +843,29 @@ class Invoice_comp_report extends CI_Controller {
         $query = $this->Invoice_comp_report_model->get_notinrec_records_all($customer_id, $insert_id);
         $data = "";
         $data1 = "";
+        $data_not_in_rec_name = "";
+        $data_not_in_rec_observation = "";
+        $data_not_in_rec_remarks = "";
+        $a = "";
+        $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+        if ($this->db->affected_rows() > 0) {
+            
+            $result1 = $query_get_observation->row();
+            $not_in_rec_observation = $result1->not_in_record_observation;
+            $not_in_rec_remarks = $result1->not_in_record_remarks;
+
+            $data_not_in_rec_name = "Not in records, but recorded under GSTR-2A ";
+            $data_not_in_rec_observation = $not_in_rec_observation;
+//            $data_threeb_vs1_remarks = $threeb_vs1_remarks;
+            $a = $not_in_rec_remarks;
+            if ($a == '') {
+                $data_not_in_rec_remarks = 'not given';
+            } else {
+                $data_not_in_rec_remarks = $not_in_rec_remarks;
+            }
+        } else {
+            
+        }
         if ($query != FALSE) {
             $records = count($query);
             $show = $records / 15;
@@ -861,6 +954,10 @@ class Invoice_comp_report extends CI_Controller {
                 }
                 $data .= '</table>';
                 $response['data'] = $data;
+                $response['data_not_in_rec_name'] = $data_not_in_rec_name;
+                $response['data_not_in_rec_observation'] = $data_not_in_rec_observation;
+                $response['data_not_in_rec_remarks'] = $data_not_in_rec_remarks;
+               
 //                $response['data1'] = $data1;
                 $response['message'] = "success";
                 $response['status'] = true;
@@ -873,7 +970,7 @@ class Invoice_comp_report extends CI_Controller {
             $data1 = "<h4><b>Observation:</b></h4>"
                     . "<span>Accounting system & Invoice processing for GST Claim and reconciliation need to be reviewed.
                         There is a risk of losing the credit if prompt action has not been taken.</span>";
-            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
+            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
             $response['data1'] = $data1;
         } else {
             $response['message'] = "";
@@ -936,10 +1033,54 @@ class Invoice_comp_report extends CI_Controller {
             $response['message'] = "success";
             $response['status'] = true;
             $response['code'] = 200;
-            $data1 = "<h4><b>Observation:</b></h4>"
-                    . "<span>Accounting system & Invoice processing for GST Claim and reconciliation need to be reviewed.
-                        There is a risk of losing the credit if prompt action has not been taken.</span>";
-            $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+//            $data1 = "<h4><b>Observation:</b></h4>"
+//                    . "<span>Accounting system & Invoice processing for GST Claim and reconciliation need to be reviewed.
+//                        There is a risk of losing the credit if prompt action has not been taken.</span>";
+//            $data1 .= "<h5><b>Note:</b>For details & consolidated summary.Please see section 8</h5>";
+//            
+            $curr_url = $this->input->post("curr_url");
+            $url = base_url() . "update_detail/" . base64_encode($customer_id) . "/" . base64_encode($insert_id);
+            if ($curr_url == $url) {
+                $get_observation = $this->db->query("select not_in_record_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+                if ($this->db->affected_rows() > 0) {
+                    $res = $get_observation->row();
+                    $observation = $res->not_in_record_observation;
+                } else {
+                    $observation = "";
+                }
+                $data1 .= '<div class="col-md-12">
+                                    <label><h4><b>Observation:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                        <textarea class="form-control" rows="5" id="not_in_record_observation" name="not_in_record_observation" onkeyup="countWords(this.id);" >Accounting system & Invoice processing for GST Claim and reconciliation need to be reviewed.There is a risk of losing the credit if prompt action has not been taken.</textarea>
+                                    </div>
+                                    <span class="required" style="color: red" id="not_in_record_observation_error"></span> 
+                                    </div><br>';
+            } else {
+                $data1 .= '<div class="col-md-12">
+                                    <label><h4><b>Observation:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                        <textarea class="form-control" rows="5" id="not_in_record_observation" name="not_in_record_observation" onkeyup="countWords(this.id);" >Accounting system & Invoice processing for GST Claim and reconciliation need to be reviewed.There is a risk of losing the credit if prompt action has not been taken.</textarea>
+                                    </div>
+                                    <span class="required" style="color: red" id="not_in_record_observation_error"></span> 
+                                    </div><br>';
+            }
+            $get_observation1 = $this->db->query("select not_in_record_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+            if ($this->db->affected_rows() > 0) {
+                $res = $get_observation1->row();
+                $not_in_record_remarks = $res->not_in_record_remarks;
+            } else {
+                $not_in_record_remarks = "";
+            }
+            $data1 .= "<div class='col-md-12'>
+                    <h5 class='box-title' style='margin-left: 1%;'><b>Remarks:</b></h5>
+                    <textarea id='editor_not_in_record' name='editor_not_in_record' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_not_in_record')'>" . $not_in_record_remarks . "</textarea>
+                    </div>";
             $response['data1'] = $data1;
         } else {
             $response['message'] = "";
@@ -980,8 +1121,8 @@ class Invoice_comp_report extends CI_Controller {
         }
         $this->load->view('admin/partially_match_records', $data);
     }
-    
-     public function partial_match_index_hq() {
+
+    public function partial_match_index_hq() {
 //        $query_get_data = $this->Cfo_model->get_data_cfo_admin();
         $session_data = $this->session->userdata('login_session');
         $email = ($session_data['customer_email_id']);
@@ -1134,6 +1275,29 @@ class Invoice_comp_report extends CI_Controller {
         $query = $this->Invoice_comp_report_model->get_company_partial_all_data($customer_id, $insert_id);
         $data = "";
         $data1 = "";
+        $data_partial_match_name = "";
+        $data_partial_match_observation = "";
+        $data_partial_match_remarks = "";
+        $a = "";
+        $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+        if ($this->db->affected_rows() > 0) {
+            
+            $result1 = $query_get_observation->row();
+            $partial_match_observation = $result1->partially_match_observation;
+            $partial_match_remarks = $result1->partially_match_remarks;
+
+            $data_partial_match_name = "Invoice no., POS and Period mismatch ";
+            $data_partial_match_observation = $partial_match_observation;
+//            $data_threeb_vs1_remarks = $threeb_vs1_remarks;
+            $a = $partial_match_remarks;
+            if ($a == '') {
+                $data_partial_match_remarks = 'not given';
+            } else {
+                $data_partial_match_remarks = $partial_match_remarks;
+            }
+        } else {
+            
+        }
         if ($query != FALSE) {
 
             $query3 = $this->db->query("select * from gstr_2a_reconciliation_partially_match_summary where customer_id='$customer_id' and insert_id='$insert_id'");
@@ -1248,6 +1412,10 @@ class Invoice_comp_report extends CI_Controller {
 
                 $min_value = $min_value + 15;
                 $response['data'] = $data;
+                $response['data_partial_match_name'] = $data_partial_match_name;
+                $response['data_partial_match_observation'] = $data_partial_match_observation;
+                $response['data_partial_match_remarks'] = $data_partial_match_remarks;
+               
                 $response['message'] = "success";
                 $response['status'] = true;
                 $response['code'] = 200;
@@ -1256,7 +1424,7 @@ class Invoice_comp_report extends CI_Controller {
             $data1 .= "<h4><b>Observation:</b></h4>"
                     . "<span>Cross check the mismatched invoice no., POS and Period with the client in order to prevent any confusion or else it will effect on your ITC."
                     . " Data master review needs to be done and root-cause analysis will help to minimize this errors.</span>";
-            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
+            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
             $response['data1'] = $data1;
         } else {
             $response['message'] = "";
@@ -1349,9 +1517,54 @@ class Invoice_comp_report extends CI_Controller {
                     '</tr>';
 
             $data .= '</tbody></table></div></div></div>';
-            $data .= "<hr><h4><b>Observation:</b></h4>"
-                    . "<span>Cross check the mismatched invoice no., POS and Period with the client in order to prevent any confusion or else it will effect on your ITC."
-                    . " Data master review needs to be done and root-cause analysis will help to minimize this errors.</span>";
+//            $data .= "<hr><h4><b>Observation:</b></h4>"
+//                    . "<span>Cross check the mismatched invoice no., POS and Period with the client in order to prevent any confusion or else it will effect on your ITC."
+//                    . " Data master review needs to be done and root-cause analysis will help to minimize this errors.</span>";
+            $curr_url = $this->input->post("curr_url");
+            $url = base_url() . "update_detail/" . base64_encode($customer_id) . "/" . base64_encode($insert_id);
+            if ($curr_url == $url) {
+                $get_observation = $this->db->query("select partially_match_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+                if ($this->db->affected_rows() > 0) {
+                    $res = $get_observation->row();
+                    $observation = $res->partially_match_observation;
+                } else {
+                    $observation = "";
+                }
+                $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                        <textarea class="form-control" rows="5" id="partially_match_observation" name="partially_match_observation" onkeyup="countWords(this.id);" >Cross check the mismatched invoice no., POS and Period with the client in order to prevent any confusion or else it will effect on your ITC.Data master review needs to be done and root-cause analysis will help to minimize this errors.</textarea>
+                                    </div>
+                                    <span class="required" style="color: red" id="partially_match_observation_error"></span> 
+                                    </div><br>';
+            } else {
+                $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                        <textarea class="form-control" rows="5" id="partially_match_observation" name="partially_match_observation" onkeyup="countWords(this.id);" >Cross check the mismatched invoice no., POS and Period with the client in order to prevent any confusion or else it will effect on your ITC.Data master review needs to be done and root-cause analysis will help to minimize this errors.</textarea>
+                                    </div>
+                                    <span class="required" style="color: red" id="partially_match_observation_error"></span> 
+                                    </div><br>';
+            }
+
+            $get_observation1 = $this->db->query("select partially_match_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+            if ($this->db->affected_rows() > 0) {
+                $res = $get_observation1->row();
+                $partially_match_remarks = $res->partially_match_remarks;
+            } else {
+                $partially_match_remarks = "";
+            }
+            $data .= "<div class='col-md-12'>
+                    <h5 class='box-title' style='margin-left: 1%;'><b>Remarks:</b></h5>
+                    <textarea id='editor_partially_match' name='editor_partially_match' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_partially_match')'>" . $partially_match_remarks . "</textarea>
+                    </div>";
+
             $response['data'] = $data;
             $response['message'] = "success";
             $response['status'] = true;
@@ -1554,6 +1767,29 @@ class Invoice_comp_report extends CI_Controller {
         $query = $this->Invoice_comp_report_model->get_details_invoice_not_included($customer_id, $insert_id);
         $data = "";
         $data1 = "";
+        $data_invoice_not_include_name = "";
+        $data_invoice_not_include_observation = "";
+        $data_invoice_not_include_remarks = "";
+        $a = "";
+        $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+        if ($this->db->affected_rows() > 0) {
+            
+            $result1 = $query_get_observation->row();
+            $invoice_not_include_observation = $result1->invoice_not_include_observation;
+            $invoice_not_include_remarks = $result1->invoice_not_include_remarks;
+
+            $data_invoice_not_include_name = "Invoice not included in GSTR-1";
+            $data_invoice_not_include_observation = $invoice_not_include_observation;
+//            $data_threeb_vs1_remarks = $threeb_vs1_remarks;
+            $a = $invoice_not_include_remarks;
+            if ($a == '') {
+                $data_invoice_not_include_remarks = 'not given';
+            } else {
+                $data_invoice_not_include_remarks = $invoice_not_include_remarks;
+            }
+        } else {
+            
+        }
         if ($query != FALSE) {
             $data1 .= '<h4 style="color:#0e385e"><b>2.Invoice not included in GSTR-1:</b></h4>';
             $records = count($query);
@@ -1627,10 +1863,14 @@ class Invoice_comp_report extends CI_Controller {
             }
 
             $data .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
-            $data .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
+            $data .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
 
             $response['data'] = $data;
             $response['data1'] = $data1;
+            $response['data_invoice_not_include_name'] = $data_invoice_not_include_name;
+            $response['data_invoice_not_include_observation'] = $data_invoice_not_include_observation;
+            $response['data_invoice_not_include_remarks'] = $data_invoice_not_include_remarks;
+            
             $response['message'] = "success";
             $response['status'] = true;
             $response['code'] = 200;
@@ -1727,6 +1967,18 @@ class Invoice_comp_report extends CI_Controller {
                                     </div>
                                     <span class="required" style="color: red" id="invoice_not_observation_error"></span> 
                                 </div><br>';
+
+                $get_observation1 = $this->db->query("select invoice_not_include_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+                if ($this->db->affected_rows() > 0) {
+                    $res = $get_observation1->row();
+                    $invoice_not_include_remarks = $res->invoice_not_include_remarks;
+                } else {
+                    $invoice_not_include_remarks = "";
+                }
+                $data .= "<div class='col-md-12'>
+                    <h5 class='box-title' style='margin-left: 1%;'><b>Remarks:</b></h5>
+                    <textarea id='editor_invoice_not_include' name='editor_invoice_not_include' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_invoice_not_include')'>" . $invoice_not_include_remarks . "</textarea>
+                    </div>";
             }
             $response['data'] = $data;
             $response['message'] = "success";
@@ -1943,6 +2195,29 @@ class Invoice_comp_report extends CI_Controller {
         $query = $this->Invoice_comp_report_model->get_details_invoice_ammneded($customer_id, $insert_id);
         $data = "";
         $data1 = "";
+        $data_invoice_ammend_name = "";
+        $data_invoice_ammend_observation = "";
+        $data_invoice_ammend_remarks = "";
+        $a = "";
+        $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+        if ($this->db->affected_rows() > 0) {
+            
+            $result1 = $query_get_observation->row();
+            $invoice_ammend_observation = $result1->amendment_records_observation;
+            $invoice_ammend_remarks = $result1->amendment_records_remarks;
+
+            $data_invoice_ammend_name = "Invoice amends in other than original period ";
+            $data_invoice_ammend_observation = $invoice_ammend_observation;
+//            $data_threeb_vs1_remarks = $threeb_vs1_remarks;
+            $a = $invoice_ammend_remarks;
+            if ($a == '') {
+                $data_invoice_ammend_remarks = 'not given';
+            } else {
+                $data_invoice_ammend_remarks = $invoice_ammend_remarks;
+            }
+        } else {
+            
+        }
         if ($query != FALSE) {
             $data .= '<h4 style="color:#0e385e"><b>1.Invoice amends in other than original period Analysis:</b></h4>';
             $records = count($query);
@@ -2021,8 +2296,12 @@ class Invoice_comp_report extends CI_Controller {
             }
 
             $data1 = "<h4><b>Observation :</b></h4><span>" . $observation . "</span>";
-            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
+            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
             $response['data1'] = $data1;
+            $response['data_invoice_ammend_name'] = $data_invoice_ammend_name;
+            $response['data_invoice_ammend_observation'] = $data_invoice_ammend_observation;
+            $response['data_invoice_ammend_remarks'] = $data_invoice_ammend_remarks;
+          
         } else {
             $response['message'] = "";
             $response['status'] = FALSE;
@@ -2121,6 +2400,19 @@ class Invoice_comp_report extends CI_Controller {
                                     <span class="required" style="color: red" id="amend_observation_error"></span> 
                                 </div><br>';
             }
+
+            $get_observation1 = $this->db->query("select amendment_records_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+            if ($this->db->affected_rows() > 0) {
+                $res = $get_observation1->row();
+                $amendment_records_remarks = $res->amendment_records_remarks;
+            } else {
+                $amendment_records_remarks = "";
+            }
+            $data .= "<div class='col-md-12'>
+                    <h5 class='box-title' style='margin-left: 1%;'><b>Remarks:</b></h5>
+                    <textarea id='editor_ammend' name='editor_ammend' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_ammend')'>" . $amendment_records_remarks . "</textarea>
+                    </div>";
+
             $response['data'] = $data;
             $response['message'] = "success";
             $response['status'] = true;
@@ -2131,10 +2423,10 @@ class Invoice_comp_report extends CI_Controller {
             $response['code'] = 204;
         }echo json_encode($response);
     }
-    
+
     //view customers firm wise on choose dropdown
-    
-    function hq_view_customer($firm_id='') { //function to load page of not in 2a
+
+    function hq_view_customer($firm_id = '') { //function to load page of not in 2a
 //        $query_get_cfo_data = $this->Invoice_comp_report_model->get_data_admin();
         $session_data = $this->session->userdata('login_session');
         $email = ($session_data['customer_email_id']);
@@ -2146,11 +2438,11 @@ class Invoice_comp_report extends CI_Controller {
         }
         $this->load->view('hq_admin/Not_in_2a', $data);
     }
-    
-     //view customers firm wise on choose dropdown for not in records
-    
-    function hq_view_customers($firm_id='') { //function to load page of not in 2a
-      $session_data = $this->session->userdata('login_session');
+
+    //view customers firm wise on choose dropdown for not in records
+
+    function hq_view_customers($firm_id = '') { //function to load page of not in 2a
+        $session_data = $this->session->userdata('login_session');
         $email = ($session_data['customer_email_id']);
         $query_get_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
         if ($query_get_data !== FALSE) {
@@ -2160,11 +2452,11 @@ class Invoice_comp_report extends CI_Controller {
         }
         $this->load->view('hq_admin/Not_in_records', $data);
     }
-    
+
     //view customers firm wise on choose dropdown for partial records
-    
-    function hq_view_customers_partial($firm_id='') { //function to load page of not in 2a
-       $session_data = $this->session->userdata('login_session');
+
+    function hq_view_customers_partial($firm_id = '') { //function to load page of not in 2a
+        $session_data = $this->session->userdata('login_session');
         $email = ($session_data['customer_email_id']);
         $query_get_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
         if ($query_get_data !== FALSE) {
@@ -2174,13 +2466,13 @@ class Invoice_comp_report extends CI_Controller {
         }
         $this->load->view('hq_admin/partially_match_records', $data);
     }
-    
+
     //view customers firm wise on choose dropdown for Invoice ammendment
-    
-    function hq_view_customers_ammend($firm_id='') { //function to load page of not in 2a
-       $session_data = $this->session->userdata('login_session');
-       $email = ($session_data['customer_email_id']);
-       $query_get_cfo_data = $this->Invoice_comp_report_model->get_data_admin($firm_id);
+
+    function hq_view_customers_ammend($firm_id = '') { //function to load page of not in 2a
+        $session_data = $this->session->userdata('login_session');
+        $email = ($session_data['customer_email_id']);
+        $query_get_cfo_data = $this->Invoice_comp_report_model->get_data_admin($firm_id);
         if ($query_get_cfo_data !== FALSE) {
             $data['invoice_amend_data'] = $query_get_cfo_data;
         } else {
@@ -2188,12 +2480,11 @@ class Invoice_comp_report extends CI_Controller {
         }
         $this->load->view('hq_admin/invoice_amendment', $data);
     }
-    
-    
+
     //view customers firm wise on choose dropdown for Invoice not included
-    
-    function hq_view_customer_invoice($firm_id='') { //function to load page of not in 2a
-       $session_data = $this->session->userdata('login_session');
+
+    function hq_view_customer_invoice($firm_id = '') { //function to load page of not in 2a
+        $session_data = $this->session->userdata('login_session');
         $email = ($session_data['customer_email_id']);
         $query_get_data = $this->Cfo_model->get_data_cfo_admin($firm_id);
         if ($query_get_data !== FALSE) {

@@ -362,7 +362,7 @@ class Cfo_dashboard extends CI_Controller {
             }
 
             $data1 .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
-            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
+            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
 
 //            $data1 .= "<hr><h4><b>Observation of CFO:</b></h4>"
 //                    . "<span>Percentage of GST payable to turnover is not stable for F.Y. 2017-18 it varies from <b>" . min($ratio_val) . "% </b>to<b> " . max($ratio_val) . "%</b>.</span><br>"

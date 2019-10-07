@@ -609,7 +609,7 @@ class Internal_acc_report extends CI_Controller {
                 $observation = "";
             }
             $data1 .= "<hr><h4><b>Observation :</b></h4><span style='word-spacing: normal;'>" . $observation . "</span>";
-            $data1 .= "<h5><b>Note: </b>For detailed and consolidated summary refer section-8.</h5>";
+            $data1 .= "<h5><b>Note: </b>For detailed and consolidated summary refer section-10.</h5>";
             $abc = array();
             $abc2 = array();
             $abc3 = array();
@@ -1071,7 +1071,7 @@ class Internal_acc_report extends CI_Controller {
             }
 
             $data1 .= "<br><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
-            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
+            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
             // loop to get graph data as per graph script requirement
             $abc1 = array();
             $abc2 = array();
@@ -1460,7 +1460,7 @@ class Internal_acc_report extends CI_Controller {
             }
 
             $data1 .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
-            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
+            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
             // loop to get graph data as per graph script requirement
             $abc1 = array();
             $abc2 = array();
@@ -1816,10 +1816,10 @@ class Internal_acc_report extends CI_Controller {
                 $data1 .= "<span>GST paid in cash varies from <b>" . $min_percent . "%</b> to  <b>" . $max_percent . "%</b> for F.Y. " . $year
                         . ".  Average percentage of liability paid by cash is <b>" . round($avg) . "%</b> for F.Y. " . $year . ".</span>"
                         . "<span>So, analysis of huge payment by cash to be done & accordingly input tax credit planning should be done.</span>";
-                $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
+                $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
             } else {
                 $data1 .= "GST paid in cash has varied from <b>" . $min_percent . "%</b> to  <b>" . $max_percent . "% for FY –" . $year;
-                $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
+                $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
             }
             //graph work
             $abc1 = array();

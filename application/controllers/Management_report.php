@@ -367,15 +367,15 @@ class Management_report extends CI_Controller {
                                 </div>";
             }
             $get_observation1 = $this->db->query("select state_wise_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
-                if ($this->db->affected_rows() > 0) {
-                    $res = $get_observation1->row();
-                    $state_wise_remarks = $res->state_wise_remarks;
-                } else {
-                    $state_wise_remarks = "";
-                }
-            $data .="<div class='col-md-12'>
+            if ($this->db->affected_rows() > 0) {
+                $res = $get_observation1->row();
+                $state_wise_remarks = $res->state_wise_remarks;
+            } else {
+                $state_wise_remarks = "";
+            }
+            $data .= "<div class='col-md-12'>
                     <h5 class='box-title' style='margin-left: 1%;'><b>Remarks:</b></h5>
-                    <textarea id='editor_location_data' name='editor_location_data' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_location_data')'>".$state_wise_remarks."</textarea>
+                    <textarea id='editor_location_data' name='editor_location_data' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_location_data')'>" . $state_wise_remarks . "</textarea>
                     </div>";
 //            $data1 .= '<h4><b>Observation:</b></h4>';
 //            $data1 .= "<span><b>" . $top_3_state . " </b> % of total sales comes from top 3 states.</span>";
@@ -476,7 +476,7 @@ class Management_report extends CI_Controller {
             $top3 = array_sum($arr);
             $top_3_state = round(($top3 / $total) * 100, 2);
             $data .= "<h4><b>" . $top_3_state . " </b> % of total sales comes from top 3 states.</h4>";
-            $data .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
+            $data .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
             $state = array();
             $taxable_value = array();
             for ($o = 0; $o < sizeof($taxble_val_arr); $o++) {
@@ -711,7 +711,7 @@ class Management_report extends CI_Controller {
             }
 
             $data1 .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
-            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
+            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
             $abc1 = array();
             $abc2 = array();
             $abc3 = array();
@@ -885,18 +885,18 @@ class Management_report extends CI_Controller {
                     $ratio_subtotal_exempt[] = round(($sub_total_exempt * 100) / ($grand_total));
                     $ratio_subtotal_nil_rated[] = round(($sub_total_nil_rated * 100) / ($grand_total));
                     $ratio_subtotal_zero_rated[] = round(($sub_total_zero_rated * 100) / ($grand_total));
-                    
-                     $ratio1 = (round(($taxable_supply * 100) / ($grand_total)));
+
+                    $ratio1 = (round(($taxable_supply * 100) / ($grand_total)));
                     $ratio2 = (round(($sub_total_non_gst * 100) / ($grand_total)));
                     $ratio3 = (round(($sub_total_exempt * 100) / ($grand_total)));
                     $ratio4 = (round(($sub_total_nil_rated * 100) / ($grand_total)));
                     $ratio5 = (round(($sub_total_zero_rated * 100) / ($grand_total)));
                 } else {
-                    $ratio_taxable_supply[]=0;
-                    $ratio_subtotal_nongst[]=0;
-                    $ratio_subtotal_exempt[]=0;
-                    $ratio_subtotal_nil_rated[]=0;
-                    $ratio_subtotal_zero_rated[]=0;
+                    $ratio_taxable_supply[] = 0;
+                    $ratio_subtotal_nongst[] = 0;
+                    $ratio_subtotal_exempt[] = 0;
+                    $ratio_subtotal_nil_rated[] = 0;
+                    $ratio_subtotal_zero_rated[] = 0;
                     $ratio1 = 0;
                     $ratio2 = 0;
                     $ratio3 = 0;
@@ -1027,15 +1027,15 @@ class Management_report extends CI_Controller {
                                 </div>";
             }
             $get_observation1 = $this->db->query("select tax_nontax_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
-                if ($this->db->affected_rows() > 0) {
-                    $res = $get_observation1->row();
-                    $tax_nontax_remarks = $res->tax_nontax_remarks;
-                } else {
-                    $tax_nontax_remarks = "";
-                }
-            $data .="<div class='col-md-12'>
+            if ($this->db->affected_rows() > 0) {
+                $res = $get_observation1->row();
+                $tax_nontax_remarks = $res->tax_nontax_remarks;
+            } else {
+                $tax_nontax_remarks = "";
+            }
+            $data .= "<div class='col-md-12'>
                 <h5 class='box-title' style='margin-left: 1%;'><b>Remarks:</b></h5>
-                    <textarea id='editor_tax_ntax_Exempt_data' name='editor_tax_ntax_Exempt_data' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_tax_ntax_Exempt_data')'>".$tax_nontax_remarks."</textarea>
+                    <textarea id='editor_tax_ntax_Exempt_data' name='editor_tax_ntax_Exempt_data' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_tax_ntax_Exempt_data')'>" . $tax_nontax_remarks . "</textarea>
                     </div>";
             $abc1 = array();
             $abc2 = array();
@@ -1453,7 +1453,7 @@ class Management_report extends CI_Controller {
             }
 //            echo $variation=($max-$min)/($min*100);
             $data1 .= "<hr><h4><b>Observation:</b></h4><span >" . $observation . "</span>";
-            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
+            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
 
 
             // loop to get graph data as per graph script requirement
@@ -1586,16 +1586,15 @@ class Management_report extends CI_Controller {
             $variation = round(((($max - $min) / ($min))) * 100, 2);
 //            $variation = round(((($max - $min) / ($min))) * 100);
             $get_observation = $this->db->query("select month_wise_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
-                if ($this->db->affected_rows() > 0) {
-                    $res = $get_observation->row();
-                    $observation = $res->month_wise_observation;
-                }
-                else {
-                    $observation = "";
-                }
+            if ($this->db->affected_rows() > 0) {
+                $res = $get_observation->row();
+                $observation = $res->month_wise_observation;
+            } else {
+                $observation = "";
+            }
             $url = base_url() . "update_detail/" . base64_encode($customer_id) . "/" . base64_encode($insert_id);
             if ($curr_url == $url) {
-                
+
                 $data .= '<div class="col-md-12">
                                     <label><h4><b>Observation of CFO:</b></h4></label><span class="required" aria-required="true"> </span>
                                     <div class="input-group">
@@ -1619,15 +1618,15 @@ class Management_report extends CI_Controller {
                                 </div>";
             }
             $get_observation1 = $this->db->query("select month_wise_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
-                if ($this->db->affected_rows() > 0) {
-                    $res = $get_observation1->row();
-                    $month_wise_remarks = $res->month_wise_remarks;
-                } else {
-                    $month_wise_remarks = "";
-                }
-            $data .="<div class='col-md-12'>
+            if ($this->db->affected_rows() > 0) {
+                $res = $get_observation1->row();
+                $month_wise_remarks = $res->month_wise_remarks;
+            } else {
+                $month_wise_remarks = "";
+            }
+            $data .= "<div class='col-md-12'>
                     <h5 class='box-title' style='margin-left: 1%;'><b>Remarks:</b></h5>
-                    <textarea id='editor_sales_monthly_data' name='editor_sales_monthly_data' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_sales_monthly_data')'>".$month_wise_remarks."</textarea>
+                    <textarea id='editor_sales_monthly_data' name='editor_sales_monthly_data' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_sales_monthly_data')'>" . $month_wise_remarks . "</textarea>
                     </div>";
 
 
@@ -1757,14 +1756,14 @@ class Management_report extends CI_Controller {
                                 </div>";
             }
             $get_observation1 = $this->db->query("select rate_wise_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
-                if ($this->db->affected_rows() > 0) {
-                    $res = $get_observation1->row();
-                    $rate_wise_remarks = $res->rate_wise_remarks;
-                } else {
-                    $rate_wise_remarks = "";
-                }
+            if ($this->db->affected_rows() > 0) {
+                $res = $get_observation1->row();
+                $rate_wise_remarks = $res->rate_wise_remarks;
+            } else {
+                $rate_wise_remarks = "";
+            }
             $data .= "<div class='col-md-12'>
-                        <b>Remarks:</b></h5><textarea id='editor_rate_wise_data' name='editor_rate_wise_data' rows='10' style='width: 100%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_rate_wise_data')'>".$rate_wise_remarks."</textarea>
+                        <b>Remarks:</b></h5><textarea id='editor_rate_wise_data' name='editor_rate_wise_data' rows='10' style='width: 100%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_rate_wise_data')'>" . $rate_wise_remarks . "</textarea>
                       </div>";
 
             $respnose['data'] = $data;
@@ -1793,12 +1792,12 @@ class Management_report extends CI_Controller {
             $result = $query->result();
             $result1 = $query_get_observation->row();
             $rate_wise_observation = $result1->rate_wise_observation;
-            
+
             $rate_wise_remarks = $result1->rate_wise_remarks;
 
-           $data_ratewise_name = 'Sales Tax Rate Wise';
-           $data_rate_observation = $rate_wise_observation;
-           
+            $data_ratewise_name = 'Sales Tax Rate Wise';
+            $data_rate_observation = $rate_wise_observation;
+
 //            $data_rate_remarks = $rate_wise_remarks;
             $a = $rate_wise_remarks;
             if ($a == "") {
@@ -1853,7 +1852,7 @@ class Management_report extends CI_Controller {
             }
 
             $data .= "<hr><h4><b>Observation:</b></h4><span >" . $observation . "</span>";
-            $data .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
+            $data .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
             $respnose['data'] = $data;
             $respnose['data_ratewise_name'] = $data_ratewise_name;
             $respnose['data_rate_observation'] = $data_rate_observation;
@@ -1872,9 +1871,29 @@ class Management_report extends CI_Controller {
         // "SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'";
         $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         $data = ""; //view observations
-        if ($query->num_rows() > 0) {
-            $result = $query->result();
-            $result1 = $query->result();
+        $data_export_sales_name = "";
+        $data_export_sales_observation = "";
+        $data_export_sales_remarks = "";
+        $a = "";
+//        if ($query->num_rows() > 0) {
+        $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+        if ($this->db->affected_rows() > 0) {
+             $result = $query->result();
+            $result1 = $query_get_observation->row();
+            $export_sales_observation = $result1->export_sale_observation;
+            $export_sales_remarks = $result1->export_sale_remarks;
+
+            $data_export_sales_name = "Export Sales";
+            $data_export_sales_observation = $export_sales_observation;
+//            $data_threeb_vs1_remarks = $threeb_vs1_remarks;
+            $a = $export_sales_remarks;
+            if ($a == '') {
+                $data_export_sales_remarks = 'not given';
+            } else {
+                $data_export_sales_remarks = $export_sales_remarks;
+            }
+           
+            
             $taxable_supply_arr = array();
             $data .= '<div class="row">
                     <div class="col-md-12">
@@ -1943,6 +1962,165 @@ class Management_report extends CI_Controller {
 //            echo $variation=($max-$min)/($min*100);
 //            $data .= "<hr><h4><b>Observation of  Sales month wise:</b></h4>";
             // loop to get graph data as per graph script requirement
+            $abc1 = array();
+            for ($o = 0; $o < sizeof($taxable_supply_arr); $o++) {
+
+                $abc1[] = $taxable_supply_arr[$o];
+                $aa1 = settype($abc1[$o], "float");
+            }
+
+
+            //function to get months
+            $quer2 = $this->db->query("SELECT month from monthly_summary_all where customer_id='$customer_id'  AND insert_id='$insert_id'");
+            $months = array();
+            if ($quer2->num_rows() > 0) {
+                $res2 = $quer2->result();
+                foreach ($res2 as $row) {
+                    $months[] = $row->month;
+                }
+            }
+            //function to get customer name
+            $quer21 = $this->db->query("SELECT customer_name from customer_header_all where customer_id='$customer_id'");
+
+            if ($quer21->num_rows() > 0) {
+                $res21 = $quer21->row();
+                $customer_name = $res21->customer_name;
+            }
+            $respnose['data'] = $data;
+            $respnose['message'] = "success";
+            $respnose['taxable_supply_arr'] = $abc1;  //taxable_supply data
+            $respnose['month_data'] = $months; //months 
+            $respnose['customer_name'] = $customer_name; //customer
+            $respnose['sales_percent_values'] = $sales_percent_values; //sales in percent
+            $respnose['data_export_sales_name'] = $data_export_sales_name; //sales in percent
+            $respnose['data_export_sales_observation'] = $data_export_sales_observation; //sales in percent
+            $respnose['data_export_sales_remarks'] = $data_export_sales_remarks; //sales in percent
+            
+        } else {
+            $respnose['message'] = "";
+            $respnose['taxable_supply_arr'] = "";  //taxable_supply data
+        } echo json_encode($respnose);
+    }
+
+    public function get_graph_exports1() {
+        $customer_id = $this->input->post("customer_id");
+        $insert_id = $this->input->post("insert_id");
+        // "SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'";
+        $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
+        $data = ""; //view observations
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+           
+            $taxable_supply_arr = array();
+            $data .= '<div class="row">
+                    <div class="col-md-12">
+                        <div class="">
+                         <table id="example2" class="table table-bordered table-striped">
+                                <thead style="background-color: #00008B;color:white">
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Month</th>
+                                        <th>Sales</th>
+                                        <th>Ratio</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>';
+            $k = 1;
+            $sales_percent_values = array();
+            $taxable_supply_arr1 = array();
+            foreach ($result as $row1) {
+                $total_taxable_data_gst_export = $row1->total_taxable_data_gst_export;
+                $total_non_gst_export = $row1->total_non_gst_export;
+
+
+                $taxable_supply1 = ( $total_taxable_data_gst_export + $total_non_gst_export);
+                $taxable_supply_arr1[] = $taxable_supply1; //taxable supply array
+            }
+
+            $sum_tax = array_sum($taxable_supply_arr1);
+            foreach ($result as $row1) {
+
+                $total_taxable_data_gst_export = $row1->total_taxable_data_gst_export;
+                $total_non_gst_export = $row1->total_non_gst_export;
+                $month = $row1->month;
+                $taxable_supply = ($total_taxable_data_gst_export + $total_non_gst_export);
+                $taxable_supply_arr[] = $taxable_supply; //taxable supply array
+                if ($sum_tax != 0) {
+                    $sale_percent = (($taxable_supply) / ($sum_tax * 100));
+                } else {
+                    $sale_percent = 0;
+                }
+                $sales_percent_values1 = round(($sale_percent * 10000), 2);
+                $sales_percent_values[] = round(($sale_percent * 10000));
+
+                $data .= '<tr>' .
+                        '<td>' . $k . '</td>' .
+                        '<td>' . $month . '</td>' .
+                        '<td>' . $taxable_supply . '</td>' .
+                        '<td>' . $sales_percent_values1 . '%</td>' .
+                        '</tr>';
+
+                $k++;
+            }
+            $data .= '<tr>' .
+                    '<td>' . '<b>Total</b>' . '</td>' .
+                    '<td>' . '' . '</td>' .
+                    '<td>' . '<b>' . array_sum($taxable_supply_arr) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . array_sum($sales_percent_values) . '%</b> ' . '</td>' .
+                    '</tr>';
+            $data .= '</tbody></table></div></div></div>';
+//            $data .= "<div class='col-md-12'>
+//                                    <label><h4><b>Observation: </b></h4></label><br>
+//                                       " . array_sum($sales_percent_values) . " % is the total percentage of export sales done with respect to total sales.
+//                                    <span class='required' style='color: red' id='export_observation_error'></span>
+//                                </div>";
+            $curr_url = $this->input->post("curr_url");
+            $url = base_url() . "update_detail/" . base64_encode($customer_id) . "/" . base64_encode($insert_id);
+            if ($curr_url == $url) {
+                $get_observation = $this->db->query("select export_sale_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+                if ($this->db->affected_rows() > 0) {
+                    $res = $get_observation->row();
+                    $observation = $res->export_sale_observation;
+                } else {
+                    $observation = "";
+                }
+                $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                        <textarea class="form-control" rows="5" id="export_sale_observation" name="export_sale_observation" onkeyup="countWords(this.id);" >' . array_sum($sales_percent_values) . ' % is the total percentage of export sales done with respect to total sales.</textarea>
+                                    </div>
+                                    <span class="required" style="color: red" id="export_sale_observation_error"></span> 
+                                    </div>';
+            } else {
+                $data .= '<div class="col-md-12">
+                                    <label><h4><b>Observation:</b></h4></label><span class="required" aria-required="true"> </span>
+                                    
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                        <textarea class="form-control" rows="5" id="export_sale_observation" name="export_sale_observation" onkeyup="countWords(this.id);" >' . array_sum($sales_percent_values) . ' % is the total percentage of export sales done with respect to total sales.</textarea>
+                                    </div>
+                                    <span class="required" style="color: red" id="export_sale_observation_error"></span> 
+                                    </div>';
+            }
+
+            $get_observation1 = $this->db->query("select export_sale_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+            if ($this->db->affected_rows() > 0) {
+                $res = $get_observation1->row();
+                $export_sale_remarks = $res->export_sale_remarks;
+            } else {
+                $export_sale_remarks = "";
+            }
+            $data .= "<div class='col-md-12'>
+                    <h5 class='box-title' style='margin-left: 1%;'><b>Remarks:</b></h5>
+                    <textarea id='editor_export_sales' name='editor_export_sales' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_b2b_b2c_sale')'>" . $export_sale_remarks . "</textarea>
+                    </div>";
             $abc1 = array();
             for ($o = 0; $o < sizeof($taxable_supply_arr); $o++) {
 
@@ -2479,7 +2657,7 @@ class Management_report extends CI_Controller {
             $data = $result->row();
             $uniq_id = $data->unique_id;
             //generate turn_id
-            $uniq_id = str_pad(++$uniq_id, 5, '0', STR_PAD_LEFT);
+            $uniq_id = str_pad( ++$uniq_id, 5, '0', STR_PAD_LEFT);
             return $uniq_id;
         } else {
             $uniq_id = 'btb_1001';
@@ -2617,7 +2795,7 @@ class Management_report extends CI_Controller {
             } else {
                 $data1 .= "<hr><h4><b>Observation :</b></h4>";
                 $data1 .= " <span>B2B supply is " . array_sum($array_b2b_ratio) . "% and B2C supply is " . array_sum($array_b2c_ratio) . "% of total supply.</span>";
-                $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-8.</h5>";
+                $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
             }
 
             $count = count($month);
@@ -2823,9 +3001,9 @@ class Management_report extends CI_Controller {
                 } else {
                     $observation = "";
                 }
-                   
+
                 if ($total_turnover < 15000000 && $ttl_b2c_ratio >= 90) {
-                $data .= '<div class="col-md-12">
+                    $data .= '<div class="col-md-12">
                                     <label><h4><b>Observation:</b></h4></label><span class="required" aria-required="true"> </span>
                                     
                                     <div class="input-group">
@@ -2836,7 +3014,7 @@ class Management_report extends CI_Controller {
                                     </div>
                                     <span class="required" style="color: red" id="b2bb2c_sale_observation_error"></span> 
                                 </div><br>';
-                }else{
+                } else {
                     $data .= '<div class="col-md-12">
                                     <label><h4><b>Observation:</b></h4></label><span class="required" aria-required="true"> </span>
                                     
@@ -2844,14 +3022,14 @@ class Management_report extends CI_Controller {
                                         <span class="input-group-addon">
                                             <i class="fa fa-eye"></i>
                                         </span>
-                                        <textarea class="form-control" rows="5" id="b2bb2c_sale_observation" name="b2bb2c_sale_observation" onkeyup="countWords(this.id);" >B2B supply is '. array_sum($array_b2b_ratio) . '% and B2C supply is ' . array_sum($array_b2c_ratio) . '% of total supply.</textarea>
+                                        <textarea class="form-control" rows="5" id="b2bb2c_sale_observation" name="b2bb2c_sale_observation" onkeyup="countWords(this.id);" >B2B supply is ' . array_sum($array_b2b_ratio) . '% and B2C supply is ' . array_sum($array_b2c_ratio) . '% of total supply.</textarea>
                                     </div>
                                     <span class="required" style="color: red" id="b2bb2c_sale_observation_error"></span> 
                                 </div><br>';
                 }
             } else {
-               if ($total_turnover < 15000000 && $ttl_b2c_ratio >= 90) {
-                $data .= '<div class="col-md-12">
+                if ($total_turnover < 15000000 && $ttl_b2c_ratio >= 90) {
+                    $data .= '<div class="col-md-12">
                                     <label><h4><b>Observation:</b></h4></label><span class="required" aria-required="true"> </span>
                                     
                                     <div class="input-group">
@@ -2862,7 +3040,7 @@ class Management_report extends CI_Controller {
                                     </div>
                                     <span class="required" style="color: red" id="b2bb2c_sale_observation_error"></span> 
                                 </div><br>';
-                }else{
+                } else {
                     $data .= '<div class="col-md-12">
                                     <label><h4><b>Observation:</b></h4></label><span class="required" aria-required="true"> </span>
                                     
@@ -2870,22 +3048,22 @@ class Management_report extends CI_Controller {
                                         <span class="input-group-addon">
                                             <i class="fa fa-eye"></i>
                                         </span>
-                                        <textarea class="form-control" rows="5" id="b2bb2c_sale_observation" name="b2bb2c_sale_observation" onkeyup="countWords(this.id);" >B2B supply is '. array_sum($array_b2b_ratio) . '% and B2C supply is ' . array_sum($array_b2c_ratio) . '% of total supply.</textarea>
+                                        <textarea class="form-control" rows="5" id="b2bb2c_sale_observation" name="b2bb2c_sale_observation" onkeyup="countWords(this.id);" >B2B supply is ' . array_sum($array_b2b_ratio) . '% and B2C supply is ' . array_sum($array_b2c_ratio) . '% of total supply.</textarea>
                                     </div>
                                     <span class="required" style="color: red" id="b2bb2c_sale_observation_error"></span> 
                                 </div><br>';
                 }
             }
             $get_observation1 = $this->db->query("select b2b_b2c_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
-                if ($this->db->affected_rows() > 0) {
-                    $res = $get_observation1->row();
-                    $b2b_b2c_remarks = $res->b2b_b2c_remarks;
-                } else {
-                    $b2b_b2c_remarks = "";
-                }
-            $data .="<div class='col-md-12'>
+            if ($this->db->affected_rows() > 0) {
+                $res = $get_observation1->row();
+                $b2b_b2c_remarks = $res->b2b_b2c_remarks;
+            } else {
+                $b2b_b2c_remarks = "";
+            }
+            $data .= "<div class='col-md-12'>
                     <h5 class='box-title' style='margin-left: 1%;'><b>Remarks:</b></h5>
-                    <textarea id='editor_b2b_b2c_sale' name='editor_b2b_b2c_sale' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_b2b_b2c_sale')'>".$b2b_b2c_remarks."</textarea>
+                    <textarea id='editor_b2b_b2c_sale' name='editor_b2b_b2c_sale' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_b2b_b2c_sale')'>" . $b2b_b2c_remarks . "</textarea>
                     </div>";
 //            if ($total_turnover < 15000000 && $ttl_b2c_ratio >= 90) {
 //                $data .= "<hr><h4><b>Observation :</b></h4>";

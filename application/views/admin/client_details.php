@@ -500,7 +500,9 @@ if (is_array($session_data)) {
                     <div class="box-body pad">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="col-md-6">  <div id="account_monthly_data" ></div></div>
+                                <div class="col-md-6">  <div id="account_monthly_data" ></div>
+                                    <div id="account_monthly_observation" ></div><div id="account_monthly_remarks" ></div>
+                                </div>
                                 <div class="col-md-6">   <div id="gstr1_data"></div></div></div>
                         </div>
                     </div>
@@ -2321,9 +2323,9 @@ if (is_array($session_data)) {
         });
         $.ajax({
             type: "post",
-            url: "<?= base_url("Management_report/get_graph_exports") ?>",
+            url: "<?= base_url("Management_report/get_graph_exports1") ?>",
             dataType: "json",
-            data: {customer_id: customer_id, insert_id: insert_id},
+            data: {customer_id: customer_id, insert_id: insert_id, curr_url: curr_url},
             success: function (result) {
 //                 alert();
                 if (result.message === "success") {
@@ -2341,18 +2343,25 @@ if (is_array($session_data)) {
 //gstr due dates
         $.ajax({
             type: "post",
-            url: "<?= base_url("Account_report/get_graph") ?>",
+            url: "<?= base_url("Account_report/get_graph1") ?>",
             dataType: "json",
-            data: {customer_id: customer_id, insert_id: insert_id},
+            data: {customer_id: customer_id, insert_id: insert_id,curr_url: curr_url},
             success: function (result) {
 //                 alert();
                 $('#account_monthly_data').html("");
+                $('#account_monthly_observation').html("");
+                $('#account_monthly_remarks').html("");
                 if (result.message === "success") {
                     var data = result.data;
+                    var data1 = result.data1;
+                    var data2 = result.data2;
                     $('#account_monthly_data').html(data);
+                    $('#account_monthly_observation').html(data1);
+                    $('#account_monthly_remarks').html(data2);
                     $('#example1').DataTable();
                 } else {
                     $('#account_monthly_data').html("");
+                    $('#account_monthly_observation').html("");
                     $('#account_monthly_data').html("<b>Please insert files to see result of GSTR-3B.</b>");
 
                 }
@@ -2542,7 +2551,7 @@ if (is_array($session_data)) {
             type: "post",
             url: "<?= base_url("Invoice_comp_report/get_not_in2a_records_details1") ?>",
             dataType: "json",
-            data: {customer_id: customer_id, insert_id: insert_id},
+            data: {customer_id: customer_id, insert_id: insert_id, curr_url: curr_url},
             success: function (result) {
                 if (result.status === true) {
                     var data = result.data;
@@ -2561,7 +2570,7 @@ if (is_array($session_data)) {
             type: "post",
             url: "<?= base_url("Invoice_comp_report/get_not_inrec_records_all1") ?>",
             dataType: "json",
-            data: {customer_id: customer_id, insert_id: insert_id},
+            data: {customer_id: customer_id, insert_id: insert_id,curr_url: curr_url},
             success: function (result) {
                 if (result.status === true) {
                     var data = result.data;
@@ -2583,7 +2592,7 @@ if (is_array($session_data)) {
             type: "post",
             url: "<?= base_url("Invoice_comp_report/get_all_partial_records1") ?>",
             dataType: "json",
-            data: {customer_id: customer_id, insert_id: insert_id},
+            data: {customer_id: customer_id, insert_id: insert_id, curr_url: curr_url},
             success: function (result) {
                 if (result.status === true) {
                     var data = result.data;
