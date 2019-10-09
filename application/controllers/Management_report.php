@@ -1505,10 +1505,31 @@ class Management_report extends CI_Controller {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
         $curr_url = $this->input->post("curr_url");
+        $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
         $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         $data = ""; //view observations
-        if ($query->num_rows() > 0) {
+        $data_monthwise_name = "";
+        $data_month_observation = "";
+        $data_month_remarks = "";
+        $a = '';
+        if ($this->db->affected_rows() > 0) {
             $result = $query->result();
+            $result1 = $query_get_observation->row();
+            $month_wise_observation = $result1->month_wise_observation;
+            $month_wise_remarks = $result1->month_wise_remarks;
+
+//        if ($query->num_rows() > 0) {
+//            $result = $query->result();
+            $taxable_supply_arr = array();
+            $data_monthwise_name = 'Sales Month Wise';
+            $data_month_observation = $month_wise_observation;
+//            $data_month_remarks = $month_wise_remarks;
+            $a = $month_wise_remarks;
+            if ($a == '') {
+                $data_month_remarks = 'not given';
+            } else {
+                $data_month_remarks = $month_wise_remarks;
+            }
             $taxable_supply_arr = array();
             $data .= '<div class="row">
                     <div class="col-md-12">
@@ -1583,7 +1604,7 @@ class Management_report extends CI_Controller {
 
             $max = max($sales_percent_values2);
             $min = min($sales_percent_values2);
-            $variation = round(((($max - $min) / ($min))) * 100, 2);
+         $variation = round(((($max - $min) / ($min))) * 100, 2);
 //            $variation = round(((($max - $min) / ($min))) * 100);
             $get_observation = $this->db->query("select month_wise_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
             if ($this->db->affected_rows() > 0) {
@@ -1601,7 +1622,7 @@ class Management_report extends CI_Controller {
                                         <span class="input-group-addon">
                                             <i class="fa fa-eye"></i>
                                         </span>
-                                        <textarea class="form-control" rows="5" id="monthwise_sale_observation" name="monthwise_sale_observation" onkeyup="countWords(this.id);" >' . $observation . '</textarea>
+                                        <textarea class="form-control" rows="5" id="monthwise_sale_observation" name="monthwise_sale_observation" onkeyup="countWords(this.id);" >' . $variation . '  is the % variation of maximum & minimum sales per month requiring careful working capital planning in case receivable delay</textarea>
                                     </div>
                                     <span class="required" style="color: red" id="monthwise_sale_observation_error"></span> 
                                 </div><br>';
@@ -1612,7 +1633,7 @@ class Management_report extends CI_Controller {
                                         <span class='input-group-addon'>
                                             <i class='fa fa-eye'></i>
                                         </span>
-                                        <textarea class='form-control' rows='5' id='monthwise_sale_observation' name='monthwise_sale_observation' onkeyup='countWords(this.id);'>$variation  $observation</textarea>
+                                        <textarea class='form-control' rows='5' id='monthwise_sale_observation' name='monthwise_sale_observation' onkeyup='countWords(this.id);'>$variation  is the % variation of maximum & minimum sales per month requiring careful working capital planning in</textarea>
                                     </div>
                                     <span class='required' style='color: red' id='monthwise_sale_observation_error'></span>
                                 </div>";
@@ -1659,6 +1680,9 @@ class Management_report extends CI_Controller {
                 $customer_name = $res21->customer_name;
             }
             $respnose['data'] = $data;
+            $respnose['data_monthwise_name'] = $data_monthwise_name;
+            $respnose['data_month_observation'] = $data_month_observation;
+            $respnose['data_month_remarks'] = $data_month_remarks;
             $respnose['message'] = "success";
             $respnose['taxable_supply_arr'] = $abc1;  //taxable_supply data
             $respnose['month_data'] = $months; //months 
