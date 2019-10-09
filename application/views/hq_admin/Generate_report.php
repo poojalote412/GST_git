@@ -485,7 +485,7 @@ if (is_array($session_data)) {
                                 <thead style="background-color: #0e385e;color:white">
                                     <tr>
 
-                                        <th>Reports</th>
+                                        <th style="width:14%">Reports</th>
                                         <th>Observation</th>
                                         <th>Remarks</th>
                                     </tr>
