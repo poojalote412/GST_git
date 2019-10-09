@@ -262,7 +262,7 @@ if (is_array($session_data)) {
 
                     <div style="page-break-after:always;width:700px;margin-left: 5%;margin-right:5%;margin-top:15%;text-align: justify;text-justify: inter-word;height:800px">
                         <h4 style="font-size:18px;background:#0e385e; color:white;padding:4px;width:700px;text-align:center;text-transform: uppercase;"><b>2. Abbreviation/glossary of terms </b></h4><br> 
-                        <table id="example2" class="table-bordered table-striped" width="700">
+                        <table  class="table-bordered table-striped" width="700">
                             <thead style="background-color: #0e385e;color:white">
                                 <tr>
                                     <th style="text-align: left;">S No.</th>
@@ -470,9 +470,9 @@ if (is_array($session_data)) {
                                 <thead style="background-color: #0e385e;color:white">
                                     <tr>
 
-                                        <th style="text-align: center;">Reports</th>
-                                        <th style="text-align: center;">Observation</th>
-                                        <th style="text-align: center;">Remarks</th>
+                                        <th>Reports</th>
+                                        <th>Observation</th>
+                                        <th>Remarks</th>
                                     </tr>
                                 </thead>
 
@@ -529,15 +529,14 @@ if (is_array($session_data)) {
                     <div class="test" style="page-break-after:always;margin-top:16%">
                         <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center;margin-left: 5%;margin-right: 5%"><b>11. LIMITED USAGE AND NON-DISCLOSURE </b></p><br> 
                         <div id="container_image_limited_usage" style=""></div><br><br>  
+                        <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center;margin-left: 5%;margin-right: 5%"><b>12. Disclaimer </b></p><br>
+                        <div id="container_image_disclaimer" style=""></div><br><br>  
                     </div><br><br>
 
-                    <div class="test" style="page-break-after:always;margin-top:10%">
+<!--                    <div class="test" style="page-break-after:always;margin-top:10%">
                         <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center;margin-left: 5%;margin-right: 5%"><b>12. Disclaimer </b></p><br>
-
-<!--<div id="container_image_disclaimer" style=""><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="700px" height="900px" style=""></div><br><br>-->  
                         <div id="container_image_disclaimer" style=""></div><br><br>  
-
-                    </div>
+                    </div>-->
 
                     <div class="test" style="page-break-after:always;margin-top:15%">
                         <!--<div id="container_image_about" style=""><img src="https://premisafe.com/GST_image/about.jpg" width="780px" height="800px" style=""></div><br><br>-->  
@@ -1672,7 +1671,7 @@ if (is_array($session_data)) {
         });
         $.ajax({
             type: "post",
-            url: "<?= base_url("Account_report/get_graph1") ?>",
+            url: "<?= base_url("Account_report/get_graph") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
@@ -1689,8 +1688,8 @@ if (is_array($session_data)) {
                     $('#gstr3B_data').html(data);
                     $('#gstr3B_data1').html(data1);
                     $("#reports_observation_table").append('<tr><td>' + data_gstr3b_name + '</td><td>' + data_gstr3b_observation + '</td><td>' + data_gstr3b_remarks + '</td></tr>');
-                   
-                    
+
+
                     //                    $('#example1').DataTable();
                 } else {
                     document.getElementById("gstr3B_data").style.display = "none";
@@ -2204,7 +2203,7 @@ if (is_array($session_data)) {
 
 
         //summaary for export sales
-        
+
         $.ajax({
             type: "post",
             url: "<?= base_url("Management_report/get_graph_exports") ?>",
@@ -2218,12 +2217,12 @@ if (is_array($session_data)) {
                     var data_export_sales_name = result.data_export_sales_name;
                     var data_export_sales_observation = result.data_export_sales_observation;
                     var data_export_sales_remarks = result.data_export_sales_remarks;
-                   
+
                     $('#export_sales').html("");
                     $('#export_sales').html(data);
                     $('#example2').DataTable();
                     $("#reports_observation_table").append('<tr><td>' + data_export_sales_name + '</td><td>' + data_export_sales_observation + '</td><td>' + data_export_sales_remarks + '</td></tr>');
-                    
+
                 } else {
 
                 }
@@ -2527,7 +2526,7 @@ if (is_array($session_data)) {
                     var data_invoice_ammend_name = result.data_invoice_ammend_name;
                     var data_invoice_ammend_observation = result.data_invoice_ammend_observation;
                     var data_invoice_ammend_remarks = result.data_invoice_ammend_remarks;
-                    
+
                     $('#invoice_ammend_original_data').html(data);
                     $('#invoice_ammend_original_data1').html(data1);
                     $("#reports_observation_table").append('<tr><td>' + data_invoice_ammend_name + '</td><td>' + data_invoice_ammend_observation + '</td><td>' + data_invoice_ammend_remarks + '</td></tr>');
@@ -2581,11 +2580,11 @@ if (is_array($session_data)) {
                     var data_invoice_not_include_name = result.data_invoice_not_include_name;
                     var data_invoice_not_include_observation = result.data_invoice_not_include_observation;
                     var data_invoice_not_include_remarks = result.data_invoice_not_include_remarks;
-                     
+
                     $('#invoice_notinclude_gstr1_data').html(data);
                     $('#invoice_notinclude_gstr1_data1').html(data1);
                     $("#reports_observation_table").append('<tr><td>' + data_invoice_not_include_name + '</td><td>' + data_invoice_not_include_observation + '</td><td>' + data_invoice_not_include_remarks + '</td></tr>');
-                    
+
                 } else {
                     document.getElementById("invoice_notinclude_gstr1_data1").style.display = "none";
                     document.getElementById("invoice_notinclude_gstr1_data").style.display = "none";
@@ -2611,12 +2610,12 @@ if (is_array($session_data)) {
                     var data_not_in_2a_name = result.data_not_in_2a_name;
                     var data_not_in_2a_observation = result.data_not_in_2a_observation;
                     var data_not_in_2a_remarks = result.data_not_in_2a_remarks;
-                    
-                    
+
+
                     $('#company_all_notin2a_data').html(data);
                     $('#company_all_notin2a_data1').html(data1);
                     $("#reports_observation_table").append('<tr><td>' + data_not_in_2a_name + '</td><td>' + data_not_in_2a_observation + '</td><td>' + data_not_in_2a_remarks + '</td></tr>');
-                    
+
 
                 } else {
                     document.getElementById("company_all_notin2a_data").style.display = "none";
@@ -2647,11 +2646,11 @@ if (is_array($session_data)) {
                     var data_not_in_rec_name = result.data_not_in_rec_name;
                     var data_not_in_rec_observation = result.data_not_in_rec_observation;
                     var data_not_in_rec_remarks = result.data_not_in_rec_remarks;
-                     
+
                     $('#company_all_notinrec_data').html(data);
                     $('#company_all_notinrec_data1').html(data1);
                     $("#reports_observation_table").append('<tr><td>' + data_not_in_rec_name + '</td><td>' + data_not_in_rec_observation + '</td><td>' + data_not_in_rec_remarks + '</td></tr>');
-                    
+
 
                 } else {
                     document.getElementById("company_all_notinrec_data").style.display = "none";
@@ -2680,11 +2679,11 @@ if (is_array($session_data)) {
                     var data_partial_match_name = result.data_partial_match_name;
                     var data_partial_match_observation = result.data_partial_match_observation;
                     var data_partial_match_remarks = result.data_partial_match_remarks;
-                     
+
                     $('#company_all_partially_data').html(data);
                     $('#company_all_partially_data1').html(data1);
                     $("#reports_observation_table").append('<tr><td>' + data_partial_match_name + '</td><td>' + data_partial_match_observation + '</td><td>' + data_partial_match_remarks + '</td></tr>');
-                    
+
                 } else {
                     document.getElementById("company_all_partially_data1").style.display = "none";
                     document.getElementById("company_all_partially_data").style.display = "none";

@@ -268,12 +268,12 @@ if (is_array($session_data)) {
 
                     <div style="page-break-after:always;width:700px;margin-left: 5%;margin-right:5%;margin-top:15%;text-align: justify;text-justify: inter-word;height:800px">
                         <h4 style="font-size:18px;background:#0e385e; color:white;padding:4px;width:700px;text-align:center;text-transform: uppercase;"><b>2. Abbreviation/glossary of terms </b></h4><br> 
-                        <table id="example2" class="table-bordered table-striped" width="700">
+                        <table class="table-bordered table-striped" width="700">
                             <thead style="background-color: #0e385e;color:white">
                                 <tr>
-                                    <th style="text-align: left;">S No.</th>
-                                    <th style="text-align: left;">Abbreviation</th>
-                                    <th style="text-align: left;">Full form</th>
+                                    <th>S No.</th>
+                                    <th>Abbreviation</th>
+                                    <th>Full form</th>
                                 </tr>
                             </thead>
                             <tr><td>1</td>
@@ -485,9 +485,9 @@ if (is_array($session_data)) {
                                 <thead style="background-color: #0e385e;color:white">
                                     <tr>
 
-                                        <th style="text-align: center;">Reports</th>
-                                        <th style="text-align: center;">Observation</th>
-                                        <th style="text-align: center;">Remarks</th>
+                                        <th>Reports</th>
+                                        <th>Observation</th>
+                                        <th>Remarks</th>
                                     </tr>
                                 </thead>
 
@@ -545,17 +545,16 @@ if (is_array($session_data)) {
                     <div class="test" style="page-break-after:always;margin-top:16%">
                         <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center;margin-left: 5%;margin-right: 5%"><b>11. LIMITED USAGE AND NON-DISCLOSURE </b></p><br> 
                         <div id="container_image_limited_usage" style=""></div><br><br>  
+                        <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center;margin-left: 5%;margin-right: 5%"><b>12. Disclaimer </b></p><br>
+                        <div id="container_image_disclaimer" style=""></div><br><br>  
                     </div><br><br>
 
-                    <div class="test" style="page-break-after:always;margin-top:10%">
+<!--                    <div class="test" style="page-break-after:always;margin-top:10%">
                         <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center;margin-left: 5%;margin-right: 5%"><b>12. Disclaimer </b></p><br>
-
-<!--<div id="container_image_disclaimer" style=""><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="700px" height="900px" style=""></div><br><br>-->  
                         <div id="container_image_disclaimer" style=""></div><br><br>  
+                    </div>-->
 
-                    </div>
-
-                    <div class="test" style="page-break-after:always;margin-top:15%">
+                    <div class="test" style="page-break-after:always;margin-top:10%">
                         <!--<div id="container_image_about" style=""><img src="https://premisafe.com/GST_image/about.jpg" width="780px" height="800px" style=""></div><br><br>-->  
                         <div id="container_ecovis_about" style=""></div><br><br>  
 
@@ -1667,7 +1666,7 @@ if (is_array($session_data)) {
         });
         $.ajax({
             type: "post",
-            url: "<?= base_url("Account_report/get_graph1") ?>",
+            url: "<?= base_url("Account_report/get_graph") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
@@ -1678,8 +1677,14 @@ if (is_array($session_data)) {
                     document.getElementById("complience_div").value++;
                     var data = result.data;
                     var data1 = result.data1;
+                    var data_gstr3b_name = result.data_gstr3b_name;
+                    var data_gstr3b_observation = result.data_gstr3b_observation;
+                    var data_gstr3b_remarks = result.data_gstr3b_remarks;
                     $('#gstr3B_data').html(data);
                     $('#gstr3B_data1').html(data1);
+                    $("#reports_observation_table").append('<tr><td>' + data_gstr3b_name + '</td><td>' + data_gstr3b_observation + '</td><td>' + data_gstr3b_remarks + '</td></tr>');
+
+                    
                     //                    $('#example1').DataTable();
                 } else {
                     document.getElementById("gstr3B_data").style.display = "none";

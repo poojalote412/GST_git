@@ -69,17 +69,36 @@ class Account_report extends CI_Controller {
 
     public function get_graph() {
         $customer_id = $this->input->post("customer_id");
-//        $insert_id = $this->input->post("insert_id");
-
+        $insert_id = $this->input->post("insert_id");
+        $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
         $query = $this->db->query("SELECT month,late_fees,due_date,filling_date FROM 3b_offset_summary_all WHERE customer_id='$customer_id'");
         $data = ""; //view observations
         $data1 = ""; //view Table name
+         $data2 = "";
+        $data_gstr3b_name = "";
+        $data_gstr3b_observation = "";
+        $data_gstr3b_remarks = "";
+        $a = "";
         if ($query->num_rows() > 0) {
 
             $result = $query->result();
+            $result1 = $query_get_observation->row();
+            $gstr3b_observation = $result1->duedate_gstr2a_observation;
+
+            $gstr3b_remarks = $result1->duedate_gstr2a_remarks;
+
+            $data_gstr3b_name = "Compliance Report";
+            $data_gstr3b_observation = $gstr3b_observation;
+//            $data_tax_liability_remarks = $tax_liability_remarks;
+            $a = $gstr3b_remarks;
+            if ($a == '') {
+                $data_gstr3b_remarks = 'not given';
+            } else {
+                $data_gstr3b_remarks = $gstr3b_remarks;
+            }
             $months = array();
             $data .= ' <h4 style="color:#1d2f66"><b>1. GSTR-3B:</b></h4>';
-            $data .= '<table id="" class="table-bordered table-striped" >
+            $data .= '<table id="" class="table-bordered table-striped" width="700">
                                 <thead style="background-color: #516b22;padding:3px;color:white">
                                     <tr style="padding:3px">
                                         <th>No.</th>
@@ -106,7 +125,7 @@ class Account_report extends CI_Controller {
                 $due_date1 = date("d-m-Y", strtotime($originalDate1));
 
 
-                $status = '';
+               // $status = '';
                 $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
                         '<td>' . $months . '</td>';
@@ -128,6 +147,10 @@ class Account_report extends CI_Controller {
 
             $respose['data'] = $data;
             $respose['data1'] = $data1;
+            $respose['data2'] = $data2;
+            $respose['data_gstr3b_name'] = $data_gstr3b_name;
+            $respose['data_gstr3b_observation'] = $data_gstr3b_observation;
+            $respose['data_gstr3b_remarks'] = $data_gstr3b_remarks;
             $respose['message'] = "success";
         } else {
             $respose['data'] = "";
@@ -169,7 +192,7 @@ class Account_report extends CI_Controller {
 
             $months = array();
             $data .= ' <h4 style="color:#1d2f66"><b>1. GSTR-3B:</b></h4>';
-            $data .= '<table id="" class="table-bordered table-striped">
+            $data .= '<table id="" class="table-bordered table-striped" >
                                 <thead style="background-color: #516b22;padding:3px;color:white">
                                     <tr style="padding:3px">
                                         <th>No.</th>

@@ -385,6 +385,7 @@ class Customer_admin extends CI_Controller {
         $company_name = $this->input->post('company_name');
         $m_d_name = $this->input->post('m_d_name');
         $about_company = $this->input->post('about_company');
+        $radio_check = $this->input->post('radio_check');
         $cfo_observation = nl2br($this->input->post('cfo_observation'));
         $cfo_remarks = nl2br($this->input->post('editor_turover_vs_tax'));
         $rate_wise_observation = nl2br($this->input->post('rate_wise_observation'));
@@ -618,6 +619,7 @@ class Customer_admin extends CI_Controller {
                 'compliments_conclusion_summary' => $conclusion_summary,
                 'serious_conclusion_summary' => $serious_summary,
                 'improvement_conclusion_summary' => $improvement_summary,
+                'visible_customer_detail' => $radio_check,
                 'time_over_run' => $time_over_run,
                 'internal_control' => $internal_control,
                 'transaction_mismatch' => $transaction_mismatch,
@@ -638,6 +640,7 @@ class Customer_admin extends CI_Controller {
                 'company_name' => $company_name,
                 'managing_director_name' => $m_d_name,
                 'about_company' => $about_company,
+                
             );
             $record1 = $this->db->insert('report_header_all', $data1);
             if ($record == TRUE && $record1 == TRUE) {

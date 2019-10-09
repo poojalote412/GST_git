@@ -500,7 +500,9 @@ if (is_array($session_data)) {
                     <div class="box-body pad">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="col-md-6">  <div id="account_monthly_data" ></div></div>
+                                <div class="col-md-6">  <div id="account_monthly_data" ></div>
+                                    <div id="account_monthly_observation" ></div><div id="account_monthly_remarks" ></div>
+                                </div>
                                 <div class="col-md-6">   <div id="gstr1_data"></div></div></div>
                         </div>
                     </div>
@@ -2314,15 +2316,21 @@ if (is_array($session_data)) {
 //gstr due dates
         $.ajax({
             type: "post",
-            url: "<?= base_url("Account_report/get_graph") ?>",
+            url: "<?= base_url("Account_report/get_graph1") ?>",
             dataType: "json",
-            data: {customer_id: customer_id, insert_id: insert_id},
+            data: {customer_id: customer_id, insert_id: insert_id,curr_url: curr_url},
             success: function (result) {
 //                 alert();
                 $('#account_monthly_data').html("");
+                $('#account_monthly_observation').html("");
+                $('#account_monthly_remarks').html("");
                 if (result.message === "success") {
                     var data = result.data;
+                    var data1 = result.data1;
+                    var data2 = result.data2;
                     $('#account_monthly_data').html(data);
+                    $('#account_monthly_observation').html(data1);
+                    $('#account_monthly_remarks').html(data2);
                     $('#example1').DataTable();
                 } else {
                     $('#account_monthly_data').html("");
