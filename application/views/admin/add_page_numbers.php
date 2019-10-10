@@ -48,6 +48,11 @@ $this->load->view('admin/navigation');
                             <input type="number" id="about_client" name="about_client" onkeyup="remove_error(this.id)"class="form-control" placeholder="About Client Page Number">
                             <span class="required" style="color: red" id="about_client_error"></span>
                         </div>
+<!--                        <div class="col-xs-4">
+                            <label>Abbreviation/Glossary of terms</label>
+                            <input type="number" id="abbr_glossary" name="abbr_glossary" onkeyup="remove_error(this.id)"class="form-control" placeholder="About abbreviation">
+                            <span class="required" style="color: red" id="abbr_glossary_error"></span>
+                        </div>-->
                         <div class="col-xs-4">
                             <label>Executive Summary</label>
                             <input type="number" id="exe_sum" name="exe_sum" class="form-control" onkeyup="remove_error(this.id)" placeholder="Executive Summary Page Number">

@@ -898,6 +898,8 @@ if (is_array($session_data)) {
                         },
                         tooltip: {
                             shared: true
+                        },credits: {
+                            enabled: false
                         },
                         series: [{
                                 name: 'TurnOver',
@@ -993,6 +995,8 @@ if (is_array($session_data)) {
                         },
                         tooltip: {
                             shared: true
+                        },credits: {
+                            enabled: false
                         },
                         series: [{
                                 type: 'column',
@@ -1105,6 +1109,8 @@ if (is_array($session_data)) {
                         },
                         tooltip: {
                             shared: true
+                        },credits: {
+                            enabled: false
                         },
                         series: [{
                                 name: 'States',
@@ -1205,6 +1211,8 @@ if (is_array($session_data)) {
                         },
                         tooltip: {
                             shared: true
+                        },credits: {
+                            enabled: false
                         },
                         series: [{
                                 name: 'Taxable Supply',
@@ -1377,6 +1385,8 @@ if (is_array($session_data)) {
                         },
                         tooltip: {
                             shared: true
+                        },credits: {
+                            enabled: false
                         },
                         series: [{
                                 type: 'column',
@@ -1577,6 +1587,8 @@ if (is_array($session_data)) {
                                     lineColor: '#FFFF00'
                                 }
                             }
+                        },credits: {
+                            enabled: false
                         },
                         series: [{
                                 type: 'column',
@@ -1701,6 +1713,8 @@ if (is_array($session_data)) {
                                 pointPadding: 0.2,
                                 borderWidth: 0
                             }
+                        },credits: {
+                            enabled: false
                         },
                         series: [{
                                 type: 'column',
@@ -1903,6 +1917,8 @@ if (is_array($session_data)) {
                                     lineColor: '#FFFF00'
                                 }
                             }
+                        },credits: {
+                            enabled: false
                         },
                         series: [{
 
@@ -2081,6 +2097,8 @@ if (is_array($session_data)) {
                         },
                         tooltip: {
                             shared: true
+                        },credits: {
+                            enabled: false
                         },
                         series: [{
                                 type: 'column',
@@ -2219,6 +2237,8 @@ if (is_array($session_data)) {
                         },
                         tooltip: {
                             shared: true
+                        },credits: {
+                            enabled: false
                         },
                         series: [{
                                 name: 'Tax Liability',
@@ -2487,6 +2507,8 @@ if (is_array($session_data)) {
                         },
                         tooltip: {
                             shared: true
+                        },credits: {
+                            enabled: false
                         },
                         series: [{
                                 type: 'column',
