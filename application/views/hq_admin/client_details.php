@@ -2166,7 +2166,7 @@ if (is_array($session_data)) {
 //state wise sale
         $.ajax({
             type: "POST",
-            url: "<?= base_url("Management_report/get_graph_state_wise") ?>",
+            url: "<?= base_url("Management_report/get_graph_state_wise1") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
@@ -2181,7 +2181,7 @@ if (is_array($session_data)) {
                             type: 'column'
                         },
                         title: {
-                            text: 'Sales Satewise'
+                            text: 'Sales Statewise'
                         },
                         subtitle: {
                             text: customer_name,
