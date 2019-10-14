@@ -1604,7 +1604,7 @@ class Management_report extends CI_Controller {
 
             $max = max($sales_percent_values2);
             $min = min($sales_percent_values2);
-         $variation = round(((($max - $min) / ($min))) * 100, 2);
+         //$variation = round(((($max - $min) / ($min))) * 100, 2);
 //            $variation = round(((($max - $min) / ($min))) * 100);
             $get_observation = $this->db->query("select month_wise_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
             if ($this->db->affected_rows() > 0) {
@@ -1622,7 +1622,7 @@ class Management_report extends CI_Controller {
                                         <span class="input-group-addon">
                                             <i class="fa fa-eye"></i>
                                         </span>
-                                        <textarea class="form-control" rows="5" id="monthwise_sale_observation" name="monthwise_sale_observation" onkeyup="countWords(this.id);" >' . $variation . '  is the % variation of maximum & minimum sales per month requiring careful working capital planning in case receivable delay</textarea>
+                                        <textarea class="form-control" rows="5" id="monthwise_sale_observation" name="monthwise_sale_observation" onkeyup="countWords(this.id);" >__  is the % variation of maximum & minimum sales per month requiring careful working capital planning in case receivable delay</textarea>
                                     </div>
                                     <span class="required" style="color: red" id="monthwise_sale_observation_error"></span> 
                                 </div><br>';
@@ -1633,7 +1633,7 @@ class Management_report extends CI_Controller {
                                         <span class='input-group-addon'>
                                             <i class='fa fa-eye'></i>
                                         </span>
-                                        <textarea class='form-control' rows='5' id='monthwise_sale_observation' name='monthwise_sale_observation' onkeyup='countWords(this.id);'>$variation  is the % variation of maximum & minimum sales per month requiring careful working capital planning in</textarea>
+                                        <textarea class='form-control' rows='5' id='monthwise_sale_observation' name='monthwise_sale_observation' onkeyup='countWords(this.id);'>___  is the % variation of maximum & minimum sales per month requiring careful working capital planning in</textarea>
                                     </div>
                                     <span class='required' style='color: red' id='monthwise_sale_observation_error'></span>
                                 </div>";

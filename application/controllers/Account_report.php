@@ -168,27 +168,27 @@ class Account_report extends CI_Controller {
         $data = ""; //view observations
         $data1 = ""; //view Table name
         $data2 = ""; //view Table name
-        $data_gstr3b_name = "";
-        $data_gstr3b_observation = "";
-        $data_gstr3b_remarks = "";
-        $a = "";
+//        $data_gstr3b_name = "";
+//        $data_gstr3b_observation = "";
+//        $data_gstr3b_remarks = "";
+//        $a = "";
         if ($query->num_rows() > 0) {
 
             $result = $query->result();
-            $result1 = $query_get_observation->row();
-            $gstr3b_observation = $result1->duedate_gstr2a_observation;
-
-            $gstr3b_remarks = $result1->duedate_gstr2a_remarks;
-
-            $data_gstr3b_name = "Compliance Report";
-            $data_gstr3b_observation = $gstr3b_observation;
-//            $data_tax_liability_remarks = $tax_liability_remarks;
-            $a = $gstr3b_remarks;
-            if ($a == '') {
-                $data_gstr3b_remarks = 'not given';
-            } else {
-                $data_gstr3b_remarks = $gstr3b_remarks;
-            }
+//            $result1 = $query_get_observation->row();
+//            $gstr3b_observation = $result1->duedate_gstr2a_observation;
+//
+//            $gstr3b_remarks = $result1->duedate_gstr2a_remarks;
+//
+//            $data_gstr3b_name = "Compliance Report";
+//            $data_gstr3b_observation = $gstr3b_observation;
+////            $data_tax_liability_remarks = $tax_liability_remarks;
+//            $a = $gstr3b_remarks;
+//            if ($a == '') {
+//                $data_gstr3b_remarks = 'not given';
+//            } else {
+//                $data_gstr3b_remarks = $gstr3b_remarks;
+//            }
 
             $months = array();
             $data .= ' <h4 style="color:#1d2f66"><b>1. GSTR-3B:</b></h4>';
@@ -305,10 +305,10 @@ class Account_report extends CI_Controller {
             $respose['data'] = $data;
             $respose['data1'] = $data1;
             $respose['data2'] = $data2;
-            $respose['data_gstr3b_name'] = $data_gstr3b_name;
-            $respose['data_gstr3b_observation'] = $data_gstr3b_observation;
-            $respose['data_gstr3b_remarks'] = $data_gstr3b_remarks;
-            
+//            $respose['data_gstr3b_name'] = $data_gstr3b_name;
+//            $respose['data_gstr3b_observation'] = $data_gstr3b_observation;
+//            $respose['data_gstr3b_remarks'] = $data_gstr3b_remarks;
+//            
            
             $respose['message'] = "success";
         } else {
