@@ -1193,7 +1193,7 @@ if (is_array($session_data)) {
         //graph for sales B2B & B2Cs
         $.ajax({
             type: "POST",
-            url: "<?= base_url("Management_report/get_graph_b2b") ?>",
+            url: "<?= base_url("Management_report/get_graph_b2b1") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
@@ -1313,7 +1313,7 @@ if (is_array($session_data)) {
         //observation table for sales B2B & B2Cs
         $.ajax({
             type: "post",
-            url: "<?= base_url("Management_report/get_graph_b2b") ?>",
+            url: "<?= base_url("Management_report/get_graph_b2b1") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {

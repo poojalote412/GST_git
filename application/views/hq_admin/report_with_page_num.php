@@ -805,7 +805,7 @@ if (is_array($session_data)) {
                     $("#reports_observation_table").append('<tr><td>' + data_turnover_vsliability_name + '</td><td>' + data_turnover_vsliability_observation + '</td><td>' + data_turnover_vsliability_remarks + '</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
-                    alert('else');
+                    //alert('else');
                     document.getElementById("cfo_data").style.display = "none";
                     document.getElementById("cfo_data1").style.display = "none";
                     document.getElementById("cfo_data2").style.display = "none";
@@ -1126,7 +1126,7 @@ if (is_array($session_data)) {
         //graph for sale tax and non-taxable exempt
         $.ajax({
             type: "POST",
-            url: "<?= base_url("Management_report/get_graph_taxable_nontx_exempt") ?>",
+            url: "<?= base_url("Management_report/get_graph_taxable_nontx_exempt1") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
@@ -1300,7 +1300,7 @@ if (is_array($session_data)) {
         //graph for sales B2B & B2Cs
         $.ajax({
             type: "POST",
-            url: "<?= base_url("Management_report/get_graph_b2b") ?>",
+            url: "<?= base_url("Management_report/get_graph_b2b1")?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
@@ -1420,7 +1420,7 @@ if (is_array($session_data)) {
         //observation table for sales B2B & B2Cs
         $.ajax({
             type: "post",
-            url: "<?= base_url("Management_report/get_graph_b2b") ?>",
+            url: "<?= base_url("Management_report/get_graph_b2b1") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {

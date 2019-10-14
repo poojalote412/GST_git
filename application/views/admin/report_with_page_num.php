@@ -812,7 +812,7 @@ if (is_array($session_data)) {
                      $("#reports_observation_table").append('<tr><td>'+data_turnover_vsliability_name+'</td><td>'+data_turnover_vsliability_observation+'</td><td>'+data_turnover_vsliability_remarks+'</td></tr>');
                     //                    $('#example2').DataTable();
                 } else {
-                    alert('else');
+                   // alert('else');
                     document.getElementById("cfo_data").style.display = "none";
                     document.getElementById("cfo_data1").style.display = "none";
                     document.getElementById("cfo_data2").style.display = "none";

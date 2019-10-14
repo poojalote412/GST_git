@@ -1013,7 +1013,7 @@ if (is_array($session_data)) {
         //graph for sale tax and non-taxable exempt
         $.ajax({
             type: "POST",
-            url: "<?= base_url("Management_report/get_graph_taxable_nontx_exempt") ?>",
+            url: "<?= base_url("Management_report/get_graph_taxable_nontx_exempt1") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {

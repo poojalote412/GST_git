@@ -597,7 +597,7 @@ class Invoice_comp_report extends CI_Controller {
                             '<td>' . $row->invoice_no . '</td>' .
                             '<td>' . $row->place_of_supply . '</td>' .
                             '<td>' . $row->invoice_date . '</td>' .
-                            '<td>' . $row->invoice_value . '</td>' .
+                            '<td>' . number_format(round($row->invoice_value)) . '</td>' .
                             '<td>' . number_format(round($row->taxable_value)) . '</td>' .
                             '<td>' . number_format(round($row->tax)) . '</td>' .
                             '</tr>';
