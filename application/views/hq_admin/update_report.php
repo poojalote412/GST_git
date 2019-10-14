@@ -1039,7 +1039,7 @@ if (is_array($session_data)) {
         });
         $.ajax({
             type: "POST",
-            url: "<?= base_url("Cfo_dashboard/get_graph_Turnover_vs_liabality") ?>",
+            url: "<?= base_url("Cfo_dashboard/get_graph_Turnover_vs_liabality1") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
@@ -1843,7 +1843,7 @@ if (is_array($session_data)) {
 //GSTR-3B vs GSTR-1
         $.ajax({
             type: "POST",
-            url: "<?= base_url("Threeb_vs_one/get_graph") ?>",
+            url: "<?= base_url("Threeb_vs_one/get_graph1") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
@@ -1980,7 +1980,7 @@ if (is_array($session_data)) {
 //GSTR-1 vs GSTR-2A
         $.ajax({
             type: "POST",
-            url: "<?= base_url("Threeb_vs_twoa/get_graph") ?>",
+            url: "<?= base_url("Threeb_vs_twoa/get_graph1") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id},
             success: function (result) {
@@ -2129,7 +2129,7 @@ if (is_array($session_data)) {
 //B2B and B2C Sale
         $.ajax({
             type: "POST",
-            url: "<?= base_url("Management_report/get_graph_b2b") ?>",
+            url: "<?= base_url("Management_report/get_graph_b2b1") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
@@ -2360,7 +2360,7 @@ if (is_array($session_data)) {
 //export sale
         $.ajax({
             type: "POST",
-            url: "<?= base_url("Management_report/get_graph_exports") ?>",
+            url: "<?= base_url("Management_report/get_graph_exports1") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
@@ -2433,6 +2433,9 @@ if (is_array($session_data)) {
                                 },
                             }, ]
                     });
+                }else {
+                    $('#container_export').html("");
+                    $('#container_export').html("<b>Please insert files to see result.</b>");
                 }
             }
         });
@@ -2502,7 +2505,7 @@ if (is_array($session_data)) {
 //GST payable vs cash
         $.ajax({
             type: "POST",
-            url: "<?= base_url("Internal_acc_report/get_graph_gst_payable_vs_cash") ?>",
+            url: "<?= base_url("Internal_acc_report/get_graph_gst_payable_vs_cash1") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
@@ -2679,7 +2682,7 @@ if (is_array($session_data)) {
                     $('#example_ammend').DataTable();
                 } else {
                     $('#invoice_ammend_data').html("");
-                    $('#company_data').html("<b>Please insert files to see result.</b>");
+                    $('#invoice_ammend_data').html("<b>Please insert files to see result.</b>");
 
                 }
             },

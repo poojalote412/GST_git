@@ -203,6 +203,7 @@ class Report extends CI_Controller {
         $gst_report_insight = $this->input->post('gst_report_insight');
         $issue_matrix = $this->input->post('issue_matrix');
         $report_card = $this->input->post('report_card');
+        $limited_usage_disclosure = $this->input->post('limited_usage_disclaimer');
         $conclusion = $this->input->post('conclusion');
         $gst_approach = $this->input->post('gst_approach');
         $disclaimer = $this->input->post('disclaimer');
@@ -252,6 +253,11 @@ class Report extends CI_Controller {
             $response['error'] = 'Enter Page Number';
             echo json_encode($response);
             exit;
+        }elseif (empty($limited_usage_disclosure)) {
+            $response['id'] = 'limited_usage_disclaimer';
+            $response['error'] = 'Enter Page Number';
+            echo json_encode($response);
+            exit;
         } elseif (empty($disclaimer)) {
             $response['id'] = 'disclaimer';
             $response['error'] = 'Enter Page Number';
@@ -267,9 +273,9 @@ class Report extends CI_Controller {
             $get_observation = $this->db->query("select file_location,id from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
             $res = $get_observation->row();
             $id = $res->id;
-            $page_numbers = $about_client . "," . $exe_sum . "," . $gst_cmp_overview . ","
-                    . $gst_framework . "," . $gst_approach . "," . $gst_report_insight . ","
-                    . $issue_matrix . "," . $report_card . "," . $conclusion . "," . $disclaimer . "," . $about_ecovis;
+            $page_numbers = $about_client . "," . $gst_cmp_overview . ","
+                    . $gst_framework . "," . $gst_approach . "," . $gst_report_insight . "," . $exe_sum . ","
+                    . $issue_matrix . "," . $report_card . "," . $conclusion . "," . $limited_usage_disclosure . "," . $disclaimer . "," . $about_ecovis;
             $data = array('page_numbers' => $page_numbers);
             $this->db->where('insert_id', $insert_id);
             $this->db->where('customer_id', $customer_id);
@@ -460,18 +466,29 @@ class Report extends CI_Controller {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
         $year_id = $this->input->post("year_id");
-//        $query_get_company_header = $this->db->query("SELECT company_name from report_header_all where insert_id='$insert_id' and customer_id='$customer_id'");
+        $query_get_company_header = $this->db->query("SELECT company_name from report_header_all where insert_id='$insert_id' and customer_id='$customer_id'");
         $query_get_insert_header = $this->db->query("SELECT year_id from insert_header_all where insert_id='$insert_id'");
+        $visible_customer_detail = $this->db->query("select visible_customer_detail from observation_transaction_all where insert_id='$insert_id' and customer_id='$customer_id' ORDER BY ID DESC LIMIT 1");
         if ($this->db->affected_rows() > 0) {
             $res = $query_get_insert_header->row();
+            $res1 = $query_get_company_header->row();
+            $res2 = $visible_customer_detail->row();
             $year_id = $res->year_id;
+            $company_name = $res1->company_name;
+            $visible_detail = $res2->visible_customer_detail;
+            if ($visible_detail == 1) {
+                $company_name = $company_name;
+            } else {
+                $company_name = "XXX";
+            }
             $data = '<div style="margin-top:9%;margin-left: 6%;margin-right: 6%;margin-top:5%;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;width:700px;height:700px">
-                
-                     <p style="font-size:13px"> Dear Sir,<br><br>
+                    <p style="font-size:14px;text-align:center"><b>Kind Attention!!</b></p>
+                     <p style="font-size:12px"> Dear Sir,<br><br>
                      We would like to thank you for giving us an opportunity to work for your company. 
-                     We refer to our ongoing discussion on assisting (“Company”) in India for GST Health Check Report.<br><br>
+                     We refer to our ongoing discussion on assisting "'.$company_name.'" in India for GST Health Check Report.<br><br>
                      In this report we have covered the overall perspective of the following:
-                     <ul style="margin-left: -5.1%;margin-right: 14%;">
+                     </p>
+                     <ul style="margin-left: -5.1%;margin-right: 14%;font-size:12px">
                      <li>Identifying the errors in advance so the risk of levy of Interests and penalties can be mitigated.</li>
                      <li>Analyzing Sales data which will facilitate the area and product wise profitability of business. </li>
                      <li>Identifying the deviation in the GST data through Comparison of GSTR-3B with GSTR-1 & GSTR-2A.</li>
@@ -480,8 +497,9 @@ class Report extends CI_Controller {
                      <li>The CFO dashboard which enables faster, more precise decision making, allowing financial managers to assess, understand, influence, optimize financial & operational performance and identifying accounting mismatches.</li>
                      <li>Providing risk rating card which will reflect the status of the company and enable in determining if it is good going or needs improvement.</li>
                      </ul><br>
-                     Moreover, GST Health Check may result in cost savings by identifying tax leakages as well as developing vendor relationship.<br><br>
-                     Hope this GST Health Check report will help your company for the better and timely compliances.<br><br>
+                     <p style="font-size:12px">
+                     Moreover, GST Health Check may result in cost savings by identifying tax leakages as well as developing vendor relationship.<br>
+                     Hope this GST Health Check report will help your company for the better and timely compliances.<br>
                      Yours faithfully 
                      
                      </p>

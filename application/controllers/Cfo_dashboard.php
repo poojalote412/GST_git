@@ -297,10 +297,10 @@ class Cfo_dashboard extends CI_Controller {
             $turnover1 = array();
             $tax_liabality1 = array();
             $ratio_val = array();
-            $data2 .= '<h4 style="color:#1d2f66"><b>2. Turnover vs Tax Liability:</b></h4><br>';
+            $data2 .= '<h4 style=""><b>2. Turnover vs Tax Liability:</b></h4>';
             $data .= '
-                         <table id="example2" class="table-bordered table-striped"  width="700">
-                                <thead style="background-color: #00008B;color:white">
+                         <table  class="table-bordered table-striped"  width="700">
+                                <thead style="background-color: #cd273f;color:white">
                                     <tr>
                                         <th>No.</th>
                                         <th>Month</th>

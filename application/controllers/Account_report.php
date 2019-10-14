@@ -97,7 +97,7 @@ class Account_report extends CI_Controller {
                 $data_gstr3b_remarks = $gstr3b_remarks;
             }
             $months = array();
-            $data .= ' <h4 style="color:#1d2f66"><b>1. GSTR-3B:</b></h4>';
+            $data .= ' <h4 style=""><b>1. GSTR-3B:</b></h4>';
             $data .= '<table id="" class="table-bordered table-striped" width="700">
                                 <thead style="background-color: #516b22;padding:3px;color:white">
                                     <tr style="padding:3px">
@@ -326,7 +326,7 @@ class Account_report extends CI_Controller {
         $customer_id = $this->input->post("customer_id");
 //        $insert_id = $this->input->post("insert_id");
 
-        $query = $this->db->query("SELECT period,status,filling_date,acknowledge_no FROM return_filled_gstr1_summary WHERE customer_id='$customer_id' ");
+        $query = $this->db->query("SELECT period,status,filling_date,due_date FROM return_filled_gstr1_summary WHERE customer_id='$customer_id' ");
         $data = ""; //view observations
         $data1 = ""; //view observations
         if ($query->num_rows() > 0) {
@@ -341,7 +341,7 @@ class Account_report extends CI_Controller {
                                         <th>Period</th>
                                         <th>Status</th>
                                         <th>Filing Date</th>
-                                        <th>Acknowledge No</th>
+                                        <th>Due Date</th>
                                         
                                     </tr>
                                 </thead>
@@ -353,7 +353,7 @@ class Account_report extends CI_Controller {
                 $period = $row->period;
                 $status = $row->status;
                 $filling_date = $row->filling_date;
-                $acknowledge_no = $row->acknowledge_no;
+                $due_date = $row->due_date;
                 $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
                         '<td>' . $period . '</td>';
@@ -363,7 +363,7 @@ class Account_report extends CI_Controller {
                     $data .= '<td style="background-color:#84ab32; color:#84ab32;">Filed</td>';
                 }
                 $data .= '<td>' . $filling_date . '</td>' .
-                        '<td>' . $acknowledge_no . '</td>' .
+                        '<td>' . $due_date . '</td>' .
                         '</tr>';
                 $k++;
             }
@@ -382,22 +382,22 @@ class Account_report extends CI_Controller {
         $customer_id = $this->input->post("customer_id");
 //        $insert_id = $this->input->post("insert_id");
 
-        $query = $this->db->query("SELECT period,status,filling_date,acknowledge_no FROM return_filled_gstr1_summary WHERE customer_id='$customer_id' ");
+        $query = $this->db->query("SELECT period,status,filling_date,due_date FROM return_filled_gstr1_summary WHERE customer_id='$customer_id' ");
         $data = ""; //view observations
         $data1 = ""; //view observations
         if ($query->num_rows() > 0) {
 
             $result = $query->result();
             $period = array();
-            $data .= '<br><br><h4 style="color:#1d2f66"><b>2. GSTR-1:</b></h4>';
-            $data .= '<table id="example2" class="table-bordered table-striped" width="700">
+            $data .= '<br><br><h4 style=""><b>2. GSTR-1:</b></h4>';
+            $data .= '<table class="table-bordered table-striped" width="700">
                                 <thead style="background-color: #516b22 ;color:white">
                                     <tr>
                                         <th>No.</th>
                                         <th>Period</th>
                                         <th>Status</th>
                                         <th>Filing Date</th>
-                                        <th>Acknowledge No</th>
+                                        <th>Due Date</th>
                                         
                                     </tr>
                                 </thead>
@@ -409,7 +409,7 @@ class Account_report extends CI_Controller {
                 $period = $row->period;
                 $status = $row->status;
                 $filling_date = $row->filling_date;
-                $acknowledge_no = $row->acknowledge_no;
+                $due_date = $row->due_date;
                 $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
                         '<td>' . $period . '</td>';
@@ -419,7 +419,7 @@ class Account_report extends CI_Controller {
                     $data .= '<td style="background-color:#84ab32; color:#84ab32;">Filed</td>';
                 }
                 $data .= '<td>' . $filling_date . '</td>' .
-                        '<td>' . $acknowledge_no . '</td>' .
+                        '<td>' . $due_date . '</td>' .
                         '</tr>';
                 $k++;
             }

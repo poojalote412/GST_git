@@ -43,33 +43,25 @@ $this->load->view('admin/navigation');
                     <input type="hidden" id="customer_id" name="customer_id" value="<?php echo $customer_id ?>">
                     <input type="hidden" id="insert_id" name="insert_id" value="<?php echo $insert_id ?>">
                     <div class="row">
-                           <div class="col-xs-4">
+                        <div class="col-xs-4">
                             <label>About Client</label>
                             <input type="number" id="about_client" name="about_client" onkeyup="remove_error(this.id)"class="form-control" placeholder="About Client Page Number">
                             <span class="required" style="color: red" id="about_client_error"></span>
                         </div>
-<!--                        <div class="col-xs-4">
-                            <label>Abbreviation/Glossary of terms</label>
-                            <input type="number" id="abbr_glossary" name="abbr_glossary" onkeyup="remove_error(this.id)"class="form-control" placeholder="About abbreviation">
-                            <span class="required" style="color: red" id="abbr_glossary_error"></span>
-                        </div>-->
-                        <div class="col-xs-4">
-                            <label>Executive Summary</label>
-                            <input type="number" id="exe_sum" name="exe_sum" class="form-control" onkeyup="remove_error(this.id)" placeholder="Executive Summary Page Number">
-                            <span class="required" style="color: red" id="exe_sum_error"></span>
-                        </div>
+                        
                         <div class="col-xs-4">
                             <label>GST Component & Overview</label>
                             <input type="number" id="gst_cmp_overview" name="gst_cmp_overview" onkeyup="remove_error(this.id)" class="form-control" placeholder="GST Component & Overview Page Number">
                             <span class="required" style="color: red" id="gst_cmp_overview_error"></span>
                         </div>
-                    </div><br>
-                    <div class="row">
                         <div class="col-xs-4">
                             <label>GST Framework</label>
                             <input type="number" id="gst_framework" name="gst_framework" onkeyup="remove_error(this.id)" class="form-control" placeholder="GST Framework Page Number">
                             <span class="required" style="color: red" id="gst_framework_error"></span>
                         </div>
+                    </div><br>
+                    <div class="row">
+
                         <div class="col-xs-4">
                             <label>Approach</label>
                             <input type="number" id="gst_approach" name="gst_approach" onkeyup="remove_error(this.id)" class="form-control" placeholder="GST Framework Page Number">
@@ -80,7 +72,12 @@ $this->load->view('admin/navigation');
                             <input type="number" id="gst_report_insight" name="gst_report_insight" onkeyup="remove_error(this.id)" class="form-control" placeholder="Details Of GST Report & Insight Page Number">
                             <span class="required" style="color: red" id="gst_report_insight_error"></span>
                         </div>
-                        
+                        <div class="col-xs-4">
+                            <label>Executive Summary</label>
+                            <input type="number" id="exe_sum" name="exe_sum" class="form-control" onkeyup="remove_error(this.id)" placeholder="Executive Summary Page Number">
+                            <span class="required" style="color: red" id="exe_sum_error"></span>
+                        </div>
+
                     </div><br>
                     <div class="row">
                         <div class="col-xs-4">
@@ -101,13 +98,18 @@ $this->load->view('admin/navigation');
                     </div><br>
                     <div class="row">
                         <div class="col-xs-4">
+                            <label>Limited Usage & Non-Disclosure</label>
+                            <input type="number" id="limited_usage_disclaimer" name="limited_usage_disclaimer" class="form-control" onkeyup="remove_error(this.id)" placeholder="Issue Matrix Page Number">
+                            <span class="required" style="color: red" id="limited_usage_disclaimer_error"></span>
+                        </div>
+                        <div class="col-xs-4">
                             <label>Disclaimer</label>
-                            <input type="number" id="disclaimer" name="disclaimer" class="form-control" onkeyup="remove_error(this.id)" placeholder="Issue Matrix Page Number">
+                            <input type="number" id="disclaimer" name="disclaimer" class="form-control" onkeyup="remove_error(this.id)" placeholder="Enter Disclaimer">
                             <span class="required" style="color: red" id="disclaimer_error"></span>
                         </div>
                         <div class="col-xs-4">
                             <label>About Ecovis RKCA</label>
-                            <input type="number" id="about_ecovis" name="about_ecovis" class="form-control" onkeyup="remove_error(this.id)" placeholder="Rating Card Page Number">
+                            <input type="number" id="about_ecovis" name="about_ecovis" class="form-control" onkeyup="remove_error(this.id)" placeholder="Enter About Ecovis RKCA">
                             <span class="required" style="color: red" id="about_ecovis_error"></span>
                         </div>
                     </div><br>

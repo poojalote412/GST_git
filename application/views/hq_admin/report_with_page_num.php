@@ -105,16 +105,17 @@ if (is_array($session_data)) {
         $page_num = $company_details->page_numbers;
         $exp = explode(",", $page_num);
         $about_client_page_num = $exp[0];
-        $executive_summary_page_num = $exp[1];
-        $gst_compo_page_num = $exp[2];
-        $framework_page_num = $exp[3];
-        $approach_page_num = $exp[4];
-        $details_rep_page_num = $exp[5];
+        $gst_compo_page_num = $exp[1];
+        $framework_page_num = $exp[2];
+        $approach_page_num = $exp[3];
+        $details_rep_page_num = $exp[4];
+         $executive_summary_page_num = $exp[5];
         $issue_matrix_page_num = $exp[6]; //repated first
         $rating_card_page_num = $exp[7]; //repated second
         $conclusion_page_num = $exp[8];
-        $disclaimer_page_num = $exp[9];
-        $about_ecovis_page_num = $exp[10];
+       $limited_usage_disclosure = $exp[9];
+        $disclaimer_page_num = $exp[10];
+        $about_ecovis_page_num = $exp[11];
         ?>
         <!-- Default box -->
         <div class="box">
@@ -183,7 +184,7 @@ if (is_array($session_data)) {
                                 }
                                 ?></b> <br>
                         </div>
-                        <div style="position: absolute;bottom: -14%;color: white;width: 700px;text-align: center;margin-left:5% !important;" class="centered"> 
+                        <div style="position: absolute;bottom: -10%;color: white;width: 700px;text-align: center;margin-left:5% !important;" class="centered"> 
                             <br>  <b style="font-size: 20px">Financial Year: &nbsp;<?php echo $insert_header_details->year_id ?></b> <br>
                         </div>
                         <img src="https://premisafe.com/GST_image/GSTReportCover.jpg" style="page-break-after: always" width="800px" height="800px">
@@ -256,7 +257,7 @@ if (is_array($session_data)) {
                                 ?>
                             </b>
                         </div>
-                        <div style="margin-left: 36%;margin-top:20%;"> <b style="font-size:18px;color:#1d2f66;"><u>Sub: GST Health Check Report</u></b></div>
+                        <div style="margin-left: 36%;margin-top:20%;"> <b style="font-size:16px;"><u>Sub: GST Health Check Report</u></b></div>
                         <div id="content_client_letterPDF" style=""></div>
 
                     </div>
@@ -265,35 +266,36 @@ if (is_array($session_data)) {
                                             <img src="https://premisafe.com/GST_image/LimitedUsage&Abbreviation.jpg" width="800px" height="900px">
                                         </div>-->
                     <div style="margin-top: 15%;page-break-after: always;position: relative;">
-                        <p style="position: absolute;margin-top:15%;margin-left: 44%;color:#0e385e;font-size:22px"><b><?php echo $about_client_page_num; ?></b></p>
-                        <p style="position: absolute;margin-top:15%;margin-left: 84%;color:white;font-size:22px"><b><?php echo $executive_summary_page_num; ?></b></p>
-                        <p style="position: absolute;margin-top:24%;margin-left: 44%;color:white;font-size:22px"><b><?php echo $gst_compo_page_num; ?></b></p>
-                        <p style="position: absolute;margin-top:24%;margin-left: 84%;color:#0e385e;font-size:22px"><b><?php echo $framework_page_num; ?></b></p>
-                        <p style="position: absolute;margin-top:34%;margin-left: 44%;color:#0e385e;font-size:22px"><b><?php echo $approach_page_num; ?></b></p>
-                        <p style="position: absolute;margin-top:34%;margin-left: 84%;color:white;font-size:22px"><b><?php echo $details_rep_page_num; ?></b></p>
-                        <p style="position: absolute;margin-top:44%;margin-left: 44%;color:white;font-size:22px"><b><?php echo $issue_matrix_page_num; ?></b></p>
-                        <p style="position: absolute;margin-top:44%;margin-left: 83%;color:#0e385e;font-size:22px"><b><?php echo $rating_card_page_num; ?></b></p>
-                        <p style="position: absolute;margin-top:55%;margin-left: 44%;color:#0e385e;font-size:22px"><b><?php echo $conclusion_page_num; ?></b></p>
-                        <p style="position: absolute;margin-top:55%;margin-left: 83%;color:white;font-size:22px"><b><?php echo $disclaimer_page_num; ?></b></p>
-                        <p style="position: absolute;margin-top:62%;margin-left: 83%;color:white;font-size:22px"><b><?php echo $about_ecovis_page_num; ?></b></p>
+                        <p style="position: absolute;margin-top:13%;margin-left: 44%;color:#0e385e;font-size:22px"><b>&nbsp;<?php echo $about_client_page_num; ?></b></p>
+                        <p style="position: absolute;margin-top:13%;margin-left: 84%;color:white;font-size:22px"><b>&nbsp;5</b></p>
+                        <p style="position: absolute;margin-top:22%;margin-left: 44%;color:white;font-size:22px"><b>&nbsp;<?php echo $gst_compo_page_num; ?></b></p>
+                        <p style="position: absolute;margin-top:22%;margin-left: 84%;color:#0e385e;font-size:22px"><b>&nbsp;<?php echo $framework_page_num; ?></b></p>
+                        <p style="position: absolute;margin-top:32%;margin-left: 44%;color:#0e385e;font-size:22px"><b>&nbsp;<?php echo $approach_page_num; ?></b></p>
+                        <p style="position: absolute;margin-top:32%;margin-left: 84%;color:white;font-size:22px"><b>&nbsp;<?php echo $details_rep_page_num; ?></b></p>
+                        <p style="position: absolute;margin-top:42%;margin-left: 44%;color:white;font-size:22px"><b>&nbsp;<?php echo $executive_summary_page_num; ?></b></p>
+                        <p style="position: absolute;margin-top:42%;margin-left: 83%;color:#0e385e;font-size:22px"><b>&nbsp;&nbsp;<?php echo $issue_matrix_page_num; ?></b></p>
+                        <p style="position: absolute;margin-top:53%;margin-left: 44%;color:#0e385e;font-size:22px"><b>&nbsp;<?php echo $rating_card_page_num; ?></b></p>
+                        <p style="position: absolute;margin-top:53%;margin-left: 83%;color:white;font-size:22px"><b>&nbsp;&nbsp;<?php echo $conclusion_page_num; ?></b></p>
+                        <p style="position: absolute;margin-top:62%;margin-left: 44%;color:white;font-size:22px"><b>&nbsp;<?php echo $limited_usage_disclosure; ?></b></p>
+                        <p style="position: absolute;margin-top:62%;margin-left: 83%;color:#0e385e;font-size:22px"><b>&nbsp;&nbsp;<?php echo $disclaimer_page_num; ?></b></p>
+                        <p style="position: absolute;margin-top:68%;margin-left: 83%;color:white;font-size:22px"><b>&nbsp;&nbsp;<?php echo $about_ecovis_page_num; ?></b></p>
 
                         <img src="https://premisafe.com/GST_image/GSTContent.jpg" style="margin-left: -5px;" width="800px" height="700px"style="page-break-after:always;" >
                     </div>
 
                     <div style="page-break-after:always;width:700px;margin-left: 5%;margin-right:5%;margin-top:15%;text-align: justify;text-justify: inter-word;height:800px">
-                        <h4 style="font-size:18px;background:#0e385e; color:white;padding:4px;width:700px;text-align:center"><b>1. ABOUT CLIENT </b></h4><br> 
-                        <div style="color:white;width:700px;height:550px;background:#0e385e;">
-                            <p style="height: 14%;margin-top: 2%;padding-top: 5%;letter-spacing: 0.5px;font-family:Microsoft Sans Serif;font-size: 18px;text-transform: uppercase;padding:4px;width:700px;text-align:center">
+                        <h4 style="font-size:20px;color:#0e385e;padding:4px;width:700px;"><b>1. ABOUT CLIENT </b></h4> 
+                        <div style="width:700px;height:550px;">
+<!--                            <p style="height: 14%;margin-top: 2%;padding-top: 5%;font-family:Microsoft Sans Serif;font-size: 18px;text-transform: uppercase;padding:4px;width:700px;text-align:center">
                                 <?php
                                 if ($company_details->visible_customer_detail == 1) {
                                     echo $client_details->company_name;
                                 } else {
                                     echo "XXX";
                                 }
-//                            echo $client_details->company_name
                                 ?>
-                            </p>
-                            <p style="font-size: 14px;margin-left: 5%;margin-right: 5%;letter-spacing: 0.5px;">
+                            </p>-->
+                            <p style="font-size: 13px;">
                                 <?php
                                 if ($company_details->visible_customer_detail == 1) {
                                     echo $report_details->about_company;
@@ -305,51 +307,9 @@ if (is_array($session_data)) {
                         </div>
                     </div>
 
-                    <div style="page-break-after:always;width:700px;margin-left: 5%;margin-right:5%;margin-top:15%;text-align: justify;text-justify: inter-word;height:800px">
-                        <h4 style="font-size:18px;background:#0e385e; color:white;padding:4px;width:700px;text-align:center;text-transform: uppercase;"><b>2. Abbreviation/glossary of terms </b></h4><br> 
-                        <table class="table-bordered table-striped" width="700">
-                            <thead style="background-color: #0e385e;color:white">
-                                <tr>
-                                    <th>S No.</th>
-                                    <th>Abbreviation</th>
-                                    <th>Full form</th>
-                                </tr>
-                            </thead>
-                            <tr><td>1</td>
-                                <td>GST</td>
-                                <td>Goods and Service Tax</td></tr>
-                            <tr><td>2</td>
-                                <td>GSTR</td>
-                                <td> Goods and Services Tax Return.</td></tr>
-                            <tr><td>3</td>
-                                <td> ITC</td>
-                                <td>Input Tax Credit.</td></tr>
-                            <tr><td>4</td>
-                                <td>GSTIN</td>
-                                <td>Goods and Services Tax Identification Number.</td></tr>
-                            <tr><td>5</td>
-                                <td> IGST</td>
-                                <td> Integrated Goods and Services Tax.</td></tr>
-                            <tr><td>6</td>
-                                <td>CGST</td>
-                                <td>Centre Goods and Services Tax.</td></tr>
-                            <tr><td>7</td>
-                                <td>SGST/UTGST</td>
-                                <td> State Goods and Services Tax/Union Territory Goods and Services Tax.</td></tr>
-                            <tr><td>8</td>
-                                <td>B2B Supply</td>
-                                <td>Supply made to registered person.</td></tr>
-                            <tr><td>9</td>
-                                <td>B2C Supply</td>
-                                <td>Supply made to unregistered person.</td></tr>
-                            <tr><td>10</td>
-                                <td>POS</td>
-                                <td>Place Of Supply</td></tr>
-                            <tr><td>11</td>
-                                <td> RCM</td>
-                                <td> Reverse Charge Mechanism</td></tr>
-
-                        </table>
+                    <div style="page-break-after:always;width:700px;margin-right:5%;margin-top:15%;">
+                        <div id="container_image_GST_abbreviation"><img src="https://premisafe.com/GST_image/Abbreviation.jpg" width="800px" height="900px"></div>
+                       
                     </div>
 
                     <!--                    <div style="page-break-after:always;width:700px;margin-left: 5%;margin-right:  5%;margin-top:9%;text-align: justify;">
@@ -362,16 +322,16 @@ if (is_array($session_data)) {
                     <div class="test" style="page-break-after:always;margin-top:15%;">
                         <div id="container_image_GST_framework"><img src="https://premisafe.com/GST_image/GSTFramework.jpg" width="800px" height="900px"></div>
                     </div>
-                    <div class="test" style="page-break-after:always;margin-top:9%">
+                    <div class="test" style="page-break-after:always;margin-top:13%">
                         <div id="container_image_approach" style="margin-top:9%;"><img src="https://premisafe.com/GST_image/Approach.jpg" width="750px" height="900px" style="page-break-after:always;"></div>
                     </div>
                     <!--Details of GST Reports & insights-->
 
                     <div class="test" id="first_div" style="display: block">
                         <div style="margin-top:15%;margin-left:5%;margin-right: 5%;">
-                            <h4 class="" style="color:#0e385e;"><b>6.DETAILS OF GST REPORTS AND INSIGHTS</b></h4>
+                            <h4 class="" style="color:#0e385e;font-size:20px;"><b>6.DETAILS OF GST REPORTS AND INSIGHTS</b></h4>
                             <h4 class="" style="background:#0e385e; color:white;width:700px;text-align:center">DATA INSIGHTS</h4>
-                            <h4 class="" style="color:#0e385e"><b>A.SALES REPORT</b></h4><br>
+                            <h4 class="" style="color:#0e385e"><b>A.SALES REPORT</b></h4>
                         </div>
                         <div class="test" id="monthly_div" style="page-break-after:always;margin-left:5%;margin-right: 5%;">
                             <div id="sales_monthly_data2" ></div>
@@ -379,7 +339,7 @@ if (is_array($session_data)) {
                             <div id="sales_monthly_data1" style="width:700px; "></div>
                         </div>
                         <input type="hidden" id="sales_ratewise_div" name="sales_ratewise_div" value="0">
-                        <div class="test" id="sales_rate_statewise_div" style="margin-top:9%;margin-left:5%;margin-right: 5%;page-break-after:always;">
+                        <div class="test" id="sales_rate_statewise_div" style="margin-top:15%;margin-left:5%;margin-right: 5%;page-break-after:always;">
                             <div id="compare_sales_ratewise_data1" style="width:700px;"></div>
                             <div id="compare_sales_ratewise_data" style="width:700px;"></div><br><br><br>
                             <div id="sales_state_wise_data2"  style="width:700px;"></div>
@@ -517,9 +477,9 @@ if (is_array($session_data)) {
 
                         <div class="test" style="page-break-after:always;margin-top: 15%">
                        <!--<div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="900px" height="900px" style=""></div><br><br>-->  
-                            <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center;margin-left: 5%;margin-right: 5%">7. Executive Summary </p><br><br>
+                            <p style="font-size:20px; color:#0e385e;padding:4px;width:700px;margin-left: 5%;margin-right: 5%"><b>7. EXECUTIVE SUMMARY</b> </p>
                             <div id="container_executive_summary1" style=""></div><br><br> 
-                            <table id="example2" class="table-bordered table-striped" width="700px" style="margin-left: 5%;margin-right: 5%;margin-top: -12%;">
+                            <table class="table-bordered table-striped" width="700px" style="margin-left: 5%;margin-right: 5%;margin-top: -12%;">
                                 <thead style="background-color: #0e385e;color:white">
                                     <tr>
 
@@ -554,18 +514,18 @@ if (is_array($session_data)) {
                     <div class="test" style="page-break-after:always;margin-top: 15%">
                        <!--<div id="container_image_issue_matrix" style=""><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="900px" height="900px" style=""></div><br><br>-->  
                         <div id="" style="width:850px">
-                            <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center;margin-left: 5%;margin-right: 5%">10. SUMMARY OBSERVATION & CONCLUSION </p><br><br>
+                            <p style="font-size:19px; color:#0e385e;padding:4px;width:700px;margin-left: 5%;margin-right: 5%"><b>10. SUMMARY OBSERVATION & CONCLUSION</b> </p>
 
                             <p style="margin-left: 5%">Following are the conclusions drawn after doing the analysis:</p>
-                            <p align="justify" style="margin-left: 5%;margin-right:  5%;font-size: 14px;letter-spacing: 0.5px;">
+                            <p align="justify" style="margin-left: 5%;margin-right:  5%;font-size: 13px;letter-spacing: 0.5px;">
                                 <?php
                                 if ($company_details->visible_customer_detail == 1) {
                                     echo '<h5 style="margin-left: 5%"><b>Compliemnts/facts:</b></h5>';
                                     echo'<p style="margin-left: 7%;margin-right:  5%;font-size: 14px;">' . $company_details->compliments_conclusion_summary . '</p>';
-                                    echo '<br>';
+                                    //echo '<br>';
                                     echo '<h5 style="margin-left: 5%"><b>Serious Problems:</b></h5>';
                                     echo '<p style="margin-left: 7%;margin-right:  5%;font-size: 14px;">' . $company_details->serious_conclusion_summary . '</p>';
-                                    echo '<br>';
+                                  //  echo '<br>';
                                     echo '<h5 style="margin-left: 5%"><b>Improvement:</b></h5>';
                                     echo '<p style="margin-left: 7%;margin-right:  5%;font-size: 14px;">' . $company_details->improvement_conclusion_summary . '</p>';
                                 } else {
@@ -581,9 +541,9 @@ if (is_array($session_data)) {
                     <!--</div>-->
 
                     <div class="test" style="page-break-after:always;margin-top:16%">
-                        <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center;margin-left: 5%;margin-right: 5%"><b>11. LIMITED USAGE AND NON-DISCLOSURE </b></p><br> 
+                        <p style="font-size:20px; color:#0e385e;padding:4px;width:700px;margin-left: 5%;margin-right: 5%"><b>11. LIMITED USAGE AND NON-DISCLOSURE </b></p>
                         <div id="container_image_limited_usage" style=""></div><br><br>  
-                         <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center;margin-left: 5%;margin-right: 5%"><b>12. Disclaimer </b></p><br>
+                        <p style="font-size:20px; color:#0e385e;padding:4px;width:700px;margin-left: 5%;margin-right: 5%"><b>12. Disclaimer </b></p>
                         <div id="container_image_disclaimer" style=""></div><br><br>  
                     </div><br><br>
 
@@ -594,10 +554,16 @@ if (is_array($session_data)) {
 
                     <div class="test" style="page-break-after:always;margin-top:10%">
                         <!--<div id="container_image_about" style=""><img src="https://premisafe.com/GST_image/about.jpg" width="780px" height="800px" style=""></div><br><br>-->  
-                        <div id="container_ecovis_about" style=""></div><br><br>  
+                        <div id="container_ecovis" style="">
+                            <img src="https://premisafe.com/GST_image/about.jpg" width="780px" height="800px" style="">
+                            
+                        </div><br><br>  
 
                     </div>
+                    <div class="test" style="margin-top:10%">
+                        <div id="container_image_services" style=""><img src="https://premisafe.com/GST_image/OurServicesPage.jpg" width="780px" height="800px" style=""></div><br><br>  
 
+                    </div>
 
                 </div>
             </div>

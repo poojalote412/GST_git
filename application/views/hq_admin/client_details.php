@@ -123,7 +123,7 @@ if (is_array($session_data)) {
             </div>
 
             <div>
-                 <div class="box collapsed-box">
+                <div class="box collapsed-box">
                     <div class="box-header">
                         <h3 class="box-title">TurnOver vs Tax Liability
                             <!--<small>Simple and fast</small>-->
@@ -151,7 +151,7 @@ if (is_array($session_data)) {
 
 
                 </div>
-                 <div class="box collapsed-box">
+                <div class="box collapsed-box">
                     <div class="box-header">
                         <h3 class="box-title">Sales Rate Wise
                             <!--<small>Simple and fast</small>-->
@@ -205,7 +205,7 @@ if (is_array($session_data)) {
                         </div>
                     </div>
                 </div>
-               <div class="box collapsed-box">
+                <div class="box collapsed-box">
                     <div class="box-header">
                         <h3 class="box-title">Sale Taxable,Non-Taxable & Exempt
                             <!--<small>Simple and fast</small>-->
@@ -227,12 +227,12 @@ if (is_array($session_data)) {
                             <div class="col-md-12">
                                 <div class="col-md-4">  <div id="container_nontax_exempt" ></div></div>
                                 <div class="col-md-8"> <div id="tax_ntax_Exempt_data"></div></div></div>
-<!--                            <div class="col-md-12">
-                                <div class="col-md-8">
-                                    <h5 class="box-title" style="margin-left: 54%;"><b>Remarks:</b></h5><textarea id="editor_tax_ntax_Exempt_data" name="editor_tax_ntax_Exempt_data" rows="10" style="width: 96%;margin-left: 54%;height: 15%;" onkeyup="final_word_count(this.id);remove_error('editor_tax_ntax_Exempt_data')"><?php echo $result_observation1->tax_nontax_remarks; ?></textarea>
-                                    <span class="required" style="color: red" id="editor_tax_ntax_Exempt_data_error"></span> 
-                                </div><div class="col-md-4"></div>
-                            </div>-->
+                            <!--                            <div class="col-md-12">
+                                                            <div class="col-md-8">
+                                                                <h5 class="box-title" style="margin-left: 54%;"><b>Remarks:</b></h5><textarea id="editor_tax_ntax_Exempt_data" name="editor_tax_ntax_Exempt_data" rows="10" style="width: 96%;margin-left: 54%;height: 15%;" onkeyup="final_word_count(this.id);remove_error('editor_tax_ntax_Exempt_data')"><?php echo $result_observation1->tax_nontax_remarks; ?></textarea>
+                                                                <span class="required" style="color: red" id="editor_tax_ntax_Exempt_data_error"></span> 
+                                                            </div><div class="col-md-4"></div>
+                                                        </div>-->
                         </div>
                     </div>
                 </div>
@@ -259,12 +259,12 @@ if (is_array($session_data)) {
                             <div class="col-md-12">
                                 <div class="col-md-6">  <div id="container_tax_liability" ></div></div>
                                 <div class="col-md-6">   <div id="tax_liability_data"></div></div></div>
-<!--                            <div class="col-md-12">
-                                <div class="col-md-6">
-                                    <h5 class="box-title" style="margin-left: 108%;"><b>Remarks:</b></h5><textarea id="editor_tax_liability_data" name="editor_tax_liability_data" rows="10" style="width: 96%;margin-left: 108%;height: 15%;" onkeyup="final_word_count(this.id);remove_error('editor_tax_liability_data')"><?php echo $result_observation1->tax_liability_remarks; ?></textarea>
-                                    <span class="required" style="color: red" id="editor_tax_liability_data_error"></span> 
-                                </div><div class="col-md-6"></div>
-                            </div>-->
+                            <!--                            <div class="col-md-12">
+                                                            <div class="col-md-6">
+                                                                <h5 class="box-title" style="margin-left: 108%;"><b>Remarks:</b></h5><textarea id="editor_tax_liability_data" name="editor_tax_liability_data" rows="10" style="width: 96%;margin-left: 108%;height: 15%;" onkeyup="final_word_count(this.id);remove_error('editor_tax_liability_data')"><?php echo $result_observation1->tax_liability_remarks; ?></textarea>
+                                                                <span class="required" style="color: red" id="editor_tax_liability_data_error"></span> 
+                                                            </div><div class="col-md-6"></div>
+                                                        </div>-->
 
                         </div>
                     </div>
@@ -291,12 +291,12 @@ if (is_array($session_data)) {
                             <div class="col-md-12">
                                 <div class="col-md-6">  <div id="container_tax_turnover"></div></div>
                                 <div class="col-md-6">   <div id="tax_turnover_data"></div></div></div>
-<!--                            <div class="col-md-12">
-                                <div class="col-md-6">
-                                    <h5 class="box-title" style="margin-left: 108%;"><b>Remarks:</b></h5><textarea id="editor_tax_turnover_data" name="editor_tax_turnover_data" rows="10" style="width: 96%;margin-left: 108%;height: 15%;" onkeyup="final_word_count(this.id);remove_error('editor_tax_turnover_data')"><?php echo $result_observation1->tax_turnover_remarks; ?></textarea>
-                                    <span class="required" style="color: red" id="editor_tax_turnover_data_error"></span> 
-                                </div><div class="col-md-6"></div>
-                            </div>-->
+                            <!--                            <div class="col-md-12">
+                                                            <div class="col-md-6">
+                                                                <h5 class="box-title" style="margin-left: 108%;"><b>Remarks:</b></h5><textarea id="editor_tax_turnover_data" name="editor_tax_turnover_data" rows="10" style="width: 96%;margin-left: 108%;height: 15%;" onkeyup="final_word_count(this.id);remove_error('editor_tax_turnover_data')"><?php echo $result_observation1->tax_turnover_remarks; ?></textarea>
+                                                                <span class="required" style="color: red" id="editor_tax_turnover_data_error"></span> 
+                                                            </div><div class="col-md-6"></div>
+                                                        </div>-->
                         </div>
                     </div>
                 </div>
@@ -322,12 +322,12 @@ if (is_array($session_data)) {
                             <div class="col-md-12">
                                 <div class="col-md-6">  <div id="container_eligible" ></div></div>
                                 <div class="col-md-6">   <div id="eligible_data"></div></div></div>
-<!--                            <div class="col-md-12">
-                                <div class="col-md-6">
-                                    <h5 class="box-title" style="margin-left: 108%;"><b>Remarks:</b></h5><textarea id="editor_eligible_data" name="editor_eligible_data" rows="10" style="width: 96%;margin-left: 108%;height: 15%;" onkeyup="final_word_count(this.id);remove_error('editor_eligible_data')"><?php echo $result_observation1->eligible_ineligible_remarks; ?></textarea>
-                                    <span class="required" style="color: red" id="editor_eligible_data_error"></span> 
-                                </div><div class="col-md-6"></div>
-                            </div>-->
+                            <!--                            <div class="col-md-12">
+                                                            <div class="col-md-6">
+                                                                <h5 class="box-title" style="margin-left: 108%;"><b>Remarks:</b></h5><textarea id="editor_eligible_data" name="editor_eligible_data" rows="10" style="width: 96%;margin-left: 108%;height: 15%;" onkeyup="final_word_count(this.id);remove_error('editor_eligible_data')"><?php echo $result_observation1->eligible_ineligible_remarks; ?></textarea>
+                                                                <span class="required" style="color: red" id="editor_eligible_data_error"></span> 
+                                                            </div><div class="col-md-6"></div>
+                                                        </div>-->
                         </div>
                     </div>
                 </div>
@@ -353,12 +353,12 @@ if (is_array($session_data)) {
                             <div class="col-md-12">
                                 <div class="col-md-6">  <div id="container3b_vs_1" ></div></div>
                                 <div class="col-md-6">   <div id="compare_3b1_data"></div> <div id="compare_3b1_data1"></div></div></div>
-<!--                                <div class="col-md-12">
-                                <div class="col-md-6">
-                                    <h5 class="box-title" style="margin-left: 108%;"><b>Remarks:</b></h5><textarea id="editor_compare_3b1_data" name="editor_compare_3b1_data" rows="10" style="width: 96%;margin-left: 108%;height: 15%;" onkeyup="final_word_count(this.id);remove_error('editor_compare_3b1_data')"><?php echo $result_observation1->gstr3bvs1_remarks; ?></textarea>
-                                    <span class="required" style="color: red" id="editor_compare_3b1_data_error"></span> 
-                                </div><div class="col-md-6"></div>
-                            </div>-->
+                            <!--                                <div class="col-md-12">
+                                                            <div class="col-md-6">
+                                                                <h5 class="box-title" style="margin-left: 108%;"><b>Remarks:</b></h5><textarea id="editor_compare_3b1_data" name="editor_compare_3b1_data" rows="10" style="width: 96%;margin-left: 108%;height: 15%;" onkeyup="final_word_count(this.id);remove_error('editor_compare_3b1_data')"><?php echo $result_observation1->gstr3bvs1_remarks; ?></textarea>
+                                                                <span class="required" style="color: red" id="editor_compare_3b1_data_error"></span> 
+                                                            </div><div class="col-md-6"></div>
+                                                        </div>-->
                         </div>
                     </div>
                 </div>
@@ -384,16 +384,16 @@ if (is_array($session_data)) {
                             <div class="col-md-12">
                                 <div class="col-md-6">  <div id="gstr2a_vs1" ></div></div>
                                 <div class="col-md-6">   <div id="compare_3b2a_data"></div> <div id="compare_3b2a_data1"></div></div></div>
-<!--                                <div class="col-md-12">
-                                <div class="col-md-6">
-                                    <h5 class="box-title" style="margin-left: 108%;"><b>Remarks:</b></h5><textarea id="editor_compare_3b2a_data" name="editor_compare_3b2a_data" rows="10" style="width: 96%;margin-left: 108%;height: 15%;" onkeyup="final_word_count(this.id);remove_error('editor_compare_3b2a_data')"><?php echo $result_observation1->gstr3bvs2a_remarks; ?></textarea>
-                                    <span class="required" style="color: red" id="editor_compare_3b2a_data_error"></span> 
-                                </div><div class="col-md-6"></div>
-                            </div>-->
+                            <!--                                <div class="col-md-12">
+                                                            <div class="col-md-6">
+                                                                <h5 class="box-title" style="margin-left: 108%;"><b>Remarks:</b></h5><textarea id="editor_compare_3b2a_data" name="editor_compare_3b2a_data" rows="10" style="width: 96%;margin-left: 108%;height: 15%;" onkeyup="final_word_count(this.id);remove_error('editor_compare_3b2a_data')"><?php echo $result_observation1->gstr3bvs2a_remarks; ?></textarea>
+                                                                <span class="required" style="color: red" id="editor_compare_3b2a_data_error"></span> 
+                                                            </div><div class="col-md-6"></div>
+                                                        </div>-->
                         </div>
                     </div>
                 </div>
-                  <div class="box collapsed-box">
+                <div class="box collapsed-box">
                     <div class="box-header">
                         <h3 class="box-title">B2B and B2C sale
                             <!--<small>Simple and fast</small>-->
@@ -415,16 +415,16 @@ if (is_array($session_data)) {
                             <div class="col-md-12">
                                 <div class="col-md-6">  <div id="container_b2b_b2c" ></div></div>
                                 <div class="col-md-6">   <div id="b2b_b2c_sale"></div><div id="b2b_b2c_sale1"></div></div></div>
-<!--                                <div class="col-md-12">
-                                <div class="col-md-6">
-                                    <h5 class="box-title" style="margin-left: 108%;"><b>Remarks:</b></h5><textarea id="editor_b2b_b2c_sale" name="editor_b2b_b2c_sale" rows="10" style="width: 96%;margin-left: 108%;height: 15%;" onkeyup="final_word_count(this.id);remove_error('editor_b2b_b2c_sale')"><?php echo $result_observation1->b2b_b2c_remarks; ?></textarea>
-                                    <span class="required" style="color: red" id="editor_b2b_b2c_sale_error"></span> 
-                                </div><div class="col-md-6"></div>
-                            </div>-->
+                            <!--                                <div class="col-md-12">
+                                                            <div class="col-md-6">
+                                                                <h5 class="box-title" style="margin-left: 108%;"><b>Remarks:</b></h5><textarea id="editor_b2b_b2c_sale" name="editor_b2b_b2c_sale" rows="10" style="width: 96%;margin-left: 108%;height: 15%;" onkeyup="final_word_count(this.id);remove_error('editor_b2b_b2c_sale')"><?php echo $result_observation1->b2b_b2c_remarks; ?></textarea>
+                                                                <span class="required" style="color: red" id="editor_b2b_b2c_sale_error"></span> 
+                                                            </div><div class="col-md-6"></div>
+                                                        </div>-->
                         </div>
                     </div>
                 </div>
-                 <div class="box collapsed-box">
+                <div class="box collapsed-box">
                     <div class="box-header">
                         <h3 class="box-title">State wise sale
                             <!--<small>Simple and fast</small>-->
@@ -446,12 +446,12 @@ if (is_array($session_data)) {
                             <div class="col-md-12">
                                 <div class="col-md-6">  <div id="container_state_wise" ></div></div>
                                 <div class="col-md-6">   <div id="location_data"></div></div></div>
-<!--                                <div class="col-md-12">
-                                <div class="col-md-6">
-                                    <h5 class="box-title" style="margin-left: 108%;"><b>Remarks:</b></h5><textarea id="editor_location_data" name="editor_location_data" rows="10" style="width: 96%;margin-left: 108%;height: 15%;" onkeyup="final_word_count(this.id);remove_error('editor_location_data')"><?php echo $result_observation1->state_wise_remarks; ?></textarea>
-                                    <span class="required" style="color: red" id="editor_location_data_error"></span> 
-                                </div><div class="col-md-6"></div>
-                            </div>-->
+                            <!--                                <div class="col-md-12">
+                                                            <div class="col-md-6">
+                                                                <h5 class="box-title" style="margin-left: 108%;"><b>Remarks:</b></h5><textarea id="editor_location_data" name="editor_location_data" rows="10" style="width: 96%;margin-left: 108%;height: 15%;" onkeyup="final_word_count(this.id);remove_error('editor_location_data')"><?php echo $result_observation1->state_wise_remarks; ?></textarea>
+                                                                <span class="required" style="color: red" id="editor_location_data_error"></span> 
+                                                            </div><div class="col-md-6"></div>
+                                                        </div>-->
                         </div>
                     </div>
                 </div>
@@ -529,12 +529,12 @@ if (is_array($session_data)) {
                             <div class="col-md-12">
                                 <div class="col-md-6">  <div id="container_payble_vs_cash" ></div></div>
                                 <div class="col-md-6">   <div id="gst_payable_vs_cash_data"></div><div id="gst_payable_vs_cash_data1"></div></div></div>
-<!--                                <div class="col-md-12">
-                                <div class="col-md-6">
-                                    <h5 class="box-title" style="margin-left: 108%;"><b>Remarks:</b></h5><textarea id="editor_gst_payable_vs_cash_data" name="editor_gst_payable_vs_cash_data" rows="10" style="width: 96%;margin-left: 108%;height: 15%;" onkeyup="final_word_count(this.id);remove_error('editor_gst_payable_vs_cash_data')"><?php echo $result_observation1->gst_payable_cash_remarks; ?></textarea>
-                                    <span class="required" style="color: red" id="editor_gst_payable_vs_cash_data_error"></span> 
-                                </div><div class="col-md-6"></div>
-                            </div>-->
+                            <!--                                <div class="col-md-12">
+                                                            <div class="col-md-6">
+                                                                <h5 class="box-title" style="margin-left: 108%;"><b>Remarks:</b></h5><textarea id="editor_gst_payable_vs_cash_data" name="editor_gst_payable_vs_cash_data" rows="10" style="width: 96%;margin-left: 108%;height: 15%;" onkeyup="final_word_count(this.id);remove_error('editor_gst_payable_vs_cash_data')"><?php echo $result_observation1->gst_payable_cash_remarks; ?></textarea>
+                                                                <span class="required" style="color: red" id="editor_gst_payable_vs_cash_data_error"></span> 
+                                                            </div><div class="col-md-6"></div>
+                                                        </div>-->
                         </div>
                     </div>
                 </div>
@@ -1038,7 +1038,7 @@ if (is_array($session_data)) {
                         },
                         tooltip: {
                             shared: true
-                        },credits: {
+                        }, credits: {
                             enabled: false
                         },
                         series: [{
@@ -1131,7 +1131,7 @@ if (is_array($session_data)) {
                         },
                         tooltip: {
                             shared: true
-                        },credits: {
+                        }, credits: {
                             enabled: false
                         },
                         series: [{
@@ -1172,7 +1172,7 @@ if (is_array($session_data)) {
             type: "post",
             url: "<?= base_url("Management_report/get_graph_sales_month_wise1") ?>",
             dataType: "json",
-            data: {customer_id: customer_id, insert_id: insert_id},
+            data: {customer_id: customer_id, insert_id: insert_id, curr_url: curr_url},
             success: function (result) {
 //                 alert();
                 $('#sales_monthly_data').html("");
@@ -1190,7 +1190,7 @@ if (is_array($session_data)) {
             type: "post",
             url: "<?= base_url("Management_report/get_graph_state_wise1") ?>",
             dataType: "json",
-            data: {customer_id: customer_id, insert_id: insert_id},
+            data: {customer_id: customer_id, insert_id: insert_id, curr_url: curr_url},
             success: function (result) {
 //                 alert();
                 if (result.message === "success") {
@@ -1253,7 +1253,7 @@ if (is_array($session_data)) {
                         },
                         tooltip: {
                             shared: true
-                        },credits: {
+                        }, credits: {
                             enabled: false
                         },
                         series: [{
@@ -1429,7 +1429,7 @@ if (is_array($session_data)) {
                                     lineColor: '#FFFF00'
                                 }
                             }
-                        },credits: {
+                        }, credits: {
                             enabled: false
                         },
                         series: [{
@@ -1520,7 +1520,7 @@ if (is_array($session_data)) {
             type: "post",
             url: "<?= base_url("Management_report/get_data_rate_wise1") ?>",
             dataType: "json",
-            data: {customer_id: customer_id, insert_id: insert_id},
+            data: {customer_id: customer_id, insert_id: insert_id, curr_url: curr_url},
             success: function (result) {
                 if (result.message === "success") {
 
@@ -1601,7 +1601,7 @@ if (is_array($session_data)) {
                         },
                         tooltip: {
                             shared: true
-                        },credits: {
+                        }, credits: {
                             enabled: false
                         },
                         series: [{
@@ -1715,7 +1715,7 @@ if (is_array($session_data)) {
                         },
                         tooltip: {
                             shared: true
-                        },credits: {
+                        }, credits: {
                             enabled: false
                         },
                         series: [{
@@ -1847,7 +1847,7 @@ if (is_array($session_data)) {
                                 pointPadding: 0.2,
                                 borderWidth: 0
                             }
-                        },credits: {
+                        }, credits: {
                             enabled: false
                         },
                         series: [{
@@ -1973,7 +1973,7 @@ if (is_array($session_data)) {
                                     lineColor: '#FFFF00'
                                 }
                             }
-                        },credits: {
+                        }, credits: {
                             enabled: false
                         },
                         series: [{
@@ -2033,7 +2033,7 @@ if (is_array($session_data)) {
 //B2B and B2C Sale
         $.ajax({
             type: "POST",
-            url: "<?= base_url("Management_report/get_graph_b2b") ?>",
+            url: "<?= base_url("Management_report/get_graph_b2b1") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
@@ -2078,7 +2078,7 @@ if (is_array($session_data)) {
                         },
                         tooltip: {
                             shared: true
-                        },credits: {
+                        }, credits: {
                             enabled: false
                         },
                         series: [{
@@ -2200,7 +2200,7 @@ if (is_array($session_data)) {
                         },
                         tooltip: {
                             shared: true
-                        },credits: {
+                        }, credits: {
                             enabled: false
                         },
                         series: [{
@@ -2282,7 +2282,7 @@ if (is_array($session_data)) {
                         },
                         tooltip: {
                             shared: true
-                        },credits: {
+                        }, credits: {
                             enabled: false
                         },
                         series: [{
@@ -2313,14 +2313,17 @@ if (is_array($session_data)) {
                                 },
                             }, ]
                     });
+                } else {
+                    $('#container_export').html("");
+                    $('#container_export').html("<b>Please insert files to see result.</b>");
                 }
             }
         });
         $.ajax({
             type: "post",
-            url: "<?= base_url("Management_report/get_graph_exports1") ?>",
+            url: "<?= base_url("Management_report/get_graph_exports") ?>",
             dataType: "json",
-            data: {customer_id: customer_id, insert_id: insert_id, curr_url: curr_url},
+            data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
 //                 alert();
                 if (result.message === "success") {
@@ -2340,7 +2343,7 @@ if (is_array($session_data)) {
             type: "post",
             url: "<?= base_url("Account_report/get_graph1") ?>",
             dataType: "json",
-            data: {customer_id: customer_id, insert_id: insert_id,curr_url: curr_url},
+            data: {customer_id: customer_id, insert_id: insert_id, curr_url: curr_url},
             success: function (result) {
 //                 alert();
                 $('#account_monthly_data').html("");
@@ -2428,7 +2431,7 @@ if (is_array($session_data)) {
                         },
                         tooltip: {
                             shared: true
-                        },credits: {
+                        }, credits: {
                             enabled: false
                         },
                         series: [{
@@ -2536,7 +2539,7 @@ if (is_array($session_data)) {
                     $('#example_ammend').DataTable();
                 } else {
                     $('#invoice_ammend_data').html("");
-                    $('#company_data').html("<b>Please insert files to see result.</b>");
+                    $('#invoice_ammend_data').html("<b>Please insert files to see result.</b>");
 
                 }
             },
@@ -2566,7 +2569,7 @@ if (is_array($session_data)) {
             type: "post",
             url: "<?= base_url("Invoice_comp_report/get_not_inrec_records_all1") ?>",
             dataType: "json",
-            data: {customer_id: customer_id, insert_id: insert_id,curr_url: curr_url},
+            data: {customer_id: customer_id, insert_id: insert_id, curr_url: curr_url},
             success: function (result) {
                 if (result.status === true) {
                     var data = result.data;

@@ -557,8 +557,8 @@ class Internal_acc_report extends CI_Controller {
             for ($m = 0; $m < $count; $m++) {
                 $new_net_rtc[] = $net_rtc[$m] - $debit_tax[$m];
             }
-            $data2 .= '<h4 style="color:#1d2f66"><b>3. Overview of Tax Liability:</b></h4><br>';
-            $data .= '<table id="example2" class="table-bordered table-striped" width="700">
+            $data2 .= '<h4 style=""><b>3. Overview of Tax Liability:</b></h4>';
+            $data .= '<table class="table-bordered table-striped" width="700">
                                 <thead style="background-color: #cd273f;color:white">
                                     <tr>
                                         <th>No.</th>
@@ -992,8 +992,8 @@ class Internal_acc_report extends CI_Controller {
             $data = ""; //view observations
             $data1 = ""; //view observations
             $data2 = ""; //View table name
-            $data2 .= '<h4 style="color:#1d2f66"><b>1. Overview of Turnover</b></h4><br>';
-            $data .= '<table id="example2" class="table-bordered table-striped" width="700">
+            $data2 .= '<h4 style=""><b>1. Overview of Turnover</b></h4>';
+            $data .= '<table class="table-bordered table-striped" width="700">
                                 <thead style="background-color: #cd273f;color:white">
                                     <tr>
                                         <th>No.</th>
@@ -1152,7 +1152,7 @@ class Internal_acc_report extends CI_Controller {
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
-                         <table id="example2" class="table table-bordered table-striped">
+                         <table class="table table-bordered table-striped">
                                 <thead style="background-color: #00008B;color:white">
                                     <tr>
                                         <th>No.</th>
@@ -1398,8 +1398,8 @@ class Internal_acc_report extends CI_Controller {
             $data1 = ""; //view observations
             $data2 = ""; //view table name
 
-            $data2 .= '<h4 style="color:#1d2f66"><b>5. Eligible and Inligible Credit:</b></h4><br>';
-            $data .= '<table id="example2" class="table-bordered table-striped" width="700">
+            $data2 .= '<h4 style=""><b>5. Eligible and Inligible Credit:</b></h4>';
+            $data .= '<table class="table-bordered table-striped" width="700">
                                 <thead style="background-color: #cd273f;color:white">
                                     <tr>
                                         <th>No.</th>
@@ -1749,7 +1749,7 @@ class Internal_acc_report extends CI_Controller {
             $data = ""; //view observations
             $data1 = ""; //view observations
             $data2 = ""; //view table name
-            $data2 .= '<h4 style="color:#1d2f66"><b>4. GST Payable V/s Cash:</b></h4><br>';
+            $data2 .= '<h4 style=""><b>4. GST Payable V/s Cash:</b></h4>';
 
             $data .= '<table id="example_payable" class="table-bordered table-striped" width="700">
                                 <thead style="background-color: #cd273f;color:white">
