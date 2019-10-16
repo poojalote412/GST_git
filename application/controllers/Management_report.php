@@ -593,7 +593,7 @@ class Management_report extends CI_Controller {
     }
 
     public function get_graph_taxable_nontx_exempt() { //get graph function of taxable nontaxable and exempt
-        echo $customer_id = $this->input->post("customer_id");
+        $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
         $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' and insert_id='$insert_id'");
         $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
