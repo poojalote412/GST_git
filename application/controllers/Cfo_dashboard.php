@@ -167,7 +167,7 @@ class Cfo_dashboard extends CI_Controller {
                 } else {
                     $observation = "";
                 }
-                $data .= '<label><h4><b>Observation of CFO:</b></h4></label><span class="required" aria-required="true"> </span>
+                $data .= '<label><h4><b>Observation:</b></h4></label><span class="required" aria-required="true"> </span>
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="fa fa-eye"></i>
@@ -177,7 +177,7 @@ class Cfo_dashboard extends CI_Controller {
                                     <span class="required" style="color: red" id="cfo_observation_error"></span> 
                                 <br>';
             } else {
-                $data .= '<label><h4><b>Observation of CFO:</b></h4></label><span class="required" aria-required="true"> </span>
+                $data .= '<label><h4><b>Observation:</b></h4></label><span class="required" aria-required="true"> </span>
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="fa fa-eye"></i>
