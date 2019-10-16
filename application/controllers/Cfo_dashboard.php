@@ -86,7 +86,7 @@ class Cfo_dashboard extends CI_Controller {
             $data = $result->row();
             $turn_id = $data->uniq_id;
             //generate turn_id
-            $turn_id = str_pad(++$turn_id, 5, '0', STR_PAD_LEFT);
+            $turn_id = str_pad( ++$turn_id, 5, '0', STR_PAD_LEFT);
             return $turn_id;
         } else {
             $turn_id = 'turn_1001';
@@ -142,18 +142,18 @@ class Cfo_dashboard extends CI_Controller {
                 $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
                         '<td>' . $month . '</td>' .
-                        '<td>' . $turnover . '</td>' .
-                        '<td>' . $tax_liabality . '</td>' .
-                        '<td>' . round($ratio) . "%" . '</td>' .
+                        '<td>' . number_format(round($turnover)) . '</td>' .
+                        '<td>' . number_format(round($tax_liabality)) . '</td>' .
+                        '<td>' . number_format(round($ratio)) . "%" . '</td>' .
                         '</tr>';
                 $k++;
             }
             $data .= '<tr>' .
                     '<td>' . '<b>Total</b>' . '</td>' .
                     '<td>' . '' . '</td>' .
-                    '<td>' . '<b>' . array_sum($turnover1) . '</b> ' . '</td>' .
-                    '<td>' . '<b>' . array_sum($tax_liabality1) . '</b>' . '</td>' .
-                    '<td>' . '<b>' . array_sum($ratio_val) . "%" . '</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($turnover1))) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($tax_liabality1))) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($ratio_val))) . "%" . '</b>' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
 //         echo   max($ratio_val);
@@ -194,9 +194,9 @@ class Cfo_dashboard extends CI_Controller {
             } else {
                 $cfo_remarks = "";
             }
-            $data .="<div class='col-md-12'>
+            $data .= "<div class='col-md-12'>
                     <h5 class='box-title' style='margin-left: -3%;'><b>Remarks:</b></h5>
-                    <textarea id='editor_turover_vs_tax' name='editor_turover_vs_tax' rows='10' style='width: 106%;margin-left: -3%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_turover_vs_tax')'>".$cfo_remarks."</textarea>
+                    <textarea id='editor_turover_vs_tax' name='editor_turover_vs_tax' rows='10' style='width: 106%;margin-left: -3%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_turover_vs_tax')'>" . $cfo_remarks . "</textarea>
                     </div>";
 
 
@@ -276,7 +276,7 @@ class Cfo_dashboard extends CI_Controller {
         $data_turnover_vsliability_name = "";
         $data_turnover_vsliability_observation = "";
         $data_turnover_vsliability_remarks = "";
-        $a="";
+        $a = "";
 //        if ($quer1->num_rows() > 0) {
         if ($this->db->affected_rows() > 0) {
             $res = $quer1->result();
@@ -289,11 +289,15 @@ class Cfo_dashboard extends CI_Controller {
 
             $a = $turnover_vsliability_remarks;
             if ($a == '') {
-                $data_turnover_vsliability_remarks="not given";
+                $data_turnover_vsliability_remarks = "not given";
             } else {
-               $data_turnover_vsliability_remarks = $turnover_vsliability_remarks;
+                $data_turnover_vsliability_remarks = $turnover_vsliability_remarks;
             }
-            
+            if($data_turnover_vsliability_observation=='') {
+                $data_turnover_vsliability_name = "";
+            } else {
+                $data_turnover_vsliability_name = "Turnover vs Tax Liability";
+            }
             $turnover1 = array();
             $tax_liabality1 = array();
             $ratio_val = array();
@@ -362,7 +366,7 @@ class Cfo_dashboard extends CI_Controller {
             }
 
             $data1 .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
-            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
+            $data1 .= "<h5><b>Note: </b>For detailed and consolidated summary refer section-10.</h5>";
 
 //            $data1 .= "<hr><h4><b>Observation of CFO:</b></h4>"
 //                    . "<span>Percentage of GST payable to turnover is not stable for F.Y. 2017-18 it varies from <b>" . min($ratio_val) . "% </b>to<b> " . max($ratio_val) . "%</b>.</span><br>"
@@ -425,7 +429,6 @@ class Cfo_dashboard extends CI_Controller {
             $respose['data_turnover_vsliability_name'] = $data_turnover_vsliability_name; //maximum range for graph
             $respose['data_turnover_vsliability_observation'] = $data_turnover_vsliability_observation; //maximum range for graph
             $respose['data_turnover_vsliability_remarks'] = $data_turnover_vsliability_remarks; //maximum range for graph
-           
         } else {
             $respose['message'] = "";
             $respose['data_turn_over'] = "";

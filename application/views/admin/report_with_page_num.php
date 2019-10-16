@@ -539,23 +539,23 @@ if (is_array($session_data)) {
                         <!--<div id="container_heat_map" style="width:700px"></div>-->
                     </div>
                     
-                    <div class="test" style="page-break-after:always;margin-top:16%">
-                        <p style="font-size:20px; color:#0e385e;padding:4px;width:700px;margin-left: 5%;margin-right: 5%"><b>11. LIMITED USAGE AND NON-DISCLOSURE </b></p>
+                    <div class="test" style="page-break-after:always;margin-top:13%">
+<!--                        <p style="font-size:20px; color:#0e385e;padding:4px;width:700px;margin-left: 5%;margin-right: 5%"><b>11. LIMITED USAGE AND NON-DISCLOSURE </b></p>
                         <div id="container_image_limited_usage" style=""></div><br><br>  
                         <p style="font-size:20px; color:#0e385e;padding:4px;width:700px;margin-left: 5%;margin-right: 5%"><b>12. Disclaimer </b></p>
-                        <div id="container_image_disclaimer" style=""></div><br><br>  
+                        <div id="container_image_disclaimer" style=""></div><br><br>  -->
+                        <div id="container_image_Disclaimer" ><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="750px" height="900px" style="page-break-after:always;"></div>
                     </div><br><br>
                     
-<!--                     <div class="test" style="page-break-after:always;margin-top:10%">
-                        <p style="font-size:18px;background:#0e385e; color:white;padding:4px;border:1px solid;width:700px;text-align:center;margin-left: 5%;margin-right: 5%"><b>12. Disclaimer </b></p><br>
-                        
-                     
-                        <div id="container_image_disclaimer" style=""></div><br><br>  
-                       
-                    </div>-->
+
                     <div class="test" style="page-break-after:always;margin-top:10%">
-                        <!--<div id="container_image_about" style=""><img src="https://premisafe.com/GST_image/about.jpg" width="780px" height="800px" style=""></div><br><br>-->  
-                        <div id="container_ecovis_about" style=""></div><br><br>  
+                        <div id="container_image_about" style=""><img src="https://premisafe.com/GST_image/about.jpg" width="780px" height="800px" style=""></div><br><br>  
+                        <!--<div id="container_ecovis_about" style=""></div><br><br>-->  
+
+                    </div>
+
+                    <div class="test" style="margin-top:13%">
+                        <div id="container_image_services" style=""><img src="https://premisafe.com/GST_image/OurServicesPage.jpg" width="780px" height="800px" style=""></div><br><br>  
 
                     </div>
 
@@ -1043,7 +1043,7 @@ if (is_array($session_data)) {
         });
         $.ajax({
             type: "POST",
-            url: "<?= base_url("Management_report/get_graph_state_wise1") ?>",
+            url: "<?= base_url("Management_report/get_graph_state_wise") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
@@ -1064,7 +1064,7 @@ if (is_array($session_data)) {
                             type: 'column'
                         },
                         title: {
-                            text: 'Sales Satewise'
+                            text: 'Sales Statewise'
                         },
                         subtitle: {
                             text: customer_name,
@@ -1102,7 +1102,7 @@ if (is_array($session_data)) {
         });
         $.ajax({
             type: "post",
-            url: "<?= base_url("Management_report/get_graph_state_wise1") ?>",
+            url: "<?= base_url("Management_report/get_graph_state_wise") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
@@ -1620,7 +1620,7 @@ if (is_array($session_data)) {
                     $('#compare_GSTR3B_Vs2_data2').html(data2);
                     $("#reports_observation_table").append('<tr><td>'+data_threeb_vs2A_name+'</td><td>'+data_threeb_vs2A_observation+'</td><td>'+data_threeb_vs2A_remarks+'</td></tr>');
 
-                    $("#container_GSTR3b_vs_2A").prepend("Deduct: In-Eligible Credit :<input type='text'><br>*To be ﬁlled manually so that the client will get the clear picture of eligible credit.");
+                    $("#container_GSTR3b_vs_2A").prepend("Deduct: In-Eligible Credit :<input type='text'><br>*To be ﬁlled by client so that the client will get the clear picture of eligible credit.");
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("compare_GSTR3B_Vs2_data").style.display = "none";
@@ -2599,7 +2599,8 @@ if (is_array($session_data)) {
                     var data_invoice_ammend_name = result.data_invoice_ammend_name;
                     var data_invoice_ammend_observation = result.data_invoice_ammend_observation;
                     var data_invoice_ammend_remarks = result.data_invoice_ammend_remarks;
-                    
+                    //alert(data_invoice_ammend_observation);
+                   // alert(data_invoice_ammend_remarks);
 
                     $('#invoice_ammend_original_data').html(data);
                     $('#invoice_ammend_original_data1').html(data1);
@@ -2609,6 +2610,7 @@ if (is_array($session_data)) {
                 } else {
                     document.getElementById("invoice_ammend_original_data").style.display = "none";
                     document.getElementById("invoice_ammend_original_data1").style.display = "none";
+//                    document.getElementById("reports_observation_table").style.display = "none";
                     document.getElementById("test_amend").style.display = "none";
                 }
             }

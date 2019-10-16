@@ -2287,7 +2287,7 @@ if (is_array($session_data)) {
                             type: 'column'
                         },
                         title: {
-                            text: 'Sales Satewise'
+                            text: 'Sales Statewise'
                         },
                         subtitle: {
                             text: customer_name,

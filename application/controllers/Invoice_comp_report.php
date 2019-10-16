@@ -509,7 +509,7 @@ class Invoice_comp_report extends CI_Controller {
         $a = "";
         $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
         if ($this->db->affected_rows() > 0) {
-            
+
             $result1 = $query_get_observation->row();
             $not_in_2a_observation = $result1->not_in_2a_observation;
             $not_in_2a_remarks = $result1->not_in_2a_remarks;
@@ -526,7 +526,12 @@ class Invoice_comp_report extends CI_Controller {
         } else {
             
         }
-        
+        if ($data_not_in_2a_observation == '') {
+            $data_not_in_2a_name = "";
+        } else {
+            $data_not_in_2a_name = "Not in GSTR-2A, but recorded under purchaser's book ";
+        }
+
         if ($query != FALSE) {
             $data .= '<h4 style=""><b>1.Not in GSTR-2A,but recorderd under purchasers book:</b></h4>';
 
@@ -625,12 +630,11 @@ class Invoice_comp_report extends CI_Controller {
             $data1 = "<h4><b>Observation:</b></h4>";
             $data1 .= "<span>Follow up from the above clients' needs to be done as the business is facing the risk of loss "
                     . "of input tax credit of Rs. " . array_sum($tax) . ". The situation of non-reconciliation may lead to interest liability or GST notices. </span>";
-            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
+            $data1 .= "<h5><b>Note: </b>For detailed and consolidated summary refer section-10.</h5>";
             $response['data1'] = $data1;
             $response['data_not_in_2a_name'] = $data_not_in_2a_name;
             $response['data_not_in_2a_observation'] = $data_not_in_2a_observation;
             $response['data_not_in_2a_remarks'] = $data_not_in_2a_remarks;
-            
         } else {
             $response['message'] = "";
             $response['status'] = FALSE;
@@ -682,9 +686,9 @@ class Invoice_comp_report extends CI_Controller {
                         '<td>' . $row->invoice_no . '</td>' .
                         '<td>' . $row->place_of_supply . '</td>' .
                         '<td>' . $row->invoice_date . '</td>' .
-                        '<td>' . $row->invoice_value . '</td>' .
-                        '<td>' . $row->taxable_value . '</td>' .
-                        '<td>' . $row->tax . '</td>' .
+                        '<td>' . number_format(round($row->invoice_value)) . '</td>' .
+                        '<td>' . number_format(round($row->taxable_value)) . '</td>' .
+                        '<td>' . number_format(round($row->tax)) . '</td>' .
                         '</tr>';
                 $i++;
             }
@@ -696,9 +700,9 @@ class Invoice_comp_report extends CI_Controller {
                     '<td>' . "" . '</td>' .
                     '<td>' . "" . '</td>' .
                     '<td>' . "" . '</td>' .
-                    '<td>' . "<b>" . array_sum($invoice_value) . "</b>" . '</td>' .
-                    '<td>' . "<b>" . array_sum($taxable_value) . "</b>" . '</td>' .
-                    '<td>' . "<b>" . array_sum($tax) . "</b>" . '</td>' .
+                    '<td>' . "<b>" . number_format(round(array_sum($invoice_value))) . "</b>" . '</td>' .
+                    '<td>' . "<b>" . number_format(round(array_sum($taxable_value))) . "</b>" . '</td>' .
+                    '<td>' . "<b>" . number_format(round(array_sum($tax))) . "</b>" . '</td>' .
                     '</tr>';
 
             $data .= '</tbody></table></div></div></div>';
@@ -849,7 +853,7 @@ class Invoice_comp_report extends CI_Controller {
         $a = "";
         $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
         if ($this->db->affected_rows() > 0) {
-            
+
             $result1 = $query_get_observation->row();
             $not_in_rec_observation = $result1->not_in_record_observation;
             $not_in_rec_remarks = $result1->not_in_record_remarks;
@@ -865,6 +869,11 @@ class Invoice_comp_report extends CI_Controller {
             }
         } else {
             
+        }
+        if($data_not_in_rec_observation=='') {
+            $data_not_in_rec_name = "";
+        } else {
+            $data_not_in_rec_name = "Not in records, but recorded under GSTR-2A ";
         }
         if ($query != FALSE) {
             $records = count($query);
@@ -957,7 +966,7 @@ class Invoice_comp_report extends CI_Controller {
                 $response['data_not_in_rec_name'] = $data_not_in_rec_name;
                 $response['data_not_in_rec_observation'] = $data_not_in_rec_observation;
                 $response['data_not_in_rec_remarks'] = $data_not_in_rec_remarks;
-               
+
 //                $response['data1'] = $data1;
                 $response['message'] = "success";
                 $response['status'] = true;
@@ -970,7 +979,7 @@ class Invoice_comp_report extends CI_Controller {
             $data1 = "<h4><b>Observation:</b></h4>"
                     . "<span>Accounting system & Invoice processing for GST Claim and reconciliation need to be reviewed.
                         There is a risk of losing the credit if prompt action has not been taken.</span>";
-            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
+            $data1 .= "<h5><b>Note: </b>For detailed and consolidated summary refer section-10.</h5>";
             $response['data1'] = $data1;
         } else {
             $response['message'] = "";
@@ -1022,9 +1031,9 @@ class Invoice_comp_report extends CI_Controller {
                         '<td>' . $row->invoice_no . '</td>' .
                         '<td>' . $row->place_of_supply . '</td>' .
                         '<td>' . $row->invoice_date . '</td>' .
-                        '<td>' . $row->invoice_value . '</td>' .
-                        '<td>' . $row->taxable_value . '</td>' .
-                        '<td>' . $row->tax . '</td>' .
+                        '<td>' . number_format(round($row->invoice_value)) . '</td>' .
+                        '<td>' . number_format(round($row->taxable_value)) . '</td>' .
+                        '<td>' . number_format(round($row->tax)) . '</td>' .
                         '</tr>';
             }
             $data .= '</table>';
@@ -1281,7 +1290,7 @@ class Invoice_comp_report extends CI_Controller {
         $a = "";
         $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
         if ($this->db->affected_rows() > 0) {
-            
+
             $result1 = $query_get_observation->row();
             $partial_match_observation = $result1->partially_match_observation;
             $partial_match_remarks = $result1->partially_match_remarks;
@@ -1297,6 +1306,11 @@ class Invoice_comp_report extends CI_Controller {
             }
         } else {
             
+        }
+        if ($data_partial_match_observation == '') {
+            $data_partial_match_name = '';
+        } else {
+            $data_partial_match_name = "Invoice no., POS and Period mismatch ";
         }
         if ($query != FALSE) {
 
@@ -1415,7 +1429,7 @@ class Invoice_comp_report extends CI_Controller {
                 $response['data_partial_match_name'] = $data_partial_match_name;
                 $response['data_partial_match_observation'] = $data_partial_match_observation;
                 $response['data_partial_match_remarks'] = $data_partial_match_remarks;
-               
+
                 $response['message'] = "success";
                 $response['status'] = true;
                 $response['code'] = 200;
@@ -1424,7 +1438,7 @@ class Invoice_comp_report extends CI_Controller {
             $data1 .= "<h4><b>Observation:</b></h4>"
                     . "<span>Cross check the mismatched invoice no., POS and Period with the client in order to prevent any confusion or else it will effect on your ITC."
                     . " Data master review needs to be done and root-cause analysis will help to minimize this errors.</span>";
-            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
+            $data1 .= "<h5><b>Note: </b>For detailed and consolidated summary refer section-10.</h5>";
             $response['data1'] = $data1;
         } else {
             $response['message'] = "";
@@ -1498,8 +1512,8 @@ class Invoice_comp_report extends CI_Controller {
                         '<td>' . $row->period_2a . '</td>' .
                         '<td>' . $row->invoice_no_2a . '</td>' .
                         '<td>' . $row->place_of_supply_2a . '</td>' .
-                        '<td>' . $row->taxable_value . '</td>' .
-                        '<td>' . $row->tax . '</td>' .
+                        '<td>' . number_format(round($row->taxable_value)) . '</td>' .
+                        '<td>' . number_format(round($row->tax)) . '</td>' .
                         '</tr>';
                 $i++;
             }
@@ -1773,7 +1787,7 @@ class Invoice_comp_report extends CI_Controller {
         $a = "";
         $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
         if ($this->db->affected_rows() > 0) {
-            
+
             $result1 = $query_get_observation->row();
             $invoice_not_include_observation = $result1->invoice_not_include_observation;
             $invoice_not_include_remarks = $result1->invoice_not_include_remarks;
@@ -1789,6 +1803,11 @@ class Invoice_comp_report extends CI_Controller {
             }
         } else {
             
+        }
+        if ($data_invoice_not_include_observation == '') {
+            $data_invoice_not_include_name = "";
+        } else {
+            $data_invoice_not_include_name = "Invoice not included in GSTR-1";
         }
         if ($query != FALSE) {
             $data1 .= '<h4 style=""><b>2.Invoice not included in GSTR-1:</b></h4>';
@@ -1863,14 +1882,14 @@ class Invoice_comp_report extends CI_Controller {
             }
 
             $data .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
-            $data .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
+            $data .= "<h5><b>Note: </b>For detailed and consolidated summary refer section-10.</h5>";
 
             $response['data'] = $data;
             $response['data1'] = $data1;
             $response['data_invoice_not_include_name'] = $data_invoice_not_include_name;
             $response['data_invoice_not_include_observation'] = $data_invoice_not_include_observation;
             $response['data_invoice_not_include_remarks'] = $data_invoice_not_include_remarks;
-            
+
             $response['message'] = "success";
             $response['status'] = true;
             $response['code'] = 200;
@@ -2201,7 +2220,7 @@ class Invoice_comp_report extends CI_Controller {
         $a = "";
         $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
         if ($this->db->affected_rows() > 0) {
-            
+
             $result1 = $query_get_observation->row();
             $invoice_ammend_observation = $result1->amendment_records_observation;
             $invoice_ammend_remarks = $result1->amendment_records_remarks;
@@ -2217,6 +2236,11 @@ class Invoice_comp_report extends CI_Controller {
             }
         } else {
             
+        }
+        if ($data_invoice_ammend_observation == '') {
+            $data_invoice_ammend_name = '';
+        } else {
+            $data_invoice_ammend_name = "Invoice amends in other than original period ";
         }
         if ($query != FALSE) {
             $data .= '<h4 style=""><b>1.Invoice amends in other than original period Analysis:</b></h4>';
@@ -2296,12 +2320,11 @@ class Invoice_comp_report extends CI_Controller {
             }
 
             $data1 = "<h4><b>Observation :</b></h4><span>" . $observation . "</span>";
-            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
+            $data1 .= "<h5><b>Note: </b>For detailed and consolidated summary refer section-10.</h5>";
             $response['data1'] = $data1;
             $response['data_invoice_ammend_name'] = $data_invoice_ammend_name;
             $response['data_invoice_ammend_observation'] = $data_invoice_ammend_observation;
             $response['data_invoice_ammend_remarks'] = $data_invoice_ammend_remarks;
-          
         } else {
             $response['message'] = "";
             $response['status'] = FALSE;

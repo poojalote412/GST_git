@@ -256,6 +256,11 @@ class Threeb_vs_twoa extends CI_Controller {
             } else {
                 $data_threeb_vs2A_remarks = $threeb_vs2A_remarks;
             }
+            if($data_threeb_vs2A_observation=='') {
+                $data_threeb_vs2A_name = "";
+            } else {
+                $data_threeb_vs2A_name = "GSTR-3B vs GSTR-2A";
+            }
             $gstr_tb1 = array();
             $difference2 = array();
             $cumu_difference3 = array();
@@ -310,16 +315,16 @@ class Threeb_vs_twoa extends CI_Controller {
             $data1 .= "<br><br><h4><b>Observation:</b></h4>";
 
             if ($thb > $twa) {
-                $data1 .= '<span>GSTR-3B > 2A, ITC declared and ITC claimed is showing a huge difference as either the company has taken excess credit or vendor has not recorded our purchases in his GSTR 1. '
-                        . 'This may lead to interest liability & penalties notices or permanent loss of credit if vendor is not informed and corrective action is not taken by such vendor.</span>';
-                $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
+                $data1 .= "<span>GSTR-3B > 2A, ITC declared and ITC claimed is showing a huge difference as either the company has taken excess credit or vendor has not recorded our purchases in his GSTR 1. "
+                        . "This may lead to interest liability & penalties notices or permanent loss of credit if vendor is not informed and corrective action is not taken by such vendor.</span>";
+                $data1 .= "<h5><b>Note: </b> For detailed and consolidated summary refer section-10.</h5>";
             } elseif ($twa > $thb) {
-                $data1 .= '<span>GSTR-3B < 2A, company need to check the eligibility and ineligibility of credit reflecting in GSTR-2A & prepare a reconciliation statement accordingly. There may be the case where input tax credit has not been taken by the company on its genuine eligible input credit. '
-                        . 'This may lead to a huge loss of working Capital & also permanent loss of credit if corrective actions not taken immediately.</span>';
-                $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
+                $data1 .= "<span>GSTR-3B < 2A, company need to check the eligibility and ineligibility of credit reflecting in GSTR-2A & prepare a reconciliation statement accordingly. There may be the case where input tax credit has not been taken by the company on its genuine eligible input credit. "
+                        . "This may lead to a huge loss of working Capital & also permanent loss of credit if corrective actions not taken immediately.</span>";
+                $data1 .= "<h5><b>Note: </b> For detailed and consolidated summary refer section-10.</h5>";
             } else {
-                $data1 .= '<span>No difference.</span>';
-                $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
+                $data1 .= "<span>No difference.</span>";
+                $data1 .= "<h5><b>Note: </b>For detailed and consolidated summary refer section-10.</h5>";
             }
             $abc = array();
             $abc3 = array();
@@ -476,8 +481,8 @@ class Threeb_vs_twoa extends CI_Controller {
                 </div>
                                     <span class="required" style="color: red" id="threeb_vstwoa_observation_error"></span> 
                                         </div><br>';
-                }else{
-                     $data .= "<div class='col-md-12'>
+                } else {
+                    $data .= "<div class='col-md-12'>
                                     <label><h4><b>Observation :</b></h4></label><span class='required' aria-required='true'> </span>
                                     <div class='input-group'>
                                         <span class='input-group-addon'>
@@ -489,7 +494,7 @@ class Threeb_vs_twoa extends CI_Controller {
                                 </div>";
                 }
             } else {
-               if ($thb > $twa) {
+                if ($thb > $twa) {
                     $data .= '<div class="col-md-12">
                                     <label><h4><b>Observation of GSTR-3B vs 2A:</b></h4></label><span class="required" aria-required="true"> </span>
                                     <div class="input-group">
@@ -515,8 +520,8 @@ class Threeb_vs_twoa extends CI_Controller {
                 </div>
                                     <span class="required" style="color: red" id="threeb_vstwoa_observation_error"></span> 
                                         </div><br>';
-                }else{
-                     $data .= "<div class='col-md-12'>
+                } else {
+                    $data .= "<div class='col-md-12'>
                                     <label><h4><b>Observation :</b></h4></label><span class='required' aria-required='true'> </span>
                                     <div class='input-group'>
                                         <span class='input-group-addon'>
@@ -741,7 +746,7 @@ class Threeb_vs_twoa extends CI_Controller {
             $data = $result->row();
             $comp_id = $data->compare_id;
             //generate user_id
-            $comp_id = str_pad(++$comp_id, 5, '0', STR_PAD_LEFT);
+            $comp_id = str_pad( ++$comp_id, 5, '0', STR_PAD_LEFT);
             return $comp_id;
         } else {
             $comp_id = 'cmpr_1001';

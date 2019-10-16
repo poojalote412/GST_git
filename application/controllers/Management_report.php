@@ -254,35 +254,34 @@ class Management_report extends CI_Controller {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
         $query = $this->db->query("SELECT * from state_wise_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
-        $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+//        $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
         $data = ""; //view observations
         $data1 = ""; //view observations
         $data2 = ""; //view observations
         $state_arr = array();
         $taxble_val_arr = array();
 
-        $data_statewise_name = "";
-        $data_statewise_observation = "";
-        $data_statewise_remarks = "";
-        $a = "";
-
+//        $data_statewise_name = "";
+//        $data_statewise_observation = "";
+//        $data_statewise_remarks = "";
+//        $a = "";
 //        if ($query->num_rows() > 0) {
         if ($this->db->affected_rows() > 0) {
             $result = $query->result();
-            $result1 = $query_get_observation->row();
-            $statewise_wise_observation = $result1->state_wise_observation;
-            $statewise_wise_remarks = $result1->state_wise_remarks;
-
-
-            $data_statewise_name = "Sales State Wise";
-            $data_statewise_observation = $statewise_wise_observation;
-//            $data_statewise_remarks = $statewise_wise_remarks;
-            $a = $statewise_wise_remarks;
-            if ($a == '') {
-                $data_statewise_remarks = 'not given';
-            } else {
-                $data_statewise_remarks = $statewise_wise_remarks;
-            }
+//            $result1 = $query_get_observation->row();
+//            $statewise_wise_observation = $result1->state_wise_observation;
+//            $statewise_wise_remarks = $result1->state_wise_remarks;
+//
+//
+//            $data_statewise_name = "Sales State Wise";
+//            $data_statewise_observation = $statewise_wise_observation;
+////            $data_statewise_remarks = $statewise_wise_remarks;
+//            $a = $statewise_wise_remarks;
+//            if ($a == '') {
+//                $data_statewise_remarks = 'not given';
+//            } else {
+//                $data_statewise_remarks = $statewise_wise_remarks;
+//            }
 
             $data2 .= '<h4><b>3.Sales State Wise</b></h4>';
             $data .= '<div class="row">
@@ -306,7 +305,7 @@ class Management_report extends CI_Controller {
                 $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
                         '<td>' . $state . '</td>' .
-                        '<td>' . $taxble_val . '</td>' .
+                        '<td>' . number_format(round($taxble_val)) . '</td>' .
                         '</tr>';
                 $k++;
             }
@@ -314,7 +313,7 @@ class Management_report extends CI_Controller {
             $data .= '<tr>' .
                     '<td>' . '<b>Total</b>' . '</td>' .
                     '<td>' . '' . '</td>' .
-                    '<td>' . '<b>' . array_sum($taxble_val_arr) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(array_sum($taxble_val_arr)) . '</b> ' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
 
@@ -407,9 +406,6 @@ class Management_report extends CI_Controller {
             $respnose['data'] = $data; //table view data
             $respnose['data1'] = $data1; //table view data
             $respnose['data2'] = $data2; //table view data
-            $respnose['data_statewise_name'] = $data_statewise_name; //table view data
-            $respnose['data_statewise_observation'] = $data_statewise_observation; //table view data
-            $respnose['data_statewise_remarks'] = $data_statewise_remarks; //table view data
         } else {
             $respnose['message'] = "";
             $respnose['taxable_value'] = "";  //taxable value data
@@ -422,13 +418,38 @@ class Management_report extends CI_Controller {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
         $query = $this->db->query("SELECT * from state_wise_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
+        $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
         $data = ""; //view observations
+        $data1 = ""; //view observations
+        $data2 = ""; //view observations
         $state_arr = array();
         $taxble_val_arr = array();
-
+        $data_statewise_name = "";
+        $data_statewise_observation = "";
+        $data_statewise_remarks = "";
+        $a = "";
         if ($query->num_rows() > 0) {
             $result = $query->result();
+            $result1 = $query_get_observation->row();
+            $statewise_wise_observation = $result1->state_wise_observation;
+            $statewise_wise_remarks = $result1->state_wise_remarks;
 
+
+            $data_statewise_name = "Sales State Wise";
+            $data_statewise_observation = $statewise_wise_observation;
+//            $data_statewise_remarks = $statewise_wise_remarks;
+            $a = $statewise_wise_remarks;
+            if ($a == '') {
+                $data_statewise_remarks = 'not given';
+            } else {
+                $data_statewise_remarks = $statewise_wise_remarks;
+            }
+            if($data_statewise_observation=='') {
+                $data_statewise_name = "";
+            } else {
+                $data_statewise_name = "Sales State Wise";
+            }
+            $data2 .= '<h4><b>3.Sales State Wise</b></h4>';
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
@@ -450,7 +471,7 @@ class Management_report extends CI_Controller {
                 $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
                         '<td>' . $state . '</td>' .
-                        '<td>' . $taxble_val . '</td>' .
+                        '<td>' . number_format(round($taxble_val)) . '</td>' .
                         '</tr>';
                 $k++;
             }
@@ -458,7 +479,7 @@ class Management_report extends CI_Controller {
             $data .= '<tr>' .
                     '<td>' . '<b>Total</b>' . '</td>' .
                     '<td>' . '' . '</td>' .
-                    '<td>' . '<b>' . array_sum($taxble_val_arr) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($taxble_val_arr))) . '</b> ' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
             //            get highest 3 records
@@ -476,7 +497,7 @@ class Management_report extends CI_Controller {
             $top3 = array_sum($arr);
             $top_3_state = round(($top3 / $total) * 100, 2);
             $data .= "<h4><b>" . $top_3_state . " </b> % of total sales comes from top 3 states.</h4>";
-            $data .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
+            $data .= "<h5><b>Note: </b>For detailed and consolidated summary refer section-10.</h5>";
             $state = array();
             $taxable_value = array();
             for ($o = 0; $o < sizeof($taxble_val_arr); $o++) {
@@ -492,6 +513,10 @@ class Management_report extends CI_Controller {
                 $res2 = $quer21->row();
                 $customer_name = $res2->customer_name;
             }
+            $data1 .= '<h4><b>Observation:</b></h4>';
+            $data1 .= "<span><b>" . $top_3_state . " </b> % of total sales comes from top 3 states.</span>";
+            $data1 .= "<h5><b>Note: </b>For detailed and consolidated summary refer section-10.</h5>";
+
 
 
             $respnose['customer_name'] = $customer_name; //customer
@@ -500,6 +525,11 @@ class Management_report extends CI_Controller {
             $respnose['taxable_value'] = $taxable_value;  //taxable value data
             $respnose['state'] = $state_arr;  //state data
             $respnose['data'] = $data; //table view data
+            $respnose['data1'] = $data1; //table view data
+            $respnose['data2'] = $data2; //table view data
+            $respnose['data_statewise_name'] = $data_statewise_name; //table view data
+            $respnose['data_statewise_observation'] = $data_statewise_observation; //table view data
+            $respnose['data_statewise_remarks'] = $data_statewise_remarks;
         } else {
             $respnose['message'] = "";
             $respnose['taxable_value'] = "";  //taxable value data
@@ -589,7 +619,11 @@ class Management_report extends CI_Controller {
                 $data_tax_nontax_remarks = $tax_nontax_remarks;
             }
 
-
+            if ($data_tax_nontax_observation == '') {
+                $data_tax_nontax_name = '';
+            } else {
+                $data_tax_nontax_name = 'Sales Taxable, Non-taxable & Exempt';
+            }
             $taxable_supply_arr = array();
             $sub_total_non_gst_arr = array();
             $sub_total_exempt_arr = array();
@@ -674,11 +708,11 @@ class Management_report extends CI_Controller {
                 $data .= '<tr>' .
 //                        '<td>' . $k . '</td>' .
                         '<td>' . $month . '</td>' .
-                        '<td>' . $taxable_supply . '</td>' .
-                        '<td>' . $sub_total_exempt . '</td>' .
-                        '<td>' . $sub_total_non_gst . '</td>' .
-                        '<td>' . $sub_total_nil_rated . '</td>' .
-                        '<td>' . $sub_total_zero_rated . '</td>' .
+                        '<td>' . number_format(round($taxable_supply)) . '</td>' .
+                        '<td>' . number_format(round($sub_total_exempt)) . '</td>' .
+                        '<td>' . number_format(round($sub_total_non_gst)) . '</td>' .
+                        '<td>' . number_format(round($sub_total_nil_rated)) . '</td>' .
+                        '<td>' . number_format(round($sub_total_zero_rated)) . '</td>' .
                         '<td>' . $ratio1 . "%" . '</td>' .
                         '<td>' . $ratio2 . "%" . '</td>' .
                         '<td>' . $ratio3 . "%" . '</td>' .
@@ -690,11 +724,11 @@ class Management_report extends CI_Controller {
             $data .= '<tr>' .
 //                    '<td>' . '<b>Total</b>' . '</td>' .
                     '<td>' . '<b>Total</b>' . '</td>' .
-                    '<td>' . '<b>' . array_sum($taxable_supply_arr) . '</b> ' . '</td>' .
-                    '<td>' . '<b>' . array_sum($sub_total_exempt_arr) . '</b>' . '</td>' .
-                    '<td>' . '<b>' . array_sum($sub_total_non_gst_arr) . '</b>' . '</td>' .
-                    '<td>' . '<b>' . array_sum($sub_total_nil_rated_arr) . '</b>' . '</td>' .
-                    '<td>' . '<b>' . array_sum($sub_total_zero_ratedarr) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($taxable_supply_arr))) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($sub_total_exempt_arr))) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($sub_total_non_gst_arr))) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($sub_total_nil_rated_arr))) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($sub_total_zero_ratedarr))) . '</b>' . '</td>' .
                     '<td>' . '<b>' . "" . '</b>' . '</td>' .
                     '<td>' . '<b>' . "" . '</b>' . '</td>' .
                     '<td>' . '<b>' . "" . '</b>' . '</td>' .
@@ -711,7 +745,7 @@ class Management_report extends CI_Controller {
             }
 
             $data1 .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
-            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
+            $data1 .= "<h5><b>Note: </b>For detailed and consolidated summary refer section-10.</h5>";
             $abc1 = array();
             $abc2 = array();
             $abc3 = array();
@@ -906,11 +940,11 @@ class Management_report extends CI_Controller {
                 $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
                         '<td>' . $month . '</td>' .
-                        '<td>' . $taxable_supply . '</td>' .
-                        '<td>' . $sub_total_exempt . '</td>' .
-                        '<td>' . $sub_total_non_gst . '</td>' .
-                        '<td>' . $sub_total_nil_rated . '</td>' .
-                        '<td>' . $sub_total_zero_rated . '</td>' .
+                        '<td>' . number_format(round($taxable_supply)) . '</td>' .
+                        '<td>' . number_format(round($sub_total_exempt)) . '</td>' .
+                        '<td>' . number_format(round($sub_total_non_gst)) . '</td>' .
+                        '<td>' . number_format(round($sub_total_nil_rated)) . '</td>' .
+                        '<td>' . number_format(round($sub_total_zero_rated)) . '</td>' .
                         '<td>' . $ratio1 . "%" . '</td>' .
                         '<td>' . $ratio2 . "%" . '</td>' .
                         '<td>' . $ratio3 . "%" . '</td>' .
@@ -922,11 +956,11 @@ class Management_report extends CI_Controller {
             $data .= '<tr>' .
                     '<td>' . '<b>Total</b>' . '</td>' .
                     '<td>' . '' . '</td>' .
-                    '<td>' . '<b>' . array_sum($taxable_supply_arr) . '</b> ' . '</td>' .
-                    '<td>' . '<b>' . array_sum($sub_total_exempt_arr) . '</b>' . '</td>' .
-                    '<td>' . '<b>' . array_sum($sub_total_non_gst_arr) . '</b>' . '</td>' .
-                    '<td>' . '<b>' . array_sum($sub_total_nil_rated_arr) . '</b>' . '</td>' .
-                    '<td>' . '<b>' . array_sum($sub_total_zero_ratedarr) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($taxable_supply_arr))) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($sub_total_exempt_arr))) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($sub_total_non_gst_arr))) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($sub_total_nil_rated_arr))) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($sub_total_zero_ratedarr))) . '</b>' . '</td>' .
                     '<td>' . '<b>' . "" . '</b>' . '</td>' .
                     '<td>' . '<b>' . "" . '</b>' . '</td>' .
                     '<td>' . '<b>' . "" . '</b>' . '</td>' .
@@ -1371,6 +1405,12 @@ class Management_report extends CI_Controller {
             } else {
                 $data_month_remarks = $month_wise_remarks;
             }
+
+            if ($data_month_observation == '') {
+                $data_monthwise_name = '';
+            } else {
+                $data_monthwise_name = 'Sales Month Wise';
+            }
             $data2 .= '<h4><b>1.Sales Month Wise</b></h4>';
             $data .= '<div class="row"><br><br><br>
                     <div class="col-md-12">
@@ -1428,7 +1468,7 @@ class Management_report extends CI_Controller {
                 $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
                         '<td>' . $month . '</td>' .
-                        '<td>' . $taxable_supply . '</td>' .
+                        '<td>' . number_format(round($taxable_supply)) . '</td>' .
                         '<td>' . $sales_percent_values1 . '%</td>' .
                         '</tr>';
 
@@ -1437,7 +1477,7 @@ class Management_report extends CI_Controller {
             $data .= '<tr>' .
                     '<td>' . '<b>Total</b>' . '</td>' .
                     '<td>' . '' . '</td>' .
-                    '<td>' . '<b>' . array_sum($taxable_supply_arr) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($taxable_supply_arr))) . '</b> ' . '</td>' .
                     '<td>' . '<b>' . array_sum($sales_percent_values) . '%</b> ' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
@@ -1453,7 +1493,7 @@ class Management_report extends CI_Controller {
             }
 //            echo $variation=($max-$min)/($min*100);
             $data1 .= "<hr><h4><b>Observation:</b></h4><span >" . $observation . "</span>";
-            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
+            $data1 .= "<h5><b>Note: </b>For detailed and consolidated summary refer section-10.</h5>";
 
 
             // loop to get graph data as per graph script requirement
@@ -1505,7 +1545,7 @@ class Management_report extends CI_Controller {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
         $curr_url = $this->input->post("curr_url");
-       // $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+        // $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
         $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' AND insert_id='$insert_id'");
         $data = ""; //view observations
 //        $data_monthwise_name = "";
@@ -1517,10 +1557,9 @@ class Management_report extends CI_Controller {
 //            $result1 = $query_get_observation->row();
 //            $month_wise_observation = $result1->month_wise_observation;
 //            $month_wise_remarks = $result1->month_wise_remarks;
-
 //        if ($query->num_rows() > 0) {
 //            $result = $query->result();
-           $taxable_supply_arr = array();
+            $taxable_supply_arr = array();
 //            $data_monthwise_name = 'Sales Month Wise';
 //            $data_month_observation = $month_wise_observation;
 ////            $data_month_remarks = $month_wise_remarks;
@@ -1530,7 +1569,7 @@ class Management_report extends CI_Controller {
 //            } else {
 //                $data_month_remarks = $month_wise_remarks;
 //            }
-            
+
             $data .= '<div class="row">
                     <div class="col-md-12">
                         <div class="">
@@ -1588,7 +1627,7 @@ class Management_report extends CI_Controller {
                 $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
                         '<td>' . $month . '</td>' .
-                        '<td>' . $taxable_supply . '</td>' .
+                        '<td>' . number_format(round($taxable_supply)) . '</td>' .
                         '<td>' . $sales_percent_values1 . '%</td>' .
                         '</tr>';
 
@@ -1597,14 +1636,14 @@ class Management_report extends CI_Controller {
             $data .= '<tr>' .
                     '<td>' . '<b>Total</b>' . '</td>' .
                     '<td>' . '' . '</td>' .
-                    '<td>' . '<b>' . array_sum($taxable_supply_arr) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($taxable_supply_arr))) . '</b> ' . '</td>' .
                     '<td>' . '<b>' . array_sum($sales_percent_values) . '%</b> ' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
 
             $max = max($sales_percent_values2);
             $min = min($sales_percent_values2);
-         //$variation = round(((($max - $min) / ($min))) * 100, 2);
+            //$variation = round(((($max - $min) / ($min))) * 100, 2);
 //            $variation = round(((($max - $min) / ($min))) * 100);
             $get_observation = $this->db->query("select month_wise_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
             if ($this->db->affected_rows() > 0) {
@@ -1726,13 +1765,14 @@ class Management_report extends CI_Controller {
             foreach ($result as $row) {
                 $data .= '<tr>' .
                         '<td>' . 'Sales' . '</td>' .
-                        '<td>' . $row->rate_0 . '</td>' .
-                        '<td>' . $row->rate_5 . '</td>' .
-                        '<td>' . $row->rate_12 . '</td>' .
-                        '<td>' . $row->rate_18 . '</td>' .
-                        '<td>' . $row->rate_28 . '</td>' .
+                        '<td>' . number_format(round($row->rate_0)) . '</td>' .
+                        '<td>' . number_format(round($row->rate_5)) . '</td>' .
+                        '<td>' . number_format(round($row->rate_12)) . '</td>' .
+                        '<td>' . number_format(round($row->rate_18)) . '</td>' .
+                        '<td>' . number_format(round($row->rate_28)) . '</td>' .
                         '</tr>';
             }
+
 
             $total_value = ($row->rate_0 + $row->rate_5 + $row->rate_12 + $row->rate_18 + $row->rate_28);
             $data .= '<tr>' .
@@ -1829,6 +1869,11 @@ class Management_report extends CI_Controller {
             } else {
                 $data_rate_remarks = $rate_wise_remarks;
             }
+            if ($data_rate_observation == '') {
+                $data_ratewise_name = '';
+            } else {
+                $data_ratewise_name = 'Sales Tax Rate Wise';
+            }
 
             $data .= "<h4><b>2.Sales Tax Rate Wise</b></h4>";
             $data .= '<table class="table-bordered table-striped" width="700">
@@ -1876,7 +1921,7 @@ class Management_report extends CI_Controller {
             }
 
             $data .= "<hr><h4><b>Observation:</b></h4><span >" . $observation . "</span>";
-            $data .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
+            $data .= "<h5><b>Note: </b>For detailed and consolidated summary refer section-10.</h5>";
             $respnose['data'] = $data;
             $respnose['data_ratewise_name'] = $data_ratewise_name;
             $respnose['data_rate_observation'] = $data_rate_observation;
@@ -1902,7 +1947,7 @@ class Management_report extends CI_Controller {
 //        if ($query->num_rows() > 0) {
         $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
         if ($this->db->affected_rows() > 0) {
-             $result = $query->result();
+            $result = $query->result();
             $result1 = $query_get_observation->row();
             $export_sales_observation = $result1->export_sale_observation;
             $export_sales_remarks = $result1->export_sale_remarks;
@@ -1916,8 +1961,8 @@ class Management_report extends CI_Controller {
             } else {
                 $data_export_sales_remarks = $export_sales_remarks;
             }
-           
-            
+
+
             $taxable_supply_arr = array();
             $data .= '<div class="row">
                     <div class="col-md-12">
@@ -2019,7 +2064,6 @@ class Management_report extends CI_Controller {
             $respnose['data_export_sales_name'] = $data_export_sales_name; //sales in percent
             $respnose['data_export_sales_observation'] = $data_export_sales_observation; //sales in percent
             $respnose['data_export_sales_remarks'] = $data_export_sales_remarks; //sales in percent
-            
         } else {
             $respnose['message'] = "";
             $respnose['taxable_supply_arr'] = "";  //taxable_supply data
@@ -2034,7 +2078,7 @@ class Management_report extends CI_Controller {
         $data = ""; //view observations
         if ($query->num_rows() > 0) {
             $result = $query->result();
-           
+
             $taxable_supply_arr = array();
             $data .= '<div class="row">
                     <div class="col-md-12">
@@ -2681,7 +2725,7 @@ class Management_report extends CI_Controller {
             $data = $result->row();
             $uniq_id = $data->unique_id;
             //generate turn_id
-            $uniq_id = str_pad( ++$uniq_id, 5, '0', STR_PAD_LEFT);
+            $uniq_id = str_pad(++$uniq_id, 5, '0', STR_PAD_LEFT);
             return $uniq_id;
         } else {
             $uniq_id = 'btb_1001';
@@ -2692,7 +2736,7 @@ class Management_report extends CI_Controller {
     //function to get graph function for B2B and B2C.
     public function get_graph_b2b() {
         $customer_id = $this->input->post("customer_id");
-         $insert_id = $this->input->post("insert_id");
+        $insert_id = $this->input->post("insert_id");
         $query = $this->db->query("SELECT *  from monthly_summary_all where customer_id='$customer_id' and insert_id='$insert_id'");
         $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
 //        $query_get_graph = $this->Management_report_model->get_graph_query($customer_id, $insert_id);
@@ -2717,6 +2761,11 @@ class Management_report extends CI_Controller {
                 $data_salesb2b_b2c_remarks = 'not given';
             } else {
                 $data_salesb2b_b2c_remarks = $salesb2b_b2c_remarks;
+            }
+            if ($data_salesb2b_b2c_observation == '') {
+                $data_salesb2b_b2c_name = '';
+            } else {
+                $data_salesb2b_b2c_name = 'Sales B2B & B2C';
             }
             $month = array();
             $array_b2b = array();
@@ -2819,7 +2868,7 @@ class Management_report extends CI_Controller {
             } else {
                 $data1 .= "<hr><h4><b>Observation :</b></h4>";
                 $data1 .= " <span>B2B supply is " . array_sum($array_b2b_ratio) . "% and B2C supply is " . array_sum($array_b2c_ratio) . "% of total supply.</span>";
-                $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
+                $data1 .= "<h5><b>Note: </b>For detailed and consolidated summary refer section-10.</h5>";
             }
 
             $count = count($month);
@@ -2998,10 +3047,10 @@ class Management_report extends CI_Controller {
                 $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
                         '<td>' . $months . '</td>' .
-                        '<td>' . $b2b_data . '</td>' .
-                        '<td>' . $b2c_data . '</td>' .
-                        '<td>' . $array_b2b_ratio1 . '</td>' .
-                        '<td>' . $array_b2c_ratio1 . '</td>' .
+                        '<td>' . number_format(round($b2b_data)) . '</td>' .
+                        '<td>' . number_format(round($b2c_data)) . '</td>' .
+                        '<td>' . number_format(round($array_b2b_ratio1)) . '</td>' .
+                        '<td>' . number_format(round($array_b2c_ratio1)) . '</td>' .
                         '</tr>';
                 $k++;
             }
@@ -3009,8 +3058,8 @@ class Management_report extends CI_Controller {
             $data .= '<tr>' .
                     '<td>' . '<b>Total</b>' . '</td>' .
                     '<td>' . '' . '</td>' .
-                    '<td>' . '<b>' . array_sum($array_b2b) . '</b> ' . '</td>' .
-                    '<td>' . '<b>' . array_sum($array_b2c) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($array_b2b))) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($array_b2c))) . '</b>' . '</td>' .
                     '<td>' . '<b>' . array_sum($array_b2b_ratio) . '</b>' . '</td>' .
                     '<td>' . '<b>' . $ttl_b2c_ratio = array_sum($array_b2c_ratio) . '</b>' . '</td>' .
                     '</tr>';

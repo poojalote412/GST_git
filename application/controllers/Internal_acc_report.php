@@ -539,6 +539,11 @@ class Internal_acc_report extends CI_Controller {
                 $data_tax_liability_remarks = $tax_liability_remarks;
             }
 
+            if ($data_tax_liability_observation == '') {
+                $data_tax_liability_name = "";
+            } else {
+                $data_tax_liability_name = "Overview of Tax Liability";
+            }
             foreach ($ress as $row1) {
                 $debit_tax[] = $row1->tax_debit;
             }
@@ -758,13 +763,13 @@ class Internal_acc_report extends CI_Controller {
                 $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
                         '<td>' . $month[$i] . '</td>' .
-                        '<td>' . $liabilityoutward[$i] . '</td>' .
-                        '<td>' . $rcm_liability[$i] . '</td>' .
-                        '<td>' . $itc_ineligible[$i] . '</td>' .
-                        '<td>' . $net_rtc[$i] . '</td>' .
-                        '<td>' . $paid_credit[$i] . '</td>' .
-                        '<td>' . $paid_cash[$i] . '</td>' .
-                        '<td>' . $late_fee[$i] . '</td>' .
+                        '<td>' . number_format(round($liabilityoutward[$i])) . '</td>' .
+                        '<td>' . number_format(round($rcm_liability[$i])) . '</td>' .
+                        '<td>' . number_format(round($itc_ineligible[$i])) . '</td>' .
+                        '<td>' . number_format(round($net_rtc[$i])) . '</td>' .
+                        '<td>' . number_format(round($paid_credit[$i])) . '</td>' .
+                        '<td>' . number_format(round($paid_cash[$i])) . '</td>' .
+                        '<td>' . number_format(round($late_fee[$i])) . '</td>' .
                         '</tr>';
 
                 $k++;
@@ -772,13 +777,13 @@ class Internal_acc_report extends CI_Controller {
             $data .= '<tr>' .
                     '<td>' . '<b>Total</b>' . '</td>' .
                     '<td>' . '' . '</td>' .
-                    '<td>' . '<b>' . array_sum($liabilityoutward) . '</b> ' . '</td>' .
-                    '<td>' . '<b>' . array_sum($rcm_liability) . '</b> ' . '</td>' .
-                    '<td>' . '<b>' . array_sum($itc_ineligible) . '</b> ' . '</td>' .
-                    '<td>' . '<b>' . array_sum($net_rtc) . '</b> ' . '</td>' .
-                    '<td>' . '<b>' . array_sum($paid_credit) . '</b> ' . '</td>' .
-                    '<td>' . '<b>' . array_sum($paid_cash) . '</b> ' . '</td>' .
-                    '<td>' . '<b>' . array_sum($late_fee) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($liabilityoutward))) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($rcm_liability))) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($itc_ineligible))) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($net_rtc))) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($paid_credit))) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($paid_cash))) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($late_fee))) . '</b> ' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table>';
 
@@ -816,17 +821,17 @@ class Internal_acc_report extends CI_Controller {
                                 </div>";
             }
             $get_observation1 = $this->db->query("select tax_liability_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
-                if ($this->db->affected_rows() > 0) {
-                    $res = $get_observation1->row();
-                    $tax_liability_remarks = $res->tax_liability_remarks;
-                } else {
-                    $tax_liability_remarks = "";
-                }
-            $data .="<div class='col-md-12'>
+            if ($this->db->affected_rows() > 0) {
+                $res = $get_observation1->row();
+                $tax_liability_remarks = $res->tax_liability_remarks;
+            } else {
+                $tax_liability_remarks = "";
+            }
+            $data .= "<div class='col-md-12'>
                 <h5 class='box-title' style='margin-left: 1%;'><b>Remarks:</b></h5>
-                    <textarea id='editor_tax_liability_data' name='editor_tax_liability_data' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_tax_liability_data')'>".$tax_liability_remarks."</textarea>
+                    <textarea id='editor_tax_liability_data' name='editor_tax_liability_data' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_tax_liability_data')'>" . $tax_liability_remarks . "</textarea>
                     </div>";
-            
+
 //            $data .= "<hr><h4><b>Observation of Tax Liability:</b></h4>";
             $abc = array();
             $abc2 = array();
@@ -984,7 +989,11 @@ class Internal_acc_report extends CI_Controller {
             } else {
                 $data_tax_turnover_remarks = $tax_turnover_remarks;
             }
-
+            if ($data_tax_turnover_observation == '') {
+                $data_tax_turnover_name = "";
+            } else {
+                $data_tax_turnover_name = "Overview of Turnover";
+            }
 
             $taxable_value = array();
             $tax_value = array();
@@ -1071,7 +1080,7 @@ class Internal_acc_report extends CI_Controller {
             }
 
             $data1 .= "<br><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
-            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
+            $data1 .= "<h5><b>Note: </b>For detailed and consolidated summary refer section-10.</h5>";
             // loop to get graph data as per graph script requirement
             $abc1 = array();
             $abc2 = array();
@@ -1203,7 +1212,7 @@ class Internal_acc_report extends CI_Controller {
                     $tax_ratio1[] = 0;
                 }
 
-               $data .= '<tr>' .
+                $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
                         '<td>' . $month . '</td>' .
                         '<td>' . number_format(round($tax_val)) . '</td>' .
@@ -1215,8 +1224,8 @@ class Internal_acc_report extends CI_Controller {
             $data .= '<tr>' .
                     '<td>' . '<b>Total</b>' . '</td>' .
                     '<td>' . '' . '</td>' .
-                    '<td>' . '<b>' . array_sum($tax_value) . '</b> ' . '</td>' .
-                    '<td>' . '<b>' . array_sum($taxable_value) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($tax_value))) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($taxable_value))) . '</b>' . '</td>' .
                     '<td>' . '<b>' . array_sum($tax_ratio) . "%" . '</b>' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
@@ -1254,17 +1263,17 @@ class Internal_acc_report extends CI_Controller {
                                 </div>";
             }
             $get_observation1 = $this->db->query("select tax_turnover_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
-                if ($this->db->affected_rows() > 0) {
-                    $res = $get_observation1->row();
-                    $tax_turnover_remarks = $res->tax_turnover_remarks;
-                } else {
-                    $tax_turnover_remarks = "";
-                }
-            $data .="<div class='col-md-12'>
+            if ($this->db->affected_rows() > 0) {
+                $res = $get_observation1->row();
+                $tax_turnover_remarks = $res->tax_turnover_remarks;
+            } else {
+                $tax_turnover_remarks = "";
+            }
+            $data .= "<div class='col-md-12'>
                 <h5 class='box-title' style='margin-left: 1%;'><b>Remarks:</b></h5>
-                    <textarea id='editor_tax_turnover_data' name='editor_tax_turnover_data' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_tax_turnover_data')'>".$tax_turnover_remarks."</textarea>
+                    <textarea id='editor_tax_turnover_data' name='editor_tax_turnover_data' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_tax_turnover_data')'>" . $tax_turnover_remarks . "</textarea>
                     </div>";
-            
+
             // loop to get graph data as per graph script requirement
             $abc1 = array();
             $abc2 = array();
@@ -1385,9 +1394,14 @@ class Internal_acc_report extends CI_Controller {
 //            $data_eligible_remarks = $eligible_remarks;
             $a = $eligible_remarks;
             if ($a == '') {
-                $data_eligible_remarks='not given';
+                $data_eligible_remarks = 'not given';
             } else {
-                $data_eligible_remarks=$eligible_remarks;
+                $data_eligible_remarks = $eligible_remarks;
+            }
+            if($data_eligible_observation=='') {
+                $data_eligible_name = "";
+            } else {
+                $data_eligible_name = "Eligible and In-eligible Credit";
             }
             $net_itc_arr = array();
             $ineligible_itc_arr = array();
@@ -1460,7 +1474,7 @@ class Internal_acc_report extends CI_Controller {
             }
 
             $data1 .= "<hr><h4><b>Observation :</b></h4><span>" . $observation . "</span>";
-            $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
+            $data1 .= "<h5><b>Note: </b>For detailed and consolidated summary refer section-10.</h5>";
             // loop to get graph data as per graph script requirement
             $abc1 = array();
             $abc2 = array();
@@ -1582,8 +1596,8 @@ class Internal_acc_report extends CI_Controller {
             $data .= '<tr>' .
                     '<td>' . '<b>Total</b>' . '</td>' .
                     '<td>' . '' . '</td>' .
-                    '<td>' . '<b>' . array_sum($ineligible_itc_arr) . '</b> ' . '</td>' .
-                    '<td>' . '<b>' . array_sum($net_itc_arr) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($ineligible_itc_arr))) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($net_itc_arr))) . '</b>' . '</td>' .
                     '<td>' . '<b>' . "" . '</b>' . '</td>' .
                     '<td>' . '<b>' . "" . '</b>' . '</td>' .
                     '</tr>';
@@ -1619,18 +1633,18 @@ class Internal_acc_report extends CI_Controller {
                                     <span class='required' style='color: red' id='eligible_ineligible_observation_error'></span>
                                 </div>";
             }
-             $get_observation1 = $this->db->query("select eligible_ineligible_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
-                if ($this->db->affected_rows() > 0) {
-                    $res = $get_observation1->row();
-                    $eligible_ineligible_remarks = $res->eligible_ineligible_remarks;
-                } else {
-                    $eligible_ineligible_remarks = "";
-                }
-            $data .="<div class='col-md-12'>
+            $get_observation1 = $this->db->query("select eligible_ineligible_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
+            if ($this->db->affected_rows() > 0) {
+                $res = $get_observation1->row();
+                $eligible_ineligible_remarks = $res->eligible_ineligible_remarks;
+            } else {
+                $eligible_ineligible_remarks = "";
+            }
+            $data .= "<div class='col-md-12'>
                 <h5 class='box-title' style='margin-left: 1%;'><b>Remarks:</b></h5>
-                    <textarea id='editor_eligible_data' name='editor_eligible_data' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_eligible_data')'>".$eligible_ineligible_remarks."</textarea>
+                    <textarea id='editor_eligible_data' name='editor_eligible_data' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_eligible_data')'>" . $eligible_ineligible_remarks . "</textarea>
                     </div>";
-            
+
             // loop to get graph data as per graph script requirement
             $abc1 = array();
             $abc2 = array();
@@ -1741,6 +1755,11 @@ class Internal_acc_report extends CI_Controller {
             } else {
                 $data_payable_vs_cash_remarks = $payable_vs_cash_remarks;
             }
+            if ($data_payable_vs_cash_observation == '') {
+                $data_payable_vs_cash_name = "";
+            } else {
+                $data_payable_vs_cash_name = "GST Payable vs Cash";
+            }
             $net_itc_arr = array();
             $liability_arr = array();
             $paid_in_cash_arr = array();
@@ -1816,10 +1835,10 @@ class Internal_acc_report extends CI_Controller {
                 $data1 .= "<span>GST paid in cash varies from <b>" . $min_percent . "%</b> to  <b>" . $max_percent . "%</b> for F.Y. " . $year
                         . ".  Average percentage of liability paid by cash is <b>" . round($avg) . "%</b> for F.Y. " . $year . ".</span>"
                         . "<span>So, analysis of huge payment by cash to be done & accordingly input tax credit planning should be done.</span>";
-                $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
+                $data1 .= "<h5><b>Note: </b>For detailed and consolidated summary refer section-10.</h5>";
             } else {
                 $data1 .= "GST paid in cash has varied from <b>" . $min_percent . "%</b> to  <b>" . $max_percent . "% for FY –" . $year;
-                $data1 .= "<h5><b>Note:</b>For detailed and consolidated summary refer section-10.</h5>";
+                $data1 .= "<h5><b>Note: </b>For detailed and consolidated summary refer section-10.</h5>";
             }
             //graph work
             $abc1 = array();
@@ -1931,19 +1950,19 @@ class Internal_acc_report extends CI_Controller {
                 $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
                         '<td>' . $month . '</td>' .
-                        '<td>' . $liability . '</td>' .
-                        '<td>' . $net_itc . '</td>' .
-                        '<td>' . $paid_in_cash . '</td>' .
-                        '<td>' . round($percent * 100) . "%" . '</td>' .
+                        '<td>' . number_format(round($liability)) . '</td>' .
+                        '<td>' . number_format(round($net_itc)) . '</td>' .
+                        '<td>' . number_format(round($paid_in_cash)) . '</td>' .
+                        '<td>' . number_format(round($percent * 100)) . "%" . '</td>' .
                         '</tr>';
                 $k++;
             }
             $data .= '<tr>' .
                     '<td>' . '<b>Total</b>' . '</td>' .
                     '<td>' . '' . '</td>' .
-                    '<td>' . '<b>' . array_sum($liability_arr) . '</b> ' . '</td>' .
-                    '<td>' . '<b>' . array_sum($net_itc_arr) . '</b>' . '</td>' .
-                    '<td>' . '<b>' . array_sum($paid_in_cash_arr) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($liability_arr))) . '</b> ' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($net_itc_arr))) . '</b>' . '</td>' .
+                    '<td>' . '<b>' . number_format(round(array_sum($paid_in_cash_arr))) . '</b>' . '</td>' .
                     '<td>' . '<b>' . "" . '</b>' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table></div></div></div>';
@@ -1969,17 +1988,17 @@ class Internal_acc_report extends CI_Controller {
             } else {
                 $data .= "<textarea class='form-control' rows='5' id='gst_payable_observation' name='gst_payable_observation'>GST paid in cash has varied from __ to ____ for F.Y. ___. </textarea>";
             }
-            
+
             $get_observation1 = $this->db->query("select gst_payable_cash_remarks from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
-                if ($this->db->affected_rows() > 0) {
-                    $res = $get_observation1->row();
-                    $gst_payable_cash_remarks = $res->gst_payable_cash_remarks;
-                } else {
-                    $gst_payable_cash_remarks = "";
-                }
-            $data .="<div class='col-md-12'>
+            if ($this->db->affected_rows() > 0) {
+                $res = $get_observation1->row();
+                $gst_payable_cash_remarks = $res->gst_payable_cash_remarks;
+            } else {
+                $gst_payable_cash_remarks = "";
+            }
+            $data .= "<div class='col-md-12'>
                     <h5 class='box-title' style='margin-left: 1%;'><b>Remarks:</b></h5>
-                    <textarea id='editor_gst_payable_vs_cash_data' name='editor_gst_payable_vs_cash_data' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_gst_payable_vs_cash_data')'>".$gst_payable_cash_remarks."</textarea>
+                    <textarea id='editor_gst_payable_vs_cash_data' name='editor_gst_payable_vs_cash_data' rows='10' style='width: 96%;margin-left: 1%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_gst_payable_vs_cash_data')'>" . $gst_payable_cash_remarks . "</textarea>
                     </div>";
 
 

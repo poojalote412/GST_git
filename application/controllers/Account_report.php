@@ -74,7 +74,7 @@ class Account_report extends CI_Controller {
         $query = $this->db->query("SELECT month,late_fees,due_date,filling_date FROM 3b_offset_summary_all WHERE customer_id='$customer_id'");
         $data = ""; //view observations
         $data1 = ""; //view Table name
-         $data2 = "";
+        $data2 = "";
         $data_gstr3b_name = "";
         $data_gstr3b_observation = "";
         $data_gstr3b_remarks = "";
@@ -95,6 +95,11 @@ class Account_report extends CI_Controller {
                 $data_gstr3b_remarks = 'not given';
             } else {
                 $data_gstr3b_remarks = $gstr3b_remarks;
+            }
+            if($data_gstr3b_observation=='') {
+                $data_gstr3b_name = "";
+            } else {
+                $data_gstr3b_name = "Compliance Report";
             }
             $months = array();
             $data .= ' <h4 style=""><b>1. GSTR-3B:</b></h4>';
@@ -125,7 +130,7 @@ class Account_report extends CI_Controller {
                 $due_date1 = date("d-m-Y", strtotime($originalDate1));
 
 
-               // $status = '';
+                // $status = '';
                 $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
                         '<td>' . $months . '</td>';
@@ -247,7 +252,7 @@ class Account_report extends CI_Controller {
                     $observation = "";
                 }
                 if (strtotime($filling_date1) > strtotime($due_date1)) {
-                $data1 .= '<label><h4><b>Observation:</b></h4></label><span class="required" aria-required="true"> </span>
+                    $data1 .= '<label><h4><b>Observation:</b></h4></label><span class="required" aria-required="true"> </span>
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="fa fa-eye"></i>
@@ -256,7 +261,7 @@ class Account_report extends CI_Controller {
                                     </div>
                                     <span class="required" style="color: red" id="gstr3b_account_observation_error"></span> 
                                 <br>';
-                }else{
+                } else {
                     $data1 .= '<label><h4><b>Observation:</b></h4></label><span class="required" aria-required="true"> </span>
                                     <div class="input-group">
                                         <span class="input-group-addon">
@@ -269,7 +274,7 @@ class Account_report extends CI_Controller {
                 }
             } else {
                 if (strtotime($filling_date1) > strtotime($due_date1)) {
-                $data1 .= '<label><h4><b>Observation:</b></h4></label><span class="required" aria-required="true"> </span>
+                    $data1 .= '<label><h4><b>Observation:</b></h4></label><span class="required" aria-required="true"> </span>
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="fa fa-eye"></i>
@@ -278,7 +283,7 @@ class Account_report extends CI_Controller {
                                     </div>
                                     <span class="required" style="color: red" id="gstr3b_account_observation_error"></span> 
                                 <br>';
-                }else{
+                } else {
                     $data1 .= '<label><h4><b>Observation:</b></h4></label><span class="required" aria-required="true"> </span>
                                     <div class="input-group">
                                         <span class="input-group-addon">
@@ -297,9 +302,9 @@ class Account_report extends CI_Controller {
             } else {
                 $duedate_gstr2a_remarks = "";
             }
-            $data2 .="<div class='col-md-12'>
+            $data2 .= "<div class='col-md-12'>
                     <h5 class='box-title' style='margin-left: -3%;'><b>Remarks:</b></h5>
-                    <textarea id='editor_duedate_gstr2a' name='editor_duedate_gstr2a' rows='10' style='width: 106%;margin-left: -3%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_duedate_gstr2a')'>".$duedate_gstr2a_remarks."</textarea>
+                    <textarea id='editor_duedate_gstr2a' name='editor_duedate_gstr2a' rows='10' style='width: 106%;margin-left: -3%;height: 15%;' onkeyup='final_word_count(this.id);remove_error('editor_duedate_gstr2a')'>" . $duedate_gstr2a_remarks . "</textarea>
                     </div>";
 
             $respose['data'] = $data;
@@ -309,7 +314,7 @@ class Account_report extends CI_Controller {
 //            $respose['data_gstr3b_observation'] = $data_gstr3b_observation;
 //            $respose['data_gstr3b_remarks'] = $data_gstr3b_remarks;
 //            
-           
+
             $respose['message'] = "success";
         } else {
             $respose['data'] = "";
@@ -340,8 +345,9 @@ class Account_report extends CI_Controller {
                                         <th>No.</th>
                                         <th>Period</th>
                                         <th>Status</th>
-                                        <th>Filing Date</th>
                                         <th>Due Date</th>
+                                        <th>Filing Date</th>
+                                        
                                         
                                     </tr>
                                 </thead>
@@ -352,8 +358,9 @@ class Account_report extends CI_Controller {
             foreach ($result as $row) {
                 $period = $row->period;
                 $status = $row->status;
-                $filling_date = $row->filling_date;
                 $due_date = $row->due_date;
+                $filling_date = $row->filling_date;
+
                 $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
                         '<td>' . $period . '</td>';
@@ -362,8 +369,8 @@ class Account_report extends CI_Controller {
                 } else {
                     $data .= '<td style="background-color:#84ab32; color:#84ab32;">Filed</td>';
                 }
-                $data .= '<td>' . $filling_date . '</td>' .
-                        '<td>' . $due_date . '</td>' .
+                $data .= '<td>' . $due_date . '</td>' .
+                        '<td>' . $filling_date . '</td>' .
                         '</tr>';
                 $k++;
             }
@@ -396,8 +403,9 @@ class Account_report extends CI_Controller {
                                         <th>No.</th>
                                         <th>Period</th>
                                         <th>Status</th>
-                                        <th>Filing Date</th>
                                         <th>Due Date</th>
+                                        <th>Filing Date</th>
+                                        
                                         
                                     </tr>
                                 </thead>
@@ -408,8 +416,9 @@ class Account_report extends CI_Controller {
             foreach ($result as $row) {
                 $period = $row->period;
                 $status = $row->status;
-                $filling_date = $row->filling_date;
                 $due_date = $row->due_date;
+                $filling_date = $row->filling_date;
+
                 $data .= '<tr>' .
                         '<td>' . $k . '</td>' .
                         '<td>' . $period . '</td>';
@@ -418,8 +427,8 @@ class Account_report extends CI_Controller {
                 } else {
                     $data .= '<td style="background-color:#84ab32; color:#84ab32;">Filed</td>';
                 }
-                $data .= '<td>' . $filling_date . '</td>' .
-                        '<td>' . $due_date . '</td>' .
+                $data .= '<td>' . $due_date . '</td>' .
+                        '<td>' . $filling_date . '</td>' .
                         '</tr>';
                 $k++;
             }

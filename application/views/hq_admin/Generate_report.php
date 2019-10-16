@@ -237,7 +237,9 @@ if (is_array($session_data)) {
                         <div id="content_client_letterPDF" style=""></div>
 
                     </div>
-
+                     <div style="margin-top: 15%;page-break-after: always;position: relative;">
+                        <img src="https://premisafe.com/GST_image/GSTContent.jpg" style="margin-left: -5px;" width="800px" height="700px"style="page-break-after:always;" >
+                    </div>
 
 
                     <div style="page-break-after:always;width:700px;margin-left: 5%;margin-right:5%;margin-top:15%;text-align: justify;text-justify: inter-word;height:800px">
@@ -500,10 +502,7 @@ if (is_array($session_data)) {
                     <!--</div>-->
 
                     <div class="test" style="page-break-after:always;margin-top:16%">
-                        <p style="font-size:20px; color:#0e385e;padding:4px;width:700px;margin-left: 5%;margin-right: 5%"><b>11. LIMITED USAGE AND NON-DISCLOSURE </b></p> 
-                        <div id="container_image_limited_usage" style=""></div><br><br>  
-                        <p style="font-size:20px; color:#0e385e;padding:4px;width:700px;margin-left: 5%;margin-right: 5%"><b>12. Disclaimer </b></p>
-                        <div id="container_image_disclaimer" style=""></div><br><br>  
+                        <div id="container_image_disclaimer" ><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="750px" height="900px" style="page-break-after:always;"></div> 
                     </div><br><br>
 
                     <!--                    <div class="test" style="page-break-after:always;margin-top:10%">
@@ -512,8 +511,8 @@ if (is_array($session_data)) {
                                         </div>-->
 
                     <div class="test" style="page-break-after:always;margin-top:10%">
-                        <!--<div id="container_image_about" style=""><img src="https://premisafe.com/GST_image/about.jpg" width="780px" height="800px" style=""></div><br><br>-->  
-                        <div id="container_ecovis_about" style=""></div><br><br>  
+                        <div id="container_image_about" style=""><img src="https://premisafe.com/GST_image/about.jpg" width="780px" height="800px" style=""></div><br><br>  
+                        <!--<div id="container_ecovis_about" style=""></div><br><br>-->  
 
                     </div>
 
@@ -922,7 +921,7 @@ if (is_array($session_data)) {
         });
         $.ajax({
             type: "POST",
-            url: "<?= base_url("Management_report/get_graph_state_wise1") ?>",
+            url: "<?= base_url("Management_report/get_graph_state_wise") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
@@ -943,7 +942,7 @@ if (is_array($session_data)) {
                             type: 'column'
                         },
                         title: {
-                            text: 'Sales Satewise'
+                            text: 'Sales Statewise'
                         },
                         subtitle: {
                             text: customer_name,
@@ -981,7 +980,7 @@ if (is_array($session_data)) {
         });
         $.ajax({
             type: "post",
-            url: "<?= base_url("Management_report/get_graph_state_wise1") ?>",
+            url: "<?= base_url("Management_report/get_graph_state_wise") ?>",
             dataType: "json",
             data: {customer_id: customer_id, insert_id: insert_id},
             success: function (result) {
@@ -1498,7 +1497,7 @@ if (is_array($session_data)) {
                     $('#compare_GSTR3B_Vs2_data2').html(data2);
                     $("#reports_observation_table").append('<tr><td>' + data_threeb_vs2A_name + '</td><td>' + data_threeb_vs2A_observation + '</td><td>' + data_threeb_vs2A_remarks + '</td></tr>');
 
-                    $("#container_GSTR3b_vs_2A").prepend("Deduct: In-Eligible Credit :<input type='text'><br>*To be ﬁlled manually so that the client will get the clear picture of eligible credit.");
+                    $("#container_GSTR3b_vs_2A").prepend("Deduct: In-Eligible Credit :<input type='text'><br>*To be ﬁlled by client so that the client will get the clear picture of eligible credit.");
                     //                    $('#example2').DataTable();
                 } else {
                     document.getElementById("compare_GSTR3B_Vs2_data").style.display = "none";
