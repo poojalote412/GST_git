@@ -295,8 +295,10 @@ class Cfo_dashboard extends CI_Controller {
             }
             if($data_turnover_vsliability_observation=='') {
                 $data_turnover_vsliability_name = "";
+                $data_turnover_vsliability_remarks = "";
             } else {
-                $data_turnover_vsliability_name = "Turnover vs Tax Liability";
+//                $data_turnover_vsliability_name = "Turnover vs Tax Liability";
+//                $data_turnover_vsliability_remarks = $turnover_vsliability_remarks;
             }
             $turnover1 = array();
             $tax_liabality1 = array();

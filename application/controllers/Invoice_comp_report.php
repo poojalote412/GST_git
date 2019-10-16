@@ -528,8 +528,9 @@ class Invoice_comp_report extends CI_Controller {
         }
         if ($data_not_in_2a_observation == '') {
             $data_not_in_2a_name = "";
+            $data_not_in_2a_remarks = "";
         } else {
-            $data_not_in_2a_name = "Not in GSTR-2A, but recorded under purchaser's book ";
+//            $data_not_in_2a_name = "Not in GSTR-2A, but recorded under purchaser's book ";
         }
 
         if ($query != FALSE) {
@@ -872,8 +873,9 @@ class Invoice_comp_report extends CI_Controller {
         }
         if($data_not_in_rec_observation=='') {
             $data_not_in_rec_name = "";
+            $data_not_in_rec_remarks = "";
         } else {
-            $data_not_in_rec_name = "Not in records, but recorded under GSTR-2A ";
+//            $data_not_in_rec_name = "Not in records, but recorded under GSTR-2A ";
         }
         if ($query != FALSE) {
             $records = count($query);
@@ -1309,8 +1311,9 @@ class Invoice_comp_report extends CI_Controller {
         }
         if ($data_partial_match_observation == '') {
             $data_partial_match_name = '';
+            $data_partial_match_remarks = '';
         } else {
-            $data_partial_match_name = "Invoice no., POS and Period mismatch ";
+//            $data_partial_match_name = "Invoice no., POS and Period mismatch ";
         }
         if ($query != FALSE) {
 
@@ -1806,8 +1809,9 @@ class Invoice_comp_report extends CI_Controller {
         }
         if ($data_invoice_not_include_observation == '') {
             $data_invoice_not_include_name = "";
+            $data_invoice_not_include_remarks = "";
         } else {
-            $data_invoice_not_include_name = "Invoice not included in GSTR-1";
+//            $data_invoice_not_include_name = "Invoice not included in GSTR-1";
         }
         if ($query != FALSE) {
             $data1 .= '<h4 style=""><b>2.Invoice not included in GSTR-1:</b></h4>';
@@ -2239,8 +2243,10 @@ class Invoice_comp_report extends CI_Controller {
         }
         if ($data_invoice_ammend_observation == '') {
             $data_invoice_ammend_name = '';
+            $data_invoice_ammend_remarks = '';
         } else {
-            $data_invoice_ammend_name = "Invoice amends in other than original period ";
+//            $data_invoice_ammend_name = "Invoice amends in other than original period ";
+//            $data_invoice_ammend_remarks = $invoice_ammend_remarks;
         }
         if ($query != FALSE) {
             $data .= '<h4 style=""><b>1.Invoice amends in other than original period Analysis:</b></h4>';

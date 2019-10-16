@@ -541,8 +541,9 @@ class Internal_acc_report extends CI_Controller {
 
             if ($data_tax_liability_observation == '') {
                 $data_tax_liability_name = "";
+                 $data_tax_liability_remarks ="";
             } else {
-                $data_tax_liability_name = "Overview of Tax Liability";
+//                $data_tax_liability_name = "Overview of Tax Liability";
             }
             foreach ($ress as $row1) {
                 $debit_tax[] = $row1->tax_debit;
@@ -991,8 +992,9 @@ class Internal_acc_report extends CI_Controller {
             }
             if ($data_tax_turnover_observation == '') {
                 $data_tax_turnover_name = "";
+                $data_tax_turnover_remarks = "";
             } else {
-                $data_tax_turnover_name = "Overview of Turnover";
+//                $data_tax_turnover_name = "Overview of Turnover";
             }
 
             $taxable_value = array();
@@ -1400,8 +1402,9 @@ class Internal_acc_report extends CI_Controller {
             }
             if($data_eligible_observation=='') {
                 $data_eligible_name = "";
+                $data_eligible_remarks = "";
             } else {
-                $data_eligible_name = "Eligible and In-eligible Credit";
+//                $data_eligible_name = "Eligible and In-eligible Credit";
             }
             $net_itc_arr = array();
             $ineligible_itc_arr = array();
@@ -1757,8 +1760,9 @@ class Internal_acc_report extends CI_Controller {
             }
             if ($data_payable_vs_cash_observation == '') {
                 $data_payable_vs_cash_name = "";
+                $data_payable_vs_cash_remarks = "";
             } else {
-                $data_payable_vs_cash_name = "GST Payable vs Cash";
+//                $data_payable_vs_cash_name = "GST Payable vs Cash";
             }
             $net_itc_arr = array();
             $liability_arr = array();

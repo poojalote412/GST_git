@@ -258,8 +258,9 @@ class Threeb_vs_twoa extends CI_Controller {
             }
             if($data_threeb_vs2A_observation=='') {
                 $data_threeb_vs2A_name = "";
+                $data_threeb_vs2A_remarks = "";
             } else {
-                $data_threeb_vs2A_name = "GSTR-3B vs GSTR-2A";
+//                $data_threeb_vs2A_name = "GSTR-3B vs GSTR-2A";
             }
             $gstr_tb1 = array();
             $difference2 = array();

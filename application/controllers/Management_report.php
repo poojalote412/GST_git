@@ -444,10 +444,12 @@ class Management_report extends CI_Controller {
             } else {
                 $data_statewise_remarks = $statewise_wise_remarks;
             }
-            if($data_statewise_observation=='') {
+            if ($data_statewise_observation == '') {
                 $data_statewise_name = "";
+                $data_statewise_remarks = "";
             } else {
-                $data_statewise_name = "Sales State Wise";
+//                $data_statewise_name = "Sales State Wise";
+//                $data_statewise_remarks = 'not given';
             }
             $data2 .= '<h4><b>3.Sales State Wise</b></h4>';
             $data .= '<div class="row">
@@ -591,7 +593,7 @@ class Management_report extends CI_Controller {
     }
 
     public function get_graph_taxable_nontx_exempt() { //get graph function of taxable nontaxable and exempt
-        $customer_id = $this->input->post("customer_id");
+        echo $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
         $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' and insert_id='$insert_id'");
         $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
@@ -621,8 +623,10 @@ class Management_report extends CI_Controller {
 
             if ($data_tax_nontax_observation == '') {
                 $data_tax_nontax_name = '';
+                $data_tax_nontax_remarks = '';
             } else {
-                $data_tax_nontax_name = 'Sales Taxable, Non-taxable & Exempt';
+//                $data_tax_nontax_name = 'Sales Taxable, Non-taxable & Exempt';
+//                $data_tax_nontax_remarks = $tax_nontax_remarks;
             }
             $taxable_supply_arr = array();
             $sub_total_non_gst_arr = array();
@@ -1408,8 +1412,10 @@ class Management_report extends CI_Controller {
 
             if ($data_month_observation == '') {
                 $data_monthwise_name = '';
+                $data_month_remarks = '';
             } else {
-                $data_monthwise_name = 'Sales Month Wise';
+//                $data_monthwise_name = 'Sales Month Wise';
+//                $data_month_remarks = $month_wise_remarks;
             }
             $data2 .= '<h4><b>1.Sales Month Wise</b></h4>';
             $data .= '<div class="row"><br><br><br>
@@ -1871,8 +1877,10 @@ class Management_report extends CI_Controller {
             }
             if ($data_rate_observation == '') {
                 $data_ratewise_name = '';
+                $data_rate_remarks = '';
             } else {
-                $data_ratewise_name = 'Sales Tax Rate Wise';
+//                $data_ratewise_name = 'Sales Tax Rate Wise';
+//                $data_rate_remarks = 'not given';
             }
 
             $data .= "<h4><b>2.Sales Tax Rate Wise</b></h4>";
@@ -1960,6 +1968,12 @@ class Management_report extends CI_Controller {
                 $data_export_sales_remarks = 'not given';
             } else {
                 $data_export_sales_remarks = $export_sales_remarks;
+            }
+            if ($data_export_sales_observation == '') {
+                $data_export_sales_name = "";
+                $data_export_sales_remarks = "";
+            } else {
+//                $data_export_sales_name = "Export Sales";
             }
 
 
@@ -2725,7 +2739,7 @@ class Management_report extends CI_Controller {
             $data = $result->row();
             $uniq_id = $data->unique_id;
             //generate turn_id
-            $uniq_id = str_pad(++$uniq_id, 5, '0', STR_PAD_LEFT);
+            $uniq_id = str_pad( ++$uniq_id, 5, '0', STR_PAD_LEFT);
             return $uniq_id;
         } else {
             $uniq_id = 'btb_1001';
@@ -2764,8 +2778,10 @@ class Management_report extends CI_Controller {
             }
             if ($data_salesb2b_b2c_observation == '') {
                 $data_salesb2b_b2c_name = '';
+                $data_salesb2b_b2c_remarks = '';
             } else {
-                $data_salesb2b_b2c_name = 'Sales B2B & B2C';
+//                $data_salesb2b_b2c_name = 'Sales B2B & B2C';
+//                $data_salesb2b_b2c_remarks = 'not given';
             }
             $month = array();
             $array_b2b = array();

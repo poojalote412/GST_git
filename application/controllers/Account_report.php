@@ -98,8 +98,9 @@ class Account_report extends CI_Controller {
             }
             if($data_gstr3b_observation=='') {
                 $data_gstr3b_name = "";
+                $data_gstr3b_remarks = "";
             } else {
-                $data_gstr3b_name = "Compliance Report";
+//                $data_gstr3b_name = "Compliance Report";
             }
             $months = array();
             $data .= ' <h4 style=""><b>1. GSTR-3B:</b></h4>';
