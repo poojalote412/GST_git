@@ -2751,7 +2751,8 @@ class Management_report extends CI_Controller {
     public function get_graph_b2b() {
         $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
-        $query = $this->db->query("SELECT *  from monthly_summary_all where customer_id='$customer_id' and insert_id='$insert_id'");
+        $query = $this->db->query("SELECT * from monthly_summary_all where customer_id='$customer_id' and insert_id='$insert_id'");
+        echo $this->db->last_query();
         $query_get_observation = $this->db->query("SELECT * from observation_transaction_all where customer_id='$customer_id' AND insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
 //        $query_get_graph = $this->Management_report_model->get_graph_query($customer_id, $insert_id);
         $data = ""; //view observations

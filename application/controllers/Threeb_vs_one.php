@@ -244,7 +244,7 @@ class Threeb_vs_one extends CI_Controller {
 
     // function to get graph
     public function get_graph() {
-        $customer_id = $this->input->post("customer_id");
+      $customer_id = $this->input->post("customer_id");
         $insert_id = $this->input->post("insert_id");
         $query = $this->db->query("SELECT month,gstr1_3B,gstr1,gstr1_ammend,gstr1_difference,gstr1_cummulative from comparison_summary_all where customer_id='$customer_id' "
                 . "and insert_id='$insert_id' order by id desc ");
@@ -282,6 +282,7 @@ class Threeb_vs_one extends CI_Controller {
             $gstr_one_ammend3 = array();
             $difference4 = array();
             $cumu_difference5 = array();
+            $months = array();
             $data2 .= '<h4><b>2.GSTR3B VS. GSTR1 - Output Liability Reconcillation</b></h4>';
             $data .= '<table  class="table-bordered table-striped" width="700">
                                 <thead style="background-color: #0e385e;color:white">
@@ -427,6 +428,7 @@ class Threeb_vs_one extends CI_Controller {
             $gstr_one_ammend3 = array();
             $difference4 = array();
             $cumu_difference5 = array();
+            $months = array();
             $data2 .= '<h4><b>2.GSTR3B VS. GSTR1 - Output Liability Reconcillation</b></h4>';
             $data .= '<table  class="table-bordered table-striped">
                                 <thead style="background-color: #0e385e;color:white">

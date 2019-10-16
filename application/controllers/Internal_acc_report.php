@@ -1070,7 +1070,7 @@ class Internal_acc_report extends CI_Controller {
                     '<td>' . '<b>' . number_format(round(array_sum($tax_ratio))) . "%" . '</b>' . '</td>' .
                     '</tr>';
             $data .= '</tbody></table>';
-            $max_ratio = max($tax_ratio);
+//            $max_ratio = max($tax_ratio);
 
 //            $average = array_sum($tax_ratio1) / count($tax_ratio);
             $get_observation = $this->db->query("select tax_turnover_observation from observation_transaction_all where customer_id='$customer_id' and insert_id='$insert_id' ORDER BY ID DESC LIMIT 1");
