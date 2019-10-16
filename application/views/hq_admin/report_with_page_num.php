@@ -540,7 +540,7 @@ if (is_array($session_data)) {
                     </div>
                     <!--</div>-->
 
-                    <div class="test" style="page-break-after:always;margin-top:16%">
+                    <div class="test" style="page-break-after:always;margin-top:13%">
                         <div id="container_image_disclaimer" ><img src="https://premisafe.com/GST_image/Disclaimer.jpg" width="750px" height="900px" style="page-break-after:always;"></div>
                     </div><br><br>
 
